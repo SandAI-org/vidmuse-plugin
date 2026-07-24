@@ -6,6 +6,29 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.9 — 2026-07-24
+
+### Added
+
+- **Execution trace machine gate for `/vidmuse-create` non-Vox films (hard fail 13)** — closes the "correct film plan, generic fade-up implementation" gap found in a real promo render (frame-diff showed 0.1% pixel change during an 8s beat). Three new scripts in `vidmuse-create/scripts/`:
+  - `film_plan.py` — structured `film-plan.json` mirror of the film plan; validates the beat contract and `--resolve`s `vo_cues` phrase strings to absolute times against ATA `transcript.json` (cue times can never be guessed)
+  - `shot_scaffold.py` — generates the GSAP skeleton from the resolved plan: one locked `tl.addLabel("bXX.wY", t_abs)` per approved shot_sequence window + on_screen/move/cue FILL comments; implementation becomes fill-the-slots, not free-write
+  - `check_motion.py` — post-render hard gate → `motion-check.json`. Static: beat sections, label survival + tween usage, `ui_proof_path` beats must reference a real capture from `asset-sources.json`, hero throughline DOM coverage. Rendered (ffmpeg frame sampling): no ≥1.5s freeze inside non-hold windows; a measurable state change must land on each `vo_cue` (event spike vs ambient Ken Burns drift — drift does not pass). Thresholds calibrated on the known-bad render: 46/76 checks fail on it, zero false kills on its genuinely animated cues
+- **5 shot execution recipes in `/vidmuse-motion`** (`motion_recipes.py --tag shot`): `cue-paced-reveal`, `collapse-merge-morph`, `pullback-reveal`, `line-carry-transition`, `ui-strip-away-lock` — semantic code paths for the shot grammar film plans already specify
+
+### Changed
+
+- `path-routing.md` (SSOT): new **Execution trace** section; hard fails extended to **1–13**; craft-stack load order now includes structured mirror → scaffold → render gate; assemble checklist updated
+- `vidmuse-create/SKILL.md`: anti-goals table gains **Plan→code drift** row; create craft starts from the machine skeleton (never a blank file); evaluate checklist replaces prose mid-window self-audit with `check_motion.py` **GATE PASS**; uniform per-section `appear()` fade templates explicitly banned
+- `vidmuse-motion/SKILL.md` + description: covers shot execution recipes alongside dataviz
+
+### Isolation
+
+- **Vox frozen**: execution-trace scripts and hard fail 13 are non-Vox only.
+- **`/vidmuse-recut` unchanged**: no recut behavior touched.
+
+---
+
 ## 0.3.8 — 2026-07-24
 
 ### Added

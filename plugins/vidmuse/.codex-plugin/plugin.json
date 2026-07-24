@@ -1,7 +1,7 @@
 {
   "name": "vidmuse",
-  "description": "VidMuse motion-film plugin for Codex. Two product skills: /vidmuse-recut packages existing speaking footage; /vidmuse-create builds films without source footage (script+TTS explainers, website/product promos, generated media via vidmuse model run; Vox-style paper-collage B-roll). Shared taste stack (charter, tells, FRAME, gates). Ships HyperFrames core + GSAP domain skills; /hyperframes is demoted domain reference only; Ships /vidmuse-motion semantic HyperFrames recipes for Registry-miss dataviz.",
-  "version": "0.3.8",
+  "description": "VidMuse motion-film plugin for Codex. Two product skills: /vidmuse-recut packages existing speaking footage; /vidmuse-create builds films without source footage (script+TTS explainers, website/product promos, generated media via vidmuse model run; Vox-style paper-collage B-roll). Shared taste stack (charter, tells, FRAME, gates). Create non-Vox execution is machine-gated: film-plan.json -> GSAP scaffold -> check_motion render gate (freeze/cue-event/UI-proof). Ships HyperFrames core + GSAP domain skills; /hyperframes is demoted domain reference only; Ships /vidmuse-motion semantic HyperFrames recipes for Registry-miss dataviz and shot execution.",
+  "version": "0.3.9",
   "author": {
     "name": "VidMuse",
     "email": "hello@vidmuse.ai",
