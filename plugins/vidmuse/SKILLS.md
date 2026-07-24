@@ -11,7 +11,7 @@ Do **not** install or invoke HyperFrames `talking-head-recut` from this plugin �
 | Skill | Role |
 | --- | --- |
 | `vidmuse-recut` | **Product router** + editor/director for existing talking-head / interview / podcast / product-explainer footage |
-| `vidmuse-create` | Films **without** source footage: knowledge explainers / promos / **Vox paper-collage** B-roll & explainers. **Hard voice spine:** `vidmuse` TTS → `doubao_speech/audio_text_alignment` → `transcript.json` (no guessed times / OS TTS). Anti-PPT craft + `references/promo-recipes.md` + curated **shot-cards** (32 priors) + sibling **`vidmuse-motion`** for Registry-miss dataviz compose + `references/vox-collage.md`; shares recut taste/Timeline pipeline |
+| `vidmuse-create` | Films **without** source footage: knowledge explainers / promos / **Vox paper-collage** B-roll & explainers. **Hard voice spine:** `vidmuse` TTS → `doubao_speech/audio_text_alignment` → `transcript.json` (no guessed times / OS TTS). Path-routed anti-PPT craft (`path-routing` → explainer/promo story+shot_sequence+motion; **Vox frozen** on `vox-collage.md` only) + `promo-recipes` + curated **shot-cards** (32 priors) + sibling **`vidmuse-motion`** for Registry-miss dataviz; shares recut taste/Timeline pipeline |
 | `vidmuse-motion` | **Dependency skill** — semantic motion recipes → HyperFrames/GSAP native compose when Registry has no block (KPI/bars/sparkline/stat cards). Not a product router. `scripts/motion_recipes.py` + gold `examples/dataviz-semantic/` |
 
 ## HyperFrames core (vendored from heygen-com/hyperframes `skills/`)

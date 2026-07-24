@@ -23,19 +23,13 @@ shot-cards/
 
 ## When the agent opens this deck (auto)
 
-Open **only** under `/vidmuse-create` when **any** is true:
+**SSOT:** open/close rules — including promo auto-open,
+`data-beat` **optional on explainer**, Vox closed, recut never — live only in
+[../path-routing.md](../path-routing.md) § *Shot-card deck policy*.
+Do not maintain a second open-list here.
 
-1. User **names** a card, pastes gallery names, or says Ink Press / film-grade
-   product promo shot language.
-2. Chosen `structure_recipe` is one of:
-   `saas-promo-30s` · `site-to-video` · `brand-sizzle` · `data-beat` ·
-   `hook-proof-outro`
-3. Brief is clearly product-UI-hero / launch / website→film (even before recipe id).
-
-**Do not open** for quiet knowledge explainers, Vox collage paths, light stubs,
-or `/vidmuse-recut` packaging (all `recut_ok: false` in this extract).
-
-Mode default: **auto** (agent shortlists). User may say `shot-cards off`.
+This extract sets `recut_ok: false` on all cards. Mode default: **auto** when
+path-routing says open. User may say `shot-cards off`.
 
 ## How to shortlist (agent)
 

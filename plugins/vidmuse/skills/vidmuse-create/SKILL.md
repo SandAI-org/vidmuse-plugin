@@ -13,9 +13,11 @@ description: >
   REQUIREMENT: narration-led films MUST use VidMuse CLI TTS (`vidmuse model run`)
   then `doubao_speech/audio_text_alignment` for word-level transcript.json —
   never guess timestamps, use OS/browser TTS, or ship silent slide-deck HTML.
-  Anti-PPT: beat-driven film plan and scene transitions, not one card per
-  sentence. Promo/site-to-video paths may shortlist curated shot-card motion
-  priors (video-shotcraft extracts) implemented in HyperFrames/GSAP. Sources assets via the shared ladder (user > real > AI). Hand off
+  Anti-PPT (non-Vox): path-routed craft stack — story-design + time-coded
+  shot_sequence paced to ATA cues + blueprints/shot-cards; not one card per
+  sentence. Vox/paper-collage stays on references/vox-collage.md only (craft
+  hard-fails off). Promo/site paths require real-capture proof when a URL
+  exists. Sources assets via the shared ladder (user > real > AI). Hand off
   to /vidmuse-recut if speaking footage appears. Shares recut taste stack; not
   a slideshow generator.
 compatibility: Same host as vidmuse-recut — Node.js 22+, ffmpeg/ffprobe, Python 3, `vidmuse` on PATH (login required for model/TTS/ATA), HyperFrames CLI via `npx hyperframes`. Depends on sibling skill vidmuse-recut (shares references and scripts).
@@ -73,9 +75,14 @@ delivery are **the same system**:
 | composition contract, pipeline, Timeline delivery | `../vidmuse-recut/references/pipeline.md`, `vidmuse-timeline.md`, `composition-contract.md` |
 | effects install + reskin | `../vidmuse-recut/references/registry-integration.md` |
 | create intent → structure shortlists | [references/promo-recipes.md](references/promo-recipes.md) |
+| **path routing + beat contract + hard fails + deck policy (SSOT)** | [references/path-routing.md](references/path-routing.md) — **read first after voice; do not re-copy rules from here** |
+| non-Vox story craft | [story-design-explainer.md](references/story-design-explainer.md) · [story-design-promo.md](references/story-design-promo.md) |
+| non-Vox shot sequence + motion | [visual-design.md](references/visual-design.md) · [motion-language.md](references/motion-language.md) · [cut-catalog.md](references/cut-catalog.md) |
 | promo/UI shot priors (curated) | [references/shot-cards/README.md](references/shot-cards/README.md) · `scripts/shot_cards.py` |
 | semantic HF compose (Registry miss) | sibling **`/vidmuse-motion`** — `../vidmuse-motion/SKILL.md` · `motion_recipes.py` |
-| Vox / paper-collage B-roll & explainer | [references/vox-collage.md](references/vox-collage.md); optional `scripts/collage_frames.py` |
+| proven shot shapes (menu) | `../hyperframes-animation/blueprints-index.md` + `blueprints/<id>.md` |
+| frame preset seeds (optional skin start) | `../hyperframes-creative/frame-presets/` |
+| Vox / paper-collage B-roll & explainer | [references/vox-collage.md](references/vox-collage.md) **only** for path `vox`; optional `scripts/collage_frames.py` |
 
 Work directory layout, validators (`../vidmuse-recut/scripts/*.py`), and the
 13-step spine carry over. Artifact rename: `packaging-analysis.md` → **film
@@ -194,17 +201,23 @@ muted frame?*
 **1–2. Script + voice spine (above).** Replaces probe-of-camera + align-on-
 speech-plate. Everything below is **transcript-driven** exactly like recut.
 
-**3. video-context.json** — content type, audience, channel, production
-density (explainer vs promo/sizzle), chosen recipe id if any
-([promo-recipes.md](references/promo-recipes.md)), optional `shot_refs`
-from [shot-cards](references/shot-cards/README.md), voice_spine receipt.
+**3. Path + video-context.json** — after voice is green, decide
+`create_path` and load the matching craft stack via the SSOT
+[path-routing.md](references/path-routing.md) (first match: vox → promo →
+explainer). Record `create_path`, content type, audience, channel, density,
+`structure_recipe` from [promo-recipes.md](references/promo-recipes.md),
+voice_spine receipt, and later `shot_refs` / `blueprint` ids.
+
+**Do not** load non-Vox craft refs on Vox. **Do not** apply create craft to
+`/vidmuse-recut`. Paths, hard-fail on/off, and craft-stack names: **only** in
+path-routing — do not re-copy that table here.
 
 **4. Film plan (gate) — kills PPT.** Same user-gate role as
 `packaging-analysis.md`. Inverted question: not "where does footage need
 help?" but **"what must the viewer see at each beat, from which source
-rung, and what is the relation to the beat before/after?"**
+rung, and how does the shot develop across the ATA span?"**
 
-Every beat carries:
+### 4a. Every path — base beat fields
 
 - time range from **ATA transcript** (not equal slices)
 - viewer job (notice / understand / feel / remember)
@@ -215,29 +228,38 @@ Every beat carries:
   covering the ATA span — plan the picture length **with** the VO, not after
 - relation to neighbors (sequence, cause→effect, contrast, dependence)
 - intervention weight: continuous system / light / medium / hero
-- optional HyperFrames **mechanism** ids (structure only — reskin later)
-- optional `shot_ref: shotcraft:<id>` when the shot-card deck is open (below)
 
-**PPT-shaped plans are rejected before taste work.** Fail the plan if:
+### 4b. Path `vox` only
 
-- beats are 1:1 with sentences and every beat is a centered title card
-- no quiet/ground-led passages on a standard explainer (Gate 2)
-- no chapter or idea boundaries even when the script clearly turns
-- proof for a product claim is only generated UI, never real capture (when
-  a real surface exists)
-- every beat lists a different unresearched effect family (collage)
-- generated-video beats omit `target_duration_s`, or plan short motion under
-  a long ATA span with a still filling the rest
+Follow [vox-collage.md](references/vox-collage.md). Argument-length clips +
+`target_duration_s`. Skip non-Vox craft (§4c). Non-Vox hard fails **off**
+(path-routing).
+
+### 4c. Paths `explainer` + `promo` — craft stack (required)
+
+Full field list, `shot_sequence` shape, hard fails **1–8**, and deck open
+rules: **[path-routing.md](references/path-routing.md)** (SSOT). Executive
+summary only:
+
+1. Read path **story-design** → structure/arc, `path_role`, cue-cut `vo_cues`.
+2. Read [visual-design.md](references/visual-design.md) → every beat gets
+   VO-paced `shot_sequence` (no front-load).
+3. Tag blueprint / `shot_ref` / `compose` per path-routing beat contract;
+   motion-language + cut-catalog for moves/seams; `transition_in` between beats.
+4. Fail the plan **before** taste work if path-routing hard fails trigger.
+5. Optional craft mirror: `$WORK_DIR/STORYBOARD.md` — delivery remains Timeline.
 
 Present the film plan Markdown and wait for confirmation (unless autonomous).
 
-**5–7. Taste, FRAME.md, showcase — unchanged**, with grounding stills
-instead of room keyframes. Open [promo-recipes.md](references/promo-recipes.md)
-when the brief is promo/sizzle so structure shortlists inform effect browse
-(`../vidmuse-recut/scripts/effects.py`). When the shot-card deck is open
-([shot-cards](references/shot-cards/README.md)), shortlist motion priors
-**before** registry browse; still implement via HF/GSAP + FRAME skin.
-Creative remains hygiene only.
+**5–7. Taste, FRAME.md, showcase.** Grounding stills instead of room keyframes.
+**FRAME seed (non-Vox):** if brand/site tokens exist, derive FRAME from them;
+else adopt **one** preset from `../hyperframes-creative/frame-presets/` whose
+register fits, then remap roles — do not ship anonymous black canvas + white
+type as the whole system without named intent. Open promo-recipes for
+structure shortlists before `effects.py` browse. When shot-cards are required
+or open, shortlist motion priors **before** registry browse; implement via
+HF/GSAP + FRAME skin. Write `## Video direction` once on the plan
+(visual-design). Creative remains hygiene only.
 
 **Create Taste Gate adaptations** (keep numbers; change definitions):
 
@@ -257,29 +279,42 @@ mechanism; FRAME supplies skin.
 
 ### Create craft (performance & anti-PPT motion)
 
-Read `camera-and-transition-craft.md` in full when writing any tween. Create
-adds these **scoped** hard rules (promo / multi-scene director density; do not
-force every quiet caption-led explainer into sizzle):
+**Non-Vox (`explainer` / `promo`):** implement each beat's locked
+`shot_sequence` under [motion-language.md](references/motion-language.md)
+doctrine (VO-paced sequential reveal, `power3` default, stillness over
+screensaver). Within-beat seams → [cut-catalog.md](references/cut-catalog.md).
+Also read recut `camera-and-transition-craft.md` when multi-scene director
+density applies.
+
+**Vox:** only [vox-collage.md](references/vox-collage.md) motion/duration
+rules — do not force shot_sequence GSAP grammar onto generative plates.
+
+Scoped hard rules (promo / multi-scene director density; do not force every
+quiet caption-led explainer into sizzle):
 
 1. **Layout before motion.** For each scene, lock the **hero static layout**
-   (fully entered, readable) in HTML/CSS first. Animate with `gsap.from` into
-   that layout. Do not position elements at off-screen start states and guess
-   the landing. Hero-frame review judges that static state before polish.
-2. **Scene transitions when scenes exist.** Multi-scene / multi-act create
-   films: no jump cuts between scenes — pick a transition family from craft
-   refs. Intermediate scenes should not empty themselves with exit tweens
+   (fully entered, readable) in HTML/CSS first. Animate with `gsap.from` /
+   `fromTo` into that layout. Do not position elements at off-screen start
+   states and guess the landing. Hero-frame review judges that static state
+   before polish.
+2. **Implement shot_sequence windows.** Map beat-local Scene times onto ATA
+   absolute times; reveal each piece on its `vo_cue` — never dump the beat
+   canvas at local t=0 then freeze.
+3. **Scene transitions when scenes exist.** Multi-scene / multi-act create
+   films: use planned `transition_in` — no anonymous jump cuts between
+   scenes. Intermediate scenes should not empty themselves with exit tweens
    just before a transition; the transition owns the exit. Final scene may
    fade or resolve on purpose.
-3. **Choreography is argument order.** Causes before effects; steps in order;
+4. **Choreography is argument order.** Causes before effects; steps in order;
    ≤2 significant movers at once unless ideas are truly simultaneous.
-4. **Entrance diversity.** Within a dense scene, vary ease families (target
+5. **Entrance diversity.** Within a dense scene, vary ease families (target
    ≥3 across the film's hero entrances unless a written mono-ease intent
    exists). Ban whole-film clone of one `y+30 opacity 0→1 power2.out` template.
-5. **Golden-line ladder** (`captions-and-golden-lines.md`): most cues quiet;
+6. **Golden-line ladder** (`captions-and-golden-lines.md`): most cues quiet;
    escalate only true golds — weight/color first; marker-sweep or circle as a
    scarce second rung; karaoke only for lyric-like or intentionally rhythmic
    VO, never default explainer captions.
-6. **Html-in-canvas / device mock / liquid glass:** at most one signature
+7. **Html-in-canvas / device mock / liquid glass:** at most one signature
    complex when the brief earns it (real product UI as texture preferred);
    `production_cost: very-high` mind-set — not wallpaper.
 
@@ -294,7 +329,12 @@ main pointing at a missing `input-video.mp4`.
 - [ ] `tts-response.json` + `alignment.json` + `transcript.json` present
 - [ ] Timeline scrub: VO audible, captions track speech (sample 3 timestamps)
 - [ ] film plan was confirmed (or autonomous skip recorded)
-- [ ] not PPT-shaped (mixed beat types; quiet passages if explainer)
+- [ ] `create_path` recorded; craft stack matched path
+- [ ] **non-Vox:** path-routing beat contract + hard fails **1–8** clean; sample
+      2 beats at mid-window (not only t=0) for content still developing
+- [ ] **non-Vox:** not PPT-shaped (mixed `visual_kind`; quiet passages if explainer)
+- [ ] **promo:** ≥1 real-capture proof beat when URL/surface existed
+- [ ] **vox:** duration discipline only (vox-collage); no forced shot_sequence
 - [ ] FRAME Taste Gate filled with counts where required
 - [ ] generated-video / collage beats: plan had `target_duration_s` matched to
       ATA before spend; delivers cover those spans
@@ -303,9 +343,11 @@ main pointing at a missing `input-video.mp4`.
 ## Intent recipes (structure, not skins)
 
 Before browsing effects for promos / data films / site-to-video, read
-[references/promo-recipes.md](references/promo-recipes.md). Pick **at most
-one** recipe as a structure prior; still pass film-plan and FRAME gates.
+[references/promo-recipes.md](references/promo-recipes.md) and
+[path-routing.md](references/path-routing.md). Pick **at most one** recipe as
+a structure prior; set `create_path`; still pass film-plan and FRAME gates.
 Recipes name **mechanisms to shortlist**, never mandatory effect quotas.
+Vox recipes point only at vox-collage.
 
 ## Shot-card deck (motion priors — Agent auto)
 
@@ -313,19 +355,10 @@ Curated **32 / 106** recipe cards from video-shotcraft, packaged as text
 priors only. Full menu: [references/shot-cards/README.md](references/shot-cards/README.md).
 Attribution: [references/shot-cards/NOTICE.md](references/shot-cards/NOTICE.md).
 
-### When to open (auto — Agent decides)
-
-Open the deck when **any** is true under `/vidmuse-create`:
-
-1. User names a card, pastes gallery ids, or asks for Ink Press / film-grade
-   product-promo shot language.
-2. `structure_recipe` ∈ `saas-promo-30s` · `site-to-video` · `brand-sizzle` ·
-   `data-beat` · `hook-proof-outro`.
-3. Brief is product-UI-hero / launch / website→film before a recipe id is set.
-
-**Keep closed** for quiet knowledge explainers, Vox collage paths, light
-stubs, and always for `/vidmuse-recut` (this extract sets `recut_ok: false`).
-User may say `shot-cards off` to force closed.
+**When to open / keep closed / `data-beat` special case:** SSOT in
+[path-routing.md](references/path-routing.md) § Shot-card deck policy —
+including: promo recipes auto-open; **`data-beat` deck optional on explainer**,
+motion craft still required. Do not re-state the open list here.
 
 ### How to use once open
 
@@ -368,23 +401,40 @@ playbook: `../vidmuse-motion/references/architecture.md`,
 Shot-cards remain *cinematic priors*; motion-recipes are *code paths*. A beat
 may list both (`shot_ref` + `motion_recipe_ids`).
 
-### Vox paper-collage path (when style is the brief)
+### Vox paper-collage path (frozen — do not dilute)
 
 Triggers: `Vox style`, `纸拼贴`, `halftone collage`, `collage b-roll`,
-`拼贴 B-roll`, `Vox 风`, or film-plan `visual_source: collage-broll`.
+`拼贴 B-roll`, `Vox 风`, film-plan `visual_source: collage-broll`, or recipes
+`vox-collage-*`. Set `create_path: vox`.
 
-1. Read [references/vox-collage.md](references/vox-collage.md). Recipe:
-   `vox-collage-broll` or `vox-collage-explainer`.
-2. **Plan first:** ATA argument spans → each beat `target_duration_s` on the
+1. Read [references/vox-collage.md](references/vox-collage.md) **only** for
+   visual production. Recipe: `vox-collage-broll` or `vox-collage-explainer`.
+2. **Do not** load story-design-explainer/promo, visual-design,
+   motion-language, cut-catalog, or shot-cards for this path.
+3. **Do not** apply path-routing non-Vox hard fails or require `shot_sequence` /
+   blueprint contracts.
+4. **Plan first:** ATA argument spans → each beat `target_duration_s` on the
    video model's `duration_options` (Seedance often 4–15). One clip per
    argument, phases inside the clip — not one sentence per clip, not short
    motion under long VO.
-3. V1 metaphor (with duration) → V2 still → V3 motion at planned length.
-4. `vidmuse model run`: set `generation_type` from that model's live
+5. V1 metaphor (with duration) → V2 still → V3 motion at planned length.
+6. `vidmuse model run`: set `generation_type` from that model's live
    `required_params` keys (`text_to_image`, `image_to_video`,
    `images_to_video`, …). See catalog table in `vox-collage.md`.
-5. Optional `scripts/collage_frames.py` for ffmpeg only. Not Anti-collage
+7. Optional `scripts/collage_frames.py` for ffmpeg only. Not Anti-collage
    (Registry dump ban).
+8. Voice + Timeline spine still run (Gates A–C).
+
+## Isolation (recut + vox)
+
+- **`/vidmuse-recut`:** unchanged. Create may *read* shared recut references;
+  create craft files are not part of the recut spine. Never require
+  `shot_sequence` on packaging plates.
+- **Vox:** production logic stays in `vox-collage.md`. New create craft is
+  additive for `explainer`/`promo` only.
+- **Delivery:** still VidMuse Timeline (`write_dsl` + `vidmuse serve` /
+  `render`). Non-Vox craft does not switch handoff to HF MP4-only.
+
 ## Mode boundaries
 
 - Digital-presenter (avatar) is **opt-in only** after user approves avatar +
@@ -410,7 +460,7 @@ probe") **and** accepts no full film craft:
 
 ## Report
 
-Tell the user: work directory, grounding one-liner, recipe if used,
-`shot_refs` if the deck was open, **TTS + ATA models used**, Timeline URL
-(VO + captions + picture), quality caveats.
-Do not claim finished if Gate B/C failed.
+Tell the user: work directory, grounding one-liner, **`create_path`**, recipe
+if used, `shot_refs` / key blueprints if non-Vox, **TTS + ATA models used**,
+Timeline URL (VO + captions + picture), quality caveats.
+Do not claim finished if Gate B/C failed or non-Vox hard fails remain.
