@@ -1,0 +1,288 @@
+<!--
+  VidMuse native component: source-spotlight-frame
+
+  Host contract:
+  - The source <video> remains a direct child of the HyperFrames root.
+  - Give the source video a stable id and class "vm-spotlight-media".
+  - Paste this component's styles and markup into the composition.
+  - Call attachSourceSpotlightFrame({ timeline, circleX, circleY, circleR })
+    before registering the timeline. Derive the circle from the subject's real
+    position in the footage; the defaults are placeholders, not a design.
+  - Adapt copy, chapter list, timing, palette, and typography to the project.
+-->
+<style>
+  .vm-spotlight-media {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: clip-path;
+  }
+
+  .vm-spotlight-bg,
+  .vm-spotlight-hud {
+    position: absolute;
+    inset: 0;
+  }
+
+  .vm-spotlight-bg {
+    z-index: 0;
+    background: var(--vm-spot-canvas, #101010);
+  }
+
+  .vm-spotlight-hud {
+    z-index: 2;
+    color: var(--vm-spot-ink, #f2f2f2);
+    pointer-events: none;
+  }
+
+  .vm-spotlight-ring {
+    position: absolute;
+    box-sizing: border-box;
+    border: 2px solid var(--vm-spot-accent, #f5c518);
+    border-radius: 50%;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .vm-spotlight-tick {
+    position: absolute;
+    width: 26px;
+    height: 2px;
+    background: var(--vm-spot-accent, #f5c518);
+    transform-origin: 0 50%;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .vm-spotlight-corner {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    border: 3px solid var(--vm-spot-accent, #f5c518);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .vm-spotlight-corner.tl { top: 48px; left: 56px; border-right: 0; border-bottom: 0; }
+  .vm-spotlight-corner.tr { top: 48px; right: 56px; border-left: 0; border-bottom: 0; }
+  .vm-spotlight-corner.bl { bottom: 48px; left: 56px; border-right: 0; border-top: 0; }
+  .vm-spotlight-corner.br { bottom: 48px; right: 56px; border-left: 0; border-top: 0; }
+
+  .vm-spotlight-kicker {
+    position: absolute;
+    top: 64px;
+    left: 132px;
+    margin: 0;
+    font: 600 20px/1.2 var(--vm-spot-font-body, Arial, sans-serif);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--vm-spot-accent, #f5c518);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .vm-spotlight-index {
+    position: absolute;
+    left: 132px;
+    bottom: 132px;
+    margin: 0;
+    font: 700 64px/1 var(--vm-spot-font-display, Arial, sans-serif);
+    letter-spacing: -0.02em;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .vm-spotlight-index::after {
+    content: "";
+    display: block;
+    width: 96px;
+    height: 6px;
+    margin-top: 18px;
+    background: var(--vm-spot-accent, #f5c518);
+  }
+
+  .vm-spotlight-chapters {
+    position: absolute;
+    right: var(--vm-spot-list-right, 150px);
+    top: 50%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transform: translateY(-50%);
+  }
+
+  .vm-spotlight-chapters li {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin: 0 0 34px;
+    font: 500 34px/1.2 var(--vm-spot-font-display, Arial, sans-serif);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .vm-spotlight-chapters li:last-child { margin-bottom: 0; }
+
+  .vm-spotlight-chapters .num {
+    font: 500 22px/1 var(--vm-spot-font-mono, monospace);
+    color: color-mix(in srgb, var(--vm-spot-ink, #f2f2f2) 62%, transparent);
+  }
+
+  .vm-spotlight-chapters .rule {
+    width: 44px;
+    height: 2px;
+    background: color-mix(in srgb, var(--vm-spot-ink, #f2f2f2) 46%, transparent);
+  }
+
+  .vm-spotlight-chapters li.active { color: var(--vm-spot-accent, #f5c518); }
+</style>
+
+<div
+  id="vm-spotlight-bg"
+  class="vm-spotlight-bg clip"
+  data-start="0"
+  data-duration="8"
+  data-track="2"
+  aria-hidden="true"
+></div>
+
+<section
+  id="vm-spotlight-hud"
+  class="vm-spotlight-hud clip"
+  data-start="0"
+  data-duration="8"
+  data-track="3"
+  aria-label="Chapter spotlight frame"
+>
+  <div class="vm-spotlight-corner tl" aria-hidden="true"></div>
+  <div class="vm-spotlight-corner tr" aria-hidden="true"></div>
+  <div class="vm-spotlight-corner bl" aria-hidden="true"></div>
+  <div class="vm-spotlight-corner br" aria-hidden="true"></div>
+  <div class="vm-spotlight-ring" aria-hidden="true"></div>
+  <p class="vm-spotlight-kicker">Chapter</p>
+  <p class="vm-spotlight-index">01</p>
+  <ol class="vm-spotlight-chapters">
+    <li class="active"><span class="label">章节标题一</span><span class="num">01</span><span class="rule"></span></li>
+    <li><span class="label">章节标题二</span><span class="num">02</span><span class="rule"></span></li>
+    <li><span class="label">章节标题三</span><span class="num">03</span><span class="rule"></span></li>
+  </ol>
+</section>
+
+<script>
+  (() => {
+    const api = window.VidMuseNativeEffects || (window.VidMuseNativeEffects = {});
+
+    api.attachSourceSpotlightFrame = function attachSourceSpotlightFrame(options) {
+      const config = options || {};
+      const timeline = config.timeline;
+      if (!timeline || typeof timeline.to !== "function") {
+        throw new Error("source-spotlight-frame requires the host GSAP timeline");
+      }
+
+      const source = document.querySelector(config.sourceSelector || ".vm-spotlight-media");
+      const hud = document.querySelector(config.hudSelector || "#vm-spotlight-hud");
+      if (!source || !hud) {
+        throw new Error("source-spotlight-frame could not find its source video or HUD layer");
+      }
+
+      const ring = hud.querySelector(".vm-spotlight-ring");
+      const corners = hud.querySelectorAll(".vm-spotlight-corner");
+      const kicker = hud.querySelector(".vm-spotlight-kicker");
+      const index = hud.querySelector(".vm-spotlight-index");
+      const chapterItems = hud.querySelectorAll(".vm-spotlight-chapters li");
+
+      const start = Number(config.start ?? 0);
+      const duration = Number(config.duration ?? 8);
+      const frameWidth = Number(config.frameWidth ?? 1920);
+      const frameHeight = Number(config.frameHeight ?? 1080);
+      // Derive from the subject's actual head position; these are placeholders.
+      const circleX = Number(config.circleX ?? frameWidth / 2);
+      const circleY = Number(config.circleY ?? frameHeight * 0.42);
+      const circleR = Number(config.circleR ?? 300);
+      const ringGap = Number(config.ringGap ?? 26);
+      const enterDuration = Number(config.enterDuration ?? 0.9);
+      const exitDuration = Number(config.exitDuration ?? 0.7);
+      const exitAt = start + duration - exitDuration;
+
+      if (duration <= enterDuration + exitDuration + 0.4) {
+        throw new Error("source-spotlight-frame duration must leave room between enter and exit");
+      }
+
+      const ringR = circleR + ringGap;
+      ring.style.left = `${circleX - ringR}px`;
+      ring.style.top = `${circleY - ringR}px`;
+      ring.style.width = `${ringR * 2}px`;
+      ring.style.height = `${ringR * 2}px`;
+
+      const fullClip = `circle(${Math.hypot(frameWidth, frameHeight)}px at ${circleX}px ${circleY}px)`;
+      const spotClip = `circle(${circleR}px at ${circleX}px ${circleY}px)`;
+
+      timeline.fromTo(
+        source,
+        { clipPath: fullClip },
+        {
+          clipPath: spotClip,
+          duration: enterDuration,
+          ease: config.easeEnter || "power3.inOut",
+          immediateRender: false,
+        },
+        start,
+      );
+      timeline.fromTo(
+        ring,
+        { autoAlpha: 0, scale: 1.08 },
+        { autoAlpha: 1, scale: 1, duration: 0.5, ease: "power2.out", immediateRender: false },
+        start + enterDuration - 0.25,
+      );
+      timeline.fromTo(
+        corners,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.4, ease: "power2.out", stagger: 0.06, immediateRender: false },
+        start + enterDuration - 0.1,
+      );
+      timeline.fromTo(
+        kicker,
+        { autoAlpha: 0, y: 14 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power3.out", immediateRender: false },
+        start + enterDuration + 0.05,
+      );
+      timeline.fromTo(
+        index,
+        { autoAlpha: 0, y: 18 },
+        { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: false },
+        start + enterDuration + 0.15,
+      );
+      timeline.fromTo(
+        chapterItems,
+        { autoAlpha: 0, x: 30 },
+        { autoAlpha: 1, x: 0, duration: 0.45, ease: "power3.out", stagger: 0.12, immediateRender: false },
+        start + enterDuration + 0.2,
+      );
+
+      timeline.to(
+        [kicker, index, ...chapterItems],
+        { autoAlpha: 0, duration: 0.3, ease: "power2.in" },
+        exitAt - 0.15,
+      );
+      timeline.to(
+        [ring, ...corners],
+        { autoAlpha: 0, duration: 0.25, ease: "power1.in" },
+        exitAt - 0.05,
+      );
+      timeline.to(
+        source,
+        {
+          clipPath: fullClip,
+          duration: exitDuration,
+          ease: config.easeExit || "power3.inOut",
+        },
+        exitAt,
+      );
+
+      return { start, duration, circleX, circleY, circleR };
+    };
+  })();
+</script>

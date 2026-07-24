@@ -1,0 +1,88 @@
+{
+  "version": "2",
+  "projectName": "example-layered",
+  "totalDuration": 60.0,
+  "options": {
+    "aspectRatio": "16:9",
+    "resolution": "source",
+    "frameRate": 30
+  },
+  "sourceVideo": {
+    "filePath": "public/input-video.mp4",
+    "metadata": {
+      "width": 1920,
+      "height": 1080,
+      "frameRate": 30,
+      "duration": 60.0
+    }
+  },
+  "videoTracks": [
+    {
+      "id": "main-track",
+      "type": "main",
+      "items": [
+        {
+          "id": "source-main",
+          "type": "main",
+          "startTime": 0.0,
+          "duration": 60.0,
+          "videoClipStartTime": 0.0,
+          "muted": true,
+          "videoFile": [
+            {
+              "filePath": "public/input-video.mp4",
+              "active": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "overlay-track",
+      "type": "sub",
+      "items": [
+        {
+          "id": "hyperframes-packaging",
+          "type": "hyperframes",
+          "startTime": 0.0,
+          "duration": 60.0,
+          "htmlSourceFilePath": "public/index.html",
+          "params": {
+            "enabled": true,
+            "sourceStartTime": 0.0
+          }
+        }
+      ]
+    }
+  ],
+  "sounds": [
+    {
+      "id": "source-audio",
+      "startTime": 0.0,
+      "duration": 60.0,
+      "audioFile": [
+        {
+          "filePath": "audio.mp3",
+          "active": true
+        }
+      ]
+    }
+  ],
+  "subtitles": [
+    {
+      "id": "subtitle-001",
+      "text": "示例字幕第一句",
+      "startTime": 0.12,
+      "endTime": 1.4
+    },
+    {
+      "id": "subtitle-002",
+      "text": "示例字幕第二句",
+      "startTime": 1.4,
+      "endTime": 3.2
+    }
+  ],
+  "characters": [],
+  "visualStyles": [],
+  "scenes": []
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "vidmuse.plugin-vendor.v1",
+  "pluginVersion": "0.2.4",
+  "vendoredAt": "2026-07-22T03:21:16Z",
+  "hyperframes": {
+    "source": "local-clone",
+    "path": "/Users/az/Desktop/hyperframes",
+    "ref": "69446e77265a420c4f24a0395682212793eb323f",
+    "skills": [
+      "hyperframes",
+      "hyperframes-animation",
+      "hyperframes-cli",
+      "hyperframes-core",
+      "hyperframes-creative",
+      "hyperframes-keyframes",
+      "hyperframes-registry",
+      "media-use"
+    ],
+    "excluded": [
+      "talking-head-recut",
+      "creation-workflows-on-demand"
+    ]
+  },
+  "gsap": {
+    "source": "local-agents-skills",
+    "path": "/Users/az/.agents/skills",
+    "upstream": "greensock/gsap-skills",
+    "skills": [
+      "gsap-core",
+      "gsap-timeline",
+      "gsap-plugins",
+      "gsap-utils",
+      "gsap-performance"
+    ]
+  },
+  "vidmuse": {
+    "skill": "vidmuse-recut",
+    "source": "vidmuse-recut-0.1.0"
+  },
+  "patches": {
+    "skills/hyperframes/SKILL.md": "Demoted from mandatory entry to domain reference; product routing delegated to /vidmuse-recut; THR removed from route table.",
+    "skills/hyperframes/references/routes/talking-head-recut.md": "Redirect stub → /vidmuse-recut",
+    "skills/hyperframes/references/capability-menu.md": "Overlay row → /vidmuse-recut",
+    "skills/vidmuse-recut/SKILL.md": "Declared sole product router / wins packaging intents",
+    "0.2.2": [
+      "hyperframes description: remove packaging trigger words",
+      "setup.sh: whitelist-only network fallback",
+      "hyperframes/references/README.md + banners on inventory docs",
+      "skill-lifecycle.md: plugin override",
+      "hyperframes-core + media-use + story-spine: recut pointers"
+    ],
+    "0.2.3": [
+      "layered Timeline default: write_dsl.py + vidmuse-timeline.md",
+      "SKILL step 2/10/11/13 multi-track serve; baked is fallback"
+    ],
+    "0.2.4": [
+      "setup health: global tools (incl. vidmuse CLI) vs plugin-only skills",
+      "removed mirror to ~/.codex/skills; no network skill fallback"
+    ]
+  },
+  "patchedAt": "2026-07-22T03:58:30Z",
+  "shotcraft": {
+    "skill_consumer": "vidmuse-create",
+    "source": "https://github.com/Vincentwei1021/video-shotcraft",
+    "license": "Apache-2.0",
+    "extract": "skills/vidmuse-create/references/shot-cards",
+    "cards": 32,
+    "upstream_catalog": 106,
+    "includes": [
+      "shot recipe markdown",
+      "bridge.jsonl"
+    ],
+    "excludes": [
+      "Remotion demos",
+      "template project",
+      "gallery media",
+      "audio binaries"
+    ],
+    "runtime": "hyperframes-gsap-reference-only",
+    "notice": "skills/vidmuse-create/references/shot-cards/NOTICE.md"
+  }
+}

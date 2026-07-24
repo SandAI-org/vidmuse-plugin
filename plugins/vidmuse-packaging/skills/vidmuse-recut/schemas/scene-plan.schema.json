@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vidmuse.ai/schemas/vidmuse-recut/scene-plan.schema.json",
+  "title": "VidMuse Recut Director Scene Plan",
+  "type": "object",
+  "required": ["schema", "project_id", "production_mode", "timeline", "acts", "scenes", "interventions", "review_targets"],
+  "properties": {
+    "schema": {"const": "vidmuse.recut.scene-plan.v1"},
+    "project_id": {"type": "string", "minLength": 1},
+    "production_mode": {"enum": ["packaging", "director"]},
+    "timeline": {
+      "type": "object",
+      "required": ["duration_seconds", "fps", "aspect"],
+      "properties": {
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "fps": {"type": "number", "exclusiveMinimum": 0},
+        "aspect": {"enum": ["16:9", "9:16", "4:5"]}
+      },
+      "additionalProperties": false
+    },
+    "acts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "start", "end", "energy_start", "energy_peak", "energy_end"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "start": {"type": "number", "minimum": 0},
+          "end": {"type": "number", "exclusiveMinimum": 0},
+          "energy_start": {"type": "integer", "minimum": 1, "maximum": 5},
+          "energy_peak": {"type": "integer", "minimum": 1, "maximum": 5},
+          "energy_end": {"type": "integer", "minimum": 1, "maximum": 5}
+        },
+        "additionalProperties": false
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/scene"}
+    },
+    "interventions": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/intervention"}
+    },
+    "review_targets": {
+      "type": "object",
+      "required": ["motion_reel_scene_ids", "transition_pairs"],
+      "properties": {
+        "motion_reel_scene_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "transition_pairs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "prefixItems": [{"type": "string"}, {"type": "string"}],
+            "minItems": 2,
+            "maxItems": 2
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "scene": {
+      "type": "object",
+      "required": ["id", "act_world", "start", "end", "spoken_line", "narrative_job", "viewer_response", "visual_proof", "source_mode", "source_only", "energy", "camera_verb", "motion", "sound_cue", "hero_time", "risks"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "act_world": {"type": "string", "minLength": 1},
+        "start": {"type": "number", "minimum": 0},
+        "end": {"type": "number", "exclusiveMinimum": 0},
+        "spoken_line": {"type": "string"},
+        "silent": {"type": "boolean"},
+        "narrative_job": {"enum": ["hook", "orient", "explain", "prove", "contrast", "turn", "release", "conclude", "call_to_action"]},
+        "viewer_response": {"type": "string", "minLength": 1},
+        "visual_proof": {"type": "string", "minLength": 1},
+        "source_mode": {"enum": ["fullscreen", "reframe", "split", "stack", "pip", "composite", "hidden"]},
+        "source_only": {"type": "boolean"},
+        "energy": {"type": "integer", "minimum": 1, "maximum": 5},
+        "camera_verb": {"type": "string", "minLength": 1},
+        "motion": {
+          "type": "object",
+          "required": ["entry", "development", "hold", "exit", "handoff"],
+          "properties": {
+            "entry": {"type": "string", "minLength": 1},
+            "development": {"type": "string", "minLength": 1},
+            "hold": {"type": "string", "minLength": 1},
+            "exit": {"type": "string", "minLength": 1},
+            "handoff": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        },
+        "sound_cue": {"type": "string", "minLength": 1},
+        "hero_time": {"type": "number", "minimum": 0},
+        "risks": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "intervention": {
+      "type": "object",
+      "required": ["id", "start", "end", "intent", "weight", "zone", "content"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "start": {"type": "number", "minimum": 0},
+        "end": {"type": "number", "exclusiveMinimum": 0},
+        "intent": {"type": "string", "minLength": 1},
+        "weight": {"enum": ["bare-text", "emphasis", "line-mark", "camera", "diagram", "panel-card", "grammar"]},
+        "zone": {"enum": ["fullscreen", "whiteboard-area", "lower-third", "side-panel", "video-overlay"]},
+        "content": {"type": "object"},
+        "effect": {"type": ["object", "null"]},
+        "constraints": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

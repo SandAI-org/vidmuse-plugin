@@ -1,0 +1,232 @@
+<!--
+  VidMuse native component: source-pip-handoff
+
+  Host contract:
+  - The source <video> remains a direct child of the HyperFrames root.
+  - Give the source video a stable id and class "vm-source-pip-media".
+  - Paste this component's styles and markup into the composition.
+  - Call attachSourcePipHandoff({ timeline }) before registering the timeline.
+  - Adapt copy, timing, palette, safe areas, and PiP geometry to the project.
+-->
+<style>
+  .vm-source-pip-media {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: 50% 50%;
+    will-change: transform, border-radius;
+  }
+
+  .vm-source-pip-bg,
+  .vm-source-pip-copy {
+    position: absolute;
+    inset: 0;
+  }
+
+  .vm-source-pip-bg {
+    z-index: 0;
+    background: var(--vm-pip-canvas, #f3efe5);
+  }
+
+  .vm-source-pip-copy {
+    z-index: 2;
+    overflow: hidden;
+    color: var(--vm-pip-ink, #171714);
+    pointer-events: none;
+  }
+
+  .vm-source-pip-copy-inner {
+    position: absolute;
+    top: 184px;
+    left: 132px;
+    width: min(760px, 48%);
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .vm-source-pip-kicker {
+    margin: 0 0 18px;
+    font: 600 19px/1.2 var(--vm-pip-font-body, Arial, sans-serif);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--vm-pip-ink, #171714) 72%, transparent);
+  }
+
+  .vm-source-pip-title {
+    margin: 0;
+    max-width: 720px;
+    font: 650 78px/0.96 var(--vm-pip-font-display, Arial, sans-serif);
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+  }
+
+  .vm-source-pip-rule {
+    width: 92px;
+    height: 8px;
+    margin: 36px 0 27px;
+    background: var(--vm-pip-accent, #ef5b3f);
+    transform-origin: 0 50%;
+  }
+
+  .vm-source-pip-supporting {
+    margin: 0;
+    max-width: 620px;
+    font: 400 28px/1.42 var(--vm-pip-font-body, Arial, sans-serif);
+    letter-spacing: -0.015em;
+    color: color-mix(in srgb, var(--vm-pip-ink, #171714) 72%, transparent);
+  }
+
+  .vm-source-pip-outline {
+    position: absolute;
+    right: var(--vm-pip-right, 64px);
+    bottom: var(--vm-pip-bottom, 56px);
+    width: var(--vm-pip-width, 520px);
+    height: var(--vm-pip-height, 292px);
+    box-sizing: border-box;
+    border: 2px solid color-mix(in srgb, var(--vm-pip-ink, #171714) 16%, transparent);
+    border-radius: var(--vm-pip-radius, 28px);
+    box-shadow: 0 24px 60px rgb(28 24 17 / 20%);
+    opacity: 0;
+    visibility: hidden;
+  }
+</style>
+
+<div
+  id="vm-source-pip-bg"
+  class="vm-source-pip-bg clip"
+  data-start="0"
+  data-duration="8"
+  data-track="2"
+  aria-hidden="true"
+></div>
+
+<section
+  id="vm-source-pip-copy"
+  class="vm-source-pip-copy clip"
+  data-start="0"
+  data-duration="8"
+  data-track="3"
+  aria-label="Topic handoff"
+>
+  <div class="vm-source-pip-copy-inner">
+    <p class="vm-source-pip-kicker">Key idea</p>
+    <h2 class="vm-source-pip-title">让主画布讲清楚观点</h2>
+    <div class="vm-source-pip-rule" aria-hidden="true"></div>
+    <p class="vm-source-pip-supporting">人物仍然在场，但不再和信息争夺视觉中心。</p>
+  </div>
+  <div class="vm-source-pip-outline" aria-hidden="true"></div>
+</section>
+
+<script>
+  (() => {
+    const api = window.VidMuseNativeEffects || (window.VidMuseNativeEffects = {});
+
+    api.attachSourcePipHandoff = function attachSourcePipHandoff(options) {
+      const config = options || {};
+      const timeline = config.timeline;
+      if (!timeline || typeof timeline.to !== "function") {
+        throw new Error("source-pip-handoff requires the host GSAP timeline");
+      }
+
+      const source = document.querySelector(config.sourceSelector || ".vm-source-pip-media");
+      const copy = document.querySelector(config.copySelector || "#vm-source-pip-copy");
+      if (!source || !copy) {
+        throw new Error("source-pip-handoff could not find its source video or copy layer");
+      }
+
+      const copyInner = copy.querySelector(".vm-source-pip-copy-inner");
+      const rule = copy.querySelector(".vm-source-pip-rule");
+      const outline = copy.querySelector(".vm-source-pip-outline");
+      const start = Number(config.start ?? 0);
+      const duration = Number(config.duration ?? 8);
+      const frameWidth = Number(config.frameWidth ?? 1920);
+      const frameHeight = Number(config.frameHeight ?? 1080);
+      const pipWidth = Number(config.pipWidth ?? 520);
+      const pipHeight = Number(config.pipHeight ?? 292);
+      const right = Number(config.right ?? 64);
+      const bottom = Number(config.bottom ?? 56);
+      const radius = Number(config.radius ?? 28);
+      const enterDuration = Number(config.enterDuration ?? 0.8);
+      const exitDuration = Number(config.exitDuration ?? 0.72);
+      const exitAt = start + duration - exitDuration;
+
+      if (duration <= enterDuration + exitDuration) {
+        throw new Error("source-pip-handoff duration must leave room between enter and exit");
+      }
+
+      const scale = pipWidth / frameWidth;
+      const targetCenterX = frameWidth - right - pipWidth / 2;
+      const targetCenterY = frameHeight - bottom - pipHeight / 2;
+      const x = targetCenterX - frameWidth / 2;
+      const y = targetCenterY - frameHeight / 2;
+      const unscaledRadius = radius / scale;
+
+      copy.style.setProperty("--vm-pip-width", `${pipWidth}px`);
+      copy.style.setProperty("--vm-pip-height", `${pipHeight}px`);
+      copy.style.setProperty("--vm-pip-right", `${right}px`);
+      copy.style.setProperty("--vm-pip-bottom", `${bottom}px`);
+      copy.style.setProperty("--vm-pip-radius", `${radius}px`);
+
+      timeline.fromTo(
+        source,
+        { x: 0, y: 0, scale: 1, borderRadius: 0 },
+        {
+          x,
+          y,
+          scale,
+          borderRadius: unscaledRadius,
+          duration: enterDuration,
+          ease: config.easeEnter || "power3.inOut",
+          immediateRender: false,
+        },
+        start,
+      );
+      timeline.fromTo(
+        copyInner,
+        { autoAlpha: 0, x: -34 },
+        { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", immediateRender: false },
+        start + 0.58,
+      );
+      timeline.fromTo(
+        rule,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.5, ease: "power3.out", immediateRender: false },
+        start + 0.7,
+      );
+      timeline.fromTo(
+        outline,
+        { autoAlpha: 0, scale: 1.045 },
+        { autoAlpha: 1, scale: 1, duration: 0.5, ease: "power2.out", immediateRender: false },
+        start + 0.48,
+      );
+
+      timeline.to(
+        copyInner,
+        { autoAlpha: 0, x: -20, duration: 0.35, ease: "power2.in" },
+        exitAt - 0.12,
+      );
+      timeline.to(
+        outline,
+        { autoAlpha: 0, duration: 0.25, ease: "power1.in" },
+        exitAt,
+      );
+      timeline.to(
+        source,
+        {
+          x: 0,
+          y: 0,
+          scale: 1,
+          borderRadius: 0,
+          duration: exitDuration,
+          ease: config.easeExit || "power3.inOut",
+        },
+        exitAt,
+      );
+
+      return { start, duration, scale, x, y, pipWidth, pipHeight, right, bottom };
+    };
+  })();
+</script>

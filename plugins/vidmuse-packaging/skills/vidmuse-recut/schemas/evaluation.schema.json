@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vidmuse.ai/schemas/vidmuse-packaging/evaluation.schema.json",
+  "title": "VidMuse Packaging Evaluation",
+  "type": "object",
+  "required": ["schema", "project_id", "status", "render", "hard_checks", "aesthetic_review", "feedback"],
+  "properties": {
+    "schema": {"const": "vidmuse.packaging.evaluation.v1"},
+    "project_id": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "enum": ["pending", "needs_revision", "ready", "approved", "rejected"]},
+    "render": {
+      "type": "object",
+      "required": ["path", "duration_seconds"],
+      "properties": {
+        "path": {"type": ["string", "null"]},
+        "duration_seconds": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "hard_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "evidence"],
+        "properties": {
+          "name": {"type": "string"},
+          "status": {"type": "string", "enum": ["pending", "pass", "fail", "waived"]},
+          "evidence": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "aesthetic_review": {
+      "type": "object",
+      "required": ["content_fit", "coherence", "hierarchy", "restraint", "originality", "template_feel", "motion_craft", "notes"],
+      "properties": {
+        "content_fit": {"type": ["number", "null"], "minimum": 1, "maximum": 5},
+        "coherence": {"type": ["number", "null"], "minimum": 1, "maximum": 5},
+        "hierarchy": {"type": ["number", "null"], "minimum": 1, "maximum": 5},
+        "restraint": {"type": ["number", "null"], "minimum": 1, "maximum": 5},
+        "originality": {"type": ["number", "null"], "minimum": 1, "maximum": 5},
+        "template_feel": {"type": ["number", "null"], "minimum": 1, "maximum": 5},
+        "motion_craft": {"type": ["number", "null"], "minimum": 1, "maximum": 5},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "feedback": {
+      "type": "object",
+      "required": ["decision", "events"],
+      "properties": {
+        "decision": {"type": ["string", "null"], "enum": [null, "accepted", "rejected", "regenerated", "modified"]},
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["target", "action", "scope"],
+            "properties": {
+              "target": {"type": "string"},
+              "action": {"type": "string", "enum": ["like", "dislike", "accept", "reject", "modify"]},
+              "scope": {"type": "string", "enum": ["none", "project", "user", "public_candidate"]},
+              "from": {},
+              "to": {},
+              "note": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

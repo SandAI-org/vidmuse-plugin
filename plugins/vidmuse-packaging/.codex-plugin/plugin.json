@@ -1,0 +1,39 @@
+{
+  "name": "vidmuse-packaging",
+  "version": "0.1.0+codex.20260724034519",
+  "description": "VidMuse motion-film packaging for Codex: recut speaking footage or create designed films without a source plate.",
+  "author": {
+    "name": "VidMuse",
+    "email": "support@vidmuse.ai",
+    "url": "https://vidmuse.ai"
+  },
+  "homepage": "https://vidmuse.ai",
+  "license": "MIT",
+  "keywords": [
+    "motion-design",
+    "recut",
+    "video-packaging",
+    "vidmuse"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "VidMuse Packaging",
+    "shortDescription": "Package talking-head footage or create designed motion films.",
+    "longDescription": "Package existing speaking footage with designed graphic overlays, or create explainers and product films from a script, website, and generated media.",
+    "developerName": "VidMuse",
+    "category": "Creativity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://vidmuse.ai",
+    "defaultPrompt": [
+      "Package this talking-head video with designed graphic overlays",
+      "Recut my interview into a launch-film motion piece",
+      "Create a 60-second knowledge explainer from this script"
+    ],
+    "brandColor": "#0B0B0F",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png"
+  }
+}

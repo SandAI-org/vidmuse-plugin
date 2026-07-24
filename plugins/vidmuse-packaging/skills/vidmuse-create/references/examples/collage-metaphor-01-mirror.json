@@ -1,0 +1,35 @@
+{
+  "beat_id": "01-mirror",
+  "script_line": "很多人以为 AI 是来替你思考的，其实它更像一面镜子，会把你问题里的漏洞照出来。",
+  "script_span": { "start": 0.0, "end": 6.5 },
+  "target_duration_s": 7,
+  "core_meaning": "AI 照出提问里的漏洞，而不是代替思考",
+  "emotion": "冷静、一点锋利",
+  "visual_proposition": "一只剪纸手把黑白半调的裂纹手镜举到缠成问号的胶片带上方，紫纸底上映出裂缝光",
+  "key_objects": [
+    "裂纹手镜",
+    "问号形胶片条",
+    "伸入画面的手",
+    "小块青卡纸标记漏洞"
+  ],
+  "color_field": {
+    "name": "deep-purple",
+    "background_hex": "#4A148C",
+    "accent_colors": ["#F5F0E6", "#00B4D8"]
+  },
+  "assembly_order": [
+    "空紫纸场",
+    "问号胶片",
+    "手与手镜",
+    "青卡纸标记",
+    "持镜余韵"
+  ],
+  "motion_mode": "hybrid",
+  "motion_phases": [
+    { "t": "0-1.5", "action": "empty purple field; film-strip question slides in" },
+    { "t": "1.5-3.5", "action": "hand and cracked mirror enter and lock" },
+    { "t": "3.5-5.5", "action": "cyan cardstock flags the fracture in the reflection" },
+    { "t": "5.5-7", "action": "hold with residual paper parallax — no freeze-pad" }
+  ],
+  "aspect_ratio": "9:16"
+}

@@ -1,0 +1,155 @@
+<!-- hyperframes-registry-item: chapter-title-card (vidmuse-native) -->
+<!doctype html>
+<html
+  lang="zh"
+  data-composition-variables='[
+    {"id":"kicker","type":"string","label":"Kicker","default":"CHAPTER"},
+    {"id":"index","type":"string","label":"Index","default":"01"},
+    {"id":"title","type":"string","label":"Title","default":"章节标题占位"},
+    {"id":"supporting","type":"string","label":"Supporting","default":"一句支撑说明，来自转写证据。"},
+    {"id":"canvas","type":"color","label":"Canvas","default":"#f3efe5"},
+    {"id":"ink","type":"color","label":"Ink","default":"#171714"},
+    {"id":"accent","type":"color","label":"Accent","default":"#ef5b3f"},
+    {"id":"fontDisplay","type":"string","label":"Display font","default":"Arial"},
+    {"id":"fontBody","type":"string","label":"Body font","default":"Arial"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        background: transparent;
+        overflow: hidden;
+      }
+      body {
+        width: 1920px;
+        height: 1080px;
+      }
+
+      #root {
+        position: absolute;
+        inset: 0;
+        background: var(--vm-ctc-canvas, #f3efe5);
+        color: var(--vm-ctc-ink, #171714);
+      }
+
+      #ctc-copy {
+        position: absolute;
+        top: 300px;
+        left: 164px;
+        width: min(1180px, 66%);
+      }
+
+      #ctc-kicker {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font: 600 22px/1.2 var(--vm-ctc-font-body, Arial, sans-serif);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--vm-ctc-accent, #ef5b3f);
+      }
+
+      #ctc-kicker .rule {
+        width: 56px;
+        height: 3px;
+        background: var(--vm-ctc-accent, #ef5b3f);
+        transform-origin: 0 50%;
+      }
+
+      #ctc-title {
+        margin-top: 34px;
+        font: 650 108px/1.02 var(--vm-ctc-font-display, Arial, sans-serif);
+        letter-spacing: -0.045em;
+        text-wrap: balance;
+        will-change: clip-path;
+      }
+
+      #ctc-supporting {
+        margin-top: 38px;
+        max-width: 760px;
+        font: 400 30px/1.45 var(--vm-ctc-font-body, Arial, sans-serif);
+        letter-spacing: -0.01em;
+        color: color-mix(in srgb, var(--vm-ctc-ink, #171714) 70%, transparent);
+      }
+
+      #ctc-index {
+        position: absolute;
+        right: 150px;
+        bottom: 120px;
+        font: 700 210px/1 var(--vm-ctc-font-display, Arial, sans-serif);
+        letter-spacing: -0.03em;
+        color: color-mix(in srgb, var(--vm-ctc-ink, #171714) 12%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="chapter-title-card"
+      data-width="1920"
+      data-height="1080"
+      data-start="0"
+      data-duration="5"
+    >
+      <div id="ctc-clip" class="clip" data-start="0" data-duration="5" data-track-index="0">
+        <div id="ctc-copy">
+          <div id="ctc-kicker"><span class="rule"></span><span id="ctc-kicker-text"></span></div>
+          <h1 id="ctc-title"></h1>
+          <p id="ctc-supporting"></p>
+        </div>
+        <div id="ctc-index" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var vars = window.__hyperframes.getVariables();
+
+      var root = document.getElementById("root");
+      root.style.setProperty("--vm-ctc-canvas", vars.canvas);
+      root.style.setProperty("--vm-ctc-ink", vars.ink);
+      root.style.setProperty("--vm-ctc-accent", vars.accent);
+      root.style.setProperty("--vm-ctc-font-display", vars.fontDisplay);
+      root.style.setProperty("--vm-ctc-font-body", vars.fontBody);
+
+      document.getElementById("ctc-kicker-text").textContent = vars.kicker;
+      document.getElementById("ctc-title").textContent = vars.title;
+      document.getElementById("ctc-supporting").textContent = vars.supporting;
+      document.getElementById("ctc-index").textContent = vars.index;
+
+      var tl = gsap.timeline({ paused: true });
+      var kicker = document.getElementById("ctc-kicker");
+      var rule = kicker.querySelector(".rule");
+      var title = document.getElementById("ctc-title");
+      var supporting = document.getElementById("ctc-supporting");
+      var index = document.getElementById("ctc-index");
+
+      gsap.set(kicker, { y: 16, opacity: 0 });
+      gsap.set(rule, { scaleX: 0 });
+      gsap.set(title, { clipPath: "inset(0 0 100% 0)", y: 26 });
+      gsap.set(supporting, { y: 20, opacity: 0 });
+      gsap.set(index, { y: 40, opacity: 0 });
+
+      tl.to(kicker, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.1);
+      tl.to(rule, { scaleX: 1, duration: 0.4, ease: "power2.out" }, 0.18);
+      tl.to(title, { clipPath: "inset(0 0 0% 0)", y: 0, duration: 0.65, ease: "power3.out" }, 0.26);
+      tl.to(supporting, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.5);
+      tl.to(index, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.42);
+
+      tl.to([supporting, kicker], { opacity: 0, duration: 0.3, ease: "power2.in" }, 4.35);
+      tl.to(title, { y: -18, opacity: 0, duration: 0.35, ease: "power2.in" }, 4.45);
+      tl.to(index, { opacity: 0, duration: 0.3, ease: "power1.in" }, 4.5);
+      tl.set(root, { visibility: "hidden" }, 4.95);
+
+      window.__timelines["chapter-title-card"] = tl;
+    </script>
+  </body>
+</html>

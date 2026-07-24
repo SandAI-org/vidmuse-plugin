@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vidmuse.ai/schemas/vidmuse-packaging/video-context.schema.json",
+  "title": "VidMuse Packaging Video Context",
+  "type": "object",
+  "required": ["schema", "project_id", "user_request", "source", "content", "evidence"],
+  "properties": {
+    "schema": {"const": "vidmuse.packaging.video-context.v1"},
+    "project_id": {"type": "string", "minLength": 1},
+    "user_request": {"type": "string", "minLength": 1},
+    "source": {
+      "type": "object",
+      "required": ["media"],
+      "properties": {
+        "media": {"type": "array", "items": {"type": "string"}},
+        "duration_seconds": {"type": ["number", "null"], "minimum": 0},
+        "width": {"type": ["integer", "null"], "minimum": 1},
+        "height": {"type": ["integer", "null"], "minimum": 1},
+        "fps": {"type": ["number", "null"], "exclusiveMinimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "content": {
+      "type": "object",
+      "required": ["type", "summary", "key_messages"],
+      "properties": {
+        "type": {"type": "string"},
+        "summary": {"type": "string"},
+        "key_messages": {"type": "array", "items": {"type": "string"}},
+        "audience": {"type": "string"},
+        "channel": {"type": "string"},
+        "pace": {"type": "string"},
+        "mood": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "brand": {
+      "type": "object",
+      "properties": {
+        "assets": {"type": "array", "items": {"type": "string"}},
+        "colors": {"type": "array", "items": {"type": "string"}},
+        "fonts": {"type": "array", "items": {"type": "string"}},
+        "notes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "must": {"type": "array", "items": {"type": "string"}},
+        "avoid": {"type": "array", "items": {"type": "string"}},
+        "aspect_ratio": {"type": ["string", "null"]},
+        "language": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["transcript", "segments", "visual_observations"],
+      "properties": {
+        "transcript": {"type": ["string", "null"]},
+        "segments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["start", "end", "text"],
+            "properties": {
+              "start": {"type": "number", "minimum": 0},
+              "end": {"type": "number", "minimum": 0},
+              "text": {"type": "string"},
+              "intent": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "visual_observations": {"type": "array", "items": {"type": "string"}},
+        "keyframes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

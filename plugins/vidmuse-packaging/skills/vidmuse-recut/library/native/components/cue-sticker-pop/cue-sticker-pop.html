@@ -1,0 +1,169 @@
+<!--
+  VidMuse native component: cue-sticker-pop
+
+  A sticker or icon that pops in at a spoken or gestural cue, floats gently a
+  finite number of times, and exits cleanly. It is positioned at a fixed point
+  derived from the gesture frame — it does NOT track the subject frame by
+  frame. Propose it only when the cue time and a safe landing spot are both
+  evidenced by the footage.
+
+  Host contract:
+  - Paste this component's styles and markup into the composition.
+  - Call attachCueStickerPop({ timeline, x, y, start, duration }) once per cue
+    before registering the timeline; multiple cues use multiple markup copies
+    with distinct ids passed via rootSelector.
+  - Adapt icon artwork, label, palette, and typography to the project.
+-->
+<style>
+  .vm-cue-sticker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .vm-cue-sticker-badge {
+    display: grid;
+    place-items: center;
+    width: var(--vm-cue-size, 168px);
+    height: var(--vm-cue-size, 168px);
+    background: var(--vm-cue-surface, #ffffff);
+    border-radius: var(--vm-cue-radius, 38px);
+    box-shadow: 0 18px 44px rgb(12 12 12 / 22%);
+  }
+
+  .vm-cue-sticker-badge img,
+  .vm-cue-sticker-badge svg {
+    width: 62%;
+    height: 62%;
+    object-fit: contain;
+  }
+
+  .vm-cue-sticker-label {
+    margin: 0;
+    padding: 8px 18px;
+    font: 600 24px/1.2 var(--vm-cue-font-body, Arial, sans-serif);
+    letter-spacing: 0.01em;
+    color: var(--vm-cue-ink, #171714);
+    background: color-mix(in srgb, var(--vm-cue-surface, #ffffff) 92%, transparent);
+    border-radius: 999px;
+    opacity: 0;
+    visibility: hidden;
+  }
+</style>
+
+<div
+  id="vm-cue-sticker"
+  class="vm-cue-sticker clip"
+  data-start="0"
+  data-duration="4"
+  data-track="3"
+  aria-label="Cue sticker"
+>
+  <div class="vm-cue-sticker-badge">
+    <img src="sticker.svg" alt="" />
+  </div>
+  <p class="vm-cue-sticker-label">标签文案</p>
+</div>
+
+<script>
+  (() => {
+    const api = window.VidMuseNativeEffects || (window.VidMuseNativeEffects = {});
+
+    api.attachCueStickerPop = function attachCueStickerPop(options) {
+      const config = options || {};
+      const timeline = config.timeline;
+      if (!timeline || typeof timeline.to !== "function") {
+        throw new Error("cue-sticker-pop requires the host GSAP timeline");
+      }
+
+      const root = document.querySelector(config.rootSelector || "#vm-cue-sticker");
+      if (!root) {
+        throw new Error("cue-sticker-pop could not find its root element");
+      }
+      const label = root.querySelector(".vm-cue-sticker-label");
+
+      // Anchor point comes from the gesture frame: place the sticker where the
+      // subject points, clear of the face and the caption safe zone.
+      const x = Number(config.x ?? 320);
+      const y = Number(config.y ?? 340);
+      const start = Number(config.start ?? 0);
+      const duration = Number(config.duration ?? 4);
+      const enterDuration = Number(config.enterDuration ?? 0.55);
+      const exitDuration = Number(config.exitDuration ?? 0.4);
+      const floatAmplitude = Number(config.floatAmplitude ?? 10);
+      const floatPeriod = Number(config.floatPeriod ?? 1.6);
+      const exitAt = start + duration - exitDuration;
+
+      if (duration <= enterDuration + exitDuration + 0.3) {
+        throw new Error("cue-sticker-pop duration must leave room between enter and exit");
+      }
+
+      root.style.left = `${x}px`;
+      root.style.top = `${y}px`;
+
+      timeline.fromTo(
+        root,
+        { autoAlpha: 0, scale: 0.6, y: 26, rotation: -6 },
+        {
+          autoAlpha: 1,
+          scale: 1,
+          y: 0,
+          rotation: 0,
+          duration: enterDuration,
+          ease: config.easeEnter || "back.out(1.7)",
+          immediateRender: false,
+        },
+        start,
+      );
+      if (label) {
+        timeline.fromTo(
+          label,
+          { autoAlpha: 0, y: 10 },
+          { autoAlpha: 1, y: 0, duration: 0.35, ease: "power3.out", immediateRender: false },
+          start + enterDuration - 0.15,
+        );
+      }
+
+      // Finite deterministic float: a fixed number of half-cycles computed
+      // from the hold window. Never an unbounded repeat.
+      const holdStart = start + enterDuration;
+      const holdEnd = exitAt - 0.1;
+      const halfCycle = floatPeriod / 2;
+      const halfCycles = Math.max(0, Math.floor((holdEnd - holdStart) / halfCycle));
+      for (let i = 0; i < halfCycles; i += 1) {
+        timeline.to(
+          root,
+          {
+            y: i % 2 === 0 ? -floatAmplitude : 0,
+            duration: halfCycle,
+            ease: "sine.inOut",
+          },
+          holdStart + i * halfCycle,
+        );
+      }
+
+      timeline.to(
+        root,
+        {
+          autoAlpha: 0,
+          scale: 0.82,
+          y: 16,
+          duration: exitDuration,
+          ease: config.easeExit || "power2.in",
+        },
+        exitAt,
+      );
+
+      return { x, y, start, duration, halfCycles };
+    };
+  })();
+</script>
