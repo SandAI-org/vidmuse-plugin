@@ -137,6 +137,28 @@ def validate(plan: dict[str, Any]) -> list[str]:
         ):
             err(f"{where}: vo_cues must be a non-empty list of phrase strings (hard fail 6)")
 
+        candidates = beat.get("asset_candidates")
+        if candidates is not None and (
+            not isinstance(candidates, list)
+            or not all(isinstance(a, str) and a.strip() for a in candidates)
+        ):
+            err(f"{where}: asset_candidates must be a list of asset filenames")
+
+        sfx = beat.get("sfx")
+        if sfx is not None:
+            if not isinstance(sfx, list):
+                err(f"{where}: sfx must be a list of {{t, role}} cues")
+            else:
+                for sidx, cue in enumerate(sfx, start=1):
+                    if (
+                        not isinstance(cue, dict)
+                        or not isinstance(cue.get("t"), (int, float))
+                        or not (0 <= float(cue["t"]) <= span + TAIL_TOL)
+                        or not cue.get("role")
+                    ):
+                        err(f"{where}: sfx[{sidx}] needs beat-local t within the "
+                            f"ATA span and a role string")
+
         windows = beat.get("shot_sequence")
         if not isinstance(windows, list) or len(windows) < 2:
             err(f"{where}: shot_sequence needs >=2 windows (hard fail 1)")
@@ -232,6 +254,8 @@ def resolve(plan: dict[str, Any], words: list[dict[str, Any]]) -> dict[str, Any]
                     f"{beat['id']}: cue {cue['text']!r} resolved to t={cue['t']}s, "
                     f"outside ata_range {beat['ata_range']} — beat/cue assignment is wrong"
                 )
+        for cue in beat.get("sfx") or []:
+            cue["abs_t"] = round(min(base + float(cue["t"]), end), 3)
     plan["resolved"] = True
     return plan
 

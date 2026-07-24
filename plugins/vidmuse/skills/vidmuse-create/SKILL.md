@@ -81,6 +81,7 @@ delivery are **the same system**:
 | composition contract, pipeline, Timeline delivery | `../vidmuse-recut/references/pipeline.md`, `vidmuse-timeline.md`, `composition-contract.md` |
 | effects install + reskin | `../vidmuse-recut/references/registry-integration.md` |
 | create intent → structure shortlists | [references/promo-recipes.md](references/promo-recipes.md) |
+| URL grounding: full site capture + asset curation | [references/site-capture.md](references/site-capture.md) |
 | **path routing + beat contract + hard fails + execution trace + deck policy (SSOT)** | [references/path-routing.md](references/path-routing.md) — **read first after voice; do not re-copy rules from here** |
 | plan→code enforcement scripts (non-Vox) | `scripts/film_plan.py` (validate/resolve) · `scripts/shot_scaffold.py` (GSAP skeleton) · `scripts/check_motion.py` (render gate) |
 | non-Vox story craft | [story-design-explainer.md](references/story-design-explainer.md) · [story-design-promo.md](references/story-design-promo.md) |
@@ -162,6 +163,27 @@ print(json.dumps({
 
 **Regenerate voice → must re-run ATA.** Stale `transcript.json` is a defect.
 
+**Segmented voice spine (optional, recommended for promos).** For films that
+want hard beat cuts and per-line retakes, run TTS **one segment per beat**
+instead of one monolithic take:
+
+1. Split the locked script by beat → `transcript-source-01.txt` … `-NN.txt`.
+2. TTS each segment separately (same model, same voice), ATA each segment
+   separately → `narration-NN.mp3` + `alignment-NN.json`.
+3. Concatenate with **planned inter-beat gaps** (breathing room is a design
+   value, typically 0.2–0.6s; record the gap list) into `audio.mp3`
+   (ffmpeg concat, re-encode once).
+4. Merge per-segment words into one `transcript.json` by adding each
+   segment's start offset — offsets come from the concat plan, word timings
+   stay ATA-true. Never hand-shift individual words.
+5. Beat `ata_range` = its segment's offset span. VO boundaries now **equal**
+   beat boundaries exactly — transitions land in real silence, and one bad
+   line re-records without touching the other beats.
+
+Both spines end at the same contract: one `audio.mp3`, one flat
+`transcript.json`, ATA-true word times. Record `voice_spine: segmented` +
+the gap list in `video-context.json`.
+
 ### Gate C — early Timeline (still before pretty frames)
 
 As soon as `audio.mp3` + `transcript.json` exist:
@@ -192,8 +214,12 @@ create film has no room, but rank 2 does not go empty; it is filled by the
 **subject's real world**, gathered before any style decision:
 
 - **Website / product promo:** the product's actual design language *is* the
-  room. Fetch the real site, capture real screenshots, extract palette, type
-  feel, spacing rhythm, and voice. FRAME.md derives from *their* brand.
+  room. **Default: full machine capture** —
+  `npx hyperframes capture "<URL>" -o "$WORK_DIR/capture"` per
+  [references/site-capture.md](references/site-capture.md) (reading protocol,
+  ASSET_AUDIT curation, provenance registration, real site-video downloads).
+  Three manual screenshots is a fallback, not a grounding. FRAME.md derives
+  from *their* tokens; beats cast `asset_candidates` from the real inventory.
 - **Knowledge explainer:** the subject's material culture is the room —
   diagrams, notation, era, palette. Name it in the film plan; generic "clean
   explainer" is the rut.

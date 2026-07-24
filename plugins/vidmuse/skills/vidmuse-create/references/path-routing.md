@@ -115,6 +115,8 @@ Every beat in the film plan **must** carry:
 | `shot_sequence` | ≥2 time windows across the beat; last window is a **hold read** unless the beat is intentionally continuous motion under VO |
 | `active_elements` | optional but checked: list of on-screen **active** subjects in the densest window (≤3) |
 | `ui_proof_path` | **promo proof beats only:** `screenshot-camera` \| `hybrid-slices` \| `full-html-rebuild` (see UI proof path) |
+| `asset_candidates` | optional list of curated asset filenames for the beat — **expected on visual beats when a site-capture inventory exists** (see SKILL grounding / site-capture.md); cast from `ASSET_AUDIT.md`, not from invention |
+| `sfx` | optional per-beat SFX cues `[{t: beat-local s, role}]` — resolved to absolute times by `film_plan.py`; assembled as Timeline sound entries (see Audio delivery) |
 
 ### Film-level fields (explainer + promo)
 
@@ -226,9 +228,25 @@ Timeline sounds on create non-Vox films:
 
 | Layer | Rule |
 | --- | --- |
-| **VO** | Always from VidMuse TTS → `audio.mp3` / `narration.mp3` (voice spine). |
+| **VO** | Always from VidMuse TTS → `audio.mp3` / `narration.mp3` (voice spine; monolithic or **segmented** — SKILL Gate B). |
 | **BGM** | Must be **decided**: real underscore on Timeline **or** `bgm: none` + one-line reason (user asked silent / dialogue-only). Forgetting BGM is a defect. |
-| **SFX** | Optional but preferred on **mech beats**: number land, UI click/submit, logo lock, chapter hit. Name cues on plan (`sfx_cues: [{t, role}]`); source via media ladder / user assets — do not invent loud stock spam. |
+| **SFX** | Optional but preferred on **mech beats**: number land, UI click/submit, logo lock, chapter hit, transition whoosh/riser. Name cues on plan (`sfx_cues: [{t, role}]` film-level, or per-beat `sfx` in `film-plan.json` with beat-local `t`). |
+
+**SFX sourcing ladder** (same spirit as the asset ladder — never invent loud
+stock spam): **(1)** user-supplied SFX assets → **(2)** `/media-use` skill
+catalog when installed (resolve BGM/SFX from its audio references; register
+what you adopt) → **(3)** a small local library under `$WORK_DIR/assets/sfx/`
+reused across cues (one impact, one whoosh, one riser, one click, one chime
+covers most promos — reuse files across events, don't fetch ten variants) →
+**(4)** skip with a one-line reason on the plan. Register adopted files in
+`asset-sources.json`.
+
+**Timeline placement:** each SFX cue is its own entry on a Timeline sound
+track at its absolute time — level well under VO (impacts ~0.3–0.5, UI ticks
+~0.15–0.3), trimmed tight (≤1.5s tails). Cues serve the film's **mech
+moments** (something lands, clicks, locks, transitions) — an SFX with no
+on-screen event is noise; an on-screen hero moment with no sound reads
+cheaper than silence chosen on purpose.
 
 Finished evaluate must allow Timeline scrub with **VO audible**; if BGM present, it must sit **under** VO (duck/level by ear — no need for full mastering pipeline).
 

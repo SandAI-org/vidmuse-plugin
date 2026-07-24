@@ -74,10 +74,16 @@ def render(plan: dict[str, Any]) -> str:
                 f"\n        <!-- HERO THROUGHLINE: keep '{hero['name']}' on stage here"
                 f" (selector contains: {hero['dom_selector']}) -->"
             )
+        asset_note = ""
+        if beat.get("asset_candidates"):
+            asset_note = (
+                "\n        <!-- ASSETS (from capture inventory): "
+                + ", ".join(beat["asset_candidates"]) + " -->"
+            )
         sections.append(
             f"""      <section id="{bid}" class="beat" data-beat="{bid}"
         data-start="{_fmt(start)}" data-duration="{_fmt(span)}" data-track-index="{idx + 1}">
-        <!-- {beat['path_role']} · {beat['visual_kind']} · {beat.get('key_message', '')} -->{hero_note}
+        <!-- {beat['path_role']} · {beat['visual_kind']} · {beat.get('key_message', '')} -->{hero_note}{asset_note}
         <!-- FILL: static hero layout first (fully entered, readable), then animate INTO it -->
       </section>"""
         )
@@ -94,6 +100,11 @@ def render(plan: dict[str, Any]) -> str:
             )
         else:
             script.append(f"      /* OPEN ({beat['transition_in']}): film starts inside {bid}. */")
+        for cue in beat.get("sfx") or []:
+            script.append(
+                f"      /* SFX @{_fmt(cue['abs_t'])}s — {cue['role']} "
+                f"(Timeline sound track entry, not GSAP; visual mech moment should land here) */"
+            )
 
         for win in beat["shot_sequence"]:
             wid = win["id"]

@@ -6,6 +6,21 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.10 — 2026-07-24
+
+### Added
+
+- **Full site capture as the default URL grounding** — new `vidmuse-create/references/site-capture.md`. Benchmarked against the official HyperFrames `website-to-hyperframes` flow (whose captures returned 200+ assets vs our 3 manual screenshots): URL promos now run `npx hyperframes capture "<URL>" -o "$WORK_DIR/capture"` (tokens, scroll screenshots, full asset download with DOM-context descriptions, video/lottie/shader manifests; `--video` mode downloads the site's real videos). Includes the reading protocol (write-down-and-forget, sub-agent catalog for 30+ images), `ASSET_AUDIT.md` curation into `$WORK_DIR/assets/`, and provenance registration so `check_motion.py` S3 verifies proof beats against the curated set. tokens.json seeds FRAME; visible-text.txt grounds script copy; asset-descriptions casts beat `asset_candidates`.
+- **Segmented voice spine (optional, promo-recommended)** — SKILL Gate B variant: one TTS+ATA per beat, concatenated with planned inter-beat gaps, per-segment word timings merged by offset. VO boundaries equal beat boundaries exactly; single-line retakes don't touch other beats.
+- **SFX sourcing ladder + Timeline placement** — path-routing Audio delivery: user assets → `/media-use` catalog → small reusable local library → skip with reason; level/trim rules; SFX must land on visual mech moments.
+- **Beat contract extensions** — optional `asset_candidates` (expected on visual beats when a capture inventory exists) and per-beat `sfx: [{t, role}]`; `film_plan.py` validates both and resolves SFX to absolute times; `shot_scaffold.py` surfaces them as section/timeline comments.
+
+### Changed
+
+- `vidmuse-create/SKILL.md` grounding: manual browser screenshots demoted to fallback for URL subjects.
+
+---
+
 ## 0.3.9 — 2026-07-24
 
 ### Added
