@@ -1,0 +1,14 @@
+dist/
+node_modules/
+.DS_Store
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+videos/
+*.mp4
+*.mov
+.idea/
+.vscode/
+
+# local brand backups
+assets/_backup_*/

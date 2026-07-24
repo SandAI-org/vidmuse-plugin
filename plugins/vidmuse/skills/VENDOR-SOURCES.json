@@ -78,5 +78,13 @@
     ],
     "runtime": "hyperframes-gsap-reference-only",
     "notice": "skills/vidmuse-create/references/shot-cards/NOTICE.md"
+  },
+  "vidmuse_motion": {
+    "skill": "vidmuse-motion",
+    "role": "dependency-semantic-compose",
+    "recipes": 4,
+    "runtime": "hyperframes-gsap",
+    "gold_example": "skills/vidmuse-motion/examples/dataviz-semantic",
+    "verified": "2026-07-24 HF 0.7.69 check+render"
   }
 }

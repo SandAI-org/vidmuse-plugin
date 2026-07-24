@@ -5,10 +5,10 @@
   },
   "plugins": [
     {
-      "name": "vidmuse-packaging",
+      "name": "vidmuse",
       "source": {
         "source": "local",
-        "path": "./plugins/vidmuse-packaging"
+        "path": "./plugins/vidmuse"
       },
       "policy": {
         "installation": "AVAILABLE",

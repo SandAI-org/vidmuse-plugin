@@ -92,8 +92,9 @@ HyperFrames/GSAP, never Remotion. If a registry id is missing, keep the
 | **mechanism shortlist** | bar/line/ranking motion; counter with `tabular-nums`; annotation callouts — **one** family per beat |
 | **example add names** | data-chart / race / rollup class if present; else native SVG + GSAP |
 | **shot-card priors** (optional) | `odometer-digit-roll`, `chart-live-moves`, `dataviz-landscape-open` |
+| **motion-recipes** (implement) | open `/vidmuse-motion` — `kpi-glow-count`, `weekly-bar-rise`, `sparkline-draw`, `stat-card-trio` via `python3 ../../vidmuse-motion/scripts/motion_recipes.py --tag dataviz` |
 | **PPT failure mode** | huge number pops with confetti every sentence |
-| **craft** | counters are mechanical (linear/ease appropriate); no bounce on evidence |
+| **craft** | counters are mechanical (linear/ease appropriate); no bounce on evidence; prefer motion-recipes over static chart screenshots |
 
 ---
 

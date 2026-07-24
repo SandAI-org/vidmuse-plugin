@@ -74,6 +74,7 @@ delivery are **the same system**:
 | effects install + reskin | `../vidmuse-recut/references/registry-integration.md` |
 | create intent → structure shortlists | [references/promo-recipes.md](references/promo-recipes.md) |
 | promo/UI shot priors (curated) | [references/shot-cards/README.md](references/shot-cards/README.md) · `scripts/shot_cards.py` |
+| semantic HF compose (Registry miss) | sibling **`/vidmuse-motion`** — `../vidmuse-motion/SKILL.md` · `motion_recipes.py` |
 | Vox / paper-collage B-roll & explainer | [references/vox-collage.md](references/vox-collage.md); optional `scripts/collage_frames.py` |
 
 Work directory layout, validators (`../vidmuse-recut/scripts/*.py`), and the
@@ -345,6 +346,27 @@ python3 scripts/shot_cards.py --validate
 6. Record `shot_refs` on `video-context.json`. Prefer gallery previews at
    https://vincentwei1021.github.io/video-shotcraft/ for user-facing pick
    when helpful (external — not bundled).
+
+## Semantic motion (`/vidmuse-motion`) — implement without Registry
+
+When a beat needs **KPI / bars / sparklines / stat cards / tables** and
+`effects.py` / `hyperframes add` has no good match — or `recipe:data-beat` /
+product proof would otherwise ship a **static chart PNG**:
+
+1. Load sibling skill **`../vidmuse-motion/SKILL.md`**.
+2. `python3 ../vidmuse-motion/scripts/motion_recipes.py --tag dataviz` (or `--index`).
+3. Shortlist ≤3 recipes; `--get` full steps; read cited HF rules.
+4. Compose **native HyperFrames HTML/GSAP** (gold: `../vidmuse-motion/examples/dataviz-semantic/`).
+5. `npx hyperframes lint` + `check` + `snapshot` at recipe verify times.
+6. Record `motion_recipe_ids` on the beat / `video-context.json`.
+
+**Registry miss is not a stop.** Do not invent metrics. Architecture +
+playbook: `../vidmuse-motion/references/architecture.md`,
+`agent-playbook.md`, `verified-run.md`. Human guide:
+`../../docs/MOTION-SEMANTIC-LAYER.md`.
+
+Shot-cards remain *cinematic priors*; motion-recipes are *code paths*. A beat
+may list both (`shot_ref` + `motion_recipe_ids`).
 
 ### Vox paper-collage path (when style is the brief)
 

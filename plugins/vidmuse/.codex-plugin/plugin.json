@@ -1,0 +1,61 @@
+{
+  "name": "vidmuse",
+  "description": "VidMuse motion-film plugin for Codex. Two product skills: /vidmuse-recut packages existing speaking footage; /vidmuse-create builds films without source footage (script+TTS explainers, website/product promos, generated media via vidmuse model run; Vox-style paper-collage B-roll). Shared taste stack (charter, tells, FRAME, gates). Ships HyperFrames core + GSAP domain skills; /hyperframes is demoted domain reference only; Ships /vidmuse-motion semantic HyperFrames recipes for Registry-miss dataviz.",
+  "version": "0.3.7",
+  "author": {
+    "name": "VidMuse",
+    "email": "hello@vidmuse.ai",
+    "url": "https://vidmuse.ai"
+  },
+  "homepage": "https://vidmuse.ai",
+  "repository": "https://github.com/vidmuse/vidmuse-codex-plugin",
+  "license": "UNLICENSED",
+  "keywords": [
+    "asset-generation",
+    "captions",
+    "composition",
+    "director",
+    "explainer",
+    "gsap",
+    "hyperframes",
+    "hyperframes-core",
+    "media-use",
+    "motion-design",
+    "promo",
+    "recut",
+    "registry",
+    "talking-head",
+    "timeline",
+    "tts",
+    "video",
+    "video-packaging",
+    "vidmuse",
+    "vidmuse-create",
+    "vidmuse-motion",
+    "dataviz",
+    "semantic-motion"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "VidMuse",
+    "shortDescription": "Recut speaking footage · Create without source · Multi-track Timeline",
+    "longDescription": "Dual product: /vidmuse-recut for existing talking-head packaging; /vidmuse-create for script+TTS explainers and website/product promos with no source plate. Shared aesthetic system (charter, packaging tells, FRAME.md, Taste Gate). User preview via vidmuse serve multi-track DSL. HyperFrames builds layers; Timeline assembles the film. HF core + GSAP bundled; /hyperframes demoted Optional Vox paper-collage B-roll path on create; Includes /vidmuse-motion for native KPI/chart compose when catalog is empty.",
+    "developerName": "VidMuse",
+    "category": "Creativity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://vidmuse.ai",
+    "defaultPrompt": [
+      "Package this talking-head video with designed graphic overlays",
+      "Director-mode recut of my interview into a launch-film motion piece",
+      "Make a 60s knowledge explainer from this script with TTS (vidmuse-create)",
+      "Promo film for this website — no talking-head footage (vidmuse-create)",
+      "Vox-style paper-collage B-roll for this one VO line (vidmuse-create)"
+    ],
+    "brandColor": "#0B0B0F",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png"
+  }
+}

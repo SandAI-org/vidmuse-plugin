@@ -69,8 +69,10 @@ Finished work lands in the session workspace, never in the plugin directory.
 ## Repository
 
 ```
-https://github.com/SandAI-org/vidmuse-plugin
+https://github.com/SandAI-org/vidmuse-plugin.git
 ```
+
+For maintainers: `npm run validate:skill` checks skills, and `npm run package:codex-plugin` builds `dist/vidmuse-plugin.zip` from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.3.7** (see `package.json` / `.codex-plugin/plugin.json`).
 
 ## License
 
@@ -79,4 +81,4 @@ UNLICENSED — VidMuse internal / controlled distribution. Some bundled third-pa
 ## Support
 
 - Product: [vidmuse.ai](https://vidmuse.ai)
-- Contact: [support@vidmuse.ai](mailto:support@vidmuse.ai)
+- Contact: [hello@vidmuse.ai](mailto:hello@vidmuse.ai)
