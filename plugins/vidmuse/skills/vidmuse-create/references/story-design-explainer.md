@@ -91,16 +91,19 @@ Faceless defaults that often fit:
 - stat / evidence → `dataviz-countup` or `/vidmuse-motion`
 - process steps → consistent stage + `push-slide` between beats
 
-### 7. Continuity
+### 7. Continuity + hero throughline
 
 Multi-beat body sequences share:
 
 1. **Consistent stage** stated in each `scene` (same diagram growing, same desk)
 2. **Consistent `transition_in`** across the run (`push-slide` for steps, soft
    `crossfade` for layer adds)
+3. Film-level **`hero_throughline`** (path-routing): 1–2 named subjects that
+   persist and **change state** across ≥ half of body beats — not a new orphan
+   title card every sentence. Cover test: mid-beat freeze ≤3 active elements.
 
 Transforms of one element across two ideas stay **inside one beat's shot_sequence**,
-not across a hard slide seam.
+not across a hard slide seam. SSOT + fails: [path-routing.md](path-routing.md).
 
 ### 8. Transitions (between beats)
 
@@ -116,6 +119,8 @@ consistent `push-slide`; chapter jump → `zoom-through` or `cut`.
 - No quiet/ground-led passages on a standard explainer
 - Body is a single card, not a cumulative run
 - VO and picture both dump at once then freeze
+- No `hero_throughline`; every body beat a brand-new centered graphic
+- Sticker pile (>3 active) with no exits
 
 ## Output
 

@@ -65,12 +65,22 @@ For UI-hero films also open [shot-cards](shot-cards/README.md) and tag
 
 Story truth still wins: omit blueprint when none fit; never invent beats for a shape.
 
-### 5. Proof & assets
+### 5. Proof, assets, UI path
 
 - Prefer **rung-2 real capture** for claims (live site, product screenshots).
 Generated "fake UI" is packaging tell when a real surface exists.
 - List proof sources on the beat (`visual_kind: real-ui` + path under work dir).
 - Pure type beats may skip capture; entire proof spine may not.
+- On every UI proof beat set **`ui_proof_path`** (path-routing SSOT):
+
+| path | when |
+| --- | --- |
+| `screenshot-camera` | **default** — UI only needs to be seen (push/pan/hold on real capture) |
+| `hybrid-slices` | few elements must move on a real surface |
+| `full-html-rebuild` | UI is the narrative machine; written spend reason required |
+
+Start cheap (`screenshot-camera`). Do not full-rebuild fake dashboards when URL
+or screenshots exist (hard fails 5 + 12).
 
 ### 6. Transitions
 
@@ -90,6 +100,11 @@ visual world; `zoom-through` at section turns (hook→context, demo→CTA);
 
 Draft in these **shapes**; do not paste foreign brand copy.
 
+## Short runtime (guidance)
+
+For ≤45s promos prefer **~18–30s** and 4–6 beats (hook → stakes → proof →
+payoff → lockup). Pad with extra title cards is a plan smell.
+
 ## PPT autopsy (fail here)
 
 - Homepage bullets on a dark gradient
@@ -97,6 +112,7 @@ Draft in these **shapes**; do not paste foreign brand copy.
 - Feature list with no benefit translation
 - Every beat a different random effect family
 - Generated UI only when URL was available
+- full-html-rebuild as default when screenshot-camera would do
 
 ## Output
 

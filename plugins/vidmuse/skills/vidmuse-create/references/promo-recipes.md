@@ -12,11 +12,11 @@ template to paste. Always reskin via
 spine in `../SKILL.md`. Recipes never replace `transcript.json`.
 
 **Path routing (SSOT):** every recipe declares `path:`. Non-Vox paths **must**
-load craft refs and satisfy the beat contract + hard fails in
+load craft refs and satisfy the beat contract + hard fails **1–12** in
 [path-routing.md](path-routing.md) — **do not re-list those fields or fail
-numbers here.** Shot-card open/close (including `data-beat` explainer vs promo)
-is also **only** in path-routing. **Vox recipes skip non-Vox craft entirely** —
-only [vox-collage.md](vox-collage.md).
+numbers here.** Also owned only there: hero throughline, audio_delivery,
+UI proof path, shot-card open/close (including `data-beat` explainer vs promo).
+**Vox recipes skip non-Vox craft entirely** — only [vox-collage.md](vox-collage.md).
 
 ## How to use
 
@@ -55,8 +55,9 @@ HyperFrames/GSAP, never Remotion.
 | **blueprint priors** | `kinetic-type-beats`, `device-surface-showcase`, `cursor-ui-demo`, `logo-assemble-lockup`, `dataviz-countup` |
 | **example add names** (verify live) | `app-showcase`, `ui-3d-reveal`, `logo-outro`, one transition block only if plan calls it |
 | **shot-card priors** | `deck-deal-flyin`, `spotlight-hero-card`, `row-embed`, `ai-stream-response`, `command-palette-summon`, `ui-to-brand-morph` — `python3 ../scripts/shot_cards.py --recipe recipe:saas-promo-30s` |
-| **PPT failure mode** | four full-bleed word slides + stock icons, no real UI; front-loaded fade-ups |
+| **PPT failure mode** | four full-bleed word slides + stock icons, no real UI; front-loaded fade-ups; full-html-rebuild when screenshot-camera enough |
 | **density** | ground-led or real-UI proof ≥ half; one signature max |
+| **runtime guidance** | prefer ~18–30s when claim fits; 4–6 beats |
 
 ---
 
@@ -92,8 +93,9 @@ HyperFrames/GSAP, never Remotion.
 | **blueprint priors** | `kinetic-type-beats`, `spatial-pan-stations`, `dataviz-countup`, `titlecard-reveal`, compose diagrams |
 | **example add names** | prefer native/recut patterns; catalog charts only when numbers are real |
 | **shot-cards** | **closed** by default |
-| **PPT failure mode** | title card per sentence, identical fade-ups, no quiet holds, front-load freeze |
+| **PPT failure mode** | title card per sentence, identical fade-ups, no quiet holds, front-load freeze, no hero_throughline |
 | **density** | ground-led (type/diagram on ground color) ≥ half runtime |
+| **hero** | required `hero_throughline` on standard multi-beat teaches (path-routing) |
 
 ---
 

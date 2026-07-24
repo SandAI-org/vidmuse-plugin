@@ -14,12 +14,12 @@ description: >
   then `doubao_speech/audio_text_alignment` for word-level transcript.json —
   never guess timestamps, use OS/browser TTS, or ship silent slide-deck HTML.
   Anti-PPT (non-Vox): path-routed craft stack — story-design + time-coded
-  shot_sequence paced to ATA cues + blueprints/shot-cards; not one card per
-  sentence. Vox/paper-collage stays on references/vox-collage.md only (craft
-  hard-fails off). Promo/site paths require real-capture proof when a URL
-  exists. Sources assets via the shared ladder (user > real > AI). Hand off
-  to /vidmuse-recut if speaking footage appears. Shares recut taste stack; not
-  a slideshow generator.
+  shot_sequence paced to ATA cues + hero throughline + cover density + blueprints;
+  BGM/SFX delivery decision required; promo UI prefers real-capture camera path.
+  Vox/paper-collage stays on references/vox-collage.md only (non-Vox hard-fails
+  off). Sources assets via the shared ladder (user > real > AI). Hand off to
+  /vidmuse-recut if speaking footage appears. Shares recut taste stack; does not
+  change recut. Not a slideshow generator.
 compatibility: Same host as vidmuse-recut — Node.js 22+, ffmpeg/ffprobe, Python 3, `vidmuse` on PATH (login required for model/TTS/ATA), HyperFrames CLI via `npx hyperframes`. Depends on sibling skill vidmuse-recut (shares references and scripts).
 ---
 
@@ -48,6 +48,9 @@ you are shipping:
 | **Guessed timeline** | `transcript.json` from `duration/N` math or hand AE keys | only ATA words; never invent `start`/`end` |
 | **Non-VidMuse voice** | macOS `say`, browser TTS, random edge-tts, unpaid external TTS with no ATA | `vidmuse model list` → TTS via `vidmuse model run` → ATA |
 | **PPT spacing** | one centered card per sentence, identical fade-up, hard cuts | film plan with relations + quiet beats; motion language + scene transitions |
+| **Orphan-card film** (non-Vox) | every beat a new centered graphic; no continuous hero | path-routing `hero_throughline` + morph state across body |
+| **Mute-by-neglect** (non-Vox) | VO only, BGM forgotten, no `bgm: none` decision | path-routing `audio_delivery` |
+| **Fake UI proof** (promo) | generated dashboards when URL/screens exist | screenshot-camera / hybrid-slices first |
 | **Catalog collage** | un-reskinned Registry demos / random accent pals | FRAME tokens + registry-integration reskin (not a ban on editorial *paper*-collage — that is `vox-collage`) |
 | **Ungrounded SaaS look** | generic dark grid, no brand/subject evidence | grounding pass first; charter 9 |
 
@@ -237,17 +240,22 @@ Follow [vox-collage.md](references/vox-collage.md). Argument-length clips +
 
 ### 4c. Paths `explainer` + `promo` — craft stack (required)
 
-Full field list, `shot_sequence` shape, hard fails **1–8**, and deck open
-rules: **[path-routing.md](references/path-routing.md)** (SSOT). Executive
-summary only:
+Full field list, `shot_sequence` shape, hard fails **1–12**, hero throughline,
+audio delivery, UI proof path, and deck rules:
+**[path-routing.md](references/path-routing.md)** (SSOT). Executive summary only:
 
-1. Read path **story-design** → structure/arc, `path_role`, cue-cut `vo_cues`.
+1. Read path **story-design** → structure/arc, `path_role`, cue-cut `vo_cues`,
+   film-level **`hero_throughline`** (standard explainers).
 2. Read [visual-design.md](references/visual-design.md) → every beat gets
-   VO-paced `shot_sequence` (no front-load).
-3. Tag blueprint / `shot_ref` / `compose` per path-routing beat contract;
-   motion-language + cut-catalog for moves/seams; `transition_in` between beats.
-4. Fail the plan **before** taste work if path-routing hard fails trigger.
-5. Optional craft mirror: `$WORK_DIR/STORYBOARD.md` — delivery remains Timeline.
+   VO-paced `shot_sequence` (no front-load; cover test / ≤3 active).
+3. Tag blueprint / `shot_ref` / `compose`; promo proof beats add
+   **`ui_proof_path`** (screenshot-camera default). Motion-language +
+   cut-catalog; `transition_in` between beats.
+4. Plan **`audio_delivery`** (VO + BGM path or explicit `none`; optional SFX cues).
+5. Fail the plan **before** taste work if path-routing hard fails trigger.
+6. On confirmation: write `$WORK_DIR/direction-approved.md` (path, recipe,
+   confirmation line, hero). Optional craft mirror: `STORYBOARD.md`.
+   Delivery remains Timeline + **HyperFrames/GSAP** picture (no second Stage runtime).
 
 Present the film plan Markdown and wait for confirmation (unless autonomous).
 
@@ -281,13 +289,15 @@ mechanism; FRAME supplies skin.
 
 **Non-Vox (`explainer` / `promo`):** implement each beat's locked
 `shot_sequence` under [motion-language.md](references/motion-language.md)
-doctrine (VO-paced sequential reveal, `power3` default, stillness over
-screensaver). Within-beat seams → [cut-catalog.md](references/cut-catalog.md).
+doctrine (VO-paced sequential reveal, long-tail settle default, stillness over
+screensaver). Keep **`hero_throughline`** alive across body beats (morph state,
+don't hard-swap orphans). Within-beat seams → [cut-catalog.md](references/cut-catalog.md).
 Also read recut `camera-and-transition-craft.md` when multi-scene director
-density applies.
+density applies. Picture engine = **HyperFrames/GSAP** only.
 
 **Vox:** only [vox-collage.md](references/vox-collage.md) motion/duration
-rules — do not force shot_sequence GSAP grammar onto generative plates.
+rules — do not force shot_sequence, hero throughline, or non-Vox SFX/BGM
+contract onto generative plates.
 
 Scoped hard rules (promo / multi-scene director density; do not force every
 quiet caption-led explainer into sizzle):
@@ -320,9 +330,10 @@ quiet caption-led explainer into sizzle):
 
 **Timeline main track (create):** no talking-head plate by default. Prefer
 program bed (`public/program.mp4` / HF bake) as main when ready; packaging
-HTML as overlay if separate; **sounds = narration + music**; **subtitles from
-ATA transcript**. Refresh DSL after `public/index.html` exists. Never leave
-main pointing at a missing `input-video.mp4`.
+HTML as overlay if separate; **sounds = narration + BGM (or recorded `none`) +
+optional SFX** per path-routing `audio_delivery`; **subtitles from ATA
+transcript**. Refresh DSL after `public/index.html` exists. Never leave main
+pointing at a missing `input-video.mp4`.
 
 **12–13. Evaluate and deliver — unchanged** schemas, plus create checks:
 
@@ -330,11 +341,13 @@ main pointing at a missing `input-video.mp4`.
 - [ ] Timeline scrub: VO audible, captions track speech (sample 3 timestamps)
 - [ ] film plan was confirmed (or autonomous skip recorded)
 - [ ] `create_path` recorded; craft stack matched path
-- [ ] **non-Vox:** path-routing beat contract + hard fails **1–8** clean; sample
+- [ ] **non-Vox:** path-routing beat contract + hard fails **1–12** clean; sample
       2 beats at mid-window (not only t=0) for content still developing
+- [ ] **non-Vox:** `hero_throughline` + `direction-approved.md` + `audio_delivery`
 - [ ] **non-Vox:** not PPT-shaped (mixed `visual_kind`; quiet passages if explainer)
-- [ ] **promo:** ≥1 real-capture proof beat when URL/surface existed
-- [ ] **vox:** duration discipline only (vox-collage); no forced shot_sequence
+- [ ] **promo:** ≥1 real-capture proof; proof beats name `ui_proof_path`
+- [ ] **vox:** duration discipline only (vox-collage); no forced shot_sequence /
+      hero / non-Vox audio contract
 - [ ] FRAME Taste Gate filled with counts where required
 - [ ] generated-video / collage beats: plan had `target_duration_s` matched to
       ATA before spend; delivers cover those spans
@@ -411,8 +424,9 @@ Triggers: `Vox style`, `纸拼贴`, `halftone collage`, `collage b-roll`,
    visual production. Recipe: `vox-collage-broll` or `vox-collage-explainer`.
 2. **Do not** load story-design-explainer/promo, visual-design,
    motion-language, cut-catalog, or shot-cards for this path.
-3. **Do not** apply path-routing non-Vox hard fails or require `shot_sequence` /
-   blueprint contracts.
+3. **Do not** apply path-routing non-Vox hard fails **1–12**, hero throughline,
+   SFX/BGM mandatory contract, UI proof tree, or `shot_sequence` / blueprint
+   contracts.
 4. **Plan first:** ATA argument spans → each beat `target_duration_s` on the
    video model's `duration_options` (Seedance often 4–15). One clip per
    argument, phases inside the clip — not one sentence per clip, not short
@@ -427,13 +441,16 @@ Triggers: `Vox style`, `纸拼贴`, `halftone collage`, `collage b-roll`,
 
 ## Isolation (recut + vox)
 
-- **`/vidmuse-recut`:** unchanged. Create may *read* shared recut references;
-  create craft files are not part of the recut spine. Never require
-  `shot_sequence` on packaging plates.
-- **Vox:** production logic stays in `vox-collage.md`. New create craft is
-  additive for `explainer`/`promo` only.
+- **`/vidmuse-recut`:** **no behavioral change.** Create may *read* shared
+  recut references; create craft (hero, shot_sequence, audio_delivery, UI
+  tree, hard fails 1–12) is **not** part of the recut spine. Never require
+  those fields on packaging plates.
+- **Vox:** production logic stays in `vox-collage.md`. The new craft rules
+  (hero throughline, audio_delivery, UI proof path, hard fails 9–12) apply to
+  **`explainer`/`promo` only**.
 - **Delivery:** still VidMuse Timeline (`write_dsl` + `vidmuse serve` /
-  `render`). Non-Vox craft does not switch handoff to HF MP4-only.
+  `render`) with HyperFrames/GSAP layers — not a second Stage/rAF runtime,
+  not HF MP4-only handoff.
 
 ## Mode boundaries
 

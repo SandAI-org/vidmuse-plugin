@@ -96,7 +96,14 @@ Invented hero fills **~40–60%** of frame. Not a postage stamp in empty dark.
 
 - Proof beats: real screenshots / device chrome around **real** UI when URL exists.
 - Capture early; put paths in work dir; reference in `on_screen`.
-- Fake generated dashboards as sole proof → hard fail (path-routing #5).
+- Set `ui_proof_path` (`screenshot-camera` default) per path-routing.
+- Fake generated dashboards as sole proof → hard fails 5 + 12.
+
+## Cover test + density
+
+Non-Vox only (path-routing fails 9–10): a mid-window freeze should work as a
+**poster** — one clear focal subject, **≤3 active** elements; new entries need
+exits/dim. Prefer continuous `hero_throughline` over orphan title cards.
 
 ## Layout vocabulary (inline per Scene)
 
@@ -135,7 +142,8 @@ Before pretty HTML:
 
 - [ ] `## Video direction` written once
 - [ ] Every non-Vox beat has shot_sequence, no front-load
+- [ ] Cover test / ≤3 active in densest windows; hero continuity when required
 - [ ] Blueprint / shot_ref / compose named; Adapt keeps signature move
 - [ ] Moves named from motion-language (not raw ms recipes in the plan)
-- [ ] Promo proof includes real-ui where required
+- [ ] Promo proof includes real-ui + `ui_proof_path` where required
 - [ ] Stillness holds allocated; not every beat busy
