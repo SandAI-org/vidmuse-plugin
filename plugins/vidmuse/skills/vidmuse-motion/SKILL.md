@@ -5,9 +5,12 @@ description: >
   matching block. Use when implementing KPI counters, bar charts, sparklines,
   tables, stat-card layouts, or any "product analytics UI motion" that catalog
   search misses; when the user or film plan says motion-recipe / semantic
-  compose / "Registry miss → native"; or when /vidmuse-create data-beat /
-  saas-promo needs composed dataviz. Not a product router — pair with
-  /vidmuse-create or /vidmuse-recut. Never Remotion. Never invent metrics.
+  compose / "Registry miss → native"; when /vidmuse-create data-beat /
+  saas-promo needs composed dataviz; or when a create shot_sequence window
+  needs a shot execution code path (--tag shot: cue-paced-reveal,
+  collapse-merge-morph, pullback-reveal, line-carry-transition,
+  ui-strip-away-lock). Not a product router — pair with /vidmuse-create or
+  /vidmuse-recut. Never Remotion. Never invent metrics.
 compatibility: Node 22+, npx hyperframes, ffmpeg. Depends on hyperframes-core +
   hyperframes-animation (rules/blueprints). Shares FRAME/taste with vidmuse-recut.
 ---

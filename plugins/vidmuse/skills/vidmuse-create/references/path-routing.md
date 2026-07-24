@@ -82,10 +82,17 @@ After voice spine + grounding, before HTML:
 3. Read path story-design → complete arc / roles / cue-cut VO.
 4. Read visual-design → every beat gets a time-coded `shot_sequence`.
 5. Name motion from motion-language; within-beat seams from cut-catalog.
+   For implementation code paths, shortlist `/vidmuse-motion` **shot recipes**
+   (`motion_recipes.py --tag shot`: cue-paced-reveal, collapse-merge-morph,
+   pullback-reveal, line-carry-transition, ui-strip-away-lock) alongside
+   dataviz recipes.
 6. Seed FRAME from brand capture and/or one
    `../hyperframes-creative/frame-presets/<name>/` preset (never blank black + white type as the whole system).
-7. Implement **HyperFrames/GSAP** (not a second Stage runtime); deliver on
-   VidMuse Timeline (not HF MP4-only).
+7. Write `film-plan.json` + resolve + scaffold per **Execution trace** (below),
+   then implement **HyperFrames/GSAP** by filling the scaffold (not a second
+   Stage runtime); deliver on VidMuse Timeline (not HF MP4-only).
+8. After render, `check_motion.py` must be green (hard fail 13) before any
+   finished claim.
 
 Thin process gate (non-Vox, non-stub): after user confirms film plan (or
 autonomous heads-up), write `$WORK_DIR/direction-approved.md` with path,
@@ -143,10 +150,65 @@ Fail the film plan or craft pass if any:
 10. **Hero throughline (standard explainer):** body has ≥4 beats and no film-level `hero_throughline` (and no written montage/listicle exception — same waiver as the film-level field), **or** every body beat introduces a brand-new centered hero with zero continuity from the previous beat.
 11. **Audio delivery (non-stub):** finished claim without `audio_delivery` where `vo` matches reality and `bgm` is either a real Timeline/music path **or** explicit `none` with user/plan reason — silent full-film BGM default is not allowed to “forget music.”
 12. **Promo UI path:** a proof beat claims product UI but uses `full-html-rebuild` / generated chrome when `screenshot-camera` or `hybrid-slices` was viable (reachable URL or supplied screenshots).
+13. **Execution trace (machine-gated):** `film-plan.json` missing/unresolved, scaffold window labels dropped from the shipped HTML, or `check_motion.py` not green on the delivered render — see Execution trace below. Prose self-audit (“1–12 clean” written in the plan) does **not** substitute for this gate; 13 is checked by script, on the artifact, after render.
 
 **Vox ignores the entire list.** Light stubs (SKILL light path) ignore when labeled stub.
 
-Checklist shorthand “hard fails 1–12 clean” means this section.
+Checklist shorthand “hard fails 1–13 clean” means this section.
+
+## Execution trace (explainer + promo) — SSOT
+
+**Why:** the observed failure mode is a correct film plan followed by a
+generic fade-up implementation — plan and code are two separate generations,
+and nothing used to force them to reconcile. This section makes the approved
+`shot_sequence` machine-traceable from plan to pixels. All three steps are
+**required** on non-Vox, non-stub films; scripts live in
+`vidmuse-create/scripts/`.
+
+1. **Structured mirror** — when the film plan is written (step 4), also write
+   `$WORK_DIR/film-plan.json`: same beats as film-plan.md with `id` (`b01`…),
+   `ata_range`, `path_role`, `key_message`, `vo_cues` (verbatim phrase
+   strings), `visual_kind`, `transition_in`, `shot_sequence` windows
+   (`{t, kind, on_screen, move}`, kinds `reveal|move|morph|camera|exit|hold`,
+   terminal window `hold` unless `continuous: true`), plus film-level
+   `hero_throughline: {name, dom_selector, min_coverage}` and optional
+   `ui_proof_path` per proof beat. Then:
+
+   ```bash
+   python3 scripts/film_plan.py "$WORK_DIR" --resolve
+   ```
+
+   This validates the beat contract and resolves cue strings to absolute
+   times from ATA `transcript.json` (never guessed) →
+   `film-plan.resolved.json`.
+
+2. **Scaffold, then fill** — generate the GSAP skeleton before writing any
+   composition code:
+
+   ```bash
+   python3 scripts/shot_scaffold.py "$WORK_DIR"     # -> public/index.html
+   ```
+
+   The skeleton carries one `tl.addLabel("bXX.wY", t_abs)` per approved
+   window plus the window's on_screen/move/cue text as FILL comments.
+   Implementation = fill the slots (tweens positioned at the labels), style
+   with FRAME tokens, keep every label. Uniform per-section fade-in/out
+   helpers (`appear()` templates) are banned — `transition_in` owns entries
+   and exits.
+
+3. **Gate on the render** — after the picture bed exists:
+
+   ```bash
+   python3 scripts/check_motion.py "$WORK_DIR"      # -> motion-check.json
+   ```
+
+   Static: sections per beat, labels survived + used, `ui_proof_path` beats
+   reference a real capture from `asset-sources.json`, hero selector coverage.
+   Rendered (frame sampling): no ≥1.5s freeze inside a non-hold window, and a
+   measurable state change lands on each `vo_cue` (ambient drift does not
+   count). Exit non-zero = hard fail 13 = not deliverable; fix the animation
+   (or, if direction genuinely changed, fix the plan and re-resolve — never
+   game the checks with screensaver drift).
 
 ## Hero throughline (explainer-first; optional promo)
 
@@ -223,7 +285,8 @@ User may say `shot-cards off` to force closed (blueprint/compose still required 
   hero / SFX / shot_sequence / UI tree obligations from create.
 - Create may **read** recut taste/timeline/asset refs; it must not **edit**
   recut skill files for create-only logic.
-- Vox path never loads this file’s craft stack or hard fails 1–12.
+- Vox path never loads this file’s craft stack or hard fails 1–13 (the
+  execution-trace scripts are non-Vox only).
 - Do not soft-link upstream HeyGen or third-party design-skill SKILL.md as the
   runtime path — craft here is VidMuse-adapted (ATA + HyperFrames + Timeline).
 - Engine note: non-Vox picture builds stay on **HyperFrames/GSAP**; do not
@@ -234,7 +297,9 @@ User may say `shot-cards off` to force closed (blueprint/compose still required 
 - [ ] `create_path` set and matches recipe
 - [ ] Required story-design + visual-design + motion-language read
 - [ ] Every beat has contract fields + shot_sequence (this file)
-- [ ] Hard fails 1–12 checked (this file)
+- [ ] Hard fails 1–13 checked (this file)
+- [ ] `film-plan.json` written + `film_plan.py --resolve` green (Execution trace)
+- [ ] `shot_scaffold.py` skeleton generated before composition code
 - [ ] `hero_throughline` set when explainer requires it
 - [ ] `audio_delivery` decided (VO + BGM path or `none`)
 - [ ] Promo proof beats have `ui_proof_path` + real capture when URL exists

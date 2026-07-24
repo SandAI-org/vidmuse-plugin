@@ -1,0 +1,337 @@
+#!/usr/bin/env python3
+"""Post-render hard gate: does the shipped film implement the approved plan?
+
+Catches the "beautiful plan, PPT execution" failure mechanically, from two
+directions:
+
+Static (index.html vs film-plan.resolved.json)
+  S1  every beat has a <section data-beat="bXX"> block
+  S2  every shot_sequence window label survived (non-hold labels must also be
+      used as a tween position at least once)
+  S3  ui_proof_path beats reference a real-capture file from asset-sources.json
+  S4  hero_throughline selector appears in enough beat sections
+
+Rendered (frame sampling of the actual video via ffmpeg)
+  R1  freeze: no >=1.5s still span inside a non-hold window (and no fully
+      motionless move/reveal/camera window) — planned holds are exempt
+  R2  cue events: the picture measurably changes state around each vo_cue
+      (an event spike, not just ambient Ken Burns drift)
+
+Usage:
+  python3 scripts/check_motion.py "$WORK_DIR" [--video path] [--html path]
+  python3 scripts/check_motion.py "$WORK_DIR" --skip-render     # static only
+
+Writes $WORK_DIR/motion-check.json. Exit 1 on any failure — the film is not
+deliverable until this gate is green (non-Vox hard fail 13).
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import math
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+from typing import Any
+
+RESOLVED_NAME = "film-plan.resolved.json"
+
+# ── sampling ────────────────────────────────────────────────────────────────
+SAMPLE_FPS = 4          # frames per second extracted for analysis
+SAMPLE_W, SAMPLE_H = 160, 90
+
+# ── thresholds (mean abs diff on 0–255 gray, 160x90, 0.25s apart) ───────────
+# Calibrated on a known-bad promo render: true freeze measures ~0.0–0.3 per
+# 0.25s step; Ken Burns screenshot drift ~0.8–2.5; real reveals/transitions
+# spike to 5–40 over a 0.6s crossing.
+STATIC_MAD = 0.5        # a 0.25s step below this is "still"
+FREEZE_S = 1.5          # still span >= this inside a non-hold window fails
+EVENT_MIN = 1.0         # cue crossing must at least reach this...
+EVENT_RATIO = 1.6       # ...and stand out vs ambient drift just before it
+EVENT_STRONG = 5.0      # or be unambiguously large on its own
+CUE_HALF = 0.3          # compare frames at cue ± this
+BEAT_HEAD_FREE = 0.45   # cues this close to beat start pass (entrance is the event)
+
+CAPTURE_TYPES = ("capture", "screenshot", "user")
+
+
+def ffprobe_duration(video: Path) -> float:
+    out = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=nw=1:nk=1", str(video)],
+        capture_output=True, text=True, check=True,
+    ).stdout.strip()
+    return float(out)
+
+
+def extract_frames(video: Path, tmp: Path) -> list[bytes]:
+    subprocess.run(
+        ["ffmpeg", "-v", "error", "-y", "-i", str(video),
+         "-vf", f"fps={SAMPLE_FPS},scale={SAMPLE_W}:{SAMPLE_H},format=gray",
+         "-f", "image2", str(tmp / "f%05d.pgm")],
+        check=True, capture_output=True,
+    )
+    frames: list[bytes] = []
+    for path in sorted(tmp.glob("f*.pgm")):
+        data = path.read_bytes()
+        # P5 header: magic, dims, maxval, then raw bytes
+        head = 0
+        for _ in range(3):
+            head = data.index(b"\n", head) + 1
+        frames.append(data[head:head + SAMPLE_W * SAMPLE_H])
+    return frames
+
+
+def mad(a: bytes, b: bytes) -> float:
+    return sum(abs(x - y) for x, y in zip(a, b)) / len(a)
+
+
+def frame_at(frames: list[bytes], t: float) -> bytes:
+    idx = min(max(int(round(t * SAMPLE_FPS)), 0), len(frames) - 1)
+    return frames[idx]
+
+
+class Gate:
+    def __init__(self) -> None:
+        self.checks: list[dict[str, Any]] = []
+
+    def add(self, check_id: str, ok: bool, where: str, detail: str) -> None:
+        self.checks.append({"id": check_id, "ok": ok, "where": where, "detail": detail})
+        mark = "ok  " if ok else "FAIL"
+        print(f"{mark} [{check_id}] {where}: {detail}")
+
+    @property
+    def failures(self) -> list[dict[str, Any]]:
+        return [c for c in self.checks if not c["ok"]]
+
+
+# ── static checks ───────────────────────────────────────────────────────────
+
+def beat_slices(html: str, beats: list[dict[str, Any]]) -> dict[str, str]:
+    """Markup slice per beat, located by data-beat attributes."""
+    hits: list[tuple[int, str]] = []
+    for match in re.finditer(r"data-beat=[\"'](b\d{2})[\"']", html):
+        hits.append((match.start(), match.group(1)))
+    hits.sort()
+    slices: dict[str, str] = {}
+    for i, (pos, bid) in enumerate(hits):
+        end = hits[i + 1][0] if i + 1 < len(hits) else html.find("</main>", pos)
+        slices[bid] = html[pos:end if end > pos else len(html)]
+    return slices
+
+
+def capture_basenames(work: Path) -> list[str]:
+    path = work / "asset-sources.json"
+    if not path.is_file():
+        return []
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+    entries = doc.get("assets") if isinstance(doc, dict) else doc
+    names: list[str] = []
+    for entry in entries or []:
+        if not isinstance(entry, dict):
+            continue
+        etype = str(entry.get("type", "")).lower()
+        local = str(entry.get("local_file", ""))
+        if any(k in etype for k in CAPTURE_TYPES) and local and "*" not in local:
+            names.append(Path(local).name)
+    return names
+
+
+def run_static(gate: Gate, work: Path, html_path: Path, plan: dict[str, Any]) -> None:
+    beats = plan["beats"]
+    if not html_path.is_file():
+        gate.add("S1.sections", False, str(html_path), "composition HTML not found")
+        return
+    html = html_path.read_text(encoding="utf-8")
+    slices = beat_slices(html, beats)
+
+    for beat in beats:
+        bid = beat["id"]
+        if bid in slices:
+            gate.add("S1.sections", True, bid, "data-beat section present")
+        else:
+            gate.add("S1.sections", False, bid,
+                     'no <section data-beat="%s"> — scaffold structure was dropped' % bid)
+
+    for beat in beats:
+        for win in beat["shot_sequence"]:
+            wid = win["id"]
+            uses = len(re.findall(r"[\"']" + re.escape(wid), html))
+            if win["kind"] == "hold":
+                ok = uses >= 1
+                need = "the label itself"
+            else:
+                ok = uses >= 2
+                need = "the label + >=1 tween positioned at it"
+            gate.add("S2.labels", ok, wid,
+                     f"{uses} reference(s); needs {need}"
+                     if not ok else f"{uses} reference(s)")
+
+    captures = capture_basenames(work)
+    for beat in beats:
+        proof = beat.get("ui_proof_path")
+        if proof not in ("screenshot-camera", "hybrid-slices"):
+            continue
+        section = slices.get(beat["id"], "")
+        used = [n for n in captures if n in section]
+        gate.add(
+            "S3.proof", bool(used), beat["id"],
+            f"real capture in DOM: {used}" if used else
+            f"{proof} beat references no real-capture asset from asset-sources.json "
+            "(fake UI — hard fails 5/12)",
+        )
+
+    hero = plan.get("hero_throughline")
+    if hero:
+        selector = hero["dom_selector"]
+        present = [b["id"] for b in beats if selector in slices.get(b["id"], "")]
+        need = math.ceil(float(hero.get("min_coverage", 0.5)) * len(beats))
+        gate.add(
+            "S4.hero", len(present) >= need, hero["name"],
+            f"'{selector}' found in {len(present)}/{len(beats)} beats "
+            f"(need >= {need}): {present}",
+        )
+
+
+# ── rendered checks ─────────────────────────────────────────────────────────
+
+def window_iter(plan: dict[str, Any]):
+    for beat in plan["beats"]:
+        for win in beat["shot_sequence"]:
+            yield beat, win
+
+
+def in_hold(t: float, plan: dict[str, Any]) -> bool:
+    for _, win in window_iter(plan):
+        if win["kind"] == "hold" and win["abs"][0] - 0.1 <= t <= win["abs"][1] + 0.1:
+            return True
+    return False
+
+
+def run_rendered(gate: Gate, work: Path, video: Path, plan: dict[str, Any]) -> None:
+    duration = ffprobe_duration(video)
+    plan_end = plan["beats"][-1]["ata_range"][1]
+    gate.add("R0.duration", duration >= plan_end - 0.5, video.name,
+             f"video {duration:.2f}s vs plan {plan_end:.2f}s")
+
+    with tempfile.TemporaryDirectory(prefix="check-motion-") as tmp:
+        frames = extract_frames(video, Path(tmp))
+    if len(frames) < 4:
+        gate.add("R0.frames", False, video.name, f"only {len(frames)} frames extracted")
+        return
+    step = 1.0 / SAMPLE_FPS
+    diffs = [mad(frames[i], frames[i + 1]) for i in range(len(frames) - 1)]
+
+    # R1 — freeze inside non-hold windows
+    for beat, win in window_iter(plan):
+        if win["kind"] == "hold":
+            continue
+        lo, hi = win["abs"]
+        first = max(int(math.ceil(lo * SAMPLE_FPS)), 0)
+        last = min(int(hi * SAMPLE_FPS), len(diffs))
+        pair = diffs[first:last]
+        if not pair:
+            continue
+        longest = run_len = 0
+        for d in pair:
+            run_len = run_len + 1 if d < STATIC_MAD else 0
+            longest = max(longest, run_len)
+        frozen_s = longest * step
+        span = hi - lo
+        totally_still = longest == len(pair) and span >= 1.0
+        ok = frozen_s < FREEZE_S and not totally_still
+        gate.add(
+            "R1.freeze", ok, win["id"],
+            f"kind={win['kind']} span={span:.2f}s longest_still={frozen_s:.2f}s"
+            + ("" if ok else " — planned motion is missing (PPT hold)"),
+        )
+
+    # R2 — a visible event lands on each cue
+    for beat in plan["beats"]:
+        base = beat["ata_range"][0]
+        for cue in beat["vo_cues"]:
+            t = cue["t"]
+            where = f"{beat['id']} “{cue['text']}” @{t:.2f}s"
+            if t - base <= BEAT_HEAD_FREE:
+                gate.add("R2.cues", True, where, "at beat entrance (transition is the event)")
+                continue
+            if in_hold(t, plan):
+                gate.add("R2.cues", True, where, "inside a planned hold (read)")
+                continue
+            cross = mad(frame_at(frames, t - CUE_HALF), frame_at(frames, t + CUE_HALF))
+            pre = mad(frame_at(frames, t - 3 * CUE_HALF), frame_at(frames, t - CUE_HALF))
+            ok = cross >= EVENT_STRONG or (cross >= EVENT_MIN and cross >= EVENT_RATIO * pre)
+            gate.add(
+                "R2.cues", ok, where,
+                f"cross={cross:.2f} ambient={pre:.2f}"
+                + ("" if ok else " — nothing revealed on this cue (VO not paced)"),
+            )
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("work_dir")
+    parser.add_argument("--video", help="rendered picture (default: public/program.mp4, "
+                                        "final-master.mp4, final.mp4 — first found)")
+    parser.add_argument("--html", help="composition HTML (default: public/index.html)")
+    parser.add_argument("--skip-render", action="store_true", help="static checks only")
+    args = parser.parse_args(argv)
+
+    work = Path(args.work_dir).resolve()
+    resolved = work / RESOLVED_NAME
+    if not resolved.is_file():
+        print(f"error: missing {resolved} — run film_plan.py --resolve first", file=sys.stderr)
+        return 1
+    plan = json.loads(resolved.read_text(encoding="utf-8"))
+
+    gate = Gate()
+    html_path = Path(args.html).resolve() if args.html else work / "public" / "index.html"
+    run_static(gate, work, html_path, plan)
+
+    video: Path | None = None
+    if not args.skip_render:
+        if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
+            print("error: ffmpeg/ffprobe required for rendered checks", file=sys.stderr)
+            return 1
+        candidates = ([Path(args.video)] if args.video else
+                      [work / "public" / "program.mp4",
+                       work / "final-master.mp4", work / "final.mp4"])
+        video = next((c for c in candidates if c.is_file()), None)
+        if video is None:
+            print("error: no rendered video found — pass --video or --skip-render",
+                  file=sys.stderr)
+            return 1
+        run_rendered(gate, work, video, plan)
+
+    report = {
+        "video": str(video) if video else None,
+        "html": str(html_path),
+        "thresholds": {
+            "static_mad": STATIC_MAD, "freeze_s": FREEZE_S, "event_min": EVENT_MIN,
+            "event_ratio": EVENT_RATIO, "event_strong": EVENT_STRONG,
+        },
+        "checks": gate.checks,
+        "failures": len(gate.failures),
+        "pass": not gate.failures,
+    }
+    out = work / "motion-check.json"
+    out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    total = len(gate.checks)
+    if gate.failures:
+        print(f"\nGATE FAIL — {len(gate.failures)}/{total} checks failed "
+              f"(see {out.name}); the film is not deliverable")
+        return 1
+    print(f"\nGATE PASS — {total} checks green ({out.name})")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
