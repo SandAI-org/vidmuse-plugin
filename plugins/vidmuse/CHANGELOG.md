@@ -6,6 +6,31 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.8 — 2026-07-24
+
+### Added
+
+- **Path-routed anti-PPT craft stack for `/vidmuse-create` non-Vox films** — new SSOT `references/path-routing.md` routes `create_path: vox | explainer | promo` and owns the full craft contract:
+  - **Beat contract**: `ata_range`, `path_role`, `key_message`, `vo_cues`, `visual_kind`, `blueprint|shot_ref|compose`, `transition_in`, time-coded `shot_sequence` (≥2 windows + terminal hold)
+  - **Hard fails 1–12**: front-load, title-card runs, mono-ease clone, fake-UI proof, undivided VO, missing quiet passages, cover/density (>3 active), missing hero throughline, undecided audio, needless full-html-rebuild
+  - **`hero_throughline`** (film-level, required on standard explainers): 1–2 subjects persist and change state across body beats — kills orphan-card films
+  - **`audio_delivery`** contract: BGM must be a real Timeline path or explicit `none` + reason; optional named `sfx_cues`
+  - **`ui_proof_path`** decision tree (promo): `screenshot-camera` (default) → `hybrid-slices` → `full-html-rebuild` (written spend reason required)
+  - Thin process gate: `$WORK_DIR/direction-approved.md` after film-plan confirmation
+- New craft references: `story-design-explainer.md`, `story-design-promo.md`, `visual-design.md`, `motion-language.md`, `cut-catalog.md` (VidMuse-adapted from HyperFrames; timing truth = ATA, delivery = Timeline)
+- `promo-recipes.md`: every recipe declares `path:` + `required_refs` + blueprint priors
+
+### Changed
+
+- SKILL.md / promo-recipes / shot-cards README / story-design refs now **point at path-routing SSOT** instead of re-listing contracts; deck open/close policy (incl. `data-beat` explainer-optional) lives only there.
+
+### Isolation
+
+- **Vox frozen**: `create_path: vox` stays on `vox-collage.md` only — no shot_sequence / hero / SFX-BGM / UI-tree obligations.
+- **`/vidmuse-recut` unchanged**: create craft is not part of the recut spine.
+
+---
+
 ## 0.3.7 — 2026-07-24
 
 ### Added
