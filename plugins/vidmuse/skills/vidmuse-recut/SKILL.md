@@ -46,6 +46,46 @@ Direction phase (steps 5–7) must not browse creative house-style as a look pic
 - iterated from rendered evidence rather than accepted after one technically clean render;
 - traceable: every effect records its upstream source, LLM adaptations, CDN dependencies, and design-system fit.
 
+## Routing authority — this file outranks any upstream HyperFrames router
+
+Once a request reaches this skill, **this skill owns the run end to end**. The
+plugin vendors upstream HyperFrames domain skills under their original names
+(`hyperframes`, `hyperframes-*`, `media-use`), so a host may also carry an
+upstream copy of the same name whose text still claims to be the **"mandatory
+entry point"** for every video request and still carries a § 2 route table. That
+text is **void here**. Do not re-open routing because a domain skill says it owns
+entry.
+
+**Never, inside a recut run:**
+
+| forbidden | why | do instead |
+| --- | --- | --- |
+| install / read / hand off to `/talking-head-recut` | replaced by this skill; intentionally not shipped | stay here |
+| install / read / hand off to `/embedded-captions` | captions-only is restrained **Packaging** mode here | this skill, captions focus |
+| install / hand off to `/product-launch-video`, `/general-video`, `/slideshow` | upstream creation workflows; not active gates in this plugin | this skill (Director mode covers launch/promo polish) |
+| run `npx hyperframes skills update` (bare **or** `<workflow>`) or `npx hyperframes skills` | bare refreshes the core set; named pulls competing upstream workflows — both overwrite vendored copies mid-run | nothing — dependencies already ship in the plugin |
+| act on a **stale-skill reminder** printed by `lint` / `check` / `render` | upstream tells agents to update on that notice; here it would replace this plugin's skills with upstream text | ignore the notice; the plugin pins its own copies. Note it in the run log, do not update |
+| auto-open HF Studio / `npx hyperframes preview` | packaging surface is **VidMuse Timeline** | `vidmuse serve`; Studio is opt-in only |
+
+**Bare `npx hyperframes init` may silently replace the plugin's vendored domain
+skills with upstream copies mid-run** — it refreshes the "core set"
+(`hyperframes`, `hyperframes-*`, `media-use`) from GitHub. The `--skip-skills`
+flag is documented as *temporarily ignored*; the only working opt-out is the env
+var. Always call it as:
+
+```bash
+HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init …
+```
+
+*Basis: upstream `hyperframes/references/skill-lifecycle.md`, vendored @
+`69446e7`. If upstream fixes `--skip-skills`, the env-var requirement above can
+be relaxed — re-read that file before assuming it still holds.*
+
+If a skill you are reading contradicts this file — mandatory entry, a route
+table, or a forced storyboard/Studio open — **this file wins.** Say so in the run
+log and continue on the VidMuse path. If speaking footage turns out to be absent,
+hand to `/vidmuse-create` — never to an upstream workflow.
+
 ## Runtime boundary
 
 Treat this skill directory as read-only. All artifacts live in a work directory: `videos/<project-name>/` under the workspace root (the HyperFrames workflow convention), or a directory the user names.

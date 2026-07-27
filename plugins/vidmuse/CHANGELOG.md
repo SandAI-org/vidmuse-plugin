@@ -6,6 +6,18 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.12 — 2026-07-27
+
+### Fixed
+
+- **Routing hijack via skill-name shadowing** — a 0.3.11 URL-promo run entered upstream `/product-launch-video` and auto-opened HyperFrames Studio on port 3017 instead of delivering VidMuse Timeline. Root cause was **not** the skill text: the plugin vendors upstream domain skills under their original names (`hyperframes`, `hyperframes-*`, `media-use`), and `npx hyperframes init` **refreshes that "core set" from GitHub mid-run** (upstream `skill-lifecycle.md`: installs the core set *eagerly*). The refreshed upstream `hyperframes` reinstated `description: Mandatory entry point` plus its § 2 route table, whose row 8 sends any URL promo to `/product-launch-video`; that workflow's own review loop then forces `npx hyperframes preview` + storyboard ("don't ask whether to"). The plugin's bans lived in `hyperframes/SKILL.md` § 0/§ 5 — the exact file being overwritten — so they never reached the model. This is **not** an artifact of a crowded dev machine: a clean install self-pollutes on its first `init`.
+- **Guards moved to skills that cannot be shadowed** — new **Routing authority** section in `vidmuse-create/SKILL.md` and `vidmuse-recut/SKILL.md` (the two skills that never collide with an upstream name, so they load reliably). Each declares that this file outranks any router claiming mandatory entry, and forbids entering / installing `/product-launch-video`, `/talking-head-recut`, `/embedded-captions`, `/general-video`, `/slideshow`, `/music-to-video`, `/faceless-explainer`. Restates Timeline-not-Studio delivery. Cites the upstream basis (`skill-lifecycle.md` @ `69446e7`) so the constraint can be revisited if upstream changes.
+- **`HYPERFRAMES_SKIP_SKILLS=1` on every executable `init`** — `--skip-skills` is documented upstream as *temporarily ignored*, making the env var the only working opt-out. Applied in `hyperframes-cli/SKILL.md` step 1, all 7 examples in `init-and-scaffold.md`, `vidmuse-create` light path, and 3 `vidmuse-motion` runnable snippets.
+- **Stale-skill reminder is now explicitly ignored** — upstream prints a one-line stale notice during `lint` / `check` / `render` and instructs agents to update on it. Acting on it runs bare `skills update`, which refreshes the core set and re-triggers the hijack. The previous ban only covered `skills update <workflow>`; both forms plus bare `npx hyperframes skills` are now forbidden, and the notice must be logged rather than acted on.
+- **Hijack is now self-reporting** — `vidmuse-create` anti-goals gains a **Hijacked route** failure row, and the evaluate checklist gains two self-checks (no competing workflow entered; every `init` carried the env var). Previously this class of failure was only visible by reading the full run log by hand.
+
+---
+
 ## 0.3.11 — 2026-07-27
 
 ### Changed

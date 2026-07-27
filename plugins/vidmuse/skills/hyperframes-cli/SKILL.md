@@ -15,7 +15,7 @@ Run commands as `npx hyperframes ...` unless project instructions provide a wrap
 
 ## Development loop
 
-1. **Scaffold:** `npx hyperframes init <project>` or capture a site. In non-TTY mode, pass `--non-interactive --example=<name>`.
+1. **Scaffold:** `HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init <project>` or capture a site. In non-TTY mode, pass `--non-interactive --example=<name>`. **Always keep the env var** — bare `init` refreshes the "core set" (`hyperframes`, `hyperframes-*`, `media-use`) from GitHub and will overwrite this plugin's vendored copies mid-run with upstream text that reclaims mandatory-entry routing. `--skip-skills` is documented as *temporarily ignored*; the env var is the only working opt-out.
 2. **Author:** write the composition using `/hyperframes-core`.
 3. **Get fast feedback while editing:** run `npx hyperframes lint` after the first HTML pass and after structural changes.
 4. **Run the final gate:** run `npx hyperframes check`; it reruns lint inside a headless browser session used only for auditing. Do not prepend a redundant standalone lint invocation. Add `--snapshots` for annotated overview frames and finding crops.

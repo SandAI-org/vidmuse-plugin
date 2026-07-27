@@ -77,7 +77,7 @@ Scaffold if needed:
 ```bash
 mkdir -p "$WORK/public-dataviz" && cd "$WORK/public-dataviz"
 # Prefer non-interactive when supported:
-npx hyperframes init . --example blank --non-interactive
+HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init . --example blank --non-interactive
 # or replace index.html of an existing project
 ```
 

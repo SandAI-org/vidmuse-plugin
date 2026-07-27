@@ -23,7 +23,7 @@ HyperFrames composition that **passed** `lint` + `check` and rendered to MP4
 
 ```bash
 mkdir -p /tmp/replay && cp index.html /tmp/replay/
-cd /tmp/replay && npx hyperframes init . --example blank --non-interactive 2>/dev/null || true
+cd /tmp/replay && HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init . --example blank --non-interactive 2>/dev/null || true
 # ensure index.html is this file, then:
 npx hyperframes check .
 npx hyperframes snapshot . --at 0.5,1.5,3.2,5.5,8.0 -o proof --describe false

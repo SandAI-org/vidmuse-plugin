@@ -28,7 +28,7 @@ Blueprint touchstone: `dataviz-countup` (numbers/charts as hero).
 
 ## Sequence of work
 
-1. `npx hyperframes init . --example blank` (skills install noise ignored).
+1. `HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init . --example blank` (no skills install — env var blocks the upstream core-set refresh).
 2. Replace `index.html` with a single 9s `main` composition, three cards.
 3. **lint fail #1** — `gsap_css_transform_conflict` on `.bar`  
    CSS had `transform: scaleY(0)` while GSAP tweened `scaleY`.  
