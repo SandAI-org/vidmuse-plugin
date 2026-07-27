@@ -62,7 +62,10 @@ tl.fromTo(
 
 ```bash
 hyperframes lint
-hyperframes preview
+# Do not auto-open Studio. Prefer check/snapshot; play only if you need a player:
+# npx hyperframes play --no-open
+npx hyperframes check
+npx hyperframes snapshot --at <midpoint>
 ```
 
 ### 5. Customize

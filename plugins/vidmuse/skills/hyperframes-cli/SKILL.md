@@ -18,9 +18,12 @@ Run commands as `npx hyperframes ...` unless project instructions provide a wrap
 1. **Scaffold:** `npx hyperframes init <project>` or capture a site. In non-TTY mode, pass `--non-interactive --example=<name>`.
 2. **Author:** write the composition using `/hyperframes-core`.
 3. **Get fast feedback while editing:** run `npx hyperframes lint` after the first HTML pass and after structural changes.
-4. **Run the final gate:** run `npx hyperframes check`; it reruns lint before opening the browser. Do not prepend a redundant standalone lint invocation. Add `--snapshots` for annotated overview frames and finding crops.
+4. **Run the final gate:** run `npx hyperframes check`; it reruns lint inside a headless browser session used only for auditing. Do not prepend a redundant standalone lint invocation. Add `--snapshots` for annotated overview frames and finding crops.
 5. **Inspect sub-compositions:** when `index.html` mounts `data-composition-src`, capture midpoint snapshots and inspect each mounted scene.
-6. **Open the final Studio preview:** run `npx hyperframes preview`, hand the timeline project URL to the user, and ask whether to revise or render.
+6. **Hand the user-facing preview — never auto-open HF Studio:**
+   - **VidMuse create/recut (default in this plugin):** `vidmuse serve "$WORK_DIR/dsl.json"` and hand that Timeline URL.
+   - **HyperFrames-only project with no VidMuse tracks:** optional lightweight player `npx hyperframes play --no-open`, then hand `http://localhost:<port>` if the user asked to watch the composition alone.
+   - **Do not** run `npx hyperframes preview` unless the user explicitly asks for HyperFrames Studio.
 7. **Render only after approval:** use draft quality for iteration and high quality for delivery.
 8. **Verify the output:** confirm the file exists, is non-empty, and has a plausible duration.
 
@@ -28,9 +31,19 @@ Run commands as `npx hyperframes ...` unless project instructions provide a wrap
 # Fast iteration check; repeat while authoring as needed.
 npx hyperframes lint
 
-# Required final gate; includes lint.
+# Required final gate; includes lint. Does NOT open Studio.
 npx hyperframes check
-npx hyperframes preview
+npx hyperframes snapshot --at <midpoints>
+
+# User-facing review in this plugin (default):
+vidmuse serve "$WORK_DIR/dsl.json"
+
+# ONLY if the user explicitly asked for HF composition-only playback:
+# npx hyperframes play --no-open
+
+# NEVER by default (conflicts with VidMuse Timeline):
+# npx hyperframes preview
+
 npx hyperframes render --quality high --output out.mp4
 test -s out.mp4
 ffprobe -v error -show_format out.mp4
@@ -38,14 +51,28 @@ ffprobe -v error -show_format out.mp4
 
 `check` runs lint first, then uses one browser session and one seek pass to audit runtime errors, failed requests, layout, `*.motion.json` assertions, and WCAG contrast. Persistent findings gate the exit code; transient entrance or exit findings are informational. Use `--strict` to gate warnings. `validate`, `inspect`, and `layout` remain aliases for compatibility but must not appear in new instructions or scripts.
 
-## Two different preview surfaces
+## Studio Preview is opt-in (hard rule in this plugin)
 
-Do not confuse these states:
+`npx hyperframes preview` starts the **official HyperFrames Studio** timeline editor and typically opens a browser. In VidMuse runs that surface **conflicts with VidMuse Timeline** (`vidmuse serve`).
 
-| Surface                   | When it may open                                       | Purpose                                                                           |
+| Rule | Behavior |
+| --- | --- |
+| Default | **Do not** start `hyperframes preview` at any gate, checkpoint, or handoff |
+| Agent picture verification | `lint` + `check` + `snapshot` (+ `keyframes` when motion is in doubt) |
+| User multi-track review | `vidmuse serve` only |
+| Composition-only watch (no Studio chrome) | `hyperframes play --no-open` |
+| HF Studio allowed | Only when the user explicitly asks for "Studio", "HyperFrames preview", or Studio selection context |
+
+If a previous agent left Studio running, stop it (`npx hyperframes preview --stop` or `--kill-all`) rather than handing its URL as the product preview.
+
+## Two different review surfaces (when Studio is explicitly requested)
+
+Do not confuse these states — and still do not open them unless the user asked for Studio:
+
+| Surface                   | When it may open (opt-in only)                         | Purpose                                                                           |
 | ------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------- |
-| Storyboard board          | Before composition checks, only when `storyboard: yes` | Review plan cards and wireframe sketches. Open `?view=storyboard#project/<name>`. |
-| Final composition preview | After `check` passes                                   | Review the assembled timeline before render. Open `#project/<name>`.              |
+| Storyboard board          | User asked for HF Studio + `storyboard: yes`           | Review plan cards and wireframe sketches. Open `?view=storyboard#project/<name>`. |
+| Final composition Studio  | User asked for HF Studio after `check` passes          | HF timeline editor. Open `#project/<name>`.                                       |
 
 The early board is not approval of the final video. Rendering always requires the final approval defined by `hyperframes-core/references/review-loop.md`.
 
@@ -73,17 +100,18 @@ Treat tiny unstyled content, canvas-sized icons, missing hero elements, or timel
 - Use `--strict`, `--strict-all`, and `--strict-variables` when the corresponding warnings, variables, or CI conditions must gate the render.
 - JSON paths redact the home directory as `$HOME`; do not try to reverse the redaction.
 - When a hosted cloud project approaches or exceeds the 200 MB upload limit, use `cloud render --dry-run --json` and follow the `.hyperframesignore` investigation in `references/cloud.md`. Never ignore an asset merely because it is large.
-- Never render merely because checks pass. Pause at the final preview and wait for approval.
+- Never render merely because checks pass. Pause at the user-facing review (`vidmuse serve` in this plugin) and wait for approval.
+- Never treat “checks passed” as a reason to launch `hyperframes preview`.
 
-## Studio-directed edits
+## Studio-directed edits (opt-in)
 
-When the user refers to “this element” or the current selection, query Studio instead of guessing:
+Only when the user is **already** in HyperFrames Studio, or explicitly asked to use Studio selection:
 
 ```bash
 npx hyperframes preview --context --json --context-fields selection
 ```
 
-Use `selection.target.hfId` when available, otherwise its selector and source file. If the result reports `no-selection`, ask the user to click the element and rerun. Request only the context slices you need; use `--context-detail full` only for computed styles or editable text metadata. Full behavior and failure codes live in `references/preview-render.md`.
+Do **not** start Studio just to enable this bridge. If Studio is not running, ask the user to point at the element in chat (selector / label / timestamp) or confirm they want Studio opened. Use `selection.target.hfId` when available, otherwise its selector and source file. If the result reports `no-selection` or `preview-not-running`, do not auto-boot Studio unless the user asked for it. Request only the context slices you need; use `--context-detail full` only for computed styles or editable text metadata. Full behavior and failure codes live in `references/preview-render.md`.
 
 ## Render choices
 

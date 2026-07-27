@@ -201,8 +201,11 @@ main and will refuse to run before one exists; that refusal is correct.
 
 Tell the user the Timeline URL. They should hear the **real** VO and see
 **ATA captions** scrub in sync **before** you spend tokens on hero
-graphics. A film that only exists as HF preview with no voice track is not
-ready for taste gates.
+graphics. A film that only exists as HF Studio/`preview` with no voice track
+is not ready for taste gates. **Never** auto-run `npx hyperframes preview`
+during create — it opens official Studio and conflicts with VidMuse Timeline.
+Picture verification stays on `lint` / `check` / `snapshot` / `keyframes`;
+user review stays on `vidmuse serve`.
 
 Record in `video-context.json`: `tts_model`, `alignment_model`, paths to
 `tts-response.json` / `alignment.json`, and `voice_spine: ok`.
@@ -393,6 +396,7 @@ pointing at a missing `input-video.mp4`.
 - [ ] generated-video / collage beats: plan had `target_duration_s` matched to
       ATA before spend; delivers cover those spans
 - [ ] `vidmuse serve` URL reported; `final.mp4` only after user approval path
+- [ ] **no** auto `npx hyperframes preview` / HF Studio during the run (opt-in only)
 
 ## Intent recipes (structure, not skins)
 

@@ -80,5 +80,6 @@ Use `hyperframes-cli` for command details
 
 - [ ] `npx hyperframes check` passes (0 findings across lint, runtime, layout, motion, and contrast)
 - [ ] Projects with sub-compositions: `npx hyperframes snapshot --at <midpoints>` and eyeball each frame
-- [ ] `npx hyperframes preview` for review (the user can edit anything in Studio's timeline)
+- [ ] User-facing review: **`vidmuse serve`** for VidMuse create/recut; optional `npx hyperframes play --no-open` for HF-only composition watch
+- [ ] **Do not** run `npx hyperframes preview` unless the user explicitly asks for HyperFrames Studio
 - [ ] `npx hyperframes render` only after the user approves

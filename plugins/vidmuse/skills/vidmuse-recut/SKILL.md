@@ -321,7 +321,7 @@ npx hyperframes snapshot public --at <slot-midpoints>   # eyeball each frame
 PRODUCER_BROWSER_GPU_MODE=hardware npx hyperframes render public -o output.mp4 --fps <fps>
 ```
 
-Use HyperFrames render for **craft evidence** (`motion-reel`, act drafts, optional `output.mp4` bake) after the applicable confirmation and motion gates pass. Do **not** treat HyperFrames studio as the user-facing packaging surface — that is VidMuse Timeline (`vidmuse serve`), where the user already scrubs **source + overlay + subtitles**. Snapshots remain agent verification tools.
+Use HyperFrames render for **craft evidence** (`motion-reel`, act drafts, optional `output.mp4` bake) after the applicable confirmation and motion gates pass. Do **not** treat HyperFrames Studio as the user-facing packaging surface — that is VidMuse Timeline (`vidmuse serve`), where the user already scrubs **source + overlay + subtitles**. **Never auto-run `npx hyperframes preview`** during recut gates, checks, or handoffs (conflicts with VidMuse Timeline); Studio is opt-in only if the user explicitly asks. Agent picture tools stay `lint` / `check` / `snapshot` / `keyframes`.
 
 ### 12. Evaluate
 

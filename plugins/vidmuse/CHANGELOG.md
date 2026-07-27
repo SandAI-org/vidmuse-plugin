@@ -6,6 +6,14 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.11 — 2026-07-27
+
+### Changed
+
+- **HF Studio Preview is opt-in** — default development / review loops no longer instruct agents to run `npx hyperframes preview`. Official Studio conflicts with VidMuse Timeline (`vidmuse serve`). User-facing review remains `vidmuse serve`; agent picture gates stay on `lint` / `check` / `snapshot` / `keyframes`; composition-only watch may use `hyperframes play --no-open`. Studio starts only when the user explicitly asks. Updated: `hyperframes-cli/SKILL.md`, `preview-render.md`, `hyperframes-core` review/production loops + validation checklist, `vidmuse-create` Gate C + evaluate checklist, `vidmuse-recut` skill + `pipeline.md`, registry examples.
+
+---
+
 ## 0.3.10 — 2026-07-24
 
 ### Added

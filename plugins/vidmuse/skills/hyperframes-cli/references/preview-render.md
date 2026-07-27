@@ -2,16 +2,30 @@
 
 Serve, render, and share commands.
 
+## VidMuse plugin default (read first)
+
+In this plugin, **do not auto-run `hyperframes preview`**. It opens official HyperFrames Studio and conflicts with VidMuse Timeline.
+
+| Intent | Command |
+| --- | --- |
+| User multi-track review (default) | `vidmuse serve "$WORK_DIR/dsl.json"` |
+| Agent verification | `lint` / `check` / `snapshot` / `keyframes` |
+| Composition-only player (no Studio) | `npx hyperframes play --no-open` |
+| Official Studio | **only** if the user explicitly asks; prefer `--no-open` |
+
 ## preview
 
 ```bash
-npx hyperframes preview                   # serve current directory
+npx hyperframes preview                   # serve current directory — OPT-IN ONLY
+npx hyperframes preview --no-open         # start Studio server without opening a browser
 npx hyperframes preview --port 4567       # custom port (default 3002)
+npx hyperframes preview --stop            # stop this project's background Studio
+npx hyperframes preview --kill-all        # stop every Studio preview server
 npx hyperframes preview --selection --json # print the current Studio selection and exit
 npx hyperframes preview --context --json  # print compact agent context from Studio
 ```
 
-Hot-reloads on file changes. Opens Studio in the browser automatically — the full timeline editor, where the user can play the video and edit anything by hand before rendering. This is the review surface, not just a viewer.
+Hot-reloads on file changes. Opens Studio in the browser automatically unless `--no-open` — the full timeline editor. **Not** the default user-facing review surface in VidMuse create/recut.
 
 When handing a project back to the user, use the Studio project URL, not the source `index.html` path:
 
@@ -57,7 +71,7 @@ Failure modes:
 
 | Code                       | Meaning                                                                    |
 | -------------------------- | -------------------------------------------------------------------------- |
-| `preview-not-running`      | Start Studio first with `npx hyperframes preview`.                         |
+| `preview-not-running`      | Studio is not running. Only start it if the user asked for Studio; otherwise use chat selectors or `vidmuse serve`. |
 | `ambiguous-preview-server` | Multiple matching Studio servers are open; rerun with one listed `--port`. |
 | `preview-port-mismatch`    | The requested `--port` is not one of the matching Studio servers.          |
 | `no-selection`             | Studio is open, but the user has not selected an element yet.              |
@@ -68,12 +82,13 @@ If there is no selection, ask the user to click the target element in Studio and
 ## play (lightweight player)
 
 ```bash
+npx hyperframes play --no-open        # preferred: serve without auto-opening a browser
 npx hyperframes play                  # current project, port 3003
 npx hyperframes play ./my-video       # specific project
 npx hyperframes play --port 8080      # custom port
 ```
 
-`play` serves the composition through the embeddable `<hyperframes-player>` web component instead of the full Studio UI. Use it when sharing a preview link or when Studio is heavier than needed (no editor, no panels). `play` reports the plain `http://localhost:<port>` URL — no `#project/<name>` fragment (that's a Studio routing convention only `preview` uses).
+`play` serves the composition through the embeddable `<hyperframes-player>` web component instead of the full Studio UI. Prefer this over `preview` when you only need to watch the HTML composition and the user did not ask for Studio. For VidMuse multi-track review (VO + BGM + captions + packaging), still use `vidmuse serve` instead. `play` reports the plain `http://localhost:<port>` URL — no `#project/<name>` fragment (that's a Studio routing convention only `preview` uses).
 
 The player's `playback-rate` attribute (preview speed control, drives the timeline's `timeScale`) is clamped to `[0.1, 5]`; values `≤ 0` or non-finite fall back to `1`. This is a preview/playback knob, not a composition `data-*` attribute — authored motion still renders at `1×`.
 
@@ -99,7 +114,7 @@ Validation runs before any server boots, so an invalid value exits cleanly witho
 
 ## render
 
-> Render only after the user has reviewed in `preview` and approved. Don't auto-render when the checks pass.
+> Render only after the user has reviewed on the **user-facing surface** (`vidmuse serve` in this plugin, or `play` / explicit Studio on request) and approved. Don't auto-render when the checks pass. Don't launch Studio as a side effect of reaching render.
 
 ```bash
 npx hyperframes render                                # standard MP4 from cwd
