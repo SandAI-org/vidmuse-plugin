@@ -38,6 +38,9 @@ CONTRACT_BANNER = """\
             add screensaver drift to pass checks.
          5. Reveal on the cue: content named by a vo_cue should change state
             within ±0.3s of that cue time (check_motion samples the render).
+         6. Pixel-precise UI/image overlays use the alignment contract:
+            target + overlay inside one data-vm-align-space; animate that
+            shared wrapper, not either child. check_motion S5 enforces it.
          ───────────────────────────────────────────────────────────────────── */
 """
 
@@ -80,10 +83,16 @@ def render(plan: dict[str, Any]) -> str:
                 "\n        <!-- ASSETS (from capture inventory): "
                 + ", ".join(beat["asset_candidates"]) + " -->"
             )
+        alignment_note = ""
+        if beat.get("ui_proof_path") in ("screenshot-camera", "hybrid-slices"):
+            alignment_note = (
+                "\n        <!-- ALIGNMENT REQUIRED: wrap real UI + precise overlays in one "
+                "data-vm-align-space; see references/alignment-contract.md -->"
+            )
         sections.append(
             f"""      <section id="{bid}" class="beat" data-beat="{bid}"
         data-start="{_fmt(start)}" data-duration="{_fmt(span)}" data-track-index="{idx + 1}">
-        <!-- {beat['path_role']} · {beat['visual_kind']} · {beat.get('key_message', '')} -->{hero_note}{asset_note}
+        <!-- {beat['path_role']} · {beat['visual_kind']} · {beat.get('key_message', '')} -->{hero_note}{asset_note}{alignment_note}
         <!-- FILL: static hero layout first (fully entered, readable), then animate INTO it -->
       </section>"""
         )

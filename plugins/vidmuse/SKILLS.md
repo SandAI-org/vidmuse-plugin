@@ -11,7 +11,7 @@ Do **not** install or invoke HyperFrames `talking-head-recut` from this plugin �
 | Skill | Role |
 | --- | --- |
 | `vidmuse-recut` | **Product router** + editor/director for existing talking-head / interview / podcast / product-explainer footage |
-| `vidmuse-create` | Films **without** source footage: knowledge explainers / promos / **Vox paper-collage** B-roll & explainers. **Hard voice spine:** `vidmuse` TTS → ATA → `transcript.json`. Path-routed anti-PPT craft (`path-routing` SSOT: shot_sequence + hero throughline + audio_delivery + UI proof path + fails 1–12; **Vox frozen** / **recut untouched**) + promo-recipes + shot-cards + **`vidmuse-motion`**; HyperFrames/GSAP + Timeline delivery |
+| `vidmuse-create` | Films **without** source footage: knowledge explainers / promos / **Vox paper-collage** B-roll & explainers. **Hard voice spine:** `vidmuse` TTS → ATA → `transcript.json`. Path-routed anti-PPT craft (`path-routing` SSOT: shot_sequence + hero throughline + audio_delivery + UI proof path + machine-gated semantic alignment; **Vox frozen** / **recut untouched**) + promo-recipes + shot-cards + **`vidmuse-motion`**; HyperFrames/GSAP + Timeline delivery |
 | `vidmuse-motion` | **Dependency skill** — semantic motion recipes → HyperFrames/GSAP native compose when Registry has no block (KPI/bars/sparkline/stat cards). Not a product router. `scripts/motion_recipes.py` + gold `examples/dataviz-semantic/` |
 
 ## HyperFrames core (vendored from heygen-com/hyperframes `skills/`)

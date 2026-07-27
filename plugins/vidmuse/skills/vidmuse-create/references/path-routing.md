@@ -92,7 +92,8 @@ After voice spine + grounding, before HTML:
    then implement **HyperFrames/GSAP** by filling the scaffold (not a second
    Stage runtime); deliver on VidMuse Timeline (not HF MP4-only).
 8. After render, `check_motion.py` must be green (hard fail 13) before any
-   finished claim.
+   finished claim. Promo proof additionally runs S5 semantic alignment from
+   [alignment-contract.md](alignment-contract.md).
 
 Thin process gate (non-Vox, non-stub): after user confirms film plan (or
 autonomous heads-up), write `$WORK_DIR/direction-approved.md` with path,
@@ -152,7 +153,7 @@ Fail the film plan or craft pass if any:
 10. **Hero throughline (standard explainer):** body has ≥4 beats and no film-level `hero_throughline` (and no written montage/listicle exception — same waiver as the film-level field), **or** every body beat introduces a brand-new centered hero with zero continuity from the previous beat.
 11. **Audio delivery (non-stub):** finished claim without `audio_delivery` where `vo` matches reality and `bgm` is either a real Timeline/music path **or** explicit `none` with user/plan reason — silent full-film BGM default is not allowed to “forget music.”
 12. **Promo UI path:** a proof beat claims product UI but uses `full-html-rebuild` / generated chrome when `screenshot-camera` or `hybrid-slices` was viable (reachable URL or supplied screenshots).
-13. **Execution trace (machine-gated):** `film-plan.json` missing/unresolved, scaffold window labels dropped from the shipped HTML, or `check_motion.py` not green on the delivered render — see Execution trace below. Prose self-audit (“1–12 clean” written in the plan) does **not** substitute for this gate; 13 is checked by script, on the artifact, after render.
+13. **Execution trace (machine-gated):** `film-plan.json` missing/unresolved, scaffold window labels dropped from the shipped HTML, `check_motion.py` not green on the delivered render, or promo precision overlays violate the shared-space/normalized-anchor contract — see Execution trace and [alignment-contract.md](alignment-contract.md). Prose self-audit (“1–12 clean” written in the plan) does **not** substitute for this gate; 13 is checked by script, on the artifact, after render.
 
 **Vox ignores the entire list.** Light stubs (SKILL light path) ignore when labeled stub.
 
@@ -205,7 +206,10 @@ and nothing used to force them to reconcile. This section makes the approved
    ```
 
    Static: sections per beat, labels survived + used, `ui_proof_path` beats
-   reference a real capture from `asset-sources.json`, hero selector coverage.
+   reference a real capture from `asset-sources.json`, hero selector coverage,
+   and S5 alignment (proof beat has a shared transform space; every declared
+   anchor resolves, uses normalized raster geometry, and does not move
+   independently from its target).
    Rendered (frame sampling): no ≥1.5s freeze inside a non-hold window, and a
    measurable state change lands on each `vo_cue` (ambient drift does not
    count). Exit non-zero = hard fail 13 = not deliverable; fix the animation
@@ -321,6 +325,7 @@ User may say `shot-cards off` to force closed (blueprint/compose still required 
 - [ ] `hero_throughline` set when explainer requires it
 - [ ] `audio_delivery` decided (VO + BGM path or `none`)
 - [ ] Promo proof beats have `ui_proof_path` + real capture when URL exists
+- [ ] Promo precision overlays follow `alignment-contract.md`; S5 green
 - [ ] `direction-approved.md` present (non-stub)
 - [ ] Shot-card open/close followed deck policy (this file)
 - [ ] FRAME seeded (preset and/or brand tokens)

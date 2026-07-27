@@ -99,6 +99,12 @@ from delivery/archive.
 recognize its world in a muted frame? A full capture makes "yes" cheap —
 use real art in the cards, real UI in the proof, real fonts in the type.
 
+For pixel-precise overlays on a captured screenshot, preserve its native
+width/height as a `data-vm-align-space` and follow
+[alignment-contract.md](alignment-contract.md). Do not place the screenshot
+with `object-fit` in one coordinate system and hand-position its frame/cursor
+in another.
+
 ## 5. Anti-patterns
 
 - Running capture and then still building beats from invented glass-card

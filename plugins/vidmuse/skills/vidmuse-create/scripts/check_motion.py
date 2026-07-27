@@ -10,6 +10,8 @@ Static (index.html vs film-plan.resolved.json)
       used as a tween position at least once)
   S3  ui_proof_path beats reference a real-capture file from asset-sources.json
   S4  hero_throughline selector appears in enough beat sections
+  S5  precise UI/image overlays share a declared transform space with their
+      target and use normalized raster geometry
 
 Rendered (frame sampling of the actual video via ffmpeg)
   R1  freeze: no >=1.5s still span inside a non-hold window (and no fully
@@ -37,6 +39,8 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import Any
+
+from alignment_contract import evaluate_alignment
 
 RESOLVED_NAME = "film-plan.resolved.json"
 
@@ -175,10 +179,12 @@ def run_static(gate: Gate, work: Path, html_path: Path, plan: dict[str, Any]) ->
                      if not ok else f"{uses} reference(s)")
 
     captures = capture_basenames(work)
+    proof_beats: list[str] = []
     for beat in beats:
         proof = beat.get("ui_proof_path")
         if proof not in ("screenshot-camera", "hybrid-slices"):
             continue
+        proof_beats.append(beat["id"])
         section = slices.get(beat["id"], "")
         used = [n for n in captures if n in section]
         gate.add(
@@ -198,6 +204,9 @@ def run_static(gate: Gate, work: Path, html_path: Path, plan: dict[str, Any]) ->
             f"'{selector}' found in {len(present)}/{len(beats)} beats "
             f"(need >= {need}): {present}",
         )
+
+    for check in evaluate_alignment(html, proof_beats):
+        gate.add(check["id"], check["ok"], check["where"], check["detail"])
 
 
 # ── rendered checks ─────────────────────────────────────────────────────────

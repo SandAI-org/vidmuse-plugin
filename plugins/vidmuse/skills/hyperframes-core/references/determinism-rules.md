@@ -60,6 +60,12 @@ Build the visible end-state in static HTML and CSS first, then animate from/to t
 - **Do not** use `<br>` in body text. Forced breaks ignore the actual rendered font width and produce an extra break when the line already wraps naturally, causing overlap. Let text wrap via `max-width`. Exception: short display titles where each word is deliberately on its own line.
 - **Transformed elements must be block-level + sized.** `transform`/`scaleX`/`scaleY` is a no-op on an inline `<span>`, and scaling an auto-width (0px) element shows nothing → invisible bars/fills. Give them `display: block`/`inline-block`/flex-item **and** a real `width`/`height` (e.g. `width: 100%` inside a sized parent). _(Silent — automated gates may miss it.)_
 - **Absolutely-positioned decoratives that pulse or overshoot** (`yoyo` scale, `back.out`) need clearance at their **peak** size and must not straddle an `overflow: hidden` edge — else they overlap a neighbor or get clipped. Position for the largest frame, not the resting one. _(silent.)_
+- **Elements that must remain aligned need one transform space.** Put the
+  target and its frame/reticle/cursor/callout under the same positioned
+  wrapper and animate that wrapper. Do not animate a raster/card and
+  independently hand-tune a sibling overlay. For VidMuse Create promo proof,
+  use `vidmuse-create/references/alignment-contract.md`; `check_motion.py` S5
+  enforces the declared relationship.
 
 ## Why This Matters
 

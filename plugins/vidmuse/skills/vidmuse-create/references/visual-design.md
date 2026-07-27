@@ -97,6 +97,10 @@ Invented hero fills **~40–60%** of frame. Not a postage stamp in empty dark.
 - Proof beats: real screenshots / device chrome around **real** UI when URL exists.
 - Capture early; put paths in work dir; reference in `on_screen`.
 - Set `ui_proof_path` (`screenshot-camera` default) per path-routing.
+- Before adding a tight frame, cursor, callout, or label tied to the UI, read
+  [alignment-contract.md](alignment-contract.md). Put capture + precision
+  overlays in one `data-vm-align-space`; animate that shared parent. Use
+  screen-space overlays only when they are intentionally independent.
 - Fake generated dashboards as sole proof → hard fails 5 + 12.
 
 ## Cover test + density
@@ -146,4 +150,6 @@ Before pretty HTML:
 - [ ] Blueprint / shot_ref / compose named; Adapt keeps signature move
 - [ ] Moves named from motion-language (not raw ms recipes in the plan)
 - [ ] Promo proof includes real-ui + `ui_proof_path` where required
+- [ ] Precision overlays use the semantic alignment contract; no duplicated
+      capture-space pixel coordinates
 - [ ] Stillness holds allocated; not every beat busy

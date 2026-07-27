@@ -1,31 +1,25 @@
 ---
 name: vidmuse-create
 description: >
-  Create a designed motion film when there is NO recording of a person speaking.
-  Sibling of /vidmuse-recut (which owns existing speaking footage). Use for
-  "make an explainer / knowledge video about X from a script or topic",
-  "website or product promo from a URL with no talking-head clip", narrated
-  script+TTS films, generated-media films via `vidmuse model run`, and
-  Vox-style / editorial paper-collage / halftone 拼贴 B-roll (or full collage
-  explainers) via recipe vox-collage-* and references/vox-collage.md. Trigger
-  only when material must be made (script, site, generated media, collage
-  plates) — not when the user already has speech video to package. HARD
-  REQUIREMENT: narration-led films MUST use VidMuse CLI TTS (`vidmuse model run`)
-  then `doubao_speech/audio_text_alignment` for word-level transcript.json —
-  never guess timestamps, use OS/browser TTS, or ship silent slide-deck HTML.
-  Anti-PPT (non-Vox): path-routed craft stack — story-design + time-coded
-  shot_sequence paced to ATA cues + hero throughline + cover density + blueprints;
-  execution machine-gated: film-plan.json → shot_scaffold.py GSAP skeleton →
-  check_motion.py render gate (freeze + cue-event + UI-proof checks, hard fail 13);
-  BGM/SFX delivery decision required; promo UI prefers real-capture camera path.
-  Vox/paper-collage stays on references/vox-collage.md only (non-Vox hard-fails
-  off). Sources assets via the shared ladder (user > real > AI). Hand off to
-  /vidmuse-recut if speaking footage appears. Shares recut taste stack; does not
-  change recut. Not a slideshow generator.
-compatibility: Same host as vidmuse-recut — Node.js 22+, ffmpeg/ffprobe, Python 3, `vidmuse` on PATH (login required for model/TTS/ATA), HyperFrames CLI via `npx hyperframes`. Depends on sibling skill vidmuse-recut (shares references and scripts).
+  Create a designed motion film when no recording of a person speaking exists.
+  Use for knowledge explainers from text, website/product promos from a URL,
+  narrated script+TTS films, generated media via `vidmuse model run`, and
+  Vox-style paper-collage or halftone 拼贴 B-roll/explainers. Route existing
+  speaking footage to /vidmuse-recut. Narration-led films must use VidMuse CLI
+  TTS then `doubao_speech/audio_text_alignment`; never guess timestamps or use
+  OS/browser TTS. Non-Vox anti-PPT execution is path-routed and machine-gated:
+  ATA-paced shot_sequence, hero throughline, real UI proof, audio decision,
+  film-plan.json → shot_scaffold.py → check_motion.py for freeze, cue, proof,
+  and semantic-alignment checks. Vox uses references/vox-collage.md only.
+  Source assets by user → real → AI and deliver through VidMuse Timeline.
+  Not a slideshow generator.
 ---
 
 # VidMuse Create
+
+Runtime: Node.js 22+, ffmpeg/ffprobe, Python 3, `vidmuse` on PATH (login
+required for model/TTS/ATA), and HyperFrames CLI via `npx hyperframes`.
+Depends on sibling skill `vidmuse-recut` for shared references and scripts.
 
 Direct a film into existence when there is no source footage: knowledge
 explainers, website and product promos, script-driven narrated pieces. This
@@ -128,6 +122,7 @@ delivery are **the same system**:
 | non-Vox story craft | [story-design-explainer.md](references/story-design-explainer.md) · [story-design-promo.md](references/story-design-promo.md) |
 | non-Vox shot sequence + motion | [visual-design.md](references/visual-design.md) · [motion-language.md](references/motion-language.md) · [cut-catalog.md](references/cut-catalog.md) |
 | promo/UI shot priors (curated) | [references/shot-cards/README.md](references/shot-cards/README.md) · `scripts/shot_cards.py` |
+| precise UI/image overlay alignment | [references/alignment-contract.md](references/alignment-contract.md) — shared transform space + normalized anchors; `check_motion.py` S5 |
 | semantic HF compose (Registry miss) | sibling **`/vidmuse-motion`** — `../vidmuse-motion/SKILL.md` · `motion_recipes.py` |
 | proven shot shapes (menu) | `../hyperframes-animation/blueprints-index.md` + `blueprints/<id>.md` |
 | frame preset seeds (optional skin start) | `../hyperframes-creative/frame-presets/` |
@@ -416,6 +411,11 @@ quiet caption-led explainer into sizzle):
 7. **Html-in-canvas / device mock / liquid glass:** at most one signature
    complex when the brief earns it (real product UI as texture preferred);
    `production_cost: very-high` mind-set — not wallpaper.
+8. **Precision overlays share coordinates.** For UI/image frames, reticles,
+   callouts, cursors, or underlines that must track a target, read
+   [alignment-contract.md](references/alignment-contract.md). Put the target
+   and overlay in one `data-vm-align-space`, use normalized raster boxes, and
+   animate the shared parent. Never tune two absolute coordinate sets.
 
 **Timeline main track (create):** no talking-head plate by default. Prefer
 program bed (`public/program.mp4` / HF bake) as main when ready; packaging
@@ -437,6 +437,8 @@ pointing at a missing `input-video.mp4`.
 - [ ] **non-Vox:** `hero_throughline` + `direction-approved.md` + `audio_delivery`
 - [ ] **non-Vox:** not PPT-shaped (mixed `visual_kind`; quiet passages if explainer)
 - [ ] **promo:** ≥1 real-capture proof; proof beats name `ui_proof_path`
+- [ ] **promo UI/image precision overlays:** `check_motion.py` S5 alignment
+      contract green; no target/overlay transform-space drift
 - [ ] **vox:** duration discipline only (vox-collage); no forced shot_sequence /
       hero / non-Vox audio contract
 - [ ] FRAME Taste Gate filled with counts where required

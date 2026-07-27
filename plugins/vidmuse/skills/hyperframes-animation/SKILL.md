@@ -65,6 +65,10 @@ Animation-craft additions on top of core's contract:
 
 - **Pre-calculated layout constants** — never derive positions from `getBoundingClientRect()` at tween time. Tween-time DOM measurements desync because the renderer samples in parallel; compute coordinates once at composition setup and reuse.
 - **Spatial motion uses GSAP transform aliases only** (`x`, `y`, `scale`, `rotation`). Core's allowlist also permits `opacity` / `color` / `backgroundColor` / `borderRadius` for non-spatial property tweens — but never `width` / `height` / `top` / `left` for layout changes.
+- **Aligned elements share one animated ancestor** — when an overlay must stay
+  attached to a target, put both in one transform space and tween that parent.
+  Separate “matching” tweens or duplicated absolute coordinates are not a
+  coupling contract and will drift.
 
 ## Scripts
 

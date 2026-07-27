@@ -6,6 +6,33 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.14 — 2026-07-27
+
+### Added
+
+- **Semantic alignment contract for precise product/UI overlays** — new
+  `vidmuse-create/references/alignment-contract.md` separates content-space
+  overlays from screen-space chrome. Capture, reticle, cursor, frame, and
+  callout must share one `data-vm-align-space`; raster sub-regions use
+  normalized percentage geometry instead of a second set of pixel
+  coordinates; camera motion targets the shared parent.
+- **`check_motion.py` S5 alignment gate** — promo
+  `screenshot-camera`/`hybrid-slices` proof beats now require an alignment
+  space. Declared anchors must resolve to a local target in the same transform
+  space, raster spaces must preserve native dimensions, percentage boxes must
+  stay inside the source, and direct spatial tweens on target/anchor fail
+  unless they carry a written local-motion exception.
+
+### Changed
+
+- `shot_scaffold.py` now prints the alignment requirement into every promo UI
+  proof section.
+- `vidmuse-create`, visual design, site capture, path routing, HyperFrames core,
+  and animation guidance now use the same “one animated ancestor” rule.
+- Plugin version bumped to 0.3.14.
+
+---
+
 ## 0.3.13 — 2026-07-27
 
 ### Fixed
