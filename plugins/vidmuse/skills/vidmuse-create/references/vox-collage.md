@@ -67,23 +67,27 @@ color_field · motion_mode · motion_phases (for long beats)
 
 ---
 
-## `generation_type` (API route — required when the model is multi-mode)
+## `generation_type` (API route — **required for all video**, optional for audio)
 
 From live `vidmuse model list` → each model’s `options.required_params` keys
 **are** the valid `generation_type` values for that model. Pass one explicitly
-in `--param` JSON or the API returns 400 (Aion missing route).
+in `--param` JSON or a video call returns 400 (Aion missing route).
 
-### Values seen on the current menu
+### Values on the current menu
 
-| `generation_type` | used for |
-| --- | --- |
-| `text_to_image` | t2i stills |
-| `image_to_image` | edit / ref stills |
-| `text_to_video` | t2v (e.g. `seedance-2.0-pro-t2v`) |
-| `image_to_video` | single-image i2v |
-| `images_to_video` | multi-image video (e.g. first+last assemble when supported) |
-| `reference_to_video` | ref-to-video |
-| `avatar` | avatar / talking-head generators |
+| Category | `generation_type` | Primary input |
+| --- | --- | --- |
+| Image | `text_to_image` | `prompt` |
+| Image | `image_to_image` | `prompt`, `image_urls` (edit / ref stills) |
+| Video | `text_to_video` | `prompt` (e.g. `seedance-2.0-pro-t2v`) |
+| Video | `image_to_video` | `prompt`, one `image_urls` item |
+| Video | `images_to_video` | `prompt`, multiple `image_urls` items |
+| Video | `reference_to_video` | `prompt`, `elements` |
+| Video | `avatar` | `image_urls`, `audio_url` (no `prompt`) |
+| Audio | `text_to_audio` | `prompt` |
+| Audio | `text_to_music` | `prompt` |
+| Audio | `text_to_speech` | `prompt`, usually `voice_id` |
+| Audio | `sound_effect` | `prompt` |
 
 **Always re-read the chosen model’s `required_params` after `model list`** —
 ids and modes move. Do not invent types that are not keys on that model.
@@ -105,10 +109,14 @@ Single-mode endpoints still accept the obvious type (e.g. t2v-only model →
 
 ### Audio / ATA on current menu
 
-Voice and `doubao_speech/audio_text_alignment` currently show **empty**
-`required_params` in list JSON. For collage film still run them through the
-create voice spine; if a call 400s asking for a type, pass what the error
-names — don’t block planning on invented teal audio types.
+`generation_type` is **optional** for audio — but the four audio routes above
+(`text_to_audio`, `text_to_music`, `text_to_speech`, `sound_effect`) are real,
+documented values. Pass `text_to_speech` for voice and `sound_effect` for SFX
+rather than waiting for a 400 to name them.
+
+Voice and `doubao_speech/audio_text_alignment` often show **empty**
+`required_params` in list JSON — that reflects the field being optional there,
+not invalid. For collage film still run them through the create voice spine.
 
 ### Other frequent param keys (not generation_type)
 

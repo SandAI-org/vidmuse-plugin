@@ -171,10 +171,16 @@ vidmuse model run -o json --param "$(python3 -c '
 import json, sys
 print(json.dumps({
     "model_name": sys.argv[1],
+    "generation_type": "text_to_speech",
     "prompt": open(sys.argv[2]).read().strip(),
 }, ensure_ascii=False))' "<tts-model-id-from-list>" "$WORK_DIR/transcript-source.txt")" \
   > "$WORK_DIR/tts-response.json"
 ```
+
+`generation_type` is optional for audio but pass it anyway — a voice model that
+also exposes other audio modes needs the route disambiguated. Add `voice_id`
+when the chosen model lists it. Drop the key only if that model's
+`required_params` has no `text_to_speech` entry.
 
 Decode/write the audio payload to `$WORK_DIR/narration.mp3` and
 `cp`/`ln -sf` to `$WORK_DIR/audio.mp3`. If the response shape is unclear,
@@ -526,7 +532,9 @@ Triggers: `Vox style`, `纸拼贴`, `halftone collage`, `collage b-roll`,
 5. V1 metaphor (with duration) → V2 still → V3 motion at planned length.
 6. `vidmuse model run`: set `generation_type` from that model's live
    `required_params` keys (`text_to_image`, `image_to_video`,
-   `images_to_video`, …). See catalog table in `vox-collage.md`.
+   `images_to_video`, …). **Required on every video request** — omitting it
+   400s; optional for audio, but still pass `text_to_speech` / `sound_effect`
+   on multi-mode audio models. Full route table in `vox-collage.md`.
 7. Optional `scripts/collage_frames.py` for ffmpeg only. Not Anti-collage
    (Registry dump ban).
 8. Voice + Timeline spine still run (Gates A–C).

@@ -6,6 +6,16 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.13 — 2026-07-27
+
+### Fixed
+
+- **`generation_type` route table corrected against the API docs** — the rule is **required for every video request, optional for audio**, not "required when the model is multi-mode" as both references previously framed it. Full table now recorded with primary inputs in `vidmuse-recut/references/asset-sourcing.md` and `vidmuse-create/references/vox-collage.md`: video `text_to_video` · `image_to_video` · `images_to_video` · `reference_to_video` · `avatar`; audio `text_to_audio` · `text_to_music` · `text_to_speech` · `sound_effect`; stills `text_to_image` / `image_to_image`. Also records that `avatar` takes `image_urls` + `audio_url` and no `prompt`, and that `text_to_speech` usually needs `voice_id`.
+- **Audio routes are no longer described as invented** — `vox-collage.md` previously told agents that voice/ATA entries expose no audio type and to "not block on invented audio types", waiting for a 400 to name one. The four audio routes are real documented values, so that guidance actively steered agents away from passing a valid `text_to_speech`. Empty `required_params` in `model list` means the field is *optional* there, not invalid.
+- **TTS call site now passes the route** — the Gate B `vidmuse model run` TTS example in `vidmuse-create/SKILL.md` sets `"generation_type": "text_to_speech"` (optional for audio, but needed to disambiguate a voice model that also exposes other audio modes) and notes `voice_id`. The two `doubao_speech/audio_text_alignment` calls are intentionally left without the field — ATA is not one of the documented routes and reports empty `required_params`.
+
+---
+
 ## 0.3.12 — 2026-07-27
 
 ### Fixed

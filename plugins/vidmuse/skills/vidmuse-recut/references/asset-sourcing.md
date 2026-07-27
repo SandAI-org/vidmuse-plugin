@@ -39,27 +39,41 @@ List what is actually available before promising anything — the menu evolves:
 
 ```bash
 vidmuse model list -o json   # image / video / audio / avatar + per-model options
-vidmuse model run -o json --param '<JSON: model_name, generation_type?, …>'
+vidmuse model run -o json --param '<JSON: model_name, generation_type, …>'
 ```
 
 ### `generation_type`
 
-API route field. On multi-mode models, omit it and the call **400**s.
+API route field. **Required for every video request; optional for audio.** Omit
+it on a video call and the request **400**s (Aion missing route). Always pass it
+on multi-mode models regardless of category.
 
 Valid values for a model = the keys of that model's
-`options.required_params` from `model list` (not a global free string).
-Currently on the menu those keys include:
+`options.required_params` from `model list` (not a global free string). The full
+route table:
 
-| generation_type | role |
-| --- | --- |
-| `text_to_image` / `image_to_image` | stills |
-| `text_to_video` / `image_to_video` / `images_to_video` / `reference_to_video` | video |
-| `avatar` | presenter generators |
+| Category | `generation_type` | Primary input |
+| --- | --- | --- |
+| Video | `text_to_video` | `prompt` |
+| Video | `image_to_video` | `prompt`, one `image_urls` item |
+| Video | `images_to_video` | `prompt`, multiple `image_urls` items |
+| Video | `reference_to_video` | `prompt`, `elements` |
+| Video | `avatar` | `image_urls`, `audio_url` (no `prompt`) |
+| Audio | `text_to_audio` | `prompt` |
+| Audio | `text_to_music` | `prompt` |
+| Audio | `text_to_speech` | `prompt`, usually `voice_id` |
+| Audio | `sound_effect` | `prompt` |
+
+Stills use `text_to_image` / `image_to_image` (same rule: match the model's
+`required_params` keys).
 
 Examples: `gpt-image-2` → t2i | i2i; `seedance-2.0-pro` → i2v | images2v |
-ref2v (t2v is separate id `seedance-2.0-pro-t2v`). Voice/ATA entries often
-have empty `required_params` — no fictitious audio type; add only if the
-API error asks.
+ref2v (t2v is separate id `seedance-2.0-pro-t2v`).
+
+**Audio note:** the four audio routes above are real, documented values — pass
+`text_to_speech` for voice and `sound_effect` for SFX rather than waiting for a
+400 to name them. Many voice/ATA entries still report empty `required_params` in
+`model list`; that makes the field optional there, not invalid.
 
 Other common body fields (per `supported_params`): `prompt`, `image_urls`,
 `duration`, `aspect_ratio`, `resolution`, `generate_audio`, `elements`,
