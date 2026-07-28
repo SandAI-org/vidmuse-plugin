@@ -42,6 +42,10 @@ vidmuse model list -o json   # image / video / audio / avatar + per-model option
 vidmuse model run -o json --param '<JSON: model_name, generation_type, …>'
 ```
 
+CLI mechanics — implicit upload of local media paths, `voice_id` lookup via
+`vidmuse voice`, `asset generation-params` to ground a request body, and the ASR
+call shape — are in [`vidmuse-cli.md`](vidmuse-cli.md).
+
 ### `generation_type`
 
 API route field. **Required for every video request; optional for audio.** Omit
@@ -74,6 +78,12 @@ ref2v (t2v is separate id `seedance-2.0-pro-t2v`).
 `text_to_speech` for voice and `sound_effect` for SFX rather than waiting for a
 400 to name them. Many voice/ATA entries still report empty `required_params` in
 `model list`; that makes the field optional there, not invalid.
+
+**`voice_id`:** query it, never invent it or ask the user for a raw ID —
+`vidmuse voice list --model <ttsModel> --language zh --gender female -o json`
+(also `voice search -q`, `voice get`). Voice availability is per model, so
+filter by `--model` once the TTS model is chosen. See
+[`vidmuse-cli.md`](vidmuse-cli.md).
 
 Other common body fields (per `supported_params`): `prompt`, `image_urls`,
 `duration`, `aspect_ratio`, `resolution`, `generate_audio`, `elements`,

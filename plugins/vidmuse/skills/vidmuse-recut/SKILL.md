@@ -134,7 +134,36 @@ Create the work directory (`videos/<basename>/`), then probe and extract per [re
 
 ### 2. Align the transcript
 
-No local ASR. The user provides the video's spoken text (subtitles or script) — `BRIEF.md` may already carry it; otherwise ask for it before continuing. Save it to `$WORK_DIR/transcript-source.txt`, then align it to the extracted audio with the VidMuse CLI (model `doubao_speech/audio_text_alignment`; `prompt` = the text, `files` = the audio path):
+Two steps, and they are separate concerns: **get the text**, then **align it**. Alignment is always `doubao_speech/audio_text_alignment` (ATA) — that never changes. Only the source of the text varies:
+
+| Text source | When | Cost |
+| --- | --- | --- |
+| User-provided (subtitles / script / `BRIEF.md`) | Available — still the **preferred** path | Free, and it is the words the user actually intends |
+| Cloud ASR (`vidmuse model run` `sub_model_type=asr`) | No text available — run it automatically, do not ask first | One extra call; surface the text for correction without blocking on it |
+
+**No transcript is not a blocker — never stop and ask for one.** When the user supplies no text, run ASR then ATA automatically and keep going. A packaging run should reach the Timeline from nothing but a video file.
+
+```bash
+# Text source B — cloud ASR. One local audio/video file.
+# No model_name, no prompt. stdout is {"text":"..."}.
+vidmuse model run -o json --param "$(python3 -c '
+import json, sys
+print(json.dumps({
+    "files": [sys.argv[1]],
+    "extra_params": {"sub_model_type": "asr"},
+}, ensure_ascii=False))' "$WORK_DIR/audio.mp3")" > "$WORK_DIR/asr.json"
+
+python3 -c 'import json,sys; sys.stdout.write(json.load(open(sys.argv[1]))["text"])' \
+  "$WORK_DIR/asr.json" > "$WORK_DIR/transcript-source.txt"
+```
+
+ASR gives **text only — no usable timings.** It never replaces ATA; it only fills the `prompt` that ATA needs, which is why the two always run as a pair.
+
+**Show the recognized text to the user alongside the Timeline hand-off, and say it came from ASR.** Do not block on their reply — proceed to alignment. ASR misreads proper nouns, product names, and numbers, and ATA will faithfully align a wrong word, so the error would otherwise reach captions and every packaging point silently. If they correct anything, fix `transcript-source.txt` and re-run the alignment (never hand-edit timestamps).
+
+If the ASR call errors, fall back to asking the user for the text — do not retry in a loop. Call shape and URL-input rules are in [references/vidmuse-cli.md](references/vidmuse-cli.md).
+
+Either way you end up with `$WORK_DIR/transcript-source.txt`. Align it to the extracted audio with the VidMuse CLI (model `doubao_speech/audio_text_alignment`; `prompt` = the text, `files` = the audio path):
 
 ```bash
 vidmuse model run -o json --param "$(python3 -c '

@@ -40,7 +40,14 @@ bash ~/.claude/skills/vidmuse-recut/scripts/setup.sh
 随包 `assets/vendor/vidmuse-cli` 在全局没有 `vidmuse` 时拷进 `/usr/local/bin` 或 `~/.local/bin`。  
 不要安装或调用官方 `talking-head-recut`。
 
-环境就绪后，对 Claude 说"帮我包装这个视频 xxx.mp4"并附上视频的口播文本（字幕/文案）即可触发。本 skill 不做本地语音识别：口播文本由你提供，skill 用 `doubao_speech/audio_text_alignment` 把它对齐到音频，得到词级时间轴。
+环境就绪后，对 Claude 说"帮我包装这个视频 xxx.mp4"即可触发。
+
+口播文本有两条来源，对齐方式不变（都用 `doubao_speech/audio_text_alignment` 对齐到音频，得到词级时间轴）：
+
+- **你提供字幕/文案（推荐）** —— 这是你真正想说的词，专有名词和数字都准。
+- **没有文本** —— 自动走云端 ASR（`vidmuse model run` + `sub_model_type=asr`）识别，再对齐。**只给一个视频文件也能直接开工**，不用先准备字幕。不做本地语音识别，识别在云端完成。
+
+ASR 出的文字会标明来源给你看一眼：机器识别容易错专有名词、产品名和数字，而对齐会把错词也对得很准，不改就会一路带到字幕和每个包装点。发现错字告诉 Claude，改文本重新对齐即可（不要手改时间戳）。
 
 ## 审美入口
 

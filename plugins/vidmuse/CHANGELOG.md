@@ -6,6 +6,58 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.15 — 2026-07-28
+
+### Added
+
+- **Cloud ASR closes the transcript requirement** — recut step 2 no longer stops
+  to ask the user for spoken text. With no transcript available it now runs
+  `vidmuse model run` with `extra_params.sub_model_type=asr`, writes
+  `asr.json` → `transcript-source.txt`, and feeds that into the unchanged ATA
+  alignment. **A packaging run can now start from nothing but a video file.**
+  ASR returns text with no timings, so ASR and ATA always run as a pair — ASR
+  fills the `prompt` that ATA needs; it never replaces ATA. The recognized text
+  is surfaced to the user labeled as machine-recognized, non-blocking, because
+  ASR misreads proper nouns / product names / numbers and ATA aligns a wrong
+  word just as faithfully as a right one.
+- **`vidmuse-recut/references/vidmuse-cli.md`** — CLI contract reference for the
+  parts `--help` gets wrong or omits. Covers the `render` validated value sets
+  and the mode↔container lock, `voice list/search/get` as the only source of
+  `voice_id`, `asset generation-params`, implicit upload of local media paths in
+  `model run`, the ASR call shape, headless `login --device --start/--complete`,
+  `serve --host` exposure (no auth), and `Export project` (fcpxml / otio).
+  Records which commands the pipeline deliberately skips (`thread`, `message`,
+  `memory` are hosted-product state; `update` must not run mid-project) so
+  agents stop rediscovering them.
+
+### Fixed
+
+- **`render --mode` legal values corrected against the binary** — `--help`
+  prints "full or transparent", but `transparent` is rejected with
+  `--mode must be full or overlay`. Reference records the tested pair plus the
+  container lock (`overlay` → `.webm`, `full` → `.mp4`) and the enforced sets
+  for `--quality`, `--resolution`, `--fps`.
+- **`voice_id` was unobtainable** — `asset-sourcing.md` and `vox-collage.md` both
+  required the field for `text_to_speech` while no file named the command that
+  produces one. `asset-sourcing.md` now points at `vidmuse voice list --model`.
+- **Corrected: `model run` does accept local media paths.** Known media input
+  fields upload implicitly (ATA `files[]` → `savedPath`; image/video/audio →
+  `downloadUrl`), so `image_urls: ["./still.png"]` is valid. The CLI has no
+  `asset` upload verb — `asset` is `list` + `generation-params` only — which had
+  made the local→URL path look unreachable.
+
+### Changed
+
+- Bundled `vidmuse` CLI → `v0.3.1-81e017e` (was `v0.3.0-a78bedd`). Command
+  surface is otherwise identical; `render --resolution` now defaults to the DSL
+  canvas rather than `source`, which no code path depends on since every DSL
+  writer sets `resolution` explicitly.
+- `vidmuse-recut/README.md` entry instructions no longer tell users to attach
+  spoken text; both text sources are described, with user-supplied still
+  preferred.
+- `vidmuse-timeline.md` CLI preflight records the `render` runtime prerequisites
+  (Node.js 22+ / ffmpeg / ffprobe) and links the CLI reference.
+
 ## 0.3.14 — 2026-07-27
 
 ### Added

@@ -24,6 +24,11 @@ vidmuse render --help
 vidmuse profile get          # login required for alignment models; good hygiene before serve
 ```
 
+`render` additionally needs **Node.js 22+ / ffmpeg / ffprobe** on PATH, and
+`serve` needs ffmpeg for thumbnails. Validated flag values, the `full` /
+`overlay` mode↔container lock, headless `login --device`, and `serve --host`
+exposure are in [`vidmuse-cli.md`](vidmuse-cli.md).
+
 ## Default delivery topology (layered)
 
 `dsl.json` (version `"2"`) at the work-directory root. Paths are **relative to `dsl.json`**.
