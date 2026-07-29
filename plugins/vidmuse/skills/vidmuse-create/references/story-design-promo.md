@@ -11,6 +11,10 @@ Proof prefers **real capture** (site/app screenshots, product UI). Timing =
 
 A website is an information layout. A promo is an **emotional sequence** around
 one promise. Reorder, merge, and omit page sections freely — never follow nav order.
+Before choosing the arc, complete
+[agency-preproduction.md](agency-preproduction.md): one proposition, three
+materially different treatments, and one selected directorial device. An arc
+organizes the winner; it is not a substitute for a concept.
 
 ## Method
 
@@ -107,6 +111,7 @@ payoff → lockup). Pad with extra title cards is a plan smell.
 
 ## PPT autopsy (fail here)
 
+- Captured website section order became scene order
 - Homepage bullets on a dark gradient
 - Four word slides + stock icons, no real UI
 - Feature list with no benefit translation
@@ -116,5 +121,6 @@ payoff → lockup). Pad with extra title cards is a plan smell.
 
 ## Output
 
-Film plan (+ optional `STORYBOARD.md`) with full
-[path-routing.md](path-routing.md) beat contract before visual design.
+Film plan with the full [path-routing.md](path-routing.md) beat contract,
+followed by real storyboard frame images + `STORYBOARD.md` and the approved
+animatic required by [agency-preproduction.md](agency-preproduction.md).

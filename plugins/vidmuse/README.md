@@ -23,6 +23,12 @@ It routes to the owner of the requested deliverable:
 
 Both share the same taste system and deliver through VidMuse Timeline (`vidmuse serve`): picture, overlays, narration, and word-level captions — not a baked MP4-only handoff.
 
+For non-Vox Create films, production begins only after an agency-style
+pre-production pass: verified product/subject truth, a one-proposition brief,
+three distinct treatments, real storyboard frames, and a full-duration
+approved animatic. A website capture supplies evidence; it is never used as an
+automatic shot list.
+
 ## What Is Included
 
 - `.codex-plugin/plugin.json` — Codex plugin metadata.

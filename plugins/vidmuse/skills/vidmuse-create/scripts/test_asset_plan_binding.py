@@ -10,8 +10,17 @@ from pathlib import Path
 
 from check_motion import Gate, run_static
 from film_plan import main as film_plan_main
-from film_plan import _request_fingerprint, load_asset_plan, validate, validate_asset_refs
+from film_plan import (
+    _request_fingerprint,
+    load_asset_plan,
+    validate,
+    validate_asset_refs,
+    validate_preproduction,
+)
 from shot_scaffold import render as render_scaffold
+
+ANIMATIC_BYTES = b"reviewed-animatic"
+ANIMATIC_SHA256 = hashlib.sha256(ANIMATIC_BYTES).hexdigest()
 
 
 def beat(bid: str, start: float, end: float) -> dict:
@@ -22,6 +31,10 @@ def beat(bid: str, start: float, end: float) -> dict:
         "key_message": "A clear message",
         "visual_kind": "branding",
         "transition_in": "cut",
+        "world_id": "world-main",
+        "continuity_in": "opening" if bid == "b01" else "graphic-match: identity persists",
+        "camera_intent": "locked; internal mark action carries the beat",
+        "storyboard_frames": [f"storyboard/{bid}.png"],
         "vo_cues": ["OpenAI"],
         "compose": "identity lockup",
         "asset_refs": ["ao_openai_intro"] if bid == "b01" else [],
@@ -46,8 +59,50 @@ def film_plan() -> dict:
     return {
         "create_path": "explainer",
         "asset_plan": "asset-plan.json",
+        "creative_direction": {
+            "id": "direction-a",
+            "single_minded_proposition": "One identity persists.",
+            "primary_device": "one mark changes state across a continuous world",
+            "spatial_model": "single graphic stage",
+            "continuity_rule": "the identity mark persists between beats",
+            "camera_grammar": "locked camera; internal transformation only",
+            "negative_motifs": ["full-frame cue flash"],
+        },
+        "preproduction": {
+            "contract": "agency-preproduction.v1",
+            "brief": "creative-brief.md",
+            "directions": "creative-directions.md",
+            "selected_direction": "direction-selected.md",
+            "director_treatment": "director-treatment.md",
+            "storyboard": "STORYBOARD.md",
+            "direction_ids": ["direction-a", "direction-b", "direction-c"],
+            "storyboard_frames": ["storyboard/b01.png", "storyboard/b02.png"],
+            "animatic": "animatic.mp4",
+            "animatic_approval": "animatic-approved.md",
+            "animatic_sha256": ANIMATIC_SHA256,
+        },
         "beats": [beat("b01", 0.0, 2.0), beat("b02", 2.0, 4.0)],
     }
+
+
+def write_preproduction(work: Path) -> None:
+    for name in (
+        "creative-brief.md",
+        "creative-directions.md",
+        "direction-selected.md",
+        "director-treatment.md",
+        "STORYBOARD.md",
+    ):
+        (work / name).write_text(f"# {name}\n", encoding="utf-8")
+    board = work / "storyboard"
+    board.mkdir()
+    (board / "b01.png").write_bytes(b"frame-1")
+    (board / "b02.png").write_bytes(b"frame-2")
+    (work / "animatic.mp4").write_bytes(ANIMATIC_BYTES)
+    (work / "animatic-approved.md").write_text(
+        f"# Approved\n\ndirection-a\n\n{ANIMATIC_SHA256}\n",
+        encoding="utf-8",
+    )
 
 
 def asset_plan(path: str) -> dict:
@@ -91,6 +146,20 @@ def asset_plan(path: str) -> dict:
 
 
 class AssetPlanBindingTests(unittest.TestCase):
+    def test_film_plan_requires_agency_preproduction_contract(self) -> None:
+        value = film_plan()
+        value.pop("preproduction")
+        self.assertTrue(any("pre-production" in error for error in validate(value)))
+
+    def test_animatic_hash_and_approval_are_verified(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            work = Path(tmp)
+            write_preproduction(work)
+            self.assertEqual(validate_preproduction(work, film_plan()), [])
+            (work / "animatic.mp4").write_bytes(b"changed-after-approval")
+            errors = validate_preproduction(work, film_plan())
+            self.assertTrue(any("does not match" in error for error in errors))
+
     def test_film_plan_requires_semantic_asset_plan_receipt(self) -> None:
         value = film_plan()
         value.pop("asset_plan")
@@ -205,6 +274,7 @@ class AssetPlanBindingTests(unittest.TestCase):
     def test_cli_resolve_hydrates_asset_receipt_into_film_plan(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             work = Path(tmp)
+            write_preproduction(work)
             local = Path(".media/images/logo_001.svg")
             (work / local).parent.mkdir(parents=True)
             (work / local).write_text("<svg/>", encoding="utf-8")

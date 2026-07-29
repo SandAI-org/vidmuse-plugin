@@ -1,0 +1,23 @@
+{
+  "skill_name": "vidmuse-create",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "给 https://example.ai 做一条 45 秒中文产品宣传片，有旁白和 BGM。你可以自主决定创意，直接做到可审片版本。",
+      "expected_output": "Treat the URL as evidence rather than a shot list. Before production, create a one-proposition brief, three materially different treatments, select one with veto-role verdicts, lock script/TTS/ATA, produce real storyboard frames and a full-duration animatic, record its approval/hash, then scaffold production. At least one proof beat uses real capture; no screenshot-card-logo recap.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "把这篇关于复利的稿子做成 60 秒知识可视化视频，不要真人出镜。风格你定，但不要像 PPT。",
+      "expected_output": "Run compact agency pre-production, derive one directorial device and coherent spatial/camera grammar from the subject, make actual keyframes and an animatic before GSAP, carry a hero throughline across body beats, use motivated cuts and quiet holds, and avoid one centered diagram per sentence.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "只做一个 5 秒的动效测试：让这个 logo 从线稿变成实心，静音，不用完整成片流程。",
+      "expected_output": "Use the explicitly requested light stub path. Do not force the agency brief/three-treatment/animatic contract; label the result as a stub and still use deterministic seek-safe motion checks.",
+      "files": []
+    }
+  ]
+}

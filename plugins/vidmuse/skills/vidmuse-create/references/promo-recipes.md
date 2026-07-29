@@ -12,7 +12,7 @@ template to paste. Always reskin via
 spine in `../SKILL.md`. Recipes never replace `transcript.json`.
 
 **Path routing (SSOT):** every recipe declares `path:`. Non-Vox paths **must**
-load craft refs and satisfy the beat contract + hard fails **1–13** in
+load craft refs and satisfy the beat contract + hard fails **1–15** in
 [path-routing.md](path-routing.md) — **do not re-list those fields or fail
 numbers here.** Also owned only there: hero throughline, audio_delivery,
 UI proof path, execution trace (film-plan.json → scaffold → check_motion),

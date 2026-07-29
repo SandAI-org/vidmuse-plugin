@@ -39,6 +39,9 @@ Record on `video-context.json`:
 {
   "create_path": "explainer" | "promo" | "vox",
   "structure_recipe": "…",
+  "creative_direction_id": "direction-b",
+  "primary_device": "the film-wide directorial action",
+  "spatial_model": "the coherent world or editorial form",
   "hero_throughline": "optional string — required on standard explainers",
   "audio_delivery": { "vo": true, "bgm": "path|none", "sfx_cues": [] }
 }
@@ -74,24 +77,31 @@ Recipe → path (see [promo-recipes.md](promo-recipes.md)):
 
 ### `explainer` / `promo` (anti-PPT craft)
 
-After voice spine + grounding, before HTML:
+Before HTML:
 
-1. Pick recipe (`promo-recipes.md`) and set `create_path`.
-2. Write film plan beats with the **beat contract** (below) + film-level
+1. Set `create_path`; run grounding/evidence capture, then
+   [agency-preproduction.md](agency-preproduction.md) Gates P0–P3: truth →
+   brief → three treatments → selected direction → script.
+2. Run the voice spine + ATA and Semantic Asset Pass; pick the structure
+   recipe (`promo-recipes.md`).
+3. Write film plan beats with the **beat contract** (below) + film-level
    **hero throughline** / **audio_delivery** when required.
-3. Read path story-design → complete arc / roles / cue-cut VO.
-4. Read visual-design → every beat gets a time-coded `shot_sequence`.
-5. Name motion from motion-language; within-beat seams from cut-catalog.
+4. Read path story-design → complete arc / roles / cue-cut VO.
+5. Read visual-design → every beat gets a time-coded `shot_sequence`.
+6. Name motion from motion-language; within-beat seams from cut-catalog.
    For implementation code paths, shortlist `/vidmuse-motion` **shot recipes**
    (`motion_recipes.py --tag shot`: cue-paced-reveal, collapse-merge-morph,
    pullback-reveal, line-carry-transition, ui-strip-away-lock) alongside
    dataviz recipes.
-6. Seed FRAME from brand capture and/or one
+7. Seed FRAME from brand capture and/or one
    `../hyperframes-creative/frame-presets/<name>/` preset (never blank black + white type as the whole system).
-7. Write `film-plan.json` + resolve + scaffold per **Execution trace** (below),
-   then implement **HyperFrames/GSAP** by filling the scaffold (not a second
-   Stage runtime); deliver on VidMuse Timeline (not HF MP4-only).
-8. After render, `check_motion.py` must be green (hard fail 13) before any
+8. Write the working `film-plan.json`, then complete agency Gates P4–P5: real
+   storyboard frames → full-duration animatic → approval receipt/hash.
+9. After animatic approval, run `film_plan.py --resolve`, scaffold per
+   **Execution trace** (below), then
+   implement **HyperFrames/GSAP** by filling the scaffold (not a second Stage
+   runtime); deliver on VidMuse Timeline (not HF MP4-only).
+10. After render, `check_motion.py` must be green (hard fail 13) before any
    finished claim. Promo proof additionally runs S5 semantic alignment from
    [alignment-contract.md](alignment-contract.md).
 
@@ -113,6 +123,10 @@ Every beat in the film plan **must** carry:
 | `visual_kind` | `type \| diagram \| real-ui \| dataviz \| quiet \| abstract` |
 | `blueprint` **or** `shot_ref` **or** `compose` | proven shape id from `../../hyperframes-animation/blueprints-index.md`, or `shotcraft:<id>`, or explicit `compose` + one-line signature move |
 | `transition_in` | between-beat seam: `cut \| crossfade \| blur-crossfade \| push-slide LEFT/RIGHT/UP/DOWN \| zoom-through \| squeeze` |
+| `world_id` | selected treatment's coherent space/editorial world; reuse ids rather than inventing one world per sentence |
+| `continuity_in` | one-line neighbor relation and reason: same-space / object-handoff / match-move / graphic-match / motivated-cut / chapter-reset |
+| `camera_intent` | viewer position at start/end and what changes; `locked — internal action carries beat` is valid |
+| `storyboard_frames` | approved project-local image path(s) for this beat's hero/start/end state |
 | `shot_sequence` | ≥2 time windows across the beat; last window is a **hold read** unless the beat is intentionally continuous motion under VO |
 | `active_elements` | optional but checked: list of on-screen **active** subjects in the densest window (≤3) |
 | `ui_proof_path` | **promo proof beats only:** `screenshot-camera` \| `hybrid-slices` \| `full-html-rebuild` (see UI proof path) |
@@ -127,6 +141,8 @@ Every beat in the film plan **must** carry:
 | `hero_throughline` | **Required** on standard `knowledge-explainer` / multi-beat teaching films: 1–2 named subjects (metaphor, diagram node, coined term, mark) that **persist and change state** across ≥ half of body beats. Omit only for deliberately montage/listicle films with written exception. |
 | `audio_delivery` | **Required** before claim finished: `{ vo, bgm, sfx_cues }` — see Audio delivery |
 | `asset_plan` | `asset-plan.json`; required on substantial films even when deliberately empty, with a completed pass receipt matching the current transcript SHA-256 |
+| `creative_direction` | **Required:** selected direction id, `single_minded_proposition`, `primary_device`, `spatial_model`, `continuity_rule`, `camera_grammar`, and project `negative_motifs`. |
+| `preproduction` | **Required:** project-relative paths for brief, three directions, selection, director treatment, storyboard index + frame images, animatic, approval, and exact animatic SHA-256. |
 
 Minimal `shot_sequence` shape:
 
@@ -156,10 +172,24 @@ Fail the film plan or craft pass if any:
 11. **Audio delivery (non-stub):** finished claim without `audio_delivery` where `vo` matches reality and `bgm` is either a real Timeline/music path **or** explicit `none` with user/plan reason — silent full-film BGM default is not allowed to “forget music.”
 12. **Promo UI path:** a proof beat claims product UI but uses `full-html-rebuild` / generated chrome when `screenshot-camera` or `hybrid-slices` was viable (reachable URL or supplied screenshots).
 13. **Execution trace (machine-gated):** `film-plan.json` missing/unresolved, scaffold window labels dropped from the shipped HTML, `check_motion.py` not green on the delivered render, or promo precision overlays violate the shared-space/normalized-anchor contract — see Execution trace and [alignment-contract.md](alignment-contract.md). Prose self-audit (“1–12 clean” written in the plan) does **not** substitute for this gate; 13 is checked by script, on the artifact, after render.
+14. **Pre-production skipped:** no one-proposition brief; fewer than three
+    materially different treatments; storyboard exists only as prose; no
+    full-duration animatic; or `animatic-approved.md` does not identify the
+    exact reviewed artifact/hash.
+15. **Unmotivated global motion:** repeated full-frame cue flashes, periodic
+    color washes/scans, breathing loops, or camera drift were added to satisfy
+    R1/R2 rather than express a named object + semantic verb. `check_motion.py`
+    R3 flags repeated luminance washes, but a human/director review remains the
+    authority. **Declared grammar is exempt:** beat seams (`ata_range` starts
+    and ends) and windows whose `kind` is `exit` / `morph` / `camera` are
+    approved whole-frame events. A planned crossfade, dissolve, stage
+    transformation, or travelling camera must live in such a window — an
+    undeclared full-frame change inside a `reveal` / `move` / `hold` window is
+    what R3 exists to catch.
 
 **Vox ignores the entire list.** Light stubs (SKILL light path) ignore when labeled stub.
 
-Checklist shorthand “hard fails 1–13 clean” means this section.
+Checklist shorthand “hard fails 1–15 clean” means this section.
 
 ## Execution trace (explainer + promo) — SSOT
 
@@ -180,8 +210,9 @@ and nothing used to force them to reconcile. This section makes the approved
    `ui_proof_path` / `asset_refs` per beat. `film_plan.py` cross-checks every
    asset ref against a resolved, non-suppressed entry in `asset-plan.json`,
    verifies query fingerprint/identity/variant, and rejects approved file
-   opportunities that no beat binds.
-   Then:
+   opportunities that no beat binds. Use this working mirror to build the
+   storyboard/animatic. After `animatic-approved.md` exists and the
+   `preproduction` fields/hash are complete, run:
 
    ```bash
    python3 scripts/film_plan.py "$WORK_DIR" --resolve
@@ -190,6 +221,11 @@ and nothing used to force them to reconcile. This section makes the approved
    This validates the beat contract and resolves cue strings to absolute
    times from ATA `transcript.json` (never guessed) →
    `film-plan.resolved.json`.
+
+   The structured mirror must include `creative_direction` and
+   `preproduction`. `film_plan.py` verifies that their referenced files are
+   project-local, storyboard frames exist, and the animatic SHA-256 matches
+   the approved artifact. A valid beat plan cannot waive hard fail 14.
 
 2. **Scaffold, then fill** — generate the GSAP skeleton before writing any
    composition code:
@@ -218,7 +254,10 @@ and nothing used to force them to reconcile. This section makes the approved
    independently from its target).
    Rendered (frame sampling): no ≥1.5s freeze inside a non-hold window, and a
    measurable state change lands on each `vo_cue` (ambient drift does not
-   count). Exit non-zero = hard fail 13 = not deliverable; fix the animation
+   count). R3 also rejects repeated full-frame luminance washes outside beat
+   seams and declared `exit`/`morph`/`camera` windows — so give a real
+   crossfade or dissolve its own window rather than hiding it in a `reveal`.
+   Exit non-zero = hard fail 13 = not deliverable; fix the animation
    (or, if direction genuinely changed, fix the plan and re-resolve — never
    game the checks with screensaver drift).
 
@@ -313,7 +352,7 @@ User may say `shot-cards off` to force closed (blueprint/compose still required 
   hero / SFX / shot_sequence / UI tree obligations from create.
 - Create may **read** recut taste/timeline/asset refs; it must not **edit**
   recut skill files for create-only logic.
-- Vox path never loads this file’s craft stack or hard fails 1–13 (the
+- Vox path never loads this file’s craft stack or hard fails 1–15 (the
   execution-trace scripts are non-Vox only).
 - Do not soft-link upstream HeyGen or third-party design-skill SKILL.md as the
   runtime path — craft here is VidMuse-adapted (ATA + HyperFrames + Timeline).
@@ -323,14 +362,17 @@ User may say `shot-cards off` to force closed (blueprint/compose still required 
 ## Checklist before assemble (non-Vox)
 
 - [ ] `create_path` set and matches recipe
+- [ ] Agency pre-production complete: brief, three directions, selected
+      treatment, director treatment, real storyboard frames, approved animatic
 - [ ] Required story-design + visual-design + motion-language read
 - [ ] Every beat has contract fields + shot_sequence (this file)
 - [ ] Semantic Asset Pass ran; `asset-plan.json` has a current completed receipt (a deliberate stamped empty plan is allowed)
 - [ ] Every used semantic asset is bound by `asset_refs`, not a remote URL
 - [ ] Every approved file asset survives as a real `data-asset-ref` DOM binding in its assigned beat
-- [ ] Hard fails 1–13 checked (this file)
+- [ ] Hard fails 1–15 checked (this file)
 - [ ] `film-plan.json` written + `film_plan.py --resolve` green (Execution trace)
-- [ ] `shot_scaffold.py` skeleton generated before composition code
+- [ ] `animatic-approved.md` hash matches the animatic before
+      `shot_scaffold.py` generates the production skeleton
 - [ ] `hero_throughline` set when explainer requires it
 - [ ] `audio_delivery` decided (VO + BGM path or `none`)
 - [ ] Promo proof beats have `ui_proof_path` + real capture when URL exists

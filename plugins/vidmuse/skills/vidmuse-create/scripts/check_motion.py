@@ -20,6 +20,10 @@ Rendered (frame sampling of the actual video via ffmpeg)
       motionless move/reveal/camera window) — planned holds are exempt
   R2  cue events: the picture measurably changes state around each vo_cue
       (an event spike, not just ambient Ken Burns drift)
+  R3  global wash: repeated full-frame, same-direction luminance changes fail;
+      cue flashes and ambient scans cannot be used to game R1/R2. Beat seams
+      (starts and ends) and declared exit/morph/camera windows are exempt — a
+      planned crossfade or dissolve is grammar, not a wash
 
 Usage:
   python3 scripts/check_motion.py "$WORK_DIR" [--video path] [--html path]
@@ -62,6 +66,16 @@ EVENT_RATIO = 1.6       # ...and stand out vs ambient drift just before it
 EVENT_STRONG = 5.0      # or be unambiguously large on its own
 CUE_HALF = 0.3          # compare frames at cue ± this
 BEAT_HEAD_FREE = 0.45   # cues this close to beat start pass (entrance is the event)
+WASH_PIXEL_DELTA = 4    # ignore compression/noise below this per-pixel change
+WASH_COVERAGE = 0.70    # changed share of the frame
+WASH_COHERENCE = 0.88   # changed pixels traveling in the same luminance direction
+WASH_MEAN_SHIFT = 6.0   # mean shift *of the changed pixels* — a same-direction
+                        # move this small is invisible at 8-bit, so gating on it
+                        # failed renders no viewer would call a flash
+WASH_REPEAT_MAX = 1     # one deliberate punctuation may pass; a system fails
+
+# Window kinds whose planned job *is* a whole-frame change. Exempt from R3.
+FULL_FRAME_KINDS = {"exit", "morph", "camera"}
 
 CAPTURE_TYPES = ("capture", "screenshot", "user")
 
@@ -95,6 +109,38 @@ def extract_frames(video: Path, tmp: Path) -> list[bytes]:
 
 def mad(a: bytes, b: bytes) -> float:
     return sum(abs(x - y) for x, y in zip(a, b)) / len(a)
+
+
+def wash_signature(a: bytes, b: bytes) -> dict[str, float | bool]:
+    """Identify full-frame tint/flash behavior rather than object motion.
+
+    A wash needs all three: most of the frame changed (coverage), those pixels
+    moving the same luminance direction (coherence), and the move being large
+    enough to actually read as a flash (mean_shift, measured over the changed
+    pixels so unchanged areas cannot dilute it).
+    """
+    deltas = [y - x for x, y in zip(a, b)]
+    changed = [delta for delta in deltas if abs(delta) >= WASH_PIXEL_DELTA]
+    coverage = len(changed) / len(deltas)
+    if not changed:
+        coherence = 0.0
+        mean_shift = 0.0
+    else:
+        positive = sum(delta > 0 for delta in changed)
+        negative = len(changed) - positive
+        coherence = max(positive, negative) / len(changed)
+        mean_shift = sum(abs(delta) for delta in changed) / len(changed)
+    like = (
+        coverage >= WASH_COVERAGE
+        and coherence >= WASH_COHERENCE
+        and mean_shift >= WASH_MEAN_SHIFT
+    )
+    return {
+        "like": like,
+        "coverage": coverage,
+        "coherence": coherence,
+        "mean_shift": mean_shift,
+    }
 
 
 def frame_at(frames: list[bytes], t: float) -> bytes:
@@ -256,6 +302,47 @@ def in_hold(t: float, plan: dict[str, Any]) -> bool:
     return False
 
 
+def _near_beat_boundary(t: float, plan: dict[str, Any], radius: float = 0.55) -> bool:
+    """True near any planned scene seam — beat starts *and* ends."""
+    for beat in plan["beats"]:
+        lo, hi = float(beat["ata_range"][0]), float(beat["ata_range"][1])
+        if abs(t - lo) <= radius or abs(t - hi) <= radius:
+            return True
+    return False
+
+
+def in_declared_full_frame_window(t: float, plan: dict[str, Any]) -> bool:
+    """True inside a window whose planned kind *is* a whole-frame change.
+
+    `exit`, `morph`, and `camera` windows are approved full-frame events: a
+    dissolve out, a stage transformation, a travelling camera. Counting them as
+    unmotivated washes would fail the very grammar path-routing asks for. Cue
+    flashes and ambient scans live in `reveal`/`move`/`hold` windows, which stay
+    under the R3 gate.
+    """
+    for _, win in window_iter(plan):
+        if win["kind"] not in FULL_FRAME_KINDS:
+            continue
+        lo, hi = win["abs"]
+        if lo - 0.1 <= t <= hi + 0.1:
+            return True
+    return False
+
+
+def _cluster_times(times: list[float], gap: float = 0.8) -> list[float]:
+    """Collapse timestamps into one representative per contiguous run.
+
+    Call this **once** over the merged list. Clustering a subset first drops
+    members that the merged pass would still have joined, which under-counts a
+    sustained wash as a single punctuation.
+    """
+    clustered: list[float] = []
+    for value in sorted(times):
+        if not clustered or value - clustered[-1] > gap:
+            clustered.append(value)
+    return clustered
+
+
 def run_rendered(gate: Gate, work: Path, video: Path, plan: dict[str, Any]) -> None:
     duration = ffprobe_duration(video)
     plan_end = plan["beats"][-1]["ata_range"][1]
@@ -295,6 +382,7 @@ def run_rendered(gate: Gate, work: Path, video: Path, plan: dict[str, Any]) -> N
         )
 
     # R2 — a visible event lands on each cue
+    cue_washes: list[float] = []
     for beat in plan["beats"]:
         base = beat["ata_range"][0]
         for cue in beat["vo_cues"]:
@@ -314,6 +402,46 @@ def run_rendered(gate: Gate, work: Path, video: Path, plan: dict[str, Any]) -> N
                 f"cross={cross:.2f} ambient={pre:.2f}"
                 + ("" if ok else " — nothing revealed on this cue (VO not paced)"),
             )
+            if _near_beat_boundary(t, plan) or in_declared_full_frame_window(t, plan):
+                continue
+            into = wash_signature(
+                frame_at(frames, t - CUE_HALF),
+                frame_at(frames, t),
+            )
+            out = wash_signature(
+                frame_at(frames, t),
+                frame_at(frames, t + CUE_HALF),
+            )
+            if bool(into["like"]) or bool(out["like"]):
+                cue_washes.append(t)
+
+    # R3 — repeated full-frame tint/flash/scan events outside planned seams.
+    # A declared crossfade, dissolve, morph, or travelling camera is approved
+    # grammar and exempt. What fails is a *system* of unmotivated global
+    # luminance events in reveal/move/hold windows — the cue-flash and
+    # ambient-scan loophole that turns a green render into a worse film.
+    step_washes: list[float] = []
+    for index in range(len(frames) - 1):
+        t = (index + 0.5) / SAMPLE_FPS
+        if _near_beat_boundary(t, plan) or in_declared_full_frame_window(t, plan):
+            continue
+        if bool(wash_signature(frames[index], frames[index + 1])["like"]):
+            step_washes.append(t)
+    # One cluster pass over the merged list — see _cluster_times.
+    events = _cluster_times(cue_washes + step_washes)
+    ok = len(events) <= WASH_REPEAT_MAX
+    gate.add(
+        "R3.global-wash",
+        ok,
+        video.name,
+        f"{len(events)} repeated full-frame luminance event(s) away from scene "
+        f"boundaries at {[round(value, 2) for value in events]}"
+        + (
+            ""
+            if ok
+            else " — replace cue flashes/scans with the named local object action"
+        ),
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -357,6 +485,11 @@ def main(argv: list[str] | None = None) -> int:
         "thresholds": {
             "static_mad": STATIC_MAD, "freeze_s": FREEZE_S, "event_min": EVENT_MIN,
             "event_ratio": EVENT_RATIO, "event_strong": EVENT_STRONG,
+            "wash_pixel_delta": WASH_PIXEL_DELTA,
+            "wash_coverage": WASH_COVERAGE,
+            "wash_coherence": WASH_COHERENCE,
+            "wash_mean_shift": WASH_MEAN_SHIFT,
+            "wash_repeat_max": WASH_REPEAT_MAX,
         },
         "checks": gate.checks,
         "failures": len(gate.failures),

@@ -6,6 +6,12 @@
 plan a real inventory to cast from — this is the single biggest lever for
 "the promo actually looks like the product's world."
 
+Capture is product truth and raw material, **not a storyboard generator**.
+Page order, navigation labels, and section cards must not become the scene
+order. After capture, return to
+[agency-preproduction.md](agency-preproduction.md) and design three treatments
+that transform this evidence through a directorial device.
+
 **When:** default for `create_path: promo` with a URL (site-to-video,
 saas-promo, brand-sizzle, launch). Also for explainers whose subject has an
 official site worth quoting. Manual browser capture (`browser` skills) drops
@@ -107,6 +113,9 @@ in another.
 
 ## 5. Anti-patterns
 
+- Turning the homepage into a shot list: hero screenshot → feature screenshot
+  → template cards → logo. That is an animated website recap even when every
+  item has parallax.
 - Running capture and then still building beats from invented glass-card
   gradients (the inventory exists — cast from it; hard fails 5/12).
 - Shipping the film with 3 assets when the capture returned 200 — coverage

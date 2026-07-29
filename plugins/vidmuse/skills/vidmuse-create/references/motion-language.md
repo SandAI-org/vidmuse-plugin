@@ -104,16 +104,29 @@ Overshoot only when briefly explicitly playful.
 - No circular breathing(scale loop) to fake life.
 - No aimless slow pan/push in the back half that churns the eye.
 - Held still > weak motion. Subtle jitter is the only default aliveness.
+- A machine-check miss is not permission to add motion. Name the **local
+  object** and **semantic verb** the animatic intended, then repair that
+  action. If no such action exists, change the plan or mark a hold.
 
-## 4. Internal seams are velocity-matched
+## 4. Local semantic response beats global stimulus
+
+- A spoken `Skill` cue may wake the Skill card, its connector, or the object it
+  creates. It must not default to a full-frame tint.
+- A product action should move the real UI target/cursor/result, not trigger a
+  decorative scan over unrelated pixels.
+- Full-frame flashes, color washes, and scan bands are scarce scene-level
+  punctuation. Repeating them at cue intervals reads as a system fault.
+- Ambient drift, breathing, and glow do not count as semantic cue response.
+
+## 5. Internal seams are velocity-matched
 
 Within-beat swaps use cut-catalog (same direction/speed at the cut), not hard
 slideshow cuts between local Scenes.
 
 ## One-line
 
-Smooth long-tail; VO-paced sequential reveal; stillness over screensaver;
-velocity-matched internal seams.
+Smooth long-tail; VO-paced local semantic reveal; stillness over screensaver;
+coherent camera space; velocity-matched internal seams.
 
 ---
 
@@ -137,6 +150,8 @@ Program beds and compositions are seeked frame-by-frame:
 | Screensaver floaters | stillness + jitter only |
 | Default bounce | power3 |
 | One global `y+30 opacity power2.out` | vary eases/families; tabulate entrances |
+| Cue-bound full-frame flash / periodic wash | animate the named local object; reserve one justified scene-level punctuation at most |
+| Camera drift added to avoid freeze | lock off or execute the approved camera intent |
 
 ---
 

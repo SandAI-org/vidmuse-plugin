@@ -9,10 +9,12 @@ description: >
   image/video generation, or another single media result; /media-use owns
   those requests. Narration-led films use the media-use VidMuse TTS + ATA
   engine; never guess timestamps or use OS/browser TTS. Non-Vox films use the
-  path-routed, machine-gated anti-PPT production spine. After ATA/grounding,
-  proactively run the vidmuse-assets Semantic Asset Pass over the full script
-  and bind approved asset_refs; the user need not ask. Vox uses its dedicated
-  collage path. Deliver through VidMuse Timeline, not as a slideshow.
+  agency-gated anti-PPT spine: truth/brief, three treatments, storyboard
+  images, approved animatic, then machine-traced production. After
+  ATA/grounding, proactively run the vidmuse-assets Semantic Asset Pass over
+  the full script and bind approved asset_refs; the user need not ask. Vox
+  uses its dedicated collage path. Deliver through VidMuse Timeline, not as a
+  slideshow.
 ---
 
 # VidMuse Create
@@ -58,9 +60,12 @@ you are shipping:
 | **Guessed timeline** | `transcript.json` from `duration/N` math or hand AE keys | only ATA words; never invent `start`/`end` |
 | **Non-VidMuse voice** | macOS `say`, browser TTS, random edge-tts, unpaid external TTS with no ATA | `vidmuse model list` → TTS via `vidmuse model run` → ATA |
 | **PPT spacing** | one centered card per sentence, identical fade-up, hard cuts | film plan with relations + quiet beats; motion language + scene transitions |
+| **Animated website recap** | URL → screenshots → feature cards → logo, with no directorial premise | agency pre-production: one proposition → 3 treatments → selected cinematic device |
 | **Orphan-card film** (non-Vox) | every beat a new centered graphic; no continuous hero | path-routing `hero_throughline` + morph state across body |
 | **Mute-by-neglect** (non-Vox) | VO only, BGM forgotten, no `bgm: none` decision | path-routing `audio_delivery` |
 | **Fake UI proof** (promo) | generated dashboards when URL/screens exist | screenshot-camera / hybrid-slices first |
+| **Storyboard in prose only** | `film-plan.md` describes frames but no frames were visually reviewed | storyboard images + full-duration animatic + `animatic-approved.md` before compose |
+| **Metric-gamed motion** | cue flashes, global scans, breathing loops, or drift added only to satisfy pixel checks | repair the named local object/action; machine checks never grant taste approval |
 | **Catalog collage** | un-reskinned Registry demos / random accent pals | FRAME tokens + registry-integration reskin (not a ban on editorial *paper*-collage — that is `vox-collage`) |
 | **Ungrounded SaaS look** | generic dark grid, no brand/subject evidence | grounding pass first; charter 9 |
 | **Plan→code drift** (non-Vox) | film plan has cue-paced shot_sequence; shipped GSAP is front-loaded fade-ups + long freezes | execution trace: `film_plan.py --resolve` → `shot_scaffold.py` fill → `check_motion.py` green (hard fail 13) |
@@ -91,6 +96,7 @@ delivery are **the same system**:
 | effects install + reskin | `../vidmuse-recut/references/registry-integration.md` |
 | create intent → structure shortlists | [references/promo-recipes.md](references/promo-recipes.md) |
 | URL grounding: full site capture + asset curation | [references/site-capture.md](references/site-capture.md) |
+| **agency simulation: brief → 3 treatments → keyframes → animatic** | [references/agency-preproduction.md](references/agency-preproduction.md) — **mandatory before non-Vox compose** |
 | **path routing + beat contract + hard fails + execution trace + deck policy (SSOT)** | [references/path-routing.md](references/path-routing.md) — **read first after voice; do not re-copy rules from here** |
 | plan→code enforcement scripts (non-Vox) | `scripts/film_plan.py` (validate/resolve) · `scripts/shot_scaffold.py` (GSAP skeleton) · `scripts/check_motion.py` (render gate) |
 | non-Vox story craft | [story-design-explainer.md](references/story-design-explainer.md) · [story-design-promo.md](references/story-design-promo.md) |
@@ -124,10 +130,16 @@ OS/browser TTS or a provider-specific CLI. Do not continue to composition HTML
 until voice is resolved or the user explicitly orders a **muted visual-only**
 stub; record that exception in the film plan.
 
-### Gate B — script, then TTS, then ATA (order locked)
+### Gate B — approved script, then TTS, then ATA (order locked)
 
-1. Draft or receive the script. Confirm **as text** with the user when the
-   brief is thin (script gate = cheapest gate in the pipeline).
+The film-level order is set by
+[agency-preproduction.md](references/agency-preproduction.md): discovery and
+truth → brief → three treatments → selected direction → script. This voice
+gate starts only after that script pass. Do not draft narration directly from
+a URL and treat the site's section order as the film.
+
+1. Lock the selected-direction script. Confirm **as text** with the user when
+   the run is interactive (script gate = cheapest timing gate in the pipeline).
 2. Save exact locked copy to `$WORK_DIR/transcript-source.txt`.
 3. Load `/media-use` and read `references/audio.md`. Author
    `$WORK_DIR/audio_request.json`; use one line for a monolithic narration or
@@ -207,7 +219,8 @@ Record in `video-context.json`: the model and voice ids from
 
 Recut's taste authority rank 2 is "source footage — the room decides." A
 create film has no room, but rank 2 does not go empty; it is filled by the
-**subject's real world**, gathered before any style decision:
+**subject's real world**, gathered before the creative brief, script, or any
+style decision:
 
 - **Website / product promo:** the product's actual design language *is* the
   room. **Default: full machine capture** —
@@ -224,6 +237,11 @@ create film has no room, but rank 2 does not go empty; it is filled by the
 Record grounding evidence in `video-context.json`. Charter 9 operational
 test: *would someone who knows this product/subject recognize its world in a
 muted frame?*
+
+Grounding is an evidence bank, not a shot list. Website navigation order,
+captured section order, and asset filenames must not become the scene order.
+The selected treatment in `creative-directions.md` decides how evidence enters
+the film.
 
 ## Semantic Asset Pass — mandatory before the film plan
 
@@ -260,8 +278,15 @@ them at a different file.
 
 ## Production spine (deltas from recut's 13 steps)
 
-**1–2. Script + voice spine (above).** Replaces probe-of-camera + align-on-
-speech-plate. Everything below is **transcript-driven** exactly like recut.
+**0. Agency pre-production begins before voice.** For `promo` / `explainer`,
+read [agency-preproduction.md](references/agency-preproduction.md). Run
+discovery/product truth → creative brief → three materially different
+treatments → selected direction → script. Autonomous mode records the same
+passes and continues; it does not skip them. `vox` keeps its isolated path.
+
+**1–2. Approved script + voice spine (above).** Replaces probe-of-camera +
+align-on-speech-plate. Everything below is **transcript-driven** exactly like
+recut.
 
 **3. Path + video-context.json + asset-plan.json** — after voice is green,
 decide
@@ -276,10 +301,13 @@ voice_spine receipt, semantic asset-pass receipt, and later `shot_refs` /
 `/vidmuse-recut`. Paths, hard-fail on/off, and craft-stack names: **only** in
 path-routing — do not re-copy that table here.
 
-**4. Film plan (gate) — kills PPT.** Same user-gate role as
-`packaging-analysis.md`. Inverted question: not "where does footage need
-help?" but **"what must the viewer see at each beat, from which source
-rung, and how does the shot develop across the ATA span?"**
+**4. Director treatment + film plan.** The selected direction already owns
+the proposition, narrative device, spatial model, camera grammar, and negative
+motifs. The film plan translates those decisions into timed beats; it may not
+invent a new effect-per-beat direction. Inverted question: not "where does
+footage need help?" but **"what must the viewer see at each beat, from which
+source rung, how does the shot develop across the ATA span, and what connects
+it to the preceding shot?"**
 
 ### 4a. Every path — base beat fields
 
@@ -302,7 +330,7 @@ Follow [vox-collage.md](references/vox-collage.md). Argument-length clips +
 
 ### 4c. Paths `explainer` + `promo` — craft stack (required)
 
-Full field list, `shot_sequence` shape, hard fails **1–13**, hero throughline,
+Full field list, `shot_sequence` shape, hard fails **1–15**, hero throughline,
 audio delivery, UI proof path, execution trace, and deck rules:
 **[path-routing.md](references/path-routing.md)** (SSOT). Executive summary only:
 
@@ -315,17 +343,41 @@ audio delivery, UI proof path, execution trace, and deck rules:
    cut-catalog; `transition_in` between beats.
 4. Plan **`audio_delivery`** (VO + BGM path or explicit `none`; optional SFX cues).
 5. Fail the plan **before** taste work if path-routing hard fails trigger.
-6. On confirmation: write `$WORK_DIR/direction-approved.md` (path, recipe,
-   confirmation line, hero). Optional craft mirror: `STORYBOARD.md`.
-   Delivery remains Timeline + **HyperFrames/GSAP** picture (no second Stage runtime).
-7. **Execution trace (required):** mirror the beats to `$WORK_DIR/film-plan.json`
-   and run `python3 scripts/film_plan.py "$WORK_DIR" --resolve` — cue strings
-   become ATA-resolved absolute times. Scaffold + render gate follow at craft
-   time (path-routing § Execution trace).
+6. On treatment selection: write `$WORK_DIR/direction-approved.md` (path,
+   recipe, selected direction id, confirmation line, primary device, spatial
+   model, continuity rule, negative motifs, hero).
+7. **Execution trace (required):** mirror the beats to the working
+   `$WORK_DIR/film-plan.json`. Use it to cut the animatic. Run
+   `python3 scripts/film_plan.py "$WORK_DIR" --resolve` only after the animatic
+   approval receipt/hash exists — cue strings become ATA-resolved absolute
+   times. Scaffold + render gate follow at craft time (path-routing
+   § Execution trace).
 
-Present the film plan Markdown and wait for confirmation (unless autonomous).
+Do **not** scaffold yet. First complete the visual gate below.
 
-**5–7. Taste, FRAME.md, showcase.** Grounding stills instead of room keyframes.
+### 4d. Storyboard + animatic gate — the actual anti-PPT lock
+
+Follow [agency-preproduction.md](references/agency-preproduction.md) Gates
+P4–P5:
+
+1. Produce real storyboard images: one hero frame per beat, plus start/end
+   frames for complex moves. A Markdown shot description alone is not a
+   storyboard.
+2. Review frame silhouette, depth, focal hierarchy, real material, and
+   neighbor continuity before animation.
+3. Cut those frames to the full ATA duration with real VidMuse TTS, captions,
+   and temporary BGM (or deliberate `none`) as an animatic on the final aspect
+   ratio.
+4. Review the complete rhythm and close frame comments.
+5. Write `$WORK_DIR/animatic-approved.md` with the reviewed artifact/hash and
+   approval or autonomous panel verdict.
+
+Present the animatic, not only `film-plan.md`, for confirmation. No detailed
+GSAP composition, expensive generation, final BGM mix, or polish before this
+gate.
+
+**5–7. Taste, FRAME.md, showcase.** Approved storyboard frames replace room
+keyframes; the animatic, not prose intent, is the timing authority.
 **FRAME seed (non-Vox):** if brand/site tokens exist, derive FRAME from them;
 else adopt **one** preset from `../hyperframes-creative/frame-presets/` whose
 register fits, then remap roles — do not ship anonymous black canvas + white
@@ -362,6 +414,9 @@ window plus its on_screen/move/cue FILL comment. Implementation = fill the
 slots with tweens positioned at those labels, under
 [motion-language.md](references/motion-language.md) doctrine (VO-paced
 sequential reveal, long-tail settle default, stillness over screensaver).
+Run the scaffold only after `animatic-approved.md` exists. Production
+reproduces the approved storyboard layouts and animatic timing; it does not use
+code authoring as a place to discover the visual direction.
 Shortlist `/vidmuse-motion` shot recipes (`--tag shot`) as code paths for the
 windows. Keep **`hero_throughline`** alive across body beats (morph state,
 don't hard-swap orphans). Within-beat seams → [cut-catalog.md](references/cut-catalog.md).
@@ -418,14 +473,21 @@ pointing at a missing `input-video.mp4`.
 - [ ] `audio_request.json` + `audio_meta.json` + `audio.mp3` + `transcript.json` present
 - [ ] Timeline scrub: VO audible, captions track speech (sample 3 timestamps)
 - [ ] film plan was confirmed (or autonomous skip recorded)
+- [ ] **non-Vox:** `creative-brief.md` has one proposition; three materially
+      different treatments were judged; selected direction is recorded
+- [ ] **non-Vox:** storyboard contains actual reviewed images, not prose only
+- [ ] **non-Vox:** full-duration animatic reviewed; `animatic-approved.md`
+      identifies the exact artifact/hash
 - [ ] `asset-plan.json` exists and validates (an empty deliberate plan is valid)
 - [ ] every beat `asset_ref` resolves to a non-suppressed opportunity and local receipt
 - [ ] no related company/product/model identity was silently substituted
 - [ ] `create_path` recorded; craft stack matched path
-- [ ] **non-Vox:** path-routing beat contract + hard fails **1–13** clean
+- [ ] **non-Vox:** path-routing beat contract + hard fails **1–15** clean
 - [ ] **non-Vox:** `python3 scripts/check_motion.py "$WORK_DIR"` **GATE PASS**
       on the rendered picture (`motion-check.json` saved) — this is the
       mid-window / cue-pacing check, by script, not by prose self-audit
+- [ ] no machine-check fix introduced repeated full-frame flashes, global
+      washes, ambient scans, or semantically unrelated camera drift
 - [ ] **non-Vox:** `hero_throughline` + `direction-approved.md` + `audio_delivery`
 - [ ] **non-Vox:** not PPT-shaped (mixed `visual_kind`; quiet passages if explainer)
 - [ ] **promo:** ≥1 real-capture proof; proof beats name `ui_proof_path`
@@ -516,7 +578,7 @@ Triggers: `Vox style`, `纸拼贴`, `halftone collage`, `collage b-roll`,
    visual production. Recipe: `vox-collage-broll` or `vox-collage-explainer`.
 2. **Do not** load story-design-explainer/promo, visual-design,
    motion-language, cut-catalog, or shot-cards for this path.
-3. **Do not** apply path-routing non-Vox hard fails **1–13**, hero throughline,
+3. **Do not** apply path-routing non-Vox hard fails **1–15**, hero throughline,
    SFX/BGM mandatory contract, UI proof tree, execution-trace scripts, or
    `shot_sequence` / blueprint contracts.
 4. **Plan first:** ATA argument spans → each beat `target_duration_s` on the
@@ -537,7 +599,7 @@ Triggers: `Vox style`, `纸拼贴`, `halftone collage`, `collage b-roll`,
 
 - **`/vidmuse-recut`:** **no behavioral change.** Create may *read* shared
   recut references; create craft (hero, shot_sequence, audio_delivery, UI
-  tree, hard fails 1–13, execution-trace scripts) is **not** part of the recut
+  tree, hard fails 1–15, execution-trace scripts) is **not** part of the recut
   spine. Never require those fields on packaging plates.
 - **Vox:** production logic stays in `vox-collage.md`. The new craft rules
   (hero throughline, audio_delivery, UI proof path, hard fails 9–12) apply to

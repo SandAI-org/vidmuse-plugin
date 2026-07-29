@@ -125,6 +125,7 @@ consistent `push-slide`; chapter jump → `zoom-through` or `cut`.
 
 ## Output
 
-Write into the **film plan** (and optionally `$WORK_DIR/STORYBOARD.md` as craft
-mirror). Every beat must satisfy [path-routing.md](path-routing.md) beat contract
-before visual design.
+Write into the **film plan**. Every beat must satisfy
+[path-routing.md](path-routing.md) before visual design, then become real
+storyboard frame images + `STORYBOARD.md` and a full-duration approved animatic
+under [agency-preproduction.md](agency-preproduction.md).

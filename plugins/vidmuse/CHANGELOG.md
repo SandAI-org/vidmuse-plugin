@@ -6,6 +6,32 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## Unreleased
+
+### Create direction and anti-PPT gates
+
+- Added an agency-style pre-production contract for non-Vox Create films:
+  discovery/product truth, one-proposition brief, three materially different
+  treatments, director treatment, real storyboard frames, and a full-duration
+  approved animatic before HyperFrames/GSAP production.
+- URL capture is now explicitly an evidence bank rather than a shot list.
+  Selected treatments must define a film-wide directorial device, spatial
+  model, camera grammar, continuity rule, and negative motifs.
+- `film_plan.py` now validates pre-production artifacts, storyboard bindings,
+  and the exact animatic SHA-256 before resolving a production plan.
+- `check_motion.py` now rejects repeated full-frame luminance washes away from
+  scene boundaries, closing the cue-flash/ambient-scan loophole that could make
+  a technically green render aesthetically worse. R3 exempts declared grammar:
+  beat seams count both `ata_range` ends, and `exit` / `morph` / `camera`
+  windows are approved whole-frame events, so a planned crossfade or dissolve
+  no longer fails the gate. Wash events cluster in a single pass over the
+  merged cue+step list (a nested pre-cluster under-counted sustained washes),
+  and `mean_shift` is measured over the changed pixels at a threshold that
+  ignores luminance moves no viewer reads as a flash.
+- `film_plan.py` now requires every beat to bind at least one approved
+  storyboard frame; the previous index-level count could pass with one beat
+  holding every frame and the rest holding none.
+
 ## 0.4.0 — 2026-07-29
 
 ### Skill architecture

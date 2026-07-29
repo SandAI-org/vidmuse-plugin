@@ -5,6 +5,10 @@ You enrich each film-plan beat with how it **looks and moves**. You write **no
 requirement** to spawn HF frame-workers — but you **must** write the same unit
 they would receive: a **time-coded shot sequence** paced to ATA VO cues.
 
+This file executes a selected treatment; it does not invent the treatment.
+Read [agency-preproduction.md](agency-preproduction.md) first. The approved
+storyboard images are visual truth, and the approved animatic is timing truth.
+
 **Load when:** `create_path` is `explainer` or `promo`.  
 **Skip when:** `vox` ([vox-collage.md](vox-collage.md) owns plates).  
 **Motion doctrine:** [motion-language.md](motion-language.md).  
@@ -52,6 +56,12 @@ Keep story fields. Append:
 - `blueprint:` id + `(Reproduce|Adapt)` or `compose` or `shot_ref:`
 - `focal:` hero element (invented type/diagram node, or real-ui surface)
 - `roles:` foreground / background / supporting (few, load-bearing)
+- `world_id:` the coherent space/editorial world this beat belongs to
+- `continuity_in:` same-space / object-handoff / match-move / graphic-match /
+  motivated-cut / chapter-reset, with a one-line reason
+- `camera_intent:` viewer position at start/end and what the move changes
+  (knowledge, scale, focus, relationship, emotion); `locked` is valid
+- `storyboard_frames:` approved local start/hero/end frame paths
 - `shot_sequence:` Scene lines with on_screen + move + layout inline
 - optional `sfx:` names only (do not embed random `<audio>` in overlay HTML)
 
@@ -80,6 +90,10 @@ Example:
       move: "stillness (subtle jitter ok)"
       layout: "hold center"
 ```
+
+The relation fields matter more than the transition name. A `crossfade`
+between unrelated centered layouts is still a deck. A hard cut can be
+cinematic when object, direction, gaze, action, or idea motivates it.
 
 ## Explainer — invent the visual
 
@@ -117,6 +131,31 @@ Density: primary ≥40% canvas; ≥3 depth layers when busy.
 Hierarchy: ≥2 of size / weight / contrast / position / motion.  
 **Vary framing across the film** — not the same template every beat.
 
+## Space, camera, and focus
+
+Camera is a narrative relationship, not an anti-PPT decoration:
+
+- Push in when the viewer is learning or committing to a detail.
+- Pull back when new context changes the meaning of what was already seen.
+- Pan/travel only when moving between established stations in one world.
+- Rack focus / depth blur only when attention passes between depth layers.
+- Lock off when action inside the frame carries the beat.
+
+For a continuous world, make a space map before animation and keep direction,
+screen position, vanishing point, and focus logic consistent across beats.
+Motion blur follows velocity; depth blur follows focus distance. A constant
+slow zoom with no information change is a screensaver, not camera language.
+
+## Storyboard gate
+
+Before production HTML:
+
+1. Save a hero frame for every beat and start/end frames for complex moves.
+2. Inspect the images at delivery resolution; a text description does not
+   count.
+3. Cut them to full duration with VO/music as the animatic.
+4. Do not scaffold until `animatic-approved.md` identifies that reviewed cut.
+
 Caption band: **reserved, bottom-centered** — plan primary content in the top
 ~83% (16:9) and keep the band clear. Graphics yield to the caption, not the
 reverse; leaving the band needs a written reason. Exact bands per aspect:
@@ -148,7 +187,11 @@ Before pretty HTML:
 ## Compose checklist
 
 - [ ] `## Video direction` written once
+- [ ] Selected treatment, primary device, world, and negative motifs are fixed
+- [ ] Actual storyboard frame files exist and were reviewed
+- [ ] Full-duration animatic approved before composition scaffold
 - [ ] Every non-Vox beat has shot_sequence, no front-load
+- [ ] Every beat names world, continuity-in, camera intent, and storyboard frames
 - [ ] Cover test / ≤3 active in densest windows; hero continuity when required
 - [ ] Blueprint / shot_ref / compose named; Adapt keeps signature move
 - [ ] Moves named from motion-language (not raw ms recipes in the plan)

@@ -51,6 +51,26 @@ TRANSITIONS = {
     "push-slide LEFT", "push-slide RIGHT", "push-slide UP", "push-slide DOWN",
 }
 UI_PROOF = {"screenshot-camera", "hybrid-slices", "full-html-rebuild"}
+PREPRODUCTION_CONTRACT = "agency-preproduction.v1"
+PREPRODUCTION_DOC_FIELDS = {
+    "brief",
+    "directions",
+    "selected_direction",
+    "director_treatment",
+    "storyboard",
+    "animatic",
+    "animatic_approval",
+}
+CREATIVE_DIRECTION_FIELDS = {
+    "id",
+    "single_minded_proposition",
+    "primary_device",
+    "spatial_model",
+    "continuity_rule",
+    "camera_grammar",
+    "negative_motifs",
+}
+IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".avif"}
 
 # tolerances (seconds)
 GAP_TOL = 0.30       # max uncovered gap between windows inside a beat
@@ -90,6 +110,49 @@ def validate(plan: dict[str, Any]) -> list[str]:
         err(f"create_path must be one of {sorted(PATHS)} (vox films do not use this file)")
     if plan.get("asset_plan") != ASSET_PLAN_NAME:
         err(f"asset_plan must equal {ASSET_PLAN_NAME} (Semantic Asset Pass is required)")
+
+    direction = plan.get("creative_direction")
+    if not isinstance(direction, dict):
+        err("creative_direction is required (agency pre-production hard fail 14)")
+    else:
+        for field in sorted(CREATIVE_DIRECTION_FIELDS):
+            value = direction.get(field)
+            if field == "negative_motifs":
+                if not isinstance(value, list) or not value or not all(
+                    isinstance(item, str) and item.strip() for item in value
+                ):
+                    err("creative_direction.negative_motifs must be a non-empty string list")
+            elif not isinstance(value, str) or not value.strip():
+                err(f"creative_direction.{field} is required")
+
+    preproduction = plan.get("preproduction")
+    if not isinstance(preproduction, dict):
+        err("preproduction is required (agency pre-production hard fail 14)")
+    else:
+        if preproduction.get("contract") != PREPRODUCTION_CONTRACT:
+            err(f"preproduction.contract must equal {PREPRODUCTION_CONTRACT}")
+        for field in sorted(PREPRODUCTION_DOC_FIELDS):
+            value = preproduction.get(field)
+            if not isinstance(value, str) or not value.strip():
+                err(f"preproduction.{field} is required")
+        frames = preproduction.get("storyboard_frames")
+        if not isinstance(frames, list) or not frames or not all(
+            isinstance(item, str) and item.strip() for item in frames
+        ):
+            err("preproduction.storyboard_frames must be a non-empty path list")
+        direction_ids = preproduction.get("direction_ids")
+        if (
+            not isinstance(direction_ids, list)
+            or len(direction_ids) < 3
+            or not all(isinstance(item, str) and item.strip() for item in direction_ids)
+            or len(set(direction_ids)) != len(direction_ids)
+        ):
+            err("preproduction.direction_ids must contain >=3 unique treatment ids")
+        elif isinstance(direction, dict) and direction.get("id") not in direction_ids:
+            err("creative_direction.id must appear in preproduction.direction_ids")
+        digest = preproduction.get("animatic_sha256")
+        if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+            err("preproduction.animatic_sha256 must be a lowercase SHA-256")
 
     hero = plan.get("hero_throughline")
     if hero is not None:
@@ -138,6 +201,17 @@ def validate(plan: dict[str, Any]) -> list[str]:
         if not (beat.get("blueprint") or beat.get("shot_ref") or beat.get("compose")
                 or beat.get("motion_recipe_ids")):
             err(f"{where}: needs blueprint / shot_ref / compose / motion_recipe_ids")
+        if not isinstance(beat.get("world_id"), str) or not beat["world_id"].strip():
+            err(f"{where}: world_id missing (approved spatial model)")
+        if not isinstance(beat.get("continuity_in"), str) or not beat["continuity_in"].strip():
+            err(f"{where}: continuity_in missing (neighbor relation / motivated cut)")
+        if not isinstance(beat.get("camera_intent"), str) or not beat["camera_intent"].strip():
+            err(f"{where}: camera_intent missing ('locked' is valid)")
+        board = beat.get("storyboard_frames")
+        if not isinstance(board, list) or not board or not all(
+            isinstance(item, str) and item.strip() for item in board
+        ):
+            err(f"{where}: storyboard_frames must reference approved frame image(s)")
 
         proof = beat.get("ui_proof_path")
         if proof is not None and proof not in UI_PROOF:
@@ -211,6 +285,100 @@ def validate(plan: dict[str, Any]) -> list[str]:
             err(
                 f"{bid}: terminal window must be kind=hold "
                 f"(or set beat continuous=true with a written exception)"
+            )
+
+    return errors
+
+
+def _project_file(work: Path, value: str, label: str) -> tuple[Path | None, str | None]:
+    candidate = Path(value)
+    if candidate.is_absolute() or ".." in candidate.parts:
+        return None, f"{label} must be a project-relative path without '..': {value!r}"
+    resolved = (work / candidate).resolve()
+    try:
+        resolved.relative_to(work.resolve())
+    except ValueError:
+        return None, f"{label} escapes the project: {value!r}"
+    if not resolved.is_file():
+        return None, f"{label} file is missing: {value}"
+    return resolved, None
+
+
+def validate_preproduction(work: Path, plan: dict[str, Any]) -> list[str]:
+    """Validate pre-production receipts against files in the project."""
+    errors: list[str] = []
+    preproduction = plan.get("preproduction")
+    direction = plan.get("creative_direction")
+    if not isinstance(preproduction, dict) or not isinstance(direction, dict):
+        return errors
+
+    resolved_files: dict[str, Path] = {}
+    for field in sorted(PREPRODUCTION_DOC_FIELDS):
+        value = preproduction.get(field)
+        if not isinstance(value, str) or not value.strip():
+            continue
+        path, error = _project_file(work, value, f"preproduction.{field}")
+        if error:
+            errors.append(error)
+        elif path:
+            resolved_files[field] = path
+
+    frame_paths = preproduction.get("storyboard_frames")
+    canonical_frames: set[str] = set()
+    if isinstance(frame_paths, list):
+        for index, value in enumerate(frame_paths, start=1):
+            if not isinstance(value, str):
+                continue
+            path, error = _project_file(
+                work, value, f"preproduction.storyboard_frames[{index}]"
+            )
+            if error:
+                errors.append(error)
+                continue
+            if path and path.suffix.lower() not in IMAGE_EXTENSIONS:
+                errors.append(
+                    f"preproduction.storyboard_frames[{index}] must be an image: {value}"
+                )
+            canonical_frames.add(value)
+    if len(canonical_frames) != len(frame_paths or []):
+        errors.append("preproduction.storyboard_frames must not contain duplicates")
+
+    # Every beat must bind at least one frame from the approved index. The
+    # index-level count is not a proxy for this: one beat holding five frames
+    # while four hold none would satisfy a total-count check.
+    for beat in plan.get("beats") or []:
+        beat_frames = beat.get("storyboard_frames") or []
+        if not beat_frames:
+            errors.append(
+                f"beat {beat.get('id')}: needs >=1 approved storyboard frame"
+            )
+        for value in beat_frames:
+            if value not in canonical_frames:
+                errors.append(
+                    f"beat {beat.get('id')}: storyboard frame is not in "
+                    f"preproduction.storyboard_frames: {value}"
+                )
+
+    animatic = resolved_files.get("animatic")
+    expected_hash = preproduction.get("animatic_sha256")
+    if animatic and isinstance(expected_hash, str):
+        actual_hash = hashlib.sha256(animatic.read_bytes()).hexdigest()
+        if actual_hash != expected_hash:
+            errors.append(
+                "preproduction.animatic_sha256 does not match the reviewed animatic"
+            )
+
+    approval = resolved_files.get("animatic_approval")
+    if approval and isinstance(expected_hash, str):
+        text = approval.read_text(encoding="utf-8", errors="replace")
+        if expected_hash not in text:
+            errors.append(
+                "preproduction.animatic_approval does not name the exact animatic SHA-256"
+            )
+        direction_id = str(direction.get("id") or "")
+        if direction_id and direction_id not in text:
+            errors.append(
+                "preproduction.animatic_approval does not name the selected direction id"
             )
 
     return errors
@@ -493,6 +661,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         plan = load_plan(work)
         errors = validate(plan)
+        errors.extend(validate_preproduction(work, plan))
         asset_plan = load_asset_plan(work)
         errors.extend(validate_asset_refs(work, plan, asset_plan))
         if errors:
