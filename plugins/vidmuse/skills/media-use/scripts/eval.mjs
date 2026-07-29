@@ -35,7 +35,7 @@ const TEST_BLOCKS = [
 
 // Run resolve.mjs with args as a literal argv array (no shell), so values
 // interpolated from manifest metadata (--intent prompt, --type) can't inject
-// shell. Mirrors the execFileSync fix in probe.mjs / heygen-search.mjs.
+// shell. Mirrors the execFileSync safety pattern in probe.mjs.
 function run(args, opts = {}) {
   try {
     return {

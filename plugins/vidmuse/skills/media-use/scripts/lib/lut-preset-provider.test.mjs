@@ -40,21 +40,25 @@ test("library look freezes a validated cube from params offline (--local-only)",
   try {
     const match = matchColorLook("teal orange blockbuster");
     assert.equal(match.kind, "library");
-    // localOnly forces the deterministic params path (no network); online, the
-    // same look downloads its .cube from the CDN url (via "url").
+    // Bundled looks are deterministic local params; no provider CDN is used.
     const frozen = await freezeLibraryLut(match, { projectDir, type: "grade", localOnly: true });
     assert.match(frozen.localPath, /^\.media\/luts\/grade_001\.cube$/);
     assert.ok(existsSync(join(projectDir, frozen.localPath)));
     assert.equal(validateCubeFile(join(projectDir, frozen.localPath)).ok, true);
     assert.equal(frozen.lut.src, frozen.localPath);
-    assert.equal(frozen.metadata.provenance.via, "params-fallback");
+    assert.equal(frozen.metadata.provenance.via, "params");
   } finally {
     rmSync(projectDir, { recursive: true, force: true });
   }
 });
 
-test("preset IDs stay in sync with packages/core/src/colorGrading.ts", () => {
-  assert.deepEqual(CORE_PRESET_IDS, corePresetIdsFromSource());
+test("preset IDs stay in sync with packages/core/src/colorGrading.ts when upstream source is present", (t) => {
+  const upstreamSource = join(REPO_ROOT, "packages/core/src/colorGrading.ts");
+  if (!existsSync(upstreamSource)) {
+    t.diagnostic("standalone VidMuse plugin does not ship the HyperFrames monorepo source");
+  } else {
+    assert.deepEqual(CORE_PRESET_IDS, corePresetIdsFromSource());
+  }
   for (const id of CORE_PRESET_IDS) {
     const match = matchColorLook(id);
     assert.equal(match.kind, "preset");

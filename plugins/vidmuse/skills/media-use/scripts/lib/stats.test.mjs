@@ -42,7 +42,7 @@ test("buildStats aggregates resolves, misses, providers, sources, and reuse", ()
         type: "bgm",
         source: "search",
         ts: isoDaysAgo(0),
-        provenance: { provider: "heygen.audio.sounds", prompt: "upbeat", via: "url" },
+        provenance: { provider: "vidmuse.model", prompt: "upbeat", via: "url" },
       },
       {
         id: "image_001",
@@ -67,7 +67,7 @@ test("buildStats aggregates resolves, misses, providers, sources, and reuse", ()
         type: "bgm",
         reusable: true,
         cached_path: cachedFile,
-        provenance: { provider: "heygen.audio.sounds", reused_by: "agent" },
+        provenance: { provider: "vidmuse.model", reused_by: "agent" },
       },
     ]);
     writeFileSync(
@@ -84,7 +84,7 @@ test("buildStats aggregates resolves, misses, providers, sources, and reuse", ()
     assert.equal(stats.total_resolves, 3);
     assert.deepEqual(stats.by_type, { bgm: 2, image: 1 });
     assert.deepEqual(stats.by_source, { search: 1, "reused-explicit": 1, generated: 1 });
-    assert.equal(stats.by_provider["heygen.audio.sounds"], 1);
+    assert.equal(stats.by_provider["vidmuse.model"], 1);
     assert.equal(stats.by_via.url, 1);
     assert.equal(stats.misses, 1);
     assert.equal(stats.hit_rate, 0.75);

@@ -4,8 +4,8 @@ import { basename, extname } from "node:path";
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tif", ".tiff"]);
 const SAMPLE_FRAMES = 5;
 // A long HD clip on slow storage can exceed the default 15s signalstats window;
-// override without a code change via HYPERFRAMES_ANALYZE_TIMEOUT_MS.
-const SIGNALSTATS_TIMEOUT_MS = Number(process.env.HYPERFRAMES_ANALYZE_TIMEOUT_MS) || 15000;
+// override without a code change via VIDMUSE_ANALYZE_TIMEOUT_MS.
+const SIGNALSTATS_TIMEOUT_MS = Number(process.env.VIDMUSE_ANALYZE_TIMEOUT_MS) || 15000;
 
 const ADJUST_LIMITS = {
   exposure: { min: -2, max: 2 },

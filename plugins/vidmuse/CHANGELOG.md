@@ -6,6 +6,32 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.16 — 2026-07-29
+
+### Changed
+
+- **Media Use is now VidMuse-native.** TTS, music, image, icon, digital-human,
+  and video generation discover and run models through `vidmuse model
+  list/run`; provider-specific CLIs and local AI runtimes are no longer part of
+  the media resolution cascade.
+- **Transcription now uses VidMuse ASR + ATA.** ASR supplies text when needed,
+  ATA supplies word-level timing, and corrected text can be aligned without
+  rerunning recognition.
+- **Environment diagnosis now checks only the real execution substrate:**
+  VidMuse CLI version/session/plan/model catalog, Node.js, `ffmpeg`, `ffprobe`,
+  and bundled deterministic SFX. It no longer diagnoses or installs unrelated
+  model runtimes.
+- Media telemetry is VidMuse-scoped under `~/.vidmuse`, does not inspect
+  provider credentials or identify accounts, and uses
+  `VIDMUSE_NO_TELEMETRY=1` for its product-specific opt-out.
+
+### Removed
+
+- Legacy HeyGen, Parakeet/Whisper, Kokoro, mflux, LTX, MusicGen/Lyria, and
+  Codex image-generation adapters from the bundled `media-use` skill.
+- External LUT CDN dependency; bundled looks now build deterministically from
+  local parameters.
+
 ## 0.3.15 — 2026-07-28
 
 ### Added

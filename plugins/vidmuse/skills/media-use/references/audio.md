@@ -1,19 +1,69 @@
-# Audio engine — voiceover, music, SFX, captions, transcription
+# Audio — VidMuse TTS, music, ASR, ATA, SFX
 
-For a full audio pass (TTS voiceover + background music + sound effects in one
-shot), use the shared engine at `audio/scripts/audio.mjs`. It takes a neutral
-`audio_request.json` and writes `audio_meta.json` plus assets under
-`.media/audio/{voice,bgm,sfx}`:
+## Full audio pass
 
 ```bash
-node <SKILL_DIR>/audio/scripts/audio.mjs --request ./audio_request.json --out ./audio_meta.json
+node <SKILL_DIR>/audio/scripts/audio.mjs \
+  --request ./audio_request.json \
+  --project . \
+  --out ./audio_meta.json
 ```
 
-- **Request** `{ provider?, lang?, speed?, lines: [{ id, text, sfx?: [names] }], bgm: { mode?, query?, prompt? } }`: `id` joins each line back to your model; `bgm.mode` = `retrieve | generate | none` (omit for auto). `--only tts,bgm,sfx` runs a subset and merges into an existing `--out`.
-- **Output** `audio_meta.json` (id-keyed): `voices[].{path,duration_s,words[]}` (word timestamps for captions), `sfx[]`, `bgm`, `total_duration_s`.
-- **HeyGen free-usage path**: HeyGen CLI auth unlocks TTS plus music/SFX retrieval. Local/provider-specific generators are explicit alternatives where installed; run `node <SKILL_DIR>/scripts/resolve.mjs --doctor` before assuming retrieval or TTS will work.
-- If BGM took the generate path (`bgm_pending: true`), run `audio/scripts/wait-bgm.mjs` before final render.
+Request:
 
-Single-shot helpers: `audio/scripts/heygen-tts.mjs` (one voice file). Transcription / background removal / captions use the `hyperframes` CLI (`transcribe`, `remove-background`), see the per-topic guides in `audio/references/` (`tts.md`, `bgm.md`, `sfx.md`, `transcribe.md`, `remove-background.md`, `captions/`).
+```json
+{
+  "lang": "zh",
+  "voice_id": "F-ZH-009",
+  "models": {
+    "voice": "minimax/speech-2.6-hd",
+    "bgm": "elevenlabs/elevenlabs_music"
+  },
+  "model_params": {
+    "voice": {},
+    "bgm": {}
+  },
+  "lines": [
+    { "id": "01", "text": "欢迎来到 VidMuse。", "sfx": ["whoosh"] }
+  ],
+  "bgm": {
+    "mode": "generate",
+    "prompt": "restrained cinematic technology underscore",
+    "duration": 30
+  }
+}
+```
 
-Transcription defaults to Parakeet (better than whisper.cpp: 6.05% vs 7.44% WER, 5-10x faster) via `scripts/transcribe.mjs`, with whisper.cpp auto-fallback (see `references/operations.md`).
+The engine:
+
+1. discovers or uses the pinned VidMuse TTS model;
+2. resolves a legal voice with `vidmuse voice list`;
+3. runs TTS with `vidmuse model run`;
+4. downloads the returned audio;
+5. aligns the known line with VidMuse ATA for word timestamps;
+6. generates BGM through a VidMuse music model;
+7. uses a live VidMuse SFX model when available, otherwise the bundled SFX
+   library;
+8. writes `audio_meta.json`.
+
+There is no detached local MusicGen/Lyria job and no `wait-bgm` step.
+
+## Transcription
+
+```bash
+node <SKILL_DIR>/scripts/transcribe.mjs --input talk.mp4 --out talk.transcribe.json
+```
+
+- No supplied text: VidMuse ASR returns text, then ATA adds word timing.
+- `--text` / `--text-file`: skip ASR and align approved text.
+- `--asr-only`: text only, explicitly no caption timing.
+
+ASR mistakes in names, products, and numbers must be surfaced to the user.
+Corrections require re-running ATA; never hand-edit individual word times.
+
+## Caption ownership
+
+The transcript output includes flat `words[]` and ATA-derived `utterances[]`.
+The owning `vidmuse-recut` or `vidmuse-create` workflow groups and styles
+captions and writes them to VidMuse Timeline. Media Use supplies truthful timing;
+it does not take over product caption strategy.

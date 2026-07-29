@@ -1,40 +1,18 @@
 #!/usr/bin/env node
 
-import { execFileSync } from "node:child_process";
-import {
-  existsSync,
-  readFileSync,
-  writeFileSync,
-  copyFileSync,
-  renameSync,
-  mkdtempSync,
-  rmSync,
-} from "node:fs";
-import { homedir, tmpdir } from "node:os";
-import { basename, extname, join, resolve } from "node:path";
+import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { basename, extname, resolve } from "node:path";
 import { parseArgs } from "node:util";
-import { mergeTokensToWords } from "./lib/parakeet-words.mjs";
+import { alignWithVidMuse, runVidMuseModel } from "./lib/vidmuse-cli.mjs";
 import { track } from "./lib/telemetry.mjs";
-import { resolveNpxInvocation } from "./lib/npx-sync.mjs";
-
-// The DEFAULT local transcription path. Prefers NVIDIA Parakeet-TDT via
-// parakeet-mlx, which beats whisper.cpp on the Open ASR Leaderboard (~6.05% vs
-// 7.44% avg WER, and 4.73% vs 5.96% on noisy test-other) and is 5-10x faster
-// with native punctuation. Emits { text, words:[{text,start,end}] } (word
-// timestamps merged from Parakeet's sub-word tokens) for transcript-cut /
-// captions / the audio engine.
-//
-// Parakeet v3 covers English + 25 European languages. For other languages, or
-// when parakeet-mlx is not installed, it falls back to whisper.cpp via
-// `hyperframes transcribe` (99 languages; the CLI resolves/builds whisper.cpp
-// on first use — it is not bundled). `--engine` forces one.
 
 const { values: args } = parseArgs({
   options: {
     input: { type: "string", short: "i" },
     out: { type: "string", short: "o" },
-    engine: { type: "string", default: "auto" }, // auto | parakeet | whisper
-    model: { type: "string", default: "mlx-community/parakeet-tdt-0.6b-v3" },
+    text: { type: "string" },
+    "text-file": { type: "string" },
+    "asr-only": { type: "boolean", default: false },
     json: { type: "boolean", default: false },
     help: { type: "boolean", short: "h", default: false },
   },
@@ -42,14 +20,16 @@ const { values: args } = parseArgs({
 });
 
 if (args.help) {
-  console.log(`media-use transcribe: better-than-whisper local ASR (Parakeet), whisper.cpp fallback
+  console.log(`media-use transcribe — VidMuse ASR + ATA
 
 Usage:
-  node transcribe.mjs --input audio.wav [--out audio.transcribe.json] [--engine auto|parakeet|whisper]
+  node transcribe.mjs --input talk.mp4 [--out talk.transcribe.json]
+  node transcribe.mjs --input talk.mp4 --text-file corrected.txt
+  node transcribe.mjs --input talk.mp4 --asr-only
 
-Parakeet (default) beats whisper.cpp on accuracy + speed for English/European
-languages; whisper.cpp (99 languages) is the fallback. Install Parakeet once:
-  uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx`);
+Without supplied text, VidMuse ASR first returns the transcript. ATA then aligns
+that text to the same media and produces word-level timestamps. Use --text or
+--text-file to skip ASR and align corrected/user-authored text.`);
   process.exit(0);
 }
 
@@ -57,124 +37,110 @@ if (!args.input) {
   console.error("error: --input is required");
   process.exit(2);
 }
-const inputPath = resolve(args.input);
-if (!existsSync(inputPath)) {
+const inputPath = /^https?:\/\//i.test(args.input) ? args.input : resolve(args.input);
+if (!/^https?:\/\//i.test(inputPath) && !existsSync(inputPath)) {
   console.error(`error: input not found: ${inputPath}`);
   process.exit(2);
 }
-const outPath = resolve(
-  args.out || `${inputPath.slice(0, -extname(inputPath).length)}.transcribe.json`,
-);
-
-// Locate the parakeet-mlx runner the same way the CLI does: env override, then
-// the documented ~/.venvs/parakeet install, then PATH. Checking the venv (not
-// just PATH) is what keeps a user who followed the install docs verbatim from
-// silently falling through to whisper. Returns the runner path, or null.
-function resolveParakeet() {
-  for (const p of [
-    process.env.HYPERFRAMES_PARAKEET,
-    join(homedir(), ".venvs", "parakeet", "bin", "parakeet-mlx"),
-  ]) {
-    if (p && existsSync(p)) return p;
+function defaultOutput(input) {
+  if (/^https?:\/\//i.test(input)) {
+    const remoteName = basename(new URL(input).pathname) || "remote-media";
+    const extension = extname(remoteName);
+    return `${extension ? remoteName.slice(0, -extension.length) : remoteName}.transcribe.json`;
   }
-  try {
-    execFileSync("parakeet-mlx", ["--help"], {
-      stdio: ["ignore", "ignore", "ignore"],
-      timeout: 20000,
-    });
-    return "parakeet-mlx";
-  } catch {
-    return null;
-  }
+  const extension = extname(input);
+  return `${extension ? input.slice(0, -extension.length) : input}.transcribe.json`;
 }
 
-// Write via a sibling temp + atomic rename so a SIGKILL mid-write can't leave a
-// truncated transcript at outPath (downstream reads it as valid JSON).
-function atomicWrite(target, data) {
-  const tmp = `${target}.tmp-${process.pid}`;
-  writeFileSync(tmp, data);
-  renameSync(tmp, target);
+const outPath = resolve(args.out || defaultOutput(inputPath));
+
+function atomicWrite(target, value) {
+  const temporary = `${target}.tmp-${process.pid}`;
+  writeFileSync(temporary, `${JSON.stringify(value, null, 2)}\n`);
+  renameSync(temporary, target);
 }
 
-function report(engine, wordCount) {
-  if (args.json) console.log(JSON.stringify({ ok: true, out: outPath, engine, words: wordCount }));
-  else
-    console.log(
-      `transcribed ${basename(inputPath)} -> ${outPath}${wordCount != null ? ` (${wordCount} words,` : " ("}${engine})`,
-    );
-}
-
-function runParakeet(runner) {
-  const workDir = mkdtempSync(join(tmpdir(), "media-use-asr-"));
-  try {
-    execFileSync(
-      runner,
-      [inputPath, "--model", args.model, "--output-format", "json", "--output-dir", workDir],
-      { stdio: ["ignore", "pipe", "pipe"], timeout: 1_800_000 },
-    );
-    const jsonPath = join(workDir, `${basename(inputPath, extname(inputPath))}.json`);
-    if (!existsSync(jsonPath)) throw new Error("parakeet produced no JSON");
-    const merged = mergeTokensToWords(JSON.parse(readFileSync(jsonPath, "utf8")));
-    atomicWrite(outPath, JSON.stringify(merged, null, 2));
-    report("parakeet", merged.words.length);
-  } finally {
-    rmSync(workDir, { recursive: true, force: true });
+function suppliedText() {
+  if (args.text) return args.text.trim();
+  if (args["text-file"]) {
+    const path = resolve(args["text-file"]);
+    if (!existsSync(path)) throw new Error(`text file not found: ${path}`);
+    return readFileSync(path, "utf8").trim();
   }
+  return "";
 }
 
-// whisper.cpp via the hyperframes CLI (fetched/built on first use — see
-// SKILL.md): writes transcript.json into --dir; relocate to --out.
-function runWhisper() {
-  const workDir = mkdtempSync(join(tmpdir(), "media-use-whisper-"));
-  try {
-    // On Windows a bare "npx" is npx.cmd, which execFileSync cannot exec
-    // (spawnSync npx ENOENT) — resolveNpxInvocation reroutes it through
-    // node + npx-cli.js (and throws actionably when it can't), same
-    // mechanism as the audio engine's TTS spawns.
-    const resolved = resolveNpxInvocation(
-      ["hyperframes", "transcribe", inputPath, "--dir", workDir],
-      { stdio: ["ignore", "pipe", "pipe"], timeout: 1_800_000 },
-    );
-    execFileSync(resolved.cmd, resolved.args, resolved.opts);
-    const produced = join(workDir, "transcript.json");
-    if (!existsSync(produced)) throw new Error("whisper produced no transcript.json");
-    const tmp = `${outPath}.tmp-${process.pid}`;
-    copyFileSync(produced, tmp);
-    renameSync(tmp, outPath); // atomic publish
-    let words;
-    try {
-      const t = JSON.parse(readFileSync(outPath, "utf8"));
-      words = Array.isArray(t?.words) ? t.words.length : undefined;
-    } catch {
-      /* leave undefined */
-    }
-    report("whisper", words);
-  } finally {
-    rmSync(workDir, { recursive: true, force: true });
-  }
+function normalizedUtterances(payload, words) {
+  const raw =
+    payload?.utterances ||
+    payload?.data?.utterances ||
+    payload?.result?.utterances ||
+    payload?.data?.result?.utterances ||
+    [];
+  let wordIndex = 0;
+  return raw.map((utterance, index) => {
+    const count = Array.isArray(utterance?.words) ? utterance.words.length : 0;
+    const slice = words.slice(wordIndex, wordIndex + count);
+    wordIndex += count;
+    return {
+      id: `u${index}`,
+      text: String(utterance?.text || slice.map((word) => word.text).join("")).trim(),
+      start: slice[0]?.start ?? 0,
+      end: slice.at(-1)?.end ?? slice[0]?.start ?? 0,
+      word_ids: slice.map((word) => word.id),
+    };
+  });
 }
 
 try {
-  const parakeetBin = resolveParakeet();
-  const engine =
-    args.engine === "parakeet" || args.engine === "whisper"
-      ? args.engine
-      : parakeetBin
-        ? "parakeet"
-        : "whisper";
-  if (engine === "parakeet") {
-    if (!parakeetBin) {
-      throw new Error(
-        "parakeet-mlx not found (checked $HYPERFRAMES_PARAKEET, ~/.venvs/parakeet, and PATH). Install: uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx (or use --engine whisper)",
-      );
-    }
-    runParakeet(parakeetBin);
-  } else {
-    runWhisper();
+  let text = suppliedText();
+  let textSource = text ? "provided" : "vidmuse-asr";
+  if (!text) {
+    const asr = runVidMuseModel({
+      files: [inputPath],
+      extra_params: { sub_model_type: "asr" },
+    });
+    text = String(asr?.text || asr?.data?.text || "").trim();
+    if (!text) throw new Error("VidMuse ASR returned no text");
   }
-  await track("media_use_transcribe", { engine });
-} catch (err) {
-  if (args.json) console.log(JSON.stringify({ ok: false, error: err.message }));
-  else console.error(`error: transcription failed: ${err.message}`);
+
+  if (args["asr-only"]) {
+    const output = { text, text_source: textSource, words: [], utterances: [] };
+    atomicWrite(outPath, output);
+    if (args.json) console.log(JSON.stringify({ ok: true, out: outPath, text_source: textSource }));
+    else console.log(`transcribed ${basename(String(inputPath))} -> ${outPath} (VidMuse ASR)`);
+    process.exit(0);
+  }
+
+  const aligned = alignWithVidMuse({ input: inputPath, text });
+  const output = {
+    text,
+    text_source: textSource,
+    alignment_model: "doubao_speech/audio_text_alignment",
+    words: aligned.words,
+    utterances: normalizedUtterances(aligned.response, aligned.words),
+  };
+  atomicWrite(outPath, output);
+  await track("media_use_transcribe", { engine: "vidmuse-asr-ata" });
+  if (args.json) {
+    console.log(
+      JSON.stringify({
+        ok: true,
+        out: outPath,
+        engine: "vidmuse-asr-ata",
+        words: output.words.length,
+        utterances: output.utterances.length,
+        text_source: textSource,
+      }),
+    );
+  } else {
+    console.log(
+      `transcribed ${basename(String(inputPath))} -> ${outPath} ` +
+        `(${output.words.length} words, VidMuse ASR + ATA)`,
+    );
+  }
+} catch (error) {
+  if (args.json) console.log(JSON.stringify({ ok: false, error: error.message }));
+  else console.error(`error: transcription failed: ${error.message}`);
   process.exit(1);
 }

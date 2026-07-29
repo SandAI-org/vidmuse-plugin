@@ -1,7 +1,7 @@
 {
   "name": "vidmuse",
-  "description": "VidMuse motion-film plugin for Codex. Two product skills: /vidmuse-recut packages existing speaking footage; /vidmuse-create builds films without source footage (script+TTS explainers, website/product promos, generated media via vidmuse model run; Vox-style paper-collage B-roll). Shared taste stack (charter, tells, FRAME, gates). Create non-Vox execution is machine-gated: film-plan.json -> GSAP scaffold -> check_motion render gate (freeze/cue-event/UI-proof/semantic alignment). Ships HyperFrames core + GSAP domain skills; /hyperframes is demoted domain reference only; Ships /vidmuse-motion semantic HyperFrames recipes for Registry-miss dataviz and shot execution.",
-  "version": "0.3.15",
+  "description": "VidMuse motion-film plugin for Codex. /vidmuse-recut packages existing speaking footage; /vidmuse-create builds films without source footage. The bundled media-use dependency routes TTS, music, image, icon, avatar/video generation, ASR, and word alignment through the authenticated VidMuse CLI; ffmpeg handles deterministic local transforms. Shared taste stack (charter, tells, FRAME, gates). Ships HyperFrames core + GSAP domain references for composition; /hyperframes is not a product router.",
+  "version": "0.3.16",
   "author": {
     "name": "VidMuse",
     "email": "hello@vidmuse.ai",
@@ -39,7 +39,7 @@
   "interface": {
     "displayName": "VidMuse",
     "shortDescription": "Recut speaking footage · Create without source · Multi-track Timeline",
-    "longDescription": "Dual product: /vidmuse-recut for existing talking-head packaging; /vidmuse-create for script+TTS explainers and website/product promos with no source plate. Shared aesthetic system (charter, packaging tells, FRAME.md, Taste Gate). User preview via vidmuse serve multi-track DSL. HyperFrames builds layers; Timeline assembles the film. HF core + GSAP bundled; /hyperframes demoted Optional Vox paper-collage B-roll path on create; Includes /vidmuse-motion for native KPI/chart compose when catalog is empty.",
+    "longDescription": "Dual product: /vidmuse-recut for existing talking-head packaging; /vidmuse-create for script+TTS explainers and website/product promos with no source plate. VidMuse CLI is the single AI media substrate for generation, ASR, and ATA; ffmpeg remains the deterministic local media tool. User preview uses vidmuse serve multi-track DSL. HyperFrames and GSAP are bundled composition references, not provider or environment prerequisites for media generation.",
     "developerName": "VidMuse",
     "category": "Creativity",
     "capabilities": [

@@ -31,6 +31,12 @@ End users only need the two product skills. The rest loads on demand.
 - A [VidMuse](https://vidmuse.ai) account and the VidMuse CLI on your `PATH`.
 - Optional: network access so the agent can run `npx hyperframes` when a project needs HTML motion layers.
 
+All AI media work is dispatched through the authenticated VidMuse CLI:
+TTS, music, images, icons, digital-human/video generation, ASR, and word-level
+ATA alignment. The plugin does not install or diagnose separate provider CLIs
+or local AI runtimes. `ffmpeg` and `ffprobe` remain the local deterministic
+media tools.
+
 ## Install
 
 ```bash
@@ -72,7 +78,7 @@ Finished work lands in the session workspace, never in the plugin directory.
 https://github.com/SandAI-org/vidmuse-plugin.git
 ```
 
-For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.3.14** (see `.codex-plugin/plugin.json`).
+For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.3.16** (see `.codex-plugin/plugin.json`).
 
 ## License
 

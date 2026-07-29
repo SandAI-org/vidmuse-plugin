@@ -1,0 +1,23 @@
+{
+  "skill_name": "media-use",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "把这段中文采访转成逐词时间码字幕，并修正我提供的人名后重新对齐。",
+      "expected_output": "Routes transcription through VidMuse ASR when text is absent, then VidMuse ATA for word timestamps; provided corrected text skips ASR and reruns ATA.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "为这个 30 秒产品短片生成中文配音、背景音乐、主视觉图片和一段数字人视频。",
+      "expected_output": "Uses the live VidMuse model catalog and vidmuse model run for TTS, text-to-music, text-to-image, and avatar/video generation; freezes returned media locally and records model provenance.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "检查我的媒体生成环境，不要安装模型。",
+      "expected_output": "Checks VidMuse CLI version, authentication/profile, plan or credits, live model catalog, Node.js, ffmpeg, ffprobe, and bundled SFX only; does not inspect or install provider-specific or local AI runtimes.",
+      "files": []
+    }
+  ]
+}

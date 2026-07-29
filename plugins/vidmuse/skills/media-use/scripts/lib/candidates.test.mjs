@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 import { listCandidates, formatCandidates, CANDIDATE_CAP } from "./candidates.mjs";
 import { findGlobalBySha } from "./cache.mjs";
 
-// candidates + findGlobalBySha are offline (no heygen), so we can override HOME
+// candidates + findGlobalBySha are offline, so we can override HOME
 // to a temp dir and seed a fake global ~/.media manifest deterministically.
 function sandbox() {
   const root = mkdtempSync(join(tmpdir(), "mu-cand-"));
@@ -31,7 +31,7 @@ function glob(id, type, description, prompt, sha) {
     reusable: true,
     cached_path: `/x/${sha}/${id}.wav`,
     description,
-    provenance: { prompt, provider: "heygen.audio.sounds" },
+    provenance: { prompt, provider: "vidmuse.model" },
   };
 }
 

@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.2.4",
+  "pluginVersion": "0.3.16",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -42,6 +42,7 @@
     "skills/hyperframes/references/routes/talking-head-recut.md": "Redirect stub → /vidmuse-recut",
     "skills/hyperframes/references/capability-menu.md": "Overlay row → /vidmuse-recut",
     "skills/vidmuse-recut/SKILL.md": "Declared sole product router / wins packaging intents",
+    "skills/media-use": "Adapted from the vendored Media OS into a VidMuse-native dependency: all AI generation uses vidmuse model list/run, transcription uses VidMuse ASR + ATA, doctor checks VidMuse + ffmpeg only, and provider-specific/local-AI adapters were removed.",
     "0.2.2": [
       "hyperframes description: remove packaging trigger words",
       "setup.sh: whitelist-only network fallback",

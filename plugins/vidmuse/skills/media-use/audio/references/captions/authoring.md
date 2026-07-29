@@ -1,6 +1,9 @@
 # Captions
 
-Before authoring: confirm the transcript came from the right Whisper model. CLI default `small.en` silently translates non-English audio — see [`../transcribe.md`](../transcribe.md) → "Language Rule" and [`transcript-handling.md`](transcript-handling.md) for the mandatory quality check.
+Before authoring, confirm that VidMuse ASR produced the intended language and
+that names, numbers, and product terms were corrected before ATA alignment. See
+[`../transcribe.md`](../transcribe.md) and
+[`transcript-handling.md`](transcript-handling.md).
 
 Analyze spoken content to determine caption style. If user specifies a style, use that. Otherwise, detect tone from the transcript.
 
@@ -13,7 +16,11 @@ Analyze spoken content to determine caption style. If user specifies a style, us
 ]
 ```
 
-`id` (`w0`, `w1`, …) is the stable reference for per-word overrides and is added by `hyperframes transcribe`. It's optional for backwards compatibility with hand-authored transcripts. See [`../transcribe.md`](../transcribe.md) → "Output Shape" for how this is produced, and [`transcript-handling.md`](transcript-handling.md) for cleanup before consumption.
+`id` (`w0`, `w1`, …) is the stable reference for per-word overrides and is
+added by `scripts/transcribe.mjs` after VidMuse ATA. It is optional for
+backwards compatibility with hand-authored transcripts. See
+[`../transcribe.md`](../transcribe.md) for the output shape and
+[`transcript-handling.md`](transcript-handling.md) for cleanup.
 
 ## Style Detection (When No Style Specified)
 
@@ -139,8 +146,6 @@ npx hyperframes add caption-highlight         # install a specific one
 | Weight shift              | `caption-weight-shift`       | Elegant, typographic         |
 
 Related: `caption-blend-difference` (tagged `text` / `blend-mode`, not `caption-style`, so it won't appear under the filter above) auto-inverts text against any background via `mix-blend-mode: difference` — useful when the background is busy or unpredictable.
-
-Browse all with previews: [hyperframes.heygen.com/catalog](https://hyperframes.heygen.com/catalog)
 
 Caption components ship with transparent backgrounds — they're pure overlays. If the underlying video is bright or busy, add a contrast layer (e.g. a semi-transparent dark div) in the host composition beneath the caption sub-composition, not inside the component itself.
 

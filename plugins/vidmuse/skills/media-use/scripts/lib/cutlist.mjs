@@ -105,8 +105,8 @@ function fillerRanges(words, value) {
         .map((s) => s.trim());
   const set = new Set(fillers.filter(Boolean).map(bareToken));
   if (set.size === 0) return [];
-  // Whisper emits words with attached punctuation and arbitrary case
-  // ("UM," / "Um."), so compare bare tokens.
+  // ASR output may attach punctuation and use arbitrary case ("UM," / "Um."),
+  // so compare bare tokens.
   return words
     .filter((word) => set.has(bareToken(word.text)))
     .map((word) => ({ start: word.start, end: word.end }));

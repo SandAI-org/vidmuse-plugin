@@ -27,7 +27,7 @@ Same set as `npx hyperframes skills update` core tier (`FALLBACK_CORE_SKILLS`):
 | `hyperframes-creative` | Non-animation creative direction |
 | `hyperframes-keyframes` | Seek-safe keyframe diagnostics |
 | `hyperframes-registry` | `hyperframes add` / catalog / wiring |
-| `media-use` | Media OS: TTS, BGM, captions, prefs, assets |
+| `media-use` | **VidMuse-native Media OS**: CLI model catalog/run for TTS, music, image, icon, avatar/video; VidMuse ASR + ATA captions; deterministic media ops |
 
 ## GSAP pack (vendored from greensock/gsap-skills)
 

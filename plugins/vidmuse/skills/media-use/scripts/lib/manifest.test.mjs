@@ -52,7 +52,7 @@ function makeRecord(overrides = {}) {
     source: "search",
     description: "soft minimal ambient",
     duration: 11,
-    provenance: { provider: "heygen.audio.sounds", prompt: "subtle tech" },
+    provenance: { provider: "vidmuse.model", prompt: "subtle tech" },
     ...overrides,
   };
 }
