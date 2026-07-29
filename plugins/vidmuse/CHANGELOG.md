@@ -28,9 +28,8 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 - **Media execution receipts.** Recut uses `media-use/transcribe.mjs` for
   ASR→ATA; create uses the shared audio engine for TTS→ATA and preserves
   `audio_request.json` / `audio_meta.json`.
-- Added routing eval prompts and static architecture contract tests covering
-  transcript-only, TTS-only, film, semantic-asset, transform, caption, and
-  existing-HyperFrames requests.
+- Added routing eval prompts covering transcript-only, TTS-only, film,
+  semantic-asset, transform, caption, and existing-HyperFrames requests.
 
 ## 0.3.19 — 2026-07-29
 
