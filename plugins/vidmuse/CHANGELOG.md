@@ -6,9 +6,14 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
-## Unreleased
+## 0.4.1 — 2026-07-29
 
 ### Create direction and anti-PPT gates
+
+Breaking for in-flight work directories: a `film-plan.json` written before this
+release fails `film_plan.py` until it carries `creative_direction`,
+`preproduction`, and the per-beat `world_id` / `continuity_in` /
+`camera_intent` / `storyboard_frames` fields.
 
 - Added an agency-style pre-production contract for non-Vox Create films:
   discovery/product truth, one-proposition brief, three materially different

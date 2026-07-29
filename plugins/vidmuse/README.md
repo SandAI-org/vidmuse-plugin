@@ -104,7 +104,7 @@ Finished work lands in the session workspace, never in the plugin directory.
 https://github.com/SandAI-org/vidmuse-plugin.git
 ```
 
-For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.4.0** (see `.codex-plugin/plugin.json`).
+For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.4.1** (see `.codex-plugin/plugin.json`).
 
 ## License
 

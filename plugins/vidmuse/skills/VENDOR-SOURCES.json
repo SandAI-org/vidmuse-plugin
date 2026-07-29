@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.4.0",
+  "pluginVersion": "0.4.1",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -66,6 +66,12 @@
       "asset query fingerprints invalidate stale resolutions after query/entity/variant/provider changes",
       "create/recut machine gates require real data-asset-ref DOM bindings and exact local receipt paths",
       "CDN HEAD probes fall back to ranged GET when HEAD is unsupported"
+    ],
+    "0.4.1": [
+      "create: agency pre-production contract gates non-Vox compose — truth, one-proposition brief, three treatments, director treatment, real storyboard frames, approved animatic",
+      "film_plan.py: creative_direction + preproduction blocks required; project-local file checks, per-beat storyboard frame binding, >=3 unique treatment ids, exact animatic SHA-256 in the approval receipt",
+      "check_motion.py: R3 rejects repeated full-frame luminance washes; beat seams and declared exit/morph/camera windows stay exempt",
+      "URL capture is an evidence bank, not a shot list"
     ],
     "0.4.0": [
       "vidmuse: mandatory deliverable-based router for film workflows and standalone capabilities",
