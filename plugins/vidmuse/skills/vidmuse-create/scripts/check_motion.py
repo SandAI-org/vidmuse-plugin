@@ -12,6 +12,8 @@ Static (index.html vs film-plan.resolved.json)
   S4  hero_throughline selector appears in enough beat sections
   S5  precise UI/image overlays share a declared transform space with their
       target and use normalized raster geometry
+  S6  every approved semantic asset appears as a real data-asset-ref DOM node
+      in its assigned beat and points at the resolved local file
 
 Rendered (frame sampling of the actual video via ffmpeg)
   R1  freeze: no >=1.5s still span inside a non-hold window (and no fully
@@ -37,6 +39,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from html import escape
 from pathlib import Path
 from typing import Any
 
@@ -207,6 +210,35 @@ def run_static(gate: Gate, work: Path, html_path: Path, plan: dict[str, Any]) ->
 
     for check in evaluate_alignment(html, proof_beats):
         gate.add(check["id"], check["ok"], check["where"], check["detail"])
+
+    for beat in beats:
+        section = slices.get(beat["id"], "")
+        for asset in beat.get("assets") or []:
+            ref = str(asset.get("ref", ""))
+            path = str(asset.get("path", ""))
+            tag = re.search(
+                r"<(?!\!--)[a-zA-Z][^>]*\bdata-asset-ref=[\"']"
+                + re.escape(ref)
+                + r"[\"'][^>]*>",
+                section,
+                flags=re.IGNORECASE,
+            )
+            ok = bool(
+                tag
+                and path
+                and (
+                    path in tag.group(0)
+                    or escape(path, quote=True) in tag.group(0)
+                )
+            )
+            gate.add(
+                "S6.assets",
+                ok,
+                f"{beat['id']}:{ref}",
+                f"resolved asset DOM binding present: {path}"
+                if ok
+                else f"missing real data-asset-ref DOM binding for {path}",
+            )
 
 
 # ── rendered checks ─────────────────────────────────────────────────────────

@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.3.16",
+  "pluginVersion": "0.3.19",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -40,9 +40,32 @@
   "patches": {
     "skills/hyperframes/SKILL.md": "Demoted from mandatory entry to domain reference; product routing delegated to /vidmuse-recut; THR removed from route table.",
     "skills/hyperframes/references/routes/talking-head-recut.md": "Redirect stub → /vidmuse-recut",
-    "skills/hyperframes/references/capability-menu.md": "Overlay row → /vidmuse-recut",
-    "skills/vidmuse-recut/SKILL.md": "Declared sole product router / wins packaging intents",
-    "skills/media-use": "Adapted from the vendored Media OS into a VidMuse-native dependency: all AI generation uses vidmuse model list/run, transcription uses VidMuse ASR + ATA, doctor checks VidMuse + ffmpeg only, and provider-specific/local-AI adapters were removed.",
+    "skills/hyperframes/references/capability-menu.md": "VidMuse-normalized capability inventory: media generation/transcription use media-use + VidMuse CLI; active products are vidmuse-recut/create; missing upstream workflows are not installed.",
+    "skills/vidmuse-recut/SKILL.md": "Declared sole product router / wins packaging intents; invokes the proactive Semantic Asset Pass after transcript grounding.",
+    "skills/media-use": "Adapted from the vendored Media OS into an internal VidMuse media runtime: all AI generation uses vidmuse model list/run, transcription uses VidMuse ASR + ATA, doctor checks VidMuse + ffmpeg only, and semantic asset selection remains in vidmuse-assets.",
+    "skills/hyperframes-cli": "VidMuse boundary patch: composition/render-engine operations only; general doctor, TTS, transcription, background edits, AI generation, provider auth, and product delivery route through media-use + VidMuse CLI.",
+    "0.3.17": [
+      "setup.sh: VidMuse-native media doctor; HyperFrames is on-demand composition runtime only",
+      "hyperframes-cli/core/animation: removed legacy media commands and provider-specific TTS/ASR guidance",
+      "capability/lifecycle references: bundled VidMuse workflows only; no lazy upstream workflow install",
+      "vidmuse-assets: user-facing asset library, provenance, and license router over media-use",
+      "media-use logo resolver: pinned Lobe Icons catalog/static SVG provider with exact variants and license receipts"
+    ],
+    "0.3.18": [
+      "vidmuse-assets: proactive Semantic Asset Pass, canonical identity, asset-plan schema/validator/resolver",
+      "vidmuse-create/recut: mandatory post-transcript semantic asset planning and stable asset_refs",
+      "film_plan.py/shot_scaffold.py: cross-file local receipt validation and scaffold asset binding",
+      "hybrid library: empty manifest-driven Core Pack framework plus Creator Library/project-freeze policy",
+      "media-use boundary: internal execution runtime only; no editorial asset decisions"
+    ],
+    "0.3.19": [
+      "logo identity continuity: relationship parentheticals are not aliases; legacy wrong-identity cache entries are rejected",
+      "explicit logo variants are hard cascade constraints with structured unavailable receipts",
+      "semantic pass receipts bind every plan, including empty plans, to the current transcript SHA-256",
+      "asset query fingerprints invalidate stale resolutions after query/entity/variant/provider changes",
+      "create/recut machine gates require real data-asset-ref DOM bindings and exact local receipt paths",
+      "CDN HEAD probes fall back to ranged GET when HEAD is unsupported"
+    ],
     "0.2.2": [
       "hyperframes description: remove packaging trigger words",
       "setup.sh: whitelist-only network fallback",

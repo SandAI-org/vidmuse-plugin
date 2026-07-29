@@ -3,15 +3,24 @@ name: hyperframes-cli
 description: >
   Use the HyperFrames CLI development loop: init, add, catalog, capture, lint, check, snapshot,
   compare, grade-compare, preview, play, present, beats, keyframes, single or batch render, publish,
-  cloud, cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs,
-  benchmark, telemetry, transcribe, auth, tts, and remove-background. Also use when diagnosing build
-  or render failures. validate, inspect, and layout are deprecated aliases; use check. Covers local,
-  HeyGen-hosted cloud, AWS Lambda, and Google Cloud Run rendering.
+  cloudrun, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark,
+  and telemetry. Also use for explicit HyperFrames composition, browser, or render failures.
+  validate, inspect, and layout are deprecated aliases; use check. Media environment checks, TTS,
+  transcription, captions, background removal, and AI generation belong to VidMuse media-use.
 ---
 
 # HyperFrames CLI
 
 Run commands as `npx hyperframes ...` unless project instructions provide a wrapper. Obey the wrapper when present. The CLI requires Node.js 22 or newer and FFmpeg.
+
+## VidMuse boundary
+
+This is a composition and render-engine manual, not the media provider layer.
+
+- General environment/media preflight → `/media-use` `scripts/resolve.mjs --doctor`.
+- TTS, music, images, avatars, AI video, ASR, ATA, and background-edit generation → `/media-use`, which discovers and runs live models through `vidmuse model list/run`.
+- HyperFrames `doctor` is allowed only after a specific HyperFrames composition, browser, preview, or render failure points at that runtime.
+- Do not use HyperFrames authentication or managed-provider media commands in a VidMuse product run. `vidmuse login` is the only product authentication path.
 
 ## Development loop
 
@@ -89,7 +98,7 @@ Treat tiny unstyled content, canvas-sized icons, missing hero elements, or timel
 ## Agent conventions
 
 - Prefer `--json` for agent and CI calls. Server-mode `render`, `preview`, and `play` do not provide ordinary JSON output; `preview --selection --json` and `preview --context --json` are query-mode exceptions.
-- `doctor --json` always exits zero. Gate on its payload:
+- For an explicit HyperFrames runtime failure only, `doctor --json` always exits zero. Gate on its payload:
 
   ```bash
   npx hyperframes doctor --json | jq -e '.ok' >/dev/null
@@ -99,7 +108,6 @@ Treat tiny unstyled content, canvas-sized icons, missing hero elements, or timel
 - Use one `HYPERFRAMES_RUN_ID` for all commands in the same verification loop.
 - Use `--strict`, `--strict-all`, and `--strict-variables` when the corresponding warnings, variables, or CI conditions must gate the render.
 - JSON paths redact the home directory as `$HOME`; do not try to reverse the redaction.
-- When a hosted cloud project approaches or exceeds the 200 MB upload limit, use `cloud render --dry-run --json` and follow the `.hyperframesignore` investigation in `references/cloud.md`. Never ignore an asset merely because it is large.
 - Never render merely because checks pass. Pause at the user-facing review (`vidmuse serve` in this plugin) and wait for approval.
 - Never treat “checks passed” as a reason to launch `hyperframes preview`.
 
@@ -115,17 +123,19 @@ Do **not** start Studio just to enable this bridge. If Studio is not running, as
 
 ## Render choices
 
-| Need                                     | Command                                                                       |
-| ---------------------------------------- | ----------------------------------------------------------------------------- |
-| Fast local iteration                     | `npx hyperframes render --quality draft`                                      |
-| Final local delivery                     | `npx hyperframes render --quality high --output out.mp4`                      |
-| Reproducible container render            | `npx hyperframes render --docker --strict --output out.mp4`                   |
-| Local variable-driven batch render       | `npx hyperframes render --batch rows.json --output "renders/{name}.mp4"`      |
-| HeyGen-hosted zero-infrastructure render | `npx hyperframes cloud render`                                                |
-| Self-managed distributed AWS render      | `npx hyperframes lambda render <project> --width 1920 --height 1080 --wait`   |
-| Self-managed distributed GCP render      | `npx hyperframes cloudrun render <project> --width 1920 --height 1080 --wait` |
+| Need                                | Command                                                                       |
+| ----------------------------------- | ----------------------------------------------------------------------------- |
+| Fast local composition iteration    | `npx hyperframes render --quality draft`                                      |
+| Final local composition render      | `npx hyperframes render --quality high --output out.mp4`                      |
+| Reproducible container render       | `npx hyperframes render --docker --strict --output out.mp4`                   |
+| Local variable-driven batch render  | `npx hyperframes render --batch rows.json --output "renders/{name}.mp4"`      |
+| Explicit self-managed AWS rendering | `npx hyperframes lambda render <project> --width 1920 --height 1080 --wait`   |
+| Explicit self-managed GCP rendering | `npx hyperframes cloudrun render <project> --width 1920 --height 1080 --wait` |
 
-Use cloud rendering when the user wants hosted rendering without local Chrome, FFmpeg, or AWS. Use Lambda only when AWS ownership is a requirement. Use Cloud Run only when GCP ownership is a requirement. Read the matching reference before running any cloud path.
+Use the VidMuse Timeline render/export path for the product deliverable. Use
+HyperFrames rendering only for its HTML composition layer. AWS Lambda or GCP
+Cloud Run are available only when the user explicitly owns and requests that
+infrastructure; read the matching reference first.
 
 After verifying a successful render, send one feedback report unless telemetry is disabled or the user opted out:
 
@@ -147,12 +157,12 @@ The following references and owning skills are mandatory command contracts, not 
 | `beats` for an existing project's Studio beat grid                                     | `references/beats.md`                 |
 | `preview`, `play`, `render`, `publish`, Studio context, feedback                       | `references/preview-render.md`        |
 | `doctor`, browser management                                                           | `references/doctor-browser.md`        |
-| `auth`, HeyGen-hosted cloud rendering, and template variables                          | `references/cloud.md`                 |
+| VidMuse vs HyperFrames render/authentication boundary                                  | `references/cloud.md`                 |
 | AWS Lambda deployment and rendering                                                    | `references/lambda.md`                |
 | Google Cloud Run deployment and rendering                                              | `references/cloudrun.md`              |
-| `info`, `upgrade`, `compositions`, `docs`, `benchmark`, telemetry, media preprocessing | `references/upgrade-info-misc.md`     |
+| `info`, `upgrade`, `compositions`, `docs`, `benchmark`, telemetry                      | `references/upgrade-info-misc.md`     |
 
-For composition variables, also read `/hyperframes-core` → `references/variables-and-media.md`. For `hyperframes add` and `hyperframes catalog`, use `/hyperframes-registry`. Before `hyperframes present`, read `/slideshow`; before `hyperframes keyframes`, read `/hyperframes-keyframes`. For TTS, transcription, captions, or background removal choices, use `/media-use`.
+For composition variables, also read `/hyperframes-core` → `references/variables-and-media.md`. For `hyperframes add` and `hyperframes catalog`, use `/hyperframes-registry`. Before `hyperframes present`, read `references/preview-render.md`; before `hyperframes keyframes`, read `/hyperframes-keyframes`. For TTS, transcription, captions, background removal, or generated media, use `/media-use` and the VidMuse CLI.
 
 The specialized commands are deliberately documented by their owning workflows:
 

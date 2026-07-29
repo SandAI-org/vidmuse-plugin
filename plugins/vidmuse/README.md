@@ -4,10 +4,15 @@ The VidMuse plugin connects [Codex](https://openai.com/codex) to [VidMuse](https
 
 Use it to package talking-head or interview clips, build explainers and promos from a script with no source footage, generate assets and paper-collage B-roll, align word-level captions to real speech, preview everything on a multi-track VidMuse Timeline, and export.
 
-Two product skills cover all workflows:
+Two film product skills cover production, with one asset-library capability:
 
 - `/vidmuse-recut` — you already have a person speaking on camera (talking-head, interview, podcast, product explainer).
 - `/vidmuse-create` — there is no speaking plate (knowledge explainers, website and product promos, script + TTS films, Vox-style collage B-roll).
+- `/vidmuse-assets` — proactively scan film semantics or handle explicit
+  requests, canonicalize entities, plan and license-check assets, and operate
+  the hybrid Core Pack / Creator Library / provider system. Lobe Icons is the
+  first built-in AI/LLM Logo Provider; `media-use` performs the underlying
+  downloads, generation, transforms, cache, and project freeze.
 
 Both share the same taste system and deliver through VidMuse Timeline (`vidmuse serve`): picture, overlays, narration, and word-level captions — not a baked MP4-only handoff.
 
@@ -16,12 +21,14 @@ Both share the same taste system and deliver through VidMuse Timeline (`vidmuse 
 - `.codex-plugin/plugin.json` — Codex plugin metadata.
 - `skills/vidmuse-recut/` — product skill for existing speaking footage.
 - `skills/vidmuse-create/` — product skill for films without source footage.
+- `skills/vidmuse-assets/` — asset intelligence, Semantic Asset Pass, hybrid
+  library policy, plan validator/resolver, and framework-only Core Pack.
 - `skills/` (everything else) — domain skills (motion, media, HyperFrames, GSAP) that load automatically when the agent needs them.
 - `assets/` — shared icon and logo.
 - `SKILLS.md` — full skill list for maintainers.
-- `scripts/package-codex-plugin.mjs` — plugin packaging script.
 
-End users only need the two product skills. The rest loads on demand.
+End users enter through the two film skills or the asset skill. The rest loads
+on demand.
 
 ## Requirements
 
@@ -67,8 +74,10 @@ Model calls (TTS, alignment, image and video generation), timeline cloud feature
 - `Package this talking-head video with designed graphic overlays: ~/Movies/talk.mp4 — script: …`
 - `Director-mode recut of my interview into a short launch-film piece.`
 - `Make a 60s knowledge explainer from this script (no camera footage).`
+- `Make an AI development-history film; identify and source useful model/company marks automatically.`
 - `Promo film for this website — no talking-head clip.`
 - `Vox-style paper-collage B-roll for this VO line: …`
+- `Find the Codex color logo from Lobe Icons and add it to this project's asset library.`
 
 Finished work lands in the session workspace, never in the plugin directory.
 
@@ -78,7 +87,7 @@ Finished work lands in the session workspace, never in the plugin directory.
 https://github.com/SandAI-org/vidmuse-plugin.git
 ```
 
-For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.3.16** (see `.codex-plugin/plugin.json`).
+For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.3.19** (see `.codex-plugin/plugin.json`).
 
 ## License
 

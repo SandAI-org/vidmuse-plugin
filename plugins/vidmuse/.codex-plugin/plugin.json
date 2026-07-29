@@ -1,7 +1,7 @@
 {
   "name": "vidmuse",
-  "description": "VidMuse motion-film plugin for Codex. /vidmuse-recut packages existing speaking footage; /vidmuse-create builds films without source footage. The bundled media-use dependency routes TTS, music, image, icon, avatar/video generation, ASR, and word alignment through the authenticated VidMuse CLI; ffmpeg handles deterministic local transforms. Shared taste stack (charter, tells, FRAME, gates). Ships HyperFrames core + GSAP domain references for composition; /hyperframes is not a product router.",
-  "version": "0.3.16",
+  "description": "VidMuse motion-film plugin for Codex. /vidmuse-recut packages existing speaking footage; /vidmuse-create builds films without source footage; both proactively call /vidmuse-assets to turn full-content semantics into licensed, beat-bound asset plans. /vidmuse-assets owns canonical identity, Core Pack / Creator Library policy, and provider selection; the internal media-use runtime executes generation, downloads, transforms, cache/project freeze, ASR, and word alignment. Shared taste stack (charter, tells, FRAME, gates).",
+  "version": "0.3.19",
   "author": {
     "name": "VidMuse",
     "email": "hello@vidmuse.ai",
@@ -30,6 +30,7 @@
     "video",
     "video-packaging",
     "vidmuse",
+    "vidmuse-assets",
     "vidmuse-create",
     "vidmuse-motion",
     "dataviz",
@@ -38,8 +39,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "VidMuse",
-    "shortDescription": "Recut speaking footage · Create without source · Multi-track Timeline",
-    "longDescription": "Dual product: /vidmuse-recut for existing talking-head packaging; /vidmuse-create for script+TTS explainers and website/product promos with no source plate. VidMuse CLI is the single AI media substrate for generation, ASR, and ATA; ffmpeg remains the deterministic local media tool. User preview uses vidmuse serve multi-track DSL. HyperFrames and GSAP are bundled composition references, not provider or environment prerequisites for media generation.",
+    "shortDescription": "Recut · Create · Reusable asset libraries · Multi-track Timeline",
+    "longDescription": "VidMuse provides /vidmuse-recut for existing talking-head packaging, /vidmuse-create for script+TTS explainers and website/product promos with no source plate, and /vidmuse-assets for proactive Semantic Asset Passes plus licensed Core Pack, Creator Library, and dynamic-provider sourcing. VidMuse CLI is the single AI media substrate; the internal media-use runtime performs downloads, generation, transforms, project freeze, ASR, and ATA. User preview uses vidmuse serve multi-track DSL.",
     "developerName": "VidMuse",
     "category": "Creativity",
     "capabilities": [
@@ -51,8 +52,10 @@
       "Package this talking-head video with designed graphic overlays",
       "Director-mode recut of my interview into a launch-film motion piece",
       "Make a 60s knowledge explainer from this script with TTS (vidmuse-create)",
+      "Make an AI development-history film and source useful model/company marks automatically",
       "Promo film for this website — no talking-head footage (vidmuse-create)",
-      "Vox-style paper-collage B-roll for this one VO line (vidmuse-create)"
+      "Vox-style paper-collage B-roll for this one VO line (vidmuse-create)",
+      "Find the Codex color logo from Lobe Icons and add it to this project's asset library (vidmuse-assets)"
     ],
     "brandColor": "#0B0B0F",
     "composerIcon": "./assets/icon.png",

@@ -146,6 +146,32 @@ function runTests() {
     cleanup();
   });
 
+  test("findByPrompt distinguishes requested asset variants", () => {
+    setup();
+    appendRecord(
+      tmp,
+      makeRecord({
+        id: "logo_001",
+        type: "logo",
+        variant: "mono",
+        provenance: { prompt: "OpenAI logo" },
+      }),
+    );
+    appendRecord(
+      tmp,
+      makeRecord({
+        id: "logo_002",
+        type: "logo",
+        variant: "text",
+        provenance: { prompt: "OpenAI logo" },
+      }),
+    );
+    assert.equal(findByPrompt(tmp, "OpenAI logo", "logo", "mono")?.id, "logo_001");
+    assert.equal(findByPrompt(tmp, "OpenAI logo", "logo", "text")?.id, "logo_002");
+    assert.equal(findByPrompt(tmp, "OpenAI logo", "logo", "color"), null);
+    cleanup();
+  });
+
   test("normalizePrompt trims, lowercases, collapses whitespace", () => {
     assert.equal(normalizePrompt("  Upbeat   Tech  Launch "), "upbeat tech launch");
     assert.equal(normalizePrompt(null), "");
@@ -211,6 +237,32 @@ function runTests() {
     assert.ok(findByEntity(tmp, "github"));
     assert.ok(findByEntity(tmp, "GITHUB"));
     assert.equal(findByEntity(tmp, "gitlab"), null);
+    cleanup();
+  });
+
+  test("findByEntity distinguishes requested asset variants", () => {
+    setup();
+    appendRecord(
+      tmp,
+      makeRecord({
+        id: "logo_001",
+        type: "logo",
+        entity: "OpenAI",
+        variant: "mono",
+      }),
+    );
+    appendRecord(
+      tmp,
+      makeRecord({
+        id: "logo_002",
+        type: "logo",
+        entity: "OpenAI",
+        variant: "text",
+      }),
+    );
+    assert.equal(findByEntity(tmp, "openai", "mono")?.id, "logo_001");
+    assert.equal(findByEntity(tmp, "openai", "text")?.id, "logo_002");
+    assert.equal(findByEntity(tmp, "openai", "color"), null);
     cleanup();
   });
 

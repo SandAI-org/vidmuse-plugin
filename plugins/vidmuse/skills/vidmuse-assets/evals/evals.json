@@ -1,0 +1,53 @@
+{
+  "skill_name": "vidmuse-assets",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "给我找一个 Codex 的彩色 Logo，必须来自 Lobe Icons，放进当前视频项目并记录来源。",
+      "expected_output": "Uses the pinned lobehub.icons provider with exact entity and color variant, freezes a local SVG, and reports manifest provenance.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "这个产品片需要 Nike 官方 Logo。先查资产库，Lobe 没有的话也不要生成一个假的。",
+      "expected_output": "Keeps vidmuse-assets ownership, checks reuse, lets the official-logo cascade fall through beyond Lobe, and never generates a logo.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "把 Thiings 的一万多个图标直接打包进 VidMuse 插件，之后所有客户项目都能免费调用。",
+      "expected_output": "Recognizes the redistribution and commercial-license conflict, refuses bundling, and proposes a user-licensed private local library instead.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "做一个 60 秒 AI 发展史视频，旁白会依次讲到 OpenAI、ChatGPT、Claude、Gemini 和 DeepSeek。用户没有要求找 Logo，请直接完成影片。",
+      "expected_output": "The owning film workflow proactively invokes the Semantic Asset Pass, creates a grouped timeline plan with canonical entities and consistent variants, resolves deterministic marks, uses company mark plus editable model label when needed, and binds stable asset_refs into beats without turning every mention into a logo.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "剪这个访谈。嘉宾说了五次 OpenAI，但画面右上角已经有 OpenAI 的产品页面和标志。",
+      "expected_output": "Recut scans the whole transcript/source, records the entity as already-visible, suppresses redundant logo overlays, and preserves source-led density rather than fetching or replaying the mark five times.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "旁白说“OpenAI 发布了 GPT-4”。给这句话做一个清楚但克制的身份画面。",
+      "expected_output": "Keeps organization and model identities separate: resolves the official OpenAI mark, renders GPT-4 as editable type unless an independent official model mark exists, records one semantic opportunity/receipt, and never invents a GPT-4 logo.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "给 ChatGPT 找它自己的 Logo。Lobe 目录里 OpenAI 的标题写着 OpenAI (ChatGPT)，如果没有独立 ChatGPT 标识就告诉我。",
+      "expected_output": "Does not treat the Lobe relationship parenthetical as an alias, never returns the OpenAI provider mark as ChatGPT identity, and records an explicit miss or text-only/company-relationship editorial decision.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "我明确要 OpenAI 的彩色 Logo；如果这个来源只有黑白和文字版本，不要换个 favicon 糊弄过去。",
+      "expected_output": "Treats color as a hard cascade constraint, returns logo_variant_unavailable with available variants, and does not fall through to a provider that cannot attest color.",
+      "files": []
+    }
+  ]
+}

@@ -17,29 +17,10 @@ Verify with:
 bash <path-to>/skills/vidmuse-recut/scripts/setup.sh
 ```
 
-`setup.sh` checks siblings on disk first. It does **not** run bare
-`npx hyperframes skills update` (that would refresh unrelated workflows already
-on the machine, e.g. `talking-head-recut`).
-
-## Fallback only (broken plugin layout)
-
-If bundled siblings are missing, `setup.sh` recovers **whitelist only**:
-
-```bash
-npx hyperframes skills update \
-  hyperframes \
-  hyperframes-animation \
-  hyperframes-cli \
-  hyperframes-core \
-  hyperframes-creative \
-  hyperframes-keyframes \
-  hyperframes-registry \
-  media-use
-
-npx skills add greensock/gsap-skills -g -y \
-  --skill gsap-core --skill gsap-timeline --skill gsap-plugins \
-  --skill gsap-utils --skill gsap-performance
-```
+`setup.sh` checks siblings on disk and fails closed when the plugin payload is
+incomplete. Reinstall or update `vidmuse@personal`; do not repair a broken
+plugin by downloading upstream skill text because that would overwrite the
+VidMuse adaptations.
 
 ## Never (packaging / VidMuse product)
 
@@ -52,9 +33,7 @@ npx skills add heygen-com/hyperframes --skill talking-head-recut
 npx skills add heygen-com/hyperframes --all
 ```
 
-## Upstream behavior (inventory only)
+## Upstream behavior (outside this plugin only)
 
-Standalone HyperFrames still documents core-vs-lazy workflow installs and
-`skills update <workflow-name>`. That model applies **outside** this plugin when
-someone intentionally uses pure HyperFrames creation workflows — not when
-running VidMuse packaging.
+Standalone HyperFrames may use a different skill lifecycle. It does not apply
+inside the VidMuse plugin.

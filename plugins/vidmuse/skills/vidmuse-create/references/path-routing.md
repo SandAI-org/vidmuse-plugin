@@ -116,7 +116,8 @@ Every beat in the film plan **must** carry:
 | `shot_sequence` | ≥2 time windows across the beat; last window is a **hold read** unless the beat is intentionally continuous motion under VO |
 | `active_elements` | optional but checked: list of on-screen **active** subjects in the densest window (≤3) |
 | `ui_proof_path` | **promo proof beats only:** `screenshot-camera` \| `hybrid-slices` \| `full-html-rebuild` (see UI proof path) |
-| `asset_candidates` | optional list of curated asset filenames for the beat — **expected on visual beats when a site-capture inventory exists** (see SKILL grounding / site-capture.md); cast from `ASSET_AUDIT.md`, not from invention |
+| `asset_refs` | stable opportunity ids from a transcript-stamped `asset-plan.json`; every approved file opportunity must be bound by at least one beat |
+| `asset_candidates` | legacy/site-capture-only list of curated filenames — expected on visual beats when a capture inventory exists; semantic entities use `asset_refs` |
 | `sfx` | optional per-beat SFX cues `[{t: beat-local s, role}]` — resolved to absolute times by `film_plan.py`; assembled as Timeline sound entries (see Audio delivery) |
 
 ### Film-level fields (explainer + promo)
@@ -125,6 +126,7 @@ Every beat in the film plan **must** carry:
 | --- | --- |
 | `hero_throughline` | **Required** on standard `knowledge-explainer` / multi-beat teaching films: 1–2 named subjects (metaphor, diagram node, coined term, mark) that **persist and change state** across ≥ half of body beats. Omit only for deliberately montage/listicle films with written exception. |
 | `audio_delivery` | **Required** before claim finished: `{ vo, bgm, sfx_cues }` — see Audio delivery |
+| `asset_plan` | `asset-plan.json`; required on substantial films even when deliberately empty, with a completed pass receipt matching the current transcript SHA-256 |
 
 Minimal `shot_sequence` shape:
 
@@ -175,7 +177,11 @@ and nothing used to force them to reconcile. This section makes the approved
    (`{t, kind, on_screen, move}`, kinds `reveal|move|morph|camera|exit|hold`,
    terminal window `hold` unless `continuous: true`), plus film-level
    `hero_throughline: {name, dom_selector, min_coverage}` and optional
-   `ui_proof_path` per proof beat. Then:
+   `ui_proof_path` / `asset_refs` per beat. `film_plan.py` cross-checks every
+   asset ref against a resolved, non-suppressed entry in `asset-plan.json`,
+   verifies query fingerprint/identity/variant, and rejects approved file
+   opportunities that no beat binds.
+   Then:
 
    ```bash
    python3 scripts/film_plan.py "$WORK_DIR" --resolve
@@ -319,6 +325,9 @@ User may say `shot-cards off` to force closed (blueprint/compose still required 
 - [ ] `create_path` set and matches recipe
 - [ ] Required story-design + visual-design + motion-language read
 - [ ] Every beat has contract fields + shot_sequence (this file)
+- [ ] Semantic Asset Pass ran; `asset-plan.json` has a current completed receipt (a deliberate stamped empty plan is allowed)
+- [ ] Every used semantic asset is bound by `asset_refs`, not a remote URL
+- [ ] Every approved file asset survives as a real `data-asset-ref` DOM binding in its assigned beat
 - [ ] Hard fails 1–13 checked (this file)
 - [ ] `film-plan.json` written + `film_plan.py --resolve` green (Execution trace)
 - [ ] `shot_scaffold.py` skeleton generated before composition code

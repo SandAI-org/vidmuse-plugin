@@ -1,6 +1,10 @@
 # Brief contract
 
-The intent layer (`/hyperframes` → `references/intent-interview.md`) asks creation questions once. The executing workflow writes the confirmed result to `BRIEF.md` and does not ask those questions again. This contract defines the canonical run-shape fields, shared brief fields, and question rules. Route-specific options live in `/hyperframes` → `references/routes/<workflow>.md`.
+The owning VidMuse product skill (`/vidmuse-recut` or `/vidmuse-create`) asks
+creation questions once, writes the confirmed result to `BRIEF.md`, and does
+not ask them again. This contract defines canonical run-shape fields, shared
+brief fields, and question rules. Product-specific options live in the owning
+VidMuse skill.
 
 ## Contents
 
@@ -14,7 +18,7 @@ Three terms describe different concerns. Do not substitute one for another.
 
 | Term         | Values                          | Owns                                                                                          |
 | ------------ | ------------------------------- | --------------------------------------------------------------------------------------------- |
-| `flow`       | `automation` or `companion`     | Who drives execution. `companion` always executes in `/general-video`.                        |
+| `flow`       | `automation` or `companion`     | Who drives execution. `companion` stays in the owning VidMuse product workflow.               |
 | `storyboard` | `yes` or `no`                   | Whether the live board is used for plan and layout review.                                    |
 | `mode`       | `collaborative` or `autonomous` | How later preference and checkpoint gates behave. The user never chooses this label directly. |
 
@@ -26,7 +30,9 @@ Derive `mode` once from the confirmed run shape:
 | `automation` | `yes`        | `collaborative` |
 | `automation` | `no`         | `autonomous`    |
 
-Default to `collaborative` only when a legacy project lacks enough state to derive a mode. `/motion-graphics` is autonomous by design and does not need the two run-shape questions.
+Default to `collaborative` only when a legacy project lacks enough state to
+derive a mode. A dependency skill such as `/vidmuse-motion` never changes
+product ownership or invents a second run-shape interview.
 
 ### Signals and persistence
 
@@ -44,9 +50,12 @@ Default to `collaborative` only when a legacy project lacks enough state to deri
 | Checkpoint: plan, sketches, pre-render review                                   | Ask and wait.                                                   | Post the same summary, then continue.                           |
 | Quality: fetch completeness, `lint`, `hyperframes check`, workflow verification | Run and stop on errors.                                         | Run and stop on errors.                                         |
 | Routing ambiguity                                                               | Resolve explicitly; a wrong route changes the deliverable.      | Same requirement.                                               |
-| Sign-in or credential unavailable                                               | Show status and wait for sign-in or explicit offline selection. | Show status and continue through an available offline provider. |
+| VidMuse sign-in unavailable                                                     | Show status and wait for `vidmuse login`.                        | Show status and stop before any capability that requires VidMuse. |
 
-Autonomous mode never silently drops a required capability. If the selected workflow has no local, cached, or offline provider for it, surface the blocker instead of omitting the capability. A credential problem does not relax the quality gates.
+Autonomous mode never silently drops a required capability. If the live
+VidMuse catalog has no legal route for it, surface the blocker instead of
+omitting the capability or switching to an unapproved provider. A credential
+problem does not relax the quality gates.
 
 Rendering remains user-gated in both modes. After checks pass, collaborative runs ask “render now, or what changes?” Autonomous runs ask “preview first, or render?” Render only after the answer.
 
@@ -78,7 +87,7 @@ Ask only fields used by the selected route. Route entries identify their must-ha
 Let `<MEDIA_DIR>` be the installed `/media-use` skill directory. Let `<MEMORY_ROOT>` be the existing project root. Before scaffolding, use a deliberately nonexistent probe path with no `.media` ancestor, such as `/tmp/hyperframes-intent-memory-<run-id>`; never use the current workspace as the probe. Read merged preferences with:
 
 ```bash
-node <MEDIA_DIR>/scripts/prefs.mjs get --hyperframes <MEMORY_ROOT> --json
+node <MEDIA_DIR>/scripts/prefs.mjs get --project <MEMORY_ROOT> --json
 ```
 
 For the pre-project probe, `<MEMORY_ROOT>` is the nonexistent probe path, so only the personal tier can contribute. If that path already exists or contains `.media`, choose another. Do not claim project provenance before the real project exists.

@@ -16,4 +16,8 @@ If no beats are detected, the command fails and writes nothing. If Chrome is una
 npx hyperframes browser ensure
 ```
 
-For a complete beat-synced video, route through `/music-to-video`. That workflow owns a different audio-driven pipeline and its `audiomap.json`; do not replace its analyzer with this Studio utility.
+For a complete beat-synced VidMuse film, keep ownership with
+`/vidmuse-create` or `/vidmuse-recut`. Use `/hyperframes-creative`
+`references/audio-reactive.md` and `scripts/extract-audio-data.py` for the
+deterministic audio map; use this `beats` command only when an existing
+HyperFrames project specifically needs its Studio beat grid.

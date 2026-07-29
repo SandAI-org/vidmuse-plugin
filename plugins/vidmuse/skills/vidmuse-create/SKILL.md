@@ -10,9 +10,11 @@ description: >
   OS/browser TTS. Non-Vox anti-PPT execution is path-routed and machine-gated:
   ATA-paced shot_sequence, hero throughline, real UI proof, audio decision,
   film-plan.json → shot_scaffold.py → check_motion.py for freeze, cue, proof,
-  and semantic-alignment checks. Vox uses references/vox-collage.md only.
-  Source assets by user → real → AI and deliver through VidMuse Timeline.
-  Not a slideshow generator.
+  and semantic-alignment checks. After ATA/grounding, proactively run the
+  vidmuse-assets Semantic Asset Pass over the full script and bind approved
+  asset_refs; the user need not ask. Vox uses references/vox-collage.md only.
+  Source assets by project/library/real → AI and deliver through VidMuse
+  Timeline. Not a slideshow generator.
 ---
 
 # VidMuse Create
@@ -274,17 +276,52 @@ Record grounding evidence in `video-context.json`. Charter 9 operational
 test: *would someone who knows this product/subject recognize its world in a
 muted frame?*
 
+## Semantic Asset Pass — mandatory before the film plan
+
+After ATA timing and grounding, load sibling `/vidmuse-assets` and read
+`../vidmuse-assets/references/semantic-asset-pass.md`. Scan the **full
+script**, not only named keywords, and write `$WORK_DIR/asset-plan.json` even
+when the correct result is an empty opportunity list.
+
+The film skill decides whether an entity deserves screen time; the asset skill
+canonicalizes it and selects the legal source; `media-use` only executes the
+exact request. Do not equate related entities such as OpenAI, ChatGPT, GPT-4,
+Codex, and Sora.
+
+```bash
+node ../vidmuse-assets/scripts/asset_plan.mjs \
+  --project "$WORK_DIR" --complete-pass
+
+node ../vidmuse-assets/scripts/asset_plan.mjs \
+  --project "$WORK_DIR" --validate
+
+# Safe deterministic catalog entries may resolve before the film-plan gate.
+# Generated/ambiguous entries remain deferred.
+node ../vidmuse-assets/scripts/asset_plan.mjs \
+  --project "$WORK_DIR" --resolve
+```
+
+Bind approved opportunities into beats with stable `asset_refs`. Repeated
+mentions reuse one resolution. `asset_candidates` remains only for legacy
+site-capture filenames. A missing model-specific logo falls back to editable
+model type plus its canonical organization mark when editorially relevant;
+never generate a mark. The scaffold emits real `data-asset-ref` image nodes,
+and `check_motion.py` fails delivery if the final beat DOM drops them or points
+them at a different file.
+
 ## Production spine (deltas from recut's 13 steps)
 
 **1–2. Script + voice spine (above).** Replaces probe-of-camera + align-on-
 speech-plate. Everything below is **transcript-driven** exactly like recut.
 
-**3. Path + video-context.json** — after voice is green, decide
+**3. Path + video-context.json + asset-plan.json** — after voice is green,
+decide
 `create_path` and load the matching craft stack via the SSOT
 [path-routing.md](references/path-routing.md) (first match: vox → promo →
 explainer). Record `create_path`, content type, audience, channel, density,
 `structure_recipe` from [promo-recipes.md](references/promo-recipes.md),
-voice_spine receipt, and later `shot_refs` / `blueprint` ids.
+voice_spine receipt, semantic asset-pass receipt, and later `shot_refs` /
+`blueprint` ids.
 
 **Do not** load non-Vox craft refs on Vox. **Do not** apply create craft to
 `/vidmuse-recut`. Paths, hard-fail on/off, and craft-stack names: **only** in
@@ -306,6 +343,7 @@ rung, and how does the shot develop across the ATA span?"**
   covering the ATA span — plan the picture length **with** the VO, not after
 - relation to neighbors (sequence, cause→effect, contrast, dependence)
 - intervention weight: continuous system / light / medium / hero
+- approved semantic assets as stable `asset_refs` (never a guessed path)
 
 ### 4b. Path `vox` only
 
@@ -359,10 +397,12 @@ HF/GSAP + FRAME skin. Write `## Video direction` once on the plan
 | 7 Entrance intent | **Count-ready:** no single direction×ease as whole-film default without written intent; at assemble, tabulate entrances (see craft below) |
 | 8–9 | Unchanged (emphasis scarcity, creative demotion) |
 
-**8–11. Plan, assets, assemble, craft render.** Follow
-`asset-sourcing.md`. Prefer i2v from approved stills. Provenance in
-`asset-sources.json`. Effects: `registry-integration.md` — Registry supplies
-mechanism; FRAME supplies skin.
+**8–11. Plan, assets, assemble, craft render.** Materialize approved
+`asset-plan.json` entries through `/vidmuse-assets`; `media-use` freezes each
+receipt. Follow `asset-sourcing.md` for non-catalog/generated material. Prefer
+i2v from approved stills. Provenance remains in `asset-sources.json` plus
+`.media/manifest.jsonl`. Effects: `registry-integration.md` — Registry
+supplies mechanism; FRAME supplies skin.
 
 ### Create craft (performance & anti-PPT motion)
 
@@ -429,6 +469,9 @@ pointing at a missing `input-video.mp4`.
 - [ ] `tts-response.json` + `alignment.json` + `transcript.json` present
 - [ ] Timeline scrub: VO audible, captions track speech (sample 3 timestamps)
 - [ ] film plan was confirmed (or autonomous skip recorded)
+- [ ] `asset-plan.json` exists and validates (an empty deliberate plan is valid)
+- [ ] every beat `asset_ref` resolves to a non-suppressed opportunity and local receipt
+- [ ] no related company/product/model identity was silently substituted
 - [ ] `create_path` recorded; craft stack matched path
 - [ ] **non-Vox:** path-routing beat contract + hard fails **1–13** clean
 - [ ] **non-Vox:** `python3 scripts/check_motion.py "$WORK_DIR"` **GATE PASS**

@@ -32,6 +32,11 @@ import {
   matchColorLook,
 } from "./lib/lut-preset-provider.mjs";
 import { BundledSfxAssetsError, inspectBundledSfxAssets } from "./lib/bundled-sfx-provider.mjs";
+import {
+  entityFrom as logoEntityFrom,
+  logoIdentityMatches,
+  LogoResolutionConstraintError,
+} from "./lib/logo-provider.mjs";
 
 const INGEST_TYPES = listTypes();
 const DEFAULT_EXT = {
@@ -57,6 +62,7 @@ const { values: args } = parseArgs({
     type: { type: "string", short: "t" },
     intent: { type: "string", short: "i" },
     entity: { type: "string", short: "e" },
+    variant: { type: "string" },
     project: { type: "string", short: "p", default: "." },
     adopt: { type: "boolean", default: false },
     candidates: { type: "boolean", default: false },
@@ -98,6 +104,8 @@ Options:
   --type, -t      Media type (required)
   --intent, -i    What you need (required)
   --entity, -e    Entity name for cache matching (optional)
+  --variant       Logo variant: mono, color, text, text-cn, text-color,
+                  brand, or brand-color
   --project, -p   Project directory (default: .)
   --adopt         Adopt all existing assets/ files into the manifest
   --candidates    List reusable assets (project + global cache) for --type; no
@@ -113,7 +121,7 @@ Options:
   --for <media>   Analyze a local image/video and add measured grade adjust
                   suggestions (grade only)
   --local-only    Cache/ingest only; skip VidMuse model calls
-  --provider      Force provider (AI media supports only vidmuse)
+  --provider      Force one provider (for example lobehub.icons or vidmuse)
   --model         Force an exact model_name from vidmuse model list
   --generation-type  Force an Aion generation_type supported by that model
   --voice-id      Override the VidMuse voice id for TTS
@@ -133,6 +141,28 @@ const projectDir = resolve(args.project);
 const type = args.type;
 const intent = args.intent;
 const entity = args.entity || null;
+const variant = args.variant || null;
+
+const LOGO_VARIANTS = new Set([
+  "mono",
+  "color",
+  "text",
+  "text-cn",
+  "text-color",
+  "brand",
+  "brand-color",
+]);
+
+if (variant && type !== "logo") {
+  console.error(`error: --variant only supports --type logo (got ${type || "none"})`);
+  process.exit(2);
+}
+if (variant && !LOGO_VARIANTS.has(variant)) {
+  console.error(
+    `error: unsupported logo variant "${variant}" (expected: ${[...LOGO_VARIANTS].join(", ")})`,
+  );
+  process.exit(2);
+}
 
 if (args.adopt) {
   const { adoptExistingAssets } = await import("./lib/adopt.mjs");
@@ -282,6 +312,12 @@ function localizeImportedRecord(record, localPath) {
   return record;
 }
 
+function logoRecordMatchesRequest(record) {
+  if (type !== "logo" || !record) return true;
+  const requested = logoEntityFrom(intent, entity);
+  return logoIdentityMatches(record, requested);
+}
+
 async function run() {
   // A forced --provider means "(re)generate with THIS provider" — it bypasses
   // every reuse rung (project/entity/assets/global cache) so it can't silently
@@ -290,8 +326,8 @@ async function run() {
   const forced = !!args.provider;
 
   // 1. project manifest — exact-prompt match
-  const projectHit = forced ? null : findByPrompt(projectDir, intent, type);
-  if (recordAvailable(projectDir, projectHit)) {
+  const projectHit = forced ? null : findByPrompt(projectDir, intent, type, variant);
+  if (recordAvailable(projectDir, projectHit) && logoRecordMatchesRequest(projectHit)) {
     return result(projectHit, "cached");
   }
 
@@ -299,15 +335,20 @@ async function run() {
   // entity hits — both live in images/, and figma-imported brand marks are
   // always recorded as type image while agents ask for logos as type icon.
   if (!forced && entity) {
-    const entityHit = findByEntity(projectDir, entity);
-    if (entityHit && typesMatch(entityHit.type, type) && recordAvailable(projectDir, entityHit)) {
+    const entityHit = findByEntity(projectDir, entity, variant);
+    if (
+      entityHit &&
+      typesMatch(entityHit.type, type) &&
+      recordAvailable(projectDir, entityHit) &&
+      logoRecordMatchesRequest(entityHit)
+    ) {
       return result(entityHit, "cached");
     }
   }
 
   // 1c. scan existing assets/ directory for unregistered matches
   const existingAsset =
-    forced || type === "grade" || type === "lut"
+    forced || type === "grade" || type === "lut" || (type === "logo" && variant)
       ? null
       : findExistingAsset(projectDir, intent, type);
   if (existingAsset) {
@@ -326,8 +367,8 @@ async function run() {
   }
 
   // 2. global cache — exact-prompt or entity match
-  const cacheHit = forced ? null : cacheGet(intent, type);
-  if (cacheHit) {
+  const cacheHit = forced ? null : cacheGet(intent, type, variant);
+  if (cacheHit && logoRecordMatchesRequest(cacheHit)) {
     const ext = extname(cacheHit.cached_path);
     const imported = withReservedFileSync(projectDir, type, ext, ({ id, localPath }) =>
       localizeImportedRecord(importFromCache(cacheHit, projectDir, id, localPath), localPath),
@@ -340,8 +381,12 @@ async function run() {
   }
 
   if (!forced && entity) {
-    const entityCacheHit = cacheGetByEntity(entity);
-    if (entityCacheHit && typesMatch(entityCacheHit.type, type)) {
+    const entityCacheHit = cacheGetByEntity(entity, variant);
+    if (
+      entityCacheHit &&
+      typesMatch(entityCacheHit.type, type) &&
+      logoRecordMatchesRequest(entityCacheHit)
+    ) {
       const ext = extname(entityCacheHit.cached_path);
       const imported = withReservedFileSync(projectDir, type, ext, ({ id, localPath }) =>
         localizeImportedRecord(
@@ -373,6 +418,7 @@ async function run() {
   }
   const ctx = {
     entity,
+    variant,
     projectDir,
     localOnly,
     provider: args.provider,
@@ -417,9 +463,20 @@ async function run() {
     providerFailure = error;
     // search failed, try generate
   }
+  if (!searchResult && !providerFailure && type === "logo" && variant) {
+    providerFailure = new LogoResolutionConstraintError(
+      "logo_variant_unavailable",
+      `no logo provider could attest variant "${variant}" for ${logoEntityFrom(intent, entity)}`,
+      {
+        requested_entity: logoEntityFrom(intent, entity),
+        requested_variant: variant,
+        available_variants: [],
+      },
+    );
+  }
 
   // 4. generate fallback — same ordered cascade for the generate capability
-  if (!searchResult) {
+  if (!searchResult && !providerFailure?.terminal) {
     try {
       searchResult = await runCapability(type, "generate", intent, ctx);
     } catch (error) {
@@ -445,6 +502,8 @@ async function run() {
     const msg =
       providerFailure instanceof BundledSfxAssetsError
         ? providerFailure.message
+        : providerFailure instanceof LogoResolutionConstraintError
+          ? providerFailure.message
         : type === "brand"
           ? "no brand spec found — add a frame.md or design.md (colors/font/logo) to this project. Run the HyperFrames design flow to create one; brand tokens are read locally for deterministic rendering."
           : args.provider
@@ -454,9 +513,9 @@ async function run() {
       console.log(
         JSON.stringify({
           ok: false,
-          ...(providerFailure instanceof BundledSfxAssetsError
-            ? { code: providerFailure.code, fix: providerFailure.fix }
-            : {}),
+          ...(providerFailure?.code ? { code: providerFailure.code } : {}),
+          ...(providerFailure?.fix ? { fix: providerFailure.fix } : {}),
+          ...(providerFailure?.details ? { details: providerFailure.details } : {}),
           error: msg,
         }),
       );
@@ -499,7 +558,16 @@ async function run() {
     ...(searchResult.metadata?.transparent != null && {
       transparent: searchResult.metadata.transparent,
     }),
+    ...(searchResult.metadata?.license_state && {
+      license_state: searchResult.metadata.license_state,
+    }),
+    ...(searchResult.metadata?.license && {
+      license: searchResult.metadata.license,
+    }),
     ...(entity && { entity }),
+    ...(searchResult.metadata?.provenance?.variant && {
+      variant: searchResult.metadata.provenance.variant,
+    }),
     provenance: {
       provider: searchResult.metadata?.provider || "unknown",
       prompt: intent,

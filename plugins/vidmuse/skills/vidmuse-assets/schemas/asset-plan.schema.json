@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vidmuse.ai/schemas/asset-plan.v1.json",
+  "title": "VidMuse Semantic Asset Plan",
+  "type": "object",
+  "required": ["schema", "workflow", "transcript", "pass_receipt", "opportunities"],
+  "properties": {
+    "schema": {
+      "const": "vidmuse.asset-plan.v1"
+    },
+    "workflow": {
+      "enum": ["create", "recut"]
+    },
+    "transcript": {
+      "type": "string"
+    },
+    "pass_receipt": {
+      "type": "object",
+      "required": ["contract", "status", "input", "opportunity_count", "completed_at"],
+      "properties": {
+        "contract": {
+          "const": "semantic-asset-pass.v1"
+        },
+        "status": {
+          "const": "completed"
+        },
+        "input": {
+          "type": "object",
+          "required": ["path", "sha256"],
+          "properties": {
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "additionalProperties": false
+        },
+        "opportunity_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "opportunities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/opportunity"
+      }
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/group"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "$defs": {
+    "range": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "query": {
+      "type": "object",
+      "required": ["type", "intent", "mode"],
+      "properties": {
+        "type": {
+          "enum": ["logo", "icon", "image", "bgm", "sfx", "video"]
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variant": {
+          "enum": [
+            "mono",
+            "color",
+            "text",
+            "text-cn",
+            "text-color",
+            "brand",
+            "brand-color"
+          ]
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": ["deterministic", "creator-library", "official-web", "generated"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "opportunity": {
+      "type": "object",
+      "required": [
+        "id",
+        "mention",
+        "canonical_entity",
+        "entity_type",
+        "semantic_role",
+        "visual_job",
+        "ranges",
+        "decision",
+        "reason",
+        "confidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ao_[a-z0-9][a-z0-9_-]*$"
+        },
+        "mention": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_entity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entity_type": {
+          "enum": ["organization", "product", "model", "person", "place", "event", "concept"]
+        },
+        "semantic_role": {
+          "enum": ["subject", "comparison", "history-node", "source", "incidental", "already-visible"]
+        },
+        "visual_job": {
+          "enum": ["establish-identity", "compare", "timeline-node", "explain-relation", "evidence", "recall", "none"]
+        },
+        "ranges": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/range"
+          }
+        },
+        "beat_id": {
+          "type": "string"
+        },
+        "decision": {
+          "enum": ["show-logo", "show-icon", "show-photo", "diagram-node", "text-label-only", "reuse-existing", "suppress"]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "asset_query": {
+          "$ref": "#/$defs/query"
+        },
+        "placement": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string"
+            },
+            "weight": {
+              "enum": ["continuous", "light", "medium", "hero"]
+            }
+          },
+          "additionalProperties": true
+        },
+        "resolution": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "group": {
+      "type": "object",
+      "required": ["id", "kind", "member_ids"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": ["timeline", "comparison", "ecosystem", "sequence"]
+        },
+        "member_ids": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "variant_policy": {
+          "enum": [
+            "mono",
+            "color",
+            "text",
+            "text-cn",
+            "text-color",
+            "brand",
+            "brand-color"
+          ]
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

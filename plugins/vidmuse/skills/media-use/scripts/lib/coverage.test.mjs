@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { getProviders } from "./registry.mjs";
 
 const SKILL = join(import.meta.dirname, "..", "..");
+const SKILLS = join(SKILL, "..");
 
 test("AI generation has exactly one provider boundary", () => {
   for (const type of ["bgm", "image", "icon", "voice", "video"]) {
@@ -31,4 +32,34 @@ test("deterministic media utilities remain present", () => {
   ]) {
     assert.ok(existsSync(join(SKILL, file)), `${file} missing`);
   }
+});
+
+test("bundled skill docs keep media execution on the VidMuse boundary", () => {
+  const files = [
+    "hyperframes-cli/SKILL.md",
+    "hyperframes-cli/references/init-and-scaffold.md",
+    "hyperframes-cli/references/upgrade-info-misc.md",
+    "hyperframes-core/references/script-format.md",
+    "hyperframes-creative/references/composition-patterns.md",
+    "hyperframes-animation/rules/asr-keyword-glow.md",
+    "hyperframes/references/capability-menu.md",
+  ];
+  const forbidden = [
+    /npx\s+hyperframes\s+(?:tts|transcribe|remove-background)\b/i,
+    /\bheygen\s+(?:video|audio|image)\b/i,
+    /\bvideo-translate\b/i,
+    /\bHEYGEN_API_KEY\b/,
+    /\.heygen\/credentials\b/i,
+  ];
+
+  for (const file of files) {
+    const source = readFileSync(join(SKILLS, file), "utf8");
+    for (const pattern of forbidden) {
+      assert.doesNotMatch(source, pattern, `${file} escaped the VidMuse media boundary`);
+    }
+  }
+
+  const setup = readFileSync(join(SKILLS, "vidmuse-recut/scripts/setup.sh"), "utf8");
+  assert.doesNotMatch(setup, /hyperframes\s+doctor/i);
+  assert.match(setup, /media-use[\s\S]*resolve\.mjs"\s+--doctor/i);
 });

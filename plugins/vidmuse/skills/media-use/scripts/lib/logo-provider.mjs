@@ -3,17 +3,21 @@
 // 100% cascade hit). Hit counts below are a snapshot of that run — they
 // drift as the alias/org maps grow; re-run the stress test to refresh them.
 //
-//   1. svgl          — official full-color vector SVGs (+ wordmark variants);
+//   1. Lobe Icons    — AI / LLM model, provider, and application marks with
+//                      explicit mono / color / wordmark variants. Both the
+//                      catalog and SVG package are pinned for deterministic
+//                      resolution.
+//   2. svgl          — official full-color vector SVGs (+ wordmark variants);
 //                      40/54 first-hits. Search is substring-based, so
 //                      entities go through alias normalization first
 //                      ("nextjs" never matches "Next.js" raw).
-//   2. simple-icons  — monochrome official glyphs; caught the long tail the
+//   3. simple-icons  — monochrome official glyphs; caught the long tail the
 //                      others miss (nike, visa, toyota, wechat, bytedance).
 //                      Pinned CDN build for determinism.
-//   3. github avatar — the org's official logo for brands with a GitHub
+//   4. github avatar — the org's official logo for brands with a GitHub
 //                      presence. Known orgs only: guessing a login risks a
 //                      same-named personal account.
-//   4. domain favicon — small-raster last resort (DuckDuckGo ip3). Responses
+//   5. domain favicon — small-raster last resort (DuckDuckGo ip3). Responses
 //                      under ~500B are DDG's globe placeholder, not a hit.
 //
 // HeyGen asset search is deliberately absent: for brand queries it returns
@@ -28,6 +32,31 @@ import { join } from "node:path";
 const SVGL_API = "https://api.svgl.app";
 const SIMPLE_ICONS_CDN = "https://cdn.jsdelivr.net/npm/simple-icons@16.25.0/icons";
 const FAVICON_MIN_BYTES = 500;
+export const LOBE_ICONS_VERSION = "5.15.0";
+export const LOBE_STATIC_SVG_VERSION = "1.94.0";
+const LOBE_TOC_URL = `https://unpkg.com/@lobehub/icons@${LOBE_ICONS_VERSION}/es/toc.json`;
+const LOBE_SVG_CDN = `https://unpkg.com/@lobehub/icons-static-svg@${LOBE_STATIC_SVG_VERSION}/icons`;
+
+const LOBE_VARIANTS = {
+  mono: { suffix: "", flag: null },
+  color: { suffix: "-color", flag: "hasColor" },
+  text: { suffix: "-text", flag: "hasText" },
+  "text-cn": { suffix: "-text-cn", flag: "hasTextCn" },
+  "text-color": { suffix: "-text-color", flag: "hasTextColor" },
+  brand: { suffix: "-brand", flag: "hasBrand" },
+  "brand-color": { suffix: "-brand-color", flag: "hasBrandColor" },
+};
+export const LOBE_VARIANT_NAMES = Object.freeze(Object.keys(LOBE_VARIANTS));
+
+export class LogoResolutionConstraintError extends Error {
+  constructor(code, message, details = {}) {
+    super(message);
+    this.name = "LogoResolutionConstraintError";
+    this.code = code;
+    this.details = details;
+    this.terminal = true;
+  }
+}
 
 // svgl search queries per entity, tried in order after the raw entity.
 const SVGL_ALIASES = {
@@ -70,6 +99,26 @@ const norm = (s) =>
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "");
 
+const identityKey = (s) =>
+  String(s || "")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]/gu, "");
+
+export function resolvedLogoEntity(record) {
+  const provenance = record?.provenance || {};
+  return (
+    provenance.resolved_entity ||
+    (provenance.provider === "lobehub.icons" ? provenance.slug : null) ||
+    record?.entity ||
+    null
+  );
+}
+
+export function logoIdentityMatches(record, requestedEntity) {
+  const resolved = identityKey(resolvedLogoEntity(record));
+  return Boolean(resolved) && resolved === identityKey(requestedEntity);
+}
+
 /** The brand entity for a query: --entity wins; else the intent minus filler. */
 export function entityFrom(intent, entity) {
   if (entity) return entity.toLowerCase().trim();
@@ -83,6 +132,48 @@ export function entityFrom(intent, entity) {
 /** Exact match after stripping case/spacing/punctuation — "Next.js" ≡ "nextjs". */
 export function titleMatches(title, entity) {
   return norm(title) === norm(entity);
+}
+
+function lobePrimaryFields(entry) {
+  return [entry?.id, entry?.title, entry?.docsUrl].filter(Boolean);
+}
+
+/**
+ * Exact normalized identity match only.
+ *
+ * Lobe's `fullTitle` parentheticals describe several different relationships:
+ * product → company (`Codex (OpenAI)`), provider → product (`OpenAI
+ * (ChatGPT)`), and occasionally a display-name clarification. They are not
+ * safe synonyms. Treating every parenthetical as an alias silently swaps a
+ * product/model identity for its company mark.
+ */
+export function findLobeEntry(entries, entity) {
+  return (
+    entries.find((entry) =>
+    lobePrimaryFields(entry).some((value) => titleMatches(value, entity)),
+    ) || null
+  );
+}
+
+export function availableLobeVariants(entry) {
+  if (!entry?.id) return [];
+  return Object.entries(LOBE_VARIANTS)
+    .filter(([, spec]) => !spec.flag || entry?.param?.[spec.flag])
+    .map(([variant]) => variant);
+}
+
+export function chooseLobeVariant(entry, requested = null) {
+  const variant = requested || (entry?.param?.hasColor ? "color" : "mono");
+  const spec = LOBE_VARIANTS[variant];
+  if (!spec) return null;
+  if (spec.flag && !entry?.param?.[spec.flag]) return null;
+  return variant;
+}
+
+export function lobeIconUrl(entry, variant) {
+  const spec = LOBE_VARIANTS[variant];
+  if (!entry?.id || !spec) return null;
+  return `${LOBE_SVG_CDN}/${norm(entry.id)}${spec.suffix}.svg`;
 }
 
 export function svglQueriesFor(entity) {
@@ -111,8 +202,99 @@ async function fetchJson(url) {
 }
 
 async function urlExists(url) {
-  const res = await fetch(url, { method: "HEAD", signal: AbortSignal.timeout(10_000) });
-  return res.ok;
+  try {
+    const head = await fetch(url, {
+      method: "HEAD",
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (head.ok) return true;
+    if (![403, 405, 501].includes(head.status)) return false;
+  } catch {
+    // Some CDNs/proxies reject or drop HEAD while serving GET normally.
+  }
+
+  try {
+    const get = await fetch(url, {
+      method: "GET",
+      headers: { Range: "bytes=0-0" },
+      signal: AbortSignal.timeout(10_000),
+    });
+    const ok = get.ok;
+    await get.body?.cancel();
+    return ok;
+  } catch {
+    return false;
+  }
+}
+
+export async function lobeIconsSearch(intent, ctx = {}) {
+  const entity = entityFrom(intent, ctx.entity);
+  let entries;
+  try {
+    entries = await fetchJson(LOBE_TOC_URL);
+  } catch {
+    return null;
+  }
+  if (!Array.isArray(entries)) return null;
+
+  const hit = findLobeEntry(entries, entity);
+  if (!hit) return null;
+  const variant = chooseLobeVariant(hit, ctx.variant);
+  if (!variant) {
+    const available = availableLobeVariants(hit);
+    throw new LogoResolutionConstraintError(
+      "logo_variant_unavailable",
+      `logo variant "${ctx.variant}" is unavailable for ${hit.id}`,
+      {
+        requested_entity: entity,
+        resolved_entity: hit.id,
+        requested_variant: ctx.variant,
+        available_variants: available,
+      },
+    );
+  }
+  const url = lobeIconUrl(hit, variant);
+  try {
+    if (!url || !(await urlExists(url))) return null;
+  } catch {
+    return null;
+  }
+
+  return {
+    url,
+    ext: ".svg",
+    source: "search",
+    metadata: {
+      description: `${hit.fullTitle || hit.title || hit.id} logo (${variant}, Lobe Icons)`,
+      provider: "lobehub.icons",
+      license_state: "verified-commercial",
+      license: {
+        id: "MIT",
+        notice_required: true,
+        commercial_use: true,
+        source_url: "https://github.com/lobehub/lobe-icons/blob/master/LICENSE",
+        copyright: "Copyright (c) 2023 LobeHub",
+        trademark_note: "Third-party identification mark; trademark rights remain with owner.",
+      },
+      provenance: {
+        entity,
+        requested_entity: entity,
+        resolved_entity: hit.id,
+        resolved_group: hit.group || null,
+        slug: norm(hit.id),
+        variant,
+        group: hit.group,
+        brand_color: hit.color || null,
+        official_url: hit.desc || null,
+        catalog_package: `@lobehub/icons@${LOBE_ICONS_VERSION}`,
+        asset_package: `@lobehub/icons-static-svg@${LOBE_STATIC_SVG_VERSION}`,
+        license: "MIT",
+        license_url: "https://github.com/lobehub/lobe-icons/blob/master/LICENSE",
+        copyright: "Copyright (c) 2023 LobeHub",
+        url,
+      },
+    },
+  };
 }
 
 export async function svglSearch(intent, ctx = {}) {
@@ -136,7 +318,14 @@ export async function svglSearch(intent, ctx = {}) {
       metadata: {
         description: `${hit.title} logo (official mark)`,
         provider: "svgl",
-        provenance: { entity, query: q, route, wordmark: Boolean(hit.wordmark) },
+        provenance: {
+          entity,
+          requested_entity: entity,
+          resolved_entity: hit.title,
+          query: q,
+          route,
+          wordmark: Boolean(hit.wordmark),
+        },
       },
     };
   }
@@ -161,7 +350,13 @@ export async function simpleIconsSearch(intent, ctx = {}) {
       metadata: {
         description: `${entity} logo (official monochrome glyph)`,
         provider: "simple-icons",
-        provenance: { entity, slug, pinned: "simple-icons@16.25.0" },
+        provenance: {
+          entity,
+          requested_entity: entity,
+          resolved_entity: entity,
+          slug,
+          pinned: "simple-icons@16.25.0",
+        },
       },
     };
   }
@@ -185,7 +380,12 @@ export async function githubAvatarSearch(intent, ctx = {}) {
     metadata: {
       description: `${entity} logo (GitHub org avatar)`,
       provider: "github.avatar",
-      provenance: { entity, org },
+      provenance: {
+        entity,
+        requested_entity: entity,
+        resolved_entity: entity,
+        org,
+      },
     },
   };
 }
@@ -216,7 +416,14 @@ export async function faviconSearch(intent, ctx = {}) {
     metadata: {
       description: `${entity} favicon (small raster — chip-size use only)`,
       provider: "favicon.ddg",
-      provenance: { entity, domain, bytes, low_res: true },
+      provenance: {
+        entity,
+        requested_entity: entity,
+        resolved_entity: entity,
+        domain,
+        bytes,
+        low_res: true,
+      },
     },
   };
 }

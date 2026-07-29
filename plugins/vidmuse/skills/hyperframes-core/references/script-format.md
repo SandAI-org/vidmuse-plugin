@@ -12,7 +12,7 @@ A header block, then one section per spoken line.
 
 | Part                            | Holds                                                                                                                                   |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Header                          | `**Voice:**` (provider + voice), `**Voice settings:**` (e.g. stability / similarity / style), `**Voice direction:**` (overall delivery) |
+| Header                          | `**Voice:**` (live VidMuse model + legal voice id/name), `**Voice settings:**` (only fields supported by that model), `**Voice direction:**` (overall delivery) |
 | `## Line N — <label> (Frame N)` | one spoken line, tied to its storyboard frame                                                                                           |
 | `**Time:**`                     | the board's rough window — a _guide_, not authoritative (real timing comes from TTS word timestamps)                                    |
 | `**Delivery:**`                 | per-line delivery note                                                                                                                  |
@@ -23,8 +23,8 @@ A header block, then one section per spoken line.
 ```markdown
 # SCRIPT — acme-launch
 
-**Voice:** Rachel (ElevenLabs)
-**Voice settings:** stability 0.35 · similarity 0.75 · style 0.20
+**Voice:** VidMuse · <live-model-name> · <voice-id-or-name>
+**Voice settings:** <fields returned by the selected model/voice catalog>
 **Voice direction:** Confident, warm, a little playful.
 
 ---
@@ -46,7 +46,10 @@ A header block, then one section per spoken line.
 
 ## To TTS
 
-Feed each line's spoken text to the provider documented in
-`media-use/audio/references/tts.md`. The `hyperframes tts` command is
-Kokoro-only; use its `--voice` flag, or use the bundled HeyGen helper when word
-timestamps are required. Real per-word timing replaces the `**Time:**` guides.
+Feed each line's spoken text through
+`media-use/audio/references/tts.md`. Discover the model and legal voice with
+`vidmuse model list --audio` and `vidmuse voice list`; generate through
+`media-use/audio/scripts/audio.mjs` or `media-use/scripts/resolve.mjs`.
+Then run VidMuse ATA for real per-word timing, which replaces the `**Time:**`
+guides. HyperFrames does not select a provider or synthesize speech in this
+plugin.

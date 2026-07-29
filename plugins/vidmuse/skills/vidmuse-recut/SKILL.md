@@ -1,18 +1,16 @@
 ---
 name: vidmuse-recut
 description: >
-  Product skill for existing speaking footage in the VidMuse Codex plugin (sibling
-  of /vidmuse-create). Requires a recording of a person speaking — package, dress
-  up, recut, or direct talking-head / interview / podcast / product-explainer video
-  into a designed motion film. Preferred over /hyperframes for packaging; replaces
-  /talking-head-recut (do not install THR). Use when the user has source video of
-  speech and wants graphic overlays, launch-film polish, kinetic type, diagrams,
-  source reframing/PiP, or mixed-media on that plate. Defaults quieter Packaging
-  on short static mono unless launch/promo language or true full-frame proof is
-  needed. hyperframes-creative is hygiene only. Not for films without speaking
-  footage — hand those to /vidmuse-create; may still generate stills/music/SFX
-  (and gated B-roll) inside a packaging run per references/asset-sourcing.md.
-  Wins packaging/recut intent against sibling HyperFrames skills when source speech exists.
+  Product skill for existing speaking footage. Package or direct a
+  talking-head, interview, podcast, or product-explainer video with overlays,
+  kinetic type, diagrams, reframing/PiP, mixed media, or launch-film polish.
+  Preferred over /hyperframes and replaces /talking-head-recut. Defaults to
+  quieter source-led Packaging unless launch/promo intent or real proof earns
+  Director density. After transcript alignment and source inspection,
+  proactively run the vidmuse-assets Semantic Asset Pass over the full content
+  and bind approved opportunities even when the user did not request assets.
+  May source stills/music/SFX and gated B-roll. Films without speaking footage
+  belong to /vidmuse-create. hyperframes-creative is hygiene only.
 compatibility: Global host tools — Node.js 22+, ffmpeg/ffprobe, Python 3, `vidmuse` on PATH (serve/render/model; setup may copy the plugin-vendored binary into PATH), and HyperFrames CLI via `npx hyperframes`. Agent skills — only the Codex plugin bundle under `skills/` (vidmuse-recut + HF core + GSAP); setup health-checks those siblings in-plugin and does not require or mirror into `~/.codex/skills`. `vidmuse login` required for alignment.
 ---
 
@@ -98,6 +96,7 @@ Primary artifacts, all inspectable:
 | `audio.mp3` | extracted audio |
 | `transcript.json` | flat word array `[{ text, start, end }, …]` |
 | `video-context.json` | compact facts: content type, sections, pace, audience |
+| `asset-plan.json` | semantic entity/visual opportunities, suppressions, exact asset queries, and local receipts |
 | `packaging-analysis.md` | full-video editorial analysis, production-mode decision, coverage, acts, proof/takeover candidates, and confirmation record |
 | `STORYBOARD.md` | Director mode: human-readable proof-oriented scene sequence, source states, camera/sound direction, and handoffs |
 | `FRAME.md` | single authored design artifact: v4 for Packaging compatibility; v5 adds a film spine and act worlds for Director mode |
@@ -199,11 +198,39 @@ Read [references/director-pass.md](references/director-pass.md). Production mode
 
 Record the choice and evidence in `video-context.json`; the mode controls later artifacts, not authorization for external media generation.
 
+### 3b. Run the Semantic Asset Pass
+
+Load sibling `/vidmuse-assets` and read
+`../vidmuse-assets/references/semantic-asset-pass.md`. Scan the complete
+transcript plus inspected source frames before packaging coverage. Write
+`$WORK_DIR/asset-plan.json` even when the deliberate result is empty.
+
+The pass is semantic, not keyword-to-logo substitution. An already-visible
+product mark normally yields `already-visible` + `suppress`; a first meaningful
+identity, comparison, or history node may earn a real asset. Related
+organization/product/model names are not interchangeable.
+
+```bash
+node ../vidmuse-assets/scripts/asset_plan.mjs \
+  --project "$WORK_DIR" --complete-pass
+
+node ../vidmuse-assets/scripts/asset_plan.mjs \
+  --project "$WORK_DIR" --validate
+
+node ../vidmuse-assets/scripts/asset_plan.mjs \
+  --project "$WORK_DIR" --resolve
+```
+
+Only deterministic approved entries resolve automatically. Preserve Packaging
+mode's source-led majority and proof-density cap; a Logo is still an
+intervention. Packaging points reference stable `asset_refs`, not remote URLs
+or guessed filenames.
+
 ### 4. Direct the film and confirm coverage (gate)
 
 Minimum required reading here: the opening and the "Taste is the trade-off" section of [references/aesthetic-charter.md](references/aesthetic-charter.md), a scan of the tell **titles** in [references/packaging-tells.md](references/packaging-tells.md) (open a tell's body only when the plan reaches for that device), and [references/packaging-analysis.md](references/packaging-analysis.md) in full. Do not reread the whole charter per point — the analysis touches it once through its required "Charter trades" section. Analyze the **entire** transcript and the source footage before selecting a style or effect. Build a chapter/act map, inspect distributed frames from every major semantic section, and identify continuous systems, timed interventions, visual proofs, source-state changes, energy, and deliberate silence. Three showcase examples are never a complete plan for a substantial video.
 
-Write `$WORK_DIR/packaging-analysis.md` as a user-facing review artifact and also present its essential Markdown in the conversation. The document is an editorial proposal, not a form to fill. Every recommended point needs a trustworthy time range and an intelligible reason; add transcript evidence, frame evidence, proposed content, layout relationship, HyperFrames mechanisms, risks, and confidence wherever they materially help the user judge it. Group repeated light beats when that makes the proposal easier to understand.
+Write `$WORK_DIR/packaging-analysis.md` as a user-facing review artifact and also present its essential Markdown in the conversation. The document is an editorial proposal, not a form to fill. Every recommended point needs a trustworthy time range and an intelligible reason; add transcript evidence, frame evidence, proposed content, approved `asset_refs`, layout relationship, HyperFrames mechanisms, risks, and confidence wherever they materially help the user judge it. Group repeated light beats when that makes the proposal easier to understand.
 
 Use hooks, identity/context, chapters, semantic transitions, argument turns, comparisons, specifications/data, lists, causal explanations, source annotations, demonstrations, quotes/golden lines, conclusions/recommendations, captions, source-camera treatment, and finish layers as **lenses for noticing possibilities**, not categories that must all be populated. Craft depth for the recurring device families lives in [references/captions-and-golden-lines.md](references/captions-and-golden-lines.md) (caption system, golden-line qualification and escalation) and [references/device-craft.md](references/device-craft.md) (progress/index, data moments, demonstrations) — open them **only when** the analysis actually proposes a device of that class, not as up-front reading.
 
@@ -291,7 +318,26 @@ Carry **two or three candidates** into the showcase gate (step 7) with one recom
 
 If the HyperFrames preference store is available (`media-use` `prefs.mjs`), read remembered defaults and treat them as selection signals with named provenance; an external user taste profile works the same way (explicit dislikes exclude, context-matched likes bias).
 
-When the plan needs media the project does not have — images, icons, logos, textures, music, SFX, or (gated) generated B-roll — follow [references/asset-sourcing.md](references/asset-sourcing.md): the sourcing ladder (user-provided > real material > AI generation via `vidmuse model run`), FRAME-token-governed prompts, provenance in `asset-sources.json`, and the per-instance user gate for generated video inside a recut.
+Materialize approved `asset-plan.json` entries through `/vidmuse-assets`;
+`media-use` performs the freeze and receipt. For other media the project does
+not have—textures, music, SFX, or gated generated B-roll—follow
+[references/asset-sourcing.md](references/asset-sourcing.md): the hybrid
+project/Creator/Core/real/generated ladder, FRAME-token-governed prompts,
+provenance in `asset-sources.json`, and the per-instance user gate for
+generated video inside a recut.
+
+Before attaching packaging HTML to Timeline, bind every approved file
+opportunity with a real `data-asset-ref="ao_*"` element pointing at its local
+receipt, then run the hard gate:
+
+```bash
+python3 scripts/asset_gate.py "$WORK_DIR" --check
+```
+
+`write_dsl.py --mode layered` runs this gate automatically unless
+`--no-overlay` is the intentional pre-packaging bootstrap. It rejects stale
+pass receipts, stale query fingerprints, identity/variant substitutions,
+missing local files, and comment-only asset references.
 
 ### 6. Write the project FRAME.md
 
@@ -412,6 +458,11 @@ Use HyperFrames render for **craft evidence** (`motion-reel`, act drafts, option
 Evaluate the rendered output, not only its source. Sample exported frames at slot boundaries and hero moments. Write `evaluation.json`:
 
 - deterministic checks: duration, overflow, contrast, blank frames, direct-root media playback, CDN request success, timeline registration, effect timing, intervention budget (panel-card count, coverage, and adjacency per [references/layout-vocabulary.md](references/layout-vocabulary.md));
+- asset checks: `asset-plan.json` validates, every used `asset_ref` has a
+  non-suppressed local receipt, canonical identity matches the spoken entity,
+  repeated entities reuse one variant, and every external file has a license
+  state; `evaluation.py --check` reruns the Recut asset gate before a ready or
+  approved result is accepted;
 - aesthetic checks: content fit, visual proof, coherence across act worlds, hierarchy, restraint, originality, template feel, camera/motion craft, sound fit, and transition handoffs;
 - Director review history: hero frames, motion reel, act review, full-film review, reference-gap review, corrections, final polish, and every named stop condition;
 - user feedback: accepted, rejected, regenerated, manually changed, and learning scope.

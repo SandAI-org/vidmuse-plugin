@@ -1,6 +1,10 @@
 # Brief format — `BRIEF.md`
 
-Defines the **intent document** — the file a confirmed brief becomes. The questions that fill it live in the intent layer (`/hyperframes` → `references/intent-interview.md` + its `references/routes/<workflow>.md`); the field semantics live in `brief-contract.md` § 2. This file defines only the artifact: its shape, its home, and its lifecycle.
+Defines the **intent document** — the file a confirmed brief becomes. The
+questions that fill it live in the owning VidMuse product skill
+(`/vidmuse-recut` or `/vidmuse-create`); the field semantics live in
+`brief-contract.md` § 2. This file defines only the artifact: its shape, its
+home, and its lifecycle.
 
 `BRIEF.md` sits at the project root, and the project's files read as four layers: **`BRIEF.md`** (why, for whom, and everything the user asked for) → **`STORYBOARD.md`** (what, frame by frame) → **`frame.md`** (how it looks) → **`compositions/`** (the thing itself).
 
@@ -10,8 +14,8 @@ YAML block at the top: one key per deterministic field — the run's shape first
 
 | Key                                                                       | Meaning                                                                                                                    | Example                     |
 | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| `workflow`                                                                | the executing workflow (companion runs record `general-video`)                                                             | `faceless-explainer`        |
-| `flow`                                                                    | `automation` — the matched workflow's pipeline · `companion` — co-creation in `/general-video`                             | `automation`                |
+| `workflow`                                                                | the owning VidMuse product workflow                                                                                         | `vidmuse-create`            |
+| `flow`                                                                    | `automation` — product drives the pipeline · `companion` — co-creation stays in the same VidMuse product                   | `automation`                |
 | `storyboard`                                                              | `yes` — plan, sketches, and build reviewed on the live board (`review-loop.md`) · `no` — one shot from the confirmed brief | `yes`                       |
 | `message`                                                                 | the ONE thing the video must communicate                                                                                   | `"Ship it in an afternoon"` |
 | `destination` / `aspect` / `language` / `audience` / `length` / `angle` … | the registry fields this route confirmed                                                                                   | —                           |
@@ -42,7 +46,7 @@ Body prose is **project-local** — nothing in it enters cross-project memory. (
 
 ```markdown
 ---
-workflow: faceless-explainer
+workflow: vidmuse-create
 flow: automation
 storyboard: yes
 message: "Compound interest is a snowball, not a ladder"

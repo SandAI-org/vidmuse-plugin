@@ -59,6 +59,57 @@ test("old AI provider overrides are rejected", () => {
   assert.match(result.stderr, /vidmuse\.model/);
 });
 
+test("logo variants reject invalid values and non-logo types", () => {
+  const invalid = run([
+    "--type",
+    "logo",
+    "--intent",
+    "Codex logo",
+    "--variant",
+    "rainbow",
+  ]);
+  assert.equal(invalid.status, 2);
+  assert.match(invalid.stderr, /unsupported logo variant "rainbow"/);
+
+  const wrongType = run([
+    "--type",
+    "image",
+    "--intent",
+    "editorial still",
+    "--variant",
+    "color",
+  ]);
+  assert.equal(wrongType.status, 2);
+  assert.match(wrongType.stderr, /--variant only supports --type logo/);
+});
+
+test("an unattested explicit logo variant returns a structured terminal miss", () => {
+  const project = mkdtempSync(join(tmpdir(), "vidmuse-logo-variant-"));
+  try {
+    const result = run([
+      "--type",
+      "logo",
+      "--intent",
+      "UnknownCo color logo",
+      "--entity",
+      "unknownco",
+      "--variant",
+      "color",
+      "--project",
+      project,
+      "--local-only",
+      "--json",
+    ]);
+    assert.equal(result.status, 1);
+    const output = JSON.parse(result.stdout);
+    assert.equal(output.code, "logo_variant_unavailable");
+    assert.equal(output.details.requested_variant, "color");
+    assert.deepEqual(output.details.available_variants, []);
+  } finally {
+    rmSync(project, { recursive: true, force: true });
+  }
+});
+
 test("doctor checks VidMuse, credits, catalog, and deterministic tools only", () => {
   const root = mkdtempSync(join(tmpdir(), "vidmuse-doctor-"));
   const bin = join(root, "bin");

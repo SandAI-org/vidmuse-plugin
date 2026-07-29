@@ -9,10 +9,12 @@
 import { bundledSfxProvider } from "./bundled-sfx-provider.mjs";
 import { brandProvider } from "./brand-provider.mjs";
 import {
+  lobeIconsSearch,
   svglSearch,
   simpleIconsSearch,
   githubAvatarSearch,
   faviconSearch,
+  LOBE_VARIANT_NAMES,
 } from "./logo-provider.mjs";
 import { generateWithVidMuse } from "./vidmuse-provider.mjs";
 
@@ -35,6 +37,7 @@ const REGISTRY = {
   logo: [
     // Logos are evidence, not illustration: resolve official marks and never
     // send them to a generative model.
+    N("lobehub.icons", { search: lobeIconsSearch, variants: LOBE_VARIANT_NAMES }),
     N("svgl", { search: svglSearch }),
     N("simple-icons", { search: simpleIconsSearch }),
     N("github.avatar", { search: githubAvatarSearch }),
@@ -115,6 +118,9 @@ export async function runProviders(providers, capability, intent, ctx) {
   for (const p of providers) {
     if (want && p.name !== want && !p.name.startsWith(`${want}.`)) continue;
     if (p.network && ctx?.localOnly) continue; // --local-only wins, even over --provider
+    if (ctx?.variant && (!Array.isArray(p.variants) || !p.variants.includes(ctx.variant))) {
+      continue;
+    }
     const fn = p[capability];
     if (typeof fn !== "function") continue;
     const res = await fn(intent, ctx);

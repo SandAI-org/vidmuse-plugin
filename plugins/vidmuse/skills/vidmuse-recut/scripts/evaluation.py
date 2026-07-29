@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from asset_gate import check as check_asset_gate
 
 SCHEMA_V1 = "vidmuse.packaging.evaluation.v1"
 SCHEMA_V2 = "vidmuse.recut.evaluation.v2"
@@ -117,6 +118,11 @@ def _check_passes(review_passes: Any, problems: list[str]) -> dict[str, list[dic
 
 def check(path: Path) -> dict[str, Any]:
     value = load(path)
+    asset_report = check_asset_gate(path.parent)
+    if not asset_report["ok"]:
+        raise EvaluationError(
+            f"{path}: asset gate failed: " + "; ".join(asset_report["errors"])
+        )
     schema = value.get("schema")
     if schema == SCHEMA_V1:
         return _check_v1(value, path)

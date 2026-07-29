@@ -3,9 +3,11 @@
 How a film acquires media it does not already have — images, logos, icons,
 textures, B-roll, music, SFX, voiceover. Shared by `/vidmuse-recut` (assets
 *inside* a packaging run) and `/vidmuse-create` (assets as the film's fabric).
-The generative backend is `vidmuse model run`; catalog resolution stays with
-`media-use` `resolve`; real-web material arrives through the host agent's own
-fetch tools.
+The owning film skill decides editorial need; `/vidmuse-assets` performs the
+Semantic Asset Pass, canonical identity, library/source, and license policy;
+`media-use` executes exact requests and writes local receipts. The generative
+backend is `vidmuse model run`; real-web material arrives through the host
+agent's fetch tools.
 
 Charter dimensions at stake: Authenticity (9) — generated material is the
 fastest way to break "this room, this person"; More convincing (6) — the
@@ -13,25 +15,39 @@ viewer must never mistake styled fiction for evidence.
 
 ## Source priority
 
-For any needed asset, exhaust each rung before falling to the next:
+For any approved `asset-plan.json` opportunity or other needed media, exhaust
+each rung before falling to the next:
 
-1. **User-provided** — brand kits, product shots, footage, existing music.
-   Always first; ask once if the BRIEF suggests such material exists.
-2. **Real material from the world** — official logos, real product
+1. **Project Freeze** — exact local receipt already under `<project>/.media/`.
+2. **Creator Library / user-provided** — private brand kits, product shots,
+   licensed packs, personal footage, existing music. Ask once if the BRIEF
+   suggests such material exists.
+3. **Core Pack** — tiny plugin-owned/redistributable offline baseline. The
+   framework may be empty; never pretend an undecided item exists.
+4. **Real material from the world** — official logos, real product
    screenshots, the actual website, documentary imagery. Acquired via
-   `media-use` resolve (its logo cascade: svgl → simple-icons → avatar →
-   favicon) or the host agent's web-fetch capability. **Logos and brand marks
-   are never generated or redrawn — only official sources.** A real
+   `/vidmuse-assets` + `media-use` resolve (its logo cascade: Lobe Icons for
+   AI/LLM identities → svgl → simple-icons → avatar → favicon) or the host
+   agent's web-fetch capability. **Logos and brand marks are never generated
+   or redrawn — only official sources.** A real
    screenshot of the real product beats a generated impression of it in both
    charter dimensions.
-3. **AI generation** — when the asset doesn't exist in the world because the
+5. **AI generation** — when the asset doesn't exist in the world because the
    film is inventing it: backgrounds, textures, illustrative scenes,
    diagram substrates, music beds, voiceover.
 
-Record every asset in `$WORK_DIR/asset-sources.json`: id, type, rung
-(user / real / generated), source (URL, model name + prompt, or file
-provenance), license note when known, and where it lands in the composition.
-Traceability here mirrors `effect-sources.json` for effects.
+Record semantic decisions and local receipts in `$WORK_DIR/asset-plan.json`.
+Stamp the plan with `asset_plan.mjs --complete-pass`; its transcript SHA-256
+distinguishes a deliberate empty result from an unperformed pass. Resolution
+receipts carry a request fingerprint, so editing entity/variant/provider or
+intent invalidates the old file binding.
+Keep `$WORK_DIR/asset-sources.json` as the composition-facing provenance list:
+id, type, rung (`project` / `creator` / `core` / `real` / `generated`), source
+(URL, model name + prompt, or file provenance), license note, matching
+`asset_ref`, and where it lands. Traceability mirrors `effect-sources.json`.
+Before Timeline attachment, `scripts/asset_gate.py` requires each approved file
+asset to exist locally and appear in packaging HTML as a real
+`data-asset-ref="ao_*"` tag; a comment or checklist entry is not a binding.
 
 ## Generating through `vidmuse model run`
 
@@ -98,8 +114,9 @@ Families and their roles (verify names against the live list):
 | --- | --- | --- |
 | image t2i / edit | `bytedance/seedream/v5/pro`, `fal-ai/flux-2-pro(/edit)`, `gemini-3-pro-image-preview`, `gpt-image-2` | backgrounds, textures, illustrative stills; edit variants for iterating one asset instead of rerolling |
 | video t2v / i2v | `seedance-2.0-*`, `fal-ai/veo3.1(/image-to-video)`, `fal-ai/kling-video/v3/*`, `pixverse/v6/*` | B-roll, atmosphere shots, transitions (`pixverse/v6/transition`) |
-| TTS | `elevenlabs/eleven_multilingual_v2`, `minimax/speech-2.6-hd`, `index-tts-2` | narration for create-mode films; scratch VO for timing |
-| music / SFX | `suno/V5_5`, `elevenlabs/elevenlabs_music`, `mirelo-ai/sfx-v1.5/video-to-audio` | score and effects when the catalog (`media-use` bgm/sfx) misses |
+| TTS | `elevenlabs/eleven_multilingual_v2`, `minimax/speech-2.6-hd`, `index-tts-2/text-to-speech` | narration for create-mode films; scratch VO for timing |
+| music | `suno/V5_5`, `elevenlabs/elevenlabs_music` | score when the live catalog supports the required music route |
+| SFX | live audio model exposing `sound_effect`; otherwise bundled `/media-use` SFX | prompt effects only when `required_params` advertises the route; a video-to-audio model is not a prompt-SFX substitute |
 | avatar | `fal-ai/bytedance/omnihuman/v1.5`, `gaga-2-avatar` | script-to-presenter source footage (create mode only) |
 
 Prefer an **image-to-video** chain (approved still → i2v) over raw t2v when a

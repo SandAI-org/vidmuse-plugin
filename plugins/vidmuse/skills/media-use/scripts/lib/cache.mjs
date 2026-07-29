@@ -64,7 +64,7 @@ function validateCacheHit(match) {
   return isComplete(cacheEntryDir(globalMediaDir(), match.sha)) ? match : null;
 }
 
-export function cacheGet(prompt, type) {
+export function cacheGet(prompt, type, variant = null) {
   const key = normalizePrompt(prompt);
   if (!key) return null;
   return validateCacheHit(
@@ -72,15 +72,22 @@ export function cacheGet(prompt, type) {
       (r) =>
         r.reusable &&
         normalizePrompt(r.provenance?.prompt) === key &&
-        (type == null || r.type === type),
+        (type == null || r.type === type) &&
+        (variant == null || r.variant === variant),
     ),
   );
 }
 
-export function cacheGetByEntity(entity) {
+export function cacheGetByEntity(entity, variant = null) {
   const lower = entity.toLowerCase();
   return validateCacheHit(
-    readGlobalManifest().find((r) => r.reusable && r.entity && r.entity.toLowerCase() === lower),
+    readGlobalManifest().find(
+      (r) =>
+        r.reusable &&
+        r.entity &&
+        r.entity.toLowerCase() === lower &&
+        (variant == null || r.variant === variant),
+    ),
   );
 }
 

@@ -20,6 +20,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from html import escape
 from pathlib import Path
 from typing import Any
 
@@ -78,9 +79,25 @@ def render(plan: dict[str, Any]) -> str:
                 f" (selector contains: {hero['dom_selector']}) -->"
             )
         asset_note = ""
-        if beat.get("asset_candidates"):
+        if beat.get("assets"):
+            rendered_assets = "\n".join(
+                "          "
+                f'<img class="vm-semantic-asset" '
+                f'data-asset-ref="{escape(str(asset["ref"]), quote=True)}" '
+                f'data-canonical-entity="'
+                f'{escape(str(asset.get("canonical_entity") or ""), quote=True)}" '
+                f'src="{escape(str(asset["path"]), quote=True)}" '
+                f'alt="{escape(str(asset.get("canonical_entity") or ""), quote=True)}">'
+                for asset in beat["assets"]
+            )
             asset_note = (
-                "\n        <!-- ASSETS (from capture inventory): "
+                '\n        <div class="vm-semantic-assets" data-vm-asset-layer="approved">\n'
+                + rendered_assets
+                + "\n        </div>"
+            )
+        elif beat.get("asset_candidates"):
+            asset_note = (
+                "\n        <!-- LEGACY CAPTURE ASSETS: "
                 + ", ".join(beat["asset_candidates"]) + " -->"
             )
         alignment_note = ""
@@ -151,6 +168,13 @@ def render(plan: dict[str, Any]) -> str:
       html, body {{ width: {width}px; height: {height}px; overflow: hidden; }}
       #root {{ position: relative; width: {width}px; height: {height}px; overflow: hidden; }}
       .beat {{ position: absolute; inset: 0; }}
+      .vm-semantic-assets {{
+        position: absolute; top: 4%; left: 4%; display: flex; gap: 16px;
+        align-items: center; pointer-events: none;
+      }}
+      .vm-semantic-asset {{
+        display: block; width: auto; max-width: 180px; max-height: 72px;
+      }}
     </style>
   </head>
   <body>

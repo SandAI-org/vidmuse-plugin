@@ -1,0 +1,29 @@
+{
+  "schema": "vidmuse.core-pack.v1",
+  "version": "0.1.0",
+  "status": "framework",
+  "description": "Preinstalled redistributable VidMuse asset baseline. Content selection is pending.",
+  "categories": {
+    "brand": {
+      "root": "brand",
+      "admission": "VidMuse-owned marks or explicitly redistributable brand assets"
+    },
+    "fonts": {
+      "root": "fonts",
+      "admission": "Selected fallback fonts with redistribution and commercial-output rights"
+    },
+    "icons": {
+      "root": "icons",
+      "admission": "Small generic UI primitives; no unapproved trademark packs"
+    },
+    "textures": {
+      "root": "textures",
+      "admission": "Small reusable textures with explicit redistribution rights"
+    },
+    "sfx": {
+      "root": "sfx",
+      "admission": "Minimal offline sound primitives with explicit redistribution rights"
+    }
+  },
+  "assets": []
+}

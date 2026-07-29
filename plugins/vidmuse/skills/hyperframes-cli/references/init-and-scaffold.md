@@ -1,6 +1,8 @@
 # init, capture, skills
 
-Scaffolding commands. Use these instead of creating files by hand — they set up the right file structure, copy media, run transcription, and install AI coding skills.
+Scaffolding commands. Use these to create the HyperFrames composition
+structure. In the VidMuse plugin they do not own transcription, media
+generation, or skill installation.
 
 ## init
 
@@ -16,8 +18,8 @@ Scaffolding commands. Use these instead of creating files by hand — they set u
 HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video                                    # TTY: interactive wizard
 HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video --example warm-grain               # pick an example
 HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video --example blank --resolution portrait
-HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video --video clip.mp4                   # with video file
-HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video --audio track.mp3                  # with audio file
+HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video --video clip.mp4 --skip-transcribe # media copied; VidMuse transcribes
+HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video --audio track.mp3 --skip-transcribe # media copied; VidMuse transcribes
 HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video --example blank --tailwind         # Tailwind v4 browser runtime
 HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init my-video --non-interactive --example blank  # CI/agents — flag-only
 ```
@@ -30,12 +32,15 @@ Other useful flags:
 
 - `--resolution` — preset: `landscape` (1920×1080), `portrait` (1080×1920), `landscape-4k`, `portrait-4k`, `square` (1080×1080), `square-4k`. Aliases: `1080p`, `4k`, `uhd`, `1080p-square`, `4k-square`.
 - `--skip-skills` — **temporarily ignored**: `init` always checks AI coding skills against GitHub while the skills.sh registry catches up. To opt out (CI/tests), set the `HYPERFRAMES_SKIP_SKILLS=1` env var instead.
-- `--skip-transcribe` — don't auto-transcribe `--audio` / `--video` with Whisper.
-- `--model`, `--language` — Whisper model / language for the auto-transcription.
+- `--skip-transcribe` — **required in this plugin** whenever `--audio` or
+  `--video` is supplied. The VidMuse media layer owns ASR + ATA.
 
 When using `--tailwind`, invoke the `hyperframes-core` (Tailwind reference) skill before editing classes or theme tokens. The scaffold uses Tailwind v4 browser runtime patterns, not Studio's Tailwind v3 setup.
 
-When `--audio` or `--video` is supplied, `init` transcribes the file with Whisper. For voice/model selection see the `media-use` skill.
+After scaffolding with media, run `/media-use`
+`scripts/transcribe.mjs <media> --output <transcript.json>`. It uses VidMuse
+ASR when text is missing and VidMuse ATA for word-level timing. Do not pass
+HyperFrames transcription model/language flags in this plugin.
 
 ## capture
 
@@ -56,4 +61,7 @@ Captures a live URL as an editable HyperFrames project: screenshots become layer
 npx hyperframes skills    # install HyperFrames skills for AI coding tools
 ```
 
-One-time setup that adds the HyperFrames skill pack (`hyperframes-core`, `-creative`, `-animation`, `-cli`, `-registry`, `-media`, plus the `product-launch-video` and `hyperframes` orchestrators) to the local AI coding environment so agents follow the framework conventions. Re-run after major HyperFrames upgrades.
+The VidMuse plugin already bundles its patched HyperFrames domain skills.
+Do not run this installer in a VidMuse workflow: it can overwrite the vendored
+copies or add competing product routers. Plugin installation/update owns skill
+lifecycle.

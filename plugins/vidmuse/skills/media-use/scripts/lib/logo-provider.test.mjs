@@ -2,6 +2,11 @@ import test from "node:test";
 import assert from "node:assert";
 import { readFileSync } from "node:fs";
 import {
+  findLobeEntry,
+  availableLobeVariants,
+  chooseLobeVariant,
+  lobeIconUrl,
+  lobeIconsSearch,
   entityFrom,
   titleMatches,
   svglQueriesFor,
@@ -12,6 +17,9 @@ import {
   simpleIconsSearch,
   githubAvatarSearch,
   faviconSearch,
+  logoIdentityMatches,
+  resolvedLogoEntity,
+  LogoResolutionConstraintError,
 } from "./logo-provider.mjs";
 import { getProviders, runProviders } from "./registry.mjs";
 
@@ -25,6 +33,56 @@ test("titleMatches ignores case, spacing, punctuation — and rejects lookalikes
   assert.ok(titleMatches("Next.js", "nextjs"));
   assert.ok(titleMatches("Coca-Cola", "coca cola"));
   assert.ok(!titleMatches("Slackware", "slack"));
+});
+
+const lobeEntries = [
+  {
+    id: "Codex",
+    title: "Codex",
+    fullTitle: "Codex (OpenAI)",
+    docsUrl: "codex",
+    group: "model",
+    color: "#fff",
+    desc: "https://openai.com/codex",
+    param: { hasColor: true, hasText: true },
+  },
+  {
+    id: "OpenAI",
+    title: "OpenAI",
+    fullTitle: "OpenAI (ChatGPT)",
+    docsUrl: "open-ai",
+    group: "provider",
+    color: "#000",
+    desc: "https://openai.com",
+    param: { hasColor: false, hasText: true },
+  },
+];
+
+test("Lobe identity matching never treats relationship parentheticals as aliases", () => {
+  assert.equal(findLobeEntry(lobeEntries, "openai").id, "OpenAI");
+  assert.equal(findLobeEntry(lobeEntries, "chatgpt"), null);
+  assert.equal(findLobeEntry(lobeEntries, "codex").id, "Codex");
+  assert.equal(findLobeEntry(lobeEntries, "open ai").id, "OpenAI");
+  assert.equal(findLobeEntry(lobeEntries, "openai-like"), null);
+});
+
+test("legacy Lobe cache records derive identity from the resolved slug", () => {
+  const legacy = {
+    entity: "chatgpt",
+    provenance: { provider: "lobehub.icons", slug: "openai" },
+  };
+  assert.equal(resolvedLogoEntity(legacy), "openai");
+  assert.equal(logoIdentityMatches(legacy, "chatgpt"), false);
+  assert.equal(logoIdentityMatches(legacy, "Open AI"), true);
+});
+
+test("Lobe variant selection respects the catalog flags", () => {
+  assert.equal(chooseLobeVariant(lobeEntries[0]), "color");
+  assert.equal(chooseLobeVariant(lobeEntries[1]), "mono");
+  assert.equal(chooseLobeVariant(lobeEntries[1], "text"), "text");
+  assert.equal(chooseLobeVariant(lobeEntries[1], "color"), null);
+  assert.match(lobeIconUrl(lobeEntries[0], "color"), /codex-color\.svg$/);
+  assert.deepEqual(availableLobeVariants(lobeEntries[1]), ["mono", "text"]);
 });
 
 test("svgl queries include the alias forms the raw entity can't match", () => {
@@ -58,6 +116,57 @@ test("favicon domain defaults to <entity>.com with explicit overrides", () => {
 const json = (data) => new Response(JSON.stringify(data), { status: 200 });
 const status = (code) => new Response(null, { status: code });
 const bin = (n) => new Response(new Uint8Array(n), { status: 200 });
+
+test("lobeIconsSearch returns a pinned SVG descriptor with variant metadata", async (t) => {
+  t.mock.method(globalThis, "fetch", async (url) => {
+    const u = String(url);
+    if (u.includes("/es/toc.json")) return json(lobeEntries);
+    if (u.includes("icons-static-svg") && u.endsWith("/codex-color.svg")) return status(200);
+    return status(404);
+  });
+  const res = await lobeIconsSearch("Codex logo", { entity: "codex", variant: "color" });
+  assert.match(res.url, /@lobehub\/icons-static-svg@[\d.]+\/icons\/codex-color\.svg$/);
+  assert.equal(res.metadata.provider, "lobehub.icons");
+  assert.equal(res.metadata.license_state, "verified-commercial");
+  assert.equal(res.metadata.license.id, "MIT");
+  assert.equal(res.metadata.license.notice_required, true);
+  assert.equal(res.metadata.provenance.variant, "color");
+  assert.equal(res.metadata.provenance.license, "MIT");
+  assert.match(res.metadata.provenance.license_url, /lobehub\/lobe-icons/);
+  assert.match(res.metadata.provenance.copyright, /LobeHub/);
+  assert.match(res.metadata.provenance.catalog_package, /^@lobehub\/icons@/);
+  assert.equal(res.metadata.provenance.requested_entity, "codex");
+  assert.equal(res.metadata.provenance.resolved_entity, "Codex");
+});
+
+test("Lobe variant mismatch is terminal and reports available variants", async (t) => {
+  const fetchMock = t.mock.method(globalThis, "fetch", async (url) => {
+    if (String(url).includes("/es/toc.json")) return json(lobeEntries);
+    throw new Error(`variant mismatch must not probe an asset URL: ${url}`);
+  });
+  await assert.rejects(
+    lobeIconsSearch("OpenAI color logo", { entity: "openai", variant: "color" }),
+    (error) => {
+      assert.ok(error instanceof LogoResolutionConstraintError);
+      assert.equal(error.code, "logo_variant_unavailable");
+      assert.equal(error.terminal, true);
+      assert.deepEqual(error.details.available_variants, ["mono", "text"]);
+      return true;
+    },
+  );
+  assert.equal(fetchMock.mock.callCount(), 1);
+});
+
+test("HEAD rejection falls back to a ranged GET", async (t) => {
+  const methods = [];
+  t.mock.method(globalThis, "fetch", async (_url, options = {}) => {
+    methods.push(options.method || "GET");
+    return options.method === "HEAD" ? status(405) : status(200);
+  });
+  const res = await simpleIconsSearch("nike logo", {});
+  assert.ok(res);
+  assert.deepEqual(methods, ["HEAD", "GET"]);
+});
 
 test("svglSearch returns the descriptor shape on an exact title hit", async (t) => {
   t.mock.method(globalThis, "fetch", async () =>
@@ -123,10 +232,11 @@ test("githubAvatarSearch never touches the network for an unmapped entity", asyn
 test("the real logo cascade falls through tier by tier to the first hit", async (t) => {
   t.mock.method(globalThis, "fetch", async (url) => {
     const u = String(url);
-    if (u.includes("api.svgl.app")) return json([]); // tier 1: no hit
-    if (u.includes("jsdelivr")) return status(404); // tier 2: no such slug
-    // tier 3 (github) is never called: entity is unmapped
-    if (u.includes("duckduckgo")) return bin(600); // tier 4: real favicon
+    if (u.includes("/es/toc.json")) return json([]); // tier 1: no Lobe hit
+    if (u.includes("api.svgl.app")) return json([]); // tier 2: no SVGL hit
+    if (u.includes("jsdelivr")) return status(404); // tier 3: no Simple Icons slug
+    // tier 4 (github) is never called: entity is unmapped
+    if (u.includes("duckduckgo")) return bin(600); // tier 5: real favicon
     throw new Error(`unexpected fetch: ${u}`);
   });
   const res = await runProviders(getProviders("logo"), "search", "zzzbrand logo", {
@@ -134,4 +244,30 @@ test("the real logo cascade falls through tier by tier to the first hit", async 
   });
   assert.ok(res, "cascade must land on the favicon tier");
   assert.equal(res.metadata.provider, "favicon.ddg");
+});
+
+test("a terminal logo constraint stops the provider cascade", async () => {
+  let fallbackRan = false;
+  const providers = [
+    {
+      name: "first",
+      search: async () => {
+        throw new LogoResolutionConstraintError("logo_variant_unavailable", "no color", {
+          available_variants: ["mono"],
+        });
+      },
+    },
+    {
+      name: "fallback",
+      search: async () => {
+        fallbackRan = true;
+        return { url: "https://example.com/wrong.svg" };
+      },
+    },
+  ];
+  await assert.rejects(
+    runProviders(providers, "search", "OpenAI color logo", {}),
+    /no color/,
+  );
+  assert.equal(fallbackRan, false);
 });

@@ -11,6 +11,9 @@ The packaging-point analysis is the editorial contract between understanding the
 5. Separate candidates that need visual explanation from moments that are already self-explanatory in the footage.
 6. In Director mode, map acts, viewer-state changes, energy, source states,
    visual proofs, deliberate silence, and candidate full-frame takeovers.
+7. Read the transcript-stamped, validated `asset-plan.json`: include approved `asset_refs`, keep
+   `already-visible`/incidental suppressions quiet, and reject identity
+   substitutions or decorative Logo repetition.
 
 ## Editorial and aesthetic reasoning
 
@@ -136,6 +139,9 @@ Every recommended point needs an exact time range and a clear editorial reason. 
 - exact start/end time;
 - verbatim or faithful transcript evidence;
 - visible-frame evidence, or an explicit statement that the decision is transcript-only;
+- approved `asset_refs` and canonical entity when a real asset is part of the point;
+- final overlay binding intent for each file ref; the implemented composition
+  must use a real `data-asset-ref` element and pass `scripts/asset_gate.py`;
 - editorial reason in viewer terms;
 - family and intensity;
 - proposed on-screen copy or information structure;

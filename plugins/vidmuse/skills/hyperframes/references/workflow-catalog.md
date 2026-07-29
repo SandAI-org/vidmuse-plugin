@@ -1,4 +1,4 @@
-# Workflow catalog (moved)
+# Workflow catalog — VidMuse plugin
 
 > **VidMuse plugin inventory.** Not an active product router.
 > Packaging / dress-up / recut / director jobs → **`/vidmuse-recut`** only.
@@ -6,11 +6,12 @@
 > Authority: `/vidmuse-recut` ≫ `/hyperframes` SKILL.md §0 ≫ this file. See `references/README.md`.
 
 
-Each workflow's input/output/trigger contract now lives in its own route file — one
-small read per candidate instead of a whole catalog:
+| Input state | Active product workflow |
+| --- | --- |
+| Existing person speaking on camera | `/vidmuse-recut` |
+| No speaking plate: script, URL, prompt, TTS, or generated-media film | `/vidmuse-create` |
+| Existing VidMuse run needs semantic composition motion | `/vidmuse-motion` |
+| Existing HyperFrames project needs a specific CLI operation | `/hyperframes-cli` |
 
-`references/routes/<workflow>.md` — e.g. `routes/product-launch-video.md`,
-`routes/general-video.md`, `routes/remotion-to-hyperframes.md`.
-
-The same file carries that route's interview entry (must-haves, conditionals, deferred
-asks, run-shape), so confirming a route is exactly one read.
+Files under `references/routes/` are frozen upstream provenance only. Do not
+invoke or install the workflow names found there.

@@ -2,7 +2,7 @@
 # First-run environment setup for VidMuse product skills (recut + create). Idempotent.
 #
 # What must be GLOBAL (user machine PATH):
-#   Node 22+, ffmpeg/ffprobe, Python 3, vidmuse CLI, HyperFrames CLI (npx)
+#   Node 22+, ffmpeg/ffprobe, Python 3, vidmuse CLI
 #
 # What comes from the PLUGIN bundle only (not user global skill homes):
 #   vidmuse-recut + sibling HF/GSAP skills under <plugin>/skills/
@@ -112,15 +112,18 @@ else
   exit 1
 fi
 
-# HyperFrames CLI — global via npx (render engine, not an agent skill)
+# VidMuse-native media preflight. This checks the authenticated VidMuse
+# profile/plan/live model catalog plus deterministic host media tools. It does
+# not diagnose HyperFrames, provider CLIs, Hugging Face, or local AI runtimes.
+MEDIA_USE_DIR="$PLUGIN_SKILLS_DIR/media-use"
 echo ""
-echo "Verifying HyperFrames CLI (global npx; downloads on first run)..."
-if npx -y hyperframes doctor; then
+echo "Verifying VidMuse media substrate..."
+if node "$MEDIA_USE_DIR/scripts/resolve.mjs" --doctor; then
   echo ""
-  echo "[ok] HyperFrames CLI ready  (global npx)"
+  echo "[ok] VidMuse media substrate ready"
 else
   echo ""
-  echo "[failed] 'npx hyperframes doctor' reported problems — fix its findings above, then re-run"
+  echo "[failed] VidMuse media diagnosis reported problems — fix its findings above, then re-run"
   exit 1
 fi
 
@@ -184,7 +187,8 @@ echo "[note] global skill homes (~/.codex/skills etc.) are optional and NOT requ
 
 echo ""
 echo "Environment ready."
-echo "  global tools : node, ffmpeg, ffprobe, python3, vidmuse, npx hyperframes"
+echo "  global tools : node, ffmpeg, ffprobe, python3, vidmuse"
+echo "  on demand    : npx hyperframes (composition/render runtime; not a media health prerequisite)"
 echo "  plugin skills: $PLUGIN_SKILLS_DIR  ($(echo "${REQUIRED_PLUGIN_SKILLS[@]}" | wc -w | tr -d ' ') skills)"
 echo "  entry skills : vidmuse-recut · vidmuse-create"
 echo "  work dirs    : outside this plugin (e.g. videos/<project>/ under your session workspace)"

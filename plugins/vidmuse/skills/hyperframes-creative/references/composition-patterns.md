@@ -40,7 +40,12 @@ tl.to("#pip-frame", { left: 40, duration: 0.6 }, 30);
 
 ## Text Behind Subject (transparent webm overlay)
 
-Put a headline _behind_ a presenter so their silhouette occludes the text. Requires a transparent cutout produced by `npx hyperframes remove-background presenter.mp4 -o presenter.webm`.
+Put a headline _behind_ a presenter so their silhouette occludes the text. This
+requires a transparent cutout supplied by the user or produced through
+`/media-use` using a live VidMuse model that explicitly supports the required
+background-edit/alpha-output route. A deterministic chroma-key mask is also
+acceptable when the source was shot for it. If neither path is available,
+choose a composition that does not depend on subject isolation.
 
 Three layers, plus one critical rule:
 
@@ -109,7 +114,9 @@ The framework forces `opacity: 1` on any element with `data-start`/`data-duratio
 
 So both decode in sync from t=0. Late-mounting the cutout (`data-start=3.3`) makes Chrome do a seek + decoder warm-up at mount, which can land a frame off the base mp4 — visible as a one-frame jitter at the cut.
 
-**Color match:** `remove-background` defaults to `--quality balanced` (crf 18) which keeps the cutout's RGB nearly identical to the source mp4 — minimal edge halo or color shift when overlaid. Use `--quality best` (crf 12) for hero shots; only drop to `--quality fast` (crf 30) when the cutout sits over a _different_ background and the size matters.
+**Color match:** keep the cutout and base video in the same color space and
+compare edge RGB at the exact overlay frame. Treat halos, matte chatter, or a
+one-frame decode offset as render-blocking.
 
 ## Title Card with Fade
 

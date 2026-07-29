@@ -1,4 +1,4 @@
-# Route briefs (moved)
+# Route briefs (archived upstream inventory)
 
 > **VidMuse plugin inventory.** Not an active product router.
 > Packaging / dress-up / recut / director jobs → **`/vidmuse-recut`** only.
@@ -6,12 +6,10 @@
 > Authority: `/vidmuse-recut` ≫ `/hyperframes` SKILL.md §0 ≫ this file. See `references/README.md`.
 
 
-Each route's interview entry — must-haves, conditional questions, deferred asks,
-pitch-eligible fields, and whether the run-shape questions apply — now lives in that
-route's own file, together with its input/output/trigger contract:
+The files under `references/routes/` are frozen provenance from the standalone
+HyperFrames pack. They are not executable route briefs in this plugin.
 
-`references/routes/<workflow>.md` — e.g. `routes/faceless-explainer.md`,
-`routes/pr-to-video.md` (including the PR-size → length table).
-
-The interview procedure itself (the eight steps) is `references/intent-interview.md`.
-Field semantics and question rules: `hyperframes-core/references/brief-contract.md` § 2–3.
+Use `/vidmuse-recut` when speaking footage exists and `/vidmuse-create` when it
+does not. Those product skills own their own brief fields and review gates.
+Field semantics shared by composition work live in
+`hyperframes-core/references/brief-contract.md`.

@@ -84,7 +84,9 @@ Upstream alias (do not install):
 - Existing footage + "just captions" → still start at **`/vidmuse-recut`** (restrained Packaging mode); do not orphan to a missing `/embedded-captions` install unless the user opts out of VidMuse.
 - Retiming, reordering, heavy NLE remix may still be handled inside Director-mode **`/vidmuse-recut`** when the user still has a speaking-source packaging goal; only abandon VidMuse when the user explicitly wants a different product.
 
-This skill does **not** run the upstream intent layer (`references/intent-interview.md`) for product routing. That layer is frozen inventory; VidMuse owns brief capture when it needs it (`BRIEF.md` under the recut work dir).
+This skill does **not** run `references/intent-interview.md` for product
+routing. That reference now records only the VidMuse ownership boundary;
+`/vidmuse-recut` or `/vidmuse-create` owns brief capture and `BRIEF.md`.
 
 ## 3. Load domain skills on demand
 
@@ -111,11 +113,17 @@ Dependency skills for packaging already ship **inside the VidMuse Codex plugin**
 - Do **not** expand the plugin with upstream creation workflows just because a reference route file names them.
 - CLI runtime remains `npx hyperframes` (engine); agent manuals remain the vendored sibling skills.
 
-If a bundled domain skill is missing, recover via the host plugin's `vidmuse-recut/scripts/setup.sh` fallback — not by reasserting this file as product router.
+If a bundled domain skill is missing, `vidmuse-recut/scripts/setup.sh` reports
+the incomplete payload. Reinstall/update the VidMuse plugin; do not download
+upstream skill text as a repair path.
 
-## 5. Upstream references (read-only inventory)
+## 5. Upstream references and normalized inventory
 
-`references/intent-interview.md`, `references/routes/*`, `references/capability-menu.md`, and `references/workflow-catalog.md` describe the **standalone HyperFrames product**. In the VidMuse plugin they remain useful for terminology and CLI habits, but any instruction that:
+`references/capability-menu.md` is the VidMuse-normalized capability inventory.
+`references/intent-interview.md`, `references/capability-menu.md`, and
+`references/workflow-catalog.md` are VidMuse-normalized. Only
+`references/routes/*` remains frozen standalone-HyperFrames provenance.
+Any archived instruction that:
 
 - names this skill as mandatory entry, or  
 - routes packaging to `/talking-head-recut`, or  

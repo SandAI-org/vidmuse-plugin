@@ -1,6 +1,9 @@
 # Story spine — value-first narrative doctrine
 
-Applies to the narrated, story-driven creation workflows — `/product-launch-video`, `/pr-to-video`, `/faceless-explainer`, and `/general-video` when the piece tells a story. It does **not** apply to `/music-to-video` (the track drives the arc), `/motion-graphics` (no narration — motion is the message), `/vidmuse-recut` Packaging/Director on existing footage (the footage's story is already fixed; upstream names `/embedded-captions` and `/talking-head-recut` are not product entries in the VidMuse plugin), or `/slideshow` (the presenter owns the story). Do not force these rules onto an exempt workflow.
+Applies to narrated, story-driven `/vidmuse-create` films and to newly authored
+narrative segments inside an owning VidMuse run. It does **not** override the
+story already present in `/vidmuse-recut` source footage, and it does not force
+a narration spine onto music-led or purely semantic-motion pieces.
 
 Each workflow's own story-design reference owns its archetypes, beat sequences, and frame vocabulary. This file owns three cross-workflow rules about **order** and **justification** — the reverse iceberg: lead with why it's valuable, not with what it is or how it was made.
 

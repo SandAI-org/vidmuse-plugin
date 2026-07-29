@@ -25,6 +25,7 @@ test("SFX uses VidMuse when available and bundled deterministic fallback", () =>
 
 test("official logos never use a generative provider", () => {
   assert.deepEqual(providerNamesFor("logo"), [
+    "lobehub.icons",
     "svgl",
     "simple-icons",
     "github.avatar",
@@ -72,4 +73,27 @@ test("--local-only skips VidMuse and can reach deterministic fallback", async ()
   const result = await runProviders(providers, "generate", "whoosh", { localOnly: true });
   assert.deepEqual(result, { source: "local" });
   assert.equal(remoteRan, false);
+});
+
+test("an explicit variant only runs providers that can attest that variant", async () => {
+  let untypedRan = false;
+  const providers = [
+    {
+      name: "variant-aware",
+      variants: ["mono"],
+      search: async () => null,
+    },
+    {
+      name: "unknown-variant",
+      search: async () => {
+        untypedRan = true;
+        return { source: "wrong" };
+      },
+    },
+  ];
+  const result = await runProviders(providers, "search", "OpenAI color logo", {
+    variant: "color",
+  });
+  assert.equal(result, null);
+  assert.equal(untypedRan, false);
 });

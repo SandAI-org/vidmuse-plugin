@@ -19,8 +19,10 @@ Resolution:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -28,6 +30,14 @@ from typing import Any
 PLAN_NAME = "film-plan.json"
 RESOLVED_NAME = "film-plan.resolved.json"
 TRANSCRIPT_NAME = "transcript.json"
+ASSET_PLAN_NAME = "asset-plan.json"
+PASS_CONTRACT = "semantic-asset-pass.v1"
+ASSET_PLAN_CLI = (
+    Path(__file__).resolve().parents[2]
+    / "vidmuse-assets"
+    / "scripts"
+    / "asset_plan.mjs"
+)
 
 PATHS = {"explainer", "promo"}
 ROLES = {
@@ -78,6 +88,8 @@ def validate(plan: dict[str, Any]) -> list[str]:
 
     if plan.get("create_path") not in PATHS:
         err(f"create_path must be one of {sorted(PATHS)} (vox films do not use this file)")
+    if plan.get("asset_plan") != ASSET_PLAN_NAME:
+        err(f"asset_plan must equal {ASSET_PLAN_NAME} (Semantic Asset Pass is required)")
 
     hero = plan.get("hero_throughline")
     if hero is not None:
@@ -142,7 +154,15 @@ def validate(plan: dict[str, Any]) -> list[str]:
             not isinstance(candidates, list)
             or not all(isinstance(a, str) and a.strip() for a in candidates)
         ):
-            err(f"{where}: asset_candidates must be a list of asset filenames")
+            err(f"{where}: asset_candidates must be a list of site-capture filenames")
+
+        asset_refs = beat.get("asset_refs")
+        if asset_refs is not None and (
+            not isinstance(asset_refs, list)
+            or not all(isinstance(a, str) and a.startswith("ao_") for a in asset_refs)
+            or len(set(asset_refs)) != len(asset_refs)
+        ):
+            err(f"{where}: asset_refs must be a unique list of ao_* opportunity ids")
 
         sfx = beat.get("sfx")
         if sfx is not None:
@@ -196,6 +216,182 @@ def validate(plan: dict[str, Any]) -> list[str]:
     return errors
 
 
+def load_asset_plan(work: Path) -> dict[str, Any]:
+    path = work / ASSET_PLAN_NAME
+    if not path.is_file():
+        raise PlanError(
+            f"missing {path} — run the vidmuse-assets Semantic Asset Pass first"
+        )
+    with path.open(encoding="utf-8") as handle:
+        plan = json.load(handle)
+    if not isinstance(plan, dict):
+        raise PlanError(f"{ASSET_PLAN_NAME}: expected a JSON object")
+    if plan.get("schema") != "vidmuse.asset-plan.v1":
+        raise PlanError(f"{ASSET_PLAN_NAME}: schema must be vidmuse.asset-plan.v1")
+    if not isinstance(plan.get("opportunities"), list):
+        raise PlanError(f"{ASSET_PLAN_NAME}: opportunities must be an array")
+    if plan.get("workflow") != "create":
+        raise PlanError(f"{ASSET_PLAN_NAME}: workflow must be create")
+    receipt = plan.get("pass_receipt")
+    if not isinstance(receipt, dict):
+        raise PlanError(f"{ASSET_PLAN_NAME}: pass_receipt is required")
+    if receipt.get("contract") != PASS_CONTRACT or receipt.get("status") != "completed":
+        raise PlanError(
+            f"{ASSET_PLAN_NAME}: Semantic Asset Pass receipt is not completed"
+        )
+    transcript = plan.get("transcript")
+    input_receipt = receipt.get("input")
+    if (
+        not isinstance(transcript, str)
+        or not isinstance(input_receipt, dict)
+        or input_receipt.get("path") != transcript
+    ):
+        raise PlanError(
+            f"{ASSET_PLAN_NAME}: pass_receipt.input.path must equal transcript"
+        )
+    transcript_path = work / transcript
+    if not transcript_path.is_file():
+        raise PlanError(f"{ASSET_PLAN_NAME}: receipt input is missing: {transcript}")
+    actual_sha = hashlib.sha256(transcript_path.read_bytes()).hexdigest()
+    if input_receipt.get("sha256") != actual_sha:
+        raise PlanError(
+            f"{ASSET_PLAN_NAME}: pass_receipt is stale; {transcript} changed"
+        )
+    if receipt.get("opportunity_count") != len(plan["opportunities"]):
+        raise PlanError(f"{ASSET_PLAN_NAME}: pass_receipt opportunity_count is stale")
+    try:
+        run = subprocess.run(
+            [
+                "node",
+                str(ASSET_PLAN_CLI),
+                "--project",
+                str(work),
+                "--validate",
+                "--json",
+            ],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except OSError as exc:
+        raise PlanError(
+            f"{ASSET_PLAN_NAME}: cannot run shared asset validator: {exc}"
+        ) from exc
+    if run.returncode != 0:
+        details = run.stderr.strip()
+        lines = [line for line in run.stdout.splitlines() if line.strip()]
+        if lines:
+            try:
+                payload = json.loads(lines[-1])
+                if isinstance(payload.get("errors"), list):
+                    details = "; ".join(str(error) for error in payload["errors"])
+                elif payload.get("error"):
+                    details = str(payload["error"])
+            except json.JSONDecodeError:
+                pass
+        raise PlanError(
+            f"{ASSET_PLAN_NAME}: shared asset validation failed: "
+            f"{details or 'unknown violation'}"
+        )
+    return plan
+
+
+def _identity(value: Any) -> str:
+    return "".join(char for char in str(value or "").lower() if char.isalnum())
+
+
+def _request_fingerprint(query: dict[str, Any]) -> str:
+    normalized = {
+        "type": str(query.get("type", "")).strip().lower(),
+        "mode": str(query.get("mode", "")).strip().lower(),
+        "intent": re.sub(r"\s+", " ", str(query.get("intent", "")).strip()),
+        "entity": _identity(query.get("entity")),
+        "variant": str(query.get("variant", "")).strip().lower(),
+        "provider": str(query.get("provider", "")).strip().lower(),
+    }
+    payload = json.dumps(
+        normalized, ensure_ascii=False, separators=(",", ":")
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def validate_asset_refs(
+    work: Path, film_plan: dict[str, Any], asset_plan: dict[str, Any]
+) -> list[str]:
+    errors: list[str] = []
+    opportunities = {
+        item.get("id"): item
+        for item in asset_plan.get("opportunities", [])
+        if isinstance(item, dict) and item.get("id")
+    }
+    no_file_decisions = {"diagram-node", "text-label-only", "suppress"}
+    file_decisions = {"show-logo", "show-icon", "show-photo", "reuse-existing"}
+    used_refs: set[str] = set()
+    for beat in film_plan.get("beats") or []:
+        bid = beat.get("id", "unknown")
+        for ref in beat.get("asset_refs") or []:
+            used_refs.add(ref)
+            item = opportunities.get(ref)
+            if not item:
+                errors.append(f"beat {bid}: asset_ref {ref} is missing from {ASSET_PLAN_NAME}")
+                continue
+            if item.get("beat_id") and item["beat_id"] != bid:
+                errors.append(
+                    f"beat {bid}: asset_ref {ref} belongs to beat {item['beat_id']}"
+                )
+            if item.get("decision") in no_file_decisions:
+                errors.append(
+                    f"beat {bid}: asset_ref {ref} has non-file decision {item.get('decision')}"
+                )
+                continue
+            receipt = item.get("resolution")
+            if not isinstance(receipt, dict) or receipt.get("status") != "resolved":
+                errors.append(f"beat {bid}: asset_ref {ref} has no resolved local receipt")
+                continue
+            query = item.get("asset_query")
+            if not isinstance(query, dict):
+                errors.append(f"beat {bid}: asset_ref {ref} has no asset_query")
+                continue
+            expected_fingerprint = _request_fingerprint(query)
+            if receipt.get("request_fingerprint") != expected_fingerprint:
+                errors.append(
+                    f"beat {bid}: asset_ref {ref} resolution is stale for its asset_query"
+                )
+            if query.get("type") == "logo":
+                requested = query.get("entity")
+                canonical = item.get("canonical_entity")
+                resolved_entity = receipt.get("resolved_entity")
+                if _identity(requested) != _identity(canonical):
+                    errors.append(
+                        f"beat {bid}: asset_ref {ref} query identity {requested!r} "
+                        f"does not match canonical entity {canonical!r}"
+                    )
+                if _identity(resolved_entity) != _identity(requested):
+                    errors.append(
+                        f"beat {bid}: asset_ref {ref} resolved identity "
+                        f"{resolved_entity!r} does not match request {requested!r}"
+                    )
+                requested_variant = query.get("variant")
+                if requested_variant and receipt.get("variant") != requested_variant:
+                    errors.append(
+                        f"beat {bid}: asset_ref {ref} resolved variant "
+                        f"{receipt.get('variant')!r} does not satisfy "
+                        f"{requested_variant!r}"
+                    )
+            path = receipt.get("path")
+            if not isinstance(path, str) or not path.strip():
+                errors.append(f"beat {bid}: asset_ref {ref} receipt has no local path")
+            elif not (work / path).is_file():
+                errors.append(f"beat {bid}: asset_ref {ref} local file is missing: {path}")
+    for ref, item in opportunities.items():
+        if item.get("decision") in file_decisions and ref not in used_refs:
+            errors.append(
+                f"{ASSET_PLAN_NAME}: approved file opportunity {ref} is not bound "
+                "by any film-plan beat asset_refs"
+            )
+    return errors
+
+
 def load_words(work: Path) -> list[dict[str, Any]]:
     path = work / TRANSCRIPT_NAME
     if not path.is_file():
@@ -236,8 +432,17 @@ def resolve_cues(beats: list[dict[str, Any]], words: list[dict[str, Any]]) -> No
         beat["vo_cues"] = resolved
 
 
-def resolve(plan: dict[str, Any], words: list[dict[str, Any]]) -> dict[str, Any]:
+def resolve(
+    plan: dict[str, Any],
+    words: list[dict[str, Any]],
+    asset_plan: dict[str, Any],
+) -> dict[str, Any]:
     plan = json.loads(json.dumps(plan))  # deep copy
+    opportunities = {
+        item["id"]: item
+        for item in asset_plan.get("opportunities", [])
+        if isinstance(item, dict) and item.get("id")
+    }
     resolve_cues(plan["beats"], words)
     for beat in plan["beats"]:
         base = float(beat["ata_range"][0])
@@ -256,6 +461,22 @@ def resolve(plan: dict[str, Any], words: list[dict[str, Any]]) -> dict[str, Any]
                 )
         for cue in beat.get("sfx") or []:
             cue["abs_t"] = round(min(base + float(cue["t"]), end), 3)
+        beat["assets"] = []
+        for ref in beat.get("asset_refs") or []:
+            item = opportunities[ref]
+            receipt = item["resolution"]
+            beat["assets"].append(
+                {
+                    "ref": ref,
+                    "canonical_entity": item.get("canonical_entity"),
+                    "decision": item.get("decision"),
+                    "asset_id": receipt.get("asset_id"),
+                    "path": receipt.get("path"),
+                    "provider": receipt.get("provider"),
+                    "variant": receipt.get("variant"),
+                    "license_state": receipt.get("license_state"),
+                }
+            )
     plan["resolved"] = True
     return plan
 
@@ -272,13 +493,15 @@ def main(argv: list[str] | None = None) -> int:
     try:
         plan = load_plan(work)
         errors = validate(plan)
+        asset_plan = load_asset_plan(work)
+        errors.extend(validate_asset_refs(work, plan, asset_plan))
         if errors:
             for msg in errors:
                 print(f"FAIL {msg}", file=sys.stderr)
             print(f"error: {len(errors)} contract violation(s) in {PLAN_NAME}", file=sys.stderr)
             return 1
         if args.resolve:
-            resolved = resolve(plan, load_words(work))
+            resolved = resolve(plan, load_words(work), asset_plan)
             out = work / RESOLVED_NAME
             out.write_text(
                 json.dumps(resolved, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

@@ -90,21 +90,31 @@ export function normalizePrompt(prompt) {
     .replace(/\s+/g, " ");
 }
 
-export function findByPrompt(projectDir, prompt, type) {
+export function findByPrompt(projectDir, prompt, type, variant = null) {
   const key = normalizePrompt(prompt);
   if (!key) return null;
   const records = readManifest(projectDir);
   return (
     records.find(
-      (r) => normalizePrompt(r.provenance?.prompt) === key && (type == null || r.type === type),
+      (r) =>
+        normalizePrompt(r.provenance?.prompt) === key &&
+        (type == null || r.type === type) &&
+        (variant == null || r.variant === variant),
     ) || null
   );
 }
 
-export function findByEntity(projectDir, entity) {
+export function findByEntity(projectDir, entity, variant = null) {
   const lower = entity.toLowerCase();
   const records = readManifest(projectDir);
-  return records.find((r) => r.entity && r.entity.toLowerCase() === lower) || null;
+  return (
+    records.find(
+      (r) =>
+        r.entity &&
+        r.entity.toLowerCase() === lower &&
+        (variant == null || r.variant === variant),
+    ) || null
+  );
 }
 
 export function nextId(projectDir, type) {

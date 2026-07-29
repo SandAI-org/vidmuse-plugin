@@ -1,10 +1,15 @@
 # Skills shipped in this plugin
 
-User-facing entries are **`/vidmuse-recut`** (existing speaking footage) and **`/vidmuse-create`** (no source footage). Everything else is a **dependency skill** the agent loads on demand while executing those workflows (composition contract, motion craft, media ops, GSAP timeline mechanics).
+User-facing entries are **`/vidmuse-recut`** (existing speaking footage),
+**`/vidmuse-create`** (no source footage), and **`/vidmuse-assets`** (asset
+intelligence, Semantic Asset Pass, libraries, sourcing, licensing, and reuse).
+Everything else is a **dependency skill** the agent loads on demand while
+executing those workflows (composition contract, motion craft, media runtime,
+GSAP timeline mechanics).
 
 Do **not** install or invoke HyperFrames `talking-head-recut` from this plugin — that job is owned by `vidmuse-recut`.
 
-**Routing law:** `/hyperframes` is vendored and **demoted**. Description avoids packaging trigger words (so it should not win skill-match over recut). Body §0 + `references/README.md` banners hand packaging / dress-up / recut to `/vidmuse-recut`. THR route is a redirect stub. `setup.sh` network fallback uses a **core whitelist only** (never bare `skills update`, never THR). Between the two product skills: a recording of a person speaking exists → `vidmuse-recut`; the film's material must be made (script+TTS explainer, website/product promo, generated media) → `vidmuse-create`. Create shares recut's references and scripts — the aesthetic system (charter, tells, taste authority, FRAME.md, gates) is one system with two grounding modes.
+**Routing law:** `/hyperframes` is vendored and **demoted**. Description avoids packaging trigger words (so it should not win skill-match over recut). Body §0 + `references/README.md` banners hand packaging / dress-up / recut to `/vidmuse-recut`. THR route is a redirect stub. `setup.sh` network fallback uses a **core whitelist only** (never bare `skills update`, never THR). Between the two film product skills: a recording of a person speaking exists → `vidmuse-recut`; the film's material must be made (script+TTS explainer, website/product promo, generated media) → `vidmuse-create`. Standalone asset/library work → `vidmuse-assets`; inside every substantial film run, Create/Recut invoke its Semantic Asset Pass after transcript grounding even when the user never asks for assets, then retain film ownership. Create shares recut's references and scripts — the aesthetic system (charter, tells, taste authority, FRAME.md, gates) is one system with two grounding modes.
 
 ## User-facing
 
@@ -12,6 +17,7 @@ Do **not** install or invoke HyperFrames `talking-head-recut` from this plugin �
 | --- | --- |
 | `vidmuse-recut` | **Product router** + editor/director for existing talking-head / interview / podcast / product-explainer footage |
 | `vidmuse-create` | Films **without** source footage: knowledge explainers / promos / **Vox paper-collage** B-roll & explainers. **Hard voice spine:** `vidmuse` TTS → ATA → `transcript.json`. Path-routed anti-PPT craft (`path-routing` SSOT: shot_sequence + hero throughline + audio_delivery + UI proof path + machine-gated semantic alignment; **Vox frozen** / **recut untouched**) + promo-recipes + shot-cards + **`vidmuse-motion`**; HyperFrames/GSAP + Timeline delivery |
+| `vidmuse-assets` | **Asset intelligence** for explicit or in-film work. Owns semantic opportunities, canonical identity, transcript-bound pass receipts, request fingerprints, `asset-plan.json`, source/license policy, Core Pack / Creator Library direction, and provider choice; delegates all I/O and generation to `media-use`. First active catalog: pinned Lobe Icons. |
 | `vidmuse-motion` | **Dependency skill** — semantic motion recipes → HyperFrames/GSAP native compose when Registry has no block (KPI/bars/sparkline/stat cards). Not a product router. `scripts/motion_recipes.py` + gold `examples/dataviz-semantic/` |
 
 ## HyperFrames core (vendored from heygen-com/hyperframes `skills/`)
@@ -27,7 +33,7 @@ Same set as `npx hyperframes skills update` core tier (`FALLBACK_CORE_SKILLS`):
 | `hyperframes-creative` | Non-animation creative direction |
 | `hyperframes-keyframes` | Seek-safe keyframe diagnostics |
 | `hyperframes-registry` | `hyperframes add` / catalog / wiring |
-| `media-use` | **VidMuse-native Media OS**: CLI model catalog/run for TTS, music, image, icon, avatar/video; VidMuse ASR + ATA captions; deterministic media ops |
+| `media-use` | **Internal VidMuse media runtime**: exact provider/model calls, download/generate/transform, project freeze, cache/manifest, TTS, ASR/ATA, and deterministic media ops. It does not make semantic/editorial asset decisions. |
 
 ## GSAP pack (vendored from greensock/gsap-skills)
 

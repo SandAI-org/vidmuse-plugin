@@ -1,4 +1,4 @@
-# info, upgrade, compositions, docs, benchmark, telemetry, asset preprocessing
+# info, upgrade, compositions, docs, benchmark, telemetry
 
 Catch-all reference for commands that don't fit the main dev loop.
 
@@ -10,7 +10,11 @@ npx hyperframes info ./my-video        # specific project
 npx hyperframes info --json
 ```
 
-Prints **project** metadata: name, resolution, duration, element counts by type, track count, and total project size. Project-level — not environment. For environment health use `doctor`.
+Prints **project** metadata: name, resolution, duration, element counts by type,
+track count, and total project size. Project-level — not environment. For
+VidMuse media/environment health use `/media-use`
+`scripts/resolve.mjs --doctor`. Use HyperFrames doctor only for a concrete
+HyperFrames browser or render-runtime failure.
 
 ## upgrade
 
@@ -64,14 +68,18 @@ Events include two fingerprint properties used to distinguish managed-sandbox ru
 - **`sandbox_runtime`**: `gvisor` / `firecracker` / `docker` / `kvm` / `wsl` / `null`. gVisor via kernel string + `/proc/version`. Firecracker via `/dev/vsock` + DMI sys_vendor. Docker via `/.dockerenv` + cgroup.
 - **`agent_runtime`**: `claude_code` / `codex` / `cursor` / `copilot_agent` / `jules` / `replit` / `devin` / `aider` / `gemini_cli` / `hermes` / `openclaw` / `null`. Detected by the existence of well-known vendor env vars; the values themselves are never read.
 
-## Asset Preprocessing
+## Media preprocessing belongs to VidMuse
 
-```bash
-npx hyperframes tts
-npx hyperframes transcribe
-npx hyperframes remove-background
-```
+Do not use HyperFrames media preprocessing commands in this plugin.
 
-These produce assets (narration audio, word-level transcripts, transparent video) that get dropped into a composition. Each may download its own model on first run.
+- TTS/music/SFX → `/media-use` `audio/scripts/audio.mjs` or
+  `scripts/resolve.mjs`, backed by live `vidmuse model list/run`.
+- ASR + word timing → `/media-use`
+  `scripts/transcribe.mjs <media> --output <transcript.json>`.
+- Image edits such as background isolation → resolve a live VidMuse image-edit
+  model with the required `image_to_image` route and explicit model parameters.
+  If no live model supports the operation, use a deterministic mask/chroma-key
+  transform only when the source permits it; do not download a local AI model.
 
-For voice selection, Whisper model rules, output format choice, and the TTS → transcript → captions chain, invoke the `media-use` skill. This skill stays focused on the dev loop.
+The resulting frozen files can be placed in a composition. HyperFrames stays
+focused on authoring, verification, and rendering.

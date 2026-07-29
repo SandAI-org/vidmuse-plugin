@@ -1,0 +1,80 @@
+{
+  "schema": "vidmuse.asset-plan.v1",
+  "workflow": "create",
+  "transcript": "transcript.json",
+  "pass_receipt": {
+    "contract": "semantic-asset-pass.v1",
+    "status": "completed",
+    "input": {
+      "path": "transcript.json",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "opportunity_count": 2,
+    "completed_at": "2026-07-29T00:00:00.000Z"
+  },
+  "opportunities": [
+    {
+      "id": "ao_openai_intro",
+      "mention": "OpenAI",
+      "canonical_entity": "openai",
+      "entity_type": "organization",
+      "semantic_role": "subject",
+      "visual_job": "establish-identity",
+      "ranges": [
+        [
+          12.4,
+          13.8
+        ]
+      ],
+      "beat_id": "b03",
+      "decision": "show-logo",
+      "reason": "First meaningful introduction of the organization.",
+      "confidence": 0.98,
+      "asset_query": {
+        "type": "logo",
+        "intent": "OpenAI official logo",
+        "entity": "openai",
+        "variant": "mono",
+        "provider": "lobehub.icons",
+        "mode": "deterministic"
+      },
+      "placement": {
+        "mode": "context-chip",
+        "weight": "light"
+      }
+    },
+    {
+      "id": "ao_gpt4_model",
+      "mention": "GPT-4",
+      "canonical_entity": "gpt-4",
+      "entity_type": "model",
+      "semantic_role": "history-node",
+      "visual_job": "timeline-node",
+      "ranges": [
+        [
+          13.1,
+          14.2
+        ]
+      ],
+      "beat_id": "b03",
+      "decision": "text-label-only",
+      "reason": "No independent official GPT-4 mark is assumed; use editable model type beside the OpenAI identity.",
+      "confidence": 0.95,
+      "placement": {
+        "mode": "model-label",
+        "weight": "light"
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "openai-model-history",
+      "kind": "timeline",
+      "member_ids": [
+        "ao_openai_intro",
+        "ao_gpt4_model"
+      ],
+      "variant_policy": "mono"
+    }
+  ]
+}

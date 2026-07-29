@@ -1,0 +1,7 @@
+{
+  "schema": "vidmuse.creator-library.v1",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Private user-owned and user-licensed reusable assets. Never redistribute with the VidMuse plugin.",
+  "assets": []
+}

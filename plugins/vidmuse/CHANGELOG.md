@@ -6,6 +6,97 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.3.19 — 2026-07-29
+
+### Fixed
+
+- **Logo identity continuity.** Lobe relationship parentheticals no longer act
+  as synonyms, so a ChatGPT request cannot silently return the OpenAI provider
+  mark. Legacy cached Lobe entries are checked against their resolved slug.
+- **Variant fail-open.** Explicit logo variants are hard constraints across the
+  provider cascade. Unsupported Lobe variants return a structured terminal
+  error with available variants instead of falling through to an unverified
+  SVG or favicon.
+- **Stale asset reuse.** Resolution receipts now include a normalized request
+  fingerprint; changing intent, entity, variant, provider, type, or mode forces
+  a new resolve.
+
+### Added
+
+- **Semantic Pass receipts.** Every asset plan, including a deliberate empty
+  plan, is stamped against the current transcript SHA-256 and opportunity
+  count. Changed transcripts invalidate the plan.
+- **Create/Recut asset gates.** Create's motion check and Recut's new
+  `asset_gate.py` require approved assets to exist locally and appear as real
+  `data-asset-ref` DOM nodes pointing at the exact receipt path. Recut runs the
+  gate before layered Timeline attachment and evaluation approval.
+- **Resilient CDN probes.** A rejected or unavailable HEAD request falls back
+  to a ranged GET before a deterministic logo source is declared missing.
+
+## 0.3.18 — 2026-07-29
+
+### Added
+
+- **Proactive Semantic Asset Pass.** Create and Recut now scan the full timed
+  content after grounding—even without an explicit asset request—then record
+  canonical entities, editorial show/suppress decisions, ATA ranges, groups,
+  exact asset queries, and local receipts in `asset-plan.json`.
+- **Machine-traceable asset binding.** `asset_plan.mjs` validates plans and
+  resolves deterministic entries through `media-use`; create
+  `film-plan.json` binds stable `asset_refs`, verifies local receipts, and
+  carries them into the GSAP scaffold.
+- **Hybrid-library framework.** A manifest-driven, currently empty Core Pack
+  skeleton defines brand/font/icon/texture/SFX admission and license receipts;
+  Creator Library, project freeze, and dynamic-provider boundaries are
+  documented without bundling undecided third-party content.
+
+### Changed
+
+- `/vidmuse-assets` is the asset-intelligence/policy layer; `media-use` is now
+  explicitly an internal media runtime. Editorial need, canonical identity,
+  density, and licensing no longer overlap with download/generation/cache
+  implementation.
+- Create and Recut treat logos and other real assets as timed editorial
+  interventions, reuse repeated entities, and forbid silent company/product/
+  model identity substitutions.
+
+## 0.3.17 — 2026-07-29
+
+### Added
+
+- **`/vidmuse-assets` asset-library capability.** Standalone or in-film logo,
+  icon, font, material, provenance, licensing, reuse, and Creator Library
+  requests now have a user-facing owner while `media-use` remains the
+  execution layer.
+- **Pinned Lobe Icons Logo Provider.** Exact AI/LLM entity matching uses the
+  `@lobehub/icons` catalog and `@lobehub/icons-static-svg` assets before the
+  existing SVGL → Simple Icons → GitHub avatar → favicon cascade. Static SVG
+  variants (`mono`, `color`, `text`, `text-cn`, `text-color`, `brand`,
+  `brand-color`) freeze locally and record package versions, source URL,
+  variant, brand metadata, and MIT license.
+- Logo cache identity now includes an optional variant so a wordmark, mono
+  glyph, and color mark for the same entity do not overwrite or incorrectly
+  satisfy one another.
+
+### Changed
+
+- **All active media routes are now VidMuse-native across the bundled skill
+  pack.** HyperFrames CLI documentation no longer claims TTS, transcription,
+  background removal, AI video, provider authentication, or managed-provider
+  rendering as VidMuse product capabilities.
+- **Plugin setup now runs the VidMuse media doctor.** It checks the authenticated
+  VidMuse substrate and deterministic host tools, without making HyperFrames
+  doctor a general environment prerequisite.
+- HyperFrames transcription examples now require `--skip-transcribe` and hand
+  media to VidMuse ASR + ATA; script/animation references use VidMuse voice
+  discovery, TTS, and word timing.
+- The capability menu and lifecycle references now use only bundled VidMuse
+  product/domain skills. Missing upstream creation workflows are no longer
+  lazily installed or advertised as fallbacks.
+- Registry URLs that name their upstream component host remain unchanged as
+  provenance/runtime registry sources; they are not AI generation or
+  authentication routes.
+
 ## 0.3.16 — 2026-07-29
 
 ### Changed

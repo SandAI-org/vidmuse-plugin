@@ -7,7 +7,7 @@ metadata:
 
 # ASR Keyword Glow
 
-Words in a phrase visually activate (glow blur + scale) when "spoken", following an attack-sustain-release envelope over per-word `{ start, end }` timestamps. In a real ASR pipeline the timings come from a word-level transcript (`hyperframes transcribe` — same shape); for promo video, hand-author them to control emphasis pacing. The envelope never falls to zero after a word — it decays to a rest level, leaving a breadcrumb of recent emphasis.
+Words in a phrase visually activate (glow blur + scale) when "spoken", following an attack-sustain-release envelope over per-word `{ start, end }` timestamps. In a real pipeline the timings come from `/media-use` `scripts/transcribe.mjs`, which uses VidMuse ASR + ATA; for promo video, hand-author them to control emphasis pacing. The envelope never falls to zero after a word — it decays to a rest level, leaving a breadcrumb of recent emphasis.
 
 ## How It Works
 
@@ -98,7 +98,7 @@ function colorAt(env, isBrand) {
 - **Multi-octave glow** — multiply the sustain by `1 + sin(driver.t × PULSE_HZ) × PULSE_AMPLITUDE` so high-emphasis words breathe at peak.
 - **Color shift on the peak** — same channel-lerp from `restColor` → `peakColor` as `env` rises (non-karaoke form).
 - **3D pop-out** — add `translateZ(env × MAX_POP_Z)` so the spoken word leans toward camera; requires `perspective` on the parent.
-- **From real ASR transcripts** — convert `{ word, start_ms, end_ms }` entries to seconds and feed in identically.
+- **From real VidMuse transcripts** — use each ATA word's `{ text, start, end }` fields directly; times are seconds.
 
 ## Values
 
@@ -125,4 +125,4 @@ function colorAt(env, isBrand) {
 
 ## See also
 
-`3d-text-depth-layers` (depth on the active word at peak) · `sine-wave-loop` (idle breathe between emphasis moments) · `context-sensitive-cursor` (typewriter matching the ASR cadence) · `/media-use` for `hyperframes transcribe` and caption rendering.
+`3d-text-depth-layers` (depth on the active word at peak) · `sine-wave-loop` (idle breathe between emphasis moments) · `context-sensitive-cursor` (typewriter matching the ASR cadence) · `/media-use` for VidMuse ASR + ATA and caption rendering.

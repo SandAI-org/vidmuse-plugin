@@ -9,6 +9,11 @@ the live VidMuse model catalog; outputs are downloaded into `.media/`, recorded
 in `.media/manifest.jsonl`, indexed in `.media/index.md`, and promoted to the
 cross-project cache.
 
+This command executes a decided request. For semantic logos/icons/photos inside
+a film, `/vidmuse-assets` first writes and validates `asset-plan.json`, then
+`asset_plan.mjs --resolve` calls this command. Do not use `resolve` itself to
+decide whether a named transcript entity deserves screen time.
+
 ## Types and routes
 
 | Type | VidMuse route / deterministic source |
@@ -19,7 +24,7 @@ cross-project cache.
 | `icon` | `text_to_image` with transparent-icon prompt constraints |
 | `voice` | audio model + `text_to_speech`; voice from `vidmuse voice list` |
 | `video` | `text_to_video`; inputs select i2v/images2v unless route is explicit |
-| `logo` | official svgl → simple-icons → GitHub avatar → favicon cascade |
+| `logo` | Lobe Icons (AI/LLM) → svgl → simple-icons → GitHub avatar → favicon |
 | `grade` / `lut` | deterministic local color pipeline |
 
 Model names are not frozen in the skill. `resolve` runs `vidmuse model list`
@@ -35,6 +40,31 @@ node <SKILL_DIR>/scripts/resolve.mjs \
   --resolution 1440p \
   --project .
 ```
+
+Pinned Lobe Icons logo:
+
+```bash
+node <SKILL_DIR>/scripts/resolve.mjs \
+  --type logo \
+  --intent "Codex logo" \
+  --entity codex \
+  --variant color \
+  --provider lobehub.icons \
+  --project .
+```
+
+The selected SVG is frozen into `.media/images/`; the manifest records the
+Lobe catalog/static package versions, exact variant, source URL, license
+receipt, requested/resolved identity, and trademark note. Relationship text in
+Lobe display names is not an alias: `ChatGPT` cannot silently resolve to the
+`OpenAI` provider mark. Omit `--provider` to allow the remaining official logo
+cascade after an availability miss.
+
+An explicit `--variant` is a hard constraint across the cascade. Providers
+that cannot attest the requested variant are skipped. When Lobe recognizes the
+entity but lacks the variant, resolution stops with
+`logo_variant_unavailable` and reports `available_variants`; it never
+fail-opens to an unverified SVG or favicon.
 
 Image-to-video:
 
@@ -82,6 +112,8 @@ vidmuse voice list --model minimax/speech-2.6-hd --language zh -o json
 | Flag | Purpose |
 | --- | --- |
 | `--type`, `--intent`, `--project` | required media request |
+| `--entity` | exact brand/model identity for logo matching and cache reuse |
+| `--variant` | logo variant: `mono`, `color`, `text`, `text-cn`, `text-color`, `brand`, `brand-color` |
 | `--model` | exact `model_name` from the live catalog |
 | `--generation-type` | explicit Aion route supported by the model |
 | `--input` | local path or URL; repeat for multiple image inputs |
@@ -90,7 +122,7 @@ vidmuse voice list --model minimax/speech-2.6-hd --language zh -o json
 | `--language` | voice-search language when a voice id is not pinned |
 | `--model-params <JSON>` | additional model-specific Aion fields; cannot override selected model/route |
 | `--duration` / `--aspect-ratio` / `--resolution` | model controls when supported |
-| `--provider vidmuse` | explicitly select the only AI provider |
+| `--provider <name>` | explicitly select a provider, e.g. `lobehub.icons` or `vidmuse` |
 | `--local-only` | cache/ingest/deterministic providers only; no model call |
 | `--candidates` | list reusable project/global assets without mutation |
 | `--reuse <sha>` | import one selected global candidate |
@@ -105,7 +137,8 @@ vidmuse voice list --model minimax/speech-2.6-hd --language zh -o json
 Before generating, run `--candidates` and reuse a semantically appropriate
 asset when confidence is high. Exact normalized prompts reuse automatically;
 fuzzy matches never do. Official brand/entity assets require an exact entity
-match.
+match. Legacy logo cache entries are reused only when their resolved identity
+proof (`resolved_entity`, or the pinned Lobe slug) matches the current request.
 
 Every generated record includes:
 

@@ -1,17 +1,41 @@
 ---
 name: media-use
-description: VidMuse plugin dependency for media assets and deterministic media operations inside vidmuse-recut or vidmuse-create. Resolve, generate, freeze, inventory, and reuse BGM, SFX, images, icons, official logos, TTS voice, AI video, color grades, and LUTs. All AI generation and speech processing must use the VidMuse CLI live model catalog (`vidmuse model list`, `vidmuse voice list`, `vidmuse model run`); transcription uses VidMuse ASR followed by ATA for word timing. Do not use provider-specific CLIs or local AI stacks. Not a top-level router: existing speaking footage, plain subtitle extraction, SRT, and captions-only requests belong to vidmuse-recut; films without speaking footage belong to vidmuse-create.
+description: >
+  Internal VidMuse media runtime used by vidmuse-assets, vidmuse-recut, and
+  vidmuse-create. Execute already-decided media operations: provider calls,
+  downloads, generation, transforms, cache/project freeze, manifests, TTS,
+  ASR/ATA, BGM, SFX, images, video, grades, and LUTs. Do not decide whether a
+  film should show a logo/icon/photo, canonicalize editorial entities, select
+  intervention density, or own library/license policy; vidmuse-assets makes
+  those decisions and passes an exact request. Not a user-facing product
+  router. All AI work uses the VidMuse CLI live catalog.
 compatibility: VidMuse CLI on PATH and authenticated; ffmpeg/ffprobe; Node.js 18+. Model calls require network and VidMuse credits.
 ---
 
 # media-use
 
-VidMuse's media capability layer: **resolve · generate · operate · remember**.
+VidMuse's internal media runtime: **resolve · generate · operate · remember**.
 
 > Product boundary: `/vidmuse-recut` owns existing speaking footage, ASR/ATA
 > transcript strategy, subtitle delivery, and packaging. `/vidmuse-create` owns
-> films without a speaking source. Load this skill inside those workflows for
-> assets and media operations; never take over their product routing.
+> films without a speaking source. `/vidmuse-assets` owns standalone asset
+> intelligence, Semantic Asset Pass, libraries, source/license policy, and
+> canonical identity. Load this skill only as the execution layer; never take
+> over product routing or editorial selection.
+
+## Runtime contract
+
+| Input decision | Made by | This skill does |
+| --- | --- | --- |
+| Show/suppress an entity asset at a beat | film owner + `vidmuse-assets` | nothing until given an exact request |
+| Canonical entity, type, variant, provider/license policy | `vidmuse-assets` | execute and return a receipt |
+| TTS/ASR/ATA or deterministic transform | film owner | execute the requested operation |
+| Cache, file allocation, freeze, manifest/index write | this skill | perform atomically |
+| Placement, animation, density, final QA | film owner | no editorial decision |
+
+Do not duplicate `asset-plan.json` or implement a second asset-policy layer
+here. A deterministic request from `vidmuse-assets` is an execution contract,
+not an invitation to reinterpret the entity.
 
 ## One AI execution substrate
 
@@ -44,7 +68,7 @@ node <SKILL_DIR>/scripts/resolve.mjs \
 | `sfx` | VidMuse SFX model when the live catalog supports `sound_effect`; otherwise bundled deterministic SFX |
 | `image` | VidMuse text-to-image or image-to-image |
 | `icon` | VidMuse image generation with transparent-icon constraints |
-| `logo` | Official mark cascade only; never AI-generated |
+| `logo` | Lobe Icons → SVGL → Simple Icons → GitHub avatar → favicon; never AI-generated |
 | `voice` | VidMuse TTS; voice id comes from `vidmuse voice list` |
 | `video` | VidMuse t2v / i2v / multi-image / reference / avatar model |
 | `grade` | Local paste-ready color-grade block |
@@ -56,6 +80,17 @@ Use `--model-params '<JSON>'` only for fields published by the selected live
 model; it cannot replace the selected model or route.
 Read `references/resolve.md` for flags, model selection, cache, ingest, and
 provenance.
+
+For Lobe Icons variants:
+
+```bash
+node <SKILL_DIR>/scripts/resolve.mjs \
+  --type logo --intent "Codex logo" --entity codex \
+  --variant color --provider lobehub.icons --project .
+```
+
+Standalone and in-film semantic asset work enters through `/vidmuse-assets`,
+which supplies the exact query and source/license policy around this command.
 
 ## Speech and captions
 

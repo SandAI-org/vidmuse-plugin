@@ -1,6 +1,12 @@
 # doctor, browser
 
-Environment diagnosis and bundled-Chrome management. Run these first when a render or preview fails.
+HyperFrames-specific browser and render-runtime diagnosis. This is not the
+VidMuse media/environment preflight and must not run from plugin setup.
+
+For general media health, authentication, plan, model catalog, Node.js,
+`ffmpeg`, and `ffprobe`, run `/media-use` `scripts/resolve.mjs --doctor`.
+Continue here only when a concrete HyperFrames composition, browser, preview,
+or render failure identifies the HyperFrames runtime.
 
 ## doctor
 
@@ -20,11 +26,12 @@ Runs independent checks and reports each as ok/warn/fail:
 - **Docker** / **Docker running** — required only for `render --docker`
 - **/dev/shm** — inside containers only
 
-Run `doctor` first when:
+Run this scoped `doctor` when:
 
 - `render` fails with a Chrome or FFmpeg error.
 - `preview` opens but the composition fails to load.
-- A fresh machine has never run HyperFrames.
+- An explicitly requested HyperFrames composition render needs its browser
+  runtime checked.
 
 Common issues:
 

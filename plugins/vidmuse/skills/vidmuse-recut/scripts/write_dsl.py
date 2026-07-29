@@ -23,6 +23,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from asset_gate import check as check_asset_gate
 
 TERMINAL_PUNCT = set("。！？!?再；;…")
 
@@ -569,6 +570,16 @@ def main(argv: list[str] | None = None) -> int:
     if not work.is_dir():
         print(f"[error] work_dir not found: {work}", file=sys.stderr)
         return 2
+
+    if args.mode == "layered" and not args.no_overlay:
+        asset_report = check_asset_gate(
+            work,
+            args.overlay if args.overlay else pick_overlay_html(work),
+        )
+        if not asset_report["ok"]:
+            for problem in asset_report["errors"]:
+                print(f"[asset-gate] {problem}", file=sys.stderr)
+            return 1
 
     dsl = build_dsl(
         work,
