@@ -1,14 +1,16 @@
 # Skill installation and freshness (VidMuse plugin override)
 
 > **This file is overridden for the VidMuse Codex plugin.**  
-> Full detail: `references/README.md`. Product entry: **`/vidmuse-recut`**.
+> Full detail: `references/README.md`. Plugin entry: **`/vidmuse`**.
 
 ## Default path — no network skill install
 
 Dependency skills ship **inside the plugin** next to this skill:
 
-- `vidmuse-recut` (product router)
-- HyperFrames core: `hyperframes`, `hyperframes-*`, `media-use`
+- `vidmuse` (intent router)
+- `vidmuse-recut`, `vidmuse-create` (film workflows)
+- `vidmuse-assets`, `media-use` (direct capabilities)
+- HyperFrames core: `hyperframes`, `hyperframes-*`
 - GSAP pack: `gsap-core`, `gsap-timeline`, `gsap-plugins`, `gsap-utils`, `gsap-performance`
 
 Verify with:

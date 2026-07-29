@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# First-run environment setup for VidMuse product skills (recut + create). Idempotent.
+# First-run environment setup for VidMuse router, workflows, and capabilities. Idempotent.
 #
 # What must be GLOBAL (user machine PATH):
 #   Node 22+, ffmpeg/ffprobe, Python 3, vidmuse CLI
 #
 # What comes from the PLUGIN bundle only (not user global skill homes):
-#   vidmuse-recut + sibling HF/GSAP skills under <plugin>/skills/
+#   vidmuse + product/capability siblings + HF/GSAP skills under <plugin>/skills/
 #
 # This script does NOT require skills under ~/.codex/skills or ~/.agents/skills.
 # When Codex installs the plugin, agents load skills from the plugin payload.
@@ -19,7 +19,7 @@ PLUGIN_ROOT=$(cd "$PLUGIN_SKILLS_DIR/.." && pwd)
 
 ok=1
 
-echo "VidMuse recut setup"
+echo "VidMuse plugin setup"
 echo "  plugin root : $PLUGIN_ROOT"
 echo "  skills dir  : $PLUGIN_SKILLS_DIR  (authoritative for agent skills)"
 echo ""
@@ -133,8 +133,11 @@ fi
 # into the user global home as the happy path.
 
 REQUIRED_PLUGIN_SKILLS=(
+  vidmuse
   vidmuse-recut
   vidmuse-create
+  vidmuse-assets
+  vidmuse-motion
   hyperframes
   hyperframes-animation
   hyperframes-cli
@@ -181,7 +184,9 @@ if [ "$bundled_ok" -ne 1 ]; then
 fi
 
 echo "[ok] all agent skills present in plugin bundle"
-echo "[note] product skills: /vidmuse-recut (speaking footage) · /vidmuse-create (no source plate)"
+echo "[note] entry skill: /vidmuse"
+echo "[note] film workflows: /vidmuse-recut (speaking footage) · /vidmuse-create (material must be made)"
+echo "[note] direct capabilities: /vidmuse-assets · /media-use"
 echo "[note] HF/GSAP siblings are domain references only"
 echo "[note] global skill homes (~/.codex/skills etc.) are optional and NOT required for health"
 
@@ -190,5 +195,7 @@ echo "Environment ready."
 echo "  global tools : node, ffmpeg, ffprobe, python3, vidmuse"
 echo "  on demand    : npx hyperframes (composition/render runtime; not a media health prerequisite)"
 echo "  plugin skills: $PLUGIN_SKILLS_DIR  ($(echo "${REQUIRED_PLUGIN_SKILLS[@]}" | wc -w | tr -d ' ') skills)"
-echo "  entry skills : vidmuse-recut · vidmuse-create"
+echo "  entry skill  : vidmuse"
+echo "  workflows    : vidmuse-recut · vidmuse-create"
+echo "  capabilities : vidmuse-assets · media-use"
 echo "  work dirs    : outside this plugin (e.g. videos/<project>/ under your session workspace)"

@@ -1,27 +1,35 @@
 ---
 name: media-use
 description: >
-  Internal VidMuse media runtime used by vidmuse-assets, vidmuse-recut, and
-  vidmuse-create. Execute already-decided media operations: provider calls,
-  downloads, generation, transforms, cache/project freeze, manifests, TTS,
-  ASR/ATA, BGM, SFX, images, video, grades, and LUTs. Do not decide whether a
-  film should show a logo/icon/photo, canonicalize editorial entities, select
-  intervention density, or own library/license policy; vidmuse-assets makes
-  those decisions and passes an exact request. Not a user-facing product
-  router. All AI work uses the VidMuse CLI live catalog.
+  User-facing VidMuse media capability and shared execution runtime. Use
+  directly when the requested deliverable is one exact media result:
+  ASR/transcription, supplied-text ATA alignment, TTS/voiceover, BGM, SFX,
+  image/video generation, download/adopt/freeze, trim, crop, reframe,
+  transcript-driven cut, grade, LUT, or another deterministic media
+  operation. Also load inside vidmuse-assets, vidmuse-recut, or
+  vidmuse-create to execute an already-decided operation and return control.
+  Do not turn a standalone media request into a film workflow, decide whether
+  a film should show an entity asset, canonicalize brand identity, or own
+  library/license policy. All AI work uses the VidMuse CLI live catalog.
 compatibility: VidMuse CLI on PATH and authenticated; ffmpeg/ffprobe; Node.js 18+. Model calls require network and VidMuse credits.
 ---
 
-# media-use
+# Media Use
 
-VidMuse's internal media runtime: **resolve · generate · operate · remember**.
+VidMuse's media capability: **resolve · generate · operate · remember**.
 
-> Product boundary: `/vidmuse-recut` owns existing speaking footage, ASR/ATA
-> transcript strategy, subtitle delivery, and packaging. `/vidmuse-create` owns
-> films without a speaking source. `/vidmuse-assets` owns standalone asset
-> intelligence, Semantic Asset Pass, libraries, source/license policy, and
-> canonical identity. Load this skill only as the execution layer; never take
-> over product routing or editorial selection.
+This skill has two valid entry modes:
+
+| Mode | Trigger | Completion |
+| --- | --- | --- |
+| Standalone capability | The user wants one media artifact or transform, not a designed film | Produce the artifact and receipt, then stop. Do not create a film brief, `FRAME.md`, storyboard, or Timeline project. |
+| Workflow dependency | `/vidmuse-recut`, `/vidmuse-create`, or `/vidmuse-assets` has already made the product/editorial decision | Execute the exact operation, return paths and receipts, then return control to the owner. |
+
+`/vidmuse` owns fresh intent routing. `/vidmuse-recut` owns an existing
+speaking-footage film; `/vidmuse-create` owns a film whose material must be
+made; `/vidmuse-assets` owns semantic asset intelligence, libraries,
+source/license policy, and canonical identity. This skill never takes over
+those decisions merely because it performs the media work.
 
 ## Runtime contract
 
@@ -29,7 +37,7 @@ VidMuse's internal media runtime: **resolve · generate · operate · remember**
 | --- | --- | --- |
 | Show/suppress an entity asset at a beat | film owner + `vidmuse-assets` | nothing until given an exact request |
 | Canonical entity, type, variant, provider/license policy | `vidmuse-assets` | execute and return a receipt |
-| TTS/ASR/ATA or deterministic transform | film owner | execute the requested operation |
+| TTS/ASR/ATA or deterministic transform | user in standalone mode, otherwise film owner | execute the requested operation |
 | Cache, file allocation, freeze, manifest/index write | this skill | perform atomically |
 | Placement, animation, density, final QA | film owner | no editorial decision |
 
@@ -94,15 +102,28 @@ which supplies the exact query and source/license policy around this command.
 
 ## Speech and captions
 
+Direct requests such as “transcribe this clip,” “align this approved script,”
+or “turn this paragraph into speech” start and finish here. They do not require
+`/vidmuse-recut` or `/vidmuse-create`.
+
 ```bash
 node <SKILL_DIR>/scripts/transcribe.mjs --input talk.mp4 --out talk.transcribe.json
+node <SKILL_DIR>/scripts/transcribe.mjs --input talk.mp4 --asr-only --out talk.text.json
+node <SKILL_DIR>/scripts/transcribe.mjs --input talk.mp4 --text-file approved.txt --out talk.aligned.json
 ```
 
 No supplied text means **VidMuse ASR → recognized text → VidMuse ATA → word
 timestamps**. Supplying `--text` or `--text-file` skips ASR and aligns the
 approved text with ATA. ASR alone is never treated as timed captions.
 
-For a narration pass (TTS + ATA, BGM, SFX):
+For one standalone TTS result:
+
+```bash
+node <SKILL_DIR>/scripts/resolve.mjs \
+  --type voice --intent "欢迎来到 VidMuse" --project .
+```
+
+For a narration pass with TTS + ATA, BGM, and SFX:
 
 ```bash
 node <SKILL_DIR>/audio/scripts/audio.mjs \

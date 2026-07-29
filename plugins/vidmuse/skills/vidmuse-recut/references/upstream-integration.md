@@ -8,7 +8,10 @@ A workflow skill occupies one entry in each of three router files. The drafts be
 
 ### Destination of the upstream route table (VidMuse plugin patch)
 
-In the **VidMuse Codex plugin**, vendored `skills/hyperframes/SKILL.md` is **not** the product router. Its §0–2 hand every packaging / dress-up / recut / director job to **`/vidmuse-recut`**. The legacy priority-4 row that pointed at `/talking-head-recut` is overridden; the route file `skills/hyperframes/references/routes/talking-head-recut.md` is a redirect stub.
+In the **VidMuse Codex plugin**, `/vidmuse` is the intent router and vendored
+`skills/hyperframes/SKILL.md` is only a domain reference. `/vidmuse` hands a
+packaging / dress-up / recut / director deliverable to `/vidmuse-recut`.
+The legacy route to `/talking-head-recut` is retired.
 
 Standalone/upstream proposal (if contributing back to heygen-com/hyperframes someday) would still look like:
 
@@ -38,7 +41,9 @@ Standalone/upstream proposal (if contributing back to heygen-com/hyperframes som
 
 ## BRIEF.md
 
-When routed through `/hyperframes`, the intent layer writes a `BRIEF.md` carrying the confirmed input and user notes. This skill's Setup reads it first and never re-asks an answered question. When invoked directly (no router), the skill runs its own Step 6 confirmation round instead — the two paths converge on the same gate.
+When routed through `/vidmuse`, the selected workflow writes or resumes a
+`BRIEF.md` carrying confirmed input and user notes. This skill's Setup reads it
+first and never re-asks an answered question.
 
 ## Preference memory
 

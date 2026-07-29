@@ -2,10 +2,11 @@
 name: vidmuse-assets
 description: >
   Asset intelligence and library policy for VidMuse video projects. Use for
-  explicit logo/icon/font/material/library requests and, even when the user
-  does not ask for assets, inside vidmuse-create / vidmuse-recut whenever the
-  transcript or source contains semantically meaningful companies, products,
-  AI models, people, places, events, or recurring visual subjects. Performs
+  explicit logo/icon/font/material/library deliverables routed by /vidmuse
+  and, even when the user does not ask for assets, inside vidmuse-create /
+  vidmuse-recut whenever the transcript or source contains semantically
+  meaningful companies, products, AI models, people, places, events, or
+  recurring visual subjects. Performs
   the Semantic Asset Pass, canonicalizes entities, decides whether an asset
   adds editorial value, writes asset-plan.json, selects legal sources, and
   manages Core Pack / Creator Library policy. Delegates every download,
@@ -20,6 +21,10 @@ compatibility: Node.js 18+; network for remote catalogs; VidMuse CLI only when
 Turn explicit requests and implicit film opportunities into **intentional,
 local, reusable, traceable assets**. This skill is the asset-intelligence
 layer; `media-use` is its execution runtime.
+
+Fresh standalone requests enter through `/vidmuse`. When a film workflow loads
+this skill, return the completed plan and receipts without taking over the film
+deliverable.
 
 ## Ownership
 

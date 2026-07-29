@@ -1,10 +1,12 @@
 # Intent capture — VidMuse product ownership
 
-This reference does not route new video work through HyperFrames. The owning
-product skill asks the brief questions:
+This reference does not route new work through HyperFrames. `/vidmuse`
+selects the owner by requested deliverable:
 
 - Existing speaking footage → `/vidmuse-recut`.
-- No speaking plate → `/vidmuse-create`.
+- Film material must be made → `/vidmuse-create`.
+- Semantic asset/library result → `/vidmuse-assets`.
+- Standalone ASR, ATA, TTS, generation, or media transform → `/media-use`.
 
 HyperFrames domain skills load only after one of those products owns the run,
 or when the user requests a specific operation on an existing HyperFrames

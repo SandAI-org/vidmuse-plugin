@@ -4,52 +4,46 @@ description: >
   HyperFrames domain reference only (VidMuse Codex plugin): CLI pin/upgrade hints and
   on-demand map to hyperframes-core, hyperframes-cli, hyperframes-animation,
   hyperframes-creative, hyperframes-keyframes, hyperframes-registry, media-use, and
-  gsap-*. Not a product router and not a mandatory entry. Load only after the VidMuse
-  product skill already owns the run, or for inspect/lint/check/render help on an
-  existing composition project. Never the first skill for a new user video request.
+  gsap-*. Not a product router and not a mandatory entry. Fresh VidMuse requests
+  belong to /vidmuse, including standalone ASR/TTS/media operations. Load this
+  skill only after a VidMuse workflow owns the run, or for
+  inspect/lint/check/render help on an existing HyperFrames composition.
 ---
 
 # HyperFrames (VidMuse plugin — delegated router)
 
-> **Routing authority in this plugin belongs to VidMuse product skills:**  
-> `/vidmuse-recut` (existing speaking footage) and `/vidmuse-create` (no speaking plate).  
+> **Routing authority in this plugin belongs to `/vidmuse`.**
 > This file is a **domain reference** vendored from upstream HyperFrames so agents can
 > load composition, CLI, and media skills while executing a **VidMuse** workflow.  
-> It must **not** capture "make / package / dress up a video" requests.
+> It must not capture fresh film or standalone media requests.
 
 HyperFrames **renders video from HTML** — a composition is an HTML file whose DOM declares timing with `data-*` attributes, whose animation runtime is seekable, and whose media playback is owned by the framework. The full authoring contract lives in `/hyperframes-core`; read it before writing composition HTML.
 
-## 0. Authority (read first)
+## 0. Authority
 
-| Situation | Action |
-| --- | --- |
-| Package / dress / recut / direct **existing speaking footage** (talking-head, interview, podcast, product explainer, graphic overlays, launch-film polish) | **Hand off immediately to `/vidmuse-recut`.** Do not run this skill's intent interview. Do not install `/talking-head-recut`. |
-| Plain captions/subtitles only on existing talking-head (no designed cards) | Prefer `/vidmuse-recut` Packaging mode with captions focus (THR's old `/embedded-captions` path is not the product entry here). |
-| Film with **no** recording of a person speaking — script+TTS explainer, website/product promo from URL, generated-media film | **Hand off immediately to `/vidmuse-create`.** |
-| Already inside an active **vidmuse-recut** / **vidmuse-create** (or other VidMuse) run and need HF contract / CLI / motion / media manuals | Stay here; load domain skills in § 3. |
-| Existing HyperFrames project: inspect, lint, check, preview, render only | Load `/hyperframes-cli` (+ domain skills as needed). Skip product routing. |
+For any fresh VidMuse request, load `/vidmuse` and stop routing here. That
+includes:
 
-**Never:**
+- film creation, packaging, recut, captions, or design;
+- standalone ASR, ATA, TTS, generation, download, or media transforms;
+- semantic asset and library requests.
 
-- claim this skill is the "mandatory entry point" for video work in the VidMuse plugin;
-- route packaging jobs to `/talking-head-recut` (intentionally **not** shipped);
-- run `npx hyperframes skills update <workflow>` to pull competing creation workflows for a packaging job;
-- re-open product routing after `/vidmuse-recut` or `/vidmuse-create` has taken the job.
+Stay in this skill only when an active VidMuse workflow needs HyperFrames
+domain knowledge, or when the user asks for a specific operation on an
+existing HyperFrames composition.
 
-Upstream HyperFrames still docs other creation workflows (`product-launch-video`, `pr-to-video`, …) under `references/`. Those route files are **historical / external-kit references** in this plugin, not active product gates. Do not install them unless the user explicitly leaves the VidMuse packaging product and asks for a pure HyperFrames creation path **and** those skills are available outside this plugin.
+Read `../vidmuse/references/runtime-policy.md` for the shared namespace,
+vendored-skill, initialization, and preview rules. Do not copy an archived
+upstream creation route into this domain reference.
 
-## 1. Start from project state (narrow)
-
-Apply the first matching row; do not evaluate lower state rows:
+## 1. Existing HyperFrames project operations
 
 | State | Action |
 | --- | --- |
-| Packaging / directing existing speaking footage | → `/vidmuse-recut` (stop). |
-| Create film without speaking plate (script, site promo, TTS, generated media) | → `/vidmuse-create` (stop). |
-| Specific operation on an existing HyperFrames project: inspect, diagnose, validate, preview, render, publish, or batch-render | Perform only that operation. Load `/hyperframes-cli` and any required domain skills. |
-| Specific edit to an existing HyperFrames composition already owned by a VidMuse run | Make the edit under the active VidMuse workflow's rules; load domain skills from § 3. |
-| `BRIEF.md` or VidMuse work-dir artifacts (`packaging-analysis.md`, `FRAME.md`, `scene-plan.json`, …) | Resume via **`/vidmuse-recut`** or **`/vidmuse-create`** per whether speaking source exists — not this skill. |
-| No product intent, bare HF project files only | CLI/domain help only; no intent interview orchestrated from this skill. |
+| Specific inspect, diagnose, validate, snapshot, preview, render, publish, or batch-render request | Perform only that operation with `/hyperframes-cli` and required domain skills. |
+| Specific composition edit inside an active VidMuse film | Preserve the owning workflow's decisions; load only the domain layer needed for the edit. |
+| VidMuse project artifacts exist but no owner is active | Return to `/vidmuse` to resume the recorded owner. |
+| Fresh creative or media request | Return to `/vidmuse`; this skill does not interview or route it. |
 
 ### Keep the project's CLI current
 
@@ -61,36 +55,10 @@ npx hyperframes@latest upgrade --project . --check
 
 The probe is read-only and reports the pin against the latest release; keep the explicit `.`. When it reports the project behind, apply with `npx hyperframes@latest upgrade --project .`, then verify with `npx hyperframes check`. Name old and new version in the run summary. If the check fails, revert the `package.json` change and stay on the pinned version.
 
-## 2. Product route map (VidMuse override)
+## 2. Load domain skills on demand
 
-User-facing packaging routes that upstream HyperFrames once owned:
-
-| Priority | Request | Workflow **in this plugin** |
-| -------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------- |
-| 1        | Package / dress up / recut / direct existing talking-head, interview, podcast, or product-explainer footage        | **`/vidmuse-recut`**       |
-| 2        | Designed graphic overlays, kinetic titles, lower-thirds, data callouts, PiP, director-mode motion film on footage | **`/vidmuse-recut`**       |
-| 3        | Launch-film / promo polish on existing speaking footage                                                            | **`/vidmuse-recut`**       |
-| 4        | Explainer / promo / narrated film **without** speaking-source footage (script+TTS, website-from-URL, generated)   | **`/vidmuse-create`**      |
-
-Upstream alias (do not install):
-
-| Legacy name | Status in this plugin |
-| --- | --- |
-| `/talking-head-recut` | **Replaced** by `/vidmuse-recut`. Never install or invoke. |
-
-### Resolve common ambiguities (packaging)
-
-- Existing footage + designed information cards / packaging / dress-up → **`/vidmuse-recut`**.
-- Existing footage + "just captions" → still start at **`/vidmuse-recut`** (restrained Packaging mode); do not orphan to a missing `/embedded-captions` install unless the user opts out of VidMuse.
-- Retiming, reordering, heavy NLE remix may still be handled inside Director-mode **`/vidmuse-recut`** when the user still has a speaking-source packaging goal; only abandon VidMuse when the user explicitly wants a different product.
-
-This skill does **not** run `references/intent-interview.md` for product
-routing. That reference now records only the VidMuse ownership boundary;
-`/vidmuse-recut` or `/vidmuse-create` owns brief capture and `BRIEF.md`.
-
-## 3. Load domain skills on demand
-
-Load only after `/vidmuse-recut` or `/vidmuse-create` (or an explicit HF project op) owns the run:
+Load only after a VidMuse owner or an explicit HyperFrames project operation
+has been selected:
 
 | Need                                                                                                                | Skill                    |
 | ------------------------------------------------------------------------------------------------------------------- | ------------------------ |
@@ -103,9 +71,9 @@ Load only after `/vidmuse-recut` or `/vidmuse-create` (or an explicit HF project
 | Registry blocks and components                                                                                      | `/hyperframes-registry`  |
 | GSAP timeline craft (bundled siblings)                                                                              | `/gsap-core` (+ timeline / plugins / utils / performance) |
 
-Domain skills never take ownership of the end-to-end VidMuse deliverable. **`/vidmuse-recut` or `/vidmuse-create` does.**
+Domain skills never take ownership of an end-to-end VidMuse deliverable.
 
-## 4. Skills install policy (this plugin)
+## 3. Skills install policy (this plugin)
 
 Dependency skills for packaging already ship **inside the VidMuse Codex plugin** next to this file (`skills/hyperframes-*`, `media-use`, `gsap-*`, `vidmuse-recut`). Prefer those paths.
 
@@ -117,7 +85,7 @@ If a bundled domain skill is missing, `vidmuse-recut/scripts/setup.sh` reports
 the incomplete payload. Reinstall/update the VidMuse plugin; do not download
 upstream skill text as a repair path.
 
-## 5. Upstream references and normalized inventory
+## 4. Upstream references and normalized inventory
 
 `references/capability-menu.md` is the VidMuse-normalized capability inventory.
 `references/intent-interview.md`, `references/capability-menu.md`, and
@@ -129,4 +97,5 @@ Any archived instruction that:
 - routes packaging to `/talking-head-recut`, or  
 - installs lazy creation workflows for a packaging ask  
 
-is **overridden by § 0–2 of this file**. When a reference conflicts with a VidMuse product skill, **`/vidmuse-recut` or `/vidmuse-create` wins** (pick by whether speaking footage exists).
+is overridden by `/vidmuse` plus the selected owner. Return to `/vidmuse`
+rather than resolving product ambiguity in this domain skill.

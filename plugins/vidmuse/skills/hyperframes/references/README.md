@@ -6,20 +6,20 @@
 > | Do | Don't |
 > | --- | --- |
 > | Use terminology, CLI habits, brief field names | Run the intent interview as the user front door |
-> | Load domain skills named in `/hyperframes` §3 after `/vidmuse-recut` owns the job | Install `/talking-head-recut` or other creation workflows for packaging |
-> | Defer every packaging / dress-up / recut / director ask to **`/vidmuse-recut`** | Follow route tables that name missing skills as if they were shipped here |
+> | Load domain skills named in `/hyperframes` after `/vidmuse` selects an owner | Install `/talking-head-recut` or other creation workflows for packaging |
+> | Defer every fresh VidMuse request to **`/vidmuse`** | Follow route tables that name missing skills as if they were shipped here |
 
 **Authority order when anything conflicts:**
 
-1. `/vidmuse-recut` (product router)
-2. `/hyperframes` `SKILL.md` §0–2 (this plugin’s demoted reference)
+1. `/vidmuse` (intent router) plus the selected workflow/capability owner
+2. `/hyperframes` `SKILL.md` (this plugin’s demoted domain reference)
 3. Files in this `references/` tree (lowest — inventory only)
 
 ## What still lives here
 
 | Path | Treat as |
 | --- | --- |
-| `intent-interview.md`, `pitch-round.md` | Upstream sole-HF product briefing — **do not run** for VidMuse packaging |
+| `intent-interview.md`, `pitch-round.md` | VidMuse-normalized briefing notes; `/vidmuse` owns fresh routing |
 | `routes/*` | Historical contracts; `routes/talking-head-recut.md` is a **redirect stub** → `/vidmuse-recut` |
 | `skill-lifecycle.md` | Upstream install mechanics — overridden by plugin bundling + whitelist in `vidmuse-recut/scripts/setup.sh` |
 | `capability-menu.md`, `workflow-catalog.md` | Capability vocabulary; overlay row already points at `/vidmuse-recut` |
@@ -42,4 +42,5 @@ slideshow
 remotion-to-hyperframes
 ```
 
-Ship and prefer the plugin’s vendored: `vidmuse-recut`, `hyperframes*`, `media-use`, `gsap-*`.
+Ship and prefer the plugin’s vendored: `vidmuse`, `vidmuse-recut`,
+`vidmuse-create`, `vidmuse-assets`, `hyperframes*`, `media-use`, `gsap-*`.

@@ -6,6 +6,32 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.4.0 — 2026-07-29
+
+### Skill architecture
+
+- **One front door.** Added `/vidmuse` as the mandatory deliverable-based
+  router. It resumes existing work, selects one owner, and does not execute
+  media or author films itself.
+- **Standalone media is first-class.** `/media-use` is now a user-facing
+  capability as well as the shared runtime. ASR, ATA, TTS, generation,
+  trim/reframe/transform, grading, and other exact media asks no longer route
+  through recut/create.
+- **Vertical film ownership.** `/vidmuse-recut` owns existing
+  speaking-footage films; `/vidmuse-create` owns films whose primary material
+  must be made. Loading assets, media, HyperFrames, motion, or GSAP skills does
+  not transfer the final deliverable.
+- **Shared runtime policy.** Namespace guards, vendored-skill rules, safe
+  HyperFrames initialization, and Timeline preview policy now live once under
+  `vidmuse/references/runtime-policy.md` instead of being duplicated across
+  both film workflows.
+- **Media execution receipts.** Recut uses `media-use/transcribe.mjs` for
+  ASR→ATA; create uses the shared audio engine for TTS→ATA and preserves
+  `audio_request.json` / `audio_meta.json`.
+- Added routing eval prompts and static architecture contract tests covering
+  transcript-only, TTS-only, film, semantic-asset, transform, caption, and
+  existing-HyperFrames requests.
+
 ## 0.3.19 — 2026-07-29
 
 ### Fixed

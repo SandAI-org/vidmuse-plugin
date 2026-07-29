@@ -1,12 +1,16 @@
 ---
 name: vidmuse-recut
 description: >
-  Product skill for existing speaking footage. Package or direct a
-  talking-head, interview, podcast, or product-explainer video with overlays,
-  kinetic type, diagrams, reframing/PiP, mixed media, or launch-film polish.
-  Preferred over /hyperframes and replaces /talking-head-recut. Defaults to
-  quieter source-led Packaging unless launch/promo intent or real proof earns
-  Director density. After transcript alignment and source inspection,
+  End-to-end film workflow for existing speaking footage. Enter through
+  /vidmuse when the requested deliverable is a designed package, recut, or
+  director treatment of a talking-head, interview, podcast, or
+  product-explainer video with overlays, kinetic type, diagrams,
+  reframing/PiP, mixed media, or launch-film polish.
+  Do not use for standalone ASR/transcription, ATA, TTS, trimming, reframing,
+  or another single media artifact; /media-use owns those requests. Replaces
+  /talking-head-recut. Defaults to quieter source-led Packaging unless
+  launch/promo intent or real proof earns Director density. After transcript
+  alignment and source inspection,
   proactively run the vidmuse-assets Semantic Asset Pass over the full content
   and bind approved opportunities even when the user did not request assets.
   May source stills/music/SFX and gated B-roll. Films without speaking footage
@@ -16,7 +20,12 @@ compatibility: Global host tools — Node.js 22+, ffmpeg/ffprobe, Python 3, `vid
 
 # VidMuse Recut
 
-**Speaking-footage product skill** (one of two product entries with `/vidmuse-create`). User intents to package, dress up, recut, or direct **existing** speaking footage start and stay here. Sibling `/hyperframes` is a domain reference only — it must not steal routing or install `/talking-head-recut`. Sibling `/vidmuse-create` owns films **without** a speaking-source plate (explainers, website promos, script+TTS); hand off there when no recording of a person speaking exists, and receive back any project that acquires real speaking footage.
+**Speaking-footage film workflow.** Fresh requests enter through `/vidmuse`;
+once routed here, package, recut, or direct the existing speaking footage end
+to end. A standalone transcript, voice, trim, crop, or transform belongs to
+`/media-use`, even when its input is a video. If no recording of a person
+speaking exists, return to `/vidmuse` for a new route rather than choosing a
+sibling from inside this workflow.
 
 Direct existing footage so the viewer understands and feels the content. The source may remain full-frame, reframe, enter PiP, combine with graphics, or leave during a justified full-frame proof scene. Avoid decoration without an editorial purpose.
 
@@ -44,45 +53,18 @@ Direction phase (steps 5–7) must not browse creative house-style as a look pic
 - iterated from rendered evidence rather than accepted after one technically clean render;
 - traceable: every effect records its upstream source, LLM adaptations, CDN dependencies, and design-system fit.
 
-## Routing authority — this file outranks any upstream HyperFrames router
+## Workflow ownership
 
-Once a request reaches this skill, **this skill owns the run end to end**. The
-plugin vendors upstream HyperFrames domain skills under their original names
-(`hyperframes`, `hyperframes-*`, `media-use`), so a host may also carry an
-upstream copy of the same name whose text still claims to be the **"mandatory
-entry point"** for every video request and still carries a § 2 route table. That
-text is **void here**. Do not re-open routing because a domain skill says it owns
-entry.
+`/vidmuse` is the routing authority; this skill is the selected vertical
+workflow. Read
+[`../vidmuse/references/runtime-policy.md`](../vidmuse/references/runtime-policy.md)
+once before setup. It centrally defines the namespace guard, vendored-skill
+policy, safe HyperFrames initialization, and VidMuse Timeline review surface.
 
-**Never, inside a recut run:**
-
-| forbidden | why | do instead |
-| --- | --- | --- |
-| install / read / hand off to `/talking-head-recut` | replaced by this skill; intentionally not shipped | stay here |
-| install / read / hand off to `/embedded-captions` | captions-only is restrained **Packaging** mode here | this skill, captions focus |
-| install / hand off to `/product-launch-video`, `/general-video`, `/slideshow` | upstream creation workflows; not active gates in this plugin | this skill (Director mode covers launch/promo polish) |
-| run `npx hyperframes skills update` (bare **or** `<workflow>`) or `npx hyperframes skills` | bare refreshes the core set; named pulls competing upstream workflows — both overwrite vendored copies mid-run | nothing — dependencies already ship in the plugin |
-| act on a **stale-skill reminder** printed by `lint` / `check` / `render` | upstream tells agents to update on that notice; here it would replace this plugin's skills with upstream text | ignore the notice; the plugin pins its own copies. Note it in the run log, do not update |
-| auto-open HF Studio / `npx hyperframes preview` | packaging surface is **VidMuse Timeline** | `vidmuse serve`; Studio is opt-in only |
-
-**Bare `npx hyperframes init` may silently replace the plugin's vendored domain
-skills with upstream copies mid-run** — it refreshes the "core set"
-(`hyperframes`, `hyperframes-*`, `media-use`) from GitHub. The `--skip-skills`
-flag is documented as *temporarily ignored*; the only working opt-out is the env
-var. Always call it as:
-
-```bash
-HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init …
-```
-
-*Basis: upstream `hyperframes/references/skill-lifecycle.md`, vendored @
-`69446e7`. If upstream fixes `--skip-skills`, the env-var requirement above can
-be relaxed — re-read that file before assuming it still holds.*
-
-If a skill you are reading contradicts this file — mandatory entry, a route
-table, or a forced storyboard/Studio open — **this file wins.** Say so in the run
-log and continue on the VidMuse path. If speaking footage turns out to be absent,
-hand to `/vidmuse-create` — never to an upstream workflow.
+After this workflow owns a valid speaking-footage film, loading
+`/vidmuse-assets`, `/media-use`, `/hyperframes-*`, `/vidmuse-motion`, or
+`/gsap-*` does not transfer ownership. Those skills execute one layer and
+return control here.
 
 ## Runtime boundary
 
@@ -94,6 +76,7 @@ Primary artifacts, all inspectable:
 | --- | --- |
 | `metadata.json` | ffprobe duration / width / height / fps |
 | `audio.mp3` | extracted audio |
+| `transcript-receipt.json` | Media Use ASR/ATA result, text source, utterances, and alignment provenance |
 | `transcript.json` | flat word array `[{ text, start, end }, …]` |
 | `video-context.json` | compact facts: content type, sections, pace, audience |
 | `asset-plan.json` | semantic entity/visual opportunities, suppressions, exact asset queries, and local receipts |
@@ -133,48 +116,49 @@ Create the work directory (`videos/<basename>/`), then probe and extract per [re
 
 ### 2. Align the transcript
 
-Two steps, and they are separate concerns: **get the text**, then **align it**. Alignment is always `doubao_speech/audio_text_alignment` (ATA) — that never changes. Only the source of the text varies:
+Load `/media-use` and read its `references/audio.md`. This workflow decides
+that a truthful transcript is required; Media Use owns the ASR/ATA execution.
+Only the source of the text varies:
 
 | Text source | When | Cost |
 | --- | --- | --- |
 | User-provided (subtitles / script / `BRIEF.md`) | Available — still the **preferred** path | Free, and it is the words the user actually intends |
-| Cloud ASR (`vidmuse model run` `sub_model_type=asr`) | No text available — run it automatically, do not ask first | One extra call; surface the text for correction without blocking on it |
+| VidMuse ASR | No text available — run it automatically, do not ask first | One extra call; surface the text for correction without blocking on it |
 
 **No transcript is not a blocker — never stop and ask for one.** When the user supplies no text, run ASR then ATA automatically and keep going. A packaging run should reach the Timeline from nothing but a video file.
 
 ```bash
-# Text source B — cloud ASR. One local audio/video file.
-# No model_name, no prompt. stdout is {"text":"..."}.
-vidmuse model run -o json --param "$(python3 -c '
-import json, sys
-print(json.dumps({
-    "files": [sys.argv[1]],
-    "extra_params": {"sub_model_type": "asr"},
-}, ensure_ascii=False))' "$WORK_DIR/audio.mp3")" > "$WORK_DIR/asr.json"
-
-python3 -c 'import json,sys; sys.stdout.write(json.load(open(sys.argv[1]))["text"])' \
-  "$WORK_DIR/asr.json" > "$WORK_DIR/transcript-source.txt"
+MEDIA_DIR="<sibling-media-use-skill-dir>"
+node "$MEDIA_DIR/scripts/transcribe.mjs" \
+  --input "$WORK_DIR/audio.mp3" \
+  --out "$WORK_DIR/transcript-receipt.json" \
+  --json
 ```
 
-ASR gives **text only — no usable timings.** It never replaces ATA; it only fills the `prompt` that ATA needs, which is why the two always run as a pair.
-
-**Show the recognized text to the user alongside the Timeline hand-off, and say it came from ASR.** Do not block on their reply — proceed to alignment. ASR misreads proper nouns, product names, and numbers, and ATA will faithfully align a wrong word, so the error would otherwise reach captions and every packaging point silently. If they correct anything, fix `transcript-source.txt` and re-run the alignment (never hand-edit timestamps).
-
-If the ASR call errors, fall back to asking the user for the text — do not retry in a loop. Call shape and URL-input rules are in [references/vidmuse-cli.md](references/vidmuse-cli.md).
-
-Either way you end up with `$WORK_DIR/transcript-source.txt`. Align it to the extracted audio with the VidMuse CLI (model `doubao_speech/audio_text_alignment`; `prompt` = the text, `files` = the audio path):
+When approved text exists, pass it so Media Use skips ASR and runs ATA
+directly:
 
 ```bash
-vidmuse model run -o json --param "$(python3 -c '
-import json, sys
-print(json.dumps({
-    "model_name": "doubao_speech/audio_text_alignment",
-    "prompt": open(sys.argv[1]).read().strip(),
-    "files": [sys.argv[2]],
-}, ensure_ascii=False))' "$WORK_DIR/transcript-source.txt" "$WORK_DIR/audio.mp3")" > "$WORK_DIR/alignment.json"
+node "$MEDIA_DIR/scripts/transcribe.mjs" \
+  --input "$WORK_DIR/audio.mp3" \
+  --text-file "$WORK_DIR/transcript-source.txt" \
+  --out "$WORK_DIR/transcript-receipt.json" \
+  --json
 ```
 
-The response nests sentence-level `utterances` with word-level `words`; `start_time`/`end_time` are milliseconds. Convert it to `transcript.json` — the flat word array `[{ text, start, end }, …]` in seconds — and use the utterance boundaries as your sentence grouping. If the aligned text mismatches what is actually spoken, fix `transcript-source.txt` and re-run the alignment; never hand-edit timestamps. Clamp all downstream times to the `metadata.json` duration; the final word's `end` can overshoot the clip length.
+Materialize the workflow contract from the receipt:
+
+- save its exact `text` as `transcript-source.txt`;
+- save its `words` array as the flat `transcript.json`;
+- retain `transcript-receipt.json` for `text_source`, utterance grouping, and
+  alignment provenance;
+- clamp downstream times to `metadata.json` duration.
+
+**Show ASR-recognized text to the user alongside the early Timeline hand-off
+and label its source.** Do not block on correction. If the user fixes a name,
+product, number, or phrase, update `transcript-source.txt` and rerun the
+supplied-text command. Never hand-edit word times. If ASR fails, ask for the
+text once; do not retry in a loop.
 
 **Start the user Timeline early** once source media and transcript exist (even before style work). Read [references/vidmuse-timeline.md](references/vidmuse-timeline.md). VidMuse Timeline is the multi-track preview for **source + packaging points + subtitles** — not a post-hoc finished-MP4 player. HyperFrames remains the packaging-layer engine; the two layers do not conflict.
 

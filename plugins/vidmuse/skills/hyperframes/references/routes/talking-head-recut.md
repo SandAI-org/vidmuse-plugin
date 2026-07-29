@@ -8,7 +8,7 @@
 - **Input:** Existing talking-head, interview, podcast, or product-explainer footage to package or re-direct. May keep the underlying clip primary (Packaging mode) or reframe / PiP / full-frame proof (Director mode).
 - **Output:** Designed motion film / packaged cut via VidMuse editorial taste + HyperFrames render; Timeline delivery through VidMuse CLI.
 - **Triggers:** "package this video", "dress up my video", "add graphic overlays", "launch-film polish", "recut this interview", lower-thirds / data callouts / kinetic type on speaking footage.
-- **Workflow skill:** **`/vidmuse-recut`** (sole product router for this job class).
+- **Router:** `/vidmuse`; **workflow owner:** `/vidmuse-recut`.
 
 ## Interview
 

@@ -2,33 +2,42 @@
 
 The VidMuse plugin connects [Codex](https://openai.com/codex) to [VidMuse](https://vidmuse.ai) so you can turn speaking footage, scripts, and product briefs into designed motion films with AI assistance.
 
-Use it to package talking-head or interview clips, build explainers and promos from a script with no source footage, generate assets and paper-collage B-roll, align word-level captions to real speech, preview everything on a multi-track VidMuse Timeline, and export.
+Use `/vidmuse` as the front door. It can package talking-head or interview
+clips, build explainers and promos from a script with no source footage,
+perform standalone ASR/TTS and media operations, generate assets and
+paper-collage B-roll, align word-level captions to real speech, preview films
+on a multi-track VidMuse Timeline, and export.
 
-Two film product skills cover production, with one asset-library capability:
+It routes to the owner of the requested deliverable:
 
+- `/vidmuse` — mandatory entry and intent router.
 - `/vidmuse-recut` — you already have a person speaking on camera (talking-head, interview, podcast, product explainer).
-- `/vidmuse-create` — there is no speaking plate (knowledge explainers, website and product promos, script + TTS films, Vox-style collage B-roll).
+- `/vidmuse-create` — the film's primary material must be made (knowledge explainers, website and product promos, script + TTS films, Vox-style collage B-roll).
 - `/vidmuse-assets` — proactively scan film semantics or handle explicit
   requests, canonicalize entities, plan and license-check assets, and operate
   the hybrid Core Pack / Creator Library / provider system. Lobe Icons is the
   first built-in AI/LLM Logo Provider; `media-use` performs the underlying
   downloads, generation, transforms, cache, and project freeze.
+- `/media-use` — standalone transcription/ASR, ATA, TTS/voiceover, generation,
+  trim/reframe/transform, grading, and exact media execution for workflows.
 
 Both share the same taste system and deliver through VidMuse Timeline (`vidmuse serve`): picture, overlays, narration, and word-level captions — not a baked MP4-only handoff.
 
 ## What Is Included
 
 - `.codex-plugin/plugin.json` — Codex plugin metadata.
-- `skills/vidmuse-recut/` — product skill for existing speaking footage.
+- `skills/vidmuse/` — mandatory intent router and shared runtime policy.
+- `skills/vidmuse-recut/` — film workflow for existing speaking footage.
 - `skills/vidmuse-create/` — product skill for films without source footage.
 - `skills/vidmuse-assets/` — asset intelligence, Semantic Asset Pass, hybrid
   library policy, plan validator/resolver, and framework-only Core Pack.
-- `skills/` (everything else) — domain skills (motion, media, HyperFrames, GSAP) that load automatically when the agent needs them.
+- `skills/media-use/` — direct media capability and shared execution runtime.
+- `skills/` (everything else) — domain skills (motion, HyperFrames, GSAP) that load automatically when the agent needs them.
 - `assets/` — shared icon and logo.
 - `SKILLS.md` — full skill list for maintainers.
 
-End users enter through the two film skills or the asset skill. The rest loads
-on demand.
+End users enter through `/vidmuse`; direct capability requests can then finish
+in `media-use` or `vidmuse-assets` without creating a film workflow.
 
 ## Requirements
 
@@ -72,6 +81,8 @@ Model calls (TTS, alignment, image and video generation), timeline cloud feature
 ## Example Prompts
 
 - `Package this talking-head video with designed graphic overlays: ~/Movies/talk.mp4 — script: …`
+- `Transcribe ~/Movies/talk.mp4 with word timing; do not package the video.`
+- `Turn this Chinese paragraph into a female voice and return the audio only.`
 - `Director-mode recut of my interview into a short launch-film piece.`
 - `Make a 60s knowledge explainer from this script (no camera footage).`
 - `Make an AI development-history film; identify and source useful model/company marks automatically.`
@@ -87,7 +98,9 @@ Finished work lands in the session workspace, never in the plugin directory.
 https://github.com/SandAI-org/vidmuse-plugin.git
 ```
 
-For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.3.19** (see `.codex-plugin/plugin.json`).
+For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.4.0** (see `.codex-plugin/plugin.json`).
+Before merging the 0.4 architecture branch, run the routing prompts and
+artifact checks in [ARCHITECTURE-TEST.md](./ARCHITECTURE-TEST.md).
 
 ## License
 

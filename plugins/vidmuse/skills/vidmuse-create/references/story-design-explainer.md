@@ -1,7 +1,8 @@
 # Story design — create path `explainer`
 
 Adapted from HyperFrames `faceless-explainer` story-design for **VidMuse Create**.
-Timing truth is **ATA `transcript.json`**, not HF `audio_meta.json`. Delivery is
+Timing truth is the flat ATA `transcript.json` materialized from Media Use's
+`audio_meta.json` voice words. Delivery is
 **VidMuse Timeline**, not HF Studio-only.
 
 **Load when:** `create_path: explainer` ([path-routing.md](path-routing.md)).

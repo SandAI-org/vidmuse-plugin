@@ -1,0 +1,53 @@
+{
+  "skill_name": "vidmuse",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "把 ~/Movies/interview.mp4 转成带时间戳的逐字稿，先不要做视频包装。",
+      "expected_output": "Route directly to media-use transcription; do not invoke vidmuse-recut or create film artifacts.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "把这段中文产品文案配成女声，输出音频就行。",
+      "expected_output": "Route directly to media-use TTS; do not invoke vidmuse-create.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "把这条创始人口播包装成发布会质感，加入信息卡、重点字幕和产品截图。",
+      "expected_output": "Route to vidmuse-recut; it may call assets and media-use without transferring film ownership.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "根据这份脚本做一条 60 秒 AI 发展史视频，没有真人素材，需要旁白。",
+      "expected_output": "Route to vidmuse-create; create owns the film and calls media-use for TTS/ATA plus vidmuse-assets for semantic marks.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "查找 OpenAI 和 ChatGPT 的官方 Logo，保持身份区分并记录授权来源。",
+      "expected_output": "Route to vidmuse-assets for canonical identity, provider, and provenance decisions.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "把这条视频从 16:9 裁成 9:16，只需要文件转换，不做重新设计。",
+      "expected_output": "Route to media-use deterministic operations, not vidmuse-recut.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "给现有口播只加干净的逐字字幕并导出视频，不要信息卡。",
+      "expected_output": "Route to vidmuse-recut restrained Packaging mode under the current product inventory.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "这个已有 HyperFrames 项目 lint 为什么失败？只诊断，不修改视频创意。",
+      "expected_output": "Route to hyperframes-cli and the needed domain reference; skip film routing.",
+      "files": []
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "vidmuse",
-  "description": "VidMuse motion-film plugin for Codex. /vidmuse-recut packages existing speaking footage; /vidmuse-create builds films without source footage; both proactively call /vidmuse-assets to turn full-content semantics into licensed, beat-bound asset plans. /vidmuse-assets owns canonical identity, Core Pack / Creator Library policy, and provider selection; the internal media-use runtime executes generation, downloads, transforms, cache/project freeze, ASR, and word alignment. Shared taste stack (charter, tells, FRAME, gates).",
-  "version": "0.3.19",
+  "description": "VidMuse motion-film and media plugin for Codex. /vidmuse is the mandatory intent router: existing speaking-footage films go to /vidmuse-recut; films whose material must be made go to /vidmuse-create; semantic asset/library work goes to /vidmuse-assets; standalone ASR, ATA, TTS, generation, and deterministic media operations go directly to /media-use. Film workflows retain deliverable ownership while capability skills execute one layer.",
+  "version": "0.4.0",
   "author": {
     "name": "VidMuse",
     "email": "hello@vidmuse.ai",
@@ -39,8 +39,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "VidMuse",
-    "shortDescription": "Recut · Create · Reusable asset libraries · Multi-track Timeline",
-    "longDescription": "VidMuse provides /vidmuse-recut for existing talking-head packaging, /vidmuse-create for script+TTS explainers and website/product promos with no source plate, and /vidmuse-assets for proactive Semantic Asset Passes plus licensed Core Pack, Creator Library, and dynamic-provider sourcing. VidMuse CLI is the single AI media substrate; the internal media-use runtime performs downloads, generation, transforms, project freeze, ASR, and ATA. User preview uses vidmuse serve multi-track DSL.",
+    "shortDescription": "Route · Recut · Create · ASR/TTS · Asset intelligence",
+    "longDescription": "Use /vidmuse as the mandatory front door. It routes existing speaking-footage films to /vidmuse-recut, films whose material must be made to /vidmuse-create, semantic asset/library work to /vidmuse-assets, and standalone transcription/ASR, ATA, TTS/voiceover, generation, trim/reframe/transform, and grading directly to /media-use. Film workflows retain deliverable ownership while capability domains execute exact layers. User film preview uses vidmuse serve multi-track DSL.",
     "developerName": "VidMuse",
     "category": "Creativity",
     "capabilities": [
@@ -50,6 +50,8 @@
     "websiteURL": "https://vidmuse.ai",
     "defaultPrompt": [
       "Package this talking-head video with designed graphic overlays",
+      "Transcribe this interview into a word-timed transcript only — do not package the video",
+      "Turn this Chinese paragraph into a female voice and return the audio only",
       "Director-mode recut of my interview into a launch-film motion piece",
       "Make a 60s knowledge explainer from this script with TTS (vidmuse-create)",
       "Make an AI development-history film and source useful model/company marks automatically",

@@ -2,9 +2,13 @@
 
 This is a capability inventory, not a product router.
 
+- Fresh VidMuse intent → `/vidmuse`.
 - Existing speaking footage → `/vidmuse-recut`.
 - No speaking plate, including script + TTS, website promos, and generated
   media films → `/vidmuse-create`.
+- Standalone ASR, ATA, TTS, generation, or deterministic operation →
+  `/media-use`.
+- Semantic asset/library request → `/vidmuse-assets`.
 - Semantic motion inside an owned VidMuse run → `/vidmuse-motion`.
 - Existing HyperFrames composition operations → `/hyperframes-cli`.
 

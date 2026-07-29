@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.3.19",
+  "pluginVersion": "0.4.0",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -34,15 +34,16 @@
     ]
   },
   "vidmuse": {
-    "skill": "vidmuse-recut",
+    "skill": "vidmuse",
     "source": "vidmuse-recut-0.1.0"
   },
   "patches": {
-    "skills/hyperframes/SKILL.md": "Demoted from mandatory entry to domain reference; product routing delegated to /vidmuse-recut; THR removed from route table.",
+    "skills/vidmuse/SKILL.md": "Mandatory VidMuse intent router: deliverable-based workflow/capability ownership plus shared runtime policy.",
+    "skills/hyperframes/SKILL.md": "Demoted from mandatory entry to domain reference; all fresh intent returns to /vidmuse.",
     "skills/hyperframes/references/routes/talking-head-recut.md": "Redirect stub → /vidmuse-recut",
-    "skills/hyperframes/references/capability-menu.md": "VidMuse-normalized capability inventory: media generation/transcription use media-use + VidMuse CLI; active products are vidmuse-recut/create; missing upstream workflows are not installed.",
-    "skills/vidmuse-recut/SKILL.md": "Declared sole product router / wins packaging intents; invokes the proactive Semantic Asset Pass after transcript grounding.",
-    "skills/media-use": "Adapted from the vendored Media OS into an internal VidMuse media runtime: all AI generation uses vidmuse model list/run, transcription uses VidMuse ASR + ATA, doctor checks VidMuse + ffmpeg only, and semantic asset selection remains in vidmuse-assets.",
+    "skills/hyperframes/references/capability-menu.md": "VidMuse-normalized capability inventory under /vidmuse: workflows own films; media-use and vidmuse-assets may complete standalone capability asks.",
+    "skills/vidmuse-recut/SKILL.md": "Existing-speaking-footage film workflow; delegates ASR/ATA execution to media-use and semantic planning to vidmuse-assets.",
+    "skills/media-use": "Adapted from the vendored Media OS into a user-facing VidMuse media capability and shared runtime: standalone ASR/ATA/TTS/generation/transforms, exact workflow execution, no film or semantic-asset ownership.",
     "skills/hyperframes-cli": "VidMuse boundary patch: composition/render-engine operations only; general doctor, TTS, transcription, background edits, AI generation, provider auth, and product delivery route through media-use + VidMuse CLI.",
     "0.3.17": [
       "setup.sh: VidMuse-native media doctor; HyperFrames is on-demand composition runtime only",
@@ -66,6 +67,13 @@
       "create/recut machine gates require real data-asset-ref DOM bindings and exact local receipt paths",
       "CDN HEAD probes fall back to ranged GET when HEAD is unsupported"
     ],
+    "0.4.0": [
+      "vidmuse: mandatory deliverable-based router for film workflows and standalone capabilities",
+      "media-use: public direct entry for ASR, ATA, TTS, generation, and deterministic media operations",
+      "recut/create: vertical film owners that delegate media execution without transferring deliverable ownership",
+      "shared runtime policy: one namespace, vendored-skill, safe-init, and Timeline review contract",
+      "routing evals and static contract tests cover standalone-vs-film boundaries"
+    ],
     "0.2.2": [
       "hyperframes description: remove packaging trigger words",
       "setup.sh: whitelist-only network fallback",
@@ -82,7 +90,7 @@
       "removed mirror to ~/.codex/skills; no network skill fallback"
     ]
   },
-  "patchedAt": "2026-07-22T03:58:30Z",
+  "patchedAt": "2026-07-29T00:00:00Z",
   "shotcraft": {
     "skill_consumer": "vidmuse-create",
     "source": "https://github.com/Vincentwei1021/video-shotcraft",

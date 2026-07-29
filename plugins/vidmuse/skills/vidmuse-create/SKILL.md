@@ -1,20 +1,18 @@
 ---
 name: vidmuse-create
 description: >
-  Create a designed motion film when no recording of a person speaking exists.
+  End-to-end film workflow entered through /vidmuse when no recording of a
+  person speaking exists and the requested deliverable is a designed film.
   Use for knowledge explainers from text, website/product promos from a URL,
-  narrated script+TTS films, generated media via `vidmuse model run`, and
-  Vox-style paper-collage or halftone 拼贴 B-roll/explainers. Route existing
-  speaking footage to /vidmuse-recut. Narration-led films must use VidMuse CLI
-  TTS then `doubao_speech/audio_text_alignment`; never guess timestamps or use
-  OS/browser TTS. Non-Vox anti-PPT execution is path-routed and machine-gated:
-  ATA-paced shot_sequence, hero throughline, real UI proof, audio decision,
-  film-plan.json → shot_scaffold.py → check_motion.py for freeze, cue, proof,
-  and semantic-alignment checks. After ATA/grounding, proactively run the
-  vidmuse-assets Semantic Asset Pass over the full script and bind approved
-  asset_refs; the user need not ask. Vox uses references/vox-collage.md only.
-  Source assets by project/library/real → AI and deliver through VidMuse
-  Timeline. Not a slideshow generator.
+  narrated script+TTS films, generated media, and Vox-style paper-collage or
+  halftone 拼贴 B-roll/explainers. Do not use for standalone TTS, ASR,
+  image/video generation, or another single media result; /media-use owns
+  those requests. Narration-led films use the media-use VidMuse TTS + ATA
+  engine; never guess timestamps or use OS/browser TTS. Non-Vox films use the
+  path-routed, machine-gated anti-PPT production spine. After ATA/grounding,
+  proactively run the vidmuse-assets Semantic Asset Pass over the full script
+  and bind approved asset_refs; the user need not ask. Vox uses its dedicated
+  collage path. Deliver through VidMuse Timeline, not as a slideshow.
 ---
 
 # VidMuse Create
@@ -30,50 +28,24 @@ gates, and delivery pipeline are shared with `/vidmuse-recut` and referenced
 from its directory (`../vidmuse-recut/references/…`) — read them there, do not
 duplicate them.
 
-**Routing:** any project whose primary material is an existing recording of a
-person speaking belongs to `/vidmuse-recut`, even if it also needs generated
-assets. This skill owns projects whose material must be *made*: narration to
-record, imagery to source or generate, a website to translate into film.
+Fresh requests enter through `/vidmuse`. This workflow owns projects whose
+primary material must be *made*: narration to record, imagery to source or
+generate, or a website to translate into film. A standalone TTS, ASR,
+generation, download, or transform task belongs to `/media-use` and must not
+bootstrap this film pipeline.
 
-## Routing authority — this file outranks any upstream HyperFrames router
+## Workflow ownership
 
-Once a request reaches this skill, **this skill owns the run end to end**. The
-plugin vendors upstream HyperFrames domain skills under their original names
-(`hyperframes`, `hyperframes-*`, `media-use`), so a host may also carry an
-upstream copy of the same name whose text still claims to be the **"mandatory
-entry point"** for every video request and still routes URL promos to
-`/product-launch-video`. That text is **void here**. Do not re-open routing
-because a domain skill says it owns entry.
+`/vidmuse` is the routing authority; this skill is the selected vertical
+workflow. Read
+[`../vidmuse/references/runtime-policy.md`](../vidmuse/references/runtime-policy.md)
+once before setup. It centrally defines the namespace guard, vendored-skill
+policy, safe HyperFrames initialization, and VidMuse Timeline review surface.
 
-**Never, inside a create run:**
-
-| forbidden | why | do instead |
-| --- | --- | --- |
-| install / read / hand off to `/product-launch-video` | upstream router's URL-promo row; competes with this skill and drags in its own preview + review gates | URL promo is **this** skill's `promo` path — `references/site-capture.md` + `references/path-routing.md` |
-| install / read / hand off to `/talking-head-recut` | intentionally not shipped | `/vidmuse-recut` |
-| install `/embedded-captions`, `/general-video`, `/slideshow`, `/music-to-video`, `/faceless-explainer` | upstream creation workflows; not active gates in this plugin | stay on this skill's path routing |
-| run `npx hyperframes skills update` (bare **or** `<workflow>`) or `npx hyperframes skills` | bare refreshes the core set; named pulls competing upstream workflows — both overwrite vendored copies mid-run | nothing — dependencies already ship in the plugin |
-| act on a **stale-skill reminder** printed by `lint` / `check` / `render` | upstream tells agents to update on that notice; here it would replace this plugin's skills with upstream text | ignore the notice; the plugin pins its own copies. Note it in the run log, do not update |
-| treat upstream `hyperframes` § 2 route table as binding | it predates VidMuse product routing | `references/path-routing.md` |
-| auto-open HF Studio / `npx hyperframes preview` | delivery surface is **VidMuse Timeline** | Gate C Timeline (`vidmuse serve`); Studio is opt-in only |
-
-**Bare `npx hyperframes init` may silently replace the plugin's vendored domain
-skills with upstream copies mid-run** — it refreshes the "core set"
-(`hyperframes`, `hyperframes-*`, `media-use`) from GitHub. The `--skip-skills`
-flag is documented as *temporarily ignored*; the only working opt-out is the env
-var. Always call it as:
-
-```bash
-HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init …
-```
-
-*Basis: upstream `hyperframes/references/skill-lifecycle.md`, vendored @
-`69446e7`. If upstream fixes `--skip-skills`, the env-var requirement above can
-be relaxed — re-read that file before assuming it still holds.*
-
-If a skill you are reading contradicts this file — mandatory entry, a route
-table, or a forced storyboard/Studio open — **this file wins.** Say so in the
-run log and continue on the VidMuse path.
+After this workflow owns a valid create film, loading `/vidmuse-assets`,
+`/media-use`, `/hyperframes-*`, `/vidmuse-motion`, or `/gsap-*` does not
+transfer ownership. If real speaking footage becomes the primary material,
+return to `/vidmuse` for a new route.
 
 ## Anti-goals (this skill fails if any slip through)
 
@@ -142,85 +114,61 @@ does not own voice.
 ### Gate A — environment
 
 ```bash
-command -v vidmuse
-vidmuse profile get                    # must be logged in
-vidmuse model list -o json > "$WORK_DIR/model-list.json"
+MEDIA_DIR="<sibling-media-use-skill-dir>"
+node "$MEDIA_DIR/scripts/resolve.mjs" --doctor
 ```
 
-If `vidmuse` is missing or login fails, **tell the user how to fix** and do
-not substitute OS/browser TTS. Do not continue to composition HTML until
-voice is resolved or the user explicitly orders a **muted visual-only** stub
-(record that exception in the film plan).
+Media Use owns VidMuse CLI discovery, login, plan/credit, model-catalog, and
+host-media checks. If doctor fails, relay its fix and do not substitute
+OS/browser TTS or a provider-specific CLI. Do not continue to composition HTML
+until voice is resolved or the user explicitly orders a **muted visual-only**
+stub; record that exception in the film plan.
 
 ### Gate B — script, then TTS, then ATA (order locked)
 
 1. Draft or receive the script. Confirm **as text** with the user when the
    brief is thin (script gate = cheapest gate in the pipeline).
 2. Save exact locked copy to `$WORK_DIR/transcript-source.txt`.
-3. Pick a **live** TTS id from `model-list.json` (names move). Prefer after
-   verifying the id exists in the list:
-   - Chinese-forward: `minimax/speech-2.6-hd`, `index-tts-2/text-to-speech`
-   - Multilingual: `elevenlabs/eleven_multilingual_v2`
-4. Run TTS **only** through VidMuse:
+3. Load `/media-use` and read `references/audio.md`. Author
+   `$WORK_DIR/audio_request.json`; use one line for a monolithic narration or
+   one line per planned beat for a segmented spine. Pin a model or voice only
+   after Media Use verifies it against the live catalog.
+4. Run the shared engine:
 
 ```bash
-vidmuse model run -o json --param "$(python3 -c '
-import json, sys
-print(json.dumps({
-    "model_name": sys.argv[1],
-    "generation_type": "text_to_speech",
-    "prompt": open(sys.argv[2]).read().strip(),
-}, ensure_ascii=False))' "<tts-model-id-from-list>" "$WORK_DIR/transcript-source.txt")" \
-  > "$WORK_DIR/tts-response.json"
+node "$MEDIA_DIR/audio/scripts/audio.mjs" \
+  --request "$WORK_DIR/audio_request.json" \
+  --project "$WORK_DIR" \
+  --out "$WORK_DIR/audio_meta.json" \
+  --only tts
 ```
 
-`generation_type` is optional for audio but pass it anyway — a voice model that
-also exposes other audio modes needs the route disambiguated. Add `voice_id`
-when the chosen model lists it. Drop the key only if that model's
-`required_params` has no `text_to_speech` entry.
-
-Decode/write the audio payload to `$WORK_DIR/narration.mp3` and
-`cp`/`ln -sf` to `$WORK_DIR/audio.mp3`. If the response shape is unclear,
-inspect JSON keys and extract the file/URL bytes — do not invent silence.
-
-5. Word-level align with the **same** model as recut (prompt = script text,
-   files = audio):
-
-```bash
-vidmuse model run -o json --param "$(python3 -c '
-import json, sys
-print(json.dumps({
-    "model_name": "doubao_speech/audio_text_alignment",
-    "prompt": open(sys.argv[1]).read().strip(),
-    "files": [sys.argv[2]],
-}, ensure_ascii=False))' "$WORK_DIR/transcript-source.txt" "$WORK_DIR/audio.mp3")" \
-  > "$WORK_DIR/alignment.json"
-```
-
-6. Convert ATA `utterances[].words[]` (`start_time`/`end_time` in **ms**) to
-   `$WORK_DIR/transcript.json`: flat `[{ "text", "start", "end" }, …]` in
-   **seconds**. Use utterance boundaries as sentence groups for captions.
-7. Probe narration duration into `metadata.json` (ffprobe on `audio.mp3` is
-   fine when there is no camera plate). Clamp downstream times to that
-   duration. Never hand-edit word timestamps; fix the script and re-TTS +
-   re-ATA instead.
+5. Treat any `audio_meta.json.anomalies` entry, missing voice, zero-byte file,
+   or missing ATA words as a failed gate. Media Use freezes each voice under
+   `assets/voice/` and records its live model, voice id, duration, and
+   ATA-truthful words.
+6. Materialize the workflow artifacts:
+   - monolithic: copy/link the one voice file to `$WORK_DIR/audio.mp3` and save
+     its `words` as the flat `$WORK_DIR/transcript.json`;
+   - segmented: concatenate the voice files with the planned inter-beat gaps,
+     add each segment's deterministic concat offset to its word times, and save
+     the combined flat array as `transcript.json`.
+7. Probe the final `audio.mp3` duration into `metadata.json`; clamp downstream
+   times to it. Preserve `audio_request.json` + `audio_meta.json` as the
+   provider/alignment receipt.
 
 **Regenerate voice → must re-run ATA.** Stale `transcript.json` is a defect.
 
 **Segmented voice spine (optional, recommended for promos).** For films that
-want hard beat cuts and per-line retakes, run TTS **one segment per beat**
-instead of one monolithic take:
+want hard beat cuts and per-line retakes, put **one request line per beat**
+instead of one monolithic line:
 
-1. Split the locked script by beat → `transcript-source-01.txt` … `-NN.txt`.
-2. TTS each segment separately (same model, same voice), ATA each segment
-   separately → `narration-NN.mp3` + `alignment-NN.json`.
-3. Concatenate with **planned inter-beat gaps** (breathing room is a design
-   value, typically 0.2–0.6s; record the gap list) into `audio.mp3`
-   (ffmpeg concat, re-encode once).
-4. Merge per-segment words into one `transcript.json` by adding each
-   segment's start offset — offsets come from the concat plan, word timings
-   stay ATA-true. Never hand-shift individual words.
-5. Beat `ata_range` = its segment's offset span. VO boundaries now **equal**
+1. Give every line a stable beat id and keep the same verified model/voice.
+2. Plan inter-beat gaps (typically 0.2–0.6s) and record the gap list.
+3. Concatenate once with ffmpeg and compute offsets from the concat plan.
+4. Merge words by adding only their segment offset; never hand-shift
+   individual words.
+5. Beat `ata_range` equals its segment's offset span. VO boundaries now **equal**
    beat boundaries exactly — transitions land in real silence, and one bad
    line re-records without touching the other beats.
 
@@ -251,8 +199,9 @@ during create — it opens official Studio and conflicts with VidMuse Timeline.
 Picture verification stays on `lint` / `check` / `snapshot` / `keyframes`;
 user review stays on `vidmuse serve`.
 
-Record in `video-context.json`: `tts_model`, `alignment_model`, paths to
-`tts-response.json` / `alignment.json`, and `voice_spine: ok`.
+Record in `video-context.json`: the model and voice ids from
+`audio_meta.json`, paths to `audio_request.json` / `audio_meta.json`, and
+`voice_spine: ok`.
 
 ## Grounding without a room
 
@@ -466,7 +415,7 @@ pointing at a missing `input-video.mp4`.
 
 **12–13. Evaluate and deliver — unchanged** schemas, plus create checks:
 
-- [ ] `tts-response.json` + `alignment.json` + `transcript.json` present
+- [ ] `audio_request.json` + `audio_meta.json` + `audio.mp3` + `transcript.json` present
 - [ ] Timeline scrub: VO audible, captions track speech (sample 3 timestamps)
 - [ ] film plan was confirmed (or autonomous skip recorded)
 - [ ] `asset-plan.json` exists and validates (an empty deliberate plan is valid)
