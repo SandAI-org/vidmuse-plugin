@@ -5,9 +5,8 @@ The skeleton turns implementation from "free-write a timeline" into
 "fill locked slots": every approved shot_sequence window becomes a
 tl.addLabel() at its absolute time plus a FILL comment carrying the
 approved on_screen / move / cue text. check_motion.py later verifies the
-labels survived and every non-hold window has at least one tween
-positioned at its label — so the plan the user confirmed is the plan
-that ships.
+labels survived and every motion window has at least one tween positioned at
+its label. Planned read/hold windows may remain still.
 
 Usage:
   python3 scripts/film_plan.py "$WORK_DIR" --resolve
@@ -30,15 +29,16 @@ CONTRACT_BANNER = """\
       /* ── SCAFFOLD CONTRACT — enforced by scripts/check_motion.py ─────────────
          1. Keep every tl.addLabel("bXX.wY", …). Label times are locked to the
             confirmed film plan; move the plan (re-resolve), never the label.
-         2. Every non-hold window needs >=1 tween positioned at its label:
+         2. Every motion window needs >=1 tween positioned at its label:
               tl.fromTo(el, {...}, {...}, "bXX.wY")        // or "bXX.wY+=0.15"
+            kind=read / hold is designed stillness and needs no tween.
          3. NO uniform per-section fade-in/fade-out helper (the appear()/autoAlpha
             template is the PPT signature). transition_in owns each beat's
             entry, and the NEXT transition owns this beat's exit.
-         4. kind=hold windows are planned stillness — leave them still; do not
+         4. kind=read / hold windows are planned stillness — leave them still; do not
             add screensaver drift to pass checks.
-         5. Reveal on the cue: content named by a vo_cue should change state
-            within ±0.3s of that cue time (check_motion samples the render).
+         5. Only role=event cues promise a visible state change. carry/read/
+            prelap/offscreen cues must not receive decorative motion.
          6. Pixel-precise UI/image overlays use the alignment contract:
             target + overlay inside one data-vm-align-space; animate that
             shared wrapper, not either child. check_motion S5 enforces it.
@@ -63,6 +63,7 @@ def render(plan: dict[str, Any]) -> str:
     height = plan.get("height", 1080)
     comp_id = plan.get("composition_id", "create-film")
     hero = plan.get("hero_throughline")
+    continuity = plan.get("continuity_strategy") or {}
 
     sections: list[str] = []
     script: list[str] = [CONTRACT_BANNER]
@@ -78,6 +79,10 @@ def render(plan: dict[str, Any]) -> str:
                 f"\n        <!-- HERO THROUGHLINE: keep '{hero['name']}' on stage here"
                 f" (selector contains: {hero['dom_selector']}) -->"
             )
+        continuity_note = (
+            f"\n        <!-- CONTINUITY {escape(str(continuity.get('mode', '')))}: "
+            f"{escape(str(continuity.get('invariant', '')))} -->"
+        )
         asset_note = ""
         if beat.get("assets"):
             rendered_assets = "\n".join(
@@ -109,7 +114,7 @@ def render(plan: dict[str, Any]) -> str:
         sections.append(
             f"""      <section id="{bid}" class="beat" data-beat="{bid}"
         data-start="{_fmt(start)}" data-duration="{_fmt(span)}" data-track-index="{idx + 1}">
-        <!-- {beat['path_role']} · {beat['visual_kind']} · {beat.get('key_message', '')} -->{hero_note}{asset_note}{alignment_note}
+        <!-- {beat['path_role']} · {beat['visual_kind']} · {beat.get('key_message', '')} -->{continuity_note}{hero_note}{asset_note}{alignment_note}
         <!-- FILL: static hero layout first (fully entered, readable), then animate INTO it -->
       </section>"""
         )
@@ -136,11 +141,13 @@ def render(plan: dict[str, Any]) -> str:
             wid = win["id"]
             lo, hi = win["abs"]
             cue_txt = "".join(
-                f"\n         cue “{c['text']}” @{_fmt(c['t'])}s" for c in _cues_in(win, beat["vo_cues"])
+                f"\n         cue[{c.get('role', 'event')}] “{c['text']}” "
+                f"@{_fmt(c['t'])}s" for c in _cues_in(win, beat["vo_cues"])
             )
-            if win["kind"] == "hold":
+            if win["kind"] in ("hold", "read"):
                 script.append(
-                    f"      /* HOLD {wid} [{_fmt(lo)} → {_fmt(hi)}] — planned stillness for the read:"
+                    f"      /* {win['kind'].upper()} {wid} [{_fmt(lo)} → {_fmt(hi)}] "
+                    f"— planned stillness:"
                     f"\n         {win['on_screen']} */"
                 )
             else:
@@ -228,10 +235,12 @@ def main(argv: list[str] | None = None) -> int:
 
     beats = plan["beats"]
     wins = sum(len(b["shot_sequence"]) for b in beats)
-    holds = sum(1 for b in beats for w in b["shot_sequence"] if w["kind"] == "hold")
-    print(f"ok: {out} — {len(beats)} beats, {wins} window labels ({holds} holds), "
+    stills = sum(
+        1 for b in beats for w in b["shot_sequence"] if w["kind"] in ("read", "hold")
+    )
+    print(f"ok: {out} — {len(beats)} beats, {wins} window labels ({stills} read/holds), "
           f"duration {beats[-1]['ata_range'][1]:.2f}s")
-    print("next: fill each FILL slot, keep every addLabel, then check_motion.py after render")
+    print("next: fill each FILL slot, keep every addLabel, then run check_motion.py")
     return 0
 
 

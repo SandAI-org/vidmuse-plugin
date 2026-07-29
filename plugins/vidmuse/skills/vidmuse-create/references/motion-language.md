@@ -15,10 +15,20 @@ with within-beat seams in [cut-catalog.md](cut-catalog.md).
 
 ---
 
-# Part 1 — move vocabulary (name these in shot_sequence)
+# Part 0 — decide whether motion earns its place
 
-Pick 2–4 moves per beat (entrance → sequential reveal → settle), not all at once.
-Cite rule id after `→` when implementing.
+Before opening the vocabulary, answer:
+
+1. What is the purpose: explanation, state change, spatial continuity, focus
+   transfer, transition, or emotional punctuation?
+2. Which named object performs which semantic verb?
+3. Would a cut, hold, crop, or focus change communicate with less visual cost?
+
+If there is no purpose or subject, do not animate. A beat may use zero moves.
+When motion is earned, prefer one primary idea and at most one subordinate
+response. Cite the implementation rule only after this decision.
+
+# Part 1 — move vocabulary (name these in shot_sequence)
 
 ## Kinetic type
 
@@ -71,11 +81,11 @@ Cite rule id after `→` when implementing.
 - **zoom-through / inverse zoom-through** · **cut-the-curve** · **waterfall**  
   → [cut-catalog.md](cut-catalog.md)
 
-## Hold aliveness (scarce)
+## Hold
 
-- **subtle jitter** only → low-amplitude `sine-wave-loop`  
-- Live SVG internals → `svg-icon-enrichment`  
-- **No** lazy card breathing as decoration
+- Default: true stillness.
+- Live SVG internals may continue only when they represent a real live state.
+- No jitter, breathing, glow pulse, or camera drift added to make a hold pass.
 
 ## Entrances
 
@@ -91,19 +101,21 @@ Cite rule id after `→` when implementing.
 Long-tail decel. No `back.out` / `bounce.out` / `elastic.out` as house style.
 Overshoot only when briefly explicitly playful.
 
-## 2. Sequential reveal timed to VO (anti-PPT)
+## 2. Cue roles, not speech-triggered decoration
 
-- Do **not** dump the full beat canvas in the first ~25%.
-- Reveal each piece when the matching **`vo_cue` / ATA span** names it.
-- Spread reveals across the beat, especially the back half.
-- Map local scene times using words in `transcript.json` for that beat's
-  `ata_range`.
+- `event`: execute the named object + semantic verb near its ATA time.
+- `carry`: preserve the existing state; do not invent activity.
+- `read`: hold the composition so the viewer can inspect it.
+- `prelap`: sound leads picture; let the next visual arrive on its motivated cut.
+- `offscreen`: narration is not represented by a new on-screen element.
+- A fully developed evidence frame may appear early and hold when inspection is
+  the job. Do not dismantle it into click-by-click reveals to satisfy cue count.
 
 ## 3. No motion over bad motion
 
 - No circular breathing(scale loop) to fake life.
 - No aimless slow pan/push in the back half that churns the eye.
-- Held still > weak motion. Subtle jitter is the only default aliveness.
+- Held still > weak motion. There is no default aliveness loop.
 - A machine-check miss is not permission to add motion. Name the **local
   object** and **semantic verb** the animatic intended, then repair that
   action. If no such action exists, change the plan or mark a hold.
@@ -125,7 +137,7 @@ slideshow cuts between local Scenes.
 
 ## One-line
 
-Smooth long-tail; VO-paced local semantic reveal; stillness over screensaver;
+Purpose first; event-cued local semantic action; stillness over screensaver;
 coherent camera space; velocity-matched internal seams.
 
 ---
@@ -147,11 +159,12 @@ Program beds and compositions are seeked frame-by-frame:
 | Mode | Fix |
 | --- | --- |
 | Slideshow front-load | doctrine 2 + rewrite shot_sequence |
-| Screensaver floaters | stillness + jitter only |
+| Screensaver floaters | true stillness |
 | Default bounce | power3 |
-| One global `y+30 opacity power2.out` | vary eases/families; tabulate entrances |
+| One global `y+30 opacity power2.out` | remove the template; author only entrances that serve the shot |
 | Cue-bound full-frame flash / periodic wash | animate the named local object; reserve one justified scene-level punctuation at most |
 | Camera drift added to avoid freeze | lock off or execute the approved camera intent |
+| Persistent connector / line under most scenes | delete unless it encodes a named relation and passes picture-design's motif gate |
 
 ---
 

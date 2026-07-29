@@ -34,8 +34,14 @@ def beat(bid: str, start: float, end: float) -> dict:
         "world_id": "world-main",
         "continuity_in": "opening" if bid == "b01" else "graphic-match: identity persists",
         "camera_intent": "locked; internal mark action carries the beat",
+        "focal_subject": "OpenAI identity mark",
+        "layer_map": {
+            "field": "quiet warm-gray ground",
+            "evidence": "OpenAI identity mark",
+            "reading_surface": "reserved negative space below the mark",
+        },
         "storyboard_frames": [f"storyboard/{bid}.png"],
-        "vo_cues": ["OpenAI"],
+        "vo_cues": [{"text": "OpenAI", "role": "event"}],
         "compose": "identity lockup",
         "asset_refs": ["ao_openai_intro"] if bid == "b01" else [],
         "shot_sequence": [
@@ -67,6 +73,24 @@ def film_plan() -> dict:
             "continuity_rule": "the identity mark persists between beats",
             "camera_grammar": "locked camera; internal transformation only",
             "negative_motifs": ["full-frame cue flash"],
+        },
+        "film_design_read": {
+            "audience": "people evaluating an AI product",
+            "promise": "one identity remains legible through change",
+            "visual_language": "editorial identity study",
+            "focal_strategy": "one centered mark against quiet space",
+            "media_treatment": "vector identity evidence on a matte field",
+            "typography_role": "small evidence label only",
+            "composition_variance": 3,
+            "motion_energy": 4,
+            "information_density": 2,
+            "depth_separation": 5,
+            "persistent_motif": "none",
+        },
+        "continuity_strategy": {
+            "mode": "world",
+            "invariant": "the same matte identity stage",
+            "variation": "the mark changes state while the camera stays locked",
         },
         "preproduction": {
             "contract": "agency-preproduction.v1",
@@ -165,6 +189,32 @@ class AssetPlanBindingTests(unittest.TestCase):
         value.pop("asset_plan")
         self.assertTrue(any("Semantic Asset Pass" in error for error in validate(value)))
 
+    def test_silent_read_beat_is_valid(self) -> None:
+        value = film_plan()
+        value["beats"][0]["vo_cues"] = []
+        value["beats"][0]["shot_sequence"] = [
+            {
+                "t": [0.0, 2.0],
+                "kind": "read",
+                "on_screen": "resolved identity evidence",
+                "move": "locked stillness",
+            }
+        ]
+        self.assertEqual(validate(value), [])
+
+    def test_persistent_motif_requires_semantic_rationale(self) -> None:
+        value = film_plan()
+        value["film_design_read"]["persistent_motif"] = "a colored line"
+        errors = validate(value)
+        self.assertTrue(any("motif_rationale" in error for error in errors))
+
+        value["film_design_read"]["motif_rationale"] = {
+            "semantic_role": "the line is the routed request path",
+            "state_change": "it branches only when the request delegates",
+            "yield_rule": "it exits before product proof and remains absent on the CTA",
+        }
+        self.assertEqual(validate(value), [])
+
     def test_asset_ref_must_resolve_to_existing_local_file(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             work = Path(tmp)
@@ -201,7 +251,7 @@ class AssetPlanBindingTests(unittest.TestCase):
             for current in resolved["beats"]:
                 base = current["ata_range"][0]
                 current["vo_cues"] = [
-                    {"text": "OpenAI", "t": base + 0.1}
+                    {"text": "OpenAI", "role": "event", "t": base + 0.1}
                 ]
                 for index, window in enumerate(current["shot_sequence"], start=1):
                     window["id"] = f"{current['id']}.w{index}"

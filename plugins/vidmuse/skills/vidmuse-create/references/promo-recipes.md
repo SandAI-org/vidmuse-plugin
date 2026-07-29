@@ -14,7 +14,8 @@ spine in `../SKILL.md`. Recipes never replace `transcript.json`.
 **Path routing (SSOT):** every recipe declares `path:`. Non-Vox paths **must**
 load craft refs and satisfy the beat contract + hard fails **1–15** in
 [path-routing.md](path-routing.md) — **do not re-list those fields or fail
-numbers here.** Also owned only there: hero throughline, audio_delivery,
+numbers here.** Also owned only there: continuity strategy, optional literal
+hero throughline, audio_delivery,
 UI proof path, execution trace (film-plan.json → scaffold → check_motion),
 shot-card open/close (including `data-beat` explainer vs promo).
 **Vox recipes skip non-Vox craft entirely** — only [vox-collage.md](vox-collage.md).
@@ -94,9 +95,9 @@ HyperFrames/GSAP, never Remotion.
 | **blueprint priors** | `kinetic-type-beats`, `spatial-pan-stations`, `dataviz-countup`, `titlecard-reveal`, compose diagrams |
 | **example add names** | prefer native/recut patterns; catalog charts only when numbers are real |
 | **shot-cards** | **closed** by default |
-| **PPT failure mode** | title card per sentence, identical fade-ups, no quiet holds, front-load freeze, no hero_throughline |
+| **PPT failure mode** | title card per sentence, identical fade-ups, no quiet holds, front-load freeze, no authored continuity strategy |
 | **density** | ground-led (type/diagram on ground color) ≥ half runtime |
-| **hero** | required `hero_throughline` on standard multi-beat teaches (path-routing) |
+| **continuity** | required `continuity_strategy`; literal `hero_throughline` only when the treatment follows one real recurring object |
 
 ---
 

@@ -162,7 +162,8 @@ Write:
 
 - `<project>/script.md` — timed VISUAL / AUDIO columns;
 - `<project>/director-treatment.md` — the film's world, camera, lenses/focus
-  metaphor, depth layers, transition law, sound behavior, and negative motifs.
+  metaphor, Film Design Read, depth layers, screenshot/media treatment,
+  transition law, sound behavior, and negative motifs.
 
 The treatment must define:
 
@@ -171,7 +172,19 @@ worlds:
   - id: world-main
     description: "one coherent place or graphic system"
 primary_device: "one film-wide directorial action"
-continuity_rule: "what persists, transforms, or motivates each cut"
+continuity_strategy:
+  mode: "object | world | camera | editorial | rhythm"
+  invariant: "what makes the shots belong together"
+  variation: "what may change without losing the film"
+film_design_read:
+  focal_strategy: "how the eye finds the subject"
+  media_treatment: "how captures / images enter the frame"
+  typography_role: "narrator / statement / label / evidence"
+  composition_variance: 4
+  motion_energy: 3
+  information_density: 5
+  depth_separation: 7
+  persistent_motif: none
 camera_rules:
   - "viewer position and reason for movement"
 focus_rules:
@@ -208,6 +221,11 @@ Storyboard frames are **pictures**, not prose rows in `film-plan.md`.
    - adjacent frames are connected by object, direction, space, or idea;
    - personal or brand-specific material appears where it adds meaning;
    - no frame is merely a website section placed in a rounded card.
+6. Review all frames as a contact sheet:
+   - one literal line/rail/ribbon does not dominate the film;
+   - screenshot, title, accent, and captions do not share first priority;
+   - adjacent frames follow one material and crop system without becoming
+     identical templates.
 
 Do not start detailed GSAP authoring to discover the layouts. Approved static
 layouts are the landing states; animation enters, transforms, or exits those
@@ -224,7 +242,10 @@ from the approved keyframes at full film duration:
 - show captions / burn-ins needed for silent comprehension;
 - use the final aspect ratio.
 
-Review the whole film, not isolated frames. Record
+Attach the animatic to VidMuse Timeline as soon as it is playable. This is the
+default aesthetic review surface; do not hold it back for repeated internal
+polish. Review the whole film, not isolated frames. Record user comments as
+Timeline markers / feedback events and summarize material decisions in
 `<project>/animatic-review.md`:
 
 - where attention drops or comprehension breaks;
@@ -236,25 +257,30 @@ Review the whole film, not isolated frames. Record
 - producer risk and final decision.
 
 Sign-off is `<project>/animatic-approved.md` with the exact reviewed artifact,
-hash, approval/autonomous verdict, selected direction id, and requested
-changes closed. A working `film-plan.json` may drive the animatic, but only
-after sign-off may it be treated as production-approved, scaffold the
-production composition, or trigger expensive plates.
+hash, user verdict, selected direction id, and requested changes closed. In an
+explicitly autonomous run, record `internal-readiness` rather than pretending
+the user approved taste; continue only within the user's autonomy request.
+A working `film-plan.json` may drive the animatic, but only after this review
+receipt may it be treated as production-ready, scaffold the production
+composition, or trigger expensive plates.
 
 ## Production rule
 
 Production **reproduces an approved animatic**. It does not reopen concept
 search.
 
-When a machine check fails, diagnose the missing intended action:
+The blocking machine pass covers correctness: missing assets, timing,
+composition bindings, and alignment. When that pass fails:
 
 1. identify the object and semantic verb that should change;
 2. repair that local action or correct the plan;
-3. re-render and review in context.
+3. refresh Timeline and review in context.
 
 Never add a global flash, ambient scan, breathing loop, or camera drift merely
-to increase pixel difference. Machine gates detect omissions and regressions;
-they do not grant aesthetic approval.
+to increase pixel difference. Rendered frame sampling is optional diagnosis
+after a specific motion concern, not a loop to run before every user review.
+Machine checks detect omissions and regressions; they do not grant aesthetic
+approval.
 
 ## Feedback ledger
 

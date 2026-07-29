@@ -61,14 +61,17 @@ you are shipping:
 | **Non-VidMuse voice** | macOS `say`, browser TTS, random edge-tts, unpaid external TTS with no ATA | `vidmuse model list` → TTS via `vidmuse model run` → ATA |
 | **PPT spacing** | one centered card per sentence, identical fade-up, hard cuts | film plan with relations + quiet beats; motion language + scene transitions |
 | **Animated website recap** | URL → screenshots → feature cards → logo, with no directorial premise | agency pre-production: one proposition → 3 treatments → selected cinematic device |
-| **Orphan-card film** (non-Vox) | every beat a new centered graphic; no continuous hero | path-routing `hero_throughline` + morph state across body |
+| **Orphan-card film** (non-Vox) | every beat a new centered graphic; no authored relation | path-routing `continuity_strategy`; continuity may be world/camera/editorial/rhythm, not necessarily one object |
 | **Mute-by-neglect** (non-Vox) | VO only, BGM forgotten, no `bgm: none` decision | path-routing `audio_delivery` |
 | **Fake UI proof** (promo) | generated dashboards when URL/screens exist | screenshot-camera / hybrid-slices first |
 | **Storyboard in prose only** | `film-plan.md` describes frames but no frames were visually reviewed | storyboard images + full-duration animatic + `animatic-approved.md` before compose |
 | **Metric-gamed motion** | cue flashes, global scans, breathing loops, or drift added only to satisfy pixel checks | repair the named local object/action; machine checks never grant taste approval |
+| **Living-thread monoculture** | one gradient line/rail crosses most scenes and competes with proof/type | default motif is none; literal carriers must pass picture-design's semantic motif gate |
+| **Flat screenshot collage** | screenshot, title, connector, and captions share one dark plane; text sits directly on busy UI | picture-design screenshot treatment + reading surface + one focal subject |
+| **Review theater** | repeated internal renders and aesthetic checklists delay the first watchable cut | fast correctness preflight, then Timeline user review; deep rendered analysis is optional diagnosis |
 | **Catalog collage** | un-reskinned Registry demos / random accent pals | FRAME tokens + registry-integration reskin (not a ban on editorial *paper*-collage — that is `vox-collage`) |
 | **Ungrounded SaaS look** | generic dark grid, no brand/subject evidence | grounding pass first; charter 9 |
-| **Plan→code drift** (non-Vox) | film plan has cue-paced shot_sequence; shipped GSAP is front-loaded fade-ups + long freezes | execution trace: `film_plan.py --resolve` → `shot_scaffold.py` fill → `check_motion.py` green (hard fail 13) |
+| **Plan→code drift** (non-Vox) | film plan has authored windows; shipped GSAP drops their labels/bindings | execution trace: `film_plan.py --resolve` → `shot_scaffold.py` fill → static `check_motion.py` preflight (hard fail 13) |
 | **Hijacked route** | run log cites `/product-launch-video`, `/talking-head-recut`, or an upstream "mandatory entry point"; HF Studio opened instead of Timeline | routing authority above; kill the preview, resume the VidMuse path |
 
 Create may use a **light path** for ≤20s stub tests (see end) — never as the
@@ -98,8 +101,9 @@ delivery are **the same system**:
 | URL grounding: full site capture + asset curation | [references/site-capture.md](references/site-capture.md) |
 | **agency simulation: brief → 3 treatments → keyframes → animatic** | [references/agency-preproduction.md](references/agency-preproduction.md) — **mandatory before non-Vox compose** |
 | **path routing + beat contract + hard fails + execution trace + deck policy (SSOT)** | [references/path-routing.md](references/path-routing.md) — **read first after voice; do not re-copy rules from here** |
-| plan→code enforcement scripts (non-Vox) | `scripts/film_plan.py` (validate/resolve) · `scripts/shot_scaffold.py` (GSAP skeleton) · `scripts/check_motion.py` (render gate) |
+| plan→code enforcement scripts (non-Vox) | `scripts/film_plan.py` (validate/resolve) · `scripts/shot_scaffold.py` (GSAP skeleton) · `scripts/check_motion.py` (static correctness preflight; optional render diagnosis) |
 | non-Vox story craft | [story-design-explainer.md](references/story-design-explainer.md) · [story-design-promo.md](references/story-design-promo.md) |
+| **picture hierarchy, screenshot treatment, motif and review ownership** | [references/picture-design.md](references/picture-design.md) — **read before storyboard/motion** |
 | non-Vox shot sequence + motion | [visual-design.md](references/visual-design.md) · [motion-language.md](references/motion-language.md) · [cut-catalog.md](references/cut-catalog.md) |
 | promo/UI shot priors (curated) | [references/shot-cards/README.md](references/shot-cards/README.md) · `scripts/shot_cards.py` |
 | precise UI/image overlay alignment | [references/alignment-contract.md](references/alignment-contract.md) — shared transform space + normalized anchors; `check_motion.py` S5 |
@@ -330,14 +334,17 @@ Follow [vox-collage.md](references/vox-collage.md). Argument-length clips +
 
 ### 4c. Paths `explainer` + `promo` — craft stack (required)
 
-Full field list, `shot_sequence` shape, hard fails **1–15**, hero throughline,
+Full field list, `shot_sequence` shape, hard fails **1–15**, continuity strategy,
+optional literal hero throughline,
 audio delivery, UI proof path, execution trace, and deck rules:
 **[path-routing.md](references/path-routing.md)** (SSOT). Executive summary only:
 
-1. Read path **story-design** → structure/arc, `path_role`, cue-cut `vo_cues`,
-   film-level **`hero_throughline`** (standard explainers).
-2. Read [visual-design.md](references/visual-design.md) → every beat gets
-   VO-paced `shot_sequence` (no front-load; cover test / ≤3 active).
+1. Read path **story-design** → structure/arc, `path_role`, and role-tagged
+   `vo_cues`; set film-level **`continuity_strategy`**.
+2. Read [picture-design.md](references/picture-design.md) → Film Design Read,
+   focal hierarchy, screenshot treatment, layer map, and motif decision. Then
+   read [visual-design.md](references/visual-design.md) → every beat gets an
+   intentional `shot_sequence`; one read/hold window is valid.
 3. Tag blueprint / `shot_ref` / `compose`; promo proof beats add
    **`ui_proof_path`** (screenshot-camera default). Motion-language +
    cut-catalog; `transition_in` between beats.
@@ -345,7 +352,7 @@ audio delivery, UI proof path, execution trace, and deck rules:
 5. Fail the plan **before** taste work if path-routing hard fails trigger.
 6. On treatment selection: write `$WORK_DIR/direction-approved.md` (path,
    recipe, selected direction id, confirmation line, primary device, spatial
-   model, continuity rule, negative motifs, hero).
+   model, continuity rule/strategy, negative motifs, optional literal hero).
 7. **Execution trace (required):** mirror the beats to the working
    `$WORK_DIR/film-plan.json`. Use it to cut the animatic. Run
    `python3 scripts/film_plan.py "$WORK_DIR" --resolve` only after the animatic
@@ -363,14 +370,18 @@ P4–P5:
 1. Produce real storyboard images: one hero frame per beat, plus start/end
    frames for complex moves. A Markdown shot description alone is not a
    storyboard.
-2. Review frame silhouette, depth, focal hierarchy, real material, and
-   neighbor continuity before animation.
+2. Review frame silhouette, depth, focal hierarchy, screenshot treatment,
+   text surface, real material, neighbor continuity, and the contact sheet's
+   repetition pattern before animation.
 3. Cut those frames to the full ATA duration with real VidMuse TTS, captions,
    and temporary BGM (or deliberate `none`) as an animatic on the final aspect
    ratio.
-4. Review the complete rhythm and close frame comments.
+4. Attach the first full-duration animatic to VidMuse Timeline. In interactive
+   runs, the user owns hierarchy, motif, material, and rhythm approval; do not
+   spend repeated autonomous polish passes before showing it.
 5. Write `$WORK_DIR/animatic-approved.md` with the reviewed artifact/hash and
-   approval or autonomous panel verdict.
+   user verdict. Autonomous work may record an internal readiness verdict, but
+   it is not a substitute for user taste approval.
 
 Present the animatic, not only `film-plan.md`, for confirmation. No detailed
 GSAP composition, expensive generation, final BGM mix, or polish before this
@@ -385,7 +396,8 @@ type as the whole system without named intent. Open promo-recipes for
 structure shortlists before `effects.py` browse. When shot-cards are required
 or open, shortlist motion priors **before** registry browse; implement via
 HF/GSAP + FRAME skin. Write `## Video direction` once on the plan
-(visual-design). Creative remains hygiene only.
+(visual-design). Picture-design owns hierarchy; Creative/Registry provide
+hygiene and mechanisms after the direction exists.
 
 **Create Taste Gate adaptations** (keep numbers; change definitions):
 
@@ -395,7 +407,7 @@ HF/GSAP + FRAME skin. Write `## Video direction` once on the plan
 | 2 Source-led share | **Ground-led** ≥ half runtime on default explainers (type/diagram/real capture on ground color). **Spectacle** = full-bleed world takeover — scarce unless brief is spectacle-first |
 | 3–5 | Unchanged (single anchor, status chrome, mono hierarchy) |
 | 6 Proof scarcity | Evidence prefers real captures (rung 2); scarce full-world takeovers |
-| 7 Entrance intent | **Count-ready:** no single direction×ease as whole-film default without written intent; at assemble, tabulate entrances (see craft below) |
+| 7 Motion intent | Every animated event names purpose + subject + semantic verb; no motion/easing diversity quota |
 | 8–9 | Unchanged (emphasis scarcity, creative demotion) |
 
 **8–11. Plan, assets, assemble, craft render.** Materialize approved
@@ -410,16 +422,17 @@ supplies mechanism; FRAME supplies skin.
 **Non-Vox (`explainer` / `promo`):** start from the machine skeleton, never a
 blank file: `python3 scripts/shot_scaffold.py "$WORK_DIR"` emits
 `public/index.html` with one locked `tl.addLabel("bXX.wY", t)` per approved
-window plus its on_screen/move/cue FILL comment. Implementation = fill the
-slots with tweens positioned at those labels, under
-[motion-language.md](references/motion-language.md) doctrine (VO-paced
-sequential reveal, long-tail settle default, stillness over screensaver).
+window plus its on_screen/move/cue FILL comment. Implementation = fill only
+windows that promise motion; `read` / `hold` windows may remain still. Follow
+[motion-language.md](references/motion-language.md) doctrine (purpose first,
+event-cued local action, stillness over screensaver).
 Run the scaffold only after `animatic-approved.md` exists. Production
 reproduces the approved storyboard layouts and animatic timing; it does not use
 code authoring as a place to discover the visual direction.
-Shortlist `/vidmuse-motion` shot recipes (`--tag shot`) as code paths for the
-windows. Keep **`hero_throughline`** alive across body beats (morph state,
-don't hard-swap orphans). Within-beat seams → [cut-catalog.md](references/cut-catalog.md).
+Shortlist `/vidmuse-motion` shot recipes (`--tag shot`) only after the motion
+gate. Preserve the approved **`continuity_strategy`**; keep a literal
+`hero_throughline` only when the treatment selected an object motif.
+Within-beat seams → [cut-catalog.md](references/cut-catalog.md).
 Also read recut `camera-and-transition-craft.md` when multi-scene director
 density applies. Picture engine = **HyperFrames/GSAP** only.
 
@@ -435,9 +448,9 @@ quiet caption-led explainer into sizzle):
    `fromTo` into that layout. Do not position elements at off-screen start
    states and guess the landing. Hero-frame review judges that static state
    before polish.
-2. **Implement shot_sequence windows.** Map beat-local Scene times onto ATA
-   absolute times; reveal each piece on its `vo_cue` — never dump the beat
-   canvas at local t=0 then freeze.
+2. **Implement authored windows.** Map beat-local Scene times onto ATA
+   absolute times. Only `role: event` cues promise a visible state change;
+   `carry`, `read`, `prelap`, and `offscreen` cues may preserve the frame.
 3. **Scene transitions when scenes exist.** Multi-scene / multi-act create
    films: use planned `transition_in` — no anonymous jump cuts between
    scenes. Intermediate scenes should not empty themselves with exit tweens
@@ -445,9 +458,11 @@ quiet caption-led explainer into sizzle):
    fade or resolve on purpose.
 4. **Choreography is argument order.** Causes before effects; steps in order;
    ≤2 significant movers at once unless ideas are truly simultaneous.
-5. **Entrance diversity.** Within a dense scene, vary ease families (target
-   ≥3 across the film's hero entrances unless a written mono-ease intent
-   exists). Ban whole-film clone of one `y+30 opacity 0→1 power2.out` template.
+5. **Hierarchy and motif restraint.** Every composite frame has one focal
+   subject and a readable surface for type. Default persistent motif is none;
+   a line/rail/ribbon appears only when it encodes a named relation and yields
+   to proof. Ban whole-film clone entrances, but do not replace them with an
+   easing-family quota.
 6. **Golden-line ladder** (`captions-and-golden-lines.md`): most cues quiet;
    escalate only true golds — weight/color first; marker-sweep or circle as a
    scarce second rung; karaoke only for lyric-like or intentionally rhythmic
@@ -455,7 +470,10 @@ quiet caption-led explainer into sizzle):
 7. **Html-in-canvas / device mock / liquid glass:** at most one signature
    complex when the brief earns it (real product UI as texture preferred);
    `production_cost: very-high` mind-set — not wallpaper.
-8. **Precision overlays share coordinates.** For UI/image frames, reticles,
+8. **Screenshot composition and alignment.** Choose an exhibit/crop/detail/
+   split/background/hybrid treatment before placing type. Text over busy UI
+   needs a scrim, surface, defocused region, or reserved whitespace. For
+   reticles,
    callouts, cursors, or underlines that must track a target, read
    [alignment-contract.md](references/alignment-contract.md). Put the target
    and overlay in one `data-vm-align-space`, use normalized raster boxes, and
@@ -483,22 +501,25 @@ pointing at a missing `input-video.mp4`.
 - [ ] no related company/product/model identity was silently substituted
 - [ ] `create_path` recorded; craft stack matched path
 - [ ] **non-Vox:** path-routing beat contract + hard fails **1–15** clean
-- [ ] **non-Vox:** `python3 scripts/check_motion.py "$WORK_DIR"` **GATE PASS**
-      on the rendered picture (`motion-check.json` saved) — this is the
-      mid-window / cue-pacing check, by script, not by prose self-audit
+- [ ] **non-Vox:** fast
+      `python3 scripts/check_motion.py "$WORK_DIR" --skip-render` correctness
+      preflight passes; rendered analysis is optional diagnosis, not a
+      prerequisite for first Timeline review
 - [ ] no machine-check fix introduced repeated full-frame flashes, global
       washes, ambient scans, or semantically unrelated camera drift
-- [ ] **non-Vox:** `hero_throughline` + `direction-approved.md` + `audio_delivery`
-- [ ] **non-Vox:** not PPT-shaped (mixed `visual_kind`; quiet passages if explainer)
+- [ ] **non-Vox:** `continuity_strategy` + `direction-approved.md` + `audio_delivery`
+- [ ] **non-Vox:** Film Design Read, focal hierarchy, screenshot treatment,
+      and motif gate reviewed on the Timeline/contact sheet
 - [ ] **promo:** ≥1 real-capture proof; proof beats name `ui_proof_path`
 - [ ] **promo UI/image precision overlays:** `check_motion.py` S5 alignment
       contract green; no target/overlay transform-space drift
 - [ ] **vox:** duration discipline only (vox-collage); no forced shot_sequence /
-      hero / non-Vox audio contract
+      literal hero / non-Vox audio contract
 - [ ] FRAME Taste Gate filled with counts where required
 - [ ] generated-video / collage beats: plan had `target_duration_s` matched to
       ATA before spend; delivers cover those spans
-- [ ] `vidmuse serve` URL reported; `final.mp4` only after user approval path
+- [ ] first playable picture is on `vidmuse serve`; user owns aesthetic
+      approval; `final.mp4` only after that approval path
 - [ ] **no** auto `npx hyperframes preview` / HF Studio during the run (opt-in only)
 - [ ] **no** competing workflow entered (`/product-launch-video`,
       `/talking-head-recut`, `/general-video`, …) and no `skills update <workflow>`
@@ -549,8 +570,9 @@ python3 scripts/shot_cards.py --validate
 When a beat needs **KPI / bars / sparklines / stat cards / tables** and
 `effects.py` / `hyperframes add` has no good match — or `recipe:data-beat` /
 product proof would otherwise ship a **static chart PNG** — or a
-`shot_sequence` window needs a proven **shot code path** (cue-paced reveal,
-collapse-merge, pullback, line-carry, strip-away lock):
+`shot_sequence` event window needs a proven **shot code path** (cue-paced
+reveal, collapse-merge, pullback, strip-away lock). Open line-carry only when
+the selected literal motif passes picture-design:
 
 1. Load sibling skill **`../vidmuse-motion/SKILL.md`**.
 2. `python3 ../vidmuse-motion/scripts/motion_recipes.py --tag dataviz`

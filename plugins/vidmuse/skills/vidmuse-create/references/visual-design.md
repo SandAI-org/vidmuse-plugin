@@ -8,6 +8,8 @@ they would receive: a **time-coded shot sequence** paced to ATA VO cues.
 This file executes a selected treatment; it does not invent the treatment.
 Read [agency-preproduction.md](agency-preproduction.md) first. The approved
 storyboard images are visual truth, and the approved animatic is timing truth.
+Read [picture-design.md](picture-design.md) before this file; hierarchy,
+surface, screenshot treatment, and motif policy are decided before motion.
 
 **Load when:** `create_path` is `explainer` or `promo`.  
 **Skip when:** `vox` ([vox-collage.md](vox-collage.md) owns plates).  
@@ -15,30 +17,30 @@ storyboard images are visual truth, and the approved animatic is timing truth.
 **Within-beat seams:** [cut-catalog.md](cut-catalog.md).  
 **Shapes menu:** `../../hyperframes-animation/blueprints-index.md`.
 
-## The unit is a time-coded shot sequence
+## The unit is an authored shot, not a cue counter
 
-A beat is **not** a static slide with one fade-in. It is a sequence of time
-windows across its ATA span.
+A beat may be one strong lockoff, a cut, or a sequence of states. Use as many
+time windows as the visual argument needs, including one:
 
 ```
-Scene 1 (0.0–Xs):  only what the VO is saying at beat-local t=0
-Scene 2 (Xs–Ys):   next piece reveals as VO names it
-  …
-Scene N (…–end):   content resolved; hold the read (stillness; subtle jitter at most)
+Scene 1 (0.0–end): approved composition; locked while evidence is read
 ```
 
 - Times are **beat-local seconds** (0 = `ata_range[0]`).  
-- **Window count ≈ number of `vo_cues`** (plus optional hold). A two-cue line →
-  ~2–3 windows. No mandatory three-act mantra — the sin is **front-load**.
-- **Nothing appears before its cue.** At local t=0 show only the first cue's
-  subject; later pieces wait.
-- **End on a held read.** Prefer stillness to bad motion (breathing, lazy pan).
+- `vo_cues` carry roles. Only `role: event` promises a visible change.
+- `carry`, `read`, `prelap`, and `offscreen` cues may leave the picture alone.
+- A developed frame may appear at the start when the viewer needs to inspect
+  evidence; front-load is a problem only when the shot then has no authored
+  reason to hold.
+- Prefer stillness to bad motion (breathing, jitter, lazy pan).
 - Silent beats: pace windows to the argument, not equal thirds.
 
-### Front-load failure (primary PPT tell)
+### PPT failure
 
-Everything that will ever appear dumps in the first ~25% of the beat, then freezes
-for the rest of the VO. **Reject and rewrite** the shot_sequence.
+The PPT tell is not stillness itself. It is a repeated grammar of centered
+content blocks, speech-triggered entrances, and identical exits with no
+designed relation between frames. A deliberate locked product proof is film;
+a card that fades up because a sentence began is a slide.
 
 ## Pick the shape
 
@@ -55,7 +57,8 @@ Keep story fields. Append:
 
 - `blueprint:` id + `(Reproduce|Adapt)` or `compose` or `shot_ref:`
 - `focal:` hero element (invented type/diagram node, or real-ui surface)
-- `roles:` foreground / background / supporting (few, load-bearing)
+- `layer_map:` field / evidence / reading surface / optional accent
+- `screenshot_treatment:` on real-UI beats
 - `world_id:` the coherent space/editorial world this beat belongs to
 - `continuity_in:` same-space / object-handoff / match-move / graphic-match /
   motivated-cut / chapter-reset, with a one-line reason
@@ -71,7 +74,10 @@ Example:
 - id: beat-03
   path_role: feature_showcase
   ata_range: [12.4, 18.1]
-  vo_cues: ["First the snowball", "then the hill", "then the speed"]
+  vo_cues:
+    - { text: "First the snowball", role: event }
+    - { text: "then the hill", role: event }
+    - { text: "then the speed", role: read }
   visual_kind: diagram
   blueprint: compose
   focal: snowball with labeled rings
@@ -86,8 +92,9 @@ Example:
       move: "layer-reveal + count-up on cue"
       layout: "asymmetric 60/40, 3 depth layers"
     - t: [4.0, 5.7]
+      kind: read
       on_screen: "final ring + total held"
-      move: "stillness (subtle jitter ok)"
+      move: "locked stillness"
       layout: "hold center"
 ```
 
@@ -111,6 +118,10 @@ Invented hero fills **~40–60%** of frame. Not a postage stamp in empty dark.
 - Proof beats: real screenshots / device chrome around **real** UI when URL exists.
 - Capture early; put paths in work dir; reference in `on_screen`.
 - Set `ui_proof_path` (`screenshot-camera` default) per path-routing.
+- Choose a screenshot treatment from picture-design. Do not place title,
+  screenshot, connector, and cursor at the same visual priority.
+- Text over a capture needs a deliberate reading surface; otherwise use a
+  split composition or reserved negative space.
 - Before adding a tight frame, cursor, callout, or label tied to the UI, read
   [alignment-contract.md](alignment-contract.md). Put capture + precision
   overlays in one `data-vm-align-space`; animate that shared parent. Use
@@ -121,15 +132,18 @@ Invented hero fills **~40–60%** of frame. Not a postage stamp in empty dark.
 
 Non-Vox only (path-routing fails 9–10): a mid-window freeze should work as a
 **poster** — one clear focal subject, **≤3 active** elements; new entries need
-exits/dim. Prefer continuous `hero_throughline` over orphan title cards.
+exits/dim. Prefer an authored continuity strategy over orphan title cards or
+a literal connector pasted across every beat.
 
 ## Layout vocabulary (inline per Scene)
 
 Framing: centered · rule-of-thirds · split · layered-depth · asymmetric 60/40 ·
 triptych · full-width strip.  
-Density: primary ≥40% canvas; ≥3 depth layers when busy.  
-Hierarchy: ≥2 of size / weight / contrast / position / motion.  
-**Vary framing across the film** — not the same template every beat.
+Density: primary is large enough to read at delivery size.
+Hierarchy: establish focal order through size / weight / contrast / position /
+surface / focus; motion is not required.
+Keep one framing grammar unless the treatment motivates a departure. Do not
+turn layout variety into a quota.
 
 ## Space, camera, and focus
 
@@ -151,10 +165,14 @@ slow zoom with no information change is a screensaver, not camera language.
 Before production HTML:
 
 1. Save a hero frame for every beat and start/end frames for complex moves.
-2. Inspect the images at delivery resolution; a text description does not
-   count.
-3. Cut them to full duration with VO/music as the animatic.
-4. Do not scaffold until `animatic-approved.md` identifies that reviewed cut.
+2. Inspect at delivery resolution and as a contact sheet. The full-size view
+   catches readability; the contact sheet catches repeated motif/layout
+   monoculture.
+3. Cut them to full duration with VO/music and attach the animatic to the
+   VidMuse Timeline.
+4. In interactive mode, user review owns hierarchy, motif, and pacing. Do not
+   spend multiple autonomous passes polishing before showing the Timeline.
+5. Do not scaffold until `animatic-approved.md` identifies that reviewed cut.
 
 Caption band: **reserved, bottom-centered** — plan primary content in the top
 ~83% (16:9) and keep the band clear. Graphics yield to the caption, not the
@@ -169,7 +187,7 @@ At top of film plan / STORYBOARD, write shared invariants once:
 - motion grammar + VO-paced reveal model
 - which beats are intentional held breathers
 - negative list: front-load slideshow · screensaver floaters · default bounce ·
-  catalog dump skins
+  catalog dump skins · decorative persistent line · text directly on busy UI
 
 Per-beat lines are **deltas**, not restatements.
 
@@ -190,9 +208,12 @@ Before pretty HTML:
 - [ ] Selected treatment, primary device, world, and negative motifs are fixed
 - [ ] Actual storyboard frame files exist and were reviewed
 - [ ] Full-duration animatic approved before composition scaffold
-- [ ] Every non-Vox beat has shot_sequence, no front-load
+- [ ] Every non-Vox beat has an intentional shot_sequence; one read/hold is valid
 - [ ] Every beat names world, continuity-in, camera intent, and storyboard frames
-- [ ] Cover test / ≤3 active in densest windows; hero continuity when required
+- [ ] Every composite frame has one focal subject and a layer map
+- [ ] Screenshot treatment and text surface are explicit on real-UI beats
+- [ ] Cover test / ≤3 active in densest windows; continuity strategy is authored
+- [ ] Persistent motif is none or passes the semantic motif gate
 - [ ] Blueprint / shot_ref / compose named; Adapt keeps signature move
 - [ ] Moves named from motion-language (not raw ms recipes in the plan)
 - [ ] Promo proof includes real-ui + `ui_proof_path` where required

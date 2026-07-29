@@ -64,12 +64,14 @@ imagine/scenario · stakes. **Never** open with a dictionary definition.
 
 Thesis / message should land by beat 2; later beats are evidence.
 
-### 5. Write VO as cues (anti-PPT)
+### 5. Write VO as intent cues (anti-PPT)
 
 - 1–2 sentences per spoken beat; usually 6–20 words when drafting VO
-- **Phrase-segment** every line into `vo_cues` — each cue is one on-screen reveal unit  
-  Good: `["First the snowball", "then the hill", "then the speed"]`  
-  Bad: one run-on clause with no boundaries
+- Segment only where the picture, reading state, or edit intent changes. Give
+  every cue a role; speech alone does not create a reveal:
+  `[{text: "First the snowball", role: event}, {text: "then the hill", role: carry}, {text: "then the speed", role: read}]`
+- A sentence may have one `event` cue and several `carry` / `read` cues. Do not
+  atomize every phrase just to manufacture animation windows.
 - Prefer concrete teaching over article paraphrase
 - Silent beats allowed for diagram/self-building holds — leave VO empty, leave
   cues empty, still write `shot_sequence` paced to the beat
@@ -92,16 +94,20 @@ Faceless defaults that often fit:
 - stat / evidence → `dataviz-countup` or `/vidmuse-motion`
 - process steps → consistent stage + `push-slide` between beats
 
-### 7. Continuity + hero throughline
+### 7. Continuity strategy
 
 Multi-beat body sequences share:
 
-1. **Consistent stage** stated in each `scene` (same diagram growing, same desk)
-2. **Consistent `transition_in`** across the run (`push-slide` for steps, soft
-   `crossfade` for layer adds)
-3. Film-level **`hero_throughline`** (path-routing): 1–2 named subjects that
-   persist and **change state** across ≥ half of body beats — not a new orphan
-   title card every sentence. Cover test: mid-beat freeze ≤3 active elements.
+1. A film-level `continuity_strategy`: object, world, camera, editorial, or
+   rhythm. State both the invariant and what may vary.
+2. Neighbor relations in `continuity_in`; cuts may be motivated by idea,
+   action, gaze, direction, scale, or sound—not only by a persistent object.
+3. An optional `hero_throughline` only when the selected treatment genuinely
+   follows one named object changing state. Never invent a line/rail/ribbon
+   merely to satisfy continuity.
+
+Cover test: a mid-beat freeze has one winning focal subject and no more than
+three active elements.
 
 Transforms of one element across two ideas stay **inside one beat's shot_sequence**,
 not across a hard slide seam. SSOT + fails: [path-routing.md](path-routing.md).
@@ -120,7 +126,7 @@ consistent `push-slide`; chapter jump → `zoom-through` or `cut`.
 - No quiet/ground-led passages on a standard explainer
 - Body is a single card, not a cumulative run
 - VO and picture both dump at once then freeze
-- No `hero_throughline`; every body beat a brand-new centered graphic
+- No authored continuity strategy; every body beat a brand-new centered graphic
 - Sticker pile (>3 active) with no exits
 
 ## Output

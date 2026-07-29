@@ -4,19 +4,25 @@
     {
       "id": 1,
       "prompt": "给 https://example.ai 做一条 45 秒中文产品宣传片，有旁白和 BGM。你可以自主决定创意，直接做到可审片版本。",
-      "expected_output": "Treat the URL as evidence rather than a shot list. Before production, create a one-proposition brief, three materially different treatments, select one with veto-role verdicts, lock script/TTS/ATA, produce real storyboard frames and a full-duration animatic, record its approval/hash, then scaffold production. At least one proof beat uses real capture; no screenshot-card-logo recap.",
+      "expected_output": "Treat the URL as evidence rather than a shot list. Before production, create a one-proposition brief, three materially different treatments, a Film Design Read, real storyboard frames, and a full-duration animatic. Show the first playable animatic on Timeline for user taste review instead of spending repeated internal render-analysis passes. At least one proof beat uses real capture with a declared screenshot treatment and separate reading surface; default persistent motif is none.",
       "files": []
     },
     {
       "id": 2,
       "prompt": "把这篇关于复利的稿子做成 60 秒知识可视化视频，不要真人出镜。风格你定，但不要像 PPT。",
-      "expected_output": "Run compact agency pre-production, derive one directorial device and coherent spatial/camera grammar from the subject, make actual keyframes and an animatic before GSAP, carry a hero throughline across body beats, use motivated cuts and quiet holds, and avoid one centered diagram per sentence.",
+      "expected_output": "Run compact agency pre-production, derive one directorial device and a continuity strategy from the subject, make actual keyframes and a contact sheet before GSAP, and use motivated cuts plus quiet read/hold windows. Do not require a persistent object or line; only role=event cues promise picture changes. Avoid one centered diagram per sentence and preserve one focal subject per frame.",
       "files": []
     },
     {
       "id": 3,
       "prompt": "只做一个 5 秒的动效测试：让这个 logo 从线稿变成实心，静音，不用完整成片流程。",
       "expected_output": "Use the explicitly requested light stub path. Do not force the agency brief/three-treatment/animatic contract; label the result as a stub and still use deterministic seek-safe motion checks.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "把一个 AI 产品官网做成 30 秒宣传片。不要再用贯穿全片的彩色曲线；截图不能只是铺满以后直接压字。先给我一个能在 Timeline 上审的版本，别做漫长自检。",
+      "expected_output": "Set persistent_motif to none unless a semantic object later earns recurrence. Give each proof beat one focal subject, a layer_map, and an explicit screenshot treatment such as editorial crop, isolated detail, split composition, or background texture. Text over busy UI must gain a scrim/reading surface/reserved whitespace or move off the image. Run only blocking static correctness checks before Timeline; rendered sampling remains optional diagnosis and user review owns hierarchy, motif, material, and rhythm.",
       "files": []
     }
   ]

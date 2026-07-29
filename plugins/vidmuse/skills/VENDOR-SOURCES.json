@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.4.1",
+  "pluginVersion": "0.4.2",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -45,6 +45,11 @@
     "skills/vidmuse-recut/SKILL.md": "Existing-speaking-footage film workflow; delegates ASR/ATA execution to media-use and semantic planning to vidmuse-assets.",
     "skills/media-use": "Adapted from the vendored Media OS into a user-facing VidMuse media capability and shared runtime: standalone ASR/ATA/TTS/generation/transforms, exact workflow execution, no film or semantic-asset ownership.",
     "skills/hyperframes-cli": "VidMuse boundary patch: composition/render-engine operations only; general doctor, TTS, transcription, background edits, AI generation, provider auth, and product delivery route through media-use + VidMuse CLI.",
+    "0.4.2": [
+      "create: picture-design contract for focal hierarchy, screenshot treatment, reading surfaces, depth separation, and semantic motif restraint",
+      "film_plan.py: continuity strategy replaces mandatory hero; role-tagged cues, still read windows, and motif rationale are validated",
+      "check_motion.py: static correctness is the default blocking preflight; rendered analysis is optional and Timeline users own aesthetic review"
+    ],
     "0.3.17": [
       "setup.sh: VidMuse-native media doctor; HyperFrames is on-demand composition runtime only",
       "hyperframes-cli/core/animation: removed legacy media commands and provider-specific TTS/ASR guidance",

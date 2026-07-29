@@ -1,7 +1,7 @@
 {
   "name": "vidmuse",
   "description": "VidMuse motion-film and media plugin for Codex. /vidmuse is the mandatory intent router: existing speaking-footage films go to /vidmuse-recut; films whose material must be made go to /vidmuse-create; semantic asset/library work goes to /vidmuse-assets; standalone ASR, ATA, TTS, generation, and deterministic media operations go directly to /media-use. Film workflows retain deliverable ownership while capability skills execute one layer.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": {
     "name": "VidMuse",
     "email": "hello@vidmuse.ai",

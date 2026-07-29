@@ -3,8 +3,8 @@
 
 The structured plan is the machine-readable mirror of film-plan.md for
 non-Vox create films. It is the single input for shot_scaffold.py (GSAP
-skeleton) and check_motion.py (post-render hard gate), so the shot_sequence
-the user approved is the same one that gets implemented and verified.
+skeleton) and check_motion.py (fast correctness preflight), so the picture and
+timing the user reviewed are the ones implemented.
 
 Usage:
   python3 scripts/film_plan.py "$WORK_DIR" --validate
@@ -12,8 +12,8 @@ Usage:
 
 Resolution:
   - shot_sequence window times (beat-local seconds) -> absolute film seconds
-  - vo_cues (plain strings from the spoken line) -> {text, t} using the ATA
-    word-level transcript.json (never guessed timestamps)
+  - vo_cues ({text, role}; plain strings accepted as legacy event cues) ->
+    {text, role, t} using the ATA word-level transcript.json
 """
 
 from __future__ import annotations
@@ -45,7 +45,13 @@ ROLES = {
     "benefit_highlight", "social_proof", "branding", "cta",
 }
 VISUAL_KINDS = {"type", "diagram", "real-ui", "dataviz", "quiet", "abstract", "branding"}
-WINDOW_KINDS = {"reveal", "move", "morph", "camera", "exit", "hold"}
+WINDOW_KINDS = {"reveal", "move", "morph", "camera", "exit", "hold", "read"}
+CUE_ROLES = {"event", "carry", "read", "prelap", "offscreen"}
+CONTINUITY_MODES = {"object", "world", "camera", "editorial", "rhythm"}
+SCREENSHOT_TREATMENTS = {
+    "exhibit", "editorial-crop", "isolated-detail", "split-composition",
+    "background-texture", "hybrid-slices",
+}
 TRANSITIONS = {
     "cut", "crossfade", "blur-crossfade", "zoom-through", "squeeze",
     "push-slide LEFT", "push-slide RIGHT", "push-slide UP", "push-slide DOWN",
@@ -71,6 +77,14 @@ CREATIVE_DIRECTION_FIELDS = {
     "negative_motifs",
 }
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".avif"}
+FILM_DESIGN_READ_TEXT_FIELDS = {
+    "audience", "promise", "visual_language", "focal_strategy",
+    "media_treatment", "typography_role", "persistent_motif",
+}
+FILM_DESIGN_READ_DIALS = {
+    "composition_variance", "motion_energy", "information_density",
+    "depth_separation",
+}
 
 # tolerances (seconds)
 GAP_TOL = 0.30       # max uncovered gap between windows inside a beat
@@ -162,6 +176,44 @@ def validate(plan: dict[str, Any]) -> list[str]:
         if not isinstance(cov, (int, float)) or not 0 < cov <= 1:
             err("hero_throughline.min_coverage must be in (0, 1]")
 
+    continuity = plan.get("continuity_strategy")
+    if not isinstance(continuity, dict):
+        err("continuity_strategy is required (object/world/camera/editorial/rhythm)")
+    else:
+        if continuity.get("mode") not in CONTINUITY_MODES:
+            err(f"continuity_strategy.mode must be one of {sorted(CONTINUITY_MODES)}")
+        for field in ("invariant", "variation"):
+            if not isinstance(continuity.get(field), str) or not continuity[field].strip():
+                err(f"continuity_strategy.{field} is required")
+        if hero is not None and continuity.get("mode") != "object":
+            err("hero_throughline is only valid when continuity_strategy.mode=object")
+
+    design_read = plan.get("film_design_read")
+    if not isinstance(design_read, dict):
+        err("film_design_read is required (picture-design contract)")
+    else:
+        for field in sorted(FILM_DESIGN_READ_TEXT_FIELDS):
+            value = design_read.get(field)
+            if not isinstance(value, str) or not value.strip():
+                err(f"film_design_read.{field} is required")
+        for field in sorted(FILM_DESIGN_READ_DIALS):
+            value = design_read.get(field)
+            if not isinstance(value, (int, float)) or not 1 <= float(value) <= 10:
+                err(f"film_design_read.{field} must be in [1, 10]")
+        motif = str(design_read.get("persistent_motif") or "").strip().lower()
+        if motif and motif not in {"none", "无"}:
+            rationale = design_read.get("motif_rationale")
+            if not isinstance(rationale, dict):
+                err(
+                    "film_design_read.motif_rationale is required when "
+                    "persistent_motif is not none"
+                )
+            else:
+                for field in ("semantic_role", "state_change", "yield_rule"):
+                    value = rationale.get(field)
+                    if not isinstance(value, str) or not value.strip():
+                        err(f"film_design_read.motif_rationale.{field} is required")
+
     beats = plan.get("beats")
     if not isinstance(beats, list) or len(beats) < 2:
         err("beats must be a list with >=2 beats")
@@ -207,6 +259,16 @@ def validate(plan: dict[str, Any]) -> list[str]:
             err(f"{where}: continuity_in missing (neighbor relation / motivated cut)")
         if not isinstance(beat.get("camera_intent"), str) or not beat["camera_intent"].strip():
             err(f"{where}: camera_intent missing ('locked' is valid)")
+        if not isinstance(beat.get("focal_subject"), str) or not beat["focal_subject"].strip():
+            err(f"{where}: focal_subject missing (one subject must win the frame)")
+        layer_map = beat.get("layer_map")
+        if not isinstance(layer_map, dict):
+            err(f"{where}: layer_map is required (field/evidence/reading_surface)")
+        else:
+            for field in ("field", "evidence", "reading_surface"):
+                value = layer_map.get(field)
+                if not isinstance(value, str) or not value.strip():
+                    err(f"{where}: layer_map.{field} is required")
         board = beat.get("storyboard_frames")
         if not isinstance(board, list) or not board or not all(
             isinstance(item, str) and item.strip() for item in board
@@ -216,12 +278,32 @@ def validate(plan: dict[str, Any]) -> list[str]:
         proof = beat.get("ui_proof_path")
         if proof is not None and proof not in UI_PROOF:
             err(f"{where}: ui_proof_path must be one of {sorted(UI_PROOF)}")
+        treatment = beat.get("screenshot_treatment")
+        if treatment is not None and treatment not in SCREENSHOT_TREATMENTS:
+            err(
+                f"{where}: screenshot_treatment must be one of "
+                f"{sorted(SCREENSHOT_TREATMENTS)}"
+            )
+        if (beat.get("visual_kind") == "real-ui" or proof is not None) and treatment is None:
+            err(f"{where}: real-ui/proof beat needs screenshot_treatment")
 
         cues = beat.get("vo_cues")
-        if not isinstance(cues, list) or not cues or not all(
-            isinstance(c, str) and c.strip() for c in cues
-        ):
-            err(f"{where}: vo_cues must be a non-empty list of phrase strings (hard fail 6)")
+        if not isinstance(cues, list):
+            err(f"{where}: vo_cues must be a list; [] is valid for a silent beat")
+        else:
+            for cidx, cue in enumerate(cues, start=1):
+                if isinstance(cue, str):
+                    if not cue.strip():
+                        err(f"{where}: vo_cues[{cidx}] legacy string is empty")
+                    continue
+                if not isinstance(cue, dict) or not isinstance(cue.get("text"), str):
+                    err(f"{where}: vo_cues[{cidx}] needs text + role")
+                    continue
+                if not cue["text"].strip() or cue.get("role") not in CUE_ROLES:
+                    err(
+                        f"{where}: vo_cues[{cidx}] role must be one of "
+                        f"{sorted(CUE_ROLES)}"
+                    )
 
         candidates = beat.get("asset_candidates")
         if candidates is not None and (
@@ -254,8 +336,8 @@ def validate(plan: dict[str, Any]) -> list[str]:
                             f"ATA span and a role string")
 
         windows = beat.get("shot_sequence")
-        if not isinstance(windows, list) or len(windows) < 2:
-            err(f"{where}: shot_sequence needs >=2 windows (hard fail 1)")
+        if not isinstance(windows, list) or not windows:
+            err(f"{where}: shot_sequence needs >=1 authored window (hard fail 1)")
             continue
         cursor = 0.0
         for widx, win in enumerate(windows, start=1):
@@ -280,13 +362,6 @@ def validate(plan: dict[str, Any]) -> list[str]:
             err(f"{bid}: shot_sequence stops {span - cursor:.2f}s before the ATA span ends")
         if cursor > span + TAIL_TOL:
             err(f"{bid}: shot_sequence runs {cursor - span:.2f}s past the ATA span")
-        last = windows[-1]
-        if isinstance(last, dict) and last.get("kind") != "hold" and not beat.get("continuous"):
-            err(
-                f"{bid}: terminal window must be kind=hold "
-                f"(or set beat continuous=true with a written exception)"
-            )
-
     return errors
 
 
@@ -583,19 +658,31 @@ def resolve_cues(beats: list[dict[str, Any]], words: list[dict[str, Any]]) -> No
     cursor = 0
     for beat in beats:
         resolved = []
-        for cue in beat["vo_cues"]:
-            needle = _norm(cue)
+        for cue_input in beat["vo_cues"]:
+            if isinstance(cue_input, str):
+                cue_text = cue_input
+                cue_role = "event"
+            else:
+                cue_text = str(cue_input.get("text", ""))
+                cue_role = str(cue_input.get("role", "event"))
+            needle = _norm(cue_text)
             if not needle:
-                raise PlanError(f"{beat['id']}: cue {cue!r} is empty after normalization")
+                raise PlanError(
+                    f"{beat['id']}: cue {cue_text!r} is empty after normalization"
+                )
             hit = stream.find(needle, cursor)
             if hit < 0:
                 hit = stream.find(needle)  # tolerate slight cue reordering
             if hit < 0:
                 raise PlanError(
-                    f"{beat['id']}: cue {cue!r} not found in {TRANSCRIPT_NAME} — "
+                    f"{beat['id']}: cue {cue_text!r} not found in {TRANSCRIPT_NAME} — "
                     "cues must be verbatim phrases from the locked script"
                 )
-            resolved.append({"text": cue, "t": round(starts[hit], 3)})
+            resolved.append({
+                "text": cue_text,
+                "role": cue_role,
+                "t": round(starts[hit], 3),
+            })
             cursor = max(cursor, hit + len(needle))
         beat["vo_cues"] = resolved
 

@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
-"""Post-render hard gate: does the shipped film implement the approved plan?
+"""Fast correctness preflight with optional rendered-motion diagnosis.
 
 Catches the "beautiful plan, PPT execution" failure mechanically, from two
 directions:
 
-Static (index.html vs film-plan.resolved.json)
+Static (blocking; index.html vs film-plan.resolved.json)
   S1  every beat has a <section data-beat="bXX"> block
-  S2  every shot_sequence window label survived (non-hold labels must also be
+  S2  every shot_sequence window label survived (motion labels must also be
       used as a tween position at least once)
   S3  ui_proof_path beats reference a real-capture file from asset-sources.json
-  S4  hero_throughline selector appears in enough beat sections
+  S4  optional hero_throughline selector appears in enough beat sections
   S5  precise UI/image overlays share a declared transform space with their
       target and use normalized raster geometry
   S6  every approved semantic asset appears as a real data-asset-ref DOM node
       in its assigned beat and points at the resolved local file
 
-Rendered (frame sampling of the actual video via ffmpeg)
-  R1  freeze: no >=1.5s still span inside a non-hold window (and no fully
-      motionless move/reveal/camera window) — planned holds are exempt
-  R2  cue events: the picture measurably changes state around each vo_cue
+Rendered (optional diagnosis; frame sampling via ffmpeg)
+  R1  freeze: planned motion windows are not silently missing; read/hold exempt
+  R2  event cues: the picture measurably changes state around role=event cues
       (an event spike, not just ambient Ken Burns drift)
   R3  global wash: repeated full-frame, same-direction luminance changes fail;
       cue flashes and ambient scans cannot be used to game R1/R2. Beat seams
@@ -26,11 +25,13 @@ Rendered (frame sampling of the actual video via ffmpeg)
       planned crossfade or dissolve is grammar, not a wash
 
 Usage:
-  python3 scripts/check_motion.py "$WORK_DIR" [--video path] [--html path]
-  python3 scripts/check_motion.py "$WORK_DIR" --skip-render     # static only
+  python3 scripts/check_motion.py "$WORK_DIR" --skip-render
+  python3 scripts/check_motion.py "$WORK_DIR" --render-analysis [--video path]
+  python3 scripts/check_motion.py "$WORK_DIR" --strict-render   # CI / explicit deep gate
 
-Writes $WORK_DIR/motion-check.json. Exit 1 on any failure — the film is not
-deliverable until this gate is green (non-Vox hard fail 13).
+Static is the default and blocking. Rendered findings are advisory unless
+--strict-render is explicitly requested. The user judges hierarchy, motif,
+material, and pacing on VidMuse Timeline.
 """
 
 from __future__ import annotations
@@ -217,7 +218,7 @@ def run_static(gate: Gate, work: Path, html_path: Path, plan: dict[str, Any]) ->
         for win in beat["shot_sequence"]:
             wid = win["id"]
             uses = len(re.findall(r"[\"']" + re.escape(wid), html))
-            if win["kind"] == "hold":
+            if win["kind"] in ("hold", "read"):
                 ok = uses >= 1
                 need = "the label itself"
             else:
@@ -297,7 +298,10 @@ def window_iter(plan: dict[str, Any]):
 
 def in_hold(t: float, plan: dict[str, Any]) -> bool:
     for _, win in window_iter(plan):
-        if win["kind"] == "hold" and win["abs"][0] - 0.1 <= t <= win["abs"][1] + 0.1:
+        if (
+            win["kind"] in ("hold", "read")
+            and win["abs"][0] - 0.1 <= t <= win["abs"][1] + 0.1
+        ):
             return True
     return False
 
@@ -357,9 +361,9 @@ def run_rendered(gate: Gate, work: Path, video: Path, plan: dict[str, Any]) -> N
     step = 1.0 / SAMPLE_FPS
     diffs = [mad(frames[i], frames[i + 1]) for i in range(len(frames) - 1)]
 
-    # R1 — freeze inside non-hold windows
+    # R1 — freeze inside windows that promised motion
     for beat, win in window_iter(plan):
-        if win["kind"] == "hold":
+        if win["kind"] in ("hold", "read"):
             continue
         lo, hi = win["abs"]
         first = max(int(math.ceil(lo * SAMPLE_FPS)), 0)
@@ -381,18 +385,27 @@ def run_rendered(gate: Gate, work: Path, video: Path, plan: dict[str, Any]) -> N
             + ("" if ok else " — planned motion is missing (PPT hold)"),
         )
 
-    # R2 — a visible event lands on each cue
+    # R2 — a visible event lands only on cues that explicitly promise one
     cue_washes: list[float] = []
     for beat in plan["beats"]:
         base = beat["ata_range"][0]
         for cue in beat["vo_cues"]:
             t = cue["t"]
+            role = cue.get("role", "event")
             where = f"{beat['id']} “{cue['text']}” @{t:.2f}s"
+            if role != "event":
+                gate.add(
+                    "R2.cues",
+                    True,
+                    where,
+                    f"role={role}; no visible event required",
+                )
+                continue
             if t - base <= BEAT_HEAD_FREE:
                 gate.add("R2.cues", True, where, "at beat entrance (transition is the event)")
                 continue
             if in_hold(t, plan):
-                gate.add("R2.cues", True, where, "inside a planned hold (read)")
+                gate.add("R2.cues", True, where, "inside planned read/hold stillness")
                 continue
             cross = mad(frame_at(frames, t - CUE_HALF), frame_at(frames, t + CUE_HALF))
             pre = mad(frame_at(frames, t - 3 * CUE_HALF), frame_at(frames, t - CUE_HALF))
@@ -450,7 +463,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--video", help="rendered picture (default: public/program.mp4, "
                                         "final-master.mp4, final.mp4 — first found)")
     parser.add_argument("--html", help="composition HTML (default: public/index.html)")
-    parser.add_argument("--skip-render", action="store_true", help="static checks only")
+    parser.add_argument(
+        "--skip-render",
+        action="store_true",
+        help="static checks only (default; explicit/backward-compatible spelling)",
+    )
+    parser.add_argument(
+        "--render-analysis",
+        action="store_true",
+        help="sample rendered motion and report advisory R1-R3 findings",
+    )
+    parser.add_argument(
+        "--strict-render",
+        action="store_true",
+        help="make optional rendered findings blocking (CI / explicit deep review)",
+    )
     args = parser.parse_args(argv)
 
     work = Path(args.work_dir).resolve()
@@ -465,7 +492,11 @@ def main(argv: list[str] | None = None) -> int:
     run_static(gate, work, html_path, plan)
 
     video: Path | None = None
-    if not args.skip_render:
+    run_render = bool(
+        (args.render_analysis or args.strict_render or args.video)
+        and not args.skip_render
+    )
+    if run_render:
         if not shutil.which("ffmpeg") or not shutil.which("ffprobe"):
             print("error: ffmpeg/ffprobe required for rendered checks", file=sys.stderr)
             return 1
@@ -474,12 +505,18 @@ def main(argv: list[str] | None = None) -> int:
                        work / "final-master.mp4", work / "final.mp4"])
         video = next((c for c in candidates if c.is_file()), None)
         if video is None:
-            print("error: no rendered video found — pass --video or --skip-render",
+            print("error: no rendered video found — pass --video or omit rendered analysis",
                   file=sys.stderr)
             return 1
         run_rendered(gate, work, video, plan)
 
+    static_failures = [item for item in gate.failures if item["id"].startswith("S")]
+    rendered_findings = [item for item in gate.failures if item["id"].startswith("R")]
+    blocking_failures = static_failures + (rendered_findings if args.strict_render else [])
     report = {
+        "mode": "strict-render" if args.strict_render else (
+            "render-analysis" if run_render else "static-preflight"
+        ),
         "video": str(video) if video else None,
         "html": str(html_path),
         "thresholds": {
@@ -492,18 +529,25 @@ def main(argv: list[str] | None = None) -> int:
             "wash_repeat_max": WASH_REPEAT_MAX,
         },
         "checks": gate.checks,
-        "failures": len(gate.failures),
-        "pass": not gate.failures,
+        "failures": len(blocking_failures),
+        "diagnostic_findings": len(rendered_findings),
+        "pass": not blocking_failures,
     }
     out = work / "motion-check.json"
     out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     total = len(gate.checks)
-    if gate.failures:
-        print(f"\nGATE FAIL — {len(gate.failures)}/{total} checks failed "
-              f"(see {out.name}); the film is not deliverable")
+    if blocking_failures:
+        print(f"\nPREFLIGHT FAIL — {len(blocking_failures)}/{total} blocking checks failed "
+              f"(see {out.name})")
         return 1
-    print(f"\nGATE PASS — {total} checks green ({out.name})")
+    if rendered_findings:
+        print(
+            f"\nPREFLIGHT PASS — {len(rendered_findings)} advisory rendered "
+            f"finding(s); review them with the user on Timeline ({out.name})"
+        )
+        return 0
+    print(f"\nPREFLIGHT PASS — {total} checks green ({out.name})")
     return 0
 
 

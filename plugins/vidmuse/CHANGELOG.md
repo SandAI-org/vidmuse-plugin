@@ -6,6 +6,28 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.4.2 — 2026-07-29
+
+### Create picture direction and review ownership
+
+Breaking for in-flight non-Vox work directories: `film-plan.json` now requires
+`film_design_read`, `continuity_strategy`, and per-beat `focal_subject` /
+`layer_map`; real-UI beats also require `screenshot_treatment`.
+
+- Added a picture-design contract before motion: explicit focal hierarchy,
+  field/evidence/reading-surface layers, six screenshot treatments, typography
+  roles, and four creative dials including depth separation.
+- Replaced the required recurring hero with a general continuity strategy.
+  Persistent motifs default to none; a line, rail, or ribbon is allowed only
+  when it encodes a named relation and changes meaningfully.
+- Added role-tagged VO cues. Only `event` promises a picture change; `carry`,
+  `read`, `prelap`, and `offscreen` preserve editorial freedom. A beat may use
+  one still `read`/`hold` window, and silent beats may use `vo_cues: []`.
+- Made `check_motion.py` a fast static correctness preflight by default.
+  Rendered frame sampling is optional/advisory unless explicitly made strict;
+  the first playable animatic goes to VidMuse Timeline for user-owned aesthetic
+  review.
+
 ## 0.4.1 — 2026-07-29
 
 ### Create direction and anti-PPT gates
