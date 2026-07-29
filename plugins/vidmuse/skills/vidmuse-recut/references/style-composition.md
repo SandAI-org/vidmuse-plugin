@@ -35,7 +35,9 @@ python3 scripts/taste.py --index --domain atoms
 2. `python3 scripts/taste.py pack:<name> --get --domain packs` for full affinity + motion defaults.
 3. Read `source.frame_md` (under `library/frame-packs/…`); `frame_md.py … --check` reports `mode: upstream-pack`.
 4. Write project `FRAME.md` with `mode: preset`, `anchor: pack:<name>`, pack `colors` / `typography` / `spacing` / `components` (copy all four — never drop `spacing`), and `motion` from catalog `default_motion` (packs stop at composition). New projects use frame v5 plus `production_mode`; Director mode also declares the film spine and act worlds.
-5. Copy `caption-skin.html` into the work dir when captions are on.
+5. Copy `caption-skin.html` into the work dir when captions are on — it is the
+   pack's caption identity and the starting point, not the finished skin: cast
+   it onto this film's band and transcript.
 6. Select effects from **intersection** of packaging-analysis needs and `effect_affinity.prefer`; soft-ban `effect_affinity.avoid` unless the content absolute needs them and the pack still holds.
 7. Cast Frame Treatments onto real transcript times and face-safe zones — packs do not ship a timeline.
 
@@ -71,6 +73,26 @@ world then records its motivated departures:
 The footage decides the source relationship before visual fashion does. The
 content and audience decide editorial stance. These two choices constrain the
 remaining dimensions.
+
+### The caption identity is composed too, in both modes
+
+A pack ships a caption skin; a composed direction must **write one** — the
+caption is the design system's smallest and most frequent ambassador, so
+leaving it unspecified means it gets decided later by whatever effect is
+convenient. Both modes owe the same two artifacts before the showcase gate:
+
+| mode | caption identity comes from | skin |
+| --- | --- | --- |
+| preset | pack `effect_affinity.prefer`, narrowed by the packaging analysis | copy the pack's `caption-skin.html`, then cast it |
+| composed | `typography` + `material` + `motion_temperament` atoms, expressed through FRAME.md tokens | author the skin from those tokens |
+
+In composed mode the identity is a derivation, not a pick from a menu: a
+matte-paper editorial material with measured motion does not arrive at a
+karaoke pill, and a snappy high-contrast signal culture does not arrive at a
+weight-shift whisper. Carry 2–3 candidates into the showcase gate either way
+(SKILL.md step 5), and place them in the band defined by
+[captions-and-golden-lines.md](captions-and-golden-lines.md) — the band is not
+one of the composed dimensions; it is defaulted, and a departure is argued.
 
 Use at most one anchor profile. A profile is evidence that an atom combination
 can be coherent, not a package to copy. Test every anchor atom against the

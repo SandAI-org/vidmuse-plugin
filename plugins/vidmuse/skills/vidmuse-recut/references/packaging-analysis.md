@@ -70,7 +70,11 @@ Also review FLIP, SVG path/stroke draw, clip/mask reveals, word/character subdiv
 
 ## Intensity and density
 
-- **Continuous:** captions, safe-zone rules, source treatment, finish.
+- **Continuous:** captions, safe-zone rules, source treatment, finish. The
+  caption band is decided once here (default per
+  [captions-and-golden-lines.md](captions-and-golden-lines.md)); name it, and
+  list every beat whose graphics enter it with the reason the graphic — not
+  the caption — could not move.
 - **Light:** one fact, word, label, marker, or annotation.
 - **Medium:** comparison, data, list, causal chain, PiP, multi-element explanation.
 - **Hero:** hook, major act break, signature visual, decisive conclusion.
@@ -106,7 +110,7 @@ Adapt the structure to the video and the user's review needs. A concise grouped 
 | # | 时间 | 类型/强度 | 字幕证据 | 画面证据 | 为什么包装 | 建议内容 | HyperFrames 语法 | 风险/约束 |
 
 ## 6. 全片系统层
-- 字幕系统
+- 字幕系统（字幕带位置 + 身份；偏离默认带需写理由）
 - 转场系统
 - source motion / framing
 - finish layer
@@ -135,7 +139,8 @@ Every recommended point needs an exact time range and a clear editorial reason. 
 - editorial reason in viewer terms;
 - family and intensity;
 - proposed on-screen copy or information structure;
-- layout/safe-zone relation;
+- layout/safe-zone relation, including whether the point touches the caption
+  band and how it yields;
 - HyperFrames mechanism or shortlist, not a vague animation adjective;
 - risk/constraint and confidence.
 

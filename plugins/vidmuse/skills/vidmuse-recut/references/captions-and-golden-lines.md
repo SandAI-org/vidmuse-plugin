@@ -23,11 +23,50 @@ in every single frame.
 
 ### Placement is a contract
 
-Pick the caption zone once per film (per aspect ratio) and keep it. The zone
-never collides with the face, hands, or gaze line, and respects the safe
-areas in [composition-contract.md](composition-contract.md). A caption that
-jumps zones mid-film reads as a glitch — the one legitimate exception is a
-declared act-world change in Director mode.
+#### The default zone is bottom-centered
+
+A viewer's eye knows where captions live before the film starts. That
+expectation is worth more than any single frame's composition: a caption
+placed where it is expected costs no attention to find, and one placed
+anywhere else spends attention on every cue for the whole film. So the
+default is not a preference — it is the zone, per aspect ratio:
+
+| aspect | band (y) | alignment |
+| --- | --- | --- |
+| 16:9 · 1920×1080 | 83.3 % – 100 % (900 – 1080 px) | centered |
+| 9:16 · 1080×1920 | 78 % – 92 % (1498 – 1766 px) | centered |
+| 4:5 · 1080×1350 | 82 % – 100 % (1107 – 1350 px) | centered |
+
+The 16:9 band is what every vendored frame pack's `caption-skin.html` already
+ships (`--cap-band-top: 900px`, `--cap-band-height: 180px`, centered) — the
+table states the standard those skins encode. Portrait lifts off the bottom
+edge because platform UI (captions, handles, buttons) occupies the last ~8 %
+of a phone frame, and pairs with the portrait type scale-up in
+[layout-vocabulary.md](layout-vocabulary.md).
+
+Pick the band once per film and keep it. A caption that jumps zones mid-film
+reads as a glitch — the one legitimate exception is a declared act-world
+change in Director mode.
+
+#### Graphics yield to the caption, not the reverse
+
+The band is **reserved**. When a callout, lower third, label, or card wants
+the same space, the graphic moves — shorten it, lift it above the band,
+re-anchor it, or give it a different beat. Moving the caption out of the band
+is the last resort, not the first accommodation, and it is what produces the
+recognizable failure: captions drifting to the side or mid-frame while the
+element that displaced them sits where captions belong.
+
+Leaving the band needs a footage-grounded reason written twice: once in
+`packaging-analysis.md` (which beats, and why) and once in FRAME.md's
+Pre-Render Self-Audit. Burned-in source subtitles occupying the band, a
+subject standing in it for the whole film, or a channel that overlays its own
+chrome there are real reasons. "The composition looked better" is not — that
+judgment is made per frame, while the caption's cost is paid per cue.
+
+The band never collides with the face, hands, or gaze line. When the subject
+genuinely occupies it, reframe the source (`layout-vocabulary.md` camera
+treatments) before relocating the caption.
 
 *Anchors:* one to two lines; comfortable line length for the face size (a
 caption is read in one fixation, not scanned); never let the caption outweigh

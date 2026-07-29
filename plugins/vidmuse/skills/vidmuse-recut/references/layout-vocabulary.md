@@ -24,6 +24,21 @@ Resolve each slot's `zone` into pixel bounds on the card-host wrapper:
 | `side-panel` | right 42% (landscape) or bottom 40% (portrait) | data beside speaker |
 | `video-overlay` | full canvas, mostly-transparent card | glass layer on full-bleed video |
 
+### The caption band is reserved
+
+The bottom-centered caption band is not one of the zones above — it is carved
+out before they are resolved. Its geometry per aspect ratio is defined once,
+in [captions-and-golden-lines.md](captions-and-golden-lines.md) ("The default
+zone is bottom-centered"); do not restate the numbers here or in a slot.
+
+`lower-third` (bottom 30 % band) **overlaps it**. So a lower third either
+sits in the part of that band above the caption zone, or takes a beat when no
+caption is on screen. Never both in the band at once: two text systems
+stacked in the same strip is the collision that pushes captions off their
+zone. `whiteboard-area` (portrait) and `side-panel` (portrait) also reach
+into the band — clear the caption zone from their resolved bounds rather than
+relocating the caption.
+
 ## Composition layouts (video + effect together)
 
 The source `<video id="source-video">` must remain a direct child of the root, so
@@ -82,3 +97,7 @@ A slot holding longer than ~15 s needs internal development (multi-step reveal, 
 ## Portrait type scaling
 
 The same pixel size reads smaller on a phone held close. When the canvas is portrait, scale type up from landscape values: titles × 1.35 (up to × 1.4 for heroes), body and labels × 1.3, small meta × 1.2; keep line-height multipliers; floor results to a 4px multiple. Horizontal padding narrows to 24–36 px. For a card that must work in both orientations, prefer container-query `clamp()` sizing over hard-coded pixels.
+
+Caption type scales with body (× 1.3), and the portrait caption band is
+already sized for it — the band lifts off the bottom edge rather than growing
+downward, so a taller caption grows *upward* inside its zone.

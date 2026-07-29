@@ -117,7 +117,10 @@ Density: primary ≥40% canvas; ≥3 depth layers when busy.
 Hierarchy: ≥2 of size / weight / contrast / position / motion.  
 **Vary framing across the film** — not the same template every beat.
 
-Caption band: plan primary content in top ~83% (Timeline captions often sit low).
+Caption band: **reserved, bottom-centered** — plan primary content in the top
+~83% (16:9) and keep the band clear. Graphics yield to the caption, not the
+reverse; leaving the band needs a written reason. Exact bands per aspect:
+`../../vidmuse-recut/references/captions-and-golden-lines.md`.
 
 ## `## Video direction` once
 

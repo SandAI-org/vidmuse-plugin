@@ -209,7 +209,7 @@ Use hooks, identity/context, chapters, semantic transitions, argument turns, com
 
 The analysis must distinguish:
 
-- **continuous systems:** spoken captions, the orientation progress rail (default-on — plain when the film has no real chapters, carrying chapter marks when it does; [references/device-craft.md](references/device-craft.md)), safe-zone behavior, source framing/motion, color/contrast treatment, grain/vignette/finish;
+- **continuous systems:** spoken captions (band and identity decided once — default band in [references/captions-and-golden-lines.md](references/captions-and-golden-lines.md); graphics yield to it, and leaving it needs a written reason), the orientation progress rail (default-on — plain when the film has no real chapters, carrying chapter marks when it does; [references/device-craft.md](references/device-craft.md)), safe-zone behavior, source framing/motion, color/contrast treatment, grain/vignette/finish;
 - **timed light interventions:** keyword emphasis, labels, chapter-mark beats on the rail, small callouts;
 - **timed medium interventions:** comparisons, data, causal chains, annotations, PiP, lists;
 - **hero interventions:** hook, major chapter break, signature visual, final recommendation or decision model.
@@ -276,6 +276,19 @@ Fetch full overlay and compatibility records only for shortlisted ids:
 python3 scripts/effects.py "hf:<id1>,hf:<id2>" --get
 ```
 
+**Shortlist the caption identity as its own decision — not as one line item in the effect sweep.** Captions are on screen in nearly every frame, so the choice sets the film's perceived quality floor, while a one-off effect is visible for seconds. Chosen incidentally in a 130-item list, the caption defaults to whatever the transcript's genre suggests and the user never sees the decision. Narrow to the caption family and read those digests deliberately:
+
+```bash
+python3 scripts/effects.py --index | python3 -c '
+import sys, json
+for line in sys.stdin:
+    record = json.loads(line)
+    if "captions" in (record.get("tags") or []):
+        print(json.dumps(record, ensure_ascii=False))'
+```
+
+Carry **two or three candidates** into the showcase gate (step 7) with one recommended — the caption band from [references/captions-and-golden-lines.md](references/captions-and-golden-lines.md) is a separate, defaulted decision, not something a mechanism gets to relocate. In preset mode start from the pack's `effect_affinity.prefer` and respect its `avoid`; in composed mode derive candidates from the atom set. Most films want a restrained continuous system with rung-1 emphasis; per-word karaoke is a genre costume (tell **T8**), legitimate only when the content's tone actually asks for it.
+
 If the HyperFrames preference store is available (`media-use` `prefs.mjs`), read remembered defaults and treat them as selection signals with named provenance; an external user taste profile works the same way (explicit dislikes exclude, context-matched likes bias).
 
 When the plan needs media the project does not have — images, icons, logos, textures, music, SFX, or (gated) generated B-roll — follow [references/asset-sourcing.md](references/asset-sourcing.md): the sourcing ladder (user-provided > real material > AI generation via `vidmuse model run`), FRAME-token-governed prompts, provenance in `asset-sources.json`, and the per-instance user gate for generated video inside a recut.
@@ -285,7 +298,7 @@ When the plan needs media the project does not have — images, icons, logos, te
 Synthesize the selected evidence into `$WORK_DIR/FRAME.md` — the single authored design artifact, written in the upstream frame-pack shape (see any vendored pack's `library/frame-packs/<name>/FRAME.md`). Two layers, one document:
 
 - **Frontmatter:** Packaging compatibility may use schema `vidmuse.recut.frame.v4`. New projects use `vidmuse.recut.frame.v5` with `production_mode`; Director mode additionally requires `film_spine` and non-empty `act_worlds`. Both carry `mode` (`preset` | `composed`), the optional `anchor`, and every concrete token — `colors`, `typography`, `spacing`, `motion`, and `components`. Downstream tools and the showcase read these tokens.
-- **Prose spec** (the body): Overview, a Frame Craft Bar of eyeball tests, Colors/Typography/Depth/Motion direction with the reasoning inline, **Frame Treatments** — one per packaging-point class from step 4, each written in the recipe grammar `ground · composes · focal · chrome · accent · silence · Fixed/Free · density` — Composition Rules (Do/Don't), aspect-ratio behavior, the Signature move, "Why this departs from its anchor" (composed mode: which anchor decisions changed and the footage-grounded reason; also record the serious candidates that lost and why), a Numerals & Claims hard rule, and a Pre-Render Self-Audit with **frame criteria**, **temporal criteria**, and the **Taste Gate** below.
+- **Prose spec** (the body): Overview, a Frame Craft Bar of eyeball tests, Colors/Typography/Depth/Motion direction with the reasoning inline, **Frame Treatments** — one per packaging-point class from step 4, each written in the recipe grammar `ground · composes · focal · chrome · accent · silence · Fixed/Free · density`, and **always including the caption system** (band, chosen caption identity, rung-1 emphasis treatment) since it is the one treatment present in nearly every frame — Composition Rules (Do/Don't), aspect-ratio behavior, the Signature move, "Why this departs from its anchor" (composed mode: which anchor decisions changed and the footage-grounded reason; also record the serious candidates that lost and why), a Numerals & Claims hard rule, and a Pre-Render Self-Audit with **frame criteria**, **temporal criteria**, and the **Taste Gate** below.
 
 Aesthetic discipline lives in the prose and is enforced by your own self-audit and the user's eyes at the gate — no script judges it. What the script checks is mechanical (it parses; tokens the pipeline needs exist; colors are hex/rgba tokens; `spacing` and `motion` are present):
 
@@ -309,11 +322,13 @@ Derive exact palette, fonts, type scale, material values, and motion from the at
 
 ### 7. Build the frame showcase and confirm direction (gate)
 
-Read [references/frame-showcase.md](references/frame-showcase.md), then author `$WORK_DIR/frame-showcase.html` — a single self-contained page in the manner of the upstream frame-pack showcases, wired entirely to the FRAME.md tokens through one `:root` CSS block (see any vendored pack's `library/frame-packs/<name>/frame-showcase.html`). Two things are confirmed in one round, before final timeline assembly:
+Read [references/frame-showcase.md](references/frame-showcase.md), then author `$WORK_DIR/frame-showcase.html` — a single self-contained page in the manner of the upstream frame-pack showcases, wired entirely to the FRAME.md tokens through one `:root` CSS block (see any vendored pack's `library/frame-packs/<name>/frame-showcase.html`). Three things are confirmed in one round, before final timeline assembly:
 
 1. **Direction as pixels on the user's footage.** The showcase renders the system live (direction + palette chips + type specimens + component demos) and then — its heart — every Frame Treatment composed over a real keyframe from the section where it will run, labeled with its time range and intent. Shortlisted Registry effects appear as adapted hero states with real transcript content, never as upstream demo styling. Extract keyframes with ffmpeg (`select='eq(n\,0)+gt(scene\,0.3)'`, plus `-ss <t>` pulls for specific treatments). Run the FRAME.md Pre-Render Self-Audit **and Taste Gate** against the page yourself before showing it. Ask first: *does this look like this room / this person?* — then: *is the argument clearer?* Do not ask the user to approve names or catalog thumbnails.
 
-2. **Render strategy.** Aspect ratio (recommend from source aspect: ≥1.5 → 16:9, ≤0.7 → 9:16, else 4:5), canvas layout (split / stack / pip / overlay), and the intervention plan — how many visual interventions, at which weights, within the budget in [references/layout-vocabulary.md](references/layout-vocabulary.md). Editorial judgment still rules: a section that is clearer without any intervention gets none.
+2. **Caption system.** The band (default bottom-centered per aspect; a departure is presented with its reason) and the caption identity — the 2–3 candidates from step 5 rendered on a real keyframe with real transcript text, one recommended. This is the film's most constant element and the one the user has the strongest instincts about; it does not ride along inside the treatment grid.
+
+3. **Render strategy.** Aspect ratio (recommend from source aspect: ≥1.5 → 16:9, ≤0.7 → 9:16, else 4:5), canvas layout (split / stack / pip / overlay), and the intervention plan — how many visual interventions, at which weights, within the budget in [references/layout-vocabulary.md](references/layout-vocabulary.md). Editorial judgment still rules: a section that is clearer without any intervention gets none.
 
 Use the best available question channel: a native structured-question tool when the runtime has one; otherwise one plain-text message with numbered options (2–5 questions max). Announce deferred asks up front. On an autonomous signal ("surprise me", "don't ask", pre-approved defaults) skip the round, pick the recommended values, and say what you picked in one sentence.
 

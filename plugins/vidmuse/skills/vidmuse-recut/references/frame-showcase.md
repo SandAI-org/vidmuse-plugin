@@ -34,7 +34,7 @@ FRAME.md fabrication rule: transcript-backed or placeholder, never invented.
 
 ## Required sections
 
-Order and naming are yours; a viewer must be able to find all six.
+Order and naming are yours; a viewer must be able to find all seven.
 
 1. **Direction** — project name, mode (preset / composed), the one-paragraph
    rationale, the anchor and why this design departs from it (composed mode),
@@ -59,6 +59,22 @@ Order and naming are yours; a viewer must be able to find all six.
    eases, stagger), plus, when it clarifies the temperament, a small looping
    CSS/GSAP demo of the enter/exit grammar. A static page with clearly stated
    values is acceptable; fake motion that misrepresents timing is not.
+7. **Caption system** — the one element present in nearly every frame, so it
+   gets its own section rather than being one treatment among many. Show it on
+   a **real keyframe**, with **real transcript** text, in the film's actual
+   caption band (draw the band edge so its position is visible, as the pack
+   showcases do), and include the rung-1 emphasis state (accent or weight
+   shift on a key span) since that belongs to the same continuous system —
+   [captions-and-golden-lines.md](captions-and-golden-lines.md).
+
+   Present **two or three candidate caption identities**, one recommended,
+   each losing candidate carrying a one-line reason — the same diverse-
+   shortlist discipline `style-composition.md` applies to direction, for the
+   same reason: the first mechanism a model reaches for is the one every run
+   would ship. In preset mode the pack's `caption-skin.html` is candidate one
+   and `effect_affinity` bounds the rest; in composed mode each candidate is
+   drawn from FRAME.md tokens. Label the band's aspect and pixel range so the
+   user is approving a position, not only a look.
 
 ## Keyframe extraction
 
@@ -79,6 +95,11 @@ Pre-Render Self-Audit **and Taste Gate** against the treatment frames —
 squint, silence, restraint, anchor, fabrication, source-led share, status-chrome
 cap, single-anchor honesty. Fix what fails.
 
+Also check the caption band across every treatment frame: the captions sit in
+the film's declared band, and no treatment's graphics occupy it without a
+recorded reason. A showcase whose treatments each look fine but collectively
+crowd the caption out of its zone is the failure this section exists to catch.
+
 Gate question order for the user (and yourself):
 
 1. Does this look like **this room / this person**?
@@ -94,6 +115,9 @@ The user's round is for direction decisions, not for catching contrast bugs.
 - More than two distinct English status words across the film on Chinese speech.
 - Dual culture (warm editorial named, technical blueprint practiced) with no
   rewrite of anchor or departure narrative.
+- Captions sit somewhere other than the bottom-centered band with no written
+  reason — or the page shows no caption at all, leaving the film's most
+  constant element unconfirmed.
 
 Present the page path to the user together with the render-strategy questions
 (aspect, canvas layout, intervention plan). Apply corrections to `FRAME.md`

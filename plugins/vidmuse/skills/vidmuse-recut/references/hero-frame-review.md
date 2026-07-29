@@ -50,6 +50,9 @@ the checks pass, then animate.
 ### Composition
 
 - Nothing violates the safe area or collides with the subject's face, hands, or gaze line.
+- Nothing enters the caption band unless the packaging analysis recorded that
+  beat's reason. A hero frame that reads well only because the caption was
+  moved out of its zone fails.
 - Empty space is intentional and load-bearing, not leftover.
 - Alignment is exact. A 2px misalignment reads as sloppiness at video scale.
 

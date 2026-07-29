@@ -135,6 +135,17 @@ For **layered** Timeline preview, the packaging HTML must not fight the main tra
 
 Both may exist. Do not assume one replaces the other. Build `subtitles[]` from aligned `transcript.json` (sentence groups at punctuation / utterance breaks). User Timeline edits to subtitle text/times are first-class.
 
+### One owner for the spoken line
+
+Both tracks *existing* is fine; both **rendering the same spoken words at the same time** is not. Two caption systems in one frame double the text, fight for the caption band, and are the mechanism behind captions getting shoved out of their zone. Decide the owner once per film:
+
+| Owner of the continuous spoken line | The other track's job |
+| --- | --- |
+| HF caption component in the packaging HTML | `subtitles[]` stays a delivery / review track — keep it out of the overlay render (`--mode overlay` carries `subtitles[]`, so do not also bake HF captions into that pass) |
+| DSL `subtitles[]` | HF caption mechanisms fire only as scarce escalations (golden-line rungs 2–3) |
+
+When an escalation takes over a span, the regular caption for exactly that span yields — the same rule as [captions-and-golden-lines.md](captions-and-golden-lines.md) rung 2: the words are *absorbed* into the treatment, never shown twice on screen. `write_dsl.py` does not check this (it writes `subtitles[]` from the transcript unconditionally); verify it on the Timeline by scrubbing a cue where a caption effect is active.
+
 ## When to start `serve`
 
 1. **Early (recommended):** after probe + transcript alignment — main source + `subtitles[]` (+ sounds), overlay empty or omitted (`--no-overlay`). User already watches the real cut on Timeline.
