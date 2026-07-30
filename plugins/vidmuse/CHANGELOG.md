@@ -6,6 +6,24 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## Unreleased
+
+### Leaner prompting for GPT-5.6
+
+- Reduced `vidmuse-create/SKILL.md` from a patch-heavy workflow manual to a
+  thin film-control layer: five working principles, one eight-stage spine, and
+  branch-specific references. Path schemas, hard failures, picture craft,
+  Vox isolation, and execution details remain in their existing single sources
+  of truth and deterministic scripts.
+- Shortened the `vidmuse-create` and `/vidmuse` descriptions so skill matching
+  sees the job and boundary before implementation detail.
+- Removed "mandatory" selection language from plugin metadata and routing
+  documentation while preserving deliverable ownership and namespace safety.
+- Removed the five generic `gsap-*` skills. HyperFrames-specific GSAP
+  guidance remains available through `hyperframes-animation` adapters.
+- Added a maintainer policy for lean skills, progressive disclosure,
+  measured constraints, and reference-level single sources of truth.
+
 ## 0.4.3 — 2026-07-30
 
 ### Core Pack asset library
@@ -134,7 +152,7 @@ release fails `film_plan.py` until it carries `creative_direction`,
   through recut/create.
 - **Vertical film ownership.** `/vidmuse-recut` owns existing
   speaking-footage films; `/vidmuse-create` owns films whose primary material
-  must be made. Loading assets, media, HyperFrames, motion, or GSAP skills does
+  must be made. Loading assets, media, HyperFrames, or motion skills does
   not transfer the final deliverable.
 - **Shared runtime policy.** Namespace guards, vendored-skill rules, safe
   HyperFrames initialization, and Timeline preview policy now live once under

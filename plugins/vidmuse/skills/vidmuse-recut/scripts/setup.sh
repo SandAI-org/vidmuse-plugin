@@ -5,7 +5,7 @@
 #   Node 22+, ffmpeg/ffprobe, Python 3, vidmuse CLI
 #
 # What comes from the PLUGIN bundle only (not user global skill homes):
-#   vidmuse + product/capability siblings + HF/GSAP skills under <plugin>/skills/
+#   vidmuse + product/capability siblings + HyperFrames skills under <plugin>/skills/
 #
 # This script does NOT require skills under ~/.codex/skills or ~/.agents/skills.
 # When Codex installs the plugin, agents load skills from the plugin payload.
@@ -146,11 +146,6 @@ REQUIRED_PLUGIN_SKILLS=(
   hyperframes-keyframes
   hyperframes-registry
   media-use
-  gsap-core
-  gsap-timeline
-  gsap-plugins
-  gsap-utils
-  gsap-performance
 )
 
 echo ""
@@ -187,7 +182,7 @@ echo "[ok] all agent skills present in plugin bundle"
 echo "[note] entry skill: /vidmuse"
 echo "[note] film workflows: /vidmuse-recut (speaking footage) · /vidmuse-create (material must be made)"
 echo "[note] direct capabilities: /vidmuse-assets · /media-use"
-echo "[note] HF/GSAP siblings are domain references only"
+echo "[note] HyperFrames siblings are domain references only"
 echo "[note] global skill homes (~/.codex/skills etc.) are optional and NOT required for health"
 
 echo ""

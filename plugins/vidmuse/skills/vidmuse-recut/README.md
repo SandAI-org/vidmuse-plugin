@@ -33,7 +33,7 @@ bash ~/.claude/skills/vidmuse-recut/scripts/setup.sh
 
 | 必须在**用户全局 PATH** | 只认 **plugin 包内** `skills/` |
 | --- | --- |
-| Node 22+、ffmpeg/ffprobe、Python3 | `vidmuse-recut` + 兄弟 HF/GSAP skills |
+| Node 22+、ffmpeg/ffprobe、Python3 | `vidmuse-recut` + 兄弟 HyperFrames skills |
 | `vidmuse` CLI（serve/render/model）+ `vidmuse login` | setup **不会**去查 `~/.codex/skills` |
 | `npx hyperframes` 渲染运行时 | 缺 skill → **失败并提示重装 plugin**，不裸装全局 skill |
 

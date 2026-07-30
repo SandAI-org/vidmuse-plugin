@@ -1,12 +1,12 @@
 # Skills shipped in this plugin
 
-The mandatory user-facing entry is **`/vidmuse`**. It routes by requested
+The user-facing router is **`/vidmuse`**. It routes by requested
 deliverable to two film workflows and two direct capability domains:
 **`/vidmuse-recut`** (existing speaking footage), **`/vidmuse-create`**
 (material must be made), **`/vidmuse-assets`** (semantic asset/library work),
 or **`/media-use`** (standalone ASR, ATA, TTS, generation, and deterministic
-media operations). Composition, motion, rendering, and GSAP skills remain
-dependencies loaded on demand.
+media operations). Composition, motion, rendering, and runtime-specific
+animation guidance remain dependencies loaded on demand.
 
 Do **not** install or invoke HyperFrames `talking-head-recut` from this plugin — that job is owned by `vidmuse-recut`.
 
@@ -23,9 +23,9 @@ vendored-skill, init, and preview policy lives once under
 
 | Skill | Role |
 | --- | --- |
-| `vidmuse` | **Mandatory router** — resume state, classify the requested deliverable, select one owner, and leave |
+| `vidmuse` | **Router** — resume state, classify the requested deliverable, select one owner, and leave |
 | `vidmuse-recut` | **Film workflow** — editor/director for existing talking-head / interview / podcast / product-explainer footage |
-| `vidmuse-create` | Films **without** source footage: knowledge explainers / promos / **Vox paper-collage** B-roll & explainers. Non-Vox uses agency pre-production (truth → brief → 3 treatments → real storyboard → Timeline animatic), then the hard `vidmuse` TTS → ATA voice spine and path-routed craft. `picture-design` owns focal hierarchy, screenshot treatment, reading surfaces, depth, and motif restraint; `path-routing` owns role-tagged cues, continuity strategy, audio delivery, UI proof, and the fast static correctness preflight. Render analysis is optional and users own aesthetic review on Timeline. **Vox frozen / recut untouched.** |
+| `vidmuse-create` | **Film workflow** for material that must be made: explainers, promos, script + TTS films, and Vox collage. The skill keeps only the shared spine; `path-routing` and the selected references own path-specific craft. |
 | `vidmuse-assets` | **Asset intelligence** for explicit or in-film work. Owns semantic opportunities, canonical identity, transcript-bound pass receipts, request fingerprints, `asset-plan.json`, source/license policy, Core Pack / Creator Library direction, and provider choice; delegates all I/O and generation to `media-use`. First active catalog: pinned Lobe Icons. |
 | `media-use` | **Direct capability + shared runtime** — standalone ASR/ATA/TTS/generation/transforms, or exact execution for an owning workflow. Never owns semantic asset decisions or a film deliverable. |
 | `vidmuse-motion` | **Dependency skill** — semantic motion recipes → HyperFrames/GSAP native compose when Registry has no block (KPI/bars/sparkline/stat cards). Not a product router. `scripts/motion_recipes.py` + gold `examples/dataviz-semantic/` |
@@ -44,24 +44,33 @@ Same set as `npx hyperframes skills update` core tier (`FALLBACK_CORE_SKILLS`):
 | `hyperframes-keyframes` | Seek-safe keyframe diagnostics |
 | `hyperframes-registry` | `hyperframes add` / catalog / wiring |
 
-## GSAP pack (vendored from greensock/gsap-skills)
-
-Installed by upstream `setup.sh` via `npx skills add greensock/gsap-skills`; here they ship in-tree:
-
-| Skill | Role |
-| --- | --- |
-| `gsap-core` | `gsap.to/from/fromTo`, easing, defaults |
-| `gsap-timeline` | Timeline sequencing & position parameter |
-| `gsap-plugins` | Official plugins registration & APIs |
-| `gsap-utils` | `gsap.utils.*` helpers |
-| `gsap-performance` | 60fps-friendly motion practice |
-
 ## Intentionally excluded
 
 | Skill | Why |
 | --- | --- |
 | `talking-head-recut` | Replaced by `vidmuse-recut` (Namespace guard) |
 | Other HF creation workflows (`product-launch-video`, `pr-to-video`, …) | Not dependencies of recut; install upstream separately if needed |
+
+## Skill authoring policy
+
+Keep product skills as thin control layers:
+
+- State the goal, trigger boundary, autonomy boundary, required inputs and
+  outputs, and blocking success criteria.
+- State each instruction once. Put schemas, catalogs, examples, craft rules,
+  and troubleshooting in a named reference or deterministic script.
+- Load references by decision branch; do not make every run read every path.
+- Keep a constraint only when it protects safety, product truth, workflow
+  ownership, or a measured failure. Prefer explaining the reason over adding
+  another near-duplicate prohibition.
+- Treat scripts as contract enforcement and the model as the director. A
+  validator can reject broken artifacts but cannot grant aesthetic approval.
+- Test direct, indirect, incomplete, near-miss, and resume prompts before
+  tightening a skill description or adding another rule.
+
+Aim for a focused `SKILL.md` well below the 500-line progressive-disclosure
+ceiling. When a workflow grows, make one reference authoritative and link to
+it instead of copying its contract back into the skill.
 
 ## Refresh vendored skills
 
@@ -75,11 +84,6 @@ for s in hyperframes hyperframes-animation hyperframes-cli hyperframes-core \
   rsync -a --delete --exclude '.DS_Store' "$HF/$s/" "skills/$s/"
 done
 
-# refresh GSAP from a local greensock skills install
-G=~/.agents/skills
-for s in gsap-core gsap-timeline gsap-plugins gsap-utils gsap-performance; do
-  rsync -a --delete --exclude '.DS_Store' "$G/$s/" "skills/$s/"
-done
 ```
 
 Then commit and `npm run package:codex-plugin`.

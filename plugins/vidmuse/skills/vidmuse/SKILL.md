@@ -1,25 +1,20 @@
 ---
 name: vidmuse
 description: >
-  Mandatory VidMuse entry point and intent router. Read first for any request
-  to create, package, recut, caption, edit, or render a video with VidMuse, and
-  for standalone media requests such as ASR/transcription, ATA word alignment,
-  TTS/voiceover, music/SFX, image/video generation, logo/icon/font sourcing,
-  grading, trimming, reframing, or transcript-driven cuts. Route by the
-  requested deliverable: existing speaking-footage films to vidmuse-recut,
-  films whose primary material must be made to vidmuse-create, semantic
-  asset/library work to vidmuse-assets, and exact standalone media operations
-  to media-use. Resume existing VidMuse projects from their artifacts and
-  never force a simple media task through a film workflow.
+  Route VidMuse requests by the deliverable the user wants. Send designed
+  films with existing speaking footage to vidmuse-recut, films whose primary
+  material must be made to vidmuse-create, semantic asset work to
+  vidmuse-assets, and standalone media operations to media-use. Resume
+  existing projects from their artifacts.
 compatibility: VidMuse CLI on PATH and authenticated for model-backed work;
   Node.js 22+, ffmpeg/ffprobe, and Python 3 for full film workflows.
 ---
 
 # VidMuse
 
-VidMuse has one front door and several owners. This skill identifies the
-requested **deliverable**, selects one owner, and then leaves the run. It does
-not create media or author a film itself.
+This skill identifies the requested **deliverable**, selects one VidMuse
+owner, and then leaves the run. It does not create media or author a film
+itself.
 
 ## 1. Start from project state
 
@@ -83,8 +78,9 @@ Capability skills own one layer and then return control:
 
 - `/vidmuse-assets` owns semantic asset intelligence and source/license policy.
 - `/media-use` owns exact media execution and standalone media results.
-- `/hyperframes-*`, `/vidmuse-motion`, and `/gsap-*` own composition,
-  animation, rendering, or implementation knowledge.
+- `/hyperframes-*` and `/vidmuse-motion` own composition, animation,
+  rendering, or implementation knowledge. Runtime-specific GSAP guidance
+  lives under `/hyperframes-animation`.
 
 Once a workflow owns a film, do not re-route merely because it loads a domain
 skill. Domain skills never take over the final deliverable.

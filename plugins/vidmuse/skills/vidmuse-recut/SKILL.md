@@ -62,9 +62,9 @@ once before setup. It centrally defines the namespace guard, vendored-skill
 policy, safe HyperFrames initialization, and VidMuse Timeline review surface.
 
 After this workflow owns a valid speaking-footage film, loading
-`/vidmuse-assets`, `/media-use`, `/hyperframes-*`, `/vidmuse-motion`, or
-`/gsap-*` does not transfer ownership. Those skills execute one layer and
-return control here.
+`/vidmuse-assets`, `/media-use`, `/hyperframes-*`, or `/vidmuse-motion` does
+not transfer ownership. Those skills execute one layer and return control
+here.
 
 ## Runtime boundary
 
@@ -417,7 +417,7 @@ python3 scripts/write_dsl.py "$WORK_DIR" --mode layered
 
 You may attach **per-slot** overlay items (one HTML or one head HTML with multiple DSL items and `params.sourceStartTime`) as packaging points land — incremental Timeline feedback is preferred over waiting for a full bake.
 
-Choreograph multi-element scenes as staged timeline sequences: elements enter in the order the logic demands — causes before effects, steps in their order, moments along their timeline — with position offsets and staggers carrying the rhythm. Reserve simultaneous entrances for genuinely simultaneous ideas. In both modes, apply the Motion language section of [references/camera-and-transition-craft.md](references/camera-and-transition-craft.md) — easing semantics, duration anchors, the ≤2-moving-elements rule, and the deviation clause — when writing any tween. For timeline sequencing, easing, stagger, and plugin mechanics, consult the bundled GSAP skill pack (`gsap-core`, `gsap-timeline`, `gsap-plugins`, `gsap-utils`, `gsap-performance` — siblings of this skill in the Codex plugin; confirmed present by `scripts/setup.sh`).
+Choreograph multi-element scenes as staged timeline sequences: elements enter in the order the logic demands — causes before effects, steps in their order, moments along their timeline — with position offsets and staggers carrying the rhythm. Reserve simultaneous entrances for genuinely simultaneous ideas. In both modes, apply the Motion language section of [references/camera-and-transition-craft.md](references/camera-and-transition-craft.md) — easing semantics, duration anchors, the ≤2-moving-elements rule, and the deviation clause — when writing any tween. For HyperFrames-safe timeline sequencing, easing, stagger, plugin mechanics, and performance, use [`../hyperframes-animation/SKILL.md`](../hyperframes-animation/SKILL.md) to select only the needed adapter.
 
 The full technical contract — determinism rules, animatable-property allowlist, visibility exceptions, font resolution — is [references/composition-contract.md](references/composition-contract.md). Read it before writing composition HTML.
 

@@ -21,18 +21,6 @@
       "creation-workflows-on-demand"
     ]
   },
-  "gsap": {
-    "source": "local-agents-skills",
-    "path": "/Users/az/.agents/skills",
-    "upstream": "greensock/gsap-skills",
-    "skills": [
-      "gsap-core",
-      "gsap-timeline",
-      "gsap-plugins",
-      "gsap-utils",
-      "gsap-performance"
-    ]
-  },
   "vidmuse": {
     "skill": "vidmuse",
     "source": "vidmuse-recut-0.1.0"

@@ -3,8 +3,8 @@ name: hyperframes
 description: >
   HyperFrames domain reference only (VidMuse Codex plugin): CLI pin/upgrade hints and
   on-demand map to hyperframes-core, hyperframes-cli, hyperframes-animation,
-  hyperframes-creative, hyperframes-keyframes, hyperframes-registry, media-use, and
-  gsap-*. Not a product router and not a mandatory entry. Fresh VidMuse requests
+  hyperframes-creative, hyperframes-keyframes, hyperframes-registry, and media-use.
+  Not a product router and not a mandatory entry. Fresh VidMuse requests
   belong to /vidmuse, including standalone ASR/TTS/media operations. Load this
   skill only after a VidMuse workflow owns the run, or for
   inspect/lint/check/render help on an existing HyperFrames composition.
@@ -69,13 +69,13 @@ has been selected:
 | Images, icons, logos, audio, captions, grades, LUTs, reusable media                                                 | `/media-use`             |
 | Init, lint, check, snapshots, compare, batch render, Studio, render, publish, or diagnostics                        | `/hyperframes-cli`       |
 | Registry blocks and components                                                                                      | `/hyperframes-registry`  |
-| GSAP timeline craft (bundled siblings)                                                                              | `/gsap-core` (+ timeline / plugins / utils / performance) |
+| HyperFrames-safe GSAP timelines, easing, stagger, plugins, and performance                                          | `/hyperframes-animation` adapters                          |
 
 Domain skills never take ownership of an end-to-end VidMuse deliverable.
 
 ## 3. Skills install policy (this plugin)
 
-Dependency skills for packaging already ship **inside the VidMuse Codex plugin** next to this file (`skills/hyperframes-*`, `media-use`, `gsap-*`, `vidmuse-recut`). Prefer those paths.
+Dependency skills for packaging already ship **inside the VidMuse Codex plugin** next to this file (`skills/hyperframes-*`, `media-use`, `vidmuse-recut`). Prefer those paths.
 
 - Do **not** run `npx hyperframes skills update talking-head-recut`.
 - Do **not** expand the plugin with upstream creation workflows just because a reference route file names them.

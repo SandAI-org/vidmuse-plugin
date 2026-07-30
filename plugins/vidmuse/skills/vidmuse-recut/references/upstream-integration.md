@@ -72,7 +72,7 @@ Workflow skills are installed by name:
 npx skills add <source> --skill vidmuse-recut -y
 ```
 
-This skill depends on the technical HyperFrames domain skills (`hyperframes`, all `hyperframes-*`, `media-use`) and the GSAP skill pack. In the **VidMuse Codex plugin** those skills are **vendored as sibling directories** under `skills/` and verified by `scripts/setup.sh` (network reinstall is only a fallback when the plugin layout is incomplete). The live official Registry catalog and this skill's taste overlay still supply effect implementations. It does not use other HyperFrames **creation workflows** (especially not `talking-head-recut`) as design authorities — direction comes from the composed design system and VidMuse editorial judgment. Installed Registry HTML is implementation source material, not a competing taste system.
+This skill depends on the technical HyperFrames domain skills (`hyperframes`, all `hyperframes-*`, `media-use`). In the **VidMuse Codex plugin** those skills are **vendored as sibling directories** under `skills/` and verified by `scripts/setup.sh` (network reinstall is only a fallback when the plugin layout is incomplete). HyperFrames-specific GSAP guidance lives in `hyperframes-animation/adapters/`, so generic web-animation skills are not part of the plugin payload. The live official Registry catalog and this skill's taste overlay still supply effect implementations. It does not use other HyperFrames **creation workflows** (especially not `talking-head-recut`) as design authorities — direction comes from the composed design system and VidMuse editorial judgment. Installed Registry HTML is implementation source material, not a competing taste system.
 
 ## Differences from `talking-head-recut` (for a PR argument)
 

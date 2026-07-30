@@ -11,7 +11,6 @@ Dependency skills ship **inside the plugin** next to this skill:
 - `vidmuse-recut`, `vidmuse-create` (film workflows)
 - `vidmuse-assets`, `media-use` (direct capabilities)
 - HyperFrames core: `hyperframes`, `hyperframes-*`
-- GSAP pack: `gsap-core`, `gsap-timeline`, `gsap-plugins`, `gsap-utils`, `gsap-performance`
 
 Verify with:
 

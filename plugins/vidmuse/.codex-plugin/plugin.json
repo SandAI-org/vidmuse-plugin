@@ -1,6 +1,6 @@
 {
   "name": "vidmuse",
-  "description": "VidMuse motion-film and media plugin for Codex. /vidmuse is the mandatory intent router: existing speaking-footage films go to /vidmuse-recut; films whose material must be made go to /vidmuse-create; semantic asset/library work goes to /vidmuse-assets; standalone ASR, ATA, TTS, generation, and deterministic media operations go directly to /media-use. Film workflows retain deliverable ownership while capability skills execute one layer.",
+  "description": "Create and recut motion films, operate media, and manage assets with VidMuse. Routes existing speaking footage to vidmuse-recut, source-free films to vidmuse-create, semantic asset work to vidmuse-assets, and standalone media operations to media-use.",
   "version": "0.4.3",
   "author": {
     "name": "VidMuse",
@@ -40,7 +40,7 @@
   "interface": {
     "displayName": "VidMuse",
     "shortDescription": "Route · Recut · Create · ASR/TTS · Asset intelligence",
-    "longDescription": "Use /vidmuse as the mandatory front door. It routes existing speaking-footage films to /vidmuse-recut, films whose material must be made to /vidmuse-create, semantic asset/library work to /vidmuse-assets, and standalone transcription/ASR, ATA, TTS/voiceover, generation, trim/reframe/transform, and grading directly to /media-use. Film workflows retain deliverable ownership while capability domains execute exact layers. User film preview uses vidmuse serve multi-track DSL.",
+    "longDescription": "VidMuse routes by the requested deliverable: existing speaking-footage films to /vidmuse-recut, films whose primary material must be made to /vidmuse-create, semantic asset work to /vidmuse-assets, and standalone transcription, alignment, voice, generation, or media transforms to /media-use. Film workflows retain ownership while capability skills execute one layer. Review films on the multi-track VidMuse Timeline.",
     "developerName": "VidMuse",
     "category": "Creativity",
     "capabilities": [

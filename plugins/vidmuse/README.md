@@ -2,7 +2,7 @@
 
 The VidMuse plugin connects [Codex](https://openai.com/codex) to [VidMuse](https://vidmuse.ai) so you can turn speaking footage, scripts, and product briefs into designed motion films with AI assistance.
 
-Use `/vidmuse` as the front door. It can package talking-head or interview
+Use `/vidmuse` to route a new request. It can package talking-head or interview
 clips, build explainers and promos from a script with no source footage,
 perform standalone ASR/TTS and media operations, generate assets and
 paper-collage B-roll, align word-level captions to real speech, preview films
@@ -10,7 +10,7 @@ on a multi-track VidMuse Timeline, and export.
 
 It routes to the owner of the requested deliverable:
 
-- `/vidmuse` — mandatory entry and intent router.
+- `/vidmuse` — deliverable-based intent router.
 - `/vidmuse-recut` — you already have a person speaking on camera (talking-head, interview, podcast, product explainer).
 - `/vidmuse-create` — the film's primary material must be made (knowledge explainers, website and product promos, script + TTS films, Vox-style collage B-roll).
 - `/vidmuse-assets` — proactively scan film semantics or handle explicit
@@ -38,7 +38,8 @@ automatic shot list.
 - `skills/vidmuse-assets/` — asset intelligence, Semantic Asset Pass, hybrid
   library policy, plan validator/resolver, and framework-only Core Pack.
 - `skills/media-use/` — direct media capability and shared execution runtime.
-- `skills/` (everything else) — domain skills (motion, HyperFrames, GSAP) that load automatically when the agent needs them.
+- `skills/` (everything else) — domain skills for motion and HyperFrames,
+  including HyperFrames-specific GSAP adapters loaded only when needed.
 - `assets/` — shared icon and logo.
 - `SKILLS.md` — full skill list for maintainers.
 
