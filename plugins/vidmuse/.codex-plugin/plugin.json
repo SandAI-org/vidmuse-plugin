@@ -1,7 +1,7 @@
 {
   "name": "vidmuse",
   "description": "Create and recut motion films, operate media, and manage assets with VidMuse. Routes existing speaking footage to vidmuse-recut, source-free films to vidmuse-create, semantic asset work to vidmuse-assets, and standalone media operations to media-use.",
-  "version": "0.4.3",
+  "version": "0.4.3+codex.20260730070438",
   "author": {
     "name": "VidMuse",
     "email": "hello@vidmuse.ai",
