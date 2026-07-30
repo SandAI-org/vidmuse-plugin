@@ -29,7 +29,7 @@
       "probe": "font",
       "size_budget_kb": 400,
       "hf_usage": "Declare @font-face with the frozen local path. Do not rely on the compiler's implicit Google fetch for anything that must render in a distributed/cloud render.",
-      "notes": "Admit only families HyperFrames does NOT pre-bundle (see hyperframes-creative/references/typography.md). Re-shipping a pre-bundled family is pure install weight."
+      "notes": "Admit only families HyperFrames does NOT pre-bundle (see vidmuse-assets/references/font-resolution.md). Re-shipping a pre-bundled family is pure install weight."
     },
     "texture": {
       "discovery": "sheet",
@@ -84,8 +84,8 @@
       "extensions": [".md"],
       "probe": "palette",
       "hf_usage": "Feed hex values into a color-typed data-composition-variables entry, a CSS custom property, or a Tailwind v4 @theme block.",
-      "external_root": "hf-creative-palettes",
-      "notes": "Data, not files. Indexed read-only from hyperframes-creative, which owns the palettes and the frame-preset colors: blocks."
+      "external_root": "design-palettes",
+      "notes": "Data, not files. Indexed read-only from vidmuse-design, which owns palette intent and private frame systems."
     }
   },
   "not_indexed": {

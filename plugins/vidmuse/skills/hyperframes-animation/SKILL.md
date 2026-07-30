@@ -30,6 +30,7 @@ Blueprints live in `blueprints-index.md`. Each entry points to `blueprints/<id>.
 | Read one blueprint's full recipe                                               | `blueprints/<id>.md`                                |
 | Author a scene transition (CSS-driven, between two clips)                      | `transitions/overview.md`, `transitions/catalog.md` |
 | Look up a broader motion-design technique                                      | `techniques.md`                                     |
+| Drive authored visuals from pre-extracted audio data                           | `references/audio-reactive.md`, `scripts/extract-audio-data.py` |
 | Analyze an existing composition's animation map                                | `scripts/animation-map.mjs`                         |
 | GSAP API — timeline / tweens / position parameters                             | `adapters/gsap.md`                                  |
 | GSAP — drop-in effect recipes                                                  | `rules/gsap-effects.md`                             |
@@ -79,10 +80,18 @@ node skills/hyperframes-animation/scripts/animation-map.mjs <composition-dir> \
 
 Reads every GSAP timeline registered on `window.__timelines`, enumerates tweens, samples bboxes, computes flags, outputs `animation-map.json`. Use it to audit choreography (dead zones, stagger consistency, lifecycle warnings) after authoring.
 
+For deterministic audio-reactive work, extract the track before authoring:
+
+```bash
+python3 skills/hyperframes-animation/scripts/extract-audio-data.py \
+  <audio-file> --fps 30 --bands 16 -o audio-data.json
+```
+
 `animation-map.mjs` resolves helper packages from the current project first, then can bootstrap the bundled HyperFrames package version. Set `HYPERFRAMES_SKILL_PKG_VERSION=<version>` only when running the skill outside the bundled CLI/skill install and you need to pin that bootstrap version explicitly.
 
 ## See Also
 
 - `hyperframes-core` — composition structure, data attributes, sub-compositions, deterministic render contract
-- `hyperframes-creative` — palettes, typography, narration, beat planning (non-animation creative direction)
+- `vidmuse-design` — project visual authority and motion temperament
+- `vidmuse-create` / `vidmuse-recut` — story, beat ownership, and editorial timing
 - `hyperframes-cli` — `npx hyperframes lint / check / snapshot / preview / render`

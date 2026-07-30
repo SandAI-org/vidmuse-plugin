@@ -15,7 +15,7 @@ Mapped into the same `taste.py` browse surface:
 
 | file | kind | what it is |
 | --- | --- | --- |
-| `style-packs.jsonl` | `style-pack` | 12 private, locally vendored frame packs; each points at `library/frame-packs/<name>/FRAME.md` and carries `anchor_atoms`, `default_motion`, `workflow_fit`, and `effect_affinity` so Agent can adopt the look and cast Registry effects |
+| `style-packs.jsonl` | `style-pack` | 13 private, locally vendored frame packs; each points at `library/frame-packs/<name>/FRAME.md` and carries `anchor_atoms`, `default_motion`, `workflow_fit`, and `effect_affinity` so Agent can adopt the look and cast Registry effects |
 | `example-kits.jsonl` | `example-kit` | Optional registry precedents for structure and motion grammar; provenance only, never required design input |
 | `showcase-kits.jsonl` | `showcase-project` | HeyGen launch compositions (hyperframes-launches) — production multi-act / multi-runtime references, not talking-head packs |
 
@@ -26,3 +26,8 @@ load or own effect implementations.
 
 Exact colors, fonts, type scale, motion values, and selected effects for a film
 belong only in the project's authored `FRAME.md`.
+
+`palettes/*.md` contains optional, privately owned color seeds grouped by
+communicative register. They are indexed read-only by `vidmuse-assets`; use
+them only when a user asks for options or source evidence does not provide a
+better palette.

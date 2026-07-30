@@ -19,9 +19,8 @@ whole design library into context. This is a capability skill: the active
 only for its direction layer.
 
 All design intelligence and preset bytes used by this capability live under
-this skill. Runtime decisions must not depend on `hyperframes-creative` or
-another externally vendored creative skill. Historical source fields in the
-catalog are provenance, not runtime imports.
+this skill. Runtime decisions must not depend on another creative skill.
+Historical source fields in the catalog are provenance, not runtime imports.
 
 Run the commands below from this skill directory. Film artifacts still belong
 under the owning project's work directory.
@@ -50,10 +49,13 @@ Load only the slice needed for the current decision:
 | --- | --- |
 | What good means and who wins conflicts | `references/aesthetic-charter.md`, then `references/taste-authority.md` |
 | Choose Preset vs Composed and author tokens | `references/style-composition.md` |
+| Resolve frame composition, type, or motion character | `references/video-frame-craft.md`, `references/typography-craft.md`, or `references/motion-temperament.md` |
+| Compare genuinely different visual worlds | `references/direction-picker.md` and `templates/direction-picker.html` |
 | Inspect available looks | run `scripts/taste.py --index` for one domain |
 | Inspect a candidate | run `scripts/taste.py <ids> --get --domain <domain>` |
 | Validate project design tokens | run `scripts/frame_md.py <project>/FRAME.md --check` |
 | Confirm direction on real footage | `references/frame-showcase.md` |
+| Check the implementation against the authority | `references/design-adherence.md` |
 | Design captions, information devices, or layout | only the applicable craft reference |
 | Diagnose visual/temporal template tells | only the relevant sections of `references/packaging-tells.md` |
 
@@ -113,6 +115,11 @@ Name the obvious category rut before selecting. Use zero or one profile anchor,
 derive exact tokens from the film evidence, and record why serious alternatives
 lost. Profiles are precedents, not token templates.
 
+Read only the craft references needed by the decision. If more than one
+credible visual world remains, use the optional two-phase direction picker;
+otherwise proceed directly. Fixed palette rows in `data/palettes/` are
+exploration seeds, never defaults or a replacement for source-derived color.
+
 ## 3. Author the project authority
 
 Write `<project>/FRAME.md` using schema `vidmuse.design.frame.v1` and the
@@ -143,6 +150,8 @@ and the planned density.
 
 Run the counted Taste Gate before presenting. Apply feedback to `FRAME.md`
 first, then update the showcase so the two artifacts cannot disagree.
+Before handoff, apply `references/design-adherence.md` to the representative
+artifact.
 
 ## 5. Return control
 

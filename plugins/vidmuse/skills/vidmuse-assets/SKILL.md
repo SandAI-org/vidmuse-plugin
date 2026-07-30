@@ -52,6 +52,9 @@ In-film use is mandatory before film-plan/packaging coverage for substantial
 films. An empty plan is valid when no asset improves comprehension; silent
 omission of the pass is not.
 
+For a typographic request or a design handoff that names non-bundled fonts,
+read [references/font-resolution.md](references/font-resolution.md).
+
 ## Semantic Asset Pass
 
 Read [references/semantic-asset-pass.md](references/semantic-asset-pass.md).
@@ -121,7 +124,7 @@ surface** over every static asset the plugin can reach — 2237 indexed items:
 | `shape` | 16 | `vidmuse-shapes` — blobs, waves, grids, arrows, underlines, data readouts (CC0) |
 | `lottie` | 5 | `vidmuse-lottie` — spinner, progress ring, success, error, pulse (CC0) |
 | `sfx` | 19 | indexed read-only from `media-use` |
-| `palette` | 72 | indexed read-only from `hyperframes-creative` |
+| `palette` | 72 | indexed read-only from `vidmuse-design` palette seeds |
 
 Chinese queries work: a lexicon expands 中文 terms to the English tags upstream
 ships, so `--query "垃圾桶"` finds `lucide/trash`.

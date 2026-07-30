@@ -8,7 +8,7 @@ This is the shared process for any workflow that plans on a storyboard. The cont
 
 **Default in this plugin: do not open HyperFrames Studio.** Present the plan in chat. For VidMuse create/recut, once voice exists, the early live surface is `vidmuse serve` (audio + captions), not HF Studio.
 
-Present the plan as a proposal (shape: `hyperframes-creative/references/story-spine.md` § 3): open by echoing **"This video tells [audience] that [message]"**, then the frame table — one row per frame: frame · beat (type, duration) · on screen · why (its `narrativeRole`, traced to the message). Feedback lands in chat or the comments file (`brief-contract.md` § 1) — one revision loop.
+Present the plan as a proposal: open by echoing **"This video tells [audience] that [message]"**, then the frame table — one row per frame: frame · beat (type, duration) · on screen · why (its `narrativeRole`, traced to the message). VidMuse Create's value-first doctrine lives in `../../vidmuse-create/references/story-spine.md`. Feedback lands in chat or the comments file (`brief-contract.md` § 1) — one revision loop.
 
 **HF Studio storyboard board is opt-in only.** Start it only if the user explicitly wants HyperFrames Studio / the storyboard board. Then: run `npx hyperframes preview --no-open` from the project directory in the background, confirm it is serving, and hand `http://localhost:<port>/?view=storyboard#project/<project-name>` without treating it as the product timeline. Never auto-open the browser into Studio during a normal create/recut run.
 

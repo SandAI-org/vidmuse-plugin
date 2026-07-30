@@ -149,7 +149,6 @@ OPTIONAL_PLUGIN_SKILLS=(
   vidmuse-create
   vidmuse-motion
   hyperframes
-  hyperframes-creative
 )
 
 echo ""

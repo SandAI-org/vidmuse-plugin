@@ -29,6 +29,10 @@ For each included scene, inspect:
 - whether source and graphics occupy one perceived space;
 - whether sound lands on the visual cause.
 
+Also ask whether the rendered scene still expresses the planned experience,
+not merely the listed coordinates. A technically correct move fails when its
+physical character contradicts the claim, speaker, or emotional register.
+
 ## Temporal review (film level)
 
 Judged across the reel and act renders, against the motion-language anchors

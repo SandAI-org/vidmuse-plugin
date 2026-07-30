@@ -8,6 +8,28 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ## Unreleased
 
+## 0.5.0 — 2026-07-30
+
+### Distributed creative ownership
+
+- Retired the standalone `hyperframes-creative` compatibility skill after
+  migrating its useful capabilities to focused owners.
+- Expanded `vidmuse-design` with video-frame craft, typography semantics,
+  motion temperament, optional two-phase direction comparison, design
+  adherence review, palette seeds, and the thirteenth private frame pack:
+  Code Editorial.
+- Moved story-spine, narration, and post-FRAME scene planning into
+  `vidmuse-create`; Recut keeps only source-led camera, handoff, and motion
+  review rules.
+- Moved audio-reactive authoring and extraction into
+  `hyperframes-animation`, and contrast tooling plus creative staging
+  structures into `hyperframes-core`.
+- Added deterministic font resolution to `vidmuse-assets` and repointed its
+  palette index at Design-owned data.
+- Removed the old runtime, setup, routing, test, and documentation links so a
+  film loads one visual authority and only the specialist references needed
+  for its current phase.
+
 ## 0.4.4 — 2026-07-30
 
 ### Private visual direction and progressive context

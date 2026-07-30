@@ -24,7 +24,8 @@ Structure is value-first; the **voice** stays whatever the workflow prescribes (
 
 ## 3. The storyboard is a proposal, not a listing
 
-When Step 3 presents the plan (a checkpoint gate — `hyperframes-core/references/brief-contract.md` § 1):
+When Create step 4 presents the scene plan (using the evidence rules in
+[`../../hyperframes-core/references/brief-contract.md`](../../hyperframes-core/references/brief-contract.md)):
 
 - Open by echoing the strategy line: **"This video tells [audience] that [message]."**
 - Present the frames as a markdown table, one row per frame:

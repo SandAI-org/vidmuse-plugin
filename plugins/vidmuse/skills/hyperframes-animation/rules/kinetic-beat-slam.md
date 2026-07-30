@@ -122,7 +122,7 @@ tl.to(
 | BEATS spacing     | 1.2–1.8s             | <0.8s frantic, >2.5s loses the pulse; keep spacing even — it's a beat                        |
 | entrance duration | 0.35–0.6s            | the hit must resolve before the next beat; exits ≤0.25s                                      |
 | accent hue        | exactly 1            | the verbs; the rest mono white / near-black                                                  |
-| display face      | 150px+, heavy weight | Archivo Black / League Gothic / Oswald — see `hyperframes-creative/references/typography.md` |
+| display face      | 150px+, heavy weight | Use the project `FRAME.md`; VidMuse direction is documented in `../../vidmuse-design/references/typography-craft.md` |
 
 ## Critical Constraints
 

@@ -3,7 +3,8 @@ name: hyperframes
 description: >
   HyperFrames domain reference only (VidMuse Codex plugin): CLI pin/upgrade hints and
   on-demand map to hyperframes-core, hyperframes-cli, hyperframes-animation,
-  hyperframes-creative, hyperframes-keyframes, hyperframes-registry, and media-use.
+  hyperframes-keyframes, hyperframes-registry, media-use, and VidMuse product
+  capabilities.
   Not a product router and not a mandatory entry. Fresh VidMuse requests
   belong to /vidmuse, including standalone ASR/TTS/media operations. Load this
   skill only after a VidMuse workflow owns the run, or for
@@ -65,7 +66,8 @@ has been selected:
 | Composition structure, timing attributes, tracks, variables, determinism                                            | `/hyperframes-core`      |
 | Motion rules, scene blueprints, transitions, runtime adapters                                                       | `/hyperframes-animation` |
 | Seek-safe GSAP, CSS, Anime.js, WAAPI, FLIP, paths, masks, SVG, 3D keyframes, or `hyperframes keyframes` diagnostics | `/hyperframes-keyframes` |
-| Design specs, concept, palette, typography, narration, beat planning                                                | `/hyperframes-creative`  |
+| Visual system, palette, typography, and motion temperament                                                         | `/vidmuse-design`        |
+| Story, narration, beats, and editorial timing                                                                      | owning `/vidmuse-create` or `/vidmuse-recut` |
 | Images, icons, logos, audio, captions, grades, LUTs, reusable media                                                 | `/media-use`             |
 | Init, lint, check, snapshots, compare, batch render, Studio, render, publish, or diagnostics                        | `/hyperframes-cli`       |
 | Registry blocks and components                                                                                      | `/hyperframes-registry`  |

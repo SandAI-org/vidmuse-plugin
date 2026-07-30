@@ -186,8 +186,8 @@ returns:
 - recommended caption identity, aspect/layout, and density;
 - pack `effect_affinity` and treatment constraints.
 
-Do not load `hyperframes-creative` as a look source or browse its preset
-library. Browse the effect catalog only after the design capability returns and
+Do not load a second look source or browse another preset library. Browse the
+effect catalog only after the design capability returns and
 the editorial need is known:
 
 ```bash

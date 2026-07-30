@@ -84,6 +84,11 @@ Give each substantial scene one principal verb: push, pull, drift, orbit,
 track, fold, reveal, capture, settle, or snap. Supporting element motion should
 agree with or deliberately counter that verb.
 
+Describe the viewer experience before the pixel recipe. Name what changes,
+what should be felt, and which source detail proves it; then assign specific
+physical verbs to the load-bearing elements. If an element has no semantic job
+or describable verb, remove it rather than animating it generically.
+
 The opening frame should already be inside a visual event unless deliberate
 stillness is the hook. Avoid the common sequence “blank frame, fade in,
 elements stop.”
@@ -95,6 +100,10 @@ elements stop.”
 - **Hold:** let the viewer read the proof.
 - **Exit:** release or redirect energy.
 - **Handoff:** define what the next scene inherits.
+
+The inherited object may be geometry, direction, velocity, a word, a sound
+cause, or a semantic answer. Preserve that continuity explicitly rather than
+choosing a transition by visual novelty.
 
 Exits are authored with the same care as entrances. A scene whose timeline
 ends before its master slot can disappear early and flash black; pad the

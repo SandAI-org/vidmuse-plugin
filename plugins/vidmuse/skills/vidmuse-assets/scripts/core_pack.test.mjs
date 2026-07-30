@@ -361,7 +361,7 @@ test("indexed palettes carry their hex values so no markdown read is needed", ()
   assert.ok(palettes.length > 0);
   for (const item of palettes.slice(0, 5)) {
     assert.ok(Array.isArray(item.value) && item.value.length >= 2);
-    assert.equal(item.root, "hf-creative-palettes");
+    assert.equal(item.root, "design-palettes");
   }
 });
 

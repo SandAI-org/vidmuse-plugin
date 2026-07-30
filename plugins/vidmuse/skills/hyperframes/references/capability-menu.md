@@ -17,9 +17,9 @@ creation workflows or use them as alternate product entries.
 
 | Capability | Say it to the user as… | VidMuse-native entry and result |
 | --- | --- | --- |
-| Design system | “colors, typography, spacing, and materials stay consistent” | Owning product skill + `/hyperframes-creative` `references/design-spec.md` → `FRAME.md` / design tokens |
+| Design system | “colors, typography, spacing, and materials stay consistent” | Owning product skill + `/vidmuse-design` → validated project `FRAME.md` and real-content showcase |
 | Website capture | “I can capture the real site and build from its look” | `npx hyperframes capture <URL> -o <dir>` inside `/vidmuse-create` → real screenshots/assets, then a VidMuse-owned film |
-| Beat-aware motion | “cuts and motion can land on the music” | `/hyperframes-creative` `references/audio-reactive.md` + `scripts/extract-audio-data.py` → deterministic audio map used by the owning product |
+| Beat-aware motion | “cuts and motion can land on the music” | `/hyperframes-animation` `references/audio-reactive.md` + `scripts/extract-audio-data.py` → deterministic audio map used by the owning product |
 | Motion blueprints | “each scene gets a proven motion treatment” | `/hyperframes-animation` blueprints/rules + `/vidmuse-motion` recipes → seek-safe composition behavior |
 | Voice, music, SFX, images, and grades | “I can generate or resolve the media and freeze it into the project” | `/media-use` `scripts/resolve.mjs` and `audio/scripts/audio.mjs` → live VidMuse model selection, local files, provenance ledger |
 | AI video and digital humans | “I can generate a shot, animate an approved still, or create a presenter” | `/media-use` `scripts/resolve.mjs --type video` with a live VidMuse route such as `text_to_video`, `image_to_video`, `images_to_video`, or `avatar` → frozen local clip + ledger |
@@ -42,8 +42,8 @@ claim a missing workflow or install one from an upstream pack.
 
 - If the user has brand guidelines, `FRAME.md`, or a design spec, record it as
   brand truth.
-- If the look matters but no spec exists, show two or three shipped
-  `/hyperframes-creative` frame presets and let the user choose visually.
+- If the look matters but no spec exists, load `/vidmuse-design`; compare
+  complete worlds only when the decision is genuinely ambiguous.
 - If the user does not care, let the owning VidMuse workflow choose and record
   the rationale.
 

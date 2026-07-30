@@ -138,8 +138,8 @@ tl.to(
 - **`.fill` needs `width: 100%`** — a zero-width fill scaled by any factor is still invisible, and automated gates may miss it.
 - **Measure, don't hard-code** — ring length via `getTotalLength()`; a hard-coded circumference breaks if the radius changes.
 - **Match the number's timing** — the fill and the count-up peak together (same start + ease) so the stat resolves as one beat, not two; a paired counter's `onUpdate` must be O(1) (see [counting-dynamic-scale.md](counting-dynamic-scale.md)).
-- **One accent hue, consistent blueprint** — see `hyperframes-creative/references/data-in-motion.md`.
+- **One accent hue, consistent blueprint** — see `../../vidmuse-design/references/device-craft.md`.
 
 ## See also
 
-`counting-dynamic-scale` (the number beside the graphic — same ease/duration) · `svg-path-draw` (progress-ring draw mechanics) · `hyperframes-creative/references/data-in-motion.md` (stat layout + visual weight).
+`counting-dynamic-scale` (the number beside the graphic — same ease/duration) · `svg-path-draw` (progress-ring draw mechanics) · `../../vidmuse-design/references/device-craft.md` (stat continuity, relation, and visual weight).

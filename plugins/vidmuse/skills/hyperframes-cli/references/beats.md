@@ -17,7 +17,7 @@ npx hyperframes browser ensure
 ```
 
 For a complete beat-synced VidMuse film, keep ownership with
-`/vidmuse-create` or `/vidmuse-recut`. Use `/hyperframes-creative`
+`/vidmuse-create` or `/vidmuse-recut`. Use `/hyperframes-animation`
 `references/audio-reactive.md` and `scripts/extract-audio-data.py` for the
 deterministic audio map; use this `beats` command only when an existing
 HyperFrames project specifically needs its Studio beat grid.

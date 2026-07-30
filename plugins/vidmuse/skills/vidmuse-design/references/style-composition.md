@@ -15,7 +15,7 @@ single-dimension atoms, optionally using one profile as a reference anchor.
 ## Private kit surfaces (browse before composing)
 
 ```bash
-python3 scripts/taste.py --index --domain packs       # 12 private VidMuse looks
+python3 scripts/taste.py --index --domain packs       # 13 private VidMuse looks
 python3 scripts/taste.py --index --domain examples    # init --example structure kits
 python3 scripts/taste.py --index --domain showcases   # launch production references
 python3 scripts/taste.py --index --domain profiles    # atom-combination precedents

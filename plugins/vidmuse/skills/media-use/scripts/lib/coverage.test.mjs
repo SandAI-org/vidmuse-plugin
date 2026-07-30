@@ -53,7 +53,7 @@ test("bundled skill docs keep media execution on the VidMuse boundary", () => {
     "hyperframes-cli/references/init-and-scaffold.md",
     "hyperframes-cli/references/upgrade-info-misc.md",
     "hyperframes-core/references/script-format.md",
-    "hyperframes-creative/references/composition-patterns.md",
+    "hyperframes-core/references/composition-patterns.md",
     "hyperframes-animation/rules/asr-keyword-glow.md",
     "hyperframes/references/capability-menu.md",
   ];

@@ -99,7 +99,7 @@ A rule's own **Critical Constraints** section lists only what is SPECIFIC to tha
 <nudge-curve path="rules/nudge-curve.md">Slow-fast-slow three-phase group slide (power3.in ramp → linear burst → power4.out tail, 10/65/25 distance, tail ≥3× ramp-in) to reposition a composed group and reveal content during the burst. Tags: slide, reposition, group-motion, nudge, slow-fast-slow</nudge-curve>
 </rules>
 
-## Effect Recipes (moved from hyperframes-creative)
+## Effect Recipes
 
 <rules>
 <gsap-effects path="rules/gsap-effects.md">Drop-in GSAP timeline patterns — typewriter, audio visualizer, and other reusable choreography blocks. Tags: gsap, recipe, drop-in, typewriter, audio-visualizer</gsap-effects>

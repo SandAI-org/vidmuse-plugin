@@ -36,7 +36,7 @@ bash ~/.claude/skills/vidmuse-recut/scripts/setup.sh
 | `npx hyperframes` 渲染运行时 | `hyperframes-animation/core/cli/keyframes/registry` |
 
 随包 `assets/vendor/vidmuse-cli` 在全局没有 `vidmuse` 时拷进 `/usr/local/bin` 或 `~/.local/bin`。  
-`vidmuse-create`、`vidmuse-motion`、`hyperframes` 和 `hyperframes-creative`
+`vidmuse-create`、`vidmuse-motion` 和 `hyperframes`
 不属于 Recut 启动硬依赖，缺失不会阻塞 Recut。不要安装或调用官方
 `talking-head-recut`。
 
@@ -53,12 +53,12 @@ ASR 出的文字会标明来源给你看一眼：机器识别容易错专有名�
 
 视觉方向由私有 `/vidmuse-design` capability 负责，Recut 只向它传递已经确认的内容覆盖、真实关键帧、画幅、字幕区和密度预算：
 
-1. **Preset** — `vidmuse-design/library/frame-packs/` 私有持有 12 套视觉包。
+1. **Preset** — `vidmuse-design/library/frame-packs/` 私有持有 13 套视觉包。
 2. **Composed** — 私有 atoms + profiles 现场组合，默认路径。
 
 每条片的最终 token 只写在项目 `FRAME.md`。设计 capability 返回
 `effect_affinity` 和 Treatment 约束；Recut 再用自己的效果目录选择和安装
-Registry 机制。运行时不读取 `hyperframes-creative` 的预设。
+Registry 机制。运行时不读取第二套视觉 authority。
 
 ## 维护者验证
 

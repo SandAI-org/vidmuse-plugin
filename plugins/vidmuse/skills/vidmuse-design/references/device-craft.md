@@ -48,6 +48,13 @@ counts as that one system. A progress rail *and* separate chapter numbers
 
 ## Data and chart moments
 
+### Preserve one visual space across related values
+
+When successive values describe one concept, keep their coordinate system,
+material, and typographic hierarchy stable. Change the value or relation, not
+the entire aesthetic. A visual-world change signals a new concept and should
+not happen merely because the next number arrived.
+
 ### Numbers come from the transcript — nowhere else
 
 The Numerals & Claims hard rule applies with no exceptions: every digit on

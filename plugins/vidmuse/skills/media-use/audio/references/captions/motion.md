@@ -69,7 +69,7 @@ Keep audio reactivity subtle — 3-6% scale variation and soft glow. Heavy pulsi
 To generate the audio data file:
 
 ```bash
-python3 skills/hyperframes-creative/scripts/extract-audio-data.py audio.mp3 --fps 30 --bands 8 -o audio-data.json
+python3 skills/hyperframes-animation/scripts/extract-audio-data.py audio.mp3 --fps 30 --bands 8 -o audio-data.json
 ```
 
 ## Combining Techniques
@@ -84,4 +84,4 @@ Caption motion uses standard HyperFrames runtime APIs. Use the canonical sources
 
 - **GSAP timeline + tween syntax** — `hyperframes-animation/adapters/gsap.md` (eases, position parameter, performance)
 - **`window.__hyperframes.fitTextFontSize` / `pretext`** — `hyperframes-core/references/determinism-rules.md` → Layout Contract (overflow prevention, per-frame text measurement)
-- **Audio data extraction** — generate via `python3 skills/hyperframes-creative/scripts/extract-audio-data.py audio.mp3 --fps 30 --bands 8 -o audio-data.json`, then load inline as shown in "Audio-Reactive Captions" above
+- **Audio data extraction** — generate via `python3 skills/hyperframes-animation/scripts/extract-audio-data.py audio.mp3 --fps 30 --bands 8 -o audio-data.json`, then load inline as shown in "Audio-Reactive Captions" above

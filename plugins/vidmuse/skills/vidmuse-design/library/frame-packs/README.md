@@ -1,8 +1,8 @@
 # Private VidMuse style packs
 
-VidMuse-owned runtime copies of 12 reviewed frame systems. Their original
+VidMuse-owned runtime copies of 13 reviewed frame systems. Their original
 source is recorded for provenance, but this library is complete inside the
-plugin and does not read `hyperframes-creative` at runtime.
+plugin and has no external creative-skill runtime dependency.
 
 Each directory is a private **frame pack**:
 

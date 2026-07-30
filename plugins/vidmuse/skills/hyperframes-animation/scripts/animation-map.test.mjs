@@ -9,7 +9,7 @@ import { describe, it } from "node:test";
 const REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 const HELPERS = [
   join(REPO_ROOT, "skills", "hyperframes-animation", "scripts", "animation-map.mjs"),
-  join(REPO_ROOT, "skills", "hyperframes-creative", "scripts", "contrast-report.mjs"),
+  join(REPO_ROOT, "skills", "hyperframes-core", "scripts", "contrast-report.mjs"),
 ];
 
 describe("HyperFrames skill helpers", () => {
@@ -123,13 +123,13 @@ describe("HyperFrames skill helpers", () => {
 // that a future fix could land in one copy and silently miss in the other —
 // the exact drift class the audio.mjs identity pin was born to catch.
 describe("package-loader parity", () => {
-  it("package-loader.mjs is byte-identical to hyperframes-creative's copy (the stated contract)", () => {
+  it("package-loader.mjs is byte-identical to hyperframes-core's copy (the stated contract)", () => {
     const here = readFileSync(
       join(REPO_ROOT, "skills", "hyperframes-animation", "scripts", "package-loader.mjs"),
       "utf8",
     );
     const sibling = readFileSync(
-      join(REPO_ROOT, "skills", "hyperframes-creative", "scripts", "package-loader.mjs"),
+      join(REPO_ROOT, "skills", "hyperframes-core", "scripts", "package-loader.mjs"),
       "utf8",
     );
     assert.equal(here, sibling);

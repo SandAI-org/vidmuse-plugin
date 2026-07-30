@@ -96,21 +96,27 @@ and the visual references selected by
 For `vox`, read only
 [`references/vox-collage.md`](references/vox-collage.md) for visual craft.
 
+Use [`references/story-spine.md`](references/story-spine.md) when the supplied
+story is incomplete or the film needs a stronger dramatic turn. It owns
+proposition and progression, not visual tokens.
+
 After the film path establishes its proposition, treatment, real evidence, and
 coverage, load `/vidmuse-design` for the shared visual authority. Give it the
 approved treatment, source/subject evidence, storyboard frames, locked copy,
 aspect/caption band, planned density, `film_mode: create`, and the selected
 `create_path`. It returns the project `FRAME.md`, caption identity, direction
 showcase, and successful `frame_md.py --check` report without taking over scene
-planning or animation. Do not continue with an unvalidated FRAME or load
-`hyperframes-creative` as a second look source.
+planning or animation. Do not continue with an unvalidated FRAME or load a
+second visual authority.
 
 ### 3. Choose the sound spine
 
 Honor the user's requested sound format:
 
 - If narration is requested, load `/media-use`, generate VidMuse TTS, and use
-  real ATA word timing. Never invent word times or substitute system TTS.
+  real ATA word timing. Read
+  [`references/narration-craft.md`](references/narration-craft.md) before
+  locking the script. Never invent word times or substitute system TTS.
 - If narration is not requested, do not manufacture it. A product launch film
   should still use music by default unless the user explicitly asks for
   silence.
@@ -131,6 +137,11 @@ promo, four to six scenes are usually enough:
 Describe each scene by its focal subject, start state, end state, camera move,
 main action, outgoing handoff, and source asset. Do not divide the runtime into
 equal sections by default.
+
+Read [`references/scene-brief.md`](references/scene-brief.md) and cite exact
+project `FRAME.md` tokens in each scene packet. The scene brief enriches
+story, proof, choreography, and handoffs; it must not reopen the selected
+visual direction.
 
 Use `DESIGN.md`, `SCRIPT.md`, `STORYBOARD.md`, frame sketches, or an animatic
 when they help the current film. They are working media, not mandatory

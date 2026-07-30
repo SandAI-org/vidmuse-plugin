@@ -34,8 +34,8 @@ class EffectAffinityTests(unittest.TestCase):
     def test_affinity_accepts_ids_in_registry_catalog(self) -> None:
         report = effects.validate_affinity(self.packs, self.catalog, self.overlay)
         self.assertTrue(report["ok"])
-        self.assertEqual(report["packs"], 12)
-        self.assertEqual(report["referenced_ids"], 37)
+        self.assertEqual(report["packs"], 13)
+        self.assertEqual(report["referenced_ids"], 40)
 
     def test_affinity_rejects_unknown_id(self) -> None:
         incomplete = self.catalog[1:]

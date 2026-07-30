@@ -1,10 +1,8 @@
 // Read-only adapters for assets that live outside the Core Pack.
 //
-// Both media-use and hyperframes-creative are vendored from an upstream
-// HyperFrames clone (see skills/VENDOR-SOURCES.json). Copying their assets into
-// the Core Pack would create a permanent re-vendor patch and a second source of
-// truth. Instead these adapters INDEX them in place: one query surface, zero
-// byte movement, and `--reindex` picks up upstream changes for free.
+// Static assets owned by sibling skills stay with their semantic owner.
+// Copying those bytes into the Core Pack would create a second source of truth,
+// so these adapters index them in place.
 //
 // Contract for every adapter:
 //   scan(absRootDir, { rootName, licenseState }) -> { items[], warnings[] }
@@ -80,9 +78,9 @@ export function scanSfx(dir, { rootName, licenseState } = {}) {
 }
 
 // --- palette ---------------------------------------------------------------
-// hyperframes-creative/palettes/*.md holds fenced blocks of hex rows, one
+// vidmuse-design/data/palettes/*.md holds fenced blocks of hex rows, one
 // palette per line. Parsing markdown is admittedly coarse, but it keeps
-// hyperframes-creative as the owner. Nine files of coarse parsing is an
+// vidmuse-design as the owner. Nine files of coarse parsing is an
 // acceptable trade against duplicating the values; a parse miss surfaces as a
 // warning so a layout change is visible rather than silently dropping colors.
 
@@ -157,7 +155,7 @@ export function scanPalettes(dir, { rootName, licenseState } = {}) {
         ...(parsed.heading ? { group: parsed.heading } : {}),
         value: colors,
         license_state: licenseState || null,
-        license_origin: "hyperframes-creative palettes",
+        license_origin: "VidMuse Design palette seeds",
       });
     });
   }

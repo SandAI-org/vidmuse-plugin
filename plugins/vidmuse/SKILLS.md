@@ -42,7 +42,6 @@ Same set as `npx hyperframes skills update` core tier (`FALLBACK_CORE_SKILLS`):
 | `hyperframes-core` | Composition contract, `data-*`, determinism, STORYBOARD/SCRIPT |
 | `hyperframes-cli` | CLI loop: init / lint / check / keyframes / snapshot / render |
 | `hyperframes-animation` | Motion rules, blueprints, seven runtime adapters |
-| `hyperframes-creative` | Optional upstream creative reference retained for HyperFrames compatibility; not the VidMuse visual authority |
 | `hyperframes-keyframes` | Seek-safe keyframe diagnostics |
 | `hyperframes-registry` | `hyperframes add` / catalog / wiring |
 
@@ -111,10 +110,15 @@ From a checkout of this plugin repo:
 # refresh HyperFrames core from a local hyperframes clone
 HF=~/Desktop/hyperframes/skills
 for s in hyperframes hyperframes-animation hyperframes-cli hyperframes-core \
-         hyperframes-creative hyperframes-keyframes hyperframes-registry media-use; do
+         hyperframes-keyframes hyperframes-registry media-use; do
   rsync -a --delete --exclude '.DS_Store' "$HF/$s/" "skills/$s/"
 done
 
 ```
+
+Creative reference material is not refreshed as a standalone vendored skill.
+Its owned capabilities are distributed across `vidmuse-design`,
+`vidmuse-create`, `hyperframes-animation`, `hyperframes-core`, and
+`vidmuse-assets`.
 
 Then commit and `npm run package:codex-plugin`.

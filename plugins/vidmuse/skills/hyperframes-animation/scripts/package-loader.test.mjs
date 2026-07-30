@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { copyFileSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
@@ -22,16 +22,37 @@ test("hyperframesPackageSpec: env override wins", async () => {
   }
 });
 
-// (b) resolvable version (in-repo) pins the bundled hyperframes/@hyperframes/cli version.
-test("hyperframesPackageSpec: resolvable in-repo version pins it", async () => {
-  const prev = process.env[ENV];
-  delete process.env[ENV];
+// (b) an ancestor HyperFrames package manifest pins the bootstrap version.
+// Build that layout explicitly so the test also works in the standalone
+// VidMuse plugin repo, which intentionally has no root HyperFrames package.
+test("hyperframesPackageSpec: ancestor HyperFrames version pins it", () => {
+  const dir = mkdtempSync(join(tmpdir(), "hf-pkgloader-pinned-"));
   try {
-    const { hyperframesPackageSpec } = await import("./package-loader.mjs");
-    const spec = hyperframesPackageSpec("@hyperframes/producer");
-    assert.match(spec, /^@hyperframes\/producer@\d+\.\d+\.\d+/);
+    const nested = join(dir, "skills", "hyperframes-animation", "scripts");
+    mkdirSync(nested, { recursive: true });
+    writeFileSync(
+      join(dir, "package.json"),
+      JSON.stringify({ name: "hyperframes", version: "1.2.3" }),
+    );
+    copyFileSync(join(HERE, "package-loader.mjs"), join(nested, "package-loader.mjs"));
+    const probe = join(nested, "probe.mjs");
+    writeFileSync(
+      probe,
+      [
+        'import { hyperframesPackageSpec } from "./package-loader.mjs";',
+        'process.stdout.write(hyperframesPackageSpec("@hyperframes/producer"));',
+        "",
+      ].join("\n"),
+    );
+    const res = spawnSync(process.execPath, [probe], {
+      cwd: dir,
+      encoding: "utf8",
+      env: { ...process.env, [ENV]: "" },
+    });
+    assert.equal(res.status, 0, res.stderr);
+    assert.equal(res.stdout.trim(), "@hyperframes/producer@1.2.3");
   } finally {
-    if (prev !== undefined) process.env[ENV] = prev;
+    rmSync(dir, { recursive: true, force: true });
   }
 });
 

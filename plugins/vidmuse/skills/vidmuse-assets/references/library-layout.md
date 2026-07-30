@@ -33,7 +33,7 @@ Read `assets/core-pack/README.md` before admitting content or adding a type.
 
 Core Pack is also the **single query surface** over static assets that live in
 other skills. `manifest.json` declares roots; only `core-pack` is owned. `sfx`
-(from `media-use`) and `palette` (from `hyperframes-creative`) are indexed
+(from `media-use`) and `palette` (from `vidmuse-design`) are indexed
 read-only, in place. Those skills are vendored from upstream HyperFrames, so
 copying their files would mean a permanent re-vendor patch and a second source of
 truth. One index, one query, zero byte movement.

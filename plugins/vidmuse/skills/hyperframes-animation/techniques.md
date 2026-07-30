@@ -383,12 +383,12 @@ for (var f = 0; f < AUDIO_DATA.totalFrames; f++) {
 Per-frame sampling is required — a single tween will not react. Use the extract script:
 
 ```bash
-python3 skills/hyperframes-creative/scripts/extract-audio-data.py narration.wav --fps 30 --bands 16 -o audio-data.json
+python3 skills/hyperframes-animation/scripts/extract-audio-data.py narration.wav --fps 30 --bands 16 -o audio-data.json
 ```
 
 Keep text/logo intensity subtle (≤5% scale, ≤30% glow) — audio-reactive motion on tiny elements reads as jitter. Bigger backgrounds can push to 10–30%.
 
-**Never do:** equalizer bars, spectrum analyzers, waveform displays, strobing, rainbow color cycling. The audio provides _timing and intensity_; the visual vocabulary still comes from the brand. See `skills/hyperframes-creative/references/audio-reactive.md` for the full API and anti-patterns.
+**Never do:** equalizer bars, spectrum analyzers, waveform displays, strobing, rainbow color cycling. The audio provides _timing and intensity_; the visual vocabulary still comes from the project `FRAME.md`. See `references/audio-reactive.md` for the full API and anti-patterns.
 
 ---
 

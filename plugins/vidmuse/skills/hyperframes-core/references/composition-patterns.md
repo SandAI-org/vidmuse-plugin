@@ -232,7 +232,38 @@ Reach for this over multiple sequential slots when scenes share DOM, share a can
 
 ### D. Audio at root, reactive visual inside
 
-Audio always lives at the host (`index.html`) as a root-level `<audio>` so playback survives scene cuts. A sub-comp that visualizes audio should read a **pre-baked** frequency curve at init, then sample the baked curve from its timeline — the visual must still be a deterministic function of `tl.time()`, not of `audio.currentTime`. See `determinism-rules.md` and `hyperframes-creative` for the authoring pattern.
+Audio always lives at the host (`index.html`) as a root-level `<audio>` so playback survives scene cuts. A sub-comp that visualizes audio should read a **pre-baked** frequency curve at init, then sample the baked curve from its timeline — the visual must still be a deterministic function of `tl.time()`, not of `audio.currentTime`. See `determinism-rules.md` and `../../hyperframes-animation/references/audio-reactive.md` for the authoring pattern.
+
+## Creative staging patterns
+
+These are composition structures, not visual styles. Skin them from the
+project `FRAME.md` and use only when the story calls for the relationship.
+
+### Picture in picture
+
+Keep the evidence source large enough to read, with one clearly subordinate
+context layer. Media stays a direct child of the host root; animate a wrapper
+when lifecycle visibility would conflict with opacity or scale. Avoid two
+equally important moving panes.
+
+### Text behind a subject
+
+Use a real foreground matte or mask so occlusion carries depth. Preserve a
+fully readable interval before or after the overlap, and keep load-bearing
+words out of uncertain segmentation edges. The effect is a staging choice,
+not permission to rasterize text into footage.
+
+### Title card
+
+A title card earns full-frame ownership at a true chapter, thesis, or final
+lockup. Give it one dominant statement and a deliberate hold. Do not insert
+cards merely to reset a layout that could hand off continuously.
+
+### Slideshow or evidence sequence
+
+Keep successive images in one spatial system and let crop, position, or a
+persistent annotation establish continuity. Preload local media, preserve
+aspect behavior, and avoid rebuilding the entire frame for each item.
 
 ## Naming Conventions
 

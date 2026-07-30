@@ -133,7 +133,7 @@ catalog remains authoritative, and receipts separate copyright permission from
 `brand`.
 
 **Fonts specifically:** HyperFrames pre-bundles 18 families (see
-`hyperframes-creative/references/typography.md`). Re-shipping one of those is
+`vidmuse-assets/references/font-resolution.md`). Re-shipping one of those is
 pure install weight. Admit only families it does *not* bundle.
 The pack must also record allowlisted redistribution, whether the files were
 subsetted or otherwise modified, and the resulting glyph coverage.
@@ -152,7 +152,7 @@ else is indexed **in place, read-only**:
 | Root | Owner | Types |
 | --- | --- | --- |
 | `media-use-sfx` | `media-use/audio/assets/sfx` | `sfx` |
-| `hf-creative-palettes` | `hyperframes-creative/palettes` | `palette` |
+| `design-palettes` | `vidmuse-design/data/palettes` | `palette` |
 
 Both of those skills are vendored from an upstream HyperFrames clone (see
 `skills/VENDOR-SOURCES.json`). Copying their files here would create a permanent

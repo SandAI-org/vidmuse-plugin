@@ -19,15 +19,15 @@
       "license_state": "verified-commercial",
       "description": "Read-only index of the bundled SFX media-use already owns. Files are never copied here; media-use keeps the provider and the doctor check."
     },
-    "hf-creative-palettes": {
-      "path": "../../../hyperframes-creative/palettes",
+    "design-palettes": {
+      "path": "../../../vidmuse-design/data/palettes",
       "owned": false,
       "adapter": "palette",
       "types": [
         "palette"
       ],
       "license_state": "verified-commercial",
-      "description": "Read-only index of the HyperFrames creative palettes. Colors are data owned by hyperframes-creative; indexing them here gives one query surface without a second source of truth."
+      "description": "Read-only index of VidMuse Design palette seeds. Design owns color intent; Assets exposes one query surface without copying the data."
     }
   },
   "packs": [

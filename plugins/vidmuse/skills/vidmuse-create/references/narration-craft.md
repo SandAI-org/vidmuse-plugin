@@ -1,6 +1,9 @@
-# Narration & Script
+# Narration Craft
 
 How to write narration scripts for video compositions. Read when the composition includes voiceover or TTS.
+
+This file owns writing and pacing. `/media-use` owns voice generation, timing,
+receipts, and audio processing; the active Create workflow owns story approval.
 
 ## Pacing
 

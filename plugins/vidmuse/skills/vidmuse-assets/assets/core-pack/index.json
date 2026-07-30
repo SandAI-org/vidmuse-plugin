@@ -126,7 +126,7 @@
   },
   "items": [
     {
-      "id": "hf-creative-palettes/bold-energetic/1",
+      "id": "design-palettes/bold-energetic/1",
       "type": "palette",
       "path": "bold-energetic.md",
       "tags": [
@@ -150,11 +150,11 @@
         "#3A86FF"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/bold-energetic/2",
+      "id": "design-palettes/bold-energetic/2",
       "type": "palette",
       "path": "bold-energetic.md",
       "tags": [
@@ -178,11 +178,11 @@
         "#4CC9F0"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/bold-energetic/3",
+      "id": "design-palettes/bold-energetic/3",
       "type": "palette",
       "path": "bold-energetic.md",
       "tags": [
@@ -206,11 +206,11 @@
         "#073B4C"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/bold-energetic/4",
+      "id": "design-palettes/bold-energetic/4",
       "type": "palette",
       "path": "bold-energetic.md",
       "tags": [
@@ -234,11 +234,11 @@
         "#6A4C93"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/bold-energetic/5",
+      "id": "design-palettes/bold-energetic/5",
       "type": "palette",
       "path": "bold-energetic.md",
       "tags": [
@@ -262,11 +262,11 @@
         "#00F5D4"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/bold-energetic/6",
+      "id": "design-palettes/bold-energetic/6",
       "type": "palette",
       "path": "bold-energetic.md",
       "tags": [
@@ -290,11 +290,11 @@
         "#FFBD00"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/bold-energetic/7",
+      "id": "design-palettes/bold-energetic/7",
       "type": "palette",
       "path": "bold-energetic.md",
       "tags": [
@@ -318,11 +318,11 @@
         "#F35B04"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/bold-energetic/8",
+      "id": "design-palettes/bold-energetic/8",
       "type": "palette",
       "path": "bold-energetic.md",
       "tags": [
@@ -346,11 +346,11 @@
         "#73D2DE"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/clean-corporate/1",
+      "id": "design-palettes/clean-corporate/1",
       "type": "palette",
       "path": "clean-corporate.md",
       "tags": [
@@ -371,11 +371,11 @@
         "#EB5E28"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/clean-corporate/2",
+      "id": "design-palettes/clean-corporate/2",
       "type": "palette",
       "path": "clean-corporate.md",
       "tags": [
@@ -396,11 +396,11 @@
         "#F2E9E4"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/clean-corporate/3",
+      "id": "design-palettes/clean-corporate/3",
       "type": "palette",
       "path": "clean-corporate.md",
       "tags": [
@@ -421,11 +421,11 @@
         "#293241"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/clean-corporate/4",
+      "id": "design-palettes/clean-corporate/4",
       "type": "palette",
       "path": "clean-corporate.md",
       "tags": [
@@ -446,11 +446,11 @@
         "#D90429"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/clean-corporate/5",
+      "id": "design-palettes/clean-corporate/5",
       "type": "palette",
       "path": "clean-corporate.md",
       "tags": [
@@ -471,11 +471,11 @@
         "#284B63"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/clean-corporate/6",
+      "id": "design-palettes/clean-corporate/6",
       "type": "palette",
       "path": "clean-corporate.md",
       "tags": [
@@ -496,11 +496,11 @@
         "#8B8C89"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/clean-corporate/7",
+      "id": "design-palettes/clean-corporate/7",
       "type": "palette",
       "path": "clean-corporate.md",
       "tags": [
@@ -521,11 +521,11 @@
         "#333533"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/clean-corporate/8",
+      "id": "design-palettes/clean-corporate/8",
       "type": "palette",
       "path": "clean-corporate.md",
       "tags": [
@@ -546,11 +546,11 @@
         "#81C3D7"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/dark-premium/1",
+      "id": "design-palettes/dark-premium/1",
       "type": "palette",
       "path": "dark-premium.md",
       "tags": [
@@ -571,11 +571,11 @@
         "#FFFFFF"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/dark-premium/2",
+      "id": "design-palettes/dark-premium/2",
       "type": "palette",
       "path": "dark-premium.md",
       "tags": [
@@ -596,11 +596,11 @@
         "#FFD60A"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/dark-premium/3",
+      "id": "design-palettes/dark-premium/3",
       "type": "palette",
       "path": "dark-premium.md",
       "tags": [
@@ -621,11 +621,11 @@
         "#E0E1DD"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/dark-premium/4",
+      "id": "design-palettes/dark-premium/4",
       "type": "palette",
       "path": "dark-premium.md",
       "tags": [
@@ -646,11 +646,11 @@
         "#F0EBD8"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/dark-premium/5",
+      "id": "design-palettes/dark-premium/5",
       "type": "palette",
       "path": "dark-premium.md",
       "tags": [
@@ -671,11 +671,11 @@
         "#FF9F1C"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/dark-premium/6",
+      "id": "design-palettes/dark-premium/6",
       "type": "palette",
       "path": "dark-premium.md",
       "tags": [
@@ -696,11 +696,11 @@
         "#E5383B"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/dark-premium/7",
+      "id": "design-palettes/dark-premium/7",
       "type": "palette",
       "path": "dark-premium.md",
       "tags": [
@@ -721,11 +721,11 @@
         "#8D0801"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/dark-premium/8",
+      "id": "design-palettes/dark-premium/8",
       "type": "palette",
       "path": "dark-premium.md",
       "tags": [
@@ -746,11 +746,11 @@
         "#78290F"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/jewel-rich/1",
+      "id": "design-palettes/jewel-rich/1",
       "type": "palette",
       "path": "jewel-rich.md",
       "tags": [
@@ -772,11 +772,11 @@
         "#0F4C5C"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/jewel-rich/2",
+      "id": "design-palettes/jewel-rich/2",
       "type": "palette",
       "path": "jewel-rich.md",
       "tags": [
@@ -798,11 +798,11 @@
         "#669BBC"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/jewel-rich/3",
+      "id": "design-palettes/jewel-rich/3",
       "type": "palette",
       "path": "jewel-rich.md",
       "tags": [
@@ -824,11 +824,11 @@
         "#7B2CBF"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/jewel-rich/4",
+      "id": "design-palettes/jewel-rich/4",
       "type": "palette",
       "path": "jewel-rich.md",
       "tags": [
@@ -850,11 +850,11 @@
         "#EAAC8B"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/jewel-rich/5",
+      "id": "design-palettes/jewel-rich/5",
       "type": "palette",
       "path": "jewel-rich.md",
       "tags": [
@@ -876,11 +876,11 @@
         "#FFE6A7"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/jewel-rich/6",
+      "id": "design-palettes/jewel-rich/6",
       "type": "palette",
       "path": "jewel-rich.md",
       "tags": [
@@ -902,11 +902,11 @@
         "#E0B1CB"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/jewel-rich/7",
+      "id": "design-palettes/jewel-rich/7",
       "type": "palette",
       "path": "jewel-rich.md",
       "tags": [
@@ -928,11 +928,11 @@
         "#FED0BB"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/jewel-rich/8",
+      "id": "design-palettes/jewel-rich/8",
       "type": "palette",
       "path": "jewel-rich.md",
       "tags": [
@@ -954,11 +954,11 @@
         "#C32F27"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/monochrome/1",
+      "id": "design-palettes/monochrome/1",
       "type": "palette",
       "path": "monochrome.md",
       "tags": [
@@ -982,11 +982,11 @@
         "#212529"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/monochrome/2",
+      "id": "design-palettes/monochrome/2",
       "type": "palette",
       "path": "monochrome.md",
       "tags": [
@@ -1006,11 +1006,11 @@
         "#001233"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/monochrome/3",
+      "id": "design-palettes/monochrome/3",
       "type": "palette",
       "path": "monochrome.md",
       "tags": [
@@ -1031,11 +1031,11 @@
         "#89C2D9"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/monochrome/4",
+      "id": "design-palettes/monochrome/4",
       "type": "palette",
       "path": "monochrome.md",
       "tags": [
@@ -1055,11 +1055,11 @@
         "#C2C5AA"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/monochrome/5",
+      "id": "design-palettes/monochrome/5",
       "type": "palette",
       "path": "monochrome.md",
       "tags": [
@@ -1079,11 +1079,11 @@
         "#E0AFA0"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/monochrome/6",
+      "id": "design-palettes/monochrome/6",
       "type": "palette",
       "path": "monochrome.md",
       "tags": [
@@ -1105,11 +1105,11 @@
         "#FFBA08"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/monochrome/7",
+      "id": "design-palettes/monochrome/7",
       "type": "palette",
       "path": "monochrome.md",
       "tags": [
@@ -1130,11 +1130,11 @@
         "#FFCCD5"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/monochrome/8",
+      "id": "design-palettes/monochrome/8",
       "type": "palette",
       "path": "monochrome.md",
       "tags": [
@@ -1154,11 +1154,11 @@
         "#F6AA1C"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/nature-earth/1",
+      "id": "design-palettes/nature-earth/1",
       "type": "palette",
       "path": "nature-earth.md",
       "tags": [
@@ -1179,11 +1179,11 @@
         "#BC6C25"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/nature-earth/2",
+      "id": "design-palettes/nature-earth/2",
       "type": "palette",
       "path": "nature-earth.md",
       "tags": [
@@ -1204,11 +1204,11 @@
         "#344E41"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/nature-earth/3",
+      "id": "design-palettes/nature-earth/3",
       "type": "palette",
       "path": "nature-earth.md",
       "tags": [
@@ -1229,11 +1229,11 @@
         "#BC4749"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/nature-earth/4",
+      "id": "design-palettes/nature-earth/4",
       "type": "palette",
       "path": "nature-earth.md",
       "tags": [
@@ -1254,11 +1254,11 @@
         "#2F3E46"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/nature-earth/5",
+      "id": "design-palettes/nature-earth/5",
       "type": "palette",
       "path": "nature-earth.md",
       "tags": [
@@ -1279,11 +1279,11 @@
         "#6C584C"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/nature-earth/6",
+      "id": "design-palettes/nature-earth/6",
       "type": "palette",
       "path": "nature-earth.md",
       "tags": [
@@ -1304,11 +1304,11 @@
         "#ECF39E"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/nature-earth/7",
+      "id": "design-palettes/nature-earth/7",
       "type": "palette",
       "path": "nature-earth.md",
       "tags": [
@@ -1329,11 +1329,11 @@
         "#F6FFF8"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/nature-earth/8",
+      "id": "design-palettes/nature-earth/8",
       "type": "palette",
       "path": "nature-earth.md",
       "tags": [
@@ -1354,11 +1354,11 @@
         "#619B8A"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/neon-electric/1",
+      "id": "design-palettes/neon-electric/1",
       "type": "palette",
       "path": "neon-electric.md",
       "tags": [
@@ -1379,11 +1379,11 @@
         "#3A0CA3"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/neon-electric/2",
+      "id": "design-palettes/neon-electric/2",
       "type": "palette",
       "path": "neon-electric.md",
       "tags": [
@@ -1404,11 +1404,11 @@
         "#E9FF70"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/neon-electric/3",
+      "id": "design-palettes/neon-electric/3",
       "type": "palette",
       "path": "neon-electric.md",
       "tags": [
@@ -1429,11 +1429,11 @@
         "#48BFE3"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/neon-electric/4",
+      "id": "design-palettes/neon-electric/4",
       "type": "palette",
       "path": "neon-electric.md",
       "tags": [
@@ -1454,11 +1454,11 @@
         "#6FFFE9"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/neon-electric/5",
+      "id": "design-palettes/neon-electric/5",
       "type": "palette",
       "path": "neon-electric.md",
       "tags": [
@@ -1479,11 +1479,11 @@
         "#0EAD69"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/neon-electric/6",
+      "id": "design-palettes/neon-electric/6",
       "type": "palette",
       "path": "neon-electric.md",
       "tags": [
@@ -1504,11 +1504,11 @@
         "#F20089"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/neon-electric/7",
+      "id": "design-palettes/neon-electric/7",
       "type": "palette",
       "path": "neon-electric.md",
       "tags": [
@@ -1529,11 +1529,11 @@
         "#240046"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/neon-electric/8",
+      "id": "design-palettes/neon-electric/8",
       "type": "palette",
       "path": "neon-electric.md",
       "tags": [
@@ -1553,11 +1553,11 @@
         "#5409DA"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/pastel-soft/1",
+      "id": "design-palettes/pastel-soft/1",
       "type": "palette",
       "path": "pastel-soft.md",
       "tags": [
@@ -1578,11 +1578,11 @@
         "#A2D2FF"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/pastel-soft/2",
+      "id": "design-palettes/pastel-soft/2",
       "type": "palette",
       "path": "pastel-soft.md",
       "tags": [
@@ -1603,11 +1603,11 @@
         "#D4A373"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/pastel-soft/3",
+      "id": "design-palettes/pastel-soft/3",
       "type": "palette",
       "path": "pastel-soft.md",
       "tags": [
@@ -1628,11 +1628,11 @@
         "#BBD0FF"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/pastel-soft/4",
+      "id": "design-palettes/pastel-soft/4",
       "type": "palette",
       "path": "pastel-soft.md",
       "tags": [
@@ -1653,11 +1653,11 @@
         "#5E6472"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/pastel-soft/5",
+      "id": "design-palettes/pastel-soft/5",
       "type": "palette",
       "path": "pastel-soft.md",
       "tags": [
@@ -1678,11 +1678,11 @@
         "#4A5759"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/pastel-soft/6",
+      "id": "design-palettes/pastel-soft/6",
       "type": "palette",
       "path": "pastel-soft.md",
       "tags": [
@@ -1703,11 +1703,11 @@
         "#FFD6BA"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/pastel-soft/7",
+      "id": "design-palettes/pastel-soft/7",
       "type": "palette",
       "path": "pastel-soft.md",
       "tags": [
@@ -1728,11 +1728,11 @@
         "#E29578"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/pastel-soft/8",
+      "id": "design-palettes/pastel-soft/8",
       "type": "palette",
       "path": "pastel-soft.md",
       "tags": [
@@ -1753,11 +1753,11 @@
         "#F07167"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/warm-editorial/1",
+      "id": "design-palettes/warm-editorial/1",
       "type": "palette",
       "path": "warm-editorial.md",
       "tags": [
@@ -1779,11 +1779,11 @@
         "#E76F51"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/warm-editorial/2",
+      "id": "design-palettes/warm-editorial/2",
       "type": "palette",
       "path": "warm-editorial.md",
       "tags": [
@@ -1805,11 +1805,11 @@
         "#540B0E"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/warm-editorial/3",
+      "id": "design-palettes/warm-editorial/3",
       "type": "palette",
       "path": "warm-editorial.md",
       "tags": [
@@ -1831,11 +1831,11 @@
         "#F2CC8F"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/warm-editorial/4",
+      "id": "design-palettes/warm-editorial/4",
       "type": "palette",
       "path": "warm-editorial.md",
       "tags": [
@@ -1857,11 +1857,11 @@
         "#F28482"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/warm-editorial/5",
+      "id": "design-palettes/warm-editorial/5",
       "type": "palette",
       "path": "warm-editorial.md",
       "tags": [
@@ -1883,11 +1883,11 @@
         "#EAE2B7"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/warm-editorial/6",
+      "id": "design-palettes/warm-editorial/6",
       "type": "palette",
       "path": "warm-editorial.md",
       "tags": [
@@ -1909,11 +1909,11 @@
         "#C8553D"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/warm-editorial/7",
+      "id": "design-palettes/warm-editorial/7",
       "type": "palette",
       "path": "warm-editorial.md",
       "tags": [
@@ -1935,11 +1935,11 @@
         "#772E25"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
-      "id": "hf-creative-palettes/warm-editorial/8",
+      "id": "design-palettes/warm-editorial/8",
       "type": "palette",
       "path": "warm-editorial.md",
       "tags": [
@@ -1961,8 +1961,8 @@
         "#F95738"
       ],
       "license_state": "verified-commercial",
-      "license_origin": "hyperframes-creative palettes",
-      "root": "hf-creative-palettes"
+      "license_origin": "VidMuse Design palette seeds",
+      "root": "design-palettes"
     },
     {
       "id": "lobe-brands/adobe",

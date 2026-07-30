@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.4.4",
+  "pluginVersion": "0.5.0",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -11,7 +11,6 @@
       "hyperframes-animation",
       "hyperframes-cli",
       "hyperframes-core",
-      "hyperframes-creative",
       "hyperframes-keyframes",
       "hyperframes-registry",
       "media-use"
@@ -31,9 +30,16 @@
     "skills/hyperframes/references/routes/talking-head-recut.md": "Redirect stub → /vidmuse-recut",
     "skills/hyperframes/references/capability-menu.md": "VidMuse-normalized capability inventory under /vidmuse: workflows own films; media-use and vidmuse-assets may complete standalone capability asks.",
     "skills/vidmuse-recut/SKILL.md": "Existing-speaking-footage film workflow; delegates ASR/ATA execution to media-use and semantic planning to vidmuse-assets.",
-    "skills/vidmuse-design/SKILL.md": "Private VidMuse visual-direction capability: progressive taste lookup, private frame packs, project FRAME.md, caption identity, treatment grammar, and real-content showcase; no hyperframes-creative runtime dependency.",
+    "skills/vidmuse-design/SKILL.md": "Private VidMuse visual-direction capability: progressive taste lookup, private frame packs, project FRAME.md, caption identity, treatment grammar, and real-content showcase.",
     "skills/media-use": "Adapted from the vendored Media OS into a user-facing VidMuse media capability and shared runtime: standalone ASR/ATA/TTS/generation/transforms, exact workflow execution, no film or semantic-asset ownership.",
     "skills/hyperframes-cli": "VidMuse boundary patch: composition/render-engine operations only; general doctor, TTS, transcription, background edits, AI generation, provider auth, and product delivery route through media-use + VidMuse CLI.",
+    "0.5.0": [
+      "retired the standalone creative compatibility skill and distributed its capabilities across focused VidMuse and HyperFrames skills",
+      "vidmuse-design owns frame craft, typography semantics, motion temperament, direction comparison, adherence review, 13 private frame packs, and palette seeds",
+      "vidmuse-create owns story spine, narration craft, and post-FRAME scene briefs",
+      "hyperframes-animation owns audio-reactive authoring and extraction; hyperframes-core owns contrast tooling and creative staging structures",
+      "vidmuse-assets owns deterministic font resolution and indexes VidMuse Design palettes without a second source of truth"
+    ],
     "0.4.4": [
       "private vidmuse-design capability shared by Recut and Create with progressive taste lookup and locally owned frame packs",
       "workflow-neutral vidmuse.design.frame.v1 contract with legacy Recut v4/v5 compatibility",
@@ -43,7 +49,7 @@
     "0.4.3": [
       "core-pack v2: per-pack license ledger, derived index.json, three discovery modes (keyword/table/sheet), and a data-driven types.json registry",
       "core-pack read path: media-use core-pack provider wired ahead of generation; new font/shape/texture/overlay/lottie/palette resolve types",
-      "cross-root indexing: media-use SFX and hyperframes-creative palettes are indexed read-only in place, never copied across the vendoring boundary",
+      "cross-root indexing: media-use SFX and the then-vendored creative palettes were indexed read-only in place, never copied across the vendoring boundary",
       "preinstalled content: lucide icons (ISC), curated Lobe brand marks (MIT), subsetted Noto SC fonts (OFL), original shapes and Lottie state animations (CC0)",
       "logo cascade: core-pack.brands added as the LAST tier so live sources stay authoritative; logo now resolves under --local-only",
       "logo identity fix: normalization erased non-Latin text, so any Chinese brand query matched the first brand scanned",

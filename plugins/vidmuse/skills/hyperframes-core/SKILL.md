@@ -7,7 +7,7 @@ description: The HyperFrames composition contract — build one renderable proje
 
 HyperFrames renders video from HTML. A composition is an HTML file whose DOM declares timing with `data-*` attributes, whose animation runtime is seekable, and whose media playback is owned by the framework.
 
-This skill is the **technical contract** — how to build one hyperframes project. The body below is the build guide; per-topic detail lives in `references/` (index next), read on demand. Other concerns live in the sibling domain skills — `hyperframes-animation`, `hyperframes-creative`, `media-use`, `hyperframes-cli`, `hyperframes-registry`.
+This skill is the **technical contract** — how to build one hyperframes project. The body below is the build guide; per-topic detail lives in `references/` (index next), read on demand. Other concerns live in the sibling domain skills — `hyperframes-animation`, `media-use`, `hyperframes-cli`, and `hyperframes-registry`; VidMuse visual direction lives in `vidmuse-design`, while story and timing stay with the owning product workflow.
 
 **In the VidMuse Codex plugin:** product routing for packaging / dressing / recutting existing speaking footage is **`/vidmuse-recut` only**. Sibling `/hyperframes` is a demoted domain reference (CLI pin + domain-skill map) — not the user-task entry. Load this skill while executing a VidMuse (or explicit HF project) run, not to choose the product workflow.
 
@@ -32,6 +32,10 @@ This skill is the **technical contract** — how to build one hyperframes projec
 | `references/subagent-dispatch.md`    | map subagent dispatch verbs (parallel fan-out / background / wait) to your harness                                                                                                 |
 | `references/frame-worker-core.md`    | the shared frame-worker role contract — each narrative workflow's packet builder prepends it to that workflow's `sub-agents/frame-worker.md` delta                                 |
 | `references/tailwind.md`             | work in a Tailwind v4 project (`init --tailwind`; runtime contract differs from Studio's v3)                                                                                       |
+
+The standalone `scripts/contrast-report.mjs` helper samples rendered text
+against its actual background when a composition needs a machine-readable
+contrast audit beyond the normal `hyperframes check` summary.
 
 For animation runtime specifics (GSAP API, Lottie, Three.js, etc.) go to `hyperframes-animation` → `adapters/<runtime>.md`.
 
