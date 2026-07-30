@@ -9,8 +9,8 @@ plan a real inventory to cast from — this is the single biggest lever for
 Capture is product truth and raw material, **not a storyboard generator**.
 Page order, navigation labels, and section cards must not become the scene
 order. After capture, return to
-[agency-preproduction.md](agency-preproduction.md) and design three treatments
-that transform this evidence through a directorial device.
+[product-launch-film.md](product-launch-film.md) and transform this evidence
+through one clear directorial idea.
 
 **When:** default for `create_path: promo` with a URL (site-to-video,
 saas-promo, brand-sizzle, launch). Also for explainers whose subject has an
@@ -66,10 +66,10 @@ working notes (the raw content may leave context later):
    `video-manifest.json` (real footage), `lottie-manifest.json`,
    `shaders.json` (recreate gradient/noise moods in HF canvas).
 
-**Rich captures (30+ images): dispatch a sub-agent** to view every image in
-`capture/assets/` and return a one-line-per-file catalog (filename — content,
-dominant colors, useful-for-which-beat). Do not burn main context paging
-through 200 images; do not cast beats from filenames alone.
+For rich captures, build a compact visual catalog of the plausible assets:
+filename, content, dominant colors, and likely shot use. A sub-agent may do
+this when available, but the important rule is to inspect visual content and
+not cast scenes from filenames alone.
 
 ## 3. Curate → `ASSET_AUDIT.md` + provenance
 
@@ -84,8 +84,7 @@ input. Curate:
    shows, which beat(s) it serves, why it earned the cut.
 4. Register every curated asset in `$WORK_DIR/asset-sources.json` with
    `type: "website_capture"`, `source_url`, `local_file`, `usage`. This is
-   what `check_motion.py` S3 verifies proof beats against — an unregistered
-   screenshot is invisible to the gate.
+   the provenance record that keeps product proof traceable.
 
 Keep `capture/` on disk during production (re-curation is cheap); exclude it
 from delivery/archive.
@@ -96,8 +95,8 @@ from delivery/archive.
 | --- | --- | --- |
 | `tokens.json` colors/fonts | **FRAME.md seed** | map brand colors onto FRAME roles (ink / canvas / accents); adopt the site's real font files from `capture/assets/` |
 | `visible-text.txt` | script + golden lines | narration vocabulary and on-screen copy quote the site's own language |
-| `asset-descriptions.md` / sub-agent catalog | **film-plan.json `asset_candidates`** | each visual beat lists 1–3 candidate assets by filename before implementation |
-| `screenshots/` + subpage captures | `ui_proof_path` beats | screenshot-camera / hybrid-slices source material |
+| `asset-descriptions.md` / visual catalog | shot plan | each visual scene names the strongest candidate assets before implementation |
+| `screenshots/` + subpage captures | product-proof scenes | editorial crop, moving product plane, isolated detail, or hybrid-slice material |
 | `video-manifest.json` downloads | proof/mood beats | real motion texture; registered like any other capture |
 | `animations.json` / `shaders.json` | motion language notes | the site's own motion idiom informs (not dictates) the film's |
 
@@ -116,12 +115,12 @@ in another.
 - Turning the homepage into a shot list: hero screenshot → feature screenshot
   → template cards → logo. That is an animated website recap even when every
   item has parallax.
-- Running capture and then still building beats from invented glass-card
-  gradients (the inventory exists — cast from it; hard fails 5/12).
+- Running capture and then still building scenes from invented glass-card
+  gradients instead of the available product material.
 - Shipping the film with 3 assets when the capture returned 200 — coverage
   of *distinct real imagery* across beats is part of what makes a promo not
   feel like a deck.
 - Referencing `capture/...` paths directly in compositions (breaks when the
   capture dir is archived; curation step exists for this).
 - Treating capture as optional research. For URL promos it is the grounding
-  step — the film plan should not be written before the inventory exists.
+  step—the shot plan should not be fixed before the inventory exists.

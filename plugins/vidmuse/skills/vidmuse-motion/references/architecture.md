@@ -52,8 +52,7 @@ Add a **semantic motion layer** between film plan and registry:
 
 | Layer | Question it answers | Failure mode if used alone |
 | --- | --- | --- |
-| promo-recipes | What is the film arc? | Arc without craft = PPT beats |
-| shot-cards | What cinematic shot feeling? | Prior without HF steps = re-invent |
+| product-launch-film | What is the film's directing grammar? | Direction without implementation |
 | **motion-recipes** | **How do I code this beat in HF?** | Overuse = mechanism collage |
 | effects-overlay | How do I edit a Registry item? | Empty when catalog misses |
 | HF rules | What GSAP pattern is seek-safe? | Too many files without a picker |
@@ -123,5 +122,5 @@ Do **not** duplicate a rule file — link it.
 
 - Gold example data is **demo**; replace with project-safe numbers.
 - Do not vendor third-party Remotion sources into recipes without license pass.
-- Apache/third-party text priors (e.g. shotcraft) stay in create shot-cards;
+- Third-party cinematic priors do not belong in this recipe library;
   motion-recipes should cite HF rules first.

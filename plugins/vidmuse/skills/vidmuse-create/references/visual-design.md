@@ -1,15 +1,14 @@
 # Visual design — time-coded shot sequence (create non-Vox)
 
-Adapted from HyperFrames explainer/promo visual-design for **VidMuse Create**.
-You enrich each film-plan beat with how it **looks and moves**. You write **no
-requirement** to spawn HF frame-workers — but you **must** write the same unit
-they would receive: a **time-coded shot sequence** paced to ATA VO cues.
+Adapted from HyperFrames explainer visual-design for **VidMuse Create**.
+Enrich each useful story unit with how it looks and moves. Pace
+narration-led shots to real ATA cues and music-led work to phrases and
+meaningful hits.
 
-This file executes a selected treatment; it does not invent the treatment.
-Read [agency-preproduction.md](agency-preproduction.md) first. The approved
-storyboard images are visual truth, and the approved animatic is timing truth.
-Read [picture-design.md](picture-design.md) before this file; hierarchy,
-surface, screenshot treatment, and motif policy are decided before motion.
+This file executes the direction selected in the create workflow; it does not
+invent a second treatment. Read [picture-design.md](picture-design.md) before
+this file so hierarchy, surface, screenshot treatment, and motif policy are
+decided before motion.
 
 **Load when:** `create_path` is `explainer` or `promo`.  
 **Skip when:** `vox` ([vox-collage.md](vox-collage.md) owns plates).  
@@ -48,14 +47,15 @@ a card that fades up because a sentence began is a slide.
 2. Read `blueprints/<id>.md` — time-coded template + **signature move**.
 3. **Reproduce** / **Adapt** (state keep/change; never drop signature move) /
    **Compose** (`blueprint: compose` + name the signature move yourself).
-4. Promo UI may use `shot_ref: shotcraft:<id>` as motion prior — still flesh into
-   Scene lines; still FRAME-skin; never paste Remotion demos.
+4. Product UI may use a relevant HyperFrames blueprint or an explicit native
+   composition. The product-launch reference owns promo camera and transition
+   direction.
 
 ## What each beat gains
 
 Keep story fields. Append:
 
-- `blueprint:` id + `(Reproduce|Adapt)` or `compose` or `shot_ref:`
+- `blueprint:` id + `(Reproduce|Adapt)` or an explicit native `compose`
 - `focal:` hero element (invented type/diagram node, or real-ui surface)
 - `layer_map:` field / evidence / reading surface / optional accent
 - `screenshot_treatment:` on real-UI beats
@@ -64,7 +64,7 @@ Keep story fields. Append:
   motivated-cut / chapter-reset, with a one-line reason
 - `camera_intent:` viewer position at start/end and what the move changes
   (knowledge, scale, focus, relationship, emotion); `locked` is valid
-- `storyboard_frames:` approved local start/hero/end frame paths
+- `storyboard_frames:` optional local start/hero/end frame paths
 - `shot_sequence:` Scene lines with on_screen + move + layout inline
 - optional `sfx:` names only (do not embed random `<audio>` in overlay HTML)
 
@@ -160,9 +160,9 @@ screen position, vanishing point, and focus logic consistent across beats.
 Motion blur follows velocity; depth blur follows focus distance. A constant
 slow zoom with no information change is a screensaver, not camera language.
 
-## Storyboard gate
+## Storyboard review
 
-Before production HTML:
+When storyboard frames or an animatic would resolve a real uncertainty:
 
 1. Save a hero frame for every beat and start/end frames for complex moves.
 2. Inspect at delivery resolution and as a contact sheet. The full-size view
@@ -170,9 +170,8 @@ Before production HTML:
    monoculture.
 3. Cut them to full duration with VO/music and attach the animatic to the
    VidMuse Timeline.
-4. In interactive mode, user review owns hierarchy, motif, and pacing. Do not
-   spend multiple autonomous passes polishing before showing the Timeline.
-5. Do not scaffold until `animatic-approved.md` identifies that reviewed cut.
+4. Use the review to settle hierarchy, motif, and pacing before spending on
+   detailed polish.
 
 Caption band: **reserved, bottom-centered** — plan primary content in the top
 ~83% (16:9) and keep the band clear. Graphics yield to the caption, not the
@@ -207,14 +206,14 @@ Before pretty HTML:
 - [ ] `## Video direction` written once
 - [ ] Selected treatment, primary device, world, and negative motifs are fixed
 - [ ] Actual storyboard frame files exist and were reviewed
-- [ ] Full-duration animatic approved before composition scaffold
+- [ ] Storyboard or animatic used when timing or spatial intent was ambiguous
 - [ ] Every non-Vox beat has an intentional shot_sequence; one read/hold is valid
 - [ ] Every beat names world, continuity-in, camera intent, and storyboard frames
 - [ ] Every composite frame has one focal subject and a layer map
 - [ ] Screenshot treatment and text surface are explicit on real-UI beats
 - [ ] Cover test / ≤3 active in densest windows; continuity strategy is authored
 - [ ] Persistent motif is none or passes the semantic motif gate
-- [ ] Blueprint / shot_ref / compose named; Adapt keeps signature move
+- [ ] Blueprint or native composition named; Adapt keeps its signature move
 - [ ] Moves named from motion-language (not raw ms recipes in the plan)
 - [ ] Promo proof includes real-ui + `ui_proof_path` where required
 - [ ] Precision overlays use the semantic alignment contract; no duplicated

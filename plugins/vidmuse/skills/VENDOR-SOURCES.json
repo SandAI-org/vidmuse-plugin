@@ -100,26 +100,6 @@
     ]
   },
   "patchedAt": "2026-07-30T00:00:00Z",
-  "shotcraft": {
-    "skill_consumer": "vidmuse-create",
-    "source": "https://github.com/Vincentwei1021/video-shotcraft",
-    "license": "Apache-2.0",
-    "extract": "skills/vidmuse-create/references/shot-cards",
-    "cards": 32,
-    "upstream_catalog": 106,
-    "includes": [
-      "shot recipe markdown",
-      "bridge.jsonl"
-    ],
-    "excludes": [
-      "Remotion demos",
-      "template project",
-      "gallery media",
-      "audio binaries"
-    ],
-    "runtime": "hyperframes-gsap-reference-only",
-    "notice": "skills/vidmuse-create/references/shot-cards/NOTICE.md"
-  },
   "vidmuse_motion": {
     "skill": "vidmuse-motion",
     "role": "dependency-semantic-compose",

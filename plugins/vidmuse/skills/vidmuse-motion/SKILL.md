@@ -3,14 +3,10 @@ name: vidmuse-motion
 description: >
   Semantic motion recipes for HyperFrames/GSAP when the Registry has no
   matching block. Use when implementing KPI counters, bar charts, sparklines,
-  tables, stat-card layouts, or any "product analytics UI motion" that catalog
-  search misses; when the user or film plan says motion-recipe / semantic
-  compose / "Registry miss → native"; when /vidmuse-create data-beat /
-  saas-promo needs composed dataviz; or when a create shot_sequence window
-  needs a shot execution code path (--tag shot: cue-paced-reveal,
-  collapse-merge-morph, pullback-reveal, line-carry-transition,
-  ui-strip-away-lock). Not a product router — pair with /vidmuse-create or
-  /vidmuse-recut. Never Remotion. Never invent metrics.
+  tables, stat-card layouts, or a named semantic transformation that catalog
+  search misses. Do not load it merely because a product film should feel
+  dynamic; /vidmuse-create owns launch-film direction and camera grammar.
+  Not a product router. Never Remotion. Never invent metrics.
 compatibility: Node 22+, npx hyperframes, ffmpeg. Depends on hyperframes-core +
   hyperframes-animation (rules/blueprints). Shares FRAME/taste with vidmuse-recut.
 ---
@@ -28,6 +24,12 @@ This is a **dependency skill**, not a product entry. Product skills remain:
 | `/vidmuse-create` | No speaking plate; promo / explainer / TTS spine |
 | `/vidmuse-recut` | Existing speaking footage packaging |
 | **`/vidmuse-motion` (this)** | Intent → recipe → HF rules → native HTML/GSAP |
+
+For product launch films, first follow
+`../vidmuse-create/references/product-launch-film.md`. Open this skill only
+when a specific shot needs a semantic mechanism from the recipe library.
+Flow, lensing, scene handoffs, transition families, typography, and overall
+motion density remain film-direction decisions; recipes do not choose them.
 
 ## Architecture (who wins)
 
@@ -63,8 +65,7 @@ Film plan beat (job + real numbers)
 
 | Library | Granularity | Runtime |
 | --- | --- | --- |
-| `promo-recipes` (create) | whole-film arc | n/a |
-| `shot-cards` (create) | cinematic shot *prior* (often shotcraft) | HF implement later |
+| `product-launch-film` (create) | whole-film direction | n/a |
 | **`motion-recipes` (this)** | **implementable mechanism unit** | **hyperframes-gsap required** |
 | `effects-overlay` (recut) | Registry taste metadata | installed HTML |
 
@@ -73,7 +74,7 @@ Film plan beat (job + real numbers)
 Open when **any** is true:
 
 - Film plan needs dataviz / KPI / chart / table / multi-stat cards
-- `structure_recipe` is `data-beat` or promo proof needs animated numbers
+- `structure_recipe` is `data-beat` or promo proof needs animated real numbers
 - Registry / `effects.py` search returned nothing useful
 - User names a recipe id (`kpi-glow-count`) or says “semantic motion”
 - You are about to ship a **static screenshot of a chart** as “motion”
@@ -101,7 +102,7 @@ python3 scripts/motion_recipes.py --validate
    - transform aliases only for spatial motion
    - `gsap.set` / `fromTo` pre-state (never CSS `transform:` fighting GSAP)
 6. **Skin with FRAME** tokens; do not leave recipe demo purple unless FRAME is purple.
-7. **Gate:**
+7. **Verify the mechanism:**
 
 ```bash
 npx hyperframes lint "$COMP_DIR"

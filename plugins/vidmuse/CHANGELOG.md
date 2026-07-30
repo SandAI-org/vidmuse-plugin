@@ -10,11 +10,23 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ### Leaner prompting for GPT-5.6
 
-- Reduced `vidmuse-create/SKILL.md` from a patch-heavy workflow manual to a
-  thin film-control layer: five working principles, one eight-stage spine, and
-  branch-specific references. Path schemas, hard failures, picture craft,
-  Vox isolation, and execution details remain in their existing single sources
-  of truth and deterministic scripts.
+- Reframed `vidmuse-create` around outcomes, domain context, and a compact
+  eight-stage production loop. Product-launch work no longer defaults to
+  multi-direction approvals, beat-schema paperwork, animatic hashes, generated
+  scaffolds, or motion-report gates.
+- Added `product-launch-film.md` as the single directing reference for
+  connected scene flow, camera grammar, motion hierarchy, action-driven
+  transitions, natural product material, typography, music, and pacing.
+- Reduced `path-routing.md` to actual routing and path isolation. Working
+  artifacts are now chosen for their creative or implementation value instead
+  of being universally required.
+- Narrowed `vidmuse-motion` to semantic mechanisms such as real dataviz and
+  named transformations, so it does not replace film direction with a recipe
+  catalog.
+- Removed the unreachable agency-preproduction, legacy promo recipe/pointer,
+  and vendored shot-card reference trees. Their orphan query script and vendor
+  declaration were removed with them; every remaining create reference is now
+  reachable from the skill entry.
 - Reduced `vidmuse-recut/SKILL.md` to an outcome-led workflow with two explicit
   creative gates and phase-routed references. The project `FRAME.md` contract
   and counted Taste Gate now live with their design/showcase authorities.

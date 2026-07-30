@@ -131,7 +131,7 @@ consistent `push-slide`; chapter jump → `zoom-through` or `cut`.
 
 ## Output
 
-Write into the **film plan**. Every beat must satisfy
-[path-routing.md](path-routing.md) before visual design, then become real
-storyboard frame images + `STORYBOARD.md` and a full-duration approved animatic
-under [agency-preproduction.md](agency-preproduction.md).
+Write useful decisions into the working film plan: idea sequence, real ATA
+ranges, focal subject, visual treatment, and the handoff between adjacent
+scenes. Create storyboard frames or an animatic when they resolve a real
+composition or timing uncertainty; they are not mandatory approval artifacts.
