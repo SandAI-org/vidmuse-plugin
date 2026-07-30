@@ -86,6 +86,16 @@ test("forbids generated logos", () => {
   assert.ok(errors.some((error) => error.includes("never generate a mark")));
 });
 
+test("logo plans cannot bind the Core Pack's internal offline index directly", () => {
+  const item = opportunity();
+  item.asset_query = {
+    ...item.asset_query,
+    core_pack_id: "lobe-brands/openai",
+  };
+  const errors = validateAssetPlan(plan([item]));
+  assert.ok(errors.some((error) => error.includes("not core_pack_id")));
+});
+
 test("rejects a company/product/model identity substitution", () => {
   const item = opportunity({
     canonical_entity: "chatgpt",
@@ -121,6 +131,27 @@ test("completed pass receipt is bound to the current transcript bytes", () => {
   writeFileSync(join(project, "transcript.json"), '[{"text":"Anthropic"}]\n');
   assert.ok(
     validatePassReceipt(value, project).some((error) => error.includes("changed after")),
+  );
+});
+
+test("completed pass receipt fingerprints every declared decision input", () => {
+  const project = mkdtempSync(join(tmpdir(), "vidmuse-pass-inputs-"));
+  writeFileSync(join(project, "transcript.json"), '[{"text":"OpenAI"}]\n');
+  writeFileSync(join(project, "alignment.json"), '{"words":[]}\n');
+  writeFileSync(join(project, "source-inspection.json"), '{"visible":[]}\n');
+  const value = plan();
+  value.decision_inputs = [
+    { role: "ata-alignment", path: "alignment.json" },
+    { role: "source-inspection", path: "source-inspection.json" },
+  ];
+  completePassReceipt(value, project);
+  assert.equal(value.pass_receipt.inputs.length, 3);
+  assert.deepEqual(validatePassReceipt(value, project), []);
+  writeFileSync(join(project, "source-inspection.json"), '{"visible":["openai"]}\n');
+  assert.ok(
+    validatePassReceipt(value, project).some((error) =>
+      error.includes("source-inspection.json changed after"),
+    ),
   );
 });
 
@@ -183,6 +214,54 @@ test("non-logo deterministic resolution cannot fall through to generation", () =
   });
   const args = buildResolveArgs(item, "/tmp/project");
   assert.ok(args.includes("--local-only"));
+});
+
+test("an exact Core Pack choice is forwarded to media-use", () => {
+  const item = opportunity({
+    decision: "show-icon",
+    asset_query: {
+      type: "icon",
+      intent: "trash icon",
+      mode: "deterministic",
+      core_pack_id: "lucide/trash",
+    },
+  });
+  const args = buildResolveArgs(item, "/tmp/project");
+  assert.deepEqual(args.slice(-2), ["--core-pack-id", "lucide/trash"]);
+  assert.notEqual(
+    requestFingerprint(item.asset_query),
+    requestFingerprint({ ...item.asset_query, core_pack_id: "lucide/trash-2" }),
+  );
+});
+
+test("Creator Library resolution requires and forwards an exact private id", () => {
+  const item = opportunity({
+    asset_query: {
+      type: "logo",
+      intent: "approved private OpenAI mark",
+      entity: "openai",
+      variant: "mono",
+      mode: "creator-library",
+      creator_library_id: "brand-openai-mono",
+    },
+  });
+  assert.deepEqual(validateAssetPlan(plan([item])), []);
+  const args = buildResolveArgs(item, "/tmp/project");
+  assert.ok(args.includes("--local-only"));
+  assert.deepEqual(args.slice(-4), [
+    "--creator-library-id",
+    "brand-openai-mono",
+    "--provider",
+    "creator-library",
+  ]);
+
+  const invalid = structuredClone(item);
+  delete invalid.asset_query.creator_library_id;
+  assert.ok(
+    validateAssetPlan(plan([invalid])).some((error) =>
+      error.includes("requires creator_library_id"),
+    ),
+  );
 });
 
 test("--init creates an empty framework plan", () => {

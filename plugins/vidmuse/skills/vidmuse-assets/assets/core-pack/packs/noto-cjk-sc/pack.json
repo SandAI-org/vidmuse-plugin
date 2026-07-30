@@ -16,7 +16,15 @@
     "redistributable": true,
     "commercial_output": true,
     "attribution_required": false,
-    "copyright": "\"Font Software\" refers to the set of files released by the Copyright"
+    "copyright": "Google Inc.",
+    "modification_allowed": true,
+    "reserved_font_names": []
+  },
+  "modification": {
+    "subsetted": true,
+    "method": "fontTools subset during scripts/import_pack.mjs",
+    "renamed": false,
+    "note": "The bundled OFL receipt declares no Reserved Font Names. Family names are preserved; glyph coverage below is the material limitation of this modified/subsetted distribution."
   },
   "size_budget_kb": 1600,
   "size_budget_reason": "Subsetted CJK faces run 400-900KB per weight. The Latin-oriented 400KB default is unreachable for any Chinese font; this ceiling still fails an unsubsetted 1.1MB+ import.",

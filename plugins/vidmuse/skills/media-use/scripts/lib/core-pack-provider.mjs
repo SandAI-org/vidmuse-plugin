@@ -19,6 +19,16 @@ const CORE_PACK_ROOT =
   process.env.VIDMUSE_CORE_PACK_DIR ||
   pathResolve(import.meta.dirname, "../../../vidmuse-assets/assets/core-pack");
 
+export class CorePackConstraintError extends Error {
+  constructor(code, message, details = {}) {
+    super(message);
+    this.name = "CorePackConstraintError";
+    this.code = code;
+    this.details = details;
+    this.terminal = true;
+  }
+}
+
 export function corePackRoot() {
   return CORE_PACK_ROOT;
 }
@@ -92,33 +102,53 @@ export async function corePackSearch(intent, ctx = {}) {
   // through to the next provider immediately.
   if (!index.items?.some((item) => item.type === type)) return null;
 
-  const { results } = queryIndex(index, {
-    query: intent,
-    type,
-    top: 8,
-    mode: "keyword",
-    // Same expansion the CLI uses, so browsing candidates and resolving them
-    // can never disagree about what a Chinese intent matches.
-    lexicon: readLexicon(root),
-    ...(ctx.pack ? { pack: ctx.pack } : {}),
-    ...(ctx.tileable != null ? { tileable: ctx.tileable } : {}),
-    ...(ctx.alpha != null ? { alpha: ctx.alpha } : {}),
-  });
-  if (results.length === 0) return null;
+  let chosen;
+  if (ctx.corePackId) {
+    const exact = index.items.find((item) => item.id === ctx.corePackId);
+    if (!exact) {
+      throw new CorePackConstraintError(
+        "core_pack_asset_missing",
+        `Core Pack asset "${ctx.corePackId}" does not exist`,
+        { core_pack_id: ctx.corePackId },
+      );
+    }
+    if (exact.type !== type) {
+      throw new CorePackConstraintError(
+        "core_pack_type_mismatch",
+        `Core Pack asset "${ctx.corePackId}" is ${exact.type}, not ${type}`,
+        { core_pack_id: ctx.corePackId, stored_type: exact.type, requested_type: type },
+      );
+    }
+    chosen = resolveIndexItem(index, exact);
+  } else {
+    const { results } = queryIndex(index, {
+      query: intent,
+      type,
+      top: 8,
+      mode: "keyword",
+      // Same expansion the CLI uses, so browsing candidates and resolving them
+      // can never disagree about what a Chinese intent matches.
+      lexicon: readLexicon(root),
+      ...(ctx.pack ? { pack: ctx.pack } : {}),
+      ...(ctx.tileable != null ? { tileable: ctx.tileable } : {}),
+      ...(ctx.alpha != null ? { alpha: ctx.alpha } : {}),
+    });
+    if (results.length === 0) return null;
 
-  // Interchangeable top scorers (same pack, same score) are picked
-  // deterministically rather than by first-in-index order, so a request is
-  // reproducible without spending a model call separating near-identical files.
-  const best = results[0];
-  const tied = results.filter(
-    (row) => row.score === best.score && row.item.pack === best.item.pack,
-  );
-  // Rejoin pack/type headers: the index normalizes license, upstream pin, and
-  // usage guidance out of each item to keep the file small.
-  const chosen = resolveIndexItem(
-    index,
-    (tied.length > 1 ? stableChoice(tied, ctx.assetId || intent) : best).item,
-  );
+    // Interchangeable top scorers (same pack, same score) are picked
+    // deterministically rather than by first-in-index order, so a request is
+    // reproducible without spending a model call separating near-identical files.
+    const best = results[0];
+    const tied = results.filter(
+      (row) => row.score === best.score && row.item.pack === best.item.pack,
+    );
+    // Rejoin pack/type headers: the index normalizes license, upstream pin, and
+    // usage guidance out of each item to keep the file small.
+    chosen = resolveIndexItem(
+      index,
+      (tied.length > 1 ? stableChoice(tied, ctx.assetId || intent) : best).item,
+    );
+  }
 
   const localPath = resolveItemPath(chosen, root);
   if (!localPath || !existsSync(localPath)) return null;

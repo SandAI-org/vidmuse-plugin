@@ -48,6 +48,36 @@
       "prompt": "我明确要 OpenAI 的彩色 Logo；如果这个来源只有黑白和文字版本，不要换个 favicon 糊弄过去。",
       "expected_output": "Treats color as a hard cascade constraint, returns logo_variant_unavailable with available variants, and does not fall through to a provider that cannot attest color.",
       "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Core Pack 搜“垃圾桶”，我选 lucide/trash，不要在真正落盘时重新猜一个相似图标。",
+      "expected_output": "Records core_pack_id=lucide/trash in the asset query and freezes that exact id; the receipt repeats the same Core Pack id.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "我私人 Creator Library 里已经批准了 thiings-clay-brain-01，直接用于这个项目，不要扫描或猜其他私人素材。",
+      "expected_output": "Uses creator-library mode with the exact creator_library_id, validates its license/hash, freezes only that file locally, and never fuzzy-searches the private collection.",
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "这是访谈 recut：字幕没变，但我刚更新了 source-inspection.json，里面现在显示画面已有 OpenAI 标志。检查原资产计划还能不能复用。",
+      "expected_output": "Treats source inspection as a declared Semantic Pass decision input, detects its changed SHA-256, rejects the stale pass receipt, and requires rerunning the pass.",
+      "files": []
+    },
+    {
+      "id": 12,
+      "prompt": "离线拿到 Core Pack 里的 Anthropic 标志后，告诉我它能否直接用于商业广告背书。",
+      "expected_output": "Separates redistributable SVG copyright from trademark use, reports identification-only/contextual trademark status and staleness, and does not claim blanket endorsement clearance.",
+      "files": []
+    },
+    {
+      "id": 13,
+      "prompt": "我要的是一套品牌视觉规范，包括颜色和字体 token；项目里没有 design.md。不要返回某家公司的单张 Logo。",
+      "expected_output": "Treats brand as a design-system request, checks project/private brand kits, and cleanly misses with guidance instead of returning a Core Pack company mark.",
+      "files": []
     }
   ]
 }

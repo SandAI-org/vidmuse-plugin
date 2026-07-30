@@ -42,8 +42,8 @@ The engine:
 4. downloads the returned audio;
 5. aligns the known line with VidMuse ATA for word timestamps;
 6. generates BGM through a VidMuse music model;
-7. uses a live VidMuse SFX model when available, otherwise the bundled SFX
-   library;
+7. resolves an approved Creator Library or bundled deterministic SFX first,
+   then uses a live VidMuse SFX model only when those tiers miss;
 8. writes `audio_meta.json`.
 
 There is no detached local MusicGen/Lyria job and no `wait-bgm` step.

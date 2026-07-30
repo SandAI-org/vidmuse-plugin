@@ -9,7 +9,7 @@ does not become a warehouse of third-party files.
 | --- | --- | --- | --- |
 | Project Freeze | `<project>/.media/` | `media-use` runtime | Immutable files actually used by one film |
 | Creator Library | `~/.media/libraries/creator/` | user + `vidmuse-assets` policy | Private licensed and personal material |
-| Core Pack | `vidmuse-assets/assets/core-pack/` | plugin | Tiny redistributable offline baseline |
+| Core Pack | `vidmuse-assets/assets/core-pack/` | plugin | Compact redistributable offline baseline |
 | Dynamic Providers | provider adapters | `vidmuse-assets` policy + `media-use` execution | Exact on-demand retrieval/generation |
 
 Project Freeze always wins because the shipped film must remain reproducible.
@@ -95,15 +95,21 @@ Logos stop before generation. Unknown-license material is preview-only.
 
 This order is enforced in `media-use/scripts/lib/registry.mjs`: the `core-pack`
 provider is declared ahead of `vidmuse.model` for every type it can serve, and it
-exposes `search` only — it can never generate. `shape`, `texture`, `overlay`,
-`font`, `lottie`, and `palette` resolve through it.
+exposes `search` only — it can never generate. The private Creator Library
+adapter runs before it but only when the request carries an approved exact
+`creator_library_id`; it never fuzzy-selects private content. `shape`,
+`texture`, `overlay`, `font`, `lottie`, `palette`, and bundled `sfx` resolve
+through these deterministic tiers before generation.
 
-**`logo` inverts the order deliberately.** Brand marks change and new models ship
+**`logo` has an explicit live-source exception.** An exact user-approved Creator
+Library mark wins first. Otherwise brand marks change and new models ship
 constantly, so live sources stay authoritative and the preinstalled set is the
-*last* tier, not the third:
+*last* tier:
 
 ```text
-lobehub.icons → svgl → simple-icons → github.avatar → favicon.ddg → core-pack.brands
+creator-library(exact id)
+→ lobehub.icons → svgl → simple-icons → github.avatar → favicon.ddg
+→ core-pack.brands
 ```
 
 A frozen mark is only correct when no live source answered — offline, or every
@@ -117,3 +123,7 @@ near-miss logo is a factual error in the film, not a stylistic choice.
 Use content hashes to deduplicate bytes, stable asset ids to bind plans, and
 canonical entity plus variant to reuse identity assets. Provider/catalog
 updates never rewrite a project-frozen file automatically.
+
+After browsing Core Pack, bind the chosen candidate with `core_pack_id`; after
+approving private material, bind it with `creator_library_id`. Re-running a
+keyword search is discovery, not a stable selection contract.

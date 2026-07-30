@@ -2,9 +2,9 @@
   "schema": "vidmuse.core-pack.index.v1",
   "generated_by": "core_pack.mjs --reindex",
   "built_from": {
-    "lobe-brands": "b1c0397f76fbc6c101589137bff389edbe939dd1f60f795251dcd38c5eee7ae9",
+    "lobe-brands": "a2ccd7f5756e21b58f6346a14c0bdee78b4931a35ed55c2f852a99892ff1cbe2",
     "lucide": "08b2bb53c846f4d1e7a7a76718455e7f907efb6e654346941a2db52244f53a84",
-    "noto-cjk-sc": "41a6136febca43dbee111c1326b3195b96f973f2af2b2c51b680da6850d4cbc3",
+    "noto-cjk-sc": "6b15f073ba7e402c60fb56acde673d2501d243b368ed95f72f20c51138d98efd",
     "vidmuse-lottie": "7cf22bb021168cc6f9288494ec1e3a08b9ebf04938b7b17b022ab6278e32a04c",
     "vidmuse-shapes": "40ba0279bde1c11f7b77ddb5567254125a92aa2a4ab3e71be70449fcb2f43ad8"
   },
@@ -12,7 +12,7 @@
     "total": 2237,
     "by_type": {
       "palette": 72,
-      "brand": 113,
+      "offline-logo": 113,
       "icon": 2007,
       "sfx": 19,
       "font": 5,
@@ -22,7 +22,7 @@
   },
   "packs": {
     "lobe-brands": {
-      "type": "brand",
+      "type": "offline-logo",
       "license_state": "verified-commercial",
       "license": {
         "spdx": "MIT",
@@ -101,8 +101,8 @@
     }
   },
   "types": {
-    "brand": {
-      "hf_usage": "Inline SVG or <img>. A mono mark inherits currentColor; a -color mark must not be recolored. Keep clear space around a wordmark."
+    "offline-logo": {
+      "hf_usage": "Inline SVG or <img>. A mono mark inherits currentColor; a color mark must not be recolored. Keep clear space around it."
     },
     "icon": {
       "hf_usage": "Inline the SVG for per-path animation, or reference it with <img src>/background-image when it is decoration."
@@ -1968,7 +1968,7 @@
       "id": "lobe-brands/adobe",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/adobe.svg",
       "tags": [
         "adobe",
@@ -1999,7 +1999,7 @@
       "id": "lobe-brands/alibaba",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/alibaba.svg",
       "tags": [
         "alibaba",
@@ -2034,7 +2034,7 @@
       "id": "lobe-brands/alibabacloud",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/alibabacloud.svg",
       "tags": [
         "alibabacloud",
@@ -2068,7 +2068,7 @@
       "id": "lobe-brands/antgroup",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/antgroup.svg",
       "tags": [
         "antgroup",
@@ -2103,7 +2103,7 @@
       "id": "lobe-brands/anthropic",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/anthropic.svg",
       "tags": [
         "anthropic",
@@ -2134,7 +2134,7 @@
       "id": "lobe-brands/apple",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/apple.svg",
       "tags": [
         "apple",
@@ -2168,7 +2168,7 @@
       "id": "lobe-brands/aws",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/aws.svg",
       "tags": [
         "aws",
@@ -2200,7 +2200,7 @@
       "id": "lobe-brands/azure",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/azure.svg",
       "tags": [
         "azure",
@@ -2231,7 +2231,7 @@
       "id": "lobe-brands/baichuan",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/baichuan.svg",
       "tags": [
         "baichuan",
@@ -2266,7 +2266,7 @@
       "id": "lobe-brands/baidu",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/baidu.svg",
       "tags": [
         "baidu",
@@ -2300,7 +2300,7 @@
       "id": "lobe-brands/baiducloud",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/baiducloud.svg",
       "tags": [
         "baiducloud",
@@ -2334,7 +2334,7 @@
       "id": "lobe-brands/bilibili",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/bilibili.svg",
       "tags": [
         "bilibili",
@@ -2369,7 +2369,7 @@
       "id": "lobe-brands/bytedance",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/bytedance.svg",
       "tags": [
         "bytedance",
@@ -2404,7 +2404,7 @@
       "id": "lobe-brands/capcut",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/capcut.svg",
       "tags": [
         "capcut",
@@ -2438,7 +2438,7 @@
       "id": "lobe-brands/chatglm",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/chatglm.svg",
       "tags": [
         "chatglm",
@@ -2472,7 +2472,7 @@
       "id": "lobe-brands/claude",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/claude.svg",
       "tags": [
         "claude",
@@ -2503,7 +2503,7 @@
       "id": "lobe-brands/claudecode",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/claudecode.svg",
       "tags": [
         "claudecode",
@@ -2535,7 +2535,7 @@
       "id": "lobe-brands/cloudflare",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/cloudflare.svg",
       "tags": [
         "cloudflare",
@@ -2566,7 +2566,7 @@
       "id": "lobe-brands/codex",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/codex.svg",
       "tags": [
         "codex",
@@ -2597,7 +2597,7 @@
       "id": "lobe-brands/cohere",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/cohere.svg",
       "tags": [
         "cohere",
@@ -2628,7 +2628,7 @@
       "id": "lobe-brands/colab",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/colab.svg",
       "tags": [
         "colab",
@@ -2659,7 +2659,7 @@
       "id": "lobe-brands/comfyui",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/comfyui.svg",
       "tags": [
         "comfyui",
@@ -2690,7 +2690,7 @@
       "id": "lobe-brands/copilot",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/copilot.svg",
       "tags": [
         "copilot",
@@ -2721,7 +2721,7 @@
       "id": "lobe-brands/cursor",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/cursor.svg",
       "tags": [
         "cursor",
@@ -2752,7 +2752,7 @@
       "id": "lobe-brands/dalle",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/dalle.svg",
       "tags": [
         "dalle",
@@ -2784,7 +2784,7 @@
       "id": "lobe-brands/deepl",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/deepl.svg",
       "tags": [
         "deepl",
@@ -2815,7 +2815,7 @@
       "id": "lobe-brands/deepmind",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/deepmind.svg",
       "tags": [
         "deepmind",
@@ -2846,7 +2846,7 @@
       "id": "lobe-brands/deepseek",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/deepseek.svg",
       "tags": [
         "deepseek",
@@ -2880,7 +2880,7 @@
       "id": "lobe-brands/dify",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/dify.svg",
       "tags": [
         "dify",
@@ -2911,7 +2911,7 @@
       "id": "lobe-brands/doubao",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/doubao.svg",
       "tags": [
         "doubao",
@@ -2945,7 +2945,7 @@
       "id": "lobe-brands/elevenlabs",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/elevenlabs.svg",
       "tags": [
         "elevenlabs",
@@ -2976,7 +2976,7 @@
       "id": "lobe-brands/fal",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/fal.svg",
       "tags": [
         "fal",
@@ -3007,7 +3007,7 @@
       "id": "lobe-brands/figma",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/figma.svg",
       "tags": [
         "figma",
@@ -3038,7 +3038,7 @@
       "id": "lobe-brands/fireworks",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/fireworks.svg",
       "tags": [
         "fireworks",
@@ -3069,7 +3069,7 @@
       "id": "lobe-brands/flux",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/flux.svg",
       "tags": [
         "flux",
@@ -3100,7 +3100,7 @@
       "id": "lobe-brands/gemini",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/gemini.svg",
       "tags": [
         "gemini",
@@ -3131,7 +3131,7 @@
       "id": "lobe-brands/github",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/github.svg",
       "tags": [
         "github",
@@ -3162,7 +3162,7 @@
       "id": "lobe-brands/githubcopilot",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/githubcopilot.svg",
       "tags": [
         "githubcopilot",
@@ -3193,7 +3193,7 @@
       "id": "lobe-brands/google",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/google.svg",
       "tags": [
         "google",
@@ -3227,7 +3227,7 @@
       "id": "lobe-brands/googlecloud",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/googlecloud.svg",
       "tags": [
         "googlecloud",
@@ -3258,7 +3258,7 @@
       "id": "lobe-brands/gradio",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/gradio.svg",
       "tags": [
         "gradio",
@@ -3289,7 +3289,7 @@
       "id": "lobe-brands/grok",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/grok.svg",
       "tags": [
         "grok",
@@ -3320,7 +3320,7 @@
       "id": "lobe-brands/groq",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/groq.svg",
       "tags": [
         "groq",
@@ -3351,7 +3351,7 @@
       "id": "lobe-brands/hailuo",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/hailuo.svg",
       "tags": [
         "hailuo",
@@ -3382,7 +3382,7 @@
       "id": "lobe-brands/huawei",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/huawei.svg",
       "tags": [
         "huawei",
@@ -3416,7 +3416,7 @@
       "id": "lobe-brands/huaweicloud",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/huaweicloud.svg",
       "tags": [
         "huaweicloud",
@@ -3450,7 +3450,7 @@
       "id": "lobe-brands/huggingface",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/huggingface.svg",
       "tags": [
         "huggingface",
@@ -3481,7 +3481,7 @@
       "id": "lobe-brands/hunyuan",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/hunyuan.svg",
       "tags": [
         "hunyuan",
@@ -3516,7 +3516,7 @@
       "id": "lobe-brands/ibm",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/ibm.svg",
       "tags": [
         "ibm",
@@ -3547,7 +3547,7 @@
       "id": "lobe-brands/ideogram",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/ideogram.svg",
       "tags": [
         "ideogram",
@@ -3578,7 +3578,7 @@
       "id": "lobe-brands/internlm",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/internlm.svg",
       "tags": [
         "internlm",
@@ -3613,7 +3613,7 @@
       "id": "lobe-brands/jimeng",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/jimeng.svg",
       "tags": [
         "jimeng",
@@ -3647,7 +3647,7 @@
       "id": "lobe-brands/kimi",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/kimi.svg",
       "tags": [
         "kimi",
@@ -3681,7 +3681,7 @@
       "id": "lobe-brands/kling",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/kling.svg",
       "tags": [
         "kling",
@@ -3715,7 +3715,7 @@
       "id": "lobe-brands/kolors",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/kolors.svg",
       "tags": [
         "kolors",
@@ -3746,7 +3746,7 @@
       "id": "lobe-brands/krea",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/krea.svg",
       "tags": [
         "krea",
@@ -3777,7 +3777,7 @@
       "id": "lobe-brands/langchain",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/langchain.svg",
       "tags": [
         "langchain",
@@ -3808,7 +3808,7 @@
       "id": "lobe-brands/lg",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/lg.svg",
       "tags": [
         "lg",
@@ -3840,7 +3840,7 @@
       "id": "lobe-brands/llamaindex",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/llamaindex.svg",
       "tags": [
         "llamaindex",
@@ -3871,7 +3871,7 @@
       "id": "lobe-brands/lmstudio",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/lmstudio.svg",
       "tags": [
         "lmstudio",
@@ -3903,7 +3903,7 @@
       "id": "lobe-brands/longcat",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/longcat.svg",
       "tags": [
         "longcat",
@@ -3937,7 +3937,7 @@
       "id": "lobe-brands/luma",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/luma.svg",
       "tags": [
         "luma",
@@ -3968,7 +3968,7 @@
       "id": "lobe-brands/meta",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/meta.svg",
       "tags": [
         "meta",
@@ -3999,7 +3999,7 @@
       "id": "lobe-brands/metaai",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/metaai.svg",
       "tags": [
         "metaai",
@@ -4030,7 +4030,7 @@
       "id": "lobe-brands/microsoft",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/microsoft.svg",
       "tags": [
         "microsoft",
@@ -4065,7 +4065,7 @@
       "id": "lobe-brands/midjourney",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/midjourney.svg",
       "tags": [
         "midjourney",
@@ -4096,7 +4096,7 @@
       "id": "lobe-brands/minimax",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/minimax.svg",
       "tags": [
         "minimax",
@@ -4130,7 +4130,7 @@
       "id": "lobe-brands/mistral",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/mistral.svg",
       "tags": [
         "mistral",
@@ -4161,7 +4161,7 @@
       "id": "lobe-brands/modelscope",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/modelscope.svg",
       "tags": [
         "modelscope",
@@ -4195,7 +4195,7 @@
       "id": "lobe-brands/moonshot",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/moonshot.svg",
       "tags": [
         "moonshot",
@@ -4230,7 +4230,7 @@
       "id": "lobe-brands/n8n",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/n8n.svg",
       "tags": [
         "n8n",
@@ -4261,7 +4261,7 @@
       "id": "lobe-brands/notebooklm",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/notebooklm.svg",
       "tags": [
         "notebooklm",
@@ -4292,7 +4292,7 @@
       "id": "lobe-brands/notion",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/notion.svg",
       "tags": [
         "notion",
@@ -4323,7 +4323,7 @@
       "id": "lobe-brands/nvidia",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/nvidia.svg",
       "tags": [
         "nvidia",
@@ -4357,7 +4357,7 @@
       "id": "lobe-brands/ollama",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/ollama.svg",
       "tags": [
         "ollama",
@@ -4388,7 +4388,7 @@
       "id": "lobe-brands/openai",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/openai.svg",
       "tags": [
         "openai",
@@ -4419,7 +4419,7 @@
       "id": "lobe-brands/openrouter",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/openrouter.svg",
       "tags": [
         "openrouter",
@@ -4450,7 +4450,7 @@
       "id": "lobe-brands/perplexity",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/perplexity.svg",
       "tags": [
         "perplexity",
@@ -4481,7 +4481,7 @@
       "id": "lobe-brands/pika",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/pika.svg",
       "tags": [
         "pika",
@@ -4512,7 +4512,7 @@
       "id": "lobe-brands/poe",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/poe.svg",
       "tags": [
         "poe",
@@ -4543,7 +4543,7 @@
       "id": "lobe-brands/qiniu",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/qiniu.svg",
       "tags": [
         "qiniu",
@@ -4577,7 +4577,7 @@
       "id": "lobe-brands/qwen",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/qwen.svg",
       "tags": [
         "qwen",
@@ -4613,7 +4613,7 @@
       "id": "lobe-brands/recraft",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/recraft.svg",
       "tags": [
         "recraft",
@@ -4644,7 +4644,7 @@
       "id": "lobe-brands/replicate",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/replicate.svg",
       "tags": [
         "replicate",
@@ -4675,7 +4675,7 @@
       "id": "lobe-brands/replit",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/replit.svg",
       "tags": [
         "replit",
@@ -4706,7 +4706,7 @@
       "id": "lobe-brands/runway",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/runway.svg",
       "tags": [
         "runway",
@@ -4737,7 +4737,7 @@
       "id": "lobe-brands/sensenova",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/sensenova.svg",
       "tags": [
         "sensenova",
@@ -4772,7 +4772,7 @@
       "id": "lobe-brands/skywork",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/skywork.svg",
       "tags": [
         "skywork",
@@ -4806,7 +4806,7 @@
       "id": "lobe-brands/snowflake",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/snowflake.svg",
       "tags": [
         "snowflake",
@@ -4837,7 +4837,7 @@
       "id": "lobe-brands/sora",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/sora.svg",
       "tags": [
         "sora",
@@ -4868,7 +4868,7 @@
       "id": "lobe-brands/spark",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/spark.svg",
       "tags": [
         "spark",
@@ -4903,7 +4903,7 @@
       "id": "lobe-brands/stability",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/stability.svg",
       "tags": [
         "stability",
@@ -4934,7 +4934,7 @@
       "id": "lobe-brands/stepfun",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/stepfun.svg",
       "tags": [
         "stepfun",
@@ -4969,7 +4969,7 @@
       "id": "lobe-brands/suno",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/suno.svg",
       "tags": [
         "suno",
@@ -5000,7 +5000,7 @@
       "id": "lobe-brands/tencent",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/tencent.svg",
       "tags": [
         "tencent",
@@ -5034,7 +5034,7 @@
       "id": "lobe-brands/tencentcloud",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/tencentcloud.svg",
       "tags": [
         "tencentcloud",
@@ -5068,7 +5068,7 @@
       "id": "lobe-brands/together",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/together.svg",
       "tags": [
         "together",
@@ -5100,7 +5100,7 @@
       "id": "lobe-brands/trae",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/trae.svg",
       "tags": [
         "trae",
@@ -5132,7 +5132,7 @@
       "id": "lobe-brands/udio",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/udio.svg",
       "tags": [
         "udio",
@@ -5163,7 +5163,7 @@
       "id": "lobe-brands/vercel",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/vercel.svg",
       "tags": [
         "vercel",
@@ -5194,7 +5194,7 @@
       "id": "lobe-brands/vidu",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/vidu.svg",
       "tags": [
         "vidu",
@@ -5225,7 +5225,7 @@
       "id": "lobe-brands/viggle",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/viggle.svg",
       "tags": [
         "viggle",
@@ -5256,7 +5256,7 @@
       "id": "lobe-brands/volcengine",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/volcengine.svg",
       "tags": [
         "volcengine",
@@ -5290,7 +5290,7 @@
       "id": "lobe-brands/wenxin",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/wenxin.svg",
       "tags": [
         "wenxin",
@@ -5325,7 +5325,7 @@
       "id": "lobe-brands/windsurf",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/windsurf.svg",
       "tags": [
         "windsurf",
@@ -5356,7 +5356,7 @@
       "id": "lobe-brands/xai",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/xai.svg",
       "tags": [
         "xai",
@@ -5388,7 +5388,7 @@
       "id": "lobe-brands/xiaomimimo",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/xiaomimimo.svg",
       "tags": [
         "xiaomimimo",
@@ -5422,7 +5422,7 @@
       "id": "lobe-brands/yandex",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/yandex.svg",
       "tags": [
         "yandex",
@@ -5453,7 +5453,7 @@
       "id": "lobe-brands/yi",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/yi.svg",
       "tags": [
         "yi",
@@ -5487,7 +5487,7 @@
       "id": "lobe-brands/yuanbao",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/yuanbao.svg",
       "tags": [
         "yuanbao",
@@ -5522,7 +5522,7 @@
       "id": "lobe-brands/zapier",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/zapier.svg",
       "tags": [
         "zapier",
@@ -5553,7 +5553,7 @@
       "id": "lobe-brands/zeroone",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/zeroone.svg",
       "tags": [
         "zeroone",
@@ -5588,7 +5588,7 @@
       "id": "lobe-brands/zhipu",
       "root": "core-pack",
       "pack": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "path": "packs/lobe-brands/logos/zhipu.svg",
       "tags": [
         "zhipu",

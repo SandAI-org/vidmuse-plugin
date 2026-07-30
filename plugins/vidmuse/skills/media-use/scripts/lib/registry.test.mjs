@@ -23,9 +23,17 @@ test("Core Pack is consulted before generation and never generates", () => {
   // library-layout.md's lookup order puts the preinstalled library ahead of
   // generation. Before this existed the Core Pack had no read path at all: the
   // lookup order named it, but no provider served it.
-  assert.deepEqual(providerNamesFor("icon"), ["core-pack", "vidmuse.model"]);
-  assert.deepEqual(providerNamesFor("texture"), ["core-pack", "vidmuse.model"]);
-  const corePack = getProviders("icon")[0];
+  assert.deepEqual(providerNamesFor("icon"), [
+    "creator-library",
+    "core-pack",
+    "vidmuse.model",
+  ]);
+  assert.deepEqual(providerNamesFor("texture"), [
+    "creator-library",
+    "core-pack",
+    "vidmuse.model",
+  ]);
+  const corePack = getProviders("icon")[1];
   assert.equal(corePack.name, "core-pack");
   assert.equal(typeof corePack.search, "function");
   assert.equal(corePack.generate, undefined);
@@ -36,8 +44,8 @@ test("static Core Pack types have no generative route at all", () => {
   // A typeface or a pre-baked Lottie timeline is not something a model should
   // invent on demand; a wrong one is worse than a clean miss.
   for (const type of ["font", "shape", "lottie", "palette"]) {
-    assert.deepEqual(providerNamesFor(type), ["core-pack"], type);
-    assert.equal(getProviders(type)[0].generate, undefined, type);
+    assert.deepEqual(providerNamesFor(type), ["creator-library", "core-pack"], type);
+    assert.equal(getProviders(type)[1].generate, undefined, type);
   }
 });
 
@@ -46,21 +54,31 @@ test("surface treatment generates, but a local asset still wins", () => {
   // shipped — but an adopted project file or Creator Library set must not be
   // bypassed in favor of paying to generate.
   for (const type of ["texture", "overlay"]) {
-    assert.deepEqual(providerNamesFor(type), ["core-pack", "vidmuse.model"], type);
+    assert.deepEqual(
+      providerNamesFor(type),
+      ["creator-library", "core-pack", "vidmuse.model"],
+      type,
+    );
   }
 });
 
-test("project brand tokens still win over the preinstalled marks", () => {
-  assert.deepEqual(providerNamesFor("brand"), ["design_spec", "core-pack"]);
+test("brand means a project/private design system, never a company logo", () => {
+  assert.deepEqual(providerNamesFor("brand"), ["design_spec", "creator-library"]);
 });
 
-test("SFX uses VidMuse when available and bundled deterministic fallback", () => {
-  assert.deepEqual(providerNamesFor("sfx"), ["vidmuse.model", "bundled.sfx"]);
-  assert.equal(typeof getProviders("sfx")[1].search, "function");
+test("SFX exhausts approved deterministic libraries before generation", () => {
+  assert.deepEqual(providerNamesFor("sfx"), [
+    "creator-library",
+    "core-pack",
+    "bundled.sfx",
+    "vidmuse.model",
+  ]);
+  assert.equal(typeof getProviders("sfx")[2].search, "function");
 });
 
 test("official logos never use a generative provider", () => {
   assert.deepEqual(providerNamesFor("logo"), [
+    "creator-library",
     "lobehub.icons",
     "svgl",
     "simple-icons",
@@ -82,21 +100,26 @@ test("the offline logo floor is last, local, and variant-constrained", () => {
   assert.equal(offline.name, "core-pack.brands");
   assert.notEqual(offline.network, true);
   // Every tier ahead of it must be a network tier, or "offline floor" is a lie.
-  for (const tier of tiers.slice(0, -1)) {
+  for (const tier of tiers.slice(1, -1)) {
     assert.equal(tier.network, true, `${tier.name} should be a live source`);
   }
+  assert.equal(tiers[0].name, "creator-library");
+  assert.notEqual(tiers[0].network, true);
   // One mark per brand is frozen (color where upstream has it, mono otherwise),
   // so an explicit --variant it cannot serve skips the tier rather than being
   // silently substituted.
   assert.deepEqual(offline.variants, ["mono", "color"]);
 });
 
-test("logo is the one type that survives --local-only", async () => {
+test("logo survives --local-only through exact private choice or offline floor", async () => {
   // Before the offline floor existed, every logo tier was network-only, so
   // --local-only failed 100% of logo requests.
   const local = getProviders("logo").filter((p) => !p.network);
-  assert.equal(local.length, 1);
-  assert.equal(typeof local[0].search, "function");
+  assert.equal(local.length, 2);
+  assert.deepEqual(local.map((provider) => provider.name), [
+    "creator-library",
+    "core-pack.brands",
+  ]);
 });
 
 test("all resolve types remain available", () => {

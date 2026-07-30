@@ -55,7 +55,7 @@ search can be added later without re-indexing.
 | Mode | For | How the agent uses it |
 | --- | --- | --- |
 | `keyword` | large sets (`icon`, `shape`, `lottie`, `sfx`) | `--query` narrows; tags and the Chinese lexicon carry recall |
-| `table` | small sets (`font`, `palette`, `brand`) | the whole table returns so the agent can reason across it |
+| `table` | small sets (`font`, `palette`, `offline-logo`) | the whole table returns so the agent can reason across it |
 | `sheet` | visual choice (`texture`, `overlay`) | `--sheet` renders a contact sheet; read the image and pick a cell |
 
 ## Preinstalled vs generated
@@ -66,7 +66,7 @@ answer is "not from here":
 | Type | Where it comes from |
 | --- | --- |
 | `icon` `shape` `font` `lottie` | Preinstalled packs. No generative route — a wrong typeface or pre-baked timeline is worse than a clean miss |
-| `brand` | Preinstalled, but as an **offline floor only**. `logo` resolves live first (Lobe → SVGL → Simple Icons → GitHub → favicon → `core-pack.brands`), because marks change and new models ship constantly. One mark per brand: color where upstream has it, mono for brands that are monochrome by design |
+| `offline-logo` | Internal index type used only as the final exact-logo fallback. It is distinct from public `brand`, which means a project design system/kit. `logo` resolves live first unless the plan names an exact approved Creator Library asset |
 | `sfx` `palette` | Indexed read-only from sibling skills |
 | `texture` `overlay` | **Generated per film.** Surface treatment has to match one frame's palette, grain, and era, so a shipped set would be heavy and usually wrong. Prefer CSS/canvas for plain grain, noise, and scanlines |
 
@@ -122,17 +122,27 @@ An item may enter an owned pack only when all are true:
    `self: true` for original work;
 5. every file is hashed and within its type's size budget.
 
-Do not admit purchased marketplace packs, scraped collections, third-party brand
-logos, or unverified free fonts. Those belong in the private Creator Library or a
-dynamic provider.
+Do not admit purchased marketplace packs, scraped collections, or unverified
+free fonts. Those belong in the private Creator Library or a dynamic provider.
+
+Third-party identification marks are admitted only to a dedicated
+`offline-logo` fallback pack when the bytes are explicitly redistributable,
+the complete notice ships with the pack, identity matching is exact, the live
+catalog remains authoritative, and receipts separate copyright permission from
+`trademark_state: identification-only`. They are never exposed through public
+`brand`.
 
 **Fonts specifically:** HyperFrames pre-bundles 18 families (see
 `hyperframes-creative/references/typography.md`). Re-shipping one of those is
 pure install weight. Admit only families it does *not* bundle.
+The pack must also record allowlisted redistribution, whether the files were
+subsetted or otherwise modified, and the resulting glyph coverage.
 
-**Size discipline:** the plugin is already ~19MB. SVG is cheap; PNG textures are
-not. Prefer a small tileable image, or generate the look in CSS/canvas and admit
-no file at all. `--validate` fails a pack that exceeds its type budget.
+**Size discipline:** the current checkout contains about 24.4 MiB of plugin
+files. Treat that as a measured baseline, not a permanent allowance. SVG is
+cheap; PNG textures are not. Prefer a small tileable image, or generate the look
+in CSS/canvas and admit no file at all. `--validate` fails a pack that exceeds
+its type budget.
 
 ## External roots
 
@@ -161,11 +171,10 @@ Consequences worth stating plainly:
 ## Not indexed here
 
 `types.json` `not_indexed` records every excluded type and the reason. The
-important one: **`logo` never enters the Core Pack.** Identity marks are an
-unbounded set requiring exact entity matching; they resolve live through the
-media-use cascade (Lobe Icons → SVGL → Simple Icons → GitHub avatar → favicon).
-A stale local copy invites exactly the wrong-identity substitution the Semantic
-Asset Pass forbids.
+important one: public **`logo` is not a browsable Core Pack type.** Identity
+marks are an unbounded set requiring exact entity matching; they resolve through
+the media-use cascade. The deliberately finite `offline-logo` pack is its final
+exact-match tier and carries an explicit staleness/trademark receipt.
 
 ## Adding a type
 

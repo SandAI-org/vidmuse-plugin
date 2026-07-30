@@ -10,7 +10,8 @@ description: >
   the Semantic Asset Pass, canonicalizes entities, decides whether an asset
   adds editorial value, writes asset-plan.json, selects legal sources, and
   manages Core Pack / Creator Library policy. Delegates every download,
-  generation, transform, cache write, and manifest write to media-use. Does
+  generation, transform, cache write, and project media manifest write to
+  media-use. Does
   not own film routing, timing, composition, or rendering.
 compatibility: Node.js 18+; network for remote catalogs; VidMuse CLI only when
   generation is needed. Uses the sibling media-use skill as its execution layer.
@@ -62,10 +63,12 @@ node scripts/asset_plan.mjs --project <project> --complete-pass
 node scripts/asset_plan.mjs --project <project> --validate
 ```
 
-`--init` deliberately creates a `pending` receipt. Even an empty
+`--init` deliberately creates a `pending` receipt. List every decision input
+besides the transcript in `decision_inputs` (ATA/alignment, source inspection
+or media receipt, and chapter map/grounding). Even an empty
 `opportunities: []` plan is invalid until `--complete-pass` records the
-transcript SHA-256 and opportunity count. If the transcript changes, rerun the
-pass and stamp it again.
+SHA-256 of every declared input and the opportunity count. If any input changes,
+rerun the pass and stamp it again.
 
 The pass separates:
 
@@ -113,7 +116,7 @@ surface** over every static asset the plugin can reach — 2237 indexed items:
 | Type | Count | Source |
 | --- | --- | --- |
 | `icon` | 2007 | `lucide` (ISC), upstream synonyms harvested at import |
-| `brand` | 113 | `lobe-brands` — one mark per settled brand (MIT). Offline floor only; the live cascade resolves first |
+| `offline-logo` | 113 | `lobe-brands` — internal final tier for exact logo resolution (MIT bytes; trademark identification-only) |
 | `font` | 5 | `noto-cjk-sc` — Simplified Chinese sans + serif (OFL); HyperFrames bundles no Chinese face |
 | `shape` | 16 | `vidmuse-shapes` — blobs, waves, grids, arrows, underlines, data readouts (CC0) |
 | `lottie` | 5 | `vidmuse-lottie` — spinner, progress ring, success, error, pulse (CC0) |
@@ -132,13 +135,14 @@ node scripts/core_pack.mjs --validate
 
 Query first, before reaching for a provider or generation — that is what the
 lookup order requires. The query returns candidates and match reasons; **you**
-choose, and `media-use` freezes. Three discovery modes: `keyword` (large sets),
+choose, record the exact `core_pack_id`, and `media-use` freezes that id. Three
+discovery modes: `keyword` (large sets),
 `table` (small sets, returns everything so you can reason across it), and `sheet`
 (raster material you must *see* — read the contact sheet and pick a cell).
 
 `logo` still resolves **live** through the official-logo cascade, which stays
-authoritative — brand marks change and new models ship constantly. The
-preinstalled `brand` pack is a curated **offline floor** — one mark for each of
+authoritative — brand marks change and new models ship constantly. The internal
+`offline-logo` pack is a curated **offline floor** — one mark for each of
 113 settled brands (international + Chinese majors + AI labs + dev tools), placed
 last in the cascade:
 
@@ -163,6 +167,16 @@ Creator Library is private and opt-in. Initialize only when the user asks:
 
 ```bash
 node scripts/creator_library.mjs --init
+```
+
+After the user or film owner approves an entry, resolve it by exact
+`creator_library_id`. The adapter never fuzzy-selects private content:
+
+```bash
+node ../media-use/scripts/resolve.mjs \
+  --type icon --intent "approved clay brain icon" \
+  --creator-library-id thiings-clay-brain-01 \
+  --provider creator-library --local-only --project <project>
 ```
 
 ## Acquisition and project freeze
@@ -240,6 +254,12 @@ It should include `provider: "lobehub.icons"`, package versions, `variant`,
 top-level `license_state: "verified-commercial"` + the MIT notice receipt,
 original URL, entity, and local path.
 
+For third-party marks, `license_state` describes copyright permission for the
+SVG bytes, not trademark clearance. Offline marks additionally carry
+`copyright_state: "verified-redistributable"` and
+`trademark_state: "identification-only"`; presentation that implies
+endorsement or ownership still requires review.
+
 ## License gate
 
 Classify every external source before automatic use:
@@ -262,7 +282,7 @@ new catalog, importing a third-party pack, or making a commercial-use decision.
 | Core Pack | **Implemented** — pack ledger, derived index, keyword/table/sheet query, Chinese query lexicon, read path wired into `media-use` |
 | Core Pack content | `lucide` 2007 icons (ISC) · `lobe-brands` 113 brand marks (MIT) · `noto-cjk-sc` 5 Simplified Chinese font cuts (OFL) · `vidmuse-shapes` 16 shapes (CC0) · `vidmuse-lottie` 5 state animations (CC0) · `sfx` + `palette` indexed read-only from sibling skills |
 | `texture` / `overlay` | Not preinstalled by policy — film-specific surface treatment; generated per project, or CSS/canvas for plain grain |
-| Creator Library | Layout/policy defined; private user content only |
+| Creator Library | **Implemented** — private manifest validation and exact-id resolver; no fuzzy private search |
 | Lobe Icons | **Implemented** — live deterministic Logo Provider (tier 1), plus a curated offline floor in Core Pack (tier 6, last) |
 | SVGL / Simple Icons / GitHub / favicon | Existing official-logo fallbacks |
 | Thiings | Licensed local-library design only; not bundled or scraped |

@@ -1,7 +1,7 @@
 {
   "schema": "vidmuse.core-pack.v2",
   "version": "0.2.0",
-  "status": "framework",
+  "status": "active",
   "description": "Preinstalled redistributable VidMuse asset baseline. Types are declared in types.json; per-pack ledgers live in packs/<id>/pack.json; index.json is the derived query surface.",
   "roots": {
     "core-pack": {
@@ -57,7 +57,7 @@
     },
     {
       "id": "lobe-brands",
-      "type": "brand",
+      "type": "offline-logo",
       "license": "MIT",
       "origin": "@lobehub/icons-static-svg@1.94.0 (curated 113 brands)",
       "role": "offline-fallback for the live logo cascade"

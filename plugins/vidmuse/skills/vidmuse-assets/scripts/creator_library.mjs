@@ -28,12 +28,26 @@ const TYPES = new Set([
   "brand",
   "font",
   "icon",
+  "shape",
+  "lottie",
   "logo",
   "image",
   "texture",
+  "overlay",
+  "palette",
   "sfx",
+  "bgm",
   "music",
   "video",
+]);
+const LOGO_VARIANTS = new Set([
+  "mono",
+  "color",
+  "text",
+  "text-cn",
+  "text-color",
+  "brand",
+  "brand-color",
 ]);
 
 function inside(root, path) {
@@ -68,6 +82,14 @@ export function validateCreatorLibrary(manifest, root = DEFAULT_ROOT) {
     else if (ids.has(asset.id)) err(`${where}: duplicate id`);
     else ids.add(asset.id);
     if (!TYPES.has(asset.type)) err(`${where}: unsupported type ${String(asset.type)}`);
+    if (asset.type === "logo") {
+      if (typeof asset.entity !== "string" || !asset.entity.trim()) {
+        err(`${where}: logo requires canonical entity`);
+      }
+      if (asset.variant && !LOGO_VARIANTS.has(asset.variant)) {
+        err(`${where}: unsupported logo variant ${String(asset.variant)}`);
+      }
+    }
     if (typeof asset.path !== "string" || !asset.path.trim()) {
       err(`${where}: path is required`);
     } else if (!inside(root, asset.path)) {
@@ -77,6 +99,12 @@ export function validateCreatorLibrary(manifest, root = DEFAULT_ROOT) {
     }
     if (!LICENSE_STATES.has(asset.license_state)) {
       err(`${where}: license_state is required`);
+    }
+    if (
+      asset.sha256 != null &&
+      !/^[a-f0-9]{64}$/.test(String(asset.sha256))
+    ) {
+      err(`${where}: sha256 must be a lowercase SHA-256 digest`);
     }
     if (asset.license_state === "user-licensed") {
       if (typeof asset.license_receipt !== "string" || !asset.license_receipt.trim()) {

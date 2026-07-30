@@ -73,11 +73,11 @@ node <SKILL_DIR>/scripts/resolve.mjs \
 | Type | Behavior |
 | --- | --- |
 | `bgm` | VidMuse music model (`text_to_music`) |
-| `sfx` | VidMuse SFX model when the live catalog supports `sound_effect`; otherwise bundled deterministic SFX |
-| `image` | VidMuse text-to-image or image-to-image |
-| `icon` | VidMuse image generation with transparent-icon constraints |
-| `logo` | Lobe Icons → SVGL → Simple Icons → GitHub avatar → favicon; never AI-generated |
-| `shape` `font` `lottie` `palette` | VidMuse Core Pack (preinstalled, offline, licensed); no generative route — a wrong typeface or timeline is worse than a miss |
+| `sfx` | Exact Creator Library → indexed/bundled deterministic SFX → VidMuse SFX model |
+| `image` | Exact Creator Library when selected, otherwise VidMuse text-to-image or image-to-image |
+| `icon` | Exact Creator Library → Core Pack → VidMuse image generation |
+| `logo` | Exact Creator Library → Lobe Icons → SVGL → Simple Icons → GitHub avatar → favicon → offline Core Pack floor; never AI-generated |
+| `shape` `font` `lottie` `palette` | Exact Creator Library → VidMuse Core Pack (preinstalled, offline, licensed); no generative route — a wrong typeface or timeline is worse than a miss |
 | `texture` `overlay` | Core Pack first (adopted project file / Creator Library), then VidMuse image generation. Not preinstalled: surface treatment is film-specific. Prefer CSS/canvas for plain grain and noise |
 | `voice` | VidMuse TTS; voice id comes from `vidmuse voice list` |
 | `video` | VidMuse t2v / i2v / multi-image / reference / avatar model |
@@ -110,7 +110,10 @@ Core Pack runs before generation, works under `--local-only`, and returns a
 license receipt plus the HyperFrames usage contract in the manifest record. To
 browse candidates before resolving — or to see a contact sheet of raster options
 — use `vidmuse-assets/scripts/core_pack.mjs --query`; this skill executes the
-choice rather than making it.
+choice rather than making it. Pass `--core-pack-id <id>` to freeze the exact
+candidate selected during browsing. Pass `--creator-library-id <id>
+--provider creator-library --local-only` for one explicitly approved private
+asset; private content is never fuzzy-selected.
 
 Standalone and in-film semantic asset work enters through `/vidmuse-assets`,
 which supplies the exact query and source/license policy around this command.

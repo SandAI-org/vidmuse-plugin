@@ -281,6 +281,8 @@ export async function lobeIconsSearch(intent, ctx = {}) {
       description: `${hit.fullTitle || hit.title || hit.id} logo (${variant}, Lobe Icons)`,
       provider: "lobehub.icons",
       license_state: "verified-commercial",
+      copyright_state: "verified-redistributable",
+      trademark_state: "identification-only",
       license: {
         id: "MIT",
         notice_required: true,
@@ -302,6 +304,8 @@ export async function lobeIconsSearch(intent, ctx = {}) {
         catalog_package: `@lobehub/icons@${LOBE_ICONS_VERSION}`,
         asset_package: `@lobehub/icons-static-svg@${LOBE_STATIC_SVG_VERSION}`,
         license: "MIT",
+        copyright_state: "verified-redistributable",
+        trademark_state: "identification-only",
         license_url: "https://github.com/lobehub/lobe-icons/blob/master/LICENSE",
         copyright: "Copyright (c) 2023 LobeHub",
         url,
@@ -331,6 +335,9 @@ export async function svglSearch(intent, ctx = {}) {
       metadata: {
         description: `${hit.title} logo (official mark)`,
         provider: "svgl",
+        license_state: "unknown",
+        copyright_state: "source-review-required",
+        trademark_state: "identification-only",
         provenance: {
           entity,
           requested_entity: entity,
@@ -363,6 +370,9 @@ export async function simpleIconsSearch(intent, ctx = {}) {
       metadata: {
         description: `${entity} logo (official monochrome glyph)`,
         provider: "simple-icons",
+        license_state: "unknown",
+        copyright_state: "source-review-required",
+        trademark_state: "identification-only",
         provenance: {
           entity,
           requested_entity: entity,
@@ -393,6 +403,9 @@ export async function githubAvatarSearch(intent, ctx = {}) {
     metadata: {
       description: `${entity} logo (GitHub org avatar)`,
       provider: "github.avatar",
+      license_state: "unknown",
+      copyright_state: "source-review-required",
+      trademark_state: "identification-only",
       provenance: {
         entity,
         requested_entity: entity,
@@ -429,6 +442,9 @@ export async function faviconSearch(intent, ctx = {}) {
     metadata: {
       description: `${entity} favicon (small raster — chip-size use only)`,
       provider: "favicon.ddg",
+      license_state: "unknown",
+      copyright_state: "source-review-required",
+      trademark_state: "identification-only",
       provenance: {
         entity,
         requested_entity: entity,

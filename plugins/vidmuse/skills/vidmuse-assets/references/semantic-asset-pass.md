@@ -21,8 +21,9 @@ recognize, compare, remember, or follow the argument.
 6. Decide whether to show a logo, generic icon, photo, diagram node, text
    label, existing asset, or nothing.
 7. Group related opportunities such as an AI-model history timeline.
-8. Write `asset-plan.json`; run `--complete-pass` to bind the decision set to
-   the current transcript SHA-256, then validate it before any provider call.
+8. Write `asset-plan.json`; list ATA/alignment, source inspection/media receipt,
+   and chapter map/grounding in `decision_inputs`, then run `--complete-pass`
+   to bind the decision set to every input SHA-256 before any provider call.
 9. Resolve approved deterministic entries. Each resolution must carry the
    current request fingerprint and exact resolved identity.
 10. Bind stable opportunity ids into the film/packaging plan.
@@ -92,13 +93,20 @@ Every opportunity records:
 - `resolution` only after `media-use` returns a local receipt.
 
 The plan also requires a completed `pass_receipt` containing the Semantic Pass
-contract version, transcript path and SHA-256, opportunity count, and completion
-time. A deliberate empty plan is valid; an unstamped empty array is not.
+contract version, a `inputs[]` hash receipt for transcript plus every declared
+decision input, opportunity count, and completion time. `input` remains a
+compatibility alias for the transcript. A deliberate empty plan is valid; an
+unstamped empty array is not.
 
 Resolved file opportunities record `request_fingerprint`,
 `requested_entity`, and `resolved_entity`. Editing an asset query makes an old
 receipt stale. For logos, canonical, requested, and resolved identities must
 agree after punctuation/case normalization.
+
+When Core Pack browsing selected a specific candidate, store its
+`core_pack_id`. When private material was explicitly approved, use
+`mode: "creator-library"` plus `creator_library_id`. The resolver freezes those
+exact ids; it does not rerun fuzzy selection.
 
 `show-logo` requires an exact deterministic `logo` query. Decisions such as
 `text-label-only`, `diagram-node`, and `suppress` require no download.

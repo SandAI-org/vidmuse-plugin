@@ -123,13 +123,22 @@ export function scoreItem(item, queryTerms, expansions) {
   let matched = 0;
 
   for (const term of queryTerms) {
+    const via = expansions?.get(term);
     let best = null;
     for (const field of fields) {
       let multiplier = 0;
       if (field.text === term) multiplier = 1;
-      else if (field.text.startsWith(term)) multiplier = 0.7;
-      else if (field.text.includes(term)) multiplier = 0.45;
-      else if (term.includes(field.text) && field.text.length >= minFieldMatch(field.text)) {
+      // Lexicon tokens are already a recall expansion. Letting a short expanded
+      // token fuzzy-match again compounds uncertainty: 垃圾桶 -> bin used to
+      // surface binary, binoculars, and non-binary. Exact tags/name-parts retain
+      // useful synonyms without that second fuzzy jump.
+      else if (!via && field.text.startsWith(term)) multiplier = 0.7;
+      else if (!via && field.text.includes(term)) multiplier = 0.45;
+      else if (
+        !via &&
+        term.includes(field.text) &&
+        field.text.length >= minFieldMatch(field.text)
+      ) {
         // Reverse containment: the query is a compound the field appears in.
         // Essential for CJK, which has no word separator — "波浪分隔" arrives as
         // one term and must still reach the "波浪" and "分隔" aliases. Scaled by
@@ -144,7 +153,6 @@ export function scoreItem(item, queryTerms, expansions) {
       }
     }
     if (best) {
-      const via = expansions?.get(term);
       matched += 1;
       // Score per CONCEPT, keeping only its best field match — not per token.
       // "锁定" expands to both "lock" and "locked", so an item carrying both
@@ -252,7 +260,7 @@ export function queryIndex(
   // other cloud brand (云 -> cloud), and offering those as candidates invites
   // exactly the wrong-identity substitution the semantic pass forbids. So once
   // there is a strong match, weak ones are dropped instead of padding the list.
-  if (filters.type === "brand" && results.length > 1) {
+  if (filters.type === "offline-logo" && results.length > 1) {
     const best = results[0].score;
     if (best > 0) results = results.filter((row) => row.score >= best * 0.6);
   }

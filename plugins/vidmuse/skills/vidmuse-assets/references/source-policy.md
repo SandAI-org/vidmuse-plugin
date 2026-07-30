@@ -38,6 +38,21 @@ If one item is unknown, keep the source in discovery/preview mode.
 Read [library-layout.md](library-layout.md) before moving an asset between
 these scopes.
 
+## Copyright and trademark are separate gates
+
+`license_state` describes copyright/redistribution permission for the asset
+bytes. It does not grant trademark rights. Identification marks additionally
+record:
+
+- `copyright_state: verified-redistributable` when the packaged bytes and
+  notice may be redistributed;
+- `trademark_state: identification-only` when the mark may identify the entity
+  being discussed but must not imply sponsorship, endorsement, or ownership.
+
+Do not collapse these into a blanket “commercially cleared” claim. A film may
+have copyright permission to render the SVG and still need contextual review
+for how the trademark is presented.
+
 ## Thiings
 
 Free downloads are personal/non-commercial and require visible attribution.
@@ -84,5 +99,10 @@ Block by default:
 personal use | demo | unknown | no license file/source | embedding prohibited
 ```
 
-Do not copy third-party font files into the VidMuse plugin. Licensed project
-fonts live under the film's `public/fonts/` and use explicit `@font-face`.
+Third-party fonts normally live under the film's `public/fonts/` and use
+explicit `@font-face`. A font may enter Core Pack only as a narrow exception
+when it uses the allowlist above, redistribution and modification/subsetting
+are confirmed, the complete license receipt ships beside it, its family is not
+already bundled by HyperFrames, and the pack ledger records glyph coverage and
+the modified/subset status. Unverified, purchased, or project-specific fonts
+never enter the plugin.

@@ -1,7 +1,7 @@
 {
   "schema": "vidmuse.core-pack.pack.v1",
   "id": "lobe-brands",
-  "type": "brand",
+  "type": "offline-logo",
   "title": "Lobe brand marks (curated offline set)",
   "description": "Curated offline brand marks for well-known international and Chinese companies, AI labs, and developer tools. Offline fallback only — the live Lobe/SVGL/Simple-Icons cascade resolves first so a mark is never served stale when the network is available.",
   "upstream": {

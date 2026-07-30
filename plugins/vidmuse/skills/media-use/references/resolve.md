@@ -18,13 +18,14 @@ decide whether a named transcript entity deserves screen time.
 
 | Type | VidMuse route / deterministic source |
 | --- | --- |
-| `bgm` | audio model + `text_to_music` |
-| `sfx` | audio model + `sound_effect`; bundled SFX fallback |
-| `image` | `text_to_image`; with `--input`, `image_to_image` |
-| `icon` | `text_to_image` with transparent-icon prompt constraints |
+| `bgm` | exact Creator Library selection, otherwise audio model + `text_to_music` |
+| `sfx` | exact Creator Library → Core Pack/bundled SFX → audio model + `sound_effect` |
+| `image` | exact Creator Library, otherwise `text_to_image`; with `--input`, `image_to_image` |
+| `icon` | exact Creator Library → Core Pack → `text_to_image` |
 | `voice` | audio model + `text_to_speech`; voice from `vidmuse voice list` |
 | `video` | `text_to_video`; inputs select i2v/images2v unless route is explicit |
-| `logo` | Lobe Icons (AI/LLM) → svgl → simple-icons → GitHub avatar → favicon |
+| `logo` | exact Creator Library → Lobe Icons → svgl → simple-icons → GitHub avatar → favicon → offline Core Pack floor |
+| `shape` / `font` / `lottie` / `palette` | exact Creator Library → Core Pack; no generative route |
 | `grade` / `lut` | deterministic local color pipeline |
 
 Model names are not frozen in the skill. `resolve` runs `vidmuse model list`
@@ -123,6 +124,9 @@ vidmuse voice list --model minimax/speech-2.6-hd --language zh -o json
 | `--model-params <JSON>` | additional model-specific Aion fields; cannot override selected model/route |
 | `--duration` / `--aspect-ratio` / `--resolution` | model controls when supported |
 | `--provider <name>` | explicitly select a provider, e.g. `lobehub.icons` or `vidmuse` |
+| `--core-pack-id <id>` | freeze the exact non-logo Core Pack candidate selected while browsing |
+| `--creator-library-id <id>` | freeze one exact approved private-library entry; use with `--provider creator-library --local-only` |
+| `--creator-library-root <dir>` | override the private-library root for an exact-id request |
 | `--local-only` | cache/ingest/deterministic providers only; no model call |
 | `--candidates` | list reusable project/global assets without mutation |
 | `--reuse <sha>` | import one selected global candidate |

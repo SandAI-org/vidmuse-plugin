@@ -84,6 +84,9 @@ const { values: args } = parseArgs({
     for: { type: "string" },
     "local-only": { type: "boolean", default: false },
     provider: { type: "string" },
+    "core-pack-id": { type: "string" },
+    "creator-library-id": { type: "string" },
+    "creator-library-root": { type: "string" },
     model: { type: "string" },
     "generation-type": { type: "string" },
     "voice-id": { type: "string" },
@@ -130,6 +133,9 @@ Options:
                   suggestions (grade only)
   --local-only    Cache/ingest only; skip VidMuse model calls
   --provider      Force one provider (for example lobehub.icons or vidmuse)
+  --core-pack-id  Freeze the exact Core Pack candidate selected during browsing
+  --creator-library-id  Freeze one exact approved private-library asset
+  --creator-library-root  Override VIDMUSE_CREATOR_LIBRARY for that exact asset
   --model         Force an exact model_name from vidmuse model list
   --generation-type  Force an Aion generation_type supported by that model
   --voice-id      Override the VidMuse voice id for TTS
@@ -169,6 +175,34 @@ if (variant && !LOGO_VARIANTS.has(variant)) {
   console.error(
     `error: unsupported logo variant "${variant}" (expected: ${[...LOGO_VARIANTS].join(", ")})`,
   );
+  process.exit(2);
+}
+if (args["core-pack-id"] && args["creator-library-id"]) {
+  console.error("error: choose either --core-pack-id or --creator-library-id, not both");
+  process.exit(2);
+}
+if (args["core-pack-id"] && type === "logo") {
+  console.error(
+    "error: --type logo resolves exact entity/variant through the logo cascade; do not bind its internal offline pack with --core-pack-id",
+  );
+  process.exit(2);
+}
+if (args["core-pack-id"] && args.provider && args.provider !== "core-pack") {
+  console.error("error: --core-pack-id is only compatible with --provider core-pack");
+  process.exit(2);
+}
+if (
+  args["creator-library-id"] &&
+  args.provider &&
+  args.provider !== "creator-library"
+) {
+  console.error(
+    "error: --creator-library-id is only compatible with --provider creator-library",
+  );
+  process.exit(2);
+}
+if (args["creator-library-root"] && !args["creator-library-id"]) {
+  console.error("error: --creator-library-root requires --creator-library-id");
   process.exit(2);
 }
 
@@ -331,7 +365,8 @@ async function run() {
   // every reuse rung (project/entity/assets/global cache) so it can't silently
   // hand back an asset from a different provider. The floor only applies to the
   // default (unforced) cascade.
-  const forced = !!args.provider;
+  const forced =
+    !!args.provider || !!args["core-pack-id"] || !!args["creator-library-id"];
 
   // 1. project manifest — exact-prompt match
   const projectHit = forced ? null : findByPrompt(projectDir, intent, type, variant);
@@ -434,6 +469,9 @@ async function run() {
     projectDir,
     localOnly,
     provider: args.provider,
+    corePackId: args["core-pack-id"],
+    creatorLibraryId: args["creator-library-id"],
+    creatorLibraryRoot: args["creator-library-root"],
     model: args.model,
     generationType: args["generation-type"],
     voiceId: args["voice-id"],
@@ -572,6 +610,12 @@ async function run() {
     }),
     ...(searchResult.metadata?.license_state && {
       license_state: searchResult.metadata.license_state,
+    }),
+    ...(searchResult.metadata?.copyright_state && {
+      copyright_state: searchResult.metadata.copyright_state,
+    }),
+    ...(searchResult.metadata?.trademark_state && {
+      trademark_state: searchResult.metadata.trademark_state,
     }),
     ...(searchResult.metadata?.license && {
       license: searchResult.metadata.license,

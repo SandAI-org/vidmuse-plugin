@@ -9,6 +9,7 @@
 import { bundledSfxProvider } from "./bundled-sfx-provider.mjs";
 import { brandProvider } from "./brand-provider.mjs";
 import { corePackProvider } from "./core-pack-provider.mjs";
+import { creatorLibraryProvider } from "./creator-library-provider.mjs";
 import { offlineLogoProvider } from "./offline-logo-provider.mjs";
 import {
   lobeIconsSearch,
@@ -35,6 +36,12 @@ const V = (type) =>
 // order puts it ahead of any generative provider, so it is declared first for
 // every type it can serve.
 const CP = A("core-pack", { search: corePackProvider.search });
+const CL = A("creator-library", {
+  search: creatorLibraryProvider.search,
+  // The exact selected entry still has to attest its own variant; this list
+  // only lets the generic variant gate reach the adapter.
+  variants: LOBE_VARIANT_NAMES,
+});
 
 // Variants the offline logo floor can attest. It freezes ONE mark per brand —
 // color where upstream has it, mono otherwise — so only these two are possible.
@@ -43,25 +50,33 @@ const CP = A("core-pack", { search: corePackProvider.search });
 const OFFLINE_LOGO_VARIANTS = Object.freeze(["mono", "color"]);
 
 const REGISTRY = {
-  bgm: [V("bgm")],
-  sfx: [V("sfx"), A("bundled.sfx", { search: bundledSfxProvider.search })],
-  image: [V("image")],
-  icon: [CP, V("icon")],
+  bgm: [CL, V("bgm")],
+  sfx: [
+    CL,
+    CP,
+    A("bundled.sfx", { search: bundledSfxProvider.search }),
+    V("sfx"),
+  ],
+  image: [CL, V("image")],
+  icon: [CL, CP, V("icon")],
   // Static asset classes served from the preinstalled library. Fonts, shapes,
   // Lottie, and palettes have no generation route on purpose: a typeface or a
   // pre-baked animation timeline is not something a model should invent on
   // demand, and a wrong one is worse than a miss.
-  font: [CP],
-  shape: [CP],
-  lottie: [CP],
-  palette: [CP],
+  font: [CL, CP],
+  shape: [CL, CP],
+  lottie: [CL, CP],
+  palette: [CL, CP],
   // Textures and overlays are film-specific surface treatment — the palette,
   // grain, and era have to match one frame — so a shipped set would be both
   // heavy and usually wrong. Core Pack still runs first so an adopted project
   // file or a Creator Library set wins over paying to generate.
-  texture: [CP, V("image")],
-  overlay: [CP, V("image")],
+  texture: [CL, CP, V("image")],
+  overlay: [CL, CP, V("image")],
   logo: [
+    // A private exact-id choice is an explicit user/editorial approval and wins
+    // over catalogs. Without an id this adapter is a clean miss.
+    CL,
     // Logos are evidence, not illustration: resolve official marks and never
     // send them to a generative model.
     N("lobehub.icons", { search: lobeIconsSearch, variants: LOBE_VARIANT_NAMES }),
@@ -80,12 +95,14 @@ const REGISTRY = {
     }),
   ],
   voice: [V("voice")],
-  video: [V("video")],
+  video: [CL, V("video")],
   brand: [
     // Local design spec — reads frame.md / design.md tokens. Project-specific
-    // brand tokens win over the preinstalled VidMuse marks.
+    // brand tokens win over an explicitly selected private brand kit.
     A("design_spec", { search: brandProvider.search }),
-    CP,
+    // A brand request means a design system/kit, never a single third-party
+    // company mark. Offline company marks live only behind the logo cascade.
+    CL,
   ],
   grade: [
     // Local deterministic cascade handled by resolve.mjs so grade records can

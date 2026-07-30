@@ -167,7 +167,7 @@ export const SOURCES = {
   "lobe-brands": {
     npm: "@lobehub/icons-static-svg",
     catalogNpm: "@lobehub/icons",
-    type: "brand",
+    type: "offline-logo",
     license: { spdx: "MIT", file: "LICENSE" },
     iconDir: "icons",
     ext: ".svg",
@@ -742,11 +742,28 @@ function readCatalogVersion(pkgDir, source, version) {
 // the live cascade and the offline fallback should describe the same catalog.
 const LOBE_CATALOG_FALLBACK = "5.15.0";
 
-function readCopyright(licensePath) {
-  const line = readFileSync(licensePath, "utf8")
-    .split("\n")
-    .find((l) => /copyright/i.test(l));
-  return line ? line.trim() : "see LICENSE.txt";
+export function readCopyright(licensePath) {
+  const lines = readFileSync(licensePath, "utf8")
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const explicit = lines.find(
+    (line) =>
+      /^copyright\s*(?:\(c\)|©|\d{4})/i.test(line),
+  );
+  if (explicit) return explicit;
+
+  // OFL packages commonly put the holder on the first line ("Google Inc.")
+  // and contain the word Copyright only later in the license definitions. That
+  // definition is not provenance, so use the leading holder line when present.
+  const holder = lines.find(
+    (line) =>
+      !/^this .*licensed/i.test(line) &&
+      !/^https?:/i.test(line) &&
+      !/^sil open font license/i.test(line) &&
+      !/^-{3,}$/.test(line),
+  );
+  return holder || "see LICENSE.txt";
 }
 
 export function runCli(argv = process.argv.slice(2)) {

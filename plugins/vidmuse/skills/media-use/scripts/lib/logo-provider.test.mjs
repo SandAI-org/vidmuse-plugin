@@ -143,6 +143,8 @@ test("lobeIconsSearch returns a pinned SVG descriptor with variant metadata", as
   assert.match(res.url, /@lobehub\/icons-static-svg@[\d.]+\/icons\/codex-color\.svg$/);
   assert.equal(res.metadata.provider, "lobehub.icons");
   assert.equal(res.metadata.license_state, "verified-commercial");
+  assert.equal(res.metadata.copyright_state, "verified-redistributable");
+  assert.equal(res.metadata.trademark_state, "identification-only");
   assert.equal(res.metadata.license.id, "MIT");
   assert.equal(res.metadata.license.notice_required, true);
   assert.equal(res.metadata.provenance.variant, "color");
@@ -191,6 +193,8 @@ test("svglSearch returns the descriptor shape on an exact title hit", async (t) 
   assert.equal(res.url, "https://svgl.app/library/figma.svg");
   assert.equal(res.ext, ".svg");
   assert.equal(res.metadata.provider, "svgl");
+  assert.equal(res.metadata.license_state, "unknown");
+  assert.equal(res.metadata.trademark_state, "identification-only");
 });
 
 test("svglSearch skips a non-array payload and retries with the alias query", async (t) => {

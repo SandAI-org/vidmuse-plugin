@@ -36,7 +36,7 @@ const PACK = "lobe-brands";
 export function indexBrands(index) {
   const brands = new Map();
   for (const item of index?.items || []) {
-    if (item.pack !== PACK || item.type !== "brand") continue;
+    if (item.pack !== PACK || item.type !== "offline-logo") continue;
     const brand = item.id.split("/").pop();
     const variant = (item.tags || []).includes("color") ? "color" : "mono";
     brands.set(brand, {
@@ -113,7 +113,11 @@ function freeze(record, item, variant, entity, root, index) {
     metadata: {
       description: `${record.brand} logo (${variant}, preinstalled offline fallback)`,
       provider: "core-pack.brands",
+      // `license_state` remains the shared media-use copyright field. Trademark
+      // permission is separate and deliberately not implied by the MIT receipt.
       license_state: "verified-commercial",
+      copyright_state: "verified-redistributable",
+      trademark_state: "identification-only",
       license: {
         id: "MIT",
         notice_required: true,
@@ -134,6 +138,8 @@ function freeze(record, item, variant, entity, root, index) {
           : null,
         asset_package: upstream.npm ? `${upstream.npm}@${upstream.version}` : null,
         license: "MIT",
+        copyright_state: "verified-redistributable",
+        trademark_state: "identification-only",
         license_url: "https://github.com/lobehub/lobe-icons/blob/master/LICENSE",
         copyright: "Copyright (c) 2023 LobeHub",
         core_pack_id: item.id,

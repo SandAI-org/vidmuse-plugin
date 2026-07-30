@@ -534,6 +534,22 @@ test("Chinese queries reach English-only upstream tags", () => {
   }
 });
 
+test("Chinese lexicon expansion does not fuzzy-match unrelated Latin prefixes", () => {
+  clearTypeCache();
+  const { index } = buildIndex(DEFAULT_ROOT);
+  const { results } = queryIndex(index, {
+    query: "垃圾桶",
+    type: "icon",
+    top: 10,
+    lexicon: LEXICON,
+  });
+  const ids = results.map((row) => row.item.id);
+  assert.equal(ids[0], "lucide/trash");
+  for (const noisy of ["lucide/binary", "lucide/binoculars", "lucide/non-binary"]) {
+    assert.equal(ids.includes(noisy), false, noisy);
+  }
+});
+
 test("lexicon expansion prefers the longest matching key", () => {
   // "购物车" must not also fire the shorter "购物" entry and drag in bag/store,
   // which diluted the query until cart tied with bag.

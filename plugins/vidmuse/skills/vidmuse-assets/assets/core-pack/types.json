@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.core-pack.types.v1",
-  "notes": "Asset-type registry. Adding a type is a data change here plus (when JSON Schema must enumerate it) one line in schemas/asset-plan.schema.json. core_pack.mjs, the core-pack provider, and media-use registry types all derive from this file — do not hard-code a second type list anywhere.",
+  "notes": "Core Pack asset-type registry. core_pack.mjs and the Core Pack provider derive discovery behavior from this file. Public media-use types still require explicit registry wiring because their fallback order is product policy; Semantic Asset Pass enums come from asset-plan.schema.json.",
   "discovery_modes": {
     "keyword": "Large sets. Agent narrows with --query; tags/aliases carry recall.",
     "table": "Small sets. --type returns the whole table so the agent can reason across it.",
@@ -61,15 +61,15 @@
       "usage_contract": "autoplay: false, loop: false, and window.__hfLottie.push(anim) are all mandatory. Anything left on autoplay/loop runs in wall-clock time and renders non-deterministically. The adapter seeks absolute time — no modulo loop, no playback-rate scaling — so bake repeating cycles into the asset. See hyperframes-animation/adapters/lottie.md.",
       "notes": "Assets with their own pre-baked timeline (typically After Effects exports)."
     },
-    "brand": {
+    "offline-logo": {
       "discovery": "keyword",
       "extensions": [".svg", ".png"],
       "probe": "svg",
       "size_budget_kb": 200,
       "hf_usage": "Inline SVG or <img>. A mono mark inherits currentColor; a color mark must not be recolored. Keep clear space around it.",
-      "notes": "Identity search, not browsing: the caller knows which company they mean. Query results apply a relevance floor so near-miss brands are dropped rather than offered — a wrong mark is a factual error in the film, unlike a near-miss icon which is only a stylistic one.",
+      "notes": "Internal offline-logo index for the exact logo cascade. It is not the public media-use `brand` type, which means project design tokens/brand kits. Identity search is exact and never fuzzy at resolution time.",
       "acquisition": "offline-fallback",
-      "acquisition_note": "The live logo cascade (Lobe Icons → SVGL → Simple Icons → GitHub avatar → favicon) resolves first and stays authoritative, because brand marks change and new models appear constantly. The preinstalled set is a curated floor of settled brands — ONE mark each, color where upstream has it and mono for brands that are monochrome by design — reached only when offline or when every live tier misses. Wordmarks and lockups are not frozen: variant choice is what the live cascade is for. VidMuse-owned marks also live here."
+      "acquisition_note": "An explicitly approved Creator Library id wins first. Otherwise the live logo cascade (Lobe Icons → SVGL → Simple Icons → GitHub avatar → favicon) stays authoritative because brand marks change and new models appear constantly. The preinstalled set is a curated floor of settled brands — ONE mark each, color where upstream has it and mono for brands that are monochrome by design — reached only when offline or when every live tier misses. Wordmarks and lockups are not frozen: variant choice is what the live cascade is for. VidMuse-owned marks also live here."
     },
     "sfx": {
       "discovery": "keyword",
@@ -89,7 +89,7 @@
     }
   },
   "not_indexed": {
-    "logo": "Unbounded set requiring exact entity matching. Resolved live through the media-use cascade (Lobe Icons -> SVGL -> Simple Icons -> GitHub avatar -> favicon). A local copy would go stale and invite wrong-identity substitution.",
+    "logo": "Public resolver type. Resolved through the media-use exact-identity cascade; `offline-logo` is its explicitly curated final tier, while the unbounded catalog remains live.",
     "image": "Project-specific photography. No pre-install reuse value; goes through a provider or generation per film.",
     "bgm": "Generated per film by the VidMuse CLI.",
     "voice": "Generated per film by the VidMuse CLI.",
@@ -98,6 +98,6 @@
     "lut": "Owned by media-use as parametric look specs (media-use/luts/index.json).",
     "hdri": "Single files run from several MB to tens of MB, which breaks the per-pack size budget. Three.js also wants these preloaded per project rather than resolved at seek time — project freeze is the right layer.",
     "model3d": "Same size argument as hdri; .gltf/.glb belong to a project, not to every plugin install.",
-    "map": "No geojson/topojson/d3-geo consumer exists anywhere in the bundled HyperFrames skills. A static map render is a texture; live map data is project data. Do not create the category before a consumer exists."
+    "map": "HyperFrames Registry already owns map blocks and their TopoJSON/D3 data contracts. Geographic data is project/Registry-owned and changes with the story, so Core Pack must not duplicate it as a second source of truth."
   }
 }

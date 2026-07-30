@@ -19,59 +19,32 @@ export const PASS_CONTRACT = "semantic-asset-pass.v1";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const MEDIA_RESOLVE = pathResolve(HERE, "../../media-use/scripts/resolve.mjs");
+const SCHEMA_PATH = pathResolve(HERE, "../schemas/asset-plan.schema.json");
+const PLAN_SCHEMA = JSON.parse(readFileSync(SCHEMA_PATH, "utf8"));
+const enumSet = (values) => new Set(values || []);
 
-const WORKFLOWS = new Set(["create", "recut"]);
-const ENTITY_TYPES = new Set([
-  "organization",
-  "product",
-  "model",
-  "person",
-  "place",
-  "event",
-  "concept",
-]);
-const SEMANTIC_ROLES = new Set([
-  "subject",
-  "comparison",
-  "history-node",
-  "source",
-  "incidental",
-  "already-visible",
-]);
-const VISUAL_JOBS = new Set([
-  "establish-identity",
-  "compare",
-  "timeline-node",
-  "explain-relation",
-  "evidence",
-  "recall",
-  "none",
-]);
-const DECISIONS = new Set([
-  "show-logo",
-  "show-icon",
-  "show-photo",
-  "diagram-node",
-  "text-label-only",
-  "reuse-existing",
-  "suppress",
-]);
-const QUERY_TYPES = new Set(["logo", "icon", "image", "bgm", "sfx", "video"]);
-const QUERY_MODES = new Set([
-  "deterministic",
-  "creator-library",
-  "official-web",
-  "generated",
-]);
-const LOGO_VARIANTS = new Set([
-  "mono",
-  "color",
-  "text",
-  "text-cn",
-  "text-color",
-  "brand",
-  "brand-color",
-]);
+// JSON Schema is the source of truth for closed vocabularies. Manual checks
+// below enforce cross-field/editorial constraints that JSON Schema cannot
+// express cleanly; they must not maintain a second enum list.
+const WORKFLOWS = enumSet(PLAN_SCHEMA.properties?.workflow?.enum);
+const ENTITY_TYPES = enumSet(
+  PLAN_SCHEMA.$defs?.opportunity?.properties?.entity_type?.enum,
+);
+const SEMANTIC_ROLES = enumSet(
+  PLAN_SCHEMA.$defs?.opportunity?.properties?.semantic_role?.enum,
+);
+const VISUAL_JOBS = enumSet(
+  PLAN_SCHEMA.$defs?.opportunity?.properties?.visual_job?.enum,
+);
+const DECISIONS = enumSet(
+  PLAN_SCHEMA.$defs?.opportunity?.properties?.decision?.enum,
+);
+const QUERY_TYPES = enumSet(PLAN_SCHEMA.$defs?.query?.properties?.type?.enum);
+const QUERY_MODES = enumSet(PLAN_SCHEMA.$defs?.query?.properties?.mode?.enum);
+const LOGO_VARIANTS = enumSet(
+  PLAN_SCHEMA.$defs?.query?.properties?.variant?.enum,
+);
+const GROUP_KINDS = enumSet(PLAN_SCHEMA.$defs?.group?.properties?.kind?.enum);
 const FILE_DECISIONS = new Set([
   "show-logo",
   "show-icon",
@@ -102,8 +75,20 @@ export function requestFingerprint(query) {
     entity: normalizedIdentity(query?.entity),
     variant: String(query?.variant || "").trim().toLowerCase(),
     provider: String(query?.provider || "").trim().toLowerCase(),
+    core_pack_id: String(query?.core_pack_id || "").trim(),
+    creator_library_id: String(query?.creator_library_id || "").trim(),
   };
   return sha256Bytes(JSON.stringify(normalized));
+}
+
+function declaredPassInputs(plan) {
+  const transcript = isText(plan?.transcript) ? plan.transcript : "transcript.json";
+  const inputs = [{ role: "transcript", path: transcript }];
+  for (const entry of Array.isArray(plan?.decision_inputs) ? plan.decision_inputs : []) {
+    if (!entry || entry.role === "transcript" || entry.path === transcript) continue;
+    inputs.push({ role: entry.role, path: entry.path });
+  }
+  return inputs;
 }
 
 export function validatePassReceipt(plan, projectDir = null) {
@@ -128,6 +113,32 @@ export function validatePassReceipt(plan, projectDir = null) {
   if (!/^[a-f0-9]{64}$/.test(String(receipt.input.sha256 || ""))) {
     errors.push("pass_receipt.input.sha256 must be a SHA-256 digest");
   }
+  const declared = declaredPassInputs(plan);
+  const receiptInputs = Array.isArray(receipt.inputs)
+    ? receipt.inputs
+    : [{ role: "transcript", ...receipt.input }];
+  const declaredKeys = new Set();
+  for (const [index, input] of declared.entries()) {
+    const where = `decision input ${index}`;
+    if (!isText(input.role) || !isText(input.path)) {
+      errors.push(`${where} requires role and path`);
+      continue;
+    }
+    const key = `${input.role}\u0000${input.path}`;
+    if (declaredKeys.has(key)) errors.push(`${where} is duplicated`);
+    declaredKeys.add(key);
+    const stamped = receiptInputs.find(
+      (entry) => entry?.role === input.role && entry?.path === input.path,
+    );
+    if (!stamped) {
+      errors.push(`pass_receipt.inputs is missing ${input.role}: ${input.path}`);
+    } else if (!/^[a-f0-9]{64}$/.test(String(stamped.sha256 || ""))) {
+      errors.push(`pass_receipt input ${input.role} must have a SHA-256 digest`);
+    }
+  }
+  if (receiptInputs.length !== declared.length) {
+    errors.push("pass_receipt.inputs does not match the current decision_inputs");
+  }
   if (receipt.opportunity_count !== plan.opportunities?.length) {
     errors.push("pass_receipt.opportunity_count is stale");
   }
@@ -135,17 +146,27 @@ export function validatePassReceipt(plan, projectDir = null) {
     errors.push("pass_receipt.completed_at must be an ISO timestamp");
   }
 
-  if (projectDir && isText(receipt.input.path)) {
-    const inputPath = pathResolve(projectDir, receipt.input.path);
-    if (!existsSync(inputPath)) {
-      errors.push(`pass_receipt input is missing: ${receipt.input.path}`);
-    } else {
-      const actual = sha256Bytes(readFileSync(inputPath));
-      if (actual !== receipt.input.sha256) {
-        errors.push(
-          `pass_receipt is stale: ${receipt.input.path} changed after the Semantic Asset Pass`,
-        );
+  if (projectDir) {
+    for (const input of receiptInputs) {
+      if (!isText(input?.path)) continue;
+      const inputPath = pathResolve(projectDir, input.path);
+      if (!existsSync(inputPath)) {
+        errors.push(`pass_receipt input is missing: ${input.path}`);
+      } else {
+        const actual = sha256Bytes(readFileSync(inputPath));
+        if (actual !== input.sha256) {
+          errors.push(
+            `pass_receipt is stale: ${input.path} changed after the Semantic Asset Pass`,
+          );
+        }
       }
+    }
+    // Keep the compatibility alias honest as well; old consumers still read it.
+    const transcriptStamp = receiptInputs.find(
+      (input) => input.role === "transcript" && input.path === plan.transcript,
+    );
+    if (transcriptStamp && transcriptStamp.sha256 !== receipt.input.sha256) {
+      errors.push("pass_receipt.input must mirror the transcript entry in inputs");
     }
   }
   return errors;
@@ -153,18 +174,27 @@ export function validatePassReceipt(plan, projectDir = null) {
 
 export function completePassReceipt(plan, projectDir, now = new Date()) {
   const transcript = isText(plan?.transcript) ? plan.transcript : "transcript.json";
-  const inputPath = pathResolve(projectDir, transcript);
-  if (!existsSync(inputPath)) {
-    throw new Error(`cannot complete pass: missing transcript ${inputPath}`);
-  }
   plan.transcript = transcript;
+  const inputs = declaredPassInputs(plan).map((input) => {
+    const inputPath = pathResolve(projectDir, input.path);
+    if (!existsSync(inputPath)) {
+      throw new Error(`cannot complete pass: missing ${input.role} input ${inputPath}`);
+    }
+    return {
+      role: input.role,
+      path: input.path,
+      sha256: sha256Bytes(readFileSync(inputPath)),
+    };
+  });
+  const transcriptInput = inputs.find((input) => input.role === "transcript");
   plan.pass_receipt = {
     contract: PASS_CONTRACT,
     status: "completed",
     input: {
       path: transcript,
-      sha256: sha256Bytes(readFileSync(inputPath)),
+      sha256: transcriptInput.sha256,
     },
+    inputs,
     opportunity_count: Array.isArray(plan.opportunities) ? plan.opportunities.length : 0,
     completed_at: now.toISOString(),
   };
@@ -187,6 +217,17 @@ export function validateAssetPlan(plan) {
   if (!Array.isArray(plan.opportunities)) {
     err("opportunities must be an array");
     return errors;
+  }
+  if (plan.decision_inputs != null && !Array.isArray(plan.decision_inputs)) {
+    err("decision_inputs must be an array when present");
+  } else {
+    for (const [index, input] of (plan.decision_inputs || []).entries()) {
+      if (!input || typeof input !== "object" || !isText(input.role) || !isText(input.path)) {
+        err(`decision_inputs[${index}] requires role and path`);
+      } else if (input.role === "transcript" || input.path === plan.transcript) {
+        err(`decision_inputs[${index}] must not duplicate the transcript input`);
+      }
+    }
   }
   for (const error of validatePassReceipt(plan)) err(error);
 
@@ -262,6 +303,21 @@ export function validateAssetPlan(plan) {
     if (!QUERY_MODES.has(query.mode)) {
       err(`${where}: asset_query.mode is unsupported`);
     }
+    if (query.core_pack_id && query.creator_library_id) {
+      err(`${where}: choose core_pack_id or creator_library_id, not both`);
+    }
+    if (query.core_pack_id && query.mode !== "deterministic") {
+      err(`${where}: core_pack_id requires mode=deterministic`);
+    }
+    if (query.type === "logo" && query.core_pack_id) {
+      err(`${where}: logo uses exact entity/variant resolution, not core_pack_id`);
+    }
+    if (query.mode === "creator-library" && !isText(query.creator_library_id)) {
+      err(`${where}: creator-library mode requires creator_library_id`);
+    }
+    if (query.creator_library_id && query.mode !== "creator-library") {
+      err(`${where}: creator_library_id requires mode=creator-library`);
+    }
     if (item.decision === "show-logo" && query.type !== "logo") {
       err(`${where}: show-logo requires asset_query.type=logo`);
     }
@@ -275,8 +331,8 @@ export function validateAssetPlan(plan) {
       if (!isText(query.entity)) {
         err(`${where}: logo query requires an exact entity`);
       }
-      if (query.mode !== "deterministic") {
-        err(`${where}: logos must use mode=deterministic; never generate a mark`);
+      if (!["deterministic", "creator-library"].includes(query.mode)) {
+        err(`${where}: logos must use deterministic or creator-library mode; never generate a mark`);
       }
       if (query.variant && !LOGO_VARIANTS.has(query.variant)) {
         err(`${where}: unsupported logo variant ${query.variant}`);
@@ -317,7 +373,7 @@ export function validateAssetPlan(plan) {
       if (!isText(group?.id)) err(`${where}: id is required`);
       else if (groupIds.has(group.id)) err(`${where}: duplicate group id`);
       else groupIds.add(group.id);
-      if (!["timeline", "comparison", "ecosystem", "sequence"].includes(group?.kind)) {
+      if (!GROUP_KINDS.has(group?.kind)) {
         err(`${where}: unsupported group kind`);
       }
       if (!Array.isArray(group?.member_ids) || group.member_ids.length < 2) {
@@ -344,6 +400,17 @@ export function validateResolutionReceipts(plan) {
     if (!query || !receipt || receipt.status !== "resolved") continue;
     if (receipt.request_fingerprint !== requestFingerprint(query)) {
       errors.push(`${where}: resolved receipt is stale for its asset_query`);
+    }
+    if (query.core_pack_id && receipt.core_pack_id !== query.core_pack_id) {
+      errors.push(`${where}: resolved Core Pack id does not match ${query.core_pack_id}`);
+    }
+    if (
+      query.creator_library_id &&
+      receipt.creator_library_id !== query.creator_library_id
+    ) {
+      errors.push(
+        `${where}: resolved Creator Library id does not match ${query.creator_library_id}`,
+      );
     }
     if (query.type === "logo") {
       if (
@@ -381,10 +448,18 @@ export function buildResolveArgs(item, projectDir) {
   // Logo has no generative fallback, so its deterministic network catalogs
   // are safe. Other deterministic requests stay local-only to prevent an
   // accidental VidMuse generation when no library/provider hit exists.
-  if (query.type !== "logo") args.push("--local-only");
+  if (query.type !== "logo" || query.mode === "creator-library") {
+    args.push("--local-only");
+  }
   if (query.entity) args.push("--entity", query.entity);
   if (query.variant) args.push("--variant", query.variant);
-  if (query.provider) args.push("--provider", query.provider);
+  if (query.core_pack_id) args.push("--core-pack-id", query.core_pack_id);
+  if (query.creator_library_id) {
+    args.push("--creator-library-id", query.creator_library_id);
+    args.push("--provider", "creator-library");
+  } else if (query.provider) {
+    args.push("--provider", query.provider);
+  }
   return args;
 }
 
@@ -423,7 +498,11 @@ function resolutionFromReceipt(receipt, item) {
     requested_entity: query.entity || null,
     resolved_entity: resolvedEntity,
     request_fingerprint: requestFingerprint(query),
+    core_pack_id: receipt.provenance?.core_pack_id || null,
+    creator_library_id: receipt.provenance?.creator_library_id || null,
     license_state: receipt.license_state || null,
+    copyright_state: receipt.copyright_state || null,
+    trademark_state: receipt.trademark_state || null,
     license: receipt.license || null,
   };
 }
@@ -470,6 +549,8 @@ export function syncAssetSources(plan, projectDir) {
       local_file: receipt.path,
       usage: item.beat_id ? [item.beat_id] : [],
       license_state: receipt.license_state || null,
+      copyright_state: receipt.copyright_state || null,
+      trademark_state: receipt.trademark_state || null,
       license: receipt.license || null,
     };
     const index = byRef.get(item.id);
@@ -490,10 +571,12 @@ function template(workflow) {
     schema: SCHEMA,
     workflow,
     transcript: "transcript.json",
+    decision_inputs: [],
     pass_receipt: {
       contract: PASS_CONTRACT,
       status: "pending",
       input: { path: "transcript.json", sha256: null },
+      inputs: [{ role: "transcript", path: "transcript.json", sha256: null }],
       opportunity_count: 0,
       completed_at: null,
     },
@@ -511,7 +594,7 @@ export function resolveDeterministic(plan, projectDir, { dryRun = false } = {}) 
 
   for (const item of plan.opportunities) {
     const query = item.asset_query;
-    if (!query || query.mode !== "deterministic") {
+    if (!query || !["deterministic", "creator-library"].includes(query.mode)) {
       skipped += 1;
       continue;
     }
@@ -607,8 +690,8 @@ Usage:
   node asset_plan.mjs --project <dir> --resolve
   node asset_plan.mjs --project <dir> --dry-run
 
---resolve executes only asset_query.mode=deterministic through media-use.
-Generated, official-web, and Creator Library entries remain planned.`);
+--resolve executes asset_query.mode=deterministic and exact-id creator-library
+entries through media-use. Generated and official-web entries remain planned.`);
     return 0;
   }
 

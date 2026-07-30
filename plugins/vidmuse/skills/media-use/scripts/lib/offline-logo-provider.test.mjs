@@ -8,7 +8,7 @@ const INDEX = {
   schema: "vidmuse.core-pack.index.v1",
   packs: {
     "lobe-brands": {
-      type: "brand",
+      type: "offline-logo",
       license_state: "verified-commercial",
       upstream: {
         npm: "@lobehub/icons-static-svg",
@@ -18,11 +18,11 @@ const INDEX = {
       },
     },
   },
-  types: { brand: {} },
+  types: { "offline-logo": {} },
   items: [
-    { id: "lobe-brands/alibaba", pack: "lobe-brands", type: "brand", root: "core-pack", path: "packs/lobe-brands/logos/alibaba.svg", tags: ["Alibaba", "color"], aliases_zh: ["阿里巴巴", "阿里"] },
-    { id: "lobe-brands/openai", pack: "lobe-brands", type: "brand", root: "core-pack", path: "packs/lobe-brands/logos/openai.svg", tags: ["OpenAI"] },
-    { id: "lobe-brands/codex", pack: "lobe-brands", type: "brand", root: "core-pack", path: "packs/lobe-brands/logos/codex.svg", tags: ["Codex"] },
+    { id: "lobe-brands/alibaba", pack: "lobe-brands", type: "offline-logo", root: "core-pack", path: "packs/lobe-brands/logos/alibaba.svg", tags: ["Alibaba", "color"], aliases_zh: ["阿里巴巴", "阿里"] },
+    { id: "lobe-brands/openai", pack: "lobe-brands", type: "offline-logo", root: "core-pack", path: "packs/lobe-brands/logos/openai.svg", tags: ["OpenAI"] },
+    { id: "lobe-brands/codex", pack: "lobe-brands", type: "offline-logo", root: "core-pack", path: "packs/lobe-brands/logos/codex.svg", tags: ["Codex"] },
     // Must be ignored: a different pack and a different type.
     { id: "lucide/trash", pack: "lucide", type: "icon", root: "core-pack", path: "packs/lucide/icons/trash.svg", tags: ["trash"] },
   ],
@@ -106,6 +106,8 @@ test("a real offline hit carries identity, pinned packages, and a staleness note
   // A reviewer must be able to tell a frozen mark from a live one.
   assert.match(hit.metadata.provenance.staleness_note, /re-resolve online/i);
   assert.equal(hit.metadata.license.id, "MIT");
+  assert.equal(hit.metadata.copyright_state, "verified-redistributable");
+  assert.equal(hit.metadata.trademark_state, "identification-only");
   assert.match(hit.metadata.license.trademark_note, /trademark rights remain/i);
 });
 
