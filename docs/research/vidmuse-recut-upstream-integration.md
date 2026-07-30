@@ -1,4 +1,7 @@
-# Upstream Integration
+# VidMuse Recut Upstream Integration
+
+Historical maintainer note. This file is intentionally outside the plugin
+payload and is not part of the Recut runtime reference graph.
 
 How this skill plugs into the HyperFrames workflow ecosystem (heygen-com/hyperframes). Written so the skill can be proposed upstream as a replacement for, or alternative to, `talking-head-recut`.
 

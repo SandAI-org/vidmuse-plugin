@@ -8,8 +8,6 @@ Active aesthetic selection has two legitimate surfaces.
   decision and never owns exact runtime tokens or effect ids.
 - `style-profiles.jsonl` — reviewed combinations of atom ids. Profiles are
   references and candidate anchors, not templates to copy.
-- `patterns.jsonl` — editorial expression structures.
-- `cases.jsonl` — precedent and review evidence.
 
 ## Official kits (preset-friendly)
 

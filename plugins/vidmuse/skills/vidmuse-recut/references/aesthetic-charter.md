@@ -96,8 +96,9 @@ space; the person still looks like themselves.
 
 ### 10. Frame as poster
 
-The hero moment survives as a still. Any frame pulled from it could serve as
-the cover. (`hero-frame-review.md` enforces this.)
+The hero moment survives as a still. Its developed frame could serve as the
+cover, with one focal point, exact alignment, and no element that exists only
+to decorate the template.
 
 > Ask: screenshot the hero at its developed moment — would you ship it as the
 > thumbnail?

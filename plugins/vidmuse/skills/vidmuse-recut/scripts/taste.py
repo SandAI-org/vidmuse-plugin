@@ -14,7 +14,7 @@ Three modes, no search engine:
 
   --index   compact one-line-per-record digest of a whole domain
   --get     fetch full records by exact id, preserving request order
-  --validate validate atoms, profiles, packs, kits, and cross references
+  --validate validate atoms, profiles, packs, kits, overlay, and cross references
 """
 
 from __future__ import annotations
@@ -37,8 +37,6 @@ DATA_DIR = ROOT / "data"
 DOMAINS = {
     "atoms": DATA_DIR / "style-atoms.jsonl",
     "profiles": DATA_DIR / "style-profiles.jsonl",
-    "patterns": DATA_DIR / "patterns.jsonl",
-    "cases": DATA_DIR / "cases.jsonl",
     "packs": DATA_DIR / "style-packs.jsonl",
     "examples": DATA_DIR / "example-kits.jsonl",
     "showcases": DATA_DIR / "showcase-kits.jsonl",
@@ -220,23 +218,30 @@ def _validate_packs(
 
 
 def _known_effect_ids(catalog_file: Path | None = None) -> set[str] | None:
-    """Return hf:<id> / native:<id> set from live (or file) catalog + overlay.
+    """Return effect ids from the validated overlay and optional saved catalog.
 
-    Returns None when the catalog cannot be loaded so offline callers of
-    validate_library() still work; effect-id checks are skipped in that case.
+    Library validation is a repository-maintenance operation and stays offline
+    by default. Pass --catalog-file when catalog compatibility also needs to be
+    checked; never make routine validation invoke npx or the network.
     """
     try:
         import effects
     except ImportError:
         return None
     try:
-        catalog = effects.load_catalog(catalog_file)
         overlay = effects.load_jsonl(effects.DEFAULT_OVERLAY)
-        merged = effects.merge_catalog(catalog, overlay)
+        effects.validate_overlay(overlay)
+    except Exception:
+        return None
+    if catalog_file is None:
+        return None
+    try:
+        catalog = effects.load_catalog(catalog_file)
+        records = effects.merge_catalog(catalog, overlay)
     except Exception:
         return None
     known: set[str] = set()
-    for record in merged:
+    for record in records:
         record_id = str(record.get("id") or "")
         if record_id:
             known.add(record_id)
@@ -251,7 +256,10 @@ def _validate_effect_affinity(
     known_ids: set[str] | None,
 ) -> dict[str, Any]:
     if known_ids is None:
-        return {"checked": False, "reason": "catalog-unavailable"}
+        return {
+            "checked": False,
+            "reason": "catalog-file-not-provided-or-unavailable",
+        }
     bad: list[str] = []
     for pack in packs:
         pack_id = str(pack["id"])

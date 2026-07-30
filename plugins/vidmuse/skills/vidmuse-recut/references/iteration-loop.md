@@ -15,6 +15,23 @@ evidence until explicit stop conditions pass.
 6. **Final polish:** verify technical integrity, typography, subtitles, audio,
    media quality, and export metadata.
 
+## Hero-frame review
+
+Motion cannot rescue a weak still. Before animating a substantial scene,
+inspect its rendered developed state against `FRAME.md` and ask:
+
+- Would this frame ship as the thumbnail, and what is its single focal point?
+- Does it still belong to this person, room, argument, and approved direction?
+- Do palette, loaded fonts, type hierarchy, material, alignment, and safe areas
+  match `FRAME.md` rather than the Registry demo skin?
+- Does every element have an editorial job, avoid the face and caption band,
+  and remain useful when judged at delivery size?
+- Would changing only the transcript make the same frame plausible? If so,
+  bind the composition more specifically to this content.
+
+Fix and re-render before adding motion. Record the reviewed frame and any
+correction in `evaluation.json`.
+
 ## Correction hierarchy
 
 Correct in this order:
@@ -37,6 +54,15 @@ override a named critical failure.
 
 ## Completion
 
-Use `official-quality-benchmark.md` plus project stop conditions. If an
-external constraint ends work early, deliver and label the best verified
+Stop when rendered evidence shows that:
+
+- major claims receive proof rather than decorated repetition;
+- each substantial scene has one focal point and a motivated camera action;
+- motion develops after entry and exits into an intentional handoff;
+- source, type, diagrams, effects, and sound feel composed into one film;
+- boundaries contain no black flash, early hide, repeated frame, or scale jump;
+- dialogue remains primary, the energy contour breathes, and every material
+  correction finding is closed.
+
+If an external constraint ends work early, deliver and label the best verified
 draft, report the exact open gaps, and do not call it a finished film.

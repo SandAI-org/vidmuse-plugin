@@ -127,33 +127,36 @@ else
   exit 1
 fi
 
-# ── Plugin-bundled agent skills ONLY ────────────────────────────────────────
-# Codex loads these from the installed plugin payload. Do not look in
-# ~/.codex/skills or ~/.agents/skills for health. Do not npx-install skills
-# into the user global home as the happy path.
+# ── Recut runtime skills ─────────────────────────────────────────────────────
+# This is the Recut host setup, not a whole-plugin package validator. Keep the
+# hard requirement scoped to skills a Recut can actually load. Other workflows
+# may be present in the same plugin without becoming a Recut startup blocker.
 
-REQUIRED_PLUGIN_SKILLS=(
+REQUIRED_RECUT_SKILLS=(
   vidmuse
   vidmuse-recut
-  vidmuse-create
   vidmuse-assets
-  vidmuse-motion
-  hyperframes
   hyperframes-animation
   hyperframes-cli
   hyperframes-core
-  hyperframes-creative
   hyperframes-keyframes
   hyperframes-registry
   media-use
 )
 
+OPTIONAL_PLUGIN_SKILLS=(
+  vidmuse-create
+  vidmuse-motion
+  hyperframes
+  hyperframes-creative
+)
+
 echo ""
-echo "Checking agent skills inside the plugin bundle (not user global skill homes)..."
+echo "Checking Recut runtime skills inside the plugin bundle..."
 echo "  look in: $PLUGIN_SKILLS_DIR"
 bundled_ok=1
 missing_list=()
-for name in "${REQUIRED_PLUGIN_SKILLS[@]}"; do
+for name in "${REQUIRED_RECUT_SKILLS[@]}"; do
   # entry skill may be SKILL_DIR itself when name=vidmuse-recut
   if [ "$name" = "vidmuse-recut" ]; then
     skill_md="$SKILL_DIR/SKILL.md"
@@ -171,26 +174,34 @@ done
 
 if [ "$bundled_ok" -ne 1 ]; then
   echo ""
-  echo "[failed] plugin payload incomplete — missing: ${missing_list[*]}"
+  echo "[failed] Recut runtime incomplete — missing: ${missing_list[*]}"
   echo "         Reinstall / re-link the VidMuse Codex plugin so <plugin>/skills/* is complete."
   echo "         Skills are NOT installed into ~/.codex/skills by this setup."
   echo "         Do not run bare 'npx hyperframes skills update' for packaging."
   exit 1
 fi
 
-echo "[ok] all agent skills present in plugin bundle"
+echo "[ok] all Recut runtime skills present"
+for name in "${OPTIONAL_PLUGIN_SKILLS[@]}"; do
+  skill_md="$PLUGIN_SKILLS_DIR/$name/SKILL.md"
+  if [ -f "$skill_md" ]; then
+    echo "[info] optional plugin skill available: $name"
+  else
+    echo "[info] optional plugin skill absent: $name  (does not block Recut)"
+  fi
+done
 echo "[note] entry skill: /vidmuse"
-echo "[note] film workflows: /vidmuse-recut (speaking footage) · /vidmuse-create (material must be made)"
+echo "[note] film workflow: /vidmuse-recut (speaking footage)"
 echo "[note] direct capabilities: /vidmuse-assets · /media-use"
-echo "[note] HyperFrames siblings are domain references only"
+echo "[note] HyperFrames runtime skills load only for their production layer"
 echo "[note] global skill homes (~/.codex/skills etc.) are optional and NOT required for health"
 
 echo ""
 echo "Environment ready."
 echo "  global tools : node, ffmpeg, ffprobe, python3, vidmuse"
 echo "  on demand    : npx hyperframes (composition/render runtime; not a media health prerequisite)"
-echo "  plugin skills: $PLUGIN_SKILLS_DIR  ($(echo "${REQUIRED_PLUGIN_SKILLS[@]}" | wc -w | tr -d ' ') skills)"
+echo "  recut skills : $PLUGIN_SKILLS_DIR  ($(echo "${REQUIRED_RECUT_SKILLS[@]}" | wc -w | tr -d ' ') required)"
 echo "  entry skill  : vidmuse"
-echo "  workflows    : vidmuse-recut · vidmuse-create"
+echo "  workflow     : vidmuse-recut"
 echo "  capabilities : vidmuse-assets · media-use"
 echo "  work dirs    : outside this plugin (e.g. videos/<project>/ under your session workspace)"

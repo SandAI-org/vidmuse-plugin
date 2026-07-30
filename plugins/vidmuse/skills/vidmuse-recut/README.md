@@ -1,11 +1,9 @@
 # VidMuse Recut
 
-HyperFrames 生态原生的视频再导演 workflow skill。把现有口播/访谈/播客/产品解说重构为人物、全屏动效、解释动画、素材蒙太奇和声音共同构成的 motion film，`hyperframes render` 直出 MP4。
-
-两种生产模式，**默认导演模式**：
-
-- **Director mode（默认）**：面向官方样片、发布片、宣传片和效果优先任务；允许重构图、全屏接管、Act Worlds、镜头/声音设计及多轮渲染复盘。
-- **Packaging mode**：用户要求克制处理时使用——源画面主导，字幕、标注、图表、lower-third、PiP 和少量 hero takeover。
+把现有口播、访谈、播客或产品解说包装成由人物、字幕、视觉证明、
+解释动画和声音共同构成的影片。默认使用源画面主导的 Packaging；
+只有明确的发布片/宣传片意图，或论点确实需要源画面无法承载的视觉证明，
+才升级到 Director。
 
 ## 安装
 
@@ -29,16 +27,18 @@ cp -R vidmuse-recut ~/.claude/skills/
 bash ~/.claude/skills/vidmuse-recut/scripts/setup.sh
 ```
 
-`scripts/setup.sh` 健康检查分成两层：
+`scripts/setup.sh` 是首次安装或环境故障时使用的主机检查，不需要每条影片重复运行：
 
-| 必须在**用户全局 PATH** | 只认 **plugin 包内** `skills/` |
+| 必须在**用户全局 PATH** | Recut 运行时依赖 |
 | --- | --- |
-| Node 22+、ffmpeg/ffprobe、Python3 | `vidmuse-recut` + 兄弟 HyperFrames skills |
+| Node 22+、ffmpeg/ffprobe、Python3 | `vidmuse`、`vidmuse-recut`、`vidmuse-assets`、`media-use` |
 | `vidmuse` CLI（serve/render/model）+ `vidmuse login` | setup **不会**去查 `~/.codex/skills` |
-| `npx hyperframes` 渲染运行时 | 缺 skill → **失败并提示重装 plugin**，不裸装全局 skill |
+| `npx hyperframes` 渲染运行时 | `hyperframes-animation/core/cli/keyframes/registry` |
 
 随包 `assets/vendor/vidmuse-cli` 在全局没有 `vidmuse` 时拷进 `/usr/local/bin` 或 `~/.local/bin`。  
-不要安装或调用官方 `talking-head-recut`。
+`vidmuse-create`、`vidmuse-motion`、`hyperframes` 和 `hyperframes-creative`
+不属于 Recut 启动硬依赖，缺失不会阻塞 Recut。不要安装或调用官方
+`talking-head-recut`。
 
 环境就绪后，对 Claude 说"帮我包装这个视频 xxx.mp4"即可触发。
 
@@ -56,7 +56,10 @@ ASR 出的文字会标明来源给你看一眼：机器识别容易错专有名�
 
 官方 Examples / Showcase 分别收成 `data/example-kits.jsonl` 与 `data/showcase-kits.jsonl`，只作结构与制片参考（demo 文案/时间不可直接当用户内容）。每条片的最终 token 只写在项目 `FRAME.md`（upstream frame-pack 形态，preset / composed 双模式）。效果实现优先 HyperFrames Registry；`data/effects-overlay.jsonl` 提供选型元数据。
 
-## 快速验证
+## 维护者验证
+
+下面是修改插件数据或 Registry overlay 后使用的仓库检查，不属于每条
+影片的运行步骤：
 
 ```bash
 python3 scripts/taste.py --validate
@@ -69,13 +72,12 @@ python3 scripts/effects.py --index
 
 ```text
 vidmuse-recut/
-├── SKILL.md                 # 13 步工作流（入口）
+├── SKILL.md                 # 精简工作流入口
 ├── references/              # 运行时按步骤阅读的领域文档
 ├── data/                    # style atoms / profiles / packs / kits / effects overlay
 ├── library/
 │   ├── frame-packs/         # vendored FRAME.md + caption-skin × 12
 │   └── native/              # Registry 缺失时的原生机制
-├── schemas/                 # scene-plan / evaluation 校验 schema
 ├── scripts/                 # setup.sh + taste / effects / frame_md / scene_plan / evaluation
 └── assets/                  # 字体资源位 + 随包分发的 vidmuse CLI（vendor/vidmuse-cli/）
 ```

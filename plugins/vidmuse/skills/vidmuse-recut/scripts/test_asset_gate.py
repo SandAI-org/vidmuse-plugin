@@ -62,6 +62,13 @@ def write_plan(work: Path, *, with_asset: bool) -> dict:
                 "path": "transcript.json",
                 "sha256": hashlib.sha256(transcript).hexdigest(),
             },
+            "inputs": [
+                {
+                    "role": "transcript",
+                    "path": "transcript.json",
+                    "sha256": hashlib.sha256(transcript).hexdigest(),
+                }
+            ],
             "opportunity_count": len(opportunities),
             "completed_at": "2026-07-29T00:00:00.000Z",
         },

@@ -24,6 +24,10 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
   documentation while preserving deliverable ownership and namespace safety.
 - Removed the five generic `gsap-*` skills. HyperFrames-specific GSAP
   guidance remains available through `hyperframes-animation` adapters.
+- Narrowed Recut's runtime surface: whole-library validation is now a
+  maintainer operation, `setup.sh` blocks only on Recut dependencies, rendered
+  quality guidance has fewer authorities, and unused schemas, taste records,
+  templates, and runtime-orphan references no longer ship with the skill.
 - Added a maintainer policy for lean skills, progressive disclosure,
   measured constraints, and reference-level single sources of truth.
 

@@ -42,6 +42,8 @@ def request_fingerprint(query: dict[str, Any]) -> str:
         "entity": _identity(query.get("entity")),
         "variant": str(query.get("variant", "")).strip().lower(),
         "provider": str(query.get("provider", "")).strip().lower(),
+        "core_pack_id": str(query.get("core_pack_id", "")).strip(),
+        "creator_library_id": str(query.get("creator_library_id", "")).strip(),
     }
     payload = json.dumps(
         normalized, ensure_ascii=False, separators=(",", ":")

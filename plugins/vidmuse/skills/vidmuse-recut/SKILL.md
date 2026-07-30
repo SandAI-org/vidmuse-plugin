@@ -8,8 +8,6 @@ description: >
   density for explicit launch/promo intent or evidence the plate cannot carry.
   Use media-use for standalone transcription, trimming, cropping, or another
   single media result. Use vidmuse-create when no speaking footage exists.
-compatibility: VidMuse CLI on PATH and authenticated for model-backed work;
-  Node.js 22+, ffmpeg/ffprobe, Python 3, and HyperFrames CLI for full films.
 ---
 
 # VidMuse Recut
@@ -100,14 +98,16 @@ Resume from valid artifacts instead of restarting approved work.
 
 ### 1. Set up and establish truth
 
-Read `BRIEF.md` when present. Validate the environment, then probe and extract
-the source according to `references/pipeline.md`:
+Read `BRIEF.md` when present. On the first run after plugin installation—or
+when a tool or authentication check fails—run the one-time host setup:
 
 ```bash
 bash scripts/setup.sh
-python3 scripts/taste.py --validate >/dev/null
-python3 scripts/effects.py --validate >/dev/null
 ```
+
+Do not validate the complete taste library or Registry overlay for each film;
+those are maintainer checks documented in `README.md`. Probe and extract the
+source according to `references/pipeline.md`.
 
 Load `/media-use` and follow its `references/audio.md`. Prefer approved text
 when available; otherwise run ASR automatically, then ATA. Materialize the
