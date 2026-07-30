@@ -10,6 +10,7 @@ Examples:
   effects.py --index
   effects.py hf:lt-clean-bar,hf:motion-blur --get
   effects.py --validate
+  effects.py --check-affinity ../vidmuse-design/data/style-packs.jsonl
 """
 
 from __future__ import annotations
@@ -226,6 +227,52 @@ def merge_catalog(
     return merged
 
 
+def validate_affinity(
+    packs: list[dict[str, Any]],
+    catalog: list[dict[str, Any]],
+    overlay: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Check Design affinity ids against executable Registry/native mechanisms."""
+    known = {f"hf:{item['name']}" for item in catalog}
+    known.update(
+        str(record["id"])
+        for record in overlay
+        if record.get("source") == "vidmuse-native"
+    )
+    referenced: set[str] = set()
+    unknown: list[str] = []
+    for pack in packs:
+        pack_id = str(pack.get("id") or "<unknown-pack>")
+        affinity = pack.get("effect_affinity")
+        if not isinstance(affinity, dict):
+            raise EffectsError(f"{pack_id}: effect_affinity must be an object")
+        for bucket in ("prefer", "avoid"):
+            ids = affinity.get(bucket)
+            if not isinstance(ids, list):
+                raise EffectsError(f"{pack_id}: effect_affinity.{bucket} must be an array")
+            for effect_id in ids:
+                if not isinstance(effect_id, str) or not effect_id:
+                    raise EffectsError(
+                        f"{pack_id}: effect_affinity.{bucket} contains an invalid id"
+                    )
+                referenced.add(effect_id)
+                if effect_id not in known:
+                    unknown.append(f"{pack_id}.{bucket}:{effect_id}")
+    if unknown:
+        raise EffectsError(
+            "unknown effect_affinity ids (not in the supplied/live HyperFrames "
+            "catalog or local native effects): "
+            + ", ".join(unknown)
+        )
+    return {
+        "ok": True,
+        "packs": len(packs),
+        "referenced_ids": len(referenced),
+        "known_ids": len(known),
+        "catalog_source": "validated",
+    }
+
+
 def compact(record: dict[str, Any]) -> dict[str, Any]:
     fields = (
         "id",
@@ -253,9 +300,16 @@ def compact(record: dict[str, Any]) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("ids", nargs="?", help="Comma-separated hf:<id> or upstream ids, required with --get")
-    parser.add_argument("--index", action="store_true", help="Print the merged compact catalog as JSONL")
-    parser.add_argument("--get", action="store_true", help="Print full merged records for exact ids")
-    parser.add_argument("--validate", action="store_true", help="Validate the overlay without fetching the catalog")
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument("--index", action="store_true", help="Print the merged compact catalog as JSONL")
+    action.add_argument("--get", action="store_true", help="Print full merged records for exact ids")
+    action.add_argument("--validate", action="store_true", help="Validate the overlay without fetching the catalog")
+    action.add_argument(
+        "--check-affinity",
+        type=Path,
+        metavar="PACKS_JSONL",
+        help="Validate Design pack effect_affinity ids against the live or saved catalog",
+    )
     parser.add_argument("--curated-only", action="store_true", help="Limit --index to reviewed overlay records")
     parser.add_argument("--overlay", type=Path, default=DEFAULT_OVERLAY)
     parser.add_argument("--catalog-file", type=Path, help="Use a saved catalog JSON file instead of the live CLI")
@@ -268,6 +322,16 @@ def main() -> int:
             print(json.dumps({"ok": True, "records": len(overlay)}, ensure_ascii=False))
             return 0
         catalog = load_catalog(args.catalog_file)
+        if args.check_affinity:
+            packs = load_jsonl(args.check_affinity)
+            print(
+                json.dumps(
+                    validate_affinity(packs, catalog, overlay),
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return 0
         records = merge_catalog(catalog, overlay)
         if args.curated_only:
             records = [record for record in records if record.get("curation_status") != "unreviewed"]
@@ -285,7 +349,7 @@ def main() -> int:
             requested = [item.strip() for item in args.ids.split(",") if item.strip()]
             print(json.dumps([by_id[item] for item in requested if item in by_id], ensure_ascii=False, indent=2))
             return 0
-        parser.error("pass --index, --get, or --validate")
+        parser.error("pass one action")
     except (EffectsError, OSError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

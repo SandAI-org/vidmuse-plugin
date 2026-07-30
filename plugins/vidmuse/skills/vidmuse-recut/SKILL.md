@@ -69,11 +69,8 @@ Do not read the entire reference library up front.
 | Probe, transcript artifacts, staging, assembly, render commands | [`references/pipeline.md`](references/pipeline.md) |
 | Packaging vs Director, proof density, source-state ownership | [`references/director-pass.md`](references/director-pass.md) |
 | Coverage analysis and user-facing proposal | [`references/packaging-analysis.md`](references/packaging-analysis.md) |
-| Taste precedence and design-system composition | [`references/taste-authority.md`](references/taste-authority.md), [`references/style-composition.md`](references/style-composition.md) |
-| Visual quality and recurring failure modes | [`references/aesthetic-charter.md`](references/aesthetic-charter.md), then only relevant tells in [`references/packaging-tells.md`](references/packaging-tells.md) |
 | Director scenes and act worlds | [`references/storyboard-contract.md`](references/storyboard-contract.md), [`references/act-worlds.md`](references/act-worlds.md) |
-| Direction gate on real footage | [`references/frame-showcase.md`](references/frame-showcase.md) |
-| Captions, progress, data, demonstrations, layout | Open only the applicable craft reference: [`references/captions-and-golden-lines.md`](references/captions-and-golden-lines.md), [`references/device-craft.md`](references/device-craft.md), or [`references/layout-vocabulary.md`](references/layout-vocabulary.md) |
+| Visual direction, FRAME.md, captions, layout, showcase | Load `/vidmuse-design`; it owns private taste data and reads only the applicable design references |
 | External media or generated material | [`references/asset-sourcing.md`](references/asset-sourcing.md) |
 | Effect selection and adaptation | [`references/registry-integration.md`](references/registry-integration.md), [`references/composition-contract.md`](references/composition-contract.md) |
 | Director motion and correction loop | [`references/camera-and-transition-craft.md`](references/camera-and-transition-craft.md), [`references/sound-design.md`](references/sound-design.md), [`references/motion-review.md`](references/motion-review.md), [`references/iteration-loop.md`](references/iteration-loop.md) |
@@ -173,38 +170,33 @@ was authorized.
 
 ### 4. Compose and confirm direction
 
-After coverage is settled, follow `references/taste-authority.md` and
-`references/style-composition.md`.
+After coverage is settled, load `/vidmuse-design`. Give it the BRIEF,
+`video-context.json`, representative real frames, transcript, approved
+packaging analysis, aspect/caption band, treatment classes, density budget, and
+approved asset references. Pass `film_mode: recut-packaging` or
+`film_mode: recut-director` from the active Recut mode.
 
-- **Preset:** the user selected a pack; adopt its tokens faithfully and cast
-  its treatments onto this footage.
-- **Composed:** derive a project-specific system from the footage and content,
-  with zero or one reference anchor.
+`vidmuse-design` privately owns the taste catalogs, preset frame packs,
+`FRAME.md` contract, caption identity, and real-footage showcase gate. It
+returns:
 
-Do not use `hyperframes-creative` as a second look menu. Browse taste indexes
-for direction and the effect catalog for mechanisms only after the editorial
-need is known:
+- project `FRAME.md` and `frame-showcase.html`;
+- a successful `frame_md.py --check` report;
+- preset/composed mode and selected anchor;
+- recommended caption identity, aspect/layout, and density;
+- pack `effect_affinity` and treatment constraints.
+
+Do not load `hyperframes-creative` as a look source or browse its preset
+library. Browse the effect catalog only after the design capability returns and
+the editorial need is known:
 
 ```bash
-python3 scripts/taste.py --index --domain packs
-python3 scripts/taste.py --index --domain atoms
-python3 scripts/taste.py --index --domain profiles
 python3 scripts/effects.py --index
 ```
 
-Write `FRAME.md` using the contract in `references/style-composition.md`, then
-validate its mechanical shape:
-
-```bash
-python3 scripts/frame_md.py "$WORK_DIR/FRAME.md" --check
-```
-
-Author `frame-showcase.html` from those tokens. Show every treatment and two or
-three caption identities on real keyframes, plus the recommended aspect,
-layout, and density. Run the counted Taste Gate in
-`references/frame-showcase.md` yourself before presenting it. Apply feedback
-to `FRAME.md` first, then update the showcase. Wait at the direction gate
-unless autonomy was authorized.
+Wait at the direction gate unless autonomy was authorized. Apply direction
+feedback through `/vidmuse-design` so `FRAME.md` remains the single visual
+authority.
 
 ### 5. Plan and build
 

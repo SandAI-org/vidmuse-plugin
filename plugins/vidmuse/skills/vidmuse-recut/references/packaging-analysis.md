@@ -75,14 +75,14 @@ Also review FLIP, SVG path/stroke draw, clip/mask reveals, word/character subdiv
 
 - **Continuous:** captions, safe-zone rules, source treatment, finish. The
   caption band is decided once here (default per
-  [captions-and-golden-lines.md](captions-and-golden-lines.md)); name it, and
+  [VidMuse captions and golden lines](../../vidmuse-design/references/captions-and-golden-lines.md)); name it, and
   list every beat whose graphics enter it with the reason the graphic — not
   the caption — could not move.
 - **Light:** one fact, word, label, marker, or annotation.
 - **Medium:** comparison, data, list, causal chain, PiP, multi-element explanation.
 - **Hero:** hook, major act break, signature visual, decisive conclusion.
 
-Explore freely before pruning, but do not optimize for candidate count. There is no expected density for a given duration. Derive density from narrative structure, visual variety, cognitive load, pacing, channel, and desired finish. Never use a hard interval such as “one effect every 20 seconds” — that is tell **T1** (metronome spacing), and a card per sentence is tell **T2**; run the pruned plan against the temporal tells in [packaging-tells.md](packaging-tells.md). Repeated quiet passages can be right; several interventions close together can also be right when they form one coherent explanatory sequence.
+Explore freely before pruning, but do not optimize for candidate count. There is no expected density for a given duration. Derive density from narrative structure, visual variety, cognitive load, pacing, channel, and desired finish. Never use a hard interval such as “one effect every 20 seconds” — that is tell **T1** (metronome spacing), and a card per sentence is tell **T2**; run the pruned plan against the temporal tells in [VidMuse packaging tells](../../vidmuse-design/references/packaging-tells.md). Repeated quiet passages can be right; several interventions close together can also be right when they form one coherent explanatory sequence.
 
 ## Suggested Markdown structure
 

@@ -27,7 +27,8 @@ names? When the test **passes**, the preferred form is chapter marks on the
 progress rail itself — segments, ticks, or short labels — one system
 carrying both orientation and structure, and each confirmed chapter boundary
 defaults to a marked transition
-([camera-and-transition-craft.md](camera-and-transition-craft.md)). When the
+([Recut camera craft](../../vidmuse-recut/references/camera-and-transition-craft.md)
+when Recut owns the film). When the
 test **fails**, the rail stays plain (time only): manufactured chapter marks
 are decorative structure, tell **V6** in
 [packaging-tells.md](packaging-tells.md).

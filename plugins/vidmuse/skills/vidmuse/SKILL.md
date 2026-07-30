@@ -77,6 +77,8 @@ Workflow skills own end-to-end video deliverables:
 Capability skills own one layer and then return control:
 
 - `/vidmuse-assets` owns semantic asset intelligence and source/license policy.
+- `/vidmuse-design` owns private VidMuse taste, project `FRAME.md`, caption
+  identity, treatment design, and the real-content direction showcase.
 - `/media-use` owns exact media execution and standalone media results.
 - `/hyperframes-*` and `/vidmuse-motion` own composition, animation,
   rendering, or implementation knowledge. Runtime-specific GSAP guidance
@@ -98,6 +100,7 @@ For a standalone capability request, load only that capability:
 | --- | --- |
 | ASR, ATA, TTS, audio, generated media, deterministic media operation | `/media-use` |
 | Entity/logo/icon/font planning, libraries, license/provenance | `/vidmuse-assets` |
+| Visual direction, private preset/composed taste, FRAME.md, caption identity | `/vidmuse-design` |
 | HyperFrames project operation | `/hyperframes-cli` |
 
 Return the requested artifact and its receipt. Do not create `FRAME.md`,

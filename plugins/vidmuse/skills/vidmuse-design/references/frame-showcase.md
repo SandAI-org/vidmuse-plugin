@@ -5,7 +5,7 @@ HTML page, authored by you for this project, that lets the user see the design
 system live and see it landing on their own footage — before any timeline work.
 
 It replaces the old template-generated style board. There is no generator
-script; you write the page the way the upstream HyperFrames frame packs write
+script; you write the page the way the private VidMuse frame packs write
 theirs, driven entirely by the work directory's `FRAME.md`.
 
 ## Contract
@@ -110,14 +110,15 @@ The Taste Gate is one counted review, not a collection of impressions:
 5. **Mono hierarchy:** technical mono labels structure but does not occupy
    more Hero-frame area than the film's judgment type.
 6. **Proof scarcity:** count full-frame takeovers and diagrams against
-   [director-pass.md](director-pass.md); merge or remove excess proof systems.
+   [the Recut director pass](../../vidmuse-recut/references/director-pass.md)
+   when Recut owns the film; merge or remove excess proof systems.
 7. **Entrance intent:** do not declare one direction/ease combination as the
    whole film's default without a reason. Count actual entrances later during
    scene and motion review.
 8. **Emphasis scarcity:** count caption cues with accent or weight emphasis.
    Roughly one in five is a useful anchor; a majority always fails.
-9. **Creative demotion:** no visible choice comes solely from
-   `hyperframes-creative` against the BRIEF, source footage, or `FRAME.md`.
+9. **Mechanism demotion:** no visible choice comes solely from an installed
+   effect demo against the BRIEF, source footage, or `FRAME.md`.
 
 Also check the caption band across every treatment frame: the captions sit in
 the film's declared band, and no treatment's graphics occupy it without a

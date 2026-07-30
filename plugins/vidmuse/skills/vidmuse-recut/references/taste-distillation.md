@@ -26,7 +26,7 @@ Across the projects being distilled (one or several work directories):
   rejections at the coverage or direction gates;
 - direction-gate outcomes — which candidate directions the user picked and
   which lost (see the shortlist step in
-  [style-composition.md](style-composition.md));
+  [VidMuse style composition](../../vidmuse-design/references/style-composition.md));
 - Timeline write-back edits — overlay disablements and trims are quiet
   rejections.
 
@@ -37,7 +37,7 @@ a project fact; the same rejection twice is a taste fact.
 
 | repeated signal | destination |
 | --- | --- |
-| the same device family rejected or toned down (e.g. per-word captions turned off, status chips deleted) | new or sharpened tell in [packaging-tells.md](packaging-tells.md), with its *why* and charter dimension |
+| the same device family rejected or toned down (e.g. per-word captions turned off, status chips deleted) | new or sharpened tell in [VidMuse packaging tells](../../vidmuse-design/references/packaging-tells.md), with its *why* and charter dimension |
 | the same direction family losing at the gate against a stated preference | note on the relevant atom/profile digests (`data/*.jsonl`) so future shortlists carry the precedent |
 | the same modify direction on tokens (e.g. durations always shortened, accents always desaturated) | adjusted anchor in the relevant craft reference, with the old anchor noted |
 | aspect/layout/direction confirmations | HyperFrames preference store (`media-use` `prefs.mjs`) — already part of step 12 |

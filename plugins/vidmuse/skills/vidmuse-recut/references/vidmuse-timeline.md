@@ -144,7 +144,7 @@ Both tracks *existing* is fine; both **rendering the same spoken words at the sa
 | HF caption component in the packaging HTML | `subtitles[]` stays a delivery / review track — keep it out of the overlay render (`--mode overlay` carries `subtitles[]`, so do not also bake HF captions into that pass) |
 | DSL `subtitles[]` | HF caption mechanisms fire only as scarce escalations (golden-line rungs 2–3) |
 
-When an escalation takes over a span, the regular caption for exactly that span yields — the same rule as [captions-and-golden-lines.md](captions-and-golden-lines.md) rung 2: the words are *absorbed* into the treatment, never shown twice on screen. `write_dsl.py` does not check this (it writes `subtitles[]` from the transcript unconditionally); verify it on the Timeline by scrubbing a cue where a caption effect is active.
+When an escalation takes over a span, the regular caption for exactly that span yields — the same rule as [VidMuse captions and golden lines](../../vidmuse-design/references/captions-and-golden-lines.md) rung 2: the words are *absorbed* into the treatment, never shown twice on screen. `write_dsl.py` does not check this (it writes `subtitles[]` from the transcript unconditionally); verify it on the Timeline by scrubbing a cue where a caption effect is active.
 
 ## When to start `serve`
 

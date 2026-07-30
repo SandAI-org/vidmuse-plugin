@@ -170,7 +170,7 @@ def render(plan: dict[str, Any]) -> str:
     <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
     <style>
       /* FILL: FRAME.md tokens (palette / type / material) — seed from brand capture
-         or one hyperframes-creative frame preset; no anonymous black + white type. */
+         or one private vidmuse-design frame pack; no anonymous black + white type. */
       * {{ margin: 0; padding: 0; box-sizing: border-box; }}
       html, body {{ width: {width}px; height: {height}px; overflow: hidden; }}
       #root {{ position: relative; width: {width}px; height: {height}px; overflow: hidden; }}

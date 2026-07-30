@@ -1,7 +1,7 @@
 {
   "name": "vidmuse",
-  "description": "Create and recut motion films, operate media, and manage assets with VidMuse. Routes existing speaking footage to vidmuse-recut, source-free films to vidmuse-create, semantic asset work to vidmuse-assets, and standalone media operations to media-use.",
-  "version": "0.4.3+codex.20260730070438",
+  "description": "Create and recut motion films, direct private VidMuse visual systems, operate media, and manage assets. Routes existing speaking footage to vidmuse-recut, source-free films to vidmuse-create, visual direction to vidmuse-design, semantic asset work to vidmuse-assets, and standalone media operations to media-use.",
+  "version": "0.4.4+codex.20260730171945",
   "author": {
     "name": "VidMuse",
     "email": "hello@vidmuse.ai",
@@ -32,6 +32,7 @@
     "vidmuse",
     "vidmuse-assets",
     "vidmuse-create",
+    "vidmuse-design",
     "vidmuse-motion",
     "dataviz",
     "semantic-motion"
@@ -39,8 +40,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "VidMuse",
-    "shortDescription": "Route · Recut · Create · ASR/TTS · Asset intelligence",
-    "longDescription": "VidMuse routes by the requested deliverable: existing speaking-footage films to /vidmuse-recut, films whose primary material must be made to /vidmuse-create, semantic asset work to /vidmuse-assets, and standalone transcription, alignment, voice, generation, or media transforms to /media-use. Film workflows retain ownership while capability skills execute one layer. Review films on the multi-track VidMuse Timeline.",
+    "shortDescription": "Route · Recut · Create · Private design · Media · Assets",
+    "longDescription": "VidMuse routes by the requested deliverable: existing speaking-footage films to /vidmuse-recut, films whose primary material must be made to /vidmuse-create, private visual direction to /vidmuse-design, semantic asset work to /vidmuse-assets, and standalone transcription, alignment, voice, generation, or media transforms to /media-use. Film workflows retain ownership while capability skills execute one layer. Review films on the multi-track VidMuse Timeline.",
     "developerName": "VidMuse",
     "category": "Creativity",
     "capabilities": [

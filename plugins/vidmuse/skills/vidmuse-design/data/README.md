@@ -9,21 +9,20 @@ Active aesthetic selection has two legitimate surfaces.
 - `style-profiles.jsonl` — reviewed combinations of atom ids. Profiles are
   references and candidate anchors, not templates to copy.
 
-## Official kits (preset-friendly)
+## Private VidMuse kits (preset-friendly)
 
 Mapped into the same `taste.py` browse surface:
 
 | file | kind | what it is |
 | --- | --- | --- |
-| `style-packs.jsonl` | `style-pack` | 12 premade frames from [hyperframes.dev/design](https://www.hyperframes.dev/design); each points at a vendored `library/frame-packs/<name>/FRAME.md` and carries `anchor_atoms`, `default_motion`, and `effect_affinity` so Agent can adopt the look and cast Registry effects |
-| `example-kits.jsonl` | `example-kit` | Official `npx hyperframes init --example` starters — structure & motion grammar references (demo content is locked) |
+| `style-packs.jsonl` | `style-pack` | 12 private, locally vendored frame packs; each points at `library/frame-packs/<name>/FRAME.md` and carries `anchor_atoms`, `default_motion`, `workflow_fit`, and `effect_affinity` so Agent can adopt the look and cast Registry effects |
+| `example-kits.jsonl` | `example-kit` | Optional registry precedents for structure and motion grammar; provenance only, never required design input |
 | `showcase-kits.jsonl` | `showcase-project` | HeyGen launch compositions (hyperframes-launches) — production multi-act / multi-runtime references, not talking-head packs |
 
-## Effect overlay
-
-- `effects-overlay.jsonl` — editorial and compatibility metadata over the live
-  HyperFrames Registry. Exact effect selection after a pack is chosen is
-  constrained by that pack's `effect_affinity.prefer` / `.avoid`.
+`effect_affinity` is a design-to-implementation handoff. Design validates its
+shape; plugin maintenance runs `vidmuse-recut/scripts/effects.py
+--check-affinity` against a live or saved Registry catalog. This skill does not
+load or own effect implementations.
 
 Exact colors, fonts, type scale, motion values, and selected effects for a film
 belong only in the project's authored `FRAME.md`.

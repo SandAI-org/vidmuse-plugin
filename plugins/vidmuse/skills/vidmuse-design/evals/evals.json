@@ -1,0 +1,29 @@
+{
+  "skill_name": "vidmuse-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "给这个创始人口播项目做视觉方向，先用真实关键帧比较两到三个方向，再产出 FRAME.md；不要改包装点时间。",
+      "expected_output": "Uses the composed design path, preserves film ownership and timing, and returns FRAME.md plus a real-footage showcase.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "这条产品讲解我选 Coral，按 VidMuse 私有预设落地字幕和包装视觉，但先不要写动画实现。",
+      "expected_output": "Loads only the Coral preset record and selected private pack files, authors project design artifacts, and leaves animation implementation to the film workflow.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "帮我找 OpenAI 官方 logo，确认许可并下载到项目里。",
+      "expected_output": "Does not trigger vidmuse-design; routes semantic identity and file resolution to vidmuse-assets and media-use.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "把这个产品脚本做成 promo，没有真人素材；方向确定后给 Create 一份可执行的视觉合同。",
+      "expected_output": "Uses film_mode=create and create_path=promo, returns a vidmuse.design.frame.v1 FRAME.md plus a successful validator report, and does not retain a second FRAME seed inside Create.",
+      "files": []
+    }
+  ]
+}

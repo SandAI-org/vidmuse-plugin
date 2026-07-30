@@ -8,6 +8,32 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ## Unreleased
 
+## 0.4.4 — 2026-07-30
+
+### Private visual direction and progressive context
+
+- Added `vidmuse-design` as the private visual authority shared by Recut and
+  Create. It owns taste records, frame packs, project `FRAME.md`, caption
+  identity, treatment grammar, and the real-content showcase gate.
+- Recut and Create load the design skill only at the direction phase and pass
+  it bounded evidence from the owning workflow. Design returns artifacts and
+  constraints without taking over editorial timing, assets, animation, render,
+  or delivery.
+- Moved taste queries and frame validation beside the data they inspect. Model
+  context now sees compact script output and one selected record instead of
+  opening whole JSONL catalogs or all preset HTML.
+- Added the workflow-neutral `vidmuse.design.frame.v1` contract with explicit
+  Recut/Create film modes; legacy `vidmuse.recut.frame.v4/v5` projects remain
+  readable.
+- Made taste handoffs cwd-safe by returning a skill root and resolved pack
+  paths while retaining portable relative catalog paths.
+- Assigned affinity integrity to Recut's effect resolver:
+  `effects.py --check-affinity` checks private pack references against a live
+  or saved HyperFrames catalog instead of leaving the owner implicit.
+- Kept the design bytes private inside the plugin. `hyperframes-creative`
+  remains an optional vendored compatibility/reference skill, but is not a
+  runtime look source or authority for VidMuse design decisions.
+
 ### Leaner prompting for GPT-5.6
 
 - Reframed `vidmuse-create` around outcomes, domain context, and a compact

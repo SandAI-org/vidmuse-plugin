@@ -176,7 +176,7 @@ When storyboard frames or an animatic would resolve a real uncertainty:
 Caption band: **reserved, bottom-centered** — plan primary content in the top
 ~83% (16:9) and keep the band clear. Graphics yield to the caption, not the
 reverse; leaving the band needs a written reason. Exact bands per aspect:
-`../../vidmuse-recut/references/captions-and-golden-lines.md`.
+`../../vidmuse-design/references/captions-and-golden-lines.md`.
 
 ## `## Video direction` once
 
@@ -190,16 +190,20 @@ At top of film plan / STORYBOARD, write shared invariants once:
 
 Per-beat lines are **deltas**, not restatements.
 
-## FRAME / preset seed
+## Consume the Design authority
 
-Before pretty HTML:
+`/vidmuse-design` owns preset selection, brand/site-token interpretation,
+project `FRAME.md`, and its validation. This reference must not seed a second
+FRAME or browse frame packs directly. Build pretty HTML only after Design
+returns:
 
-1. If brand/site tokens exist → derive FRAME roles from them.
-2. Else pick **one** preset under
-   `../../hyperframes-creative/frame-presets/` whose look fits register
-   (e.g. editorial for knowledge, bold-poster / blue-professional for SaaS).
-3. Copy roles into FRAME.md; do not ship pure `#000` canvas + white Inter as the
-   entire identity without a named intent.
+- schema `vidmuse.design.frame.v1` with `film_mode: create`;
+- the selected preset/composed rationale;
+- a successful `frame_md.py --check` report;
+- the approved direction showcase.
+
+Treat the returned colors, typography, spacing, motion temperament, components,
+caption identity, and negative list as the visual contract.
 
 ## Compose checklist
 

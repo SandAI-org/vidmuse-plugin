@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.4.3",
+  "pluginVersion": "0.4.4",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -31,8 +31,15 @@
     "skills/hyperframes/references/routes/talking-head-recut.md": "Redirect stub → /vidmuse-recut",
     "skills/hyperframes/references/capability-menu.md": "VidMuse-normalized capability inventory under /vidmuse: workflows own films; media-use and vidmuse-assets may complete standalone capability asks.",
     "skills/vidmuse-recut/SKILL.md": "Existing-speaking-footage film workflow; delegates ASR/ATA execution to media-use and semantic planning to vidmuse-assets.",
+    "skills/vidmuse-design/SKILL.md": "Private VidMuse visual-direction capability: progressive taste lookup, private frame packs, project FRAME.md, caption identity, treatment grammar, and real-content showcase; no hyperframes-creative runtime dependency.",
     "skills/media-use": "Adapted from the vendored Media OS into a user-facing VidMuse media capability and shared runtime: standalone ASR/ATA/TTS/generation/transforms, exact workflow execution, no film or semantic-asset ownership.",
     "skills/hyperframes-cli": "VidMuse boundary patch: composition/render-engine operations only; general doctor, TTS, transcription, background edits, AI generation, provider auth, and product delivery route through media-use + VidMuse CLI.",
+    "0.4.4": [
+      "private vidmuse-design capability shared by Recut and Create with progressive taste lookup and locally owned frame packs",
+      "workflow-neutral vidmuse.design.frame.v1 contract with legacy Recut v4/v5 compatibility",
+      "cwd-safe taste handoff paths and plugin-maintenance effect affinity validation against live or saved Registry catalogs",
+      "Create consumes the shared validated FRAME authority instead of maintaining a second preset seed"
+    ],
     "0.4.3": [
       "core-pack v2: per-pack license ledger, derived index.json, three discovery modes (keyword/table/sheet), and a data-driven types.json registry",
       "core-pack read path: media-use core-pack provider wired ahead of generation; new font/shape/texture/overlay/lottie/palette resolve types",

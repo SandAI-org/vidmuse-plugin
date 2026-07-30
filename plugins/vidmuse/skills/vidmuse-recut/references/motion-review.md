@@ -33,7 +33,7 @@ For each included scene, inspect:
 
 Judged across the reel and act renders, against the motion-language anchors
 in [camera-and-transition-craft.md](camera-and-transition-craft.md) and the
-temporal tells in [packaging-tells.md](packaging-tells.md):
+temporal tells in [VidMuse packaging tells](../../vidmuse-design/references/packaging-tells.md):
 
 - **See, then hear** *(charter 5)* — visuals that illustrate a spoken claim
   arrive slightly before the words; a build completes with the sentence, not

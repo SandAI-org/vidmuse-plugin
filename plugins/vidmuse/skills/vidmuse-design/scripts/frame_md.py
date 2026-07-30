@@ -2,7 +2,7 @@
 """Load a project's FRAME.md and lint it mechanically.
 
 FRAME.md is the single authored design artifact in the work directory,
-written in the upstream HyperFrames frame-pack shape: one YAML frontmatter
+written in the private VidMuse frame-pack shape: one YAML frontmatter
 block carrying every concrete token (colors, typography, spacing, motion,
 components), followed by the prose spec the LLM follows while writing
 composition HTML. There is no separate machine-spec JSON to keep in sync.
@@ -13,7 +13,7 @@ Whether the design is any good is judged by eyes: the FRAME.md self-audit
 prose and the frame-showcase confirmation gate, never by this script.
 
 Loading order:
-  1. YAML frontmatter (schema vidmuse.recut.frame.v5 or v4).
+  1. YAML frontmatter (`vidmuse.design.frame.v1`; legacy Recut v4/v5 accepted).
   2. First ```json fence, or a bare .json file — legacy v3 artifacts.
 
 Examples:
@@ -38,8 +38,8 @@ class FrameMdError(ValueError):
 FRONTMATTER = re.compile(r"\A---\s*\n(.*?)^---\s*$", re.DOTALL | re.MULTILINE)
 SPEC_FENCE = re.compile(r"^```json\s*\n(.*?)^```\s*$", re.DOTALL | re.MULTILINE)
 HEX_COLOR = re.compile(r"\A#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})\Z")
-# Upstream frame packs also declare translucency as rgba()/hsla(); accept those
-# for pack lint so official design tokens are not rejected as invalid colors.
+# Private frame packs also declare translucency as rgba()/hsla(); accept those
+# for pack lint so their design tokens are not rejected as invalid colors.
 CSS_COLOR = re.compile(
     r"\A(?:"
     r"#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})"
@@ -49,11 +49,14 @@ CSS_COLOR = re.compile(
     re.IGNORECASE,
 )
 
+SCHEMA_DESIGN_V1 = "vidmuse.design.frame.v1"
 SCHEMA_V4 = "vidmuse.recut.frame.v4"
 SCHEMA_V5 = "vidmuse.recut.frame.v5"
-CURRENT_SCHEMAS = (SCHEMA_V4, SCHEMA_V5)
+CURRENT_SCHEMAS = (SCHEMA_DESIGN_V1, SCHEMA_V4, SCHEMA_V5)
 MODES = ("preset", "composed")
 PRODUCTION_MODES = ("packaging", "director")
+FILM_MODES = ("recut-packaging", "recut-director", "create")
+CREATE_PATHS = ("promo", "explainer", "vox")
 REQUIRED_MOTION = ("dur_fast", "dur_base", "dur_slow", "ease_enter", "ease_exit")
 REQUIRED_FILM_SPINE = (
     "editorial_stance",
@@ -129,7 +132,7 @@ def load_design_document(path: Path) -> dict[str, Any]:
 
     if path.suffix.lower() in {".md", ".markdown"}:
         spec = _parse_frontmatter(text, source=str(path))
-        if spec is not None and spec.get("schema") not in CURRENT_SCHEMAS and not _is_upstream_pack(spec):
+        if spec is not None and spec.get("schema") not in CURRENT_SCHEMAS and not _is_template_pack(spec):
             spec = None
         if spec is None:
             spec = _parse_legacy_spec(text, source=str(path))
@@ -148,8 +151,8 @@ def load_design_document(path: Path) -> dict[str, Any]:
     return spec
 
 
-def _is_upstream_pack(spec: dict[str, Any]) -> bool:
-    """An official HyperFrames frame pack: token frontmatter without our schema tag."""
+def _is_template_pack(spec: dict[str, Any]) -> bool:
+    """A private VidMuse frame-pack template without a project schema tag."""
     return "schema" not in spec and isinstance(spec.get("colors"), dict) and isinstance(spec.get("typography"), dict)
 
 
@@ -158,7 +161,7 @@ def _is_color_token(value: str) -> bool:
     return bool(HEX_COLOR.match(text) or CSS_COLOR.match(text))
 
 
-def _lint_upstream(spec: dict[str, Any], source: str) -> dict[str, Any]:
+def _lint_template_pack(spec: dict[str, Any], source: str) -> dict[str, Any]:
     problems: list[str] = []
     for name, value in spec["colors"].items():
         if not isinstance(value, str) or not _is_color_token(value):
@@ -172,7 +175,7 @@ def _lint_upstream(spec: dict[str, Any], source: str) -> dict[str, Any]:
     return {
         "ok": True,
         "path": source,
-        "mode": "upstream-pack",
+        "mode": "template-pack",
         "name": spec.get("name", ""),
         "colors": len(spec["colors"]),
         "typography": len(spec["typography"]),
@@ -197,7 +200,7 @@ def _lint_current(spec: dict[str, Any], source: str) -> dict[str, Any]:
         problems.append("colors must be a non-empty mapping")
     else:
         for name, value in colors.items():
-            # Same token set as upstream packs so offline-adopted presets
+            # Same token set as private packs so offline-adopted presets
             # (which may carry rgba translucency keys) still lint as v4.
             if not isinstance(value, str) or not _is_color_token(value):
                 problems.append(f"colors.{name}: {value!r} is not a hex/rgba color token")
@@ -212,7 +215,7 @@ def _lint_current(spec: dict[str, Any], source: str) -> dict[str, Any]:
 
     motion = spec.get("motion")
     if not isinstance(motion, dict):
-        problems.append("motion must be a mapping (upstream packs stop at composition; this pipeline requires it)")
+        problems.append("motion must be a mapping (template packs stop at composition; this pipeline requires it)")
     else:
         missing = [key for key in REQUIRED_MOTION if key not in motion]
         if missing:
@@ -229,50 +232,67 @@ def _lint_current(spec: dict[str, Any], source: str) -> dict[str, Any]:
     if components is not None and not isinstance(components, dict):
         problems.append("components must be a mapping when present")
 
+    film_mode: str | None = None
+    create_path: str | None = None
     production_mode: str | None = None
     film_spine: dict[str, Any] | None = None
     act_worlds: list[Any] | None = None
-    if schema == SCHEMA_V5:
+    director_mode = False
+    if schema == SCHEMA_DESIGN_V1:
+        film_mode = spec.get("film_mode")
+        if film_mode not in FILM_MODES:
+            problems.append(f"film_mode must be one of {FILM_MODES}, got {film_mode!r}")
+        director_mode = film_mode == "recut-director"
+        if film_mode == "create":
+            create_path = spec.get("create_path")
+            if create_path not in CREATE_PATHS:
+                problems.append(
+                    f"create_path must be one of {CREATE_PATHS} in create mode, "
+                    f"got {create_path!r}"
+                )
+    elif schema == SCHEMA_V5:
         production_mode = spec.get("production_mode")
         if production_mode not in PRODUCTION_MODES:
             problems.append(
                 f"production_mode must be one of {PRODUCTION_MODES}, got {production_mode!r}"
             )
-        if production_mode == "director":
-            film_spine = spec.get("film_spine")
-            if not isinstance(film_spine, dict):
-                problems.append("film_spine must be a mapping in Director mode")
-            else:
-                missing_spine = [key for key in REQUIRED_FILM_SPINE if not film_spine.get(key)]
-                if missing_spine:
-                    problems.append(f"film_spine missing {', '.join(missing_spine)}")
+        director_mode = production_mode == "director"
 
-            act_worlds = spec.get("act_worlds")
-            if not isinstance(act_worlds, list) or not act_worlds:
-                problems.append("act_worlds must be a non-empty list in Director mode")
-            else:
-                seen_ids: set[str] = set()
-                for index, world in enumerate(act_worlds):
-                    if not isinstance(world, dict):
-                        problems.append(f"act_worlds[{index}] must be a mapping")
-                        continue
-                    missing_world = [
-                        key
-                        for key in REQUIRED_ACT_WORLD
-                        if key not in world
-                        or world[key] is None
-                        or world[key] == ""
-                        or (isinstance(world[key], list) and key == "allowed_mechanisms" and not world[key])
-                    ]
-                    if missing_world:
-                        problems.append(
-                            f"act_worlds[{index}] missing {', '.join(missing_world)}"
-                        )
-                    world_id = world.get("id")
-                    if isinstance(world_id, str):
-                        if world_id in seen_ids:
-                            problems.append(f"act_worlds[{index}].id duplicates {world_id!r}")
-                        seen_ids.add(world_id)
+    if director_mode:
+        film_spine = spec.get("film_spine")
+        if not isinstance(film_spine, dict):
+            problems.append("film_spine must be a mapping in Director mode")
+        else:
+            missing_spine = [key for key in REQUIRED_FILM_SPINE if not film_spine.get(key)]
+            if missing_spine:
+                problems.append(f"film_spine missing {', '.join(missing_spine)}")
+
+        act_worlds = spec.get("act_worlds")
+        if not isinstance(act_worlds, list) or not act_worlds:
+            problems.append("act_worlds must be a non-empty list in Director mode")
+        else:
+            seen_ids: set[str] = set()
+            for index, world in enumerate(act_worlds):
+                if not isinstance(world, dict):
+                    problems.append(f"act_worlds[{index}] must be a mapping")
+                    continue
+                missing_world = [
+                    key
+                    for key in REQUIRED_ACT_WORLD
+                    if key not in world
+                    or world[key] is None
+                    or world[key] == ""
+                    or (isinstance(world[key], list) and key == "allowed_mechanisms" and not world[key])
+                ]
+                if missing_world:
+                    problems.append(
+                        f"act_worlds[{index}] missing {', '.join(missing_world)}"
+                    )
+                world_id = world.get("id")
+                if isinstance(world_id, str):
+                    if world_id in seen_ids:
+                        problems.append(f"act_worlds[{index}].id duplicates {world_id!r}")
+                    seen_ids.add(world_id)
 
     if problems:
         raise FrameMdError(f"{source}: " + "; ".join(problems))
@@ -287,7 +307,16 @@ def _lint_current(spec: dict[str, Any], source: str) -> dict[str, Any]:
         "spacing": len(spacing),
         "components": len(components or {}),
     }
-    if schema == SCHEMA_V5:
+    if schema == SCHEMA_DESIGN_V1:
+        report.update(
+            {
+                "film_mode": film_mode,
+                "create_path": create_path,
+                "film_spine": bool(film_spine),
+                "act_worlds": len(act_worlds or []),
+            }
+        )
+    elif schema == SCHEMA_V5:
         report.update(
             {
                 "production_mode": production_mode,
@@ -318,8 +347,8 @@ def check(path: Path) -> dict[str, Any]:
     spec = load_design_document(path)
     if spec.get("schema") in CURRENT_SCHEMAS:
         return _lint_current(spec, str(path))
-    if _is_upstream_pack(spec):
-        return _lint_upstream(spec, str(path))
+    if _is_template_pack(spec):
+        return _lint_template_pack(spec, str(path))
     return _lint_legacy(spec, str(path))
 
 

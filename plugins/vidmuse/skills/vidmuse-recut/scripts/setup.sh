@@ -135,6 +135,7 @@ fi
 REQUIRED_RECUT_SKILLS=(
   vidmuse
   vidmuse-recut
+  vidmuse-design
   vidmuse-assets
   hyperframes-animation
   hyperframes-cli
@@ -192,7 +193,7 @@ for name in "${OPTIONAL_PLUGIN_SKILLS[@]}"; do
 done
 echo "[note] entry skill: /vidmuse"
 echo "[note] film workflow: /vidmuse-recut (speaking footage)"
-echo "[note] direct capabilities: /vidmuse-assets · /media-use"
+echo "[note] capabilities: /vidmuse-design · /vidmuse-assets · /media-use"
 echo "[note] HyperFrames runtime skills load only for their production layer"
 echo "[note] global skill homes (~/.codex/skills etc.) are optional and NOT required for health"
 
@@ -203,5 +204,5 @@ echo "  on demand    : npx hyperframes (composition/render runtime; not a media 
 echo "  recut skills : $PLUGIN_SKILLS_DIR  ($(echo "${REQUIRED_RECUT_SKILLS[@]}" | wc -w | tr -d ' ') required)"
 echo "  entry skill  : vidmuse"
 echo "  workflow     : vidmuse-recut"
-echo "  capabilities : vidmuse-assets · media-use"
+echo "  capabilities : vidmuse-design · vidmuse-assets · media-use"
 echo "  work dirs    : outside this plugin (e.g. videos/<project>/ under your session workspace)"

@@ -96,6 +96,15 @@ and the visual references selected by
 For `vox`, read only
 [`references/vox-collage.md`](references/vox-collage.md) for visual craft.
 
+After the film path establishes its proposition, treatment, real evidence, and
+coverage, load `/vidmuse-design` for the shared visual authority. Give it the
+approved treatment, source/subject evidence, storyboard frames, locked copy,
+aspect/caption band, planned density, `film_mode: create`, and the selected
+`create_path`. It returns the project `FRAME.md`, caption identity, direction
+showcase, and successful `frame_md.py --check` report without taking over scene
+planning or animation. Do not continue with an unvalidated FRAME or load
+`hyperframes-creative` as a second look source.
+
 ### 3. Choose the sound spine
 
 Honor the user's requested sound format:

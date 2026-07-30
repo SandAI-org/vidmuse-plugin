@@ -20,21 +20,19 @@ override higher rows without an explicit, footage-grounded reason written into
 | 1 | User BRIEF / spoken intent / brand assets | mood words, must-keep, bans, named packs | justify templates the user did not ask for |
 | 2 | Source footage + packaging density (quiet passages, face, room color) | whether the room leads; be source-led vs graphic-led | invent B-roll, fake data, or a colder room than the plate |
 | 3 | Project `FRAME.md` | sole token law: colors, type, spacing, motion, components, treatments | be ignored once written; agents rewrite composition HTML from it |
-| 4 | Recut atoms / **at most one** profile or pack anchor | coherence precedent for composed or preset mode | dual-anchor (e.g. half editorial + half blueprint) |
-| 5 | `hyperframes-creative` | hygiene and anti-web defaults: contrast, type pairing caution, composition safety | act as a second taste menu or house look during direction selection |
-| 6 | HyperFrames Registry | mechanism (how a thing moves / mounts) | skin the film; demo chrome is never the project look |
+| 4 | Private VidMuse atoms / **at most one** profile or pack anchor | coherence precedent for composed or preset mode | dual-anchor (e.g. half editorial + half blueprint) |
+| 5 | HyperFrames technical contracts and Registry | safe mechanism (how a thing moves / mounts) | skin the film; demo chrome is never the project look |
 
 ## Phase discipline
 
-### Direction phase (steps 5–7)
+### Design direction phase
 
-- Browse recut taste indexes and source frames first.
-- Do **not** load `hyperframes-creative` house-style / typography / video-composition
-  as a style selection menu while choosing the direction.
-- Creative may be consulted only *after* `FRAME.md` tokens exist, and only as a
-  hygiene checklist (overflow, contrast floor, web-UI anti-patterns).
+- Browse the private VidMuse taste indexes and source frames first.
+- Do not load an externally vendored creative skill as a style selection menu.
+- After `FRAME.md` exists, consult only the applicable HyperFrames technical
+  contract for overflow, contrast, determinism, or composition safety.
 
-### Implementation phase (steps 8–11)
+### Film implementation phase
 
 - Registry supplies mechanisms; adjudicate every visible color/font/size against
   `FRAME.md`.
@@ -53,8 +51,8 @@ Composed mode may set **zero or one** `anchor`.
   anchor and treat the secondary as a **motivated act-world departure** with a
   written reason — not a second unstated anchor.
 
-## Doc vs product taste
+## Technical contract vs product taste
 
-`hyperframes-creative` optimizes for competent motion HTML. VidMuse optimizes
-for *this talking head in this room*. When the two conflict on temperature,
-density, or chrome style at the direction gate, product + room win.
+HyperFrames technical skills optimize for a valid, seek-safe composition.
+VidMuse Design optimizes for *this subject in this world*. Technical hygiene
+informs implementation but never becomes a second visual authority.

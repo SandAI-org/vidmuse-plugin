@@ -13,6 +13,9 @@ It routes to the owner of the requested deliverable:
 - `/vidmuse` — deliverable-based intent router.
 - `/vidmuse-recut` — you already have a person speaking on camera (talking-head, interview, podcast, product explainer).
 - `/vidmuse-create` — the film's primary material must be made (knowledge explainers, website and product promos, script + TTS films, Vox-style collage B-roll).
+- `/vidmuse-design` — private VidMuse visual direction loaded by a film
+  workflow only when it needs a `FRAME.md`, caption identity, treatment system,
+  or real-content design showcase.
 - `/vidmuse-assets` — proactively scan film semantics or handle explicit
   requests, canonicalize entities, plan and license-check assets, and operate
   the hybrid Core Pack / Creator Library / provider system. Lobe Icons is the
@@ -21,7 +24,10 @@ It routes to the owner of the requested deliverable:
 - `/media-use` — standalone transcription/ASR, ATA, TTS/voiceover, generation,
   trim/reframe/transform, grading, and exact media execution for workflows.
 
-Both share the same taste system and deliver through VidMuse Timeline (`vidmuse serve`): picture, overlays, narration, and word-level captions — not a baked MP4-only handoff.
+Both film workflows call the same private `vidmuse-design` capability at the
+direction phase and deliver through VidMuse Timeline (`vidmuse serve`):
+picture, overlays, narration, and word-level captions — not a baked MP4-only
+handoff.
 
 For non-Vox Create films, production begins only after an agency-style
 pre-production pass: verified product/subject truth, a one-proposition brief,
@@ -35,6 +41,8 @@ automatic shot list.
 - `skills/vidmuse/` — mandatory intent router and shared runtime policy.
 - `skills/vidmuse-recut/` — film workflow for existing speaking footage.
 - `skills/vidmuse-create/` — product skill for films without source footage.
+- `skills/vidmuse-design/` — private visual decision system, compact taste
+  query tools, frame packs, `FRAME.md` contract, and design showcase gate.
 - `skills/vidmuse-assets/` — asset intelligence, Semantic Asset Pass, hybrid
   library policy, plan validator/resolver, and framework-only Core Pack.
 - `skills/media-use/` — direct media capability and shared execution runtime.
@@ -105,7 +113,7 @@ Finished work lands in the session workspace, never in the plugin directory.
 https://github.com/SandAI-org/vidmuse-plugin.git
 ```
 
-For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.4.3** (see `.codex-plugin/plugin.json`).
+For maintainers: validate skill folders and the plugin before packaging from git HEAD. See [SKILLS.md](./SKILLS.md) to refresh vendored domain skills. Current plugin version: **0.4.4** (see `.codex-plugin/plugin.json`).
 
 ## License
 

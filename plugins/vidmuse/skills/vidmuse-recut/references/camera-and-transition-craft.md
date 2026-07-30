@@ -76,7 +76,7 @@ passage earns a quiet one.
 These principles are judged in the rendered reel, not in the timeline source
 (see [motion-review.md](motion-review.md)); the charter dimensions they serve
 are Undisturbed (8), Felt (7), and Intent (1) in
-[aesthetic-charter.md](aesthetic-charter.md).
+[VidMuse aesthetic charter](../../vidmuse-design/references/aesthetic-charter.md).
 
 ## Camera verb
 

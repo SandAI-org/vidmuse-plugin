@@ -31,7 +31,7 @@ bash ~/.claude/skills/vidmuse-recut/scripts/setup.sh
 
 | 必须在**用户全局 PATH** | Recut 运行时依赖 |
 | --- | --- |
-| Node 22+、ffmpeg/ffprobe、Python3 | `vidmuse`、`vidmuse-recut`、`vidmuse-assets`、`media-use` |
+| Node 22+、ffmpeg/ffprobe、Python3 | `vidmuse`、`vidmuse-recut`、`vidmuse-design`、`vidmuse-assets`、`media-use` |
 | `vidmuse` CLI（serve/render/model）+ `vidmuse login` | setup **不会**去查 `~/.codex/skills` |
 | `npx hyperframes` 渲染运行时 | `hyperframes-animation/core/cli/keyframes/registry` |
 
@@ -51,21 +51,25 @@ ASR 出的文字会标明来源给你看一眼：机器识别容易错专有名�
 
 ## 审美入口
 
-1. **Preset — 官方视觉模板**：[hyperframes.dev/design](https://www.hyperframes.dev/design) 的 12 套 premade frame，vendored 在 `library/frame-packs/`，目录在 `data/style-packs.jsonl`。选定后视为 look + `effect_affinity`；Agent 再按包装分析把 Registry 效果铸到用户口播时间轴上。
-2. **Composed — 原子现场合成**：`style-atoms.jsonl`（64 维）+ `style-profiles.jsonl`（13 参考锚点）。默认路径。
+视觉方向由私有 `/vidmuse-design` capability 负责，Recut 只向它传递已经确认的内容覆盖、真实关键帧、画幅、字幕区和密度预算：
 
-官方 Examples / Showcase 分别收成 `data/example-kits.jsonl` 与 `data/showcase-kits.jsonl`，只作结构与制片参考（demo 文案/时间不可直接当用户内容）。每条片的最终 token 只写在项目 `FRAME.md`（upstream frame-pack 形态，preset / composed 双模式）。效果实现优先 HyperFrames Registry；`data/effects-overlay.jsonl` 提供选型元数据。
+1. **Preset** — `vidmuse-design/library/frame-packs/` 私有持有 12 套视觉包。
+2. **Composed** — 私有 atoms + profiles 现场组合，默认路径。
+
+每条片的最终 token 只写在项目 `FRAME.md`。设计 capability 返回
+`effect_affinity` 和 Treatment 约束；Recut 再用自己的效果目录选择和安装
+Registry 机制。运行时不读取 `hyperframes-creative` 的预设。
 
 ## 维护者验证
 
-下面是修改插件数据或 Registry overlay 后使用的仓库检查，不属于每条
-影片的运行步骤：
+下面只保留 Recut 所拥有的 Registry overlay 检查。Design 数据维护命令
+见插件根目录 `SKILLS.md`，不属于每条影片的运行步骤：
 
 ```bash
-python3 scripts/taste.py --validate
-python3 scripts/taste.py --index --domain packs
 python3 scripts/effects.py --validate
 python3 scripts/effects.py --index
+python3 scripts/effects.py \
+  --check-affinity ../vidmuse-design/data/style-packs.jsonl
 ```
 
 ## 目录
@@ -74,13 +78,14 @@ python3 scripts/effects.py --index
 vidmuse-recut/
 ├── SKILL.md                 # 精简工作流入口
 ├── references/              # 运行时按步骤阅读的领域文档
-├── data/                    # style atoms / profiles / packs / kits / effects overlay
-├── library/
-│   ├── frame-packs/         # vendored FRAME.md + caption-skin × 12
-│   └── native/              # Registry 缺失时的原生机制
-├── scripts/                 # setup.sh + taste / effects / frame_md / scene_plan / evaluation
+├── data/                    # effects overlay
+├── library/native/          # Recut 专属的源画面/PiP机制
+├── scripts/                 # setup + effects / scene_plan / evaluation / Timeline
 └── assets/                  # 字体资源位 + 随包分发的 vidmuse CLI（vendor/vidmuse-cli/）
 ```
+
+Taste、视觉包、FRAME 校验、字幕身份和方向 Showcase 位于相邻的
+`vidmuse-design/`，只在方向阶段加载。
 
 运行产物一律写入工作目录 `videos/<项目名>/`（已被 `.gitignore` 忽略），skill 目录本身只读。
 

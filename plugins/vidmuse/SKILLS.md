@@ -1,12 +1,13 @@
 # Skills shipped in this plugin
 
 The user-facing router is **`/vidmuse`**. It routes by requested
-deliverable to two film workflows and two direct capability domains:
+deliverable to two film workflows and three capability domains:
 **`/vidmuse-recut`** (existing speaking footage), **`/vidmuse-create`**
-(material must be made), **`/vidmuse-assets`** (semantic asset/library work),
-or **`/media-use`** (standalone ASR, ATA, TTS, generation, and deterministic
-media operations). Composition, motion, rendering, and runtime-specific
-animation guidance remain dependencies loaded on demand.
+(material must be made), **`/vidmuse-design`** (private visual direction),
+**`/vidmuse-assets`** (semantic asset/library work), or **`/media-use`**
+(standalone ASR, ATA, TTS, generation, and deterministic media operations).
+Composition, motion, rendering, and runtime-specific animation guidance remain
+dependencies loaded on demand.
 
 Do **not** install or invoke HyperFrames `talking-head-recut` from this plugin — that job is owned by `vidmuse-recut`.
 
@@ -26,6 +27,7 @@ vendored-skill, init, and preview policy lives once under
 | `vidmuse` | **Router** — resume state, classify the requested deliverable, select one owner, and leave |
 | `vidmuse-recut` | **Film workflow** — editor/director for existing talking-head / interview / podcast / product-explainer footage |
 | `vidmuse-create` | **Film workflow** for material that must be made: explainers, promos, script + TTS films, and Vox collage. The skill keeps only the shared spine; `path-routing` and the selected references own path-specific craft. |
+| `vidmuse-design` | **Private visual-direction capability** — taste atoms and profiles, private frame packs, project `FRAME.md`, caption identity, treatment grammar, and real-content showcase. Loaded by a film owner only for the direction phase; it does not route, time beats, source media, animate, or render. |
 | `vidmuse-assets` | **Asset intelligence** for explicit or in-film work. Owns semantic opportunities, canonical identity, transcript-bound pass receipts, request fingerprints, `asset-plan.json`, source/license policy, Core Pack / Creator Library direction, and provider choice; delegates all I/O and generation to `media-use`. First active catalog: pinned Lobe Icons. |
 | `media-use` | **Direct capability + shared runtime** — standalone ASR/ATA/TTS/generation/transforms, or exact execution for an owning workflow. Never owns semantic asset decisions or a film deliverable. |
 | `vidmuse-motion` | **Dependency skill** — semantic motion recipes → HyperFrames/GSAP native compose when Registry has no block (KPI/bars/sparkline/stat cards). Not a product router. `scripts/motion_recipes.py` + gold `examples/dataviz-semantic/` |
@@ -40,7 +42,7 @@ Same set as `npx hyperframes skills update` core tier (`FALLBACK_CORE_SKILLS`):
 | `hyperframes-core` | Composition contract, `data-*`, determinism, STORYBOARD/SCRIPT |
 | `hyperframes-cli` | CLI loop: init / lint / check / keyframes / snapshot / render |
 | `hyperframes-animation` | Motion rules, blueprints, seven runtime adapters |
-| `hyperframes-creative` | Non-animation creative direction |
+| `hyperframes-creative` | Optional upstream creative reference retained for HyperFrames compatibility; not the VidMuse visual authority |
 | `hyperframes-keyframes` | Seek-safe keyframe diagnostics |
 | `hyperframes-registry` | `hyperframes add` / catalog / wiring |
 
@@ -71,6 +73,35 @@ Keep product skills as thin control layers:
 Aim for a focused `SKILL.md` well below the 500-line progressive-disclosure
 ceiling. When a workflow grows, make one reference authoritative and link to
 it instead of copying its contract back into the skill.
+
+## Maintain private VidMuse design
+
+Run Design-owned checks from the Design skill directory so portable catalog
+paths and project commands have one documented base:
+
+```bash
+cd skills/vidmuse-design
+python3 scripts/taste.py --validate
+python3 scripts/taste.py --index --domain packs
+python3 scripts/frame_md.py library/frame-packs/coral/FRAME.md --check
+```
+
+The catalog stores portable relative paths; `taste.py --get` also returns
+`source.skill_root` and `source.resolved_*` absolute paths for callers in
+another working directory.
+
+Affinity is a cross-boundary integration check owned by Recut's effect
+resolver. With no saved catalog it queries the installed/live HyperFrames
+catalog; CI can pass a deterministic snapshot:
+
+```bash
+python3 ../vidmuse-recut/scripts/effects.py \
+  --check-affinity data/style-packs.jsonl
+
+python3 ../vidmuse-recut/scripts/effects.py \
+  --check-affinity data/style-packs.jsonl \
+  --catalog-file /path/to/hyperframes-catalog.json
+```
 
 ## Refresh vendored skills
 

@@ -2,8 +2,8 @@
 
 Production mode and taste mode are separate axes. Packaging/Director decides
 the film structure; preset/composed decides how visual tokens are selected.
-Director mode adds a film spine and act worlds as described in
-[act-worlds.md](act-worlds.md).
+Director mode adds a film spine and act worlds supplied by the owning workflow,
+such as [Recut act worlds](../../vidmuse-recut/references/act-worlds.md).
 
 The taste layer has two legitimate modes. In **preset** mode the user picked a
 ready pack (or a library profile treated as a pack) and wants it as-is: adopt
@@ -12,29 +12,35 @@ this footage. In **composed** mode — the default, and the subject of most of
 this document — you compose a project-specific visual language from
 single-dimension atoms, optionally using one profile as a reference anchor.
 
-## Official kit surfaces (browse before composing)
+## Private kit surfaces (browse before composing)
 
 ```bash
-python3 scripts/taste.py --index --domain packs       # 12 hyperframes.dev/design looks
+python3 scripts/taste.py --index --domain packs       # 12 private VidMuse looks
 python3 scripts/taste.py --index --domain examples    # init --example structure kits
 python3 scripts/taste.py --index --domain showcases   # launch production references
 python3 scripts/taste.py --index --domain profiles    # atom-combination precedents
 python3 scripts/taste.py --index --domain atoms
 ```
 
-| domain | role in recut |
+| domain | role in a film workflow |
 | --- | --- |
-| **packs** | A pack **is** a visual template: vendored `FRAME.md` + caption skin + `effect_affinity`. Prefer this when the user names a look (Coral, Biennale Yellow, …) or wants a faithful official style. |
+| **packs** | A pack **is** a visual template: private vendored `FRAME.md` + caption skin + `effect_affinity`. Prefer this when the user names a look (Coral, Biennale Yellow, …) or wants a faithful preset. |
 | **examples** | Teach host structure (multi-track a-roll, grain, stats). **Not** content-adaptive; demo copy/timing stay locked. Steal grammar, not timestamps. |
 | **showcases** | Multi-act production references (shader/Three/VO). Use for technique, never as a talking-head preset. |
-| **profiles / atoms** | Composed-mode vocabulary when no official pack is chosen. |
+| **profiles / atoms** | Composed-mode vocabulary when no private pack is chosen. |
 
 ### Preset adoption path (style pack → project)
 
 1. User or judgment selects `pack:<name>` from the packs index.
 2. `python3 scripts/taste.py pack:<name> --get --domain packs` for full affinity + motion defaults.
-3. Read `source.frame_md` (under `library/frame-packs/…`); `frame_md.py … --check` reports `mode: upstream-pack`.
-4. Write project `FRAME.md` with `mode: preset`, `anchor: pack:<name>`, pack `colors` / `typography` / `spacing` / `components` (copy all four — never drop `spacing`), and `motion` from catalog `default_motion` (packs stop at composition). New projects use frame v5 plus `production_mode`; Director mode also declares the film spine and act worlds.
+3. Read `source.resolved_frame_md`; portable `source.frame_md` is relative to
+   the returned `source.skill_root`, never the caller's cwd. `frame_md.py …
+   --check` reports `mode: template-pack`.
+4. Write project `FRAME.md` with schema `vidmuse.design.frame.v1`,
+   `film_mode`, `mode: preset`, `anchor: pack:<name>`, pack `colors` /
+   `typography` / `spacing` / `components` (copy all four — never drop
+   `spacing`), and `motion` from catalog `default_motion`. Director mode also
+   declares the film spine and act worlds.
 5. Copy `caption-skin.html` into the work dir when captions are on — it is the
    pack's caption identity and the starting point, not the finished skin: cast
    it onto this film's band and transcript.
@@ -49,7 +55,7 @@ Examples/showcases never skip steps 4–7. They only widen the effect and struct
 | --- | --- | --- |
 | style atom | one aesthetic dimension | exact tokens, effects, timeline |
 | reference profile | a coherent precedent made from eight atoms | project implementation values |
-| **style pack** | official look tokens + default motion + effect affinity | user-video timeline, transcript copy |
+| **style pack** | private look tokens + default motion + effect affinity | user-video timeline, transcript copy |
 | example / showcase kit | structural & technique precedent | project look (unless pack already chosen) |
 | editorial pattern | what the content needs to express | visual skin |
 | effect overlay | when and how an effect mechanism fits | whole-film art direction |
@@ -90,7 +96,7 @@ In composed mode the identity is a derivation, not a pick from a menu: a
 matte-paper editorial material with measured motion does not arrive at a
 karaoke pill, and a snappy high-contrast signal culture does not arrive at a
 weight-shift whisper. Carry 2–3 candidates into the showcase gate either way
-(SKILL.md step 5), and place them in the band defined by
+(the showcase step in `SKILL.md`), and place them in the band defined by
 [captions-and-golden-lines.md](captions-and-golden-lines.md) — the band is not
 one of the composed dimensions; it is defaulted, and a departure is argued.
 
@@ -108,8 +114,8 @@ with a written reason — or rename the anchor to the culture that actually owns
 the screen. Read [taste-authority.md](taste-authority.md).
 
 **Room before house style.** Derive palette from wall / wardrobe / practical
-lights first. Do not open `hyperframes-creative` as a look menu in the direction
-phase; after tokens exist it is hygiene only.
+lights first. Do not open an externally vendored creative skill as a look menu
+in the direction phase; after tokens exist, consult only technical contracts.
 
 **Judgment type before status chrome.** Prefer short Chinese lines from the
 transcript over `EXPIRED` / `STALE` / SaaS ops chips. Cap distinct English
@@ -118,11 +124,14 @@ status tokens (default ≤2 per film unless the speech is itself status jargon).
 ## Project `FRAME.md` contract
 
 `FRAME.md` is the only project design authority after direction selection.
-New projects use `vidmuse.recut.frame.v5`; Packaging compatibility may retain
-v4. Frontmatter records `production_mode`, `mode` (`preset` or `composed`),
-the optional single `anchor`, and concrete `colors`, `typography`, `spacing`,
-`motion`, and `components` tokens. Director mode also declares `film_spine`
-and non-empty `act_worlds`.
+New projects use `vidmuse.design.frame.v1`. Frontmatter records `film_mode`
+(`recut-packaging`, `recut-director`, or `create`), `mode` (`preset` or
+`composed`), the optional single `anchor`, and concrete `colors`,
+`typography`, `spacing`, `motion`, and `components` tokens. Create also records
+`create_path` (`promo`, `explainer`, or `vox`); Recut Director mode declares
+`film_spine` and non-empty `act_worlds`. The validator continues to accept
+`vidmuse.recut.frame.v4/v5` as read-only compatibility schemas for existing
+projects; do not author new files with them.
 
 The prose explains the decisions those tokens cannot:
 
@@ -219,7 +228,7 @@ only — a preset run is a template by consent):
 - changing the subject and transcript would leave the same composition fully
   plausible;
 - a material or motion choice exists only because its profile contained it;
-- official effect demo styling remains recognizable after adaptation.
+- installed effect demo styling remains recognizable after adaptation.
 
 ### Temporal defaults
 

@@ -7,14 +7,14 @@ The active aesthetic model has two surfaces that feed one pipeline:
     style atoms → optional reference profiles → project FRAME.md
 
   Preset / kit (when the user picks a ready look)
-    official style packs (hyperframes.dev/design) carry FRAME.md tokens
+    private VidMuse style packs carry FRAME.md tokens
     example kits + showcase projects teach structure and effect casting
 
 Three modes, no search engine:
 
   --index   compact one-line-per-record digest of a whole domain
   --get     fetch full records by exact id, preserving request order
-  --validate validate atoms, profiles, packs, kits, overlay, and cross references
+  --validate validate atoms, profiles, packs, kits, and cross references
 """
 
 from __future__ import annotations
@@ -30,7 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = Path(__file__).resolve().parent
 if str(SCRIPTS_DIR) not in sys.path:
     # Allow `from scripts.taste import validate_library` and direct execution
-    # to both resolve sibling modules (frame_md, effects).
+    # to resolve the sibling FRAME.md parser.
     sys.path.insert(0, str(SCRIPTS_DIR))
 
 DATA_DIR = ROOT / "data"
@@ -57,7 +57,8 @@ INDEX_FIELDS = (
     "avoid_for",
     "use_when",
     "avoid",
-    "recut_fit",
+    "workflow_fit",
+    "workflow_use",
     "format",
     "genre",
     "best_for",
@@ -90,7 +91,7 @@ REQUIRED_PACK_FIELDS = (
     "effect_affinity",
     "suitable_for",
     "avoid_for",
-    "recut_fit",
+    "workflow_fit",
     "adopt",
 )
 
@@ -129,11 +130,31 @@ def index(domain: str) -> list[dict[str, Any]]:
 
 
 def get(ids: list[str], domain: str) -> list[dict[str, Any]]:
-    """Fetch records by exact id, preserving request order."""
+    """Fetch records by exact id with portable and resolved source paths."""
     if domain not in DOMAINS:
         raise ValueError(f"unknown domain: {domain}")
     by_id = {str(record.get("id", "")): record for record in load_jsonl(DOMAINS[domain])}
-    return [by_id[record_id] for record_id in ids if record_id in by_id]
+    return [
+        _resolve_source_paths(by_id[record_id])
+        for record_id in ids
+        if record_id in by_id
+    ]
+
+
+def _resolve_source_paths(record: dict[str, Any]) -> dict[str, Any]:
+    """Add execution-safe absolute paths without mutating portable catalog data."""
+    enriched = dict(record)
+    source = record.get("source")
+    if not isinstance(source, dict):
+        return enriched
+    resolved_source = dict(source)
+    resolved_source["skill_root"] = str(ROOT)
+    for field in ("local_path", "frame_md", "caption_skin", "showcase"):
+        value = source.get(field)
+        if isinstance(value, str) and value:
+            resolved_source[f"resolved_{field}"] = str((ROOT / value).resolve())
+    enriched["source"] = resolved_source
+    return enriched
 
 
 def _require_unique_ids(records: list[dict[str, Any]], domain: str) -> None:
@@ -191,6 +212,8 @@ def _validate_packs(
         affinity = pack.get("effect_affinity") or {}
         if not isinstance(affinity.get("prefer"), list) or not affinity["prefer"]:
             raise ValueError(f"packs:{pack_id}: effect_affinity.prefer must be a non-empty list")
+        if not isinstance(affinity.get("avoid"), list):
+            raise ValueError(f"packs:{pack_id}: effect_affinity.avoid must be a list")
 
         source = pack.get("source") or {}
         frame_md_rel = source.get("frame_md")
@@ -205,10 +228,10 @@ def _validate_packs(
 
         try:
             spec = frame_md.load_design_document(path)
-            if frame_md._is_upstream_pack(spec) and spec.get("schema") != frame_md.SCHEMA_V4:
-                result = frame_md._lint_upstream(spec, str(path))
+            if frame_md._is_template_pack(spec):
+                result = frame_md._lint_template_pack(spec, str(path))
             else:
-                result = frame_md._lint_v4(spec, str(path))
+                result = frame_md._lint_current(spec, str(path))
             if not result.get("ok"):
                 raise ValueError(f"packs:{pack_id}: FRAME.md lint failed")
             report["frame_md_ok"].append(pack_id)
@@ -217,78 +240,19 @@ def _validate_packs(
     return report
 
 
-def _known_effect_ids(catalog_file: Path | None = None) -> set[str] | None:
-    """Return effect ids from the validated overlay and optional saved catalog.
-
-    Library validation is a repository-maintenance operation and stays offline
-    by default. Pass --catalog-file when catalog compatibility also needs to be
-    checked; never make routine validation invoke npx or the network.
-    """
-    try:
-        import effects
-    except ImportError:
-        return None
-    try:
-        overlay = effects.load_jsonl(effects.DEFAULT_OVERLAY)
-        effects.validate_overlay(overlay)
-    except Exception:
-        return None
-    if catalog_file is None:
-        return None
-    try:
-        catalog = effects.load_catalog(catalog_file)
-        records = effects.merge_catalog(catalog, overlay)
-    except Exception:
-        return None
-    known: set[str] = set()
-    for record in records:
-        record_id = str(record.get("id") or "")
-        if record_id:
-            known.add(record_id)
-        upstream = str(record.get("upstream_id") or "")
-        if upstream:
-            known.add(upstream if upstream.startswith(("hf:", "native:")) else f"hf:{upstream}")
-    return known
-
-
-def _validate_effect_affinity(
-    packs: list[dict[str, Any]],
-    known_ids: set[str] | None,
-) -> dict[str, Any]:
-    if known_ids is None:
-        return {
-            "checked": False,
-            "reason": "catalog-file-not-provided-or-unavailable",
-        }
-    bad: list[str] = []
-    for pack in packs:
-        pack_id = str(pack["id"])
-        affinity = pack.get("effect_affinity") or {}
-        for bucket in ("prefer", "avoid"):
-            for effect_id in affinity.get(bucket) or []:
-                if str(effect_id) not in known_ids:
-                    bad.append(f"{pack_id}.{bucket}:{effect_id}")
-    if bad:
-        raise ValueError(
-            "packs: unknown effect_affinity ids (not in HyperFrames catalog + overlay): "
-            + ", ".join(bad)
-        )
-    return {"checked": True, "known": len(known_ids)}
-
-
 def _validate_kits(records: list[dict[str, Any]], domain: str, kind: str) -> int:
     _require_unique_ids(records, domain)
     for record in records:
         record_id = str(record["id"])
         if record.get("kind") != kind:
             raise ValueError(f"{domain}:{record_id}: kind must be {kind}")
-        for field in ("name", "tagline", "source", "recut_use"):
+        for field in ("name", "tagline", "source", "workflow_use"):
             if field not in record:
                 raise ValueError(f"{domain}:{record_id}: missing {field}")
     return len(records)
 
 
-def validate_library(catalog_file: Path | None = None) -> dict[str, Any]:
+def validate_library() -> dict[str, Any]:
     atoms = load_jsonl(DOMAINS["atoms"])
     profiles = load_jsonl(DOMAINS["profiles"])
     packs = load_jsonl(DOMAINS["packs"])
@@ -321,8 +285,6 @@ def validate_library(catalog_file: Path | None = None) -> dict[str, Any]:
     pack_report = _validate_packs(packs, atoms_by_id)
     example_count = _validate_kits(examples, "examples", "example-kit")
     showcase_count = _validate_kits(showcases, "showcases", "showcase-project")
-    affinity_report = _validate_effect_affinity(packs, _known_effect_ids(catalog_file))
-
     # Cross-link: example/showcase style_echo ids must resolve to packs when present.
     pack_ids = {str(pack["id"]) for pack in packs}
     for domain_name, records in (("examples", examples), ("showcases", showcases)):
@@ -343,7 +305,11 @@ def validate_library(catalog_file: Path | None = None) -> dict[str, Any]:
         "showcases": showcase_count,
         "dimensions": dimension_counts,
         "frame_md_ok": pack_report["frame_md_ok"],
-        "effect_affinity": affinity_report,
+        "effect_affinity": {
+            "checked": "shape-only",
+            "owner": "vidmuse-recut/scripts/effects.py --check-affinity",
+            "note": "Run the owner check against a live or saved HyperFrames catalog.",
+        },
     }
 
 
@@ -354,15 +320,10 @@ def main() -> int:
     parser.add_argument("--index", action="store_true", help="Print the domain's compact index (JSONL)")
     parser.add_argument("--get", action="store_true", help="Fetch full records by exact id")
     parser.add_argument("--validate", action="store_true", help="Validate the full taste library")
-    parser.add_argument(
-        "--catalog-file",
-        type=Path,
-        help="Optional HyperFrames catalog JSON for effect_affinity checks during --validate",
-    )
     args = parser.parse_args()
 
     if args.validate:
-        print(json.dumps(validate_library(args.catalog_file), ensure_ascii=False, indent=2))
+        print(json.dumps(validate_library(), ensure_ascii=False, indent=2))
         return 0
 
     if args.index:

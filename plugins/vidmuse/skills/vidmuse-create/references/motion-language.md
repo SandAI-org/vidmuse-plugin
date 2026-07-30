@@ -4,7 +4,7 @@ Adapted from HyperFrames motion-language for **VidMuse Create**. Use when writin
 and implementing `shot_sequence` on `explainer` / `promo` paths.
 
 **Skip for `vox`.** Recut keeps its own camera craft under
-`../vidmuse-recut/references/camera-and-transition-craft.md` — create non-Vox
+`../../vidmuse-recut/references/camera-and-transition-craft.md` — create non-Vox
 should read **this** file for beat-internal motion; still read recut camera craft
 for multi-scene director density when useful.
 
