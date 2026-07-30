@@ -95,6 +95,30 @@ Pre-Render Self-Audit **and Taste Gate** against the treatment frames —
 squint, silence, restraint, anchor, fabrication, source-led share, status-chrome
 cap, single-anchor honesty. Fix what fails.
 
+The Taste Gate is one counted review, not a collection of impressions:
+
+1. **Room first:** the direction looks like this person and room before it
+   looks like a generic methodology deck.
+2. **Source-led share:** on a static mono plate, source-led seconds are at
+   least half the runtime and light treatments are at least half the treatment
+   classes. Record treatment counts, packaged seconds, and source-led ranges.
+3. **Single anchor:** the named anchor matches the culture that actually owns
+   the screen; otherwise rename it or remove the competing skin.
+4. **Judgment over status chrome:** on Chinese speech, distinct English
+   status/SaaS tokens are at most two unless the transcript itself uses that
+   language.
+5. **Mono hierarchy:** technical mono labels structure but does not occupy
+   more Hero-frame area than the film's judgment type.
+6. **Proof scarcity:** count full-frame takeovers and diagrams against
+   [director-pass.md](director-pass.md); merge or remove excess proof systems.
+7. **Entrance intent:** do not declare one direction/ease combination as the
+   whole film's default without a reason. Count actual entrances later during
+   scene and motion review.
+8. **Emphasis scarcity:** count caption cues with accent or weight emphasis.
+   Roughly one in five is a useful anchor; a majority always fails.
+9. **Creative demotion:** no visible choice comes solely from
+   `hyperframes-creative` against the BRIEF, source footage, or `FRAME.md`.
+
 Also check the caption band across every treatment frame: the captions sit in
 the film's declared band, and no treatment's graphics occupy it without a
 recorded reason. A showcase whose treatments each look fine but collectively

@@ -15,6 +15,9 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
   branch-specific references. Path schemas, hard failures, picture craft,
   Vox isolation, and execution details remain in their existing single sources
   of truth and deterministic scripts.
+- Reduced `vidmuse-recut/SKILL.md` to an outcome-led workflow with two explicit
+  creative gates and phase-routed references. The project `FRAME.md` contract
+  and counted Taste Gate now live with their design/showcase authorities.
 - Shortened the `vidmuse-create` and `/vidmuse` descriptions so skill matching
   sees the job and boundary before implementation detail.
 - Removed "mandatory" selection language from plugin metadata and routing

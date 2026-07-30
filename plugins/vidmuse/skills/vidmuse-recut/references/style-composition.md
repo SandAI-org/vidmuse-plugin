@@ -115,6 +115,38 @@ phase; after tokens exist it is hygiene only.
 transcript over `EXPIRED` / `STALE` / SaaS ops chips. Cap distinct English
 status tokens (default ≤2 per film unless the speech is itself status jargon).
 
+## Project `FRAME.md` contract
+
+`FRAME.md` is the only project design authority after direction selection.
+New projects use `vidmuse.recut.frame.v5`; Packaging compatibility may retain
+v4. Frontmatter records `production_mode`, `mode` (`preset` or `composed`),
+the optional single `anchor`, and concrete `colors`, `typography`, `spacing`,
+`motion`, and `components` tokens. Director mode also declares `film_spine`
+and non-empty `act_worlds`.
+
+The prose explains the decisions those tokens cannot:
+
+- overview and a frame-craft bar of visible quality tests;
+- color, typography, depth, and motion reasoning;
+- one Frame Treatment for every planned treatment class, expressed as
+  `ground · composes · focal · chrome · accent · silence · Fixed/Free · density`;
+- the caption system, including band, identity, and rung-1 emphasis;
+- composition and aspect-ratio behavior, signature move, and numerals/claims
+  policy;
+- in composed mode, the named rut, serious alternatives, selected anchor, and
+  footage-grounded reason each alternative lost;
+- a pre-render self-audit covering frame quality, temporal behavior, and the
+  counted Taste Gate in [frame-showcase.md](frame-showcase.md).
+
+Validate the mechanical shape with:
+
+```bash
+python3 scripts/frame_md.py "$WORK_DIR/FRAME.md" --check
+```
+
+The validator proves schema and token completeness, not taste. Taste is proven
+on real footage in the frame showcase and rendered review.
+
 ## Coherence rules
 
 - Keep one editorial stance per passage. Intimate documentary and provocative
