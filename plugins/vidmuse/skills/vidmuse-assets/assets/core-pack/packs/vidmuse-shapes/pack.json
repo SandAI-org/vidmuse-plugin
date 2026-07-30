@@ -1,0 +1,250 @@
+{
+  "schema": "vidmuse.core-pack.pack.v1",
+  "id": "vidmuse-shapes",
+  "type": "shape",
+  "title": "VidMuse decorative shapes",
+  "description": "Original geometric primitives for frame decoration and data presence: blobs, waves, grids, arrows, bursts, frames, underlines, and proportional readouts. All single-path or single-stroke so CSS currentColor tints them without editing the file.",
+  "upstream": {
+    "self": true,
+    "note": "Authored for VidMuse. Not derived from any third-party icon or shape set."
+  },
+  "license": {
+    "spdx": "CC0-1.0",
+    "receipt": "LICENSE.txt",
+    "redistributable": true,
+    "commercial_output": true,
+    "attribution_required": false,
+    "copyright": "VidMuse"
+  },
+  "tags": [
+    "decorative",
+    "geometric",
+    "vector"
+  ],
+  "files": [
+    {
+      "path": "shapes/arrow-curve.svg",
+      "sha256": "35ad7434c456368c502fe2270d41dcb39461cb4dc697f53760e1e5db10404019",
+      "bytes": 204,
+      "geometry": {
+        "viewbox": "0 0 120 80",
+        "width": 120,
+        "height": 80,
+        "aspect": 1.5,
+        "stroke": true,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/arrow-elbow.svg",
+      "sha256": "5e71eeb95a4cabc0763a8b4e13a11e21cb916c1028c595e56512eaa4f8b6d544",
+      "bytes": 238,
+      "geometry": {
+        "viewbox": "0 0 120 80",
+        "width": 120,
+        "height": 80,
+        "aspect": 1.5,
+        "stroke": true,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/bar-proportional.svg",
+      "sha256": "c0b4af09e95f543421f302a8a7196afb1f18679894c7ef043a08976515aa1ed9",
+      "bytes": 180,
+      "geometry": {
+        "viewbox": "0 0 200 24",
+        "width": 200,
+        "height": 24,
+        "aspect": 8.333,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/blob-organic.svg",
+      "sha256": "5d85cc1c311701b4fd489235ecc661c7394e0522379cb67c2bba4940a1d61c2e",
+      "bytes": 233,
+      "geometry": {
+        "viewbox": "0 0 200 200",
+        "width": 200,
+        "height": 200,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/blob-soft.svg",
+      "sha256": "5fee912dad83657790a8adb1e497934b4e389caf8a12e4049e3e3556b5715730",
+      "bytes": 211,
+      "geometry": {
+        "viewbox": "0 0 200 200",
+        "width": 200,
+        "height": 200,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/burst-rays.svg",
+      "sha256": "c960d0abcdc9adbc790a2bee03bf72dc6738070ae26e4fd86a448cf71f101686",
+      "bytes": 237,
+      "geometry": {
+        "viewbox": "0 0 100 100",
+        "width": 100,
+        "height": 100,
+        "aspect": 1,
+        "stroke": true,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/burst-star.svg",
+      "sha256": "e7d12b55800dcf6deb132f9fae1344e340e6d28362b1930a48a377cfdb843cdb",
+      "bytes": 201,
+      "geometry": {
+        "viewbox": "0 0 100 100",
+        "width": 100,
+        "height": 100,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/counter-ring.svg",
+      "sha256": "43e10dd30de22ec0f904abf516657ee200d7a5272a5d49f95b24f93876cfd164",
+      "bytes": 296,
+      "geometry": {
+        "viewbox": "0 0 100 100",
+        "width": 100,
+        "height": 100,
+        "aspect": 1,
+        "stroke": true,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/frame-bracket.svg",
+      "sha256": "45bf4ff8ffbce4a58c77bdf1517387e11c26b482540c9f82f2609ca4d22202c7",
+      "bytes": 180,
+      "geometry": {
+        "viewbox": "0 0 200 120",
+        "width": 200,
+        "height": 120,
+        "aspect": 1.667,
+        "stroke": true,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/frame-ticket.svg",
+      "sha256": "9edd34c50c2c043cbeb739f6af71bd5c111ae2f53c3e958e758a208e31b61eb1",
+      "bytes": 216,
+      "geometry": {
+        "viewbox": "0 0 200 100",
+        "width": 200,
+        "height": 100,
+        "aspect": 2,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/grid-dots.svg",
+      "sha256": "669c3023ed14bbc036659dfc556c538c08469062d9945f9c6545f33a257e8db8",
+      "bytes": 871,
+      "geometry": {
+        "viewbox": "0 0 100 100",
+        "width": 100,
+        "height": 100,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/grid-lines.svg",
+      "sha256": "a2b511150ca529b3475b1a3128ce17f4950845b8ea2e5007e2f957f06bbc3755",
+      "bytes": 206,
+      "geometry": {
+        "viewbox": "0 0 100 100",
+        "width": 100,
+        "height": 100,
+        "aspect": 1,
+        "stroke": true,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/underline-marker.svg",
+      "sha256": "0d0794223497c0cc991dff047de71a99db0ba1539e44898e973f19831907bc68",
+      "bytes": 171,
+      "geometry": {
+        "viewbox": "0 0 300 24",
+        "width": 300,
+        "height": 24,
+        "aspect": 12.5,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/underline-scribble.svg",
+      "sha256": "175f1dfc1688f21ec03bd6c35f5263892f5fe595e008a655bebc0a341d8cf0e5",
+      "bytes": 244,
+      "geometry": {
+        "viewbox": "0 0 300 30",
+        "width": 300,
+        "height": 30,
+        "aspect": 10,
+        "stroke": true,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/wave-divider.svg",
+      "sha256": "466adc8a5468bc1e4a958ecd9da9d1061c68acbb2ca45db77a39f2f5d4ae8751",
+      "bytes": 173,
+      "geometry": {
+        "viewbox": "0 0 400 40",
+        "width": 400,
+        "height": 40,
+        "aspect": 10,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "shapes/wave-layered.svg",
+      "sha256": "55673d6618fbb19603f1bf4232666697e3f39c5dce8e784c27bc6af819356671",
+      "bytes": 232,
+      "geometry": {
+        "viewbox": "0 0 400 60",
+        "width": 400,
+        "height": 60,
+        "aspect": 6.667,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    }
+  ]
+}

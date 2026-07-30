@@ -1,29 +1,66 @@
 {
-  "schema": "vidmuse.core-pack.v1",
-  "version": "0.1.0",
+  "schema": "vidmuse.core-pack.v2",
+  "version": "0.2.0",
   "status": "framework",
-  "description": "Preinstalled redistributable VidMuse asset baseline. Content selection is pending.",
-  "categories": {
-    "brand": {
-      "root": "brand",
-      "admission": "VidMuse-owned marks or explicitly redistributable brand assets"
+  "description": "Preinstalled redistributable VidMuse asset baseline. Types are declared in types.json; per-pack ledgers live in packs/<id>/pack.json; index.json is the derived query surface.",
+  "roots": {
+    "core-pack": {
+      "path": ".",
+      "owned": true,
+      "description": "Packs this plugin redistributes. Full ledger: upstream version, license receipt, per-file hashes."
     },
-    "fonts": {
-      "root": "fonts",
-      "admission": "Selected fallback fonts with redistribution and commercial-output rights"
+    "media-use-sfx": {
+      "path": "../../../media-use/audio/assets/sfx",
+      "owned": false,
+      "adapter": "sfx",
+      "types": [
+        "sfx"
+      ],
+      "license_state": "verified-commercial",
+      "description": "Read-only index of the bundled SFX media-use already owns. Files are never copied here; media-use keeps the provider and the doctor check."
     },
-    "icons": {
-      "root": "icons",
-      "admission": "Small generic UI primitives; no unapproved trademark packs"
-    },
-    "textures": {
-      "root": "textures",
-      "admission": "Small reusable textures with explicit redistribution rights"
-    },
-    "sfx": {
-      "root": "sfx",
-      "admission": "Minimal offline sound primitives with explicit redistribution rights"
+    "hf-creative-palettes": {
+      "path": "../../../hyperframes-creative/palettes",
+      "owned": false,
+      "adapter": "palette",
+      "types": [
+        "palette"
+      ],
+      "license_state": "verified-commercial",
+      "description": "Read-only index of the HyperFrames creative palettes. Colors are data owned by hyperframes-creative; indexing them here gives one query surface without a second source of truth."
     }
   },
-  "assets": []
+  "packs": [
+    {
+      "id": "vidmuse-shapes",
+      "type": "shape",
+      "license": "CC0-1.0",
+      "origin": "authored for VidMuse"
+    },
+    {
+      "id": "lucide",
+      "type": "icon",
+      "license": "ISC",
+      "origin": "lucide-static@1.27.0"
+    },
+    {
+      "id": "noto-cjk-sc",
+      "type": "font",
+      "license": "OFL-1.1",
+      "origin": "@fontsource/noto-{sans,serif}-sc@5.3.0 (subsetted)"
+    },
+    {
+      "id": "vidmuse-lottie",
+      "type": "lottie",
+      "license": "CC0-1.0",
+      "origin": "authored for VidMuse"
+    },
+    {
+      "id": "lobe-brands",
+      "type": "brand",
+      "license": "MIT",
+      "origin": "@lobehub/icons-static-svg@1.94.0 (curated 113 brands)",
+      "role": "offline-fallback for the live logo cascade"
+    }
+  ]
 }

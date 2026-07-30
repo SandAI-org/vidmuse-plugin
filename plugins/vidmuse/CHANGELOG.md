@@ -6,6 +6,68 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ---
 
+## 0.4.3 — 2026-07-30
+
+### Core Pack asset library
+
+The Core Pack framework shipped in 0.3.18 with an empty manifest and, in
+practice, no way to read from it: `library-layout.md` named it in the lookup
+order but no provider served it. This release makes it a working library.
+
+Not breaking. `manifest.json` moves to `vidmuse.core-pack.v2`, but the previous
+manifest listed no assets, so nothing existing depends on the old shape.
+
+- Split the single manifest into three files with distinct jobs: `pack.json` is
+  a hand-audited ledger (one license receipt and one pinned upstream version per
+  pack, plus per-file hashes), `index.json` is derived and rebuildable, and
+  `tags.json` holds the semantic layer so a reindex never discards it. The v1
+  layout would have needed 1500 hand-written records with duplicate notices to
+  admit one icon set.
+- Added `types.json` as the asset-type registry. Adding a type is a data change
+  plus registry wiring, not a rewrite; `--query`, `--reindex`, `--inventory`,
+  `--validate`, and the provider all derive from it.
+- Added three discovery modes matched to how each type is actually chosen:
+  `keyword` for large sets, `table` for small sets the agent reasons across, and
+  `sheet` for raster material that must be seen (an on-demand ffmpeg contact
+  sheet of the candidates, not a committed per-pack image).
+- Added a `core-pack` provider to `media-use`, declared ahead of generation for
+  every type it serves and exposing `search` only, so it can never generate and
+  participates under `--local-only`. New resolve types: `font`, `shape`,
+  `texture`, `overlay`, `lottie`, `palette`.
+- Made the Core Pack the single query surface over static assets that live in
+  other skills. `sfx` (media-use) and `palette` (hyperframes-creative) are
+  indexed read-only in place: copying them would create a permanent re-vendor
+  patch and a second source of truth.
+- Retrieval is deterministic keyword matching over upstream tags, mechanical
+  probes, and curated aliases — no embeddings, so `--local-only` stays a hard
+  offline guarantee and a bad result is fixed by editing a tag rather than
+  tuning a threshold. A Chinese lexicon expands 中文 queries to the English tags
+  upstream ships.
+- Preinstalled content: 2007 Lucide icons (ISC, upstream synonyms harvested),
+  113 curated Lobe brand marks (MIT), 5 subsetted Simplified Chinese font cuts
+  (OFL — HyperFrames bundles no Chinese face and a locally-installed-only font
+  fails in cloud renders), 16 original shapes and 5 original Lottie state
+  animations (CC0, verified against lottie-web's own player).
+- `texture` and `overlay` are generated per film rather than preinstalled:
+  surface treatment has to match one frame, so a shipped set would be heavy and
+  usually wrong. Core Pack still runs first so an adopted project file wins over
+  paying to generate.
+
+### Offline logo resolution
+
+- Added `core-pack.brands` as the **last** tier of the logo cascade. Live
+  sources stay authoritative because brand marks change and new models ship
+  constantly; a frozen mark is only correct when no live tier answered. `logo`
+  previously failed 100% of `--local-only` requests — every tier was
+  network-only.
+- One mark per brand (color where upstream has it, mono for brands that are
+  monochrome by design). An offline hit is stamped `offline_fallback: true` with
+  a staleness note; an uncurated brand or an unavailable variant fails rather
+  than being approximated.
+- Fixed a latent wrong-identity bug in logo matching: normalization stripped
+  everything outside `[a-z0-9]`, so every Chinese name collapsed to an empty
+  string and any 中文 brand query matched whichever brand was scanned first.
+
 ## 0.4.2 — 2026-07-29
 
 ### Create picture direction and review ownership

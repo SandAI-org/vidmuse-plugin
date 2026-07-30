@@ -1,0 +1,1635 @@
+{
+  "schema": "vidmuse.core-pack.pack.v1",
+  "id": "lobe-brands",
+  "type": "brand",
+  "title": "Lobe brand marks (curated offline set)",
+  "description": "Curated offline brand marks for well-known international and Chinese companies, AI labs, and developer tools. Offline fallback only — the live Lobe/SVGL/Simple-Icons cascade resolves first so a mark is never served stale when the network is available.",
+  "upstream": {
+    "npm": "@lobehub/icons-static-svg",
+    "version": "1.94.0",
+    "catalog_npm": "@lobehub/icons",
+    "catalog_version": "5.15.0",
+    "url": "https://github.com/lobehub/lobe-icons",
+    "imported_by": "scripts/import_pack.mjs"
+  },
+  "license": {
+    "spdx": "MIT",
+    "receipt": "LICENSE.txt",
+    "redistributable": true,
+    "commercial_output": true,
+    "attribution_required": false,
+    "copyright": "Copyright (c) 2023 LobeHub",
+    "trademark_note": "These are identification marks, not permission to impersonate a brand or adopt its trademark as your own. Use them to identify the entity being discussed."
+  },
+  "role": "offline-fallback",
+  "role_note": "Resolved LAST in the logo cascade. Live sources (Lobe → SVGL → Simple Icons → GitHub avatar → favicon) run first so a mark is never served stale when the network is reachable. Reached only when offline or when every live tier misses.",
+  "curation": {
+    "policy": "Settled brands only — established companies, major AI labs, and mature developer tools whose marks change on multi-year timescales. Fast-moving new models and startups stay live-only, because a stale local hit would shadow a correct online one.",
+    "groups": {
+      "ai-labs": 13,
+      "big-tech": 17,
+      "cn-majors": 14,
+      "cn-models": 24,
+      "dev-tools": 20,
+      "media-ai": 25
+    },
+    "brands": 113,
+    "one_per_brand": true,
+    "variant_preference": [
+      "color",
+      "mono"
+    ],
+    "variant_note": "One mark per brand: color where upstream has it, mono otherwise (32 curated brands are monochrome by design and ship no color variant). Wordmarks and lockups are not frozen — variant choice is what the live cascade is for."
+  },
+  "tags": [
+    "brand",
+    "logo",
+    "official",
+    "品牌",
+    "标识"
+  ],
+  "files": [
+    {
+      "path": "logos/adobe.svg",
+      "sha256": "d82327c1338a20375971b53a2baa96486b7de3480c98894e7fbaaac44bc9528e",
+      "bytes": 254,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/alibaba.svg",
+      "sha256": "48ee796c5b1da5f5f11dbd70c5c64a3f7efcb9eeb9022ae687d81fc813e942ee",
+      "bytes": 1407,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/alibabacloud.svg",
+      "sha256": "73ea97baf919edb3d888a77cd45b21574e190a80124a59e199ea6953a28a959c",
+      "bytes": 656,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/antgroup.svg",
+      "sha256": "d8ee74ad28e56310258002abf3c4194f4a962ffa51bc5e4d615818750eab04c0",
+      "bytes": 2460,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/anthropic.svg",
+      "sha256": "e833fdfa7e7187a86a05b870925067556a506dcd4239089aed73e1e58c9366a3",
+      "bytes": 368,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/apple.svg",
+      "sha256": "100637681febc38512bf8d43f7d5f79f2aa8caead15b256cd28b378b053fca69",
+      "bytes": 729,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/aws.svg",
+      "sha256": "b23f044479fe5c80f7df0a9515f969e5ea710c5f40d26dffa08969a0151731f3",
+      "bytes": 3242,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/azure.svg",
+      "sha256": "abc639d094593943c1b201270f4903c74d02d2e26acf26abf592a29c222c5181",
+      "bytes": 1621,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/baichuan.svg",
+      "sha256": "7d49311206402734850ed9dc112759780429bb363dcee31eccb5a92f428532a6",
+      "bytes": 571,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/baidu.svg",
+      "sha256": "1059750a2069aec6080ff48732931e87a99bd3d22db3e8471cebe255b6014b75",
+      "bytes": 1384,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/baiducloud.svg",
+      "sha256": "2269f4c82a3a810f42691c82d0d5086961c2b684a2dcc1e7523cd9f8564e2f35",
+      "bytes": 717,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/bilibili.svg",
+      "sha256": "daab1fb9ba8466de6178020db2ee7ef9fd6a01895ce383fa1c79269cc97288ff",
+      "bytes": 850,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/bytedance.svg",
+      "sha256": "3d37647be262c79b044e293bb1a4993202537e9f9ffdbd2bbe7e9fc5378d1005",
+      "bytes": 953,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/capcut.svg",
+      "sha256": "1673e8216af7746473471a277e4f640282e0d75bb886832b1634a3e4ffe09c45",
+      "bytes": 529,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/chatglm.svg",
+      "sha256": "6e935f6ccad7a776edef259b33bbbfe5b51d6486318d4a0f423708ffe2a27287",
+      "bytes": 2485,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/claude.svg",
+      "sha256": "a3101f3047a119aa11825ad9369510f0c472428c8c52d420e31bc62db44a8364",
+      "bytes": 1696,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/claudecode.svg",
+      "sha256": "670b3d8d749d0815ad8f7e62a59d51cb5e2053cb19403f3541a8aed7036a877f",
+      "bytes": 424,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/cloudflare.svg",
+      "sha256": "cee35d3f0ecb7925ce0a89aeaff8b907cadae7c3fe44a23e4001cc8d5ee57502",
+      "bytes": 1073,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/codex.svg",
+      "sha256": "4a2f43ce46b5b6e3722c95088f88d26ef91e6a8c2e598e70642a1c54367386e4",
+      "bytes": 1769,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/cohere.svg",
+      "sha256": "84d0ee3cbe66f030e5a18cb2c86da9166ab2137c7a98781693bb1fbf31e392b9",
+      "bytes": 769,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/colab.svg",
+      "sha256": "4aaf0a2c32c0e88329b6b7240c734446917616c3942f4f23cd13e70dcf5ee2e8",
+      "bytes": 753,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/comfyui.svg",
+      "sha256": "2f14161b0c6ce1c314b66cac785ac81948bf2b34b784b114e5df09b6797894c6",
+      "bytes": 840,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/copilot.svg",
+      "sha256": "04f15d0556fbac10a4e0f82d1560610db8b33cd04780a4f24ad3b91c4abd278d",
+      "bytes": 3569,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/cursor.svg",
+      "sha256": "0cb51bddf264ae108926fd554c063ef40fc1aac3c5c921ddb39ad184e4e5d0ef",
+      "bytes": 547,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/dalle.svg",
+      "sha256": "842ec0b6f85fc7f26a56ef1a15dcd4cbedfc1bc930ee2b3fc155d5175a788d3c",
+      "bytes": 398,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/deepl.svg",
+      "sha256": "260365ff62ba4ca1716dce5e829336af2cf1f25233d7115c175de6937bf508e8",
+      "bytes": 1038,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/deepmind.svg",
+      "sha256": "f19b4db1fcf8660ab53743416262ee29e84856f5904c640aab1ded9c27e070bc",
+      "bytes": 820,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/deepseek.svg",
+      "sha256": "deba5f98a5c1796e20fcac3149bcd7eb8a32f0bdd04d048819400b1f28bd1439",
+      "bytes": 2164,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/dify.svg",
+      "sha256": "6c1704b6f14eb995d010549847b733dbbc54af66974a2bc62623fbdad4981c66",
+      "bytes": 495,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/doubao.svg",
+      "sha256": "3cd31ba03ae44b8c29561597a3b863809efecb13fcdfd08407a086df86a69b55",
+      "bytes": 1153,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/elevenlabs.svg",
+      "sha256": "152a4a89fd5228924b6ccc91a72675966df35e3b69d1cf93a67b6866cf846584",
+      "bytes": 236,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/fal.svg",
+      "sha256": "577d952ac6f863d6b0dd129918597692230b2fe0633cb4ea0e0a5085aa3f8c7d",
+      "bytes": 692,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/figma.svg",
+      "sha256": "526eea0bdd16f60ca9251fd371a09a3211762a8c41e15ef085d351c2b0078c3b",
+      "bytes": 476,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/fireworks.svg",
+      "sha256": "f1c4782b86bc03a36323fd68ad6cc376c6b2ebe57b701cc958ebd6b8d37effd6",
+      "bytes": 592,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/flux.svg",
+      "sha256": "c7d557466f39a895b1cd0d233a64c092ef61ba052160af7db20af37464a9138a",
+      "bytes": 438,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/gemini.svg",
+      "sha256": "8ab0a9bafec11f7e69bcb9fc4ffd8f1bc927d1ddcbbb6ff36dee5ae8b5a9d602",
+      "bytes": 2836,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/github.svg",
+      "sha256": "1bd763b5d53ab1618e0afce72aacffc7e93d1249c395f713b3b055c087526625",
+      "bytes": 907,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/githubcopilot.svg",
+      "sha256": "bbc7fddc13448236e5edea8c399d2072dc40aa5da5bca07f7a2f412405c500a3",
+      "bytes": 2019,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/google.svg",
+      "sha256": "4e6aa8892ef15a6b431f40f2c9045979bf7e2357524e7bbb89b353cf4f32a5ac",
+      "bytes": 920,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/googlecloud.svg",
+      "sha256": "c0faf37b180dfc1efe12440c039047b0e1c60a3c424cca6616e580f6f219a7dc",
+      "bytes": 925,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/gradio.svg",
+      "sha256": "c3c84ed2ae264ff87c59f02a89a4de100851e8a076bd4bebc6ad31ad33bd8734",
+      "bytes": 1581,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/grok.svg",
+      "sha256": "9175fc90c22655160231976c849f25a03b888d7cc0e04c5f1b987b659bb07c95",
+      "bytes": 756,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/groq.svg",
+      "sha256": "078d5cf6e7a54905040c15ddacf5ea33c13042fe7739e820cedc2096e4406651",
+      "bytes": 568,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/hailuo.svg",
+      "sha256": "1ada279990428155c5036ac9aea6ce430c68c79483c808ca6d0b59dc0ebf4a03",
+      "bytes": 1481,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/huawei.svg",
+      "sha256": "ca9af4229ba3d538811cad7939b5f3f9edc87ec9448eae579506c659cd133d4a",
+      "bytes": 1481,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/huaweicloud.svg",
+      "sha256": "8a5e4cb6452046ecaf3a500e3a89955efdf54bfd0bed46a9c364fbd5f13290e4",
+      "bytes": 1486,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/huggingface.svg",
+      "sha256": "5d39d66bb6c9b026d3cb5de7bd9978dad3906570df2aca8f00078a6f8a3d0f5e",
+      "bytes": 3768,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/hunyuan.svg",
+      "sha256": "510e7bb438506b5aadfaf8b9551d1606efd5b4171161a64a64204c72a453658a",
+      "bytes": 1115,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/ibm.svg",
+      "sha256": "62c37af8c3f191572921197a29c90687079e62d3033f503faae59cdc96af0fb2",
+      "bytes": 1651,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/ideogram.svg",
+      "sha256": "4025876b532d087ddecdaac90deef5a48addde8ca14bbdd408970ac395992103",
+      "bytes": 2503,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/internlm.svg",
+      "sha256": "0e84741d3fb76e65fd86a57d18b6e31f31fa2e6156166c4bfa2487db894221a6",
+      "bytes": 8151,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/jimeng.svg",
+      "sha256": "a9afc64b9afae1990e3c9fa967b349927c3f6a148647ac5c6f016b1a31b39167",
+      "bytes": 3431,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/kimi.svg",
+      "sha256": "74a7292aeb0220445d14c5d397d75760e2e8c6ed6a9e5fe4f3023471bf62a9ff",
+      "bytes": 773,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/kling.svg",
+      "sha256": "a8aa4def0eb1c3ca0f0528597d28fa495249aa710aa403d3c571c47c81c6150c",
+      "bytes": 2245,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/kolors.svg",
+      "sha256": "4eae03ff55034b7d47b741c98691d95f950aa529a1511a13b2eee4f9e0c5799c",
+      "bytes": 1537,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/krea.svg",
+      "sha256": "05d722278e4fcca5f24a3919241beabf7b9f3e233a1e6bd9a47028e116aa7832",
+      "bytes": 1355,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/langchain.svg",
+      "sha256": "1130bf9624e0dea6e275ce6edfce83056ab7ec6522e24d0dd4670b7d4352fea8",
+      "bytes": 532,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/lg.svg",
+      "sha256": "379fdab6494a237f6ab61053d3a9b28bab724164f33de08018bbb945ed46415e",
+      "bytes": 687,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/llamaindex.svg",
+      "sha256": "3cf3cfd62c9ad6b687f9486dc0403d74de4b0a6616190297255b32764e2248cd",
+      "bytes": 1895,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/lmstudio.svg",
+      "sha256": "4a575e8382b52ce742ac5d21d361a7d2a08cea7c12390ee1bbb755ef7d3cc25b",
+      "bytes": 1253,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/longcat.svg",
+      "sha256": "227f808520d700bc4dc762d8978a737ab149fb53cecb581d71548bacfd26722a",
+      "bytes": 819,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/luma.svg",
+      "sha256": "84b5c8214fd89a8b46e33eeb15f02d266c3d49e0716664a82fb2e3711e1ceec6",
+      "bytes": 1819,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/meta.svg",
+      "sha256": "adf9f2c1a646ccd3a37ca8c2e7e5985d64630cd633f4b95fba393d1d44e0578c",
+      "bytes": 6022,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/metaai.svg",
+      "sha256": "5a2c8b2c71ddb4d6a44daee712cb6be02a09a29d649d21e0af1454bc331055b5",
+      "bytes": 4546,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/microsoft.svg",
+      "sha256": "5cfb0ffa3231313c2968b5e3fedfcce8e2e96c61bde4572384c3889a77a80350",
+      "bytes": 399,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/midjourney.svg",
+      "sha256": "e09640ccbf6f643b4624e540f198cd704a6bf3d75dc43b0938628caf4e98c30b",
+      "bytes": 4012,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/minimax.svg",
+      "sha256": "7f7187fa6d9b341ac5f22f6c5a970523afb439dc45566d64eb4f4b9b604d6b01",
+      "bytes": 1570,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/mistral.svg",
+      "sha256": "722f74b289d95486b43662fe24fa883b333701296f618406cd0ed502299170b6",
+      "bytes": 655,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/modelscope.svg",
+      "sha256": "21841ddba0c560ad44c4def00a66f2a9b31703438ba390ea0b8e01cfbf39b5e4",
+      "bytes": 632,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/moonshot.svg",
+      "sha256": "435f41b74e6a87639b6bf860e9628f20cbe7d6229bece412d548f4cea3081852",
+      "bytes": 4028,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/n8n.svg",
+      "sha256": "057fc9acfc04cecffd8ca7fe3cf7cb3a48c0ba972a56a5c23f4389b3d612b689",
+      "bytes": 1415,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/notebooklm.svg",
+      "sha256": "971c294f2ea030da8d322d30cb9ced3440939e4108457c789b710857a55debca",
+      "bytes": 662,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/notion.svg",
+      "sha256": "8ada8628489d6e2900ebf21d3643fe5d4566d0e59aba95a3df15b710caa00743",
+      "bytes": 1139,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/nvidia.svg",
+      "sha256": "8c941e4eb8b782eccaaea1240c059d20be33ab8eda28d7c9ed9b53ac802fe683",
+      "bytes": 1025,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/ollama.svg",
+      "sha256": "3a268218fb2e6e81fa31df70f70b51331625047794db81db21d35359428fae7a",
+      "bytes": 3290,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/openai.svg",
+      "sha256": "a595df6b423920c67a7f8f73c063e4bfb72d415948097b6cac063a2366bb5186",
+      "bytes": 1687,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/openrouter.svg",
+      "sha256": "17bede1b89166f824ee06753dc526a3f5e18b769706deaab09d04a3a98de1a78",
+      "bytes": 357,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/perplexity.svg",
+      "sha256": "8353f3ab20822f1a933224b0ea32cc39f0c32d5740f4af8c254b0f418e0a3a70",
+      "bytes": 603,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/pika.svg",
+      "sha256": "3bafa1b7df7d42043a706df18b4d32f64f0dd6a82f4e4c780934b03a368227a2",
+      "bytes": 497,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/poe.svg",
+      "sha256": "8a4b64f95c4c8d05eb90fbdd489acab747de6dfa2cf7b9c6f0ab28ea531939ac",
+      "bytes": 2144,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/qiniu.svg",
+      "sha256": "a3b7b47f1127448d32efee0abc38b495ed183518fb9847905fcad7b05839ba53",
+      "bytes": 649,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/qwen.svg",
+      "sha256": "77f5768c66d08ce1d3d14e73373975c1bc0454be88c81523ddd0ffd7e2974029",
+      "bytes": 2044,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/recraft.svg",
+      "sha256": "ccb97a588aebf55a78bbc6ef6416cb0d9c5862a180dfada2713e0b6fc3245d08",
+      "bytes": 562,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/replicate.svg",
+      "sha256": "ff02158db5bc4a693d7f690c36cd7d547b8ca3313accba0783b2d3af28dae1e6",
+      "bytes": 313,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/replit.svg",
+      "sha256": "7d803ffdfc0d46aec134f656fd3c8815ee936a6726295eea5173d7122007eae5",
+      "bytes": 506,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/runway.svg",
+      "sha256": "dba3459264af7b4fffb5c4bfc909748e1ec1f122ffcaf0a8fbb626781888eaf2",
+      "bytes": 752,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/sensenova.svg",
+      "sha256": "bd2e0f8e310ff6a5edcc56a85560221923262767ba76b660a193f45c40c123fa",
+      "bytes": 1559,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/skywork.svg",
+      "sha256": "fd389cf920bc9e81866d468f008e6571a02ca8c0dbf3db799041dc7905913ac8",
+      "bytes": 462,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/snowflake.svg",
+      "sha256": "f9e4d625d1563a0228fc738e3903c72a200da1aa75d156dac46c31067be0b314",
+      "bytes": 2292,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/sora.svg",
+      "sha256": "edf77877e8abbb7d80ae07858d2905c21b390fed16fb73c133a891b2f5347bb1",
+      "bytes": 4567,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/spark.svg",
+      "sha256": "4068581452b808e4d9f8c5b43b42d324512d6801de26e57cf848125c28db85bc",
+      "bytes": 882,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/stability.svg",
+      "sha256": "61c4593effe20b4fa1f0811861bb6ac199348d955b21a5c3f719bc07c9d27d3a",
+      "bytes": 992,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/stepfun.svg",
+      "sha256": "90138fab370e3c0ce3105d38a496d6796ce73d44f9829d8e1045013dc064bcd2",
+      "bytes": 447,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/suno.svg",
+      "sha256": "591debb0ed912ff6cb89fc66a05f58e3291eb383c691c9dbf717927559d4eafc",
+      "bytes": 308,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/tencent.svg",
+      "sha256": "7c370ad4b75e3f30d0fa7da71f90466a0ee95a887189479aa9df414079b50eb6",
+      "bytes": 277,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/tencentcloud.svg",
+      "sha256": "f860dae064a3afd24970efd2bc5892f39438526bf52c3a9748f61fc05c1cfd58",
+      "bytes": 2124,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/together.svg",
+      "sha256": "27ccaf118a431c386b88418a34a4346afd9638dde10e3f2295db2eec1fa5898a",
+      "bytes": 582,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/trae.svg",
+      "sha256": "e7aca314ce71b8fa0a7aece005d585772bac24266fc6688cf398e622d4acaf02",
+      "bytes": 377,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/udio.svg",
+      "sha256": "3f704a24b7d74b0451ee5442bee5056abf558693a635bf3291fbd01abc04378f",
+      "bytes": 1265,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/vercel.svg",
+      "sha256": "4874d52d8b2ce7c309cbd10c424fee123b2c9483e76d76ad0dca41794483eb24",
+      "bytes": 225,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/vidu.svg",
+      "sha256": "66024ae1b72a813287a82bd02ee218258265386ef350c3995ca7bd966e36ec56",
+      "bytes": 1376,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/viggle.svg",
+      "sha256": "61dad4ea5544950b798b436daf795c3364780f76018af655f4c2559c93632e37",
+      "bytes": 1055,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/volcengine.svg",
+      "sha256": "84f9e2cd1da7e73dc6c9a0f2521745d39cae96c008752cdb1baf57a8c94393a1",
+      "bytes": 858,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/wenxin.svg",
+      "sha256": "9fb88d8b6f7be470ddb07f0574ec276b08a35ba96d73ec5f2f3b6fc338da5cb6",
+      "bytes": 1509,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/windsurf.svg",
+      "sha256": "e3c836aae05a3741e33d5c5a38d4167aacfbb69e480d098b8b94cad8c90e0d08",
+      "bytes": 820,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/xai.svg",
+      "sha256": "89eb7de9f0d02a41cfecd9109e253d7fd3529e27467dee4254faa67f3ac21451",
+      "bytes": 372,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/xiaomimimo.svg",
+      "sha256": "b04ad7dad52af2212c4567daf0ee6856f2c4625c92c680a27f9880295d558b71",
+      "bytes": 2544,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/yandex.svg",
+      "sha256": "390d3758093817548b39bc60f9400369708c290093059796b25d4604813d3450",
+      "bytes": 328,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/yi.svg",
+      "sha256": "d78b1ce0eeb7a7d1a6132785dfa0218be48d6d1ccd3751ca3f9240a2e3b38756",
+      "bytes": 786,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/yuanbao.svg",
+      "sha256": "522b9c3ee6f4136b3dd2f5e844a2273b6d599ae614329dbcaf96c74375b0fdd5",
+      "bytes": 1110,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": false,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/zapier.svg",
+      "sha256": "01e577361dfd6afbd34f1f16c8c69b76ae671abcd0e0b26a148addab151fe6fd",
+      "bytes": 198,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/zeroone.svg",
+      "sha256": "d28b873a212c497e64aa555eb70383128e13570865f61a2f010c7a7cb8621ebd",
+      "bytes": 789,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    },
+    {
+      "path": "logos/zhipu.svg",
+      "sha256": "8174e65ff71647d5c705c920c953a82bd723d9e3e42887bdd4ffc9dfe51207a0",
+      "bytes": 3597,
+      "geometry": {
+        "viewbox": "0 0 24 24",
+        "width": 24,
+        "height": 24,
+        "aspect": 1,
+        "stroke": false,
+        "tintable": true,
+        "alpha": true
+      }
+    }
+  ]
+}

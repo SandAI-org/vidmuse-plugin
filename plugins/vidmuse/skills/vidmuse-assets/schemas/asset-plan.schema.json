@@ -85,6 +85,7 @@
       "required": ["type", "intent", "mode"],
       "properties": {
         "type": {
+          "description": "Asset types the Semantic Asset Pass can produce. Scoped to material a transcript mention justifies. Frame-design material from the Core Pack (shape, texture, overlay, font, lottie, palette) is not planned here: no entity mention motivates it, and no editorial decision in this schema maps to it. Those resolve directly through media-use for the film owner.",
           "enum": ["logo", "icon", "image", "bgm", "sfx", "video"]
         },
         "intent": {

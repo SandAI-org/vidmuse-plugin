@@ -1,0 +1,103 @@
+{
+  "schema": "vidmuse.core-pack.types.v1",
+  "notes": "Asset-type registry. Adding a type is a data change here plus (when JSON Schema must enumerate it) one line in schemas/asset-plan.schema.json. core_pack.mjs, the core-pack provider, and media-use registry types all derive from this file — do not hard-code a second type list anywhere.",
+  "discovery_modes": {
+    "keyword": "Large sets. Agent narrows with --query; tags/aliases carry recall.",
+    "table": "Small sets. --type returns the whole table so the agent can reason across it.",
+    "sheet": "Visual choice. --query --sheet renders a contact sheet of the candidates; the agent reads the image and picks a cell."
+  },
+  "types": {
+    "icon": {
+      "discovery": "keyword",
+      "extensions": [".svg"],
+      "probe": "svg",
+      "size_budget_kb": 50,
+      "hf_usage": "Inline the SVG for per-path animation, or reference it with <img src>/background-image when it is decoration.",
+      "notes": "Semantic lookup: the agent knows the concept (\"trash\") and needs the mark. Not brand logos — those stay in the media-use logo cascade."
+    },
+    "shape": {
+      "discovery": "keyword",
+      "extensions": [".svg"],
+      "probe": "svg",
+      "size_budget_kb": 50,
+      "hf_usage": "Inline for morph/draw animation; background-image when static. Tint with currentColor or a CSS custom property rather than editing the file.",
+      "notes": "Geometric lookup, not semantic: blobs, waves, dividers, grids, arrows, frames. Kept apart from icon because the query vocabulary is shape language, not concept language."
+    },
+    "font": {
+      "discovery": "table",
+      "extensions": [".woff2", ".woff", ".ttf", ".otf"],
+      "probe": "font",
+      "size_budget_kb": 400,
+      "hf_usage": "Declare @font-face with the frozen local path. Do not rely on the compiler's implicit Google fetch for anything that must render in a distributed/cloud render.",
+      "notes": "Admit only families HyperFrames does NOT pre-bundle (see hyperframes-creative/references/typography.md). Re-shipping a pre-bundled family is pure install weight."
+    },
+    "texture": {
+      "discovery": "sheet",
+      "extensions": [".png", ".jpg", ".jpeg", ".webp", ".svg"],
+      "probe": "raster",
+      "size_budget_kb": 300,
+      "hf_usage": "background-image on an untimed wrapper. Tileable entries take background-repeat; full-frame entries take background-size: cover.",
+      "notes": "A surface the frame sits ON. Tileability is a property (geometry.tileable), not a separate type — query it with --tileable.",
+      "acquisition": "generated",
+      "acquisition_note": "Not preinstalled by policy: a texture is film-specific (its palette, grain, and era must match one frame), so a shipped set is both large and usually wrong. Resolves through VidMuse image generation and freezes into the project. A project may still adopt its own file with `resolve --from`, and the Creator Library may hold licensed sets."
+    },
+    "overlay": {
+      "discovery": "sheet",
+      "extensions": [".png", ".webp"],
+      "probe": "raster",
+      "size_budget_kb": 300,
+      "requires_alpha": true,
+      "hf_usage": "Absolutely-positioned layer above the content with mix-blend-mode (overlay/soft-light/screen) and a tuned opacity.",
+      "notes": "A layer that sits ON TOP and changes how the frame reads: grain, noise, scanlines, dust, light leaks. Alpha is mandatory — an overlay without it is opaque and useless.",
+      "acquisition": "generated-or-css",
+      "acquisition_note": "Not preinstalled by policy. Prefer CSS/canvas for plain grain, noise, and scanlines — parametric, zero bytes, and tunable per frame (hyperframes-registry ships a grain-overlay component). Reach for generation only when the look cannot be produced procedurally."
+    },
+    "lottie": {
+      "discovery": "keyword",
+      "extensions": [".json", ".lottie"],
+      "probe": "lottie",
+      "size_budget_kb": 500,
+      "hf_usage": "Load with lottie-web or a dotLottie player, then register the instance on window.__hfLottie so HyperFrames can seek it.",
+      "usage_contract": "autoplay: false, loop: false, and window.__hfLottie.push(anim) are all mandatory. Anything left on autoplay/loop runs in wall-clock time and renders non-deterministically. The adapter seeks absolute time — no modulo loop, no playback-rate scaling — so bake repeating cycles into the asset. See hyperframes-animation/adapters/lottie.md.",
+      "notes": "Assets with their own pre-baked timeline (typically After Effects exports)."
+    },
+    "brand": {
+      "discovery": "keyword",
+      "extensions": [".svg", ".png"],
+      "probe": "svg",
+      "size_budget_kb": 200,
+      "hf_usage": "Inline SVG or <img>. A mono mark inherits currentColor; a color mark must not be recolored. Keep clear space around it.",
+      "notes": "Identity search, not browsing: the caller knows which company they mean. Query results apply a relevance floor so near-miss brands are dropped rather than offered — a wrong mark is a factual error in the film, unlike a near-miss icon which is only a stylistic one.",
+      "acquisition": "offline-fallback",
+      "acquisition_note": "The live logo cascade (Lobe Icons → SVGL → Simple Icons → GitHub avatar → favicon) resolves first and stays authoritative, because brand marks change and new models appear constantly. The preinstalled set is a curated floor of settled brands — ONE mark each, color where upstream has it and mono for brands that are monochrome by design — reached only when offline or when every live tier misses. Wordmarks and lockups are not frozen: variant choice is what the live cascade is for. VidMuse-owned marks also live here."
+    },
+    "sfx": {
+      "discovery": "keyword",
+      "extensions": [".mp3", ".wav"],
+      "probe": "none",
+      "hf_usage": "A separate <audio> element that is a DIRECT child of the composition root, with data-start/data-duration/data-track-index.",
+      "external_root": "media-use-sfx",
+      "notes": "Indexed read-only from media-use, which already owns the files, the bundled-sfx provider, and the doctor check. Not copied here — copying would create a permanent re-vendor patch."
+    },
+    "palette": {
+      "discovery": "table",
+      "extensions": [".md"],
+      "probe": "palette",
+      "hf_usage": "Feed hex values into a color-typed data-composition-variables entry, a CSS custom property, or a Tailwind v4 @theme block.",
+      "external_root": "hf-creative-palettes",
+      "notes": "Data, not files. Indexed read-only from hyperframes-creative, which owns the palettes and the frame-preset colors: blocks."
+    }
+  },
+  "not_indexed": {
+    "logo": "Unbounded set requiring exact entity matching. Resolved live through the media-use cascade (Lobe Icons -> SVGL -> Simple Icons -> GitHub avatar -> favicon). A local copy would go stale and invite wrong-identity substitution.",
+    "image": "Project-specific photography. No pre-install reuse value; goes through a provider or generation per film.",
+    "bgm": "Generated per film by the VidMuse CLI.",
+    "voice": "Generated per film by the VidMuse CLI.",
+    "video": "Generated per film by the VidMuse CLI.",
+    "grade": "Owned by media-use as parametric look specs (media-use/luts/index.json).",
+    "lut": "Owned by media-use as parametric look specs (media-use/luts/index.json).",
+    "hdri": "Single files run from several MB to tens of MB, which breaks the per-pack size budget. Three.js also wants these preloaded per project rather than resolved at seek time — project freeze is the right layer.",
+    "model3d": "Same size argument as hdri; .gltf/.glb belong to a project, not to every plugin install.",
+    "map": "No geojson/topojson/d3-geo consumer exists anywhere in the bundled HyperFrames skills. A static map render is a texture; live map data is project data. Do not create the category before a consumer exists."
+  }
+}

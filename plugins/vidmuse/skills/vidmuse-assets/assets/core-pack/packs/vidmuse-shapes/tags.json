@@ -1,0 +1,86 @@
+{
+  "schema": "vidmuse.core-pack.tags.v1",
+  "notes": "Semantic layer for this pack. Lives beside the pack rather than inside index.json so --reindex never discards it. Mechanical tags (filename tokens, pack name) are derived at reindex time and must not be duplicated here.",
+  "files": {
+    "shapes/blob-organic.svg": {
+      "tags": ["blob", "organic", "irregular", "background", "backdrop", "amoeba"],
+      "aliases_zh": ["有机形状", "不规则色块", "背景色块"],
+      "description": "Irregular organic blob for a soft colored backdrop behind type or a card."
+    },
+    "shapes/blob-soft.svg": {
+      "tags": ["blob", "soft", "rounded", "background", "backdrop", "pill"],
+      "aliases_zh": ["柔和色块", "圆润形状", "背景衬底"],
+      "description": "Rounder, calmer blob; reads as a deliberate shape rather than a splash."
+    },
+    "shapes/wave-divider.svg": {
+      "tags": ["wave", "divider", "separator", "section", "edge", "ribbon"],
+      "aliases_zh": ["波浪", "分隔线", "分割", "章节分隔"],
+      "description": "Single-crest wave for a section edge or a scene-to-scene seam."
+    },
+    "shapes/wave-layered.svg": {
+      "tags": ["wave", "layered", "depth", "divider", "parallax", "separator"],
+      "aliases_zh": ["多层波浪", "层叠", "分隔", "景深"],
+      "description": "Two offset wave layers; animate at different speeds for parallax depth."
+    },
+    "shapes/grid-dots.svg": {
+      "tags": ["grid", "dots", "dotted", "texture", "technical", "backdrop", "tileable"],
+      "aliases_zh": ["点阵", "网格", "点状背景", "技术感"],
+      "description": "Dot matrix backdrop. Tiles seamlessly at 20-unit pitch."
+    },
+    "shapes/grid-lines.svg": {
+      "tags": ["grid", "lines", "graph", "blueprint", "technical", "backdrop", "tileable"],
+      "aliases_zh": ["网格线", "坐标网格", "蓝图", "技术底纹"],
+      "description": "Hairline graph grid for a technical or blueprint register. Tiles at 20-unit pitch."
+    },
+    "shapes/arrow-curve.svg": {
+      "tags": ["arrow", "curve", "pointer", "annotation", "handdrawn", "callout"],
+      "aliases_zh": ["曲线箭头", "指向", "标注", "手绘箭头"],
+      "description": "Sweeping curved arrow for annotation. Stroke-based, so a draw-on animation works."
+    },
+    "shapes/arrow-elbow.svg": {
+      "tags": ["arrow", "elbow", "flow", "connector", "diagram", "step"],
+      "aliases_zh": ["折线箭头", "流程", "连接线", "步骤"],
+      "description": "Right-angle connector arrow for flow and step diagrams."
+    },
+    "shapes/burst-star.svg": {
+      "tags": ["burst", "star", "sparkle", "highlight", "badge", "attention", "celebration"],
+      "aliases_zh": ["星爆", "闪光", "强调", "徽章", "庆祝"],
+      "description": "Solid star burst for a badge, a price tag, or a celebratory accent."
+    },
+    "shapes/burst-rays.svg": {
+      "tags": ["burst", "rays", "radiate", "emphasis", "impact", "attention"],
+      "aliases_zh": ["放射线", "光芒", "强调", "冲击"],
+      "description": "Radiating stroke rays. Stagger each ray for a pop-in impact accent."
+    },
+    "shapes/frame-bracket.svg": {
+      "tags": ["frame", "bracket", "corner", "crop", "viewfinder", "focus", "border"],
+      "aliases_zh": ["取景框", "边角", "画框", "对焦框"],
+      "description": "Four corner brackets — a viewfinder frame that draws attention without a full border."
+    },
+    "shapes/frame-ticket.svg": {
+      "tags": ["frame", "ticket", "coupon", "tag", "label", "container", "card"],
+      "aliases_zh": ["票券", "标签框", "卡片", "优惠券"],
+      "description": "Ticket-stub container with side notches for a label or callout card."
+    },
+    "shapes/underline-marker.svg": {
+      "tags": ["underline", "marker", "highlight", "emphasis", "brush", "keyword"],
+      "aliases_zh": ["下划线", "马克笔", "重点", "强调", "笔刷"],
+      "description": "Marker-pen underline for keyword emphasis. Reveal with a left-to-right clip."
+    },
+    "shapes/underline-scribble.svg": {
+      "tags": ["underline", "scribble", "handdrawn", "sketch", "emphasis", "casual"],
+      "aliases_zh": ["手绘下划线", "涂鸦", "草图", "强调"],
+      "description": "Two-pass scribbled underline for a casual, hand-annotated register."
+    },
+    "shapes/counter-ring.svg": {
+      "tags": ["ring", "progress", "counter", "percent", "gauge", "data", "dial"],
+      "aliases_zh": ["进度环", "圆环", "百分比", "计数器", "仪表"],
+      "description": "Progress ring with a track. Animate stroke-dashoffset to count a value up."
+    },
+    "shapes/bar-proportional.svg": {
+      "tags": ["bar", "progress", "proportional", "data", "meter", "fill", "comparison"],
+      "aliases_zh": ["进度条", "占比条", "数据条", "对比"],
+      "description": "Proportional fill bar with a track — gives a bare number visual presence."
+    }
+  }
+}

@@ -1,0 +1,20 @@
+VidMuse decorative shapes
+Copyright (c) VidMuse
+
+Released under CC0 1.0 Universal (Public Domain Dedication).
+https://creativecommons.org/publicdomain/zero/1.0/
+
+These shapes were authored for VidMuse. They are not derived from, traced from,
+or extracted from any third-party icon set, shape library, marketplace pack, or
+font. No third-party rights are asserted or required.
+
+Permissions
+- Redistribution with the VidMuse plugin: permitted.
+- Commercial video output: permitted.
+- Attribution: not required.
+- Modification: permitted.
+
+Trademark note
+Nothing in this pack is a brand mark. Company, product, and model logos are
+never admitted to the Core Pack; they resolve through the media-use logo
+cascade against official sources so identity stays exact and current.

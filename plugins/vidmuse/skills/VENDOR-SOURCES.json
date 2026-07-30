@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.4.2",
+  "pluginVersion": "0.4.3",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -45,6 +45,16 @@
     "skills/vidmuse-recut/SKILL.md": "Existing-speaking-footage film workflow; delegates ASR/ATA execution to media-use and semantic planning to vidmuse-assets.",
     "skills/media-use": "Adapted from the vendored Media OS into a user-facing VidMuse media capability and shared runtime: standalone ASR/ATA/TTS/generation/transforms, exact workflow execution, no film or semantic-asset ownership.",
     "skills/hyperframes-cli": "VidMuse boundary patch: composition/render-engine operations only; general doctor, TTS, transcription, background edits, AI generation, provider auth, and product delivery route through media-use + VidMuse CLI.",
+    "0.4.3": [
+      "core-pack v2: per-pack license ledger, derived index.json, three discovery modes (keyword/table/sheet), and a data-driven types.json registry",
+      "core-pack read path: media-use core-pack provider wired ahead of generation; new font/shape/texture/overlay/lottie/palette resolve types",
+      "cross-root indexing: media-use SFX and hyperframes-creative palettes are indexed read-only in place, never copied across the vendoring boundary",
+      "preinstalled content: lucide icons (ISC), curated Lobe brand marks (MIT), subsetted Noto SC fonts (OFL), original shapes and Lottie state animations (CC0)",
+      "logo cascade: core-pack.brands added as the LAST tier so live sources stay authoritative; logo now resolves under --local-only",
+      "logo identity fix: normalization erased non-Latin text, so any Chinese brand query matched the first brand scanned",
+      "texture/overlay are generated per film rather than preinstalled; CSS/canvas preferred for plain grain",
+      "asset-plan query types stay scoped to transcript-driven material; frame-design types resolve directly through media-use"
+    ],
     "0.4.2": [
       "create: picture-design contract for focal hierarchy, screenshot treatment, reading surfaces, depth separation, and semantic motif restraint",
       "film_plan.py: continuity strategy replaces mandatory hero; role-tagged cues, still read windows, and motif rationale are validated",
@@ -101,7 +111,7 @@
       "removed mirror to ~/.codex/skills; no network skill fallback"
     ]
   },
-  "patchedAt": "2026-07-29T00:00:00Z",
+  "patchedAt": "2026-07-30T00:00:00Z",
   "shotcraft": {
     "skill_consumer": "vidmuse-create",
     "source": "https://github.com/Vincentwei1021/video-shotcraft",

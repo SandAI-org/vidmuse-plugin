@@ -8,6 +8,8 @@
 
 import { bundledSfxProvider } from "./bundled-sfx-provider.mjs";
 import { brandProvider } from "./brand-provider.mjs";
+import { corePackProvider } from "./core-pack-provider.mjs";
+import { offlineLogoProvider } from "./offline-logo-provider.mjs";
 import {
   lobeIconsSearch,
   svglSearch,
@@ -29,11 +31,36 @@ const V = (type) =>
     },
   });
 
+// Core Pack is preinstalled, licensed, and offline. library-layout.md's lookup
+// order puts it ahead of any generative provider, so it is declared first for
+// every type it can serve.
+const CP = A("core-pack", { search: corePackProvider.search });
+
+// Variants the offline logo floor can attest. It freezes ONE mark per brand —
+// color where upstream has it, mono otherwise — so only these two are possible.
+// Declared so an explicit --variant it cannot serve (a wordmark, a lockup) skips
+// this tier instead of being silently substituted (runProviders enforces this).
+const OFFLINE_LOGO_VARIANTS = Object.freeze(["mono", "color"]);
+
 const REGISTRY = {
   bgm: [V("bgm")],
   sfx: [V("sfx"), A("bundled.sfx", { search: bundledSfxProvider.search })],
   image: [V("image")],
-  icon: [V("icon")],
+  icon: [CP, V("icon")],
+  // Static asset classes served from the preinstalled library. Fonts, shapes,
+  // Lottie, and palettes have no generation route on purpose: a typeface or a
+  // pre-baked animation timeline is not something a model should invent on
+  // demand, and a wrong one is worse than a miss.
+  font: [CP],
+  shape: [CP],
+  lottie: [CP],
+  palette: [CP],
+  // Textures and overlays are film-specific surface treatment — the palette,
+  // grain, and era have to match one frame — so a shipped set would be both
+  // heavy and usually wrong. Core Pack still runs first so an adopted project
+  // file or a Creator Library set wins over paying to generate.
+  texture: [CP, V("image")],
+  overlay: [CP, V("image")],
   logo: [
     // Logos are evidence, not illustration: resolve official marks and never
     // send them to a generative model.
@@ -42,12 +69,23 @@ const REGISTRY = {
     N("simple-icons", { search: simpleIconsSearch }),
     N("github.avatar", { search: githubAvatarSearch }),
     N("favicon.ddg", { search: faviconSearch }),
+    // Offline floor, deliberately LAST. Brand marks change and new models ship
+    // constantly, so a live source must always win; a frozen copy is only
+    // correct when there is no live answer (offline, or every tier above
+    // missed). Being local, it is also the only logo tier that survives
+    // --local-only, which otherwise fails every logo request.
+    A("core-pack.brands", {
+      search: offlineLogoProvider.search,
+      variants: OFFLINE_LOGO_VARIANTS,
+    }),
   ],
   voice: [V("voice")],
   video: [V("video")],
   brand: [
-    // Local design spec — reads frame.md / design.md tokens.
+    // Local design spec — reads frame.md / design.md tokens. Project-specific
+    // brand tokens win over the preinstalled VidMuse marks.
     A("design_spec", { search: brandProvider.search }),
+    CP,
   ],
   grade: [
     // Local deterministic cascade handled by resolve.mjs so grade records can

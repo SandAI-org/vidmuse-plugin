@@ -1,0 +1,31 @@
+{
+  "schema": "vidmuse.core-pack.tags.v1",
+  "notes": "Semantic layer for the state animations. Lives beside the pack so --reindex never discards it.",
+  "files": {
+    "lottie/loading-spinner.json": {
+      "tags": ["loading", "spinner", "wait", "pending", "busy", "progress", "indeterminate"],
+      "aliases_zh": ["加载", "加载中", "转圈", "等待", "菊花"],
+      "description": "Indeterminate loading spinner — a 90° arc making one full rotation over 1s. For work whose duration is unknown."
+    },
+    "lottie/progress-ring.json": {
+      "tags": ["progress", "ring", "percent", "determinate", "counter", "gauge", "fill"],
+      "aliases_zh": ["进度环", "进度条", "百分比", "圆环进度"],
+      "description": "Determinate progress ring filling 0→100% over 1.5s, starting at 12 o'clock. For work with a known amount."
+    },
+    "lottie/success-check.json": {
+      "tags": ["success", "check", "done", "complete", "confirm", "tick", "pass"],
+      "aliases_zh": ["成功", "完成", "对勾", "确认", "通过"],
+      "description": "Success confirmation — green circle springs in with an overshoot, then the checkmark draws on. Payoff beat for a completed action."
+    },
+    "lottie/error-cross.json": {
+      "tags": ["error", "fail", "cross", "reject", "denied", "invalid", "alert"],
+      "aliases_zh": ["错误", "失败", "叉", "拒绝", "无效"],
+      "description": "Failure state — red circle springs in, then two strokes draw the cross in sequence. Counterpart to success-check."
+    },
+    "lottie/pulse-dot.json": {
+      "tags": ["pulse", "dot", "marker", "live", "active", "attention", "beacon", "breathing"],
+      "aliases_zh": ["脉冲", "呼吸灯", "标记点", "实时", "活跃"],
+      "description": "Pulsing beacon — a solid dot with a halo that breathes out and fades. Marks a live or active point; loops cleanly if you place it repeatedly."
+    }
+  }
+}

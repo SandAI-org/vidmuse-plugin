@@ -27,6 +27,15 @@ const TYPE_DIRS = {
   grade: "luts",
   lut: "luts",
   recipe: "recipes",
+  // Core Pack static types. Grouped by how the composition consumes them —
+  // vectors and rasters both end up as image sources, fonts and Lottie need
+  // their own directories because their loaders reference them by path.
+  shape: "images",
+  texture: "images",
+  overlay: "images",
+  palette: "design",
+  font: "fonts",
+  lottie: "lottie",
 };
 
 export function mediaDir(projectDir) {

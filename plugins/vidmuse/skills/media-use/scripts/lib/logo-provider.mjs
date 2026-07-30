@@ -94,10 +94,18 @@ const FAVICON_DOMAINS = {
   nextjs: "nextjs.org",
 };
 
+// Strip case, spacing, and punctuation so "Next.js" ≡ "nextjs", while KEEPING
+// every letter and digit in any script.
+//
+// A previous `[^a-z0-9]` version erased non-Latin text entirely, so every
+// Chinese name normalized to "" — and two empty strings compare equal, which
+// made any 中文 brand query match whichever brand was scanned first. Silent
+// wrong-identity is the worst failure mode for a logo, so identity comparison
+// must never discard the characters that carry the identity.
 const norm = (s) =>
   String(s)
     .toLowerCase()
-    .replace(/[^a-z0-9]/g, "");
+    .replace(/[^\p{L}\p{N}]/gu, "");
 
 const identityKey = (s) =>
   String(s || "")
@@ -131,7 +139,12 @@ export function entityFrom(intent, entity) {
 
 /** Exact match after stripping case/spacing/punctuation — "Next.js" ≡ "nextjs". */
 export function titleMatches(title, entity) {
-  return norm(title) === norm(entity);
+  const a = norm(title);
+  const b = norm(entity);
+  // Two strings that normalize to nothing are not the same brand. Guarding here
+  // as well as in norm() means a future normalization change cannot resurrect
+  // "everything matches everything" for punctuation-only or emoji-only input.
+  return a.length > 0 && a === b;
 }
 
 function lobePrimaryFields(entry) {

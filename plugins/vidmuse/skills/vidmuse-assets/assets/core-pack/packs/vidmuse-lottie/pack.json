@@ -1,0 +1,108 @@
+{
+  "schema": "vidmuse.core-pack.pack.v1",
+  "id": "vidmuse-lottie",
+  "type": "lottie",
+  "title": "VidMuse state animations",
+  "description": "Original Lottie state animations for agent/product films: spinner, progress ring, success check, error cross, and pulse marker. Authored as plain Lottie JSON (no After Effects), single full cycle, no loop baked in.",
+  "upstream": {
+    "self": true,
+    "note": "Authored for VidMuse as hand-written Lottie JSON. Not exported from, traced from, or derived from any third-party Lottie library, LottieFiles asset, or icon animation pack."
+  },
+  "license": {
+    "spdx": "CC0-1.0",
+    "receipt": "LICENSE.txt",
+    "redistributable": true,
+    "commercial_output": true,
+    "attribution_required": false,
+    "copyright": "VidMuse"
+  },
+  "verified": {
+    "player": "lottie-web@5.12.2",
+    "method": "loadAnimation({renderer:'svg',autoplay:false,loop:false}) then goToAndStop() at 5%, 50%, and 95% of totalFrames",
+    "asserts": "each file parses, seeks without throwing, draws shapes, and renders different geometry across the three seeks",
+    "note": "Structural JSON validity is not enough — a malformed keyframe or a shape that never moves would still parse. These were checked against the player that HyperFrames actually seeks."
+  },
+  "tags": [
+    "state",
+    "ui",
+    "feedback",
+    "animation"
+  ],
+  "files": [
+    {
+      "path": "lottie/error-cross.json",
+      "sha256": "8ac310fd9bc5987ac417da110371fb8e6f57748b4488236b4a1c6a470b335c88",
+      "bytes": 2109,
+      "geometry": {
+        "width": 200,
+        "height": 200,
+        "aspect": 1,
+        "fps": 60,
+        "frames": 60,
+        "duration": 1,
+        "lottie_version": "5.7.4",
+        "alpha": true
+      }
+    },
+    {
+      "path": "lottie/loading-spinner.json",
+      "sha256": "15cafd53aee9451a3f7918f9cb977512940abac5026499bd283dade3e4506132",
+      "bytes": 824,
+      "geometry": {
+        "width": 200,
+        "height": 200,
+        "aspect": 1,
+        "fps": 60,
+        "frames": 60,
+        "duration": 1,
+        "lottie_version": "5.7.4",
+        "alpha": true
+      }
+    },
+    {
+      "path": "lottie/progress-ring.json",
+      "sha256": "a53e024da045df2ca75b6c2d68258a4ada090d89a5ddde17fe2d343d3065bfb3",
+      "bytes": 1160,
+      "geometry": {
+        "width": 200,
+        "height": 200,
+        "aspect": 1,
+        "fps": 60,
+        "frames": 90,
+        "duration": 1.5,
+        "lottie_version": "5.7.4",
+        "alpha": true
+      }
+    },
+    {
+      "path": "lottie/pulse-dot.json",
+      "sha256": "d01d2376a1bed557569db1dd73ad40f819224c7d7629d4b072161645ab2513e2",
+      "bytes": 1484,
+      "geometry": {
+        "width": 200,
+        "height": 200,
+        "aspect": 1,
+        "fps": 60,
+        "frames": 60,
+        "duration": 1,
+        "lottie_version": "5.7.4",
+        "alpha": true
+      }
+    },
+    {
+      "path": "lottie/success-check.json",
+      "sha256": "f7e40f4989661cd945d0fef72b685e7bf7c6f76eb80036967dc834746150a310",
+      "bytes": 1606,
+      "geometry": {
+        "width": 200,
+        "height": 200,
+        "aspect": 1,
+        "fps": 60,
+        "frames": 60,
+        "duration": 1,
+        "lottie_version": "5.7.4",
+        "alpha": true
+      }
+    }
+  ]
+}

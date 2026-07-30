@@ -12,3 +12,7 @@ videos/
 
 # local brand backups
 assets/_backup_*/
+
+# Core Pack contact sheets: derived on demand from a candidate set and cached by
+# candidate hash. Rebuilt by any --sheet query; never part of the package.
+skills/vidmuse-assets/assets/core-pack/.cache/

@@ -1,0 +1,83 @@
+{
+  "schema": "vidmuse.core-pack.pack.v1",
+  "id": "noto-cjk-sc",
+  "type": "font",
+  "title": "noto-cjk-sc",
+  "description": "Simplified Chinese type system — Noto Sans SC and Noto Serif SC. HyperFrames pre-bundles Noto Sans JP but no Chinese face, and a locally-installed-only font fails in distributed/cloud renders, so Chinese compositions need an embedded family.",
+  "upstream": {
+    "npm": "@fontsource/noto-sans-sc + @fontsource/noto-serif-sc",
+    "version": "5.3.0",
+    "url": "https://fonts.google.com/noto",
+    "imported_by": "scripts/import_pack.mjs"
+  },
+  "license": {
+    "spdx": "OFL-1.1",
+    "receipt": "LICENSE.txt",
+    "redistributable": true,
+    "commercial_output": true,
+    "attribution_required": false,
+    "copyright": "\"Font Software\" refers to the set of files released by the Copyright"
+  },
+  "size_budget_kb": 1600,
+  "size_budget_reason": "Subsetted CJK faces run 400-900KB per weight. The Latin-oriented 400KB default is unreachable for any Chinese font; this ceiling still fails an unsubsetted 1.1MB+ import.",
+  "coverage": {
+    "subset": "gb2312-level-1",
+    "chars": 3903,
+    "note": "GB2312 level-1 (3755 hanzi) plus Latin, digits, and CJK punctuation — about 99.7% of running modern Chinese. A character outside this set renders as a tofu box, not a fallback glyph: for classical text, rare surnames, or names with uncommon characters, verify the render or embed the full face from @fontsource directly."
+  },
+  "tags": [
+    "chinese",
+    "simplified",
+    "cjk",
+    "中文",
+    "简体",
+    "字体"
+  ],
+  "files": [
+    {
+      "path": "fonts/NotoSansSC-400.woff2",
+      "sha256": "29b4dec0ee65a38b4087111157a083c795732297cbee172132ac9836c8b0b606",
+      "bytes": 537460,
+      "geometry": {
+        "bytes": 537460,
+        "weight": 400
+      }
+    },
+    {
+      "path": "fonts/NotoSansSC-700.woff2",
+      "sha256": "9725af38d713b67d1854f1fcca9281db00eb4e072e91dacdda87050d67169a2e",
+      "bytes": 550704,
+      "geometry": {
+        "bytes": 550704,
+        "weight": 700
+      }
+    },
+    {
+      "path": "fonts/NotoSansSC-900.woff2",
+      "sha256": "fcaa43cdd2e24bcf50036054d84a3ee91c8b9aa07f32596ac3f345984b669f85",
+      "bytes": 535504,
+      "geometry": {
+        "bytes": 535504,
+        "weight": 900
+      }
+    },
+    {
+      "path": "fonts/NotoSerifSC-400.woff2",
+      "sha256": "7390ee4a5cde36d6ae5bb9dc0810fa0db1b809863066d3ae537f3afef22497bc",
+      "bytes": 695716,
+      "geometry": {
+        "bytes": 695716,
+        "weight": 400
+      }
+    },
+    {
+      "path": "fonts/NotoSerifSC-700.woff2",
+      "sha256": "a95d784ad4922748a0eb29190a2da1e37f605749291d224792f9427e784c7c97",
+      "bytes": 716524,
+      "geometry": {
+        "bytes": 716524,
+        "weight": 700
+      }
+    }
+  ]
+}

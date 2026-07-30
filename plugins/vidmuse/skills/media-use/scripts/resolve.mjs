@@ -32,6 +32,7 @@ import {
   matchColorLook,
 } from "./lib/lut-preset-provider.mjs";
 import { BundledSfxAssetsError, inspectBundledSfxAssets } from "./lib/bundled-sfx-provider.mjs";
+import { corePackRoot, readIndex as readCorePackIndex } from "./lib/core-pack-provider.mjs";
 import {
   entityFrom as logoEntityFrom,
   logoIdentityMatches,
@@ -50,6 +51,13 @@ const DEFAULT_EXT = {
   video: ".mp4",
   grade: ".cube",
   lut: ".cube",
+  // Core Pack static types.
+  font: ".woff2",
+  shape: ".svg",
+  texture: ".png",
+  overlay: ".png",
+  lottie: ".json",
+  palette: ".md",
 };
 
 // resolve shells `fetch`/`freezeUrl` and modern ESM; 18 is the floor where those
@@ -417,6 +425,10 @@ async function run() {
     }
   }
   const ctx = {
+    // Providers that serve more than one type (core-pack) need to know which
+    // one they were invoked for; the cascade dispatches by type but the ctx did
+    // not carry it.
+    type,
     entity,
     variant,
     projectDir,
@@ -952,6 +964,28 @@ async function showCandidates() {
   }
 }
 
+function inspectCorePack() {
+  const fix =
+    "run: node vidmuse-assets/scripts/core_pack.mjs --reindex (or reinstall the VidMuse plugin)";
+  const index = readCorePackIndex();
+  if (!index) {
+    return {
+      ok: false,
+      detail: `Core Pack index missing or unreadable at ${corePackRoot()}/index.json`,
+      fix,
+    };
+  }
+  const total = Array.isArray(index.items) ? index.items.length : 0;
+  if (total === 0) {
+    return { ok: false, detail: "Core Pack index contains no assets", fix };
+  }
+  const byType = index.counts?.by_type || {};
+  const summary = Object.entries(byType)
+    .map(([type, count]) => `${type} ${count}`)
+    .join(", ");
+  return { ok: true, detail: `${total} Core Pack asset(s) — ${summary}`, fix: "" };
+}
+
 function runDoctor() {
   const checks = [];
   const bundledSfx = inspectBundledSfxAssets();
@@ -960,6 +994,16 @@ function runDoctor() {
     ok: bundledSfx.ok,
     detail: bundledSfx.detail,
     fix: bundledSfx.fix,
+  });
+  // Core Pack is a local dependency of every static-asset resolve. Without an
+  // index the cascade silently falls through to generation (or misses), so a
+  // missing index must be visible here rather than at the first resolve.
+  const corePack = inspectCorePack();
+  checks.push({
+    name: "Core Pack index",
+    ok: corePack.ok,
+    detail: corePack.detail,
+    fix: corePack.fix,
   });
   const vidmuseVersion = runCommand("vidmuse", ["--version"]);
   const vidmuseOnPath = vidmuseVersion.status === 0;

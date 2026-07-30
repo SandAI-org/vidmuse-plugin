@@ -1,0 +1,22 @@
+VidMuse state animations
+Copyright (c) VidMuse
+
+Released under CC0 1.0 Universal (Public Domain Dedication).
+https://creativecommons.org/publicdomain/zero/1.0/
+
+These Lottie animations were authored for VidMuse as hand-written Lottie JSON.
+They are not exported from After Effects project files belonging to a third
+party, not downloaded from LottieFiles or any other animation marketplace, and
+not derived from a third-party icon-animation pack. No third-party rights are
+asserted or required.
+
+Permissions
+- Redistribution with the VidMuse plugin: permitted.
+- Commercial video output: permitted.
+- Attribution: not required.
+- Modification: permitted.
+
+Runtime note
+HyperFrames seeks these files rather than playing them. Load with
+autoplay: false and loop: false, and register every player on
+window.__hfLottie — see the usage contract recorded on each index entry.

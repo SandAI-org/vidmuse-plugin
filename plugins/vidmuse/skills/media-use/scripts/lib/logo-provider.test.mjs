@@ -35,6 +35,21 @@ test("titleMatches ignores case, spacing, punctuation — and rejects lookalikes
   assert.ok(!titleMatches("Slackware", "slack"));
 });
 
+test("titleMatches keeps non-Latin identity instead of erasing it", () => {
+  // Normalization once stripped everything outside [a-z0-9], so every Chinese
+  // name collapsed to "" — and two empty strings compare equal, which made ANY
+  // 中文 brand query match whichever brand was scanned first (字节跳动 resolved
+  // to Alibaba). Silent wrong-identity is the worst outcome for a logo.
+  assert.ok(!titleMatches("字节跳动", "阿里巴巴"));
+  assert.ok(!titleMatches("腾讯", "百度"));
+  assert.ok(titleMatches("字节跳动", "字节跳动"));
+  assert.ok(titleMatches("阿里·巴巴", "阿里巴巴")); // punctuation still ignored
+  // Input that normalizes to nothing must never match anything, including
+  // itself — there is no identity there to compare.
+  assert.ok(!titleMatches("...", "..."));
+  assert.ok(!titleMatches("", ""));
+});
+
 const lobeEntries = [
   {
     id: "Codex",

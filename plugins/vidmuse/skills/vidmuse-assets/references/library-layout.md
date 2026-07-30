@@ -17,22 +17,47 @@ Creator Library is private and must never be copied into the plugin package.
 Core Pack is read-only at runtime. Provider results become project files
 before composition.
 
+## Core Pack structure
+
+Core Pack is organized as **packs**, not as loose files, and it separates the
+license ledger from the retrieval index:
+
+| File | Role |
+| --- | --- |
+| `types.json` | Which asset types exist and how each is discovered |
+| `packs/<id>/pack.json` | Ledger: one license + one pinned upstream version per pack, plus per-file hashes |
+| `packs/<id>/tags.json` | Semantic tags and Chinese aliases; survives reindex |
+| `index.json` | Derived query surface — the only file the provider reads |
+
+Read `assets/core-pack/README.md` before admitting content or adding a type.
+
+Core Pack is also the **single query surface** over static assets that live in
+other skills. `manifest.json` declares roots; only `core-pack` is owned. `sfx`
+(from `media-use`) and `palette` (from `hyperframes-creative`) are indexed
+read-only, in place. Those skills are vendored from upstream HyperFrames, so
+copying their files would mean a permanent re-vendor patch and a second source of
+truth. One index, one query, zero byte movement.
+
 ## Core Pack admission
 
-An item may enter Core Pack only when all are true:
+An item may enter an owned pack only when all are true:
 
 - VidMuse owns it or redistribution is explicitly permitted;
 - commercial output is permitted;
-- required notices are stored under `licenses/`;
-- the manifest records id, type, relative path, hash, license, attribution,
-  tags, and intended use;
-- the file is small and broadly useful enough to justify every install.
+- its notice is stored inside its own pack directory;
+- `pack.json` pins an upstream version (`npm`+`version`, `url`+`ref`, or
+  `self: true` for original work) and hashes every file;
+- the file is within its type's size budget and broadly useful enough to justify
+  every install.
 
-Brand logos, large icon collections, marketplace packs, and per-font
-free-download claims do not qualify by default.
+Brand logos, large marketplace packs, and per-font free-download claims do not
+qualify by default. Fonts HyperFrames already pre-bundles do not qualify either —
+re-shipping them is pure install weight.
 
-The initial Core Pack is framework-only. Its manifest has an empty `assets`
-array until the user selects content.
+Retrieval is deterministic keyword matching over upstream tags, mechanical
+probes, and curated aliases. No embedding model: the plugin promises reproducible
+receipts and a hard-offline `--local-only` path, and an explainable match lets an
+agent fix a bad result by editing a tag instead of tuning a threshold.
 
 ## Creator Library admission
 
@@ -67,6 +92,25 @@ project freeze
 ```
 
 Logos stop before generation. Unknown-license material is preview-only.
+
+This order is enforced in `media-use/scripts/lib/registry.mjs`: the `core-pack`
+provider is declared ahead of `vidmuse.model` for every type it can serve, and it
+exposes `search` only — it can never generate. `shape`, `texture`, `overlay`,
+`font`, `lottie`, and `palette` resolve through it.
+
+**`logo` inverts the order deliberately.** Brand marks change and new models ship
+constantly, so live sources stay authoritative and the preinstalled set is the
+*last* tier, not the third:
+
+```text
+lobehub.icons → svgl → simple-icons → github.avatar → favicon.ddg → core-pack.brands
+```
+
+A frozen mark is only correct when no live source answered — offline, or every
+online tier missed. It is also the only logo tier that survives `--local-only`.
+An offline hit is stamped `offline_fallback: true` with a staleness note; a brand
+outside the curated set is a clean miss rather than an approximation, because a
+near-miss logo is a factual error in the film, not a stylistic choice.
 
 ## Stable identity
 

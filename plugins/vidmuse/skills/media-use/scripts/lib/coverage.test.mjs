@@ -8,8 +8,21 @@ const SKILL = join(import.meta.dirname, "..", "..");
 const SKILLS = join(SKILL, "..");
 
 test("AI generation has exactly one provider boundary", () => {
+  // The invariant is that GENERATION has one substrate, not that a type has one
+  // provider: local, non-generative providers (Core Pack, bundled SFX) may sit
+  // ahead of it in the cascade. Anything that can `generate` must be VidMuse.
   for (const type of ["bgm", "image", "icon", "voice", "video"]) {
-    assert.deepEqual(getProviders(type).map((provider) => provider.name), ["vidmuse.model"]);
+    const generators = getProviders(type).filter((provider) => provider.generate);
+    assert.deepEqual(
+      generators.map((provider) => provider.name),
+      ["vidmuse.model"],
+      `${type} must generate only through VidMuse`,
+    );
+    for (const provider of getProviders(type)) {
+      if (provider.name === "vidmuse.model") continue;
+      assert.ok(!provider.generate, `${type}: ${provider.name} must not generate`);
+      assert.ok(!provider.network, `${type}: ${provider.name} must be local`);
+    }
   }
 });
 

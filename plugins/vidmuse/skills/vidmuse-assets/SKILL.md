@@ -105,13 +105,59 @@ Resolution order:
 5. official real-world source;
 6. VidMuse generation when the material does not exist in the world.
 
-The Core Pack framework lives under `assets/core-pack/`. It intentionally
-contains no third-party content yet; add an item only with an explicit manifest
-record and redistribution receipt.
+## Core Pack — preinstalled library
+
+`assets/core-pack/` is both the preinstalled baseline and the **single query
+surface** over every static asset the plugin can reach — 2237 indexed items:
+
+| Type | Count | Source |
+| --- | --- | --- |
+| `icon` | 2007 | `lucide` (ISC), upstream synonyms harvested at import |
+| `brand` | 113 | `lobe-brands` — one mark per settled brand (MIT). Offline floor only; the live cascade resolves first |
+| `font` | 5 | `noto-cjk-sc` — Simplified Chinese sans + serif (OFL); HyperFrames bundles no Chinese face |
+| `shape` | 16 | `vidmuse-shapes` — blobs, waves, grids, arrows, underlines, data readouts (CC0) |
+| `lottie` | 5 | `vidmuse-lottie` — spinner, progress ring, success, error, pulse (CC0) |
+| `sfx` | 19 | indexed read-only from `media-use` |
+| `palette` | 72 | indexed read-only from `hyperframes-creative` |
+
+Chinese queries work: a lexicon expands 中文 terms to the English tags upstream
+ships, so `--query "垃圾桶"` finds `lucide/trash`.
 
 ```bash
-node scripts/core_pack.mjs
+node scripts/core_pack.mjs --inventory                      # types, counts, sources
+node scripts/core_pack.mjs --query "进度环" --type shape     # ranked candidates + why
+node scripts/core_pack.mjs --query "dark grain" --type texture --sheet
+node scripts/core_pack.mjs --validate
 ```
+
+Query first, before reaching for a provider or generation — that is what the
+lookup order requires. The query returns candidates and match reasons; **you**
+choose, and `media-use` freezes. Three discovery modes: `keyword` (large sets),
+`table` (small sets, returns everything so you can reason across it), and `sheet`
+(raster material you must *see* — read the contact sheet and pick a cell).
+
+`logo` still resolves **live** through the official-logo cascade, which stays
+authoritative — brand marks change and new models ship constantly. The
+preinstalled `brand` pack is a curated **offline floor** — one mark for each of
+113 settled brands (international + Chinese majors + AI labs + dev tools), placed
+last in the cascade:
+
+```text
+lobehub.icons → svgl → simple-icons → github.avatar → favicon.ddg → core-pack.brands
+```
+
+So online always wins, and `--local-only` can still resolve a logo — which it
+could not do at all before. An offline hit records `offline_fallback: true` plus
+a staleness note telling the reviewer to re-resolve online before shipping a
+brand-sensitive film. One mark per brand — color where upstream has it, mono for
+the 32 brands that are monochrome by design. A brand outside the curated set, or
+a variant this floor does not carry, fails rather than being approximated.
+
+Read [assets/core-pack/README.md](assets/core-pack/README.md) before admitting
+content, adding a type, or adding an external root. Adding a type is a
+`types.json` data change plus registry wiring — not a rewrite.
+
+## Creator Library
 
 Creator Library is private and opt-in. Initialize only when the user asks:
 
@@ -213,9 +259,11 @@ new catalog, importing a third-party pack, or making a commercial-use decision.
 
 | Source | Status |
 | --- | --- |
-| Core Pack | **Framework active; content intentionally empty** |
+| Core Pack | **Implemented** — pack ledger, derived index, keyword/table/sheet query, Chinese query lexicon, read path wired into `media-use` |
+| Core Pack content | `lucide` 2007 icons (ISC) · `lobe-brands` 113 brand marks (MIT) · `noto-cjk-sc` 5 Simplified Chinese font cuts (OFL) · `vidmuse-shapes` 16 shapes (CC0) · `vidmuse-lottie` 5 state animations (CC0) · `sfx` + `palette` indexed read-only from sibling skills |
+| `texture` / `overlay` | Not preinstalled by policy — film-specific surface treatment; generated per project, or CSS/canvas for plain grain |
 | Creator Library | Layout/policy defined; private user content only |
-| Lobe Icons | **Implemented** deterministic Logo Provider |
+| Lobe Icons | **Implemented** — live deterministic Logo Provider (tier 1), plus a curated offline floor in Core Pack (tier 6, last) |
 | SVGL / Simple Icons / GitHub / favicon | Existing official-logo fallbacks |
 | Thiings | Licensed local-library design only; not bundled or scraped |
 | 喵闪字库 | Font discovery only until original-author license is verified |

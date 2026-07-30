@@ -1,0 +1,1415 @@
+{
+  "schema": "vidmuse.core-pack.lexicon.v1",
+  "notes": "Chinese -> English query expansion, applied at query time by core_pack_query.mjs. Deliberately NOT baked into index entries: upstream tag metadata is English-only, and 2000+ icons x N aliases would bloat every index rebuild while scattering the same knowledge across packs. One lexicon serves every pack, including packs added later. Keys are Chinese terms; values are English tokens that appear in asset names or upstream tags. Add an entry when a reasonable Chinese query returns nothing.",
+  "terms": {
+    "删除": [
+      "trash",
+      "delete",
+      "remove"
+    ],
+    "垃圾桶": [
+      "trash",
+      "bin",
+      "garbage"
+    ],
+    "移除": [
+      "remove",
+      "minus"
+    ],
+    "清空": [
+      "eraser",
+      "clear"
+    ],
+    "添加": [
+      "plus",
+      "add"
+    ],
+    "新增": [
+      "plus",
+      "add",
+      "new"
+    ],
+    "编辑": [
+      "pencil",
+      "edit",
+      "pen"
+    ],
+    "修改": [
+      "pen",
+      "edit"
+    ],
+    "保存": [
+      "save",
+      "download",
+      "check"
+    ],
+    "搜索": [
+      "search",
+      "find",
+      "magnifier"
+    ],
+    "查找": [
+      "search",
+      "find"
+    ],
+    "筛选": [
+      "filter",
+      "funnel"
+    ],
+    "过滤": [
+      "filter",
+      "funnel"
+    ],
+    "排序": [
+      "sort",
+      "order",
+      "arrow"
+    ],
+    "设置": [
+      "settings",
+      "cog",
+      "gear"
+    ],
+    "配置": [
+      "settings",
+      "cog",
+      "sliders"
+    ],
+    "用户": [
+      "user",
+      "person",
+      "account"
+    ],
+    "账户": [
+      "user",
+      "account",
+      "circle"
+    ],
+    "个人资料": [
+      "user",
+      "profile",
+      "id"
+    ],
+    "团队": [
+      "users",
+      "group",
+      "team"
+    ],
+    "主页": [
+      "home",
+      "house"
+    ],
+    "首页": [
+      "home",
+      "house"
+    ],
+    "菜单": [
+      "menu",
+      "list",
+      "hamburger"
+    ],
+    "关闭": [
+      "x",
+      "close"
+    ],
+    "确认": [
+      "check",
+      "done",
+      "tick"
+    ],
+    "完成": [
+      "check",
+      "done",
+      "complete"
+    ],
+    "取消": [
+      "x",
+      "cancel",
+      "undo"
+    ],
+    "警告": [
+      "alert-triangle",
+      "triangle-alert",
+      "warning"
+    ],
+    "错误": [
+      "circle-x",
+      "alert",
+      "error"
+    ],
+    "成功": [
+      "circle-check",
+      "check"
+    ],
+    "信息": [
+      "info",
+      "circle-info"
+    ],
+    "帮助": [
+      "help",
+      "circle-help",
+      "question"
+    ],
+    "提示": [
+      "info",
+      "lightbulb",
+      "help"
+    ],
+    "通知": [
+      "bell",
+      "notification"
+    ],
+    "消息": [
+      "message",
+      "mail",
+      "chat"
+    ],
+    "聊天": [
+      "chat",
+      "message",
+      "bubble"
+    ],
+    "评论": [
+      "comment",
+      "message",
+      "bubble"
+    ],
+    "邮件": [
+      "mail",
+      "envelope",
+      "inbox"
+    ],
+    "电话": [
+      "phone",
+      "call"
+    ],
+    "视频": [
+      "video",
+      "film",
+      "camera"
+    ],
+    "音频": [
+      "audio",
+      "music",
+      "volume",
+      "speaker"
+    ],
+    "音乐": [
+      "music",
+      "audio",
+      "note"
+    ],
+    "静音": [
+      "volume-off",
+      "volume-x",
+      "mute"
+    ],
+    "播放": [
+      "play"
+    ],
+    "暂停": [
+      "pause"
+    ],
+    "停止": [
+      "stop",
+      "square"
+    ],
+    "录制": [
+      "record",
+      "circle",
+      "video"
+    ],
+    "麦克风": [
+      "mic",
+      "microphone"
+    ],
+    "摄像头": [
+      "camera",
+      "webcam",
+      "video"
+    ],
+    "图片": [
+      "image",
+      "picture",
+      "photo"
+    ],
+    "照片": [
+      "photo",
+      "image",
+      "camera"
+    ],
+    "相册": [
+      "images",
+      "gallery",
+      "album"
+    ],
+    "文件": [
+      "file",
+      "document"
+    ],
+    "文件夹": [
+      "folder",
+      "directory"
+    ],
+    "文档": [
+      "file",
+      "document",
+      "text"
+    ],
+    "上传": [
+      "upload",
+      "upload-cloud"
+    ],
+    "下载": [
+      "download"
+    ],
+    "分享": [
+      "share",
+      "share-2"
+    ],
+    "链接": [
+      "link",
+      "chain",
+      "external"
+    ],
+    "复制": [
+      "copy",
+      "clipboard",
+      "duplicate"
+    ],
+    "粘贴": [
+      "clipboard",
+      "paste"
+    ],
+    "剪切": [
+      "scissors",
+      "cut"
+    ],
+    "打印": [
+      "printer",
+      "print"
+    ],
+    "锁定": [
+      "lock",
+      "locked"
+    ],
+    "解锁": [
+      "unlock",
+      "open",
+      "key"
+    ],
+    "密码": [
+      "key",
+      "lock",
+      "password"
+    ],
+    "安全": [
+      "shield",
+      "lock",
+      "secure"
+    ],
+    "眼睛": [
+      "eye",
+      "view",
+      "visible"
+    ],
+    "隐藏": [
+      "eye-off",
+      "hidden"
+    ],
+    "显示": [
+      "eye",
+      "show"
+    ],
+    "刷新": [
+      "refresh",
+      "refresh-cw",
+      "reload"
+    ],
+    "同步": [
+      "refresh",
+      "sync",
+      "rotate"
+    ],
+    "加载": [
+      "loader",
+      "loading",
+      "spinner"
+    ],
+    "时间": [
+      "clock",
+      "time",
+      "timer"
+    ],
+    "时钟": [
+      "clock",
+      "time"
+    ],
+    "日历": [
+      "calendar",
+      "date"
+    ],
+    "日期": [
+      "calendar",
+      "date"
+    ],
+    "闹钟": [
+      "alarm",
+      "clock",
+      "bell"
+    ],
+    "计时器": [
+      "timer",
+      "clock",
+      "stopwatch"
+    ],
+    "位置": [
+      "map",
+      "pin",
+      "location",
+      "marker"
+    ],
+    "地图": [
+      "map",
+      "location"
+    ],
+    "导航": [
+      "navigation",
+      "compass",
+      "map"
+    ],
+    "购物车": [
+      "shopping-cart",
+      "cart",
+      "trolley"
+    ],
+    "购物": [
+      "shopping",
+      "store",
+      "bag"
+    ],
+    "商店": [
+      "store",
+      "shop",
+      "building"
+    ],
+    "支付": [
+      "credit",
+      "card",
+      "wallet",
+      "payment"
+    ],
+    "钱包": [
+      "wallet",
+      "money",
+      "purse"
+    ],
+    "价格": [
+      "tag",
+      "price",
+      "dollar"
+    ],
+    "标签": [
+      "tag",
+      "label",
+      "bookmark"
+    ],
+    "收藏": [
+      "star",
+      "bookmark",
+      "heart",
+      "favorite"
+    ],
+    "喜欢": [
+      "heart",
+      "like",
+      "thumbs"
+    ],
+    "点赞": [
+      "thumbs",
+      "up",
+      "like"
+    ],
+    "星标": [
+      "star",
+      "favorite"
+    ],
+    "书签": [
+      "bookmark",
+      "flag"
+    ],
+    "旗帜": [
+      "flag"
+    ],
+    "图表": [
+      "chart",
+      "graph",
+      "analytics"
+    ],
+    "柱状图": [
+      "chart",
+      "bar",
+      "column"
+    ],
+    "折线图": [
+      "chart",
+      "line",
+      "trend"
+    ],
+    "饼图": [
+      "chart",
+      "pie",
+      "circle"
+    ],
+    "趋势": [
+      "trend",
+      "trending",
+      "arrow",
+      "chart"
+    ],
+    "增长": [
+      "trending",
+      "up",
+      "arrow",
+      "growth"
+    ],
+    "下降": [
+      "trending",
+      "down",
+      "arrow"
+    ],
+    "数据": [
+      "database",
+      "chart",
+      "data",
+      "server"
+    ],
+    "数据库": [
+      "database",
+      "server",
+      "disc"
+    ],
+    "统计": [
+      "chart",
+      "statistics",
+      "analytics"
+    ],
+    "仪表盘": [
+      "gauge",
+      "dashboard",
+      "layout"
+    ],
+    "进度": [
+      "progress",
+      "loader",
+      "percent"
+    ],
+    "百分比": [
+      "percent",
+      "progress"
+    ],
+    "箭头": [
+      "arrow"
+    ],
+    "向上": [
+      "up",
+      "arrow",
+      "chevron"
+    ],
+    "向下": [
+      "down",
+      "arrow",
+      "chevron"
+    ],
+    "向左": [
+      "left",
+      "arrow",
+      "chevron"
+    ],
+    "向右": [
+      "right",
+      "arrow",
+      "chevron"
+    ],
+    "返回": [
+      "back",
+      "arrow",
+      "left",
+      "undo"
+    ],
+    "前进": [
+      "forward",
+      "arrow",
+      "right",
+      "redo"
+    ],
+    "展开": [
+      "expand",
+      "maximize",
+      "chevron",
+      "plus"
+    ],
+    "折叠": [
+      "collapse",
+      "minimize",
+      "chevron",
+      "minus"
+    ],
+    "全屏": [
+      "maximize",
+      "fullscreen"
+    ],
+    "退出全屏": [
+      "minimize",
+      "shrink"
+    ],
+    "放大": [
+      "zoom-in",
+      "maximize"
+    ],
+    "缩小": [
+      "zoom-out",
+      "minimize"
+    ],
+    "拖动": [
+      "move",
+      "drag",
+      "grip"
+    ],
+    "调整": [
+      "sliders",
+      "settings",
+      "resize"
+    ],
+    "网格": [
+      "grid",
+      "layout"
+    ],
+    "列表": [
+      "list",
+      "rows"
+    ],
+    "表格": [
+      "table",
+      "grid",
+      "sheet"
+    ],
+    "布局": [
+      "layout",
+      "grid",
+      "panel"
+    ],
+    "侧边栏": [
+      "sidebar",
+      "panel",
+      "layout"
+    ],
+    "面板": [
+      "panel",
+      "layout",
+      "square"
+    ],
+    "卡片": [
+      "card",
+      "square",
+      "rectangle"
+    ],
+    "窗口": [
+      "window",
+      "app",
+      "square"
+    ],
+    "标题": [
+      "heading",
+      "type",
+      "title"
+    ],
+    "文本": [
+      "text",
+      "type",
+      "font"
+    ],
+    "字体": [
+      "type",
+      "font",
+      "text"
+    ],
+    "加粗": [
+      "bold"
+    ],
+    "斜体": [
+      "italic"
+    ],
+    "下划线": [
+      "underline"
+    ],
+    "对齐": [
+      "align"
+    ],
+    "居中": [
+      "center",
+      "align"
+    ],
+    "代码": [
+      "code",
+      "terminal",
+      "braces"
+    ],
+    "终端": [
+      "terminal",
+      "console",
+      "command"
+    ],
+    "命令": [
+      "command",
+      "terminal"
+    ],
+    "机器人": [
+      "bot",
+      "robot"
+    ],
+    "人工智能": [
+      "brain",
+      "sparkles",
+      "bot",
+      "cpu"
+    ],
+    "智能": [
+      "sparkles",
+      "brain",
+      "wand"
+    ],
+    "魔法": [
+      "wand",
+      "sparkles",
+      "magic"
+    ],
+    "闪光": [
+      "sparkles",
+      "sparkle",
+      "star"
+    ],
+    "闪电": [
+      "zap",
+      "lightning",
+      "bolt",
+      "flash"
+    ],
+    "能量": [
+      "zap",
+      "battery",
+      "power",
+      "energy"
+    ],
+    "电池": [
+      "battery",
+      "power"
+    ],
+    "电源": [
+      "power",
+      "plug",
+      "zap"
+    ],
+    "灯泡": [
+      "lightbulb",
+      "idea",
+      "lamp"
+    ],
+    "想法": [
+      "lightbulb",
+      "idea",
+      "brain"
+    ],
+    "云": [
+      "cloud"
+    ],
+    "服务器": [
+      "server",
+      "database",
+      "hard-drive"
+    ],
+    "网络": [
+      "network",
+      "wifi",
+      "globe",
+      "share"
+    ],
+    "全球": [
+      "globe",
+      "world",
+      "earth"
+    ],
+    "地球": [
+      "globe",
+      "earth",
+      "world"
+    ],
+    "无线": [
+      "wifi",
+      "signal",
+      "wireless"
+    ],
+    "信号": [
+      "signal",
+      "wifi",
+      "antenna"
+    ],
+    "蓝牙": [
+      "bluetooth"
+    ],
+    "手机": [
+      "smartphone",
+      "phone",
+      "mobile"
+    ],
+    "平板": [
+      "tablet"
+    ],
+    "电脑": [
+      "monitor",
+      "laptop",
+      "computer"
+    ],
+    "笔记本": [
+      "laptop",
+      "notebook"
+    ],
+    "显示器": [
+      "monitor",
+      "screen",
+      "display"
+    ],
+    "键盘": [
+      "keyboard"
+    ],
+    "鼠标": [
+      "mouse",
+      "pointer",
+      "cursor"
+    ],
+    "光标": [
+      "cursor",
+      "pointer",
+      "mouse"
+    ],
+    "打印机": [
+      "printer"
+    ],
+    "芯片": [
+      "cpu",
+      "chip",
+      "microchip"
+    ],
+    "内存": [
+      "memory",
+      "cpu",
+      "hard-drive"
+    ],
+    "硬盘": [
+      "hard-drive",
+      "disc",
+      "database"
+    ],
+    "工具": [
+      "tool",
+      "wrench",
+      "hammer"
+    ],
+    "扳手": [
+      "wrench",
+      "tool",
+      "settings"
+    ],
+    "锤子": [
+      "hammer",
+      "tool"
+    ],
+    "画笔": [
+      "brush",
+      "paintbrush",
+      "pen"
+    ],
+    "调色板": [
+      "palette",
+      "colors",
+      "swatch"
+    ],
+    "颜色": [
+      "palette",
+      "paint",
+      "color",
+      "droplet"
+    ],
+    "滴管": [
+      "pipette",
+      "eyedropper",
+      "droplet"
+    ],
+    "图层": [
+      "layers",
+      "stack"
+    ],
+    "形状": [
+      "shapes",
+      "square",
+      "circle"
+    ],
+    "圆形": [
+      "circle",
+      "round"
+    ],
+    "方形": [
+      "square",
+      "box"
+    ],
+    "三角形": [
+      "triangle"
+    ],
+    "心形": [
+      "heart"
+    ],
+    "礼物": [
+      "gift",
+      "present",
+      "package"
+    ],
+    "包裹": [
+      "package",
+      "box",
+      "gift"
+    ],
+    "盒子": [
+      "box",
+      "package",
+      "archive"
+    ],
+    "归档": [
+      "archive",
+      "box",
+      "folder"
+    ],
+    "书": [
+      "book"
+    ],
+    "书籍": [
+      "book",
+      "library"
+    ],
+    "笔记": [
+      "notebook",
+      "note",
+      "sticky"
+    ],
+    "剪贴板": [
+      "clipboard"
+    ],
+    "附件": [
+      "paperclip",
+      "attachment"
+    ],
+    "回形针": [
+      "paperclip"
+    ],
+    "钥匙": [
+      "key"
+    ],
+    "盾牌": [
+      "shield",
+      "security"
+    ],
+    "指纹": [
+      "fingerprint",
+      "scan"
+    ],
+    "扫描": [
+      "scan",
+      "scanner",
+      "qr"
+    ],
+    "二维码": [
+      "qr",
+      "code",
+      "scan"
+    ],
+    "条形码": [
+      "barcode",
+      "scan"
+    ],
+    "火": [
+      "flame",
+      "fire"
+    ],
+    "火焰": [
+      "flame",
+      "fire"
+    ],
+    "水": [
+      "droplet",
+      "water",
+      "waves"
+    ],
+    "水滴": [
+      "droplet",
+      "drop"
+    ],
+    "波浪": [
+      "waves",
+      "wave"
+    ],
+    "太阳": [
+      "sun",
+      "sunny",
+      "light"
+    ],
+    "月亮": [
+      "moon",
+      "night",
+      "dark"
+    ],
+    "星星": [
+      "star"
+    ],
+    "天气": [
+      "cloud",
+      "sun",
+      "weather"
+    ],
+    "雨": [
+      "rain",
+      "cloud",
+      "droplet"
+    ],
+    "雪": [
+      "snow",
+      "snowflake"
+    ],
+    "风": [
+      "wind",
+      "breeze"
+    ],
+    "温度": [
+      "thermometer",
+      "temperature"
+    ],
+    "眼镜": [
+      "glasses",
+      "eye"
+    ],
+    "耳机": [
+      "headphones",
+      "audio"
+    ],
+    "喇叭": [
+      "speaker",
+      "volume",
+      "megaphone"
+    ],
+    "扩音器": [
+      "megaphone",
+      "speaker",
+      "announce"
+    ],
+    "旗子": [
+      "flag"
+    ],
+    "奖杯": [
+      "trophy",
+      "award",
+      "prize"
+    ],
+    "奖章": [
+      "medal",
+      "award",
+      "badge"
+    ],
+    "皇冠": [
+      "crown",
+      "king",
+      "premium"
+    ],
+    "钻石": [
+      "gem",
+      "diamond",
+      "premium"
+    ],
+    "火箭": [
+      "rocket",
+      "launch"
+    ],
+    "飞机": [
+      "plane",
+      "airplane",
+      "flight"
+    ],
+    "汽车": [
+      "car",
+      "vehicle"
+    ],
+    "卡车": [
+      "truck",
+      "delivery",
+      "shipping"
+    ],
+    "自行车": [
+      "bike",
+      "bicycle"
+    ],
+    "建筑": [
+      "building",
+      "office"
+    ],
+    "房子": [
+      "house",
+      "home"
+    ],
+    "工厂": [
+      "factory",
+      "industry",
+      "building"
+    ],
+    "银行": [
+      "bank",
+      "building",
+      "landmark"
+    ],
+    "医院": [
+      "hospital",
+      "cross",
+      "health"
+    ],
+    "学校": [
+      "school",
+      "graduation",
+      "book"
+    ],
+    "餐厅": [
+      "utensils",
+      "restaurant",
+      "food"
+    ],
+    "咖啡": [
+      "coffee",
+      "cup"
+    ],
+    "咖啡杯": [
+      "coffee",
+      "cup",
+      "mug"
+    ],
+    "披萨": [
+      "pizza",
+      "food"
+    ],
+    "购物袋": [
+      "shopping",
+      "bag"
+    ],
+    "身份": [
+      "id",
+      "badge",
+      "card",
+      "user"
+    ],
+    "证件": [
+      "id",
+      "card",
+      "badge"
+    ],
+    "签名": [
+      "signature",
+      "pen"
+    ],
+    "印章": [
+      "stamp",
+      "seal"
+    ],
+    "合同": [
+      "file",
+      "contract",
+      "signature"
+    ],
+    "发票": [
+      "receipt",
+      "invoice",
+      "file"
+    ],
+    "收据": [
+      "receipt"
+    ],
+    "计算器": [
+      "calculator",
+      "math"
+    ],
+    "加号": [
+      "plus",
+      "add"
+    ],
+    "减号": [
+      "minus",
+      "subtract"
+    ],
+    "等号": [
+      "equal"
+    ],
+    "百分号": [
+      "percent"
+    ],
+    "无穷": [
+      "infinity"
+    ],
+    "问号": [
+      "question",
+      "help"
+    ],
+    "感叹号": [
+      "alert",
+      "exclamation"
+    ],
+    "引号": [
+      "quote"
+    ],
+    "省略号": [
+      "ellipsis",
+      "more",
+      "dots"
+    ],
+    "更多": [
+      "ellipsis",
+      "more",
+      "dots",
+      "plus"
+    ],
+    "开关": [
+      "toggle",
+      "switch",
+      "power"
+    ],
+    "滑块": [
+      "slider",
+      "sliders",
+      "range"
+    ],
+    "复选框": [
+      "checkbox",
+      "check",
+      "square"
+    ],
+    "单选": [
+      "radio",
+      "circle",
+      "dot"
+    ],
+    "输入框": [
+      "input",
+      "form",
+      "text"
+    ],
+    "按钮": [
+      "button",
+      "square",
+      "rectangle"
+    ],
+    "表单": [
+      "form",
+      "input",
+      "clipboard"
+    ],
+    "登录": [
+      "log-in",
+      "login"
+    ],
+    "登出": [
+      "log-out",
+      "logout"
+    ],
+    "退出": [
+      "log-out",
+      "exit"
+    ],
+    "门": [
+      "door"
+    ],
+    "阶梯": [
+      "stairs",
+      "steps"
+    ],
+    "路径": [
+      "route",
+      "path",
+      "map"
+    ],
+    "流程": [
+      "workflow",
+      "flow",
+      "git"
+    ],
+    "分支": [
+      "git-branch",
+      "branch",
+      "split"
+    ],
+    "合并": [
+      "git-merge",
+      "merge",
+      "combine"
+    ],
+    "提交": [
+      "git-commit",
+      "commit",
+      "check"
+    ],
+    "拉取": [
+      "git-pull-request",
+      "pull",
+      "download"
+    ],
+    "版本": [
+      "git",
+      "history",
+      "clock"
+    ],
+    "历史": [
+      "history",
+      "clock",
+      "undo"
+    ],
+    "撤销": [
+      "undo",
+      "undo-2"
+    ],
+    "重做": [
+      "redo",
+      "redo-2"
+    ],
+    "回收": [
+      "recycle",
+      "refresh",
+      "rotate"
+    ],
+    "循环": [
+      "repeat",
+      "loop",
+      "refresh",
+      "rotate"
+    ],
+    "重复": [
+      "repeat",
+      "copy"
+    ],
+    "随机": [
+      "shuffle",
+      "dices",
+      "random"
+    ],
+    "骰子": [
+      "dice",
+      "dices"
+    ],
+    "游戏": [
+      "gamepad",
+      "game",
+      "joystick"
+    ],
+    "拼图": [
+      "puzzle",
+      "piece"
+    ],
+    "锁链": [
+      "link",
+      "chain"
+    ],
+    "断开": [
+      "unlink",
+      "link-2-off",
+      "disconnect"
+    ],
+    "插件": [
+      "plug",
+      "puzzle",
+      "extension"
+    ],
+    "扩展": [
+      "puzzle",
+      "plug",
+      "expand"
+    ],
+    "包": [
+      "package",
+      "box"
+    ],
+    "容器": [
+      "container",
+      "box",
+      "package"
+    ],
+    "过滤器": [
+      "filter",
+      "funnel"
+    ],
+    "漏斗": [
+      "funnel",
+      "filter"
+    ],
+    "沙漏": [
+      "hourglass",
+      "timer"
+    ],
+    "天平": [
+      "scale",
+      "balance"
+    ],
+    "尺子": [
+      "ruler",
+      "measure"
+    ],
+    "指南针": [
+      "compass",
+      "navigation"
+    ],
+    "望远镜": [
+      "telescope",
+      "search",
+      "binoculars"
+    ],
+    "显微镜": [
+      "microscope",
+      "science",
+      "zoom"
+    ],
+    "烧瓶": [
+      "flask",
+      "beaker",
+      "science"
+    ],
+    "试管": [
+      "test-tube",
+      "flask",
+      "science"
+    ],
+    "原子": [
+      "atom",
+      "science",
+      "orbit"
+    ],
+    "大脑": [
+      "brain",
+      "mind",
+      "thinking"
+    ],
+    "心跳": [
+      "activity",
+      "pulse",
+      "heart"
+    ],
+    "活动": [
+      "activity",
+      "pulse",
+      "zap"
+    ],
+    "脉冲": [
+      "activity",
+      "pulse",
+      "wave"
+    ]
+  }
+}

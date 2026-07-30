@@ -77,6 +77,8 @@ node <SKILL_DIR>/scripts/resolve.mjs \
 | `image` | VidMuse text-to-image or image-to-image |
 | `icon` | VidMuse image generation with transparent-icon constraints |
 | `logo` | Lobe Icons → SVGL → Simple Icons → GitHub avatar → favicon; never AI-generated |
+| `shape` `font` `lottie` `palette` | VidMuse Core Pack (preinstalled, offline, licensed); no generative route — a wrong typeface or timeline is worse than a miss |
+| `texture` `overlay` | Core Pack first (adopted project file / Creator Library), then VidMuse image generation. Not preinstalled: surface treatment is film-specific. Prefer CSS/canvas for plain grain and noise |
 | `voice` | VidMuse TTS; voice id comes from `vidmuse voice list` |
 | `video` | VidMuse t2v / i2v / multi-image / reference / avatar model |
 | `grade` | Local paste-ready color-grade block |
@@ -96,6 +98,19 @@ node <SKILL_DIR>/scripts/resolve.mjs \
   --type logo --intent "Codex logo" --entity codex \
   --variant color --provider lobehub.icons --project .
 ```
+
+For preinstalled Core Pack material:
+
+```bash
+node <SKILL_DIR>/scripts/resolve.mjs \
+  --type shape --intent "进度环" --project .
+```
+
+Core Pack runs before generation, works under `--local-only`, and returns a
+license receipt plus the HyperFrames usage contract in the manifest record. To
+browse candidates before resolving — or to see a contact sheet of raster options
+— use `vidmuse-assets/scripts/core_pack.mjs --query`; this skill executes the
+choice rather than making it.
 
 Standalone and in-film semantic asset work enters through `/vidmuse-assets`,
 which supplies the exact query and source/license policy around this command.
