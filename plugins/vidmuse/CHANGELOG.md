@@ -8,6 +8,13 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ## Unreleased
 
+### Packaging-point Timeline clips
+
+- Changed layered DSL generation to expose timed HyperFrames packaging
+  interventions as separate Timeline items instead of one full-duration bar.
+- Added a full-duration compatibility flag and regression coverage for nested,
+  overlapping, hidden, and relative-timed clips.
+
 ### More reliable transcription input
 
 - Added a deterministic ffmpeg/ffprobe utility that extracts speech-ready WAV

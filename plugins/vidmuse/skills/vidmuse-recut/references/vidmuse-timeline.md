@@ -69,14 +69,24 @@ exposure are in [`vidmuse-cli.md`](vidmuse-cli.md).
     {
       "id": "overlay-track",
       "type": "sub",
-      "items": [{
-        "id": "hyperframes-packaging",
-        "type": "hyperframes",
-        "startTime": 0.0,
-        "duration": 60.0,
-        "htmlSourceFilePath": "public/index.html",
-        "params": { "enabled": true, "sourceStartTime": 0.0 }
-      }]
+      "items": [
+        {
+          "id": "hyperframes-title",
+          "type": "hyperframes",
+          "startTime": 4.0,
+          "duration": 3.0,
+          "htmlSourceFilePath": "public/index.html",
+          "params": { "enabled": true, "sourceStartTime": 4.0 }
+        },
+        {
+          "id": "hyperframes-callout",
+          "type": "hyperframes",
+          "startTime": 18.5,
+          "duration": 4.0,
+          "htmlSourceFilePath": "public/index.html",
+          "params": { "enabled": true, "sourceStartTime": 18.5 }
+        }
+      ]
     }
   ],
   "sounds": [{
@@ -100,9 +110,18 @@ Generate with:
 python3 scripts/write_dsl.py "$WORK_DIR" --mode layered
 # early (source + captions only, no overlay yet):
 python3 scripts/write_dsl.py "$WORK_DIR" --mode layered --no-overlay
+# compatibility: deliberately show one full-duration packaging item:
+python3 scripts/write_dsl.py "$WORK_DIR" --mode layered --single-overlay
 # fallback single-file bake review:
 python3 scripts/write_dsl.py "$WORK_DIR" --mode baked
 ```
+
+In layered mode, `write_dsl.py` reads the overlay host's top-level
+`.clip[data-start][data-duration]` and `data-composition-src` windows. It
+merges overlapping DOM pieces of the same intervention and writes the
+remaining disjoint windows as separate Timeline items. This makes Packaging
+appear as editable patches above the continuous source clip. When no timed
+visual window can be read, it falls back to one full-duration item.
 
 ## HyperFrames layer rules (when hung on Timeline)
 
@@ -110,7 +129,8 @@ For **layered** Timeline preview, the packaging HTML must not fight the main tra
 
 - Prefer a **transparent** packaging composition (no full-bleed opaque matte that hides the source unless the design intends a takeover).
 - When Timeline main already owns source A/V, the overlay HTML should **not** also play loud source audio. Mute internal `<video>` / omit `<audio>` in the overlay build, or keep source elements only for HyperFrames-only bake/check passes.
-- Full duration overlay (`startTime: 0`, `duration: total`) is valid for a single ship composition (`public/index.html`).
+- Full duration overlay (`startTime: 0`, `duration: total`) remains valid for a
+  deliberately continuous composition; request it with `--single-overlay`.
 - Per-slot overlays are also valid: one `type:"hyperframes"` item per packaging point / group, with `startTime`/`duration` from the edit or scene plan and `params.sourceStartTime` aligned when one HTML serves many beats:
 
 ```json

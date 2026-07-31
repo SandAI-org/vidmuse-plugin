@@ -20,6 +20,7 @@ import math
 import re
 import subprocess
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
@@ -127,6 +128,225 @@ def pick_overlay_html(work: Path) -> Path | None:
         if c.is_file():
             return c
     return None
+
+
+class _OverlayWindowParser(HTMLParser):
+    """Collect top-level timed visual clips from a HyperFrames host."""
+
+    _VOID_TAGS = {
+        "area",
+        "base",
+        "br",
+        "col",
+        "embed",
+        "hr",
+        "img",
+        "input",
+        "link",
+        "meta",
+        "param",
+        "source",
+        "track",
+        "wbr",
+    }
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.nodes: list[dict[str, Any]] = []
+        self._inside_candidate: list[bool] = []
+
+    @staticmethod
+    def _candidate(tag: str, attrs: dict[str, str]) -> bool:
+        classes = set(attrs.get("class", "").split())
+        return (
+            tag not in {"audio", "video"}
+            and "data-start" in attrs
+            and "data-duration" in attrs
+            and ("clip" in classes or "data-composition-src" in attrs)
+            and "data-hidden" not in attrs
+        )
+
+    def handle_starttag(self, tag: str, raw_attrs: list[tuple[str, str | None]]) -> None:
+        attrs = {key: value or "" for key, value in raw_attrs}
+        parent_is_candidate = self._inside_candidate[-1] if self._inside_candidate else False
+        candidate = self._candidate(tag, attrs)
+        if "data-start" in attrs and "data-duration" in attrs:
+            self.nodes.append(
+                {
+                    "id": attrs.get("id", ""),
+                    "start": attrs["data-start"],
+                    "duration": attrs["data-duration"],
+                    "candidate": candidate and not parent_is_candidate,
+                }
+            )
+        if tag not in self._VOID_TAGS:
+            self._inside_candidate.append(parent_is_candidate or candidate)
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.handle_starttag(tag, attrs)
+        if tag not in self._VOID_TAGS:
+            self.handle_endtag(tag)
+
+    def handle_endtag(self, _tag: str) -> None:
+        if self._inside_candidate:
+            self._inside_candidate.pop()
+
+
+def _finite_number(value: Any) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    return number if math.isfinite(number) else None
+
+
+def extract_overlay_windows(overlay: Path, total_duration: float) -> list[dict[str, Any]]:
+    """Return disjoint master-time windows occupied by packaging clips.
+
+    HyperFrames hosts often contain several DOM nodes for one intervention.
+    Top-level clips are selected, then overlapping windows are merged so the
+    VidMuse Timeline shows editable packaging groups rather than DOM internals.
+    """
+    try:
+        html = overlay.read_text(encoding="utf-8")
+    except OSError as exc:
+        print(f"[warn] could not inspect overlay timing {overlay}: {exc}", file=sys.stderr)
+        return []
+
+    parser = _OverlayWindowParser()
+    try:
+        parser.feed(html)
+    except Exception as exc:
+        print(f"[warn] could not parse overlay timing {overlay}: {exc}", file=sys.stderr)
+        return []
+
+    by_id = {
+        str(node["id"]): node
+        for node in parser.nodes
+        if isinstance(node.get("id"), str) and node["id"]
+    }
+    resolved: dict[int, float | None] = {}
+
+    def resolve_start(node: dict[str, Any], active: set[int] | None = None) -> float | None:
+        key = id(node)
+        if key in resolved:
+            return resolved[key]
+        numeric = _finite_number(node.get("start"))
+        if numeric is not None:
+            resolved[key] = numeric
+            return numeric
+
+        match = re.fullmatch(
+            r"\s*([A-Za-z_][A-Za-z0-9_.:-]*)\s*(?:([+-])\s*(\d+(?:\.\d+)?))?\s*",
+            str(node.get("start", "")),
+        )
+        if not match or match.group(1) not in by_id:
+            resolved[key] = None
+            return None
+        active = set() if active is None else set(active)
+        if key in active:
+            resolved[key] = None
+            return None
+        active.add(key)
+        anchor = by_id[match.group(1)]
+        anchor_start = resolve_start(anchor, active)
+        anchor_duration = _finite_number(anchor.get("duration"))
+        if anchor_start is None or anchor_duration is None:
+            resolved[key] = None
+            return None
+        offset = _finite_number(match.group(3)) or 0.0
+        if match.group(2) == "-":
+            offset *= -1
+        result = anchor_start + anchor_duration + offset
+        resolved[key] = result
+        return result
+
+    limit = max(0.0, float(total_duration))
+    spans: list[dict[str, Any]] = []
+    for node in parser.nodes:
+        if not node.get("candidate"):
+            continue
+        start = resolve_start(node)
+        clip_duration = _finite_number(node.get("duration"))
+        if start is None or clip_duration is None or clip_duration <= 0:
+            continue
+        end = start + clip_duration
+        start = max(0.0, start)
+        end = min(limit, end)
+        if end <= start:
+            continue
+        spans.append(
+            {
+                "start": start,
+                "end": end,
+                "ids": [str(node.get("id") or "")],
+            }
+        )
+
+    spans.sort(key=lambda span: (span["start"], span["end"]))
+    merged: list[dict[str, Any]] = []
+    for span in spans:
+        if merged and span["start"] <= merged[-1]["end"] + 1e-6:
+            merged[-1]["end"] = max(merged[-1]["end"], span["end"])
+            merged[-1]["ids"].extend(item for item in span["ids"] if item)
+        else:
+            merged.append({"start": span["start"], "end": span["end"], "ids": list(span["ids"])})
+
+    return [
+        {
+            "start": round(span["start"], 3),
+            "duration": round(span["end"] - span["start"], 3),
+            "id": next((item for item in span["ids"] if item), ""),
+        }
+        for span in merged
+    ]
+
+
+def build_overlay_items(
+    work: Path,
+    overlay: Path,
+    duration: float,
+    *,
+    single_overlay: bool = False,
+) -> list[dict[str, Any]]:
+    """Build sparse Timeline items, with a full-duration compatibility fallback."""
+    ovr = rel(work, overlay)
+    windows = [] if single_overlay else extract_overlay_windows(overlay, duration)
+    if not windows:
+        return [
+            {
+                "id": "hyperframes-packaging",
+                "type": "hyperframes",
+                "startTime": 0.0,
+                "duration": round(duration, 3),
+                "htmlSourceFilePath": ovr,
+                "params": {"enabled": True, "sourceStartTime": 0.0},
+            }
+        ]
+
+    items: list[dict[str, Any]] = []
+    used_ids: set[str] = set()
+    for index, window in enumerate(windows, 1):
+        label = re.sub(r"[^a-z0-9]+", "-", str(window.get("id", "")).lower()).strip("-")
+        base_id = f"hyperframes-{label}" if label else f"hyperframes-packaging-{index:03d}"
+        item_id = base_id
+        suffix = 2
+        while item_id in used_ids:
+            item_id = f"{base_id}-{suffix}"
+            suffix += 1
+        used_ids.add(item_id)
+        start = float(window["start"])
+        items.append(
+            {
+                "id": item_id,
+                "type": "hyperframes",
+                "startTime": round(start, 3),
+                "duration": round(float(window["duration"]), 3),
+                "htmlSourceFilePath": ovr,
+                "params": {"enabled": True, "sourceStartTime": round(start, 3)},
+            }
+        )
+    return items
 
 
 def pick_audio(work: Path) -> Path | None:
@@ -352,6 +572,7 @@ def build_dsl(
     source_path: Path | None,
     baked_path: Path | None,
     force_duration: float | None,
+    single_overlay: bool = False,
 ) -> dict[str, Any]:
     work = work.resolve()
     project = work.name
@@ -485,21 +706,16 @@ def build_dsl(
     )
 
     if overlay and overlay.is_file():
-        ovr = rel(work, overlay)
         dsl["videoTracks"].append(
             {
                 "id": "overlay-track",
                 "type": "sub",
-                "items": [
-                    {
-                        "id": "hyperframes-packaging",
-                        "type": "hyperframes",
-                        "startTime": 0.0,
-                        "duration": round(duration, 3),
-                        "htmlSourceFilePath": ovr,
-                        "params": {"enabled": True, "sourceStartTime": 0.0},
-                    }
-                ],
+                "items": build_overlay_items(
+                    work,
+                    overlay,
+                    duration,
+                    single_overlay=single_overlay,
+                ),
             }
         )
     else:
@@ -559,6 +775,11 @@ def main(argv: list[str] | None = None) -> int:
     )
     ap.add_argument("--no-overlay", action="store_true", help="layered without hyperframes item")
     ap.add_argument("--overlay", type=Path, default=None, help="override packaging HTML path")
+    ap.add_argument(
+        "--single-overlay",
+        action="store_true",
+        help="mount packaging HTML as one full-duration item instead of timed clip windows",
+    )
     ap.add_argument("--source", type=Path, default=None, help="override source video path")
     ap.add_argument("--baked", type=Path, default=None, help="override output.mp4 path")
     ap.add_argument("--duration", type=float, default=None, help="force totalDuration seconds")
@@ -589,6 +810,7 @@ def main(argv: list[str] | None = None) -> int:
         source_path=args.source,
         baked_path=args.baked,
         force_duration=args.duration,
+        single_overlay=args.single_overlay,
     )
 
     out_path = args.output or (work / "dsl.json")
