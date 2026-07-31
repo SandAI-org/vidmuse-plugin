@@ -134,7 +134,10 @@ No supplied text means **VidMuse ASR → recognized text → VidMuse ATA → wor
 timestamps**. Supplying `--text` or `--text-file` skips ASR and aligns the
 approved text with ATA. ASR alone is never treated as timed captions. Retryable
 ASR CLI/API failures retry twice by default (three total attempts); authentication,
-credit, validation, and other deterministic failures fail immediately.
+credit, validation, and other deterministic failures fail immediately. Local
+media longer than five minutes is automatically converted into overlapping,
+speech-ready WAV chunks, transcribed per chunk, deduplicated, and then aligned
+against the original media.
 
 For one standalone TTS result:
 

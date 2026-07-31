@@ -60,6 +60,11 @@ node <SKILL_DIR>/scripts/transcribe.mjs --input talk.mp4 --out talk.transcribe.j
 - Retryable ASR CLI/API failures retry twice by default (three total attempts).
   Authentication, credit, validation, and other deterministic failures do not
   retry. Use `--asr-retries` to override the retry count.
+- Local media longer than five minutes is split into temporary 16 kHz mono WAV
+  chunks with a two-second overlap. Each chunk is transcribed independently,
+  repeated overlap text is removed, and the merged transcript is aligned to
+  the original media. Override with `--asr-chunk-seconds` and
+  `--asr-chunk-overlap`.
 
 ASR mistakes in names, products, and numbers must be surfaced to the user.
 Corrections require re-running ATA; never hand-edit individual word times.

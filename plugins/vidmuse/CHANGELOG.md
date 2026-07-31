@@ -22,6 +22,8 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 - Made VidMuse ASR retry transient CLI/API failures twice by default with
   exponential backoff, while authentication, credit, validation, and other
   deterministic failures return immediately.
+- Made long local media transcribe through overlapping five-minute WAV chunks,
+  merging repeated boundary text before full-media ATA alignment.
 
 ## 0.5.0 — 2026-07-30
 

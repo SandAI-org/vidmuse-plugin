@@ -3,7 +3,8 @@
 import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { basename, extname, resolve } from "node:path";
 import { parseArgs } from "node:util";
-import { alignWithVidMuse, runVidMuseAsr } from "./lib/vidmuse-cli.mjs";
+import { transcribeMediaWithVidMuse } from "./lib/asr-chunks.mjs";
+import { alignWithVidMuse } from "./lib/vidmuse-cli.mjs";
 import { track } from "./lib/telemetry.mjs";
 
 const { values: args } = parseArgs({
@@ -14,6 +15,8 @@ const { values: args } = parseArgs({
     "text-file": { type: "string" },
     "asr-only": { type: "boolean", default: false },
     "asr-retries": { type: "string", default: "2" },
+    "asr-chunk-seconds": { type: "string", default: "300" },
+    "asr-chunk-overlap": { type: "string", default: "2" },
     json: { type: "boolean", default: false },
     help: { type: "boolean", short: "h", default: false },
   },
@@ -33,7 +36,9 @@ that text to the same media and produces word-level timestamps. Use --text or
 --text-file to skip ASR and align corrected/user-authored text.
 
 ASR retries twice by default after a retryable CLI/API failure (3 attempts
-total). Use --asr-retries 0 to disable retries or 3 to allow 4 attempts.`);
+total). Local media longer than 5 minutes is automatically transcribed in
+overlapping chunks. Use --asr-chunk-seconds and --asr-chunk-overlap to tune
+chunking.`);
   process.exit(0);
 }
 
@@ -99,24 +104,50 @@ function normalizedUtterances(payload, words) {
 try {
   let text = suppliedText();
   let textSource = text ? "provided" : "vidmuse-asr";
+  let asrMeta;
   if (!text) {
-    const asr = runVidMuseAsr(inputPath, {
+    const asr = transcribeMediaWithVidMuse(inputPath, {
       retries: Number(args["asr-retries"]),
-      onRetry({ attempt, maxAttempts, delayMs, error }) {
+      chunkSeconds: Number(args["asr-chunk-seconds"]),
+      overlapSeconds: Number(args["asr-chunk-overlap"]),
+      onChunk({ index, total, start, end }) {
         console.error(
-          `VidMuse ASR attempt ${attempt}/${maxAttempts} failed: ${error.message}; ` +
+          `VidMuse ASR chunk ${index + 1}/${total}: ${formatTime(start)}-${formatTime(end)}`,
+        );
+      },
+      onRetry({ attempt, maxAttempts, delayMs, error, chunk, totalChunks }) {
+        const scope = chunk ? ` chunk ${chunk}/${totalChunks}` : "";
+        console.error(
+          `VidMuse ASR${scope} attempt ${attempt}/${maxAttempts} failed: ${error.message}; ` +
             `retrying in ${delayMs}ms`,
         );
       },
     });
-    text = String(asr?.text || asr?.data?.text || "").trim();
+    text = asr.text;
+    asrMeta = {
+      segmented: asr.segmented,
+      chunk_count: asr.chunk_count,
+      chunk_seconds: asr.chunk_seconds,
+      overlap_seconds: asr.overlap_seconds,
+      duration_seconds: asr.duration_seconds,
+    };
   }
 
   if (args["asr-only"]) {
-    const output = { text, text_source: textSource, words: [], utterances: [] };
+    const output = { text, text_source: textSource, asr: asrMeta, words: [], utterances: [] };
     atomicWrite(outPath, output);
-    if (args.json) console.log(JSON.stringify({ ok: true, out: outPath, text_source: textSource }));
-    else console.log(`transcribed ${basename(String(inputPath))} -> ${outPath} (VidMuse ASR)`);
+    if (args.json) {
+      console.log(
+        JSON.stringify({
+          ok: true,
+          out: outPath,
+          text_source: textSource,
+          asr_chunks: asrMeta?.chunk_count,
+        }),
+      );
+    } else {
+      console.log(`transcribed ${basename(String(inputPath))} -> ${outPath} (VidMuse ASR)`);
+    }
     process.exit(0);
   }
 
@@ -124,6 +155,7 @@ try {
   const output = {
     text,
     text_source: textSource,
+    asr: asrMeta,
     alignment_model: "doubao_speech/audio_text_alignment",
     words: aligned.words,
     utterances: normalizedUtterances(aligned.response, aligned.words),
@@ -139,6 +171,7 @@ try {
         words: output.words.length,
         utterances: output.utterances.length,
         text_source: textSource,
+        asr_chunks: asrMeta?.chunk_count,
       }),
     );
   } else {
@@ -151,4 +184,10 @@ try {
   if (args.json) console.log(JSON.stringify({ ok: false, error: error.message }));
   else console.error(`error: transcription failed: ${error.message}`);
   process.exit(1);
+}
+
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainder = Math.floor(seconds % 60);
+  return `${minutes}:${String(remainder).padStart(2, "0")}`;
 }
