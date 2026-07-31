@@ -69,14 +69,18 @@ genuinely occupies it, reframe the source (`layout-vocabulary.md` camera
 treatments) before relocating the caption.
 
 *Anchors:* one to two lines; comfortable line length for the face size (a
-caption is read in one fixation, not scanned); never let the caption outweigh
-the face in contrast — the person is the film's focal point, the caption is
-its voice-track made visible.
+caption is read in one fixation, not scanned). Simplified Chinese cues prefer
+8–14 full-width character units and cap one line at 16 units at truthful ATA
+word boundaries; use the second line only when one complete phrase cannot
+remain legible on one line.
+Never let the caption outweigh the face in contrast — the person is the film's
+focal point, the caption is its voice-track made visible.
 
 ### Rhythm follows speech, not the metronome
 
 Cue boundaries come from the aligned transcript's utterance grouping — break
-at phrase boundaries, not at character counts. A cue appears when its phrase
+at phrase boundaries first, with the language-specific character limit as an
+overflow guard rather than a blind slicing point. A cue appears when its phrase
 begins and yields when the phrase ends; it never lingers into the next
 thought (the viewer re-reads stale text) and never arrives early (it spoils
 the sentence). Entrance and exit are quiet — opacity or a few pixels of

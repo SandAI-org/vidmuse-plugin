@@ -61,7 +61,22 @@ Scan for words deserving distinct treatment:
 - **Conversational:** 3-5 words. Natural phrases.
 - **Measured/calm:** 4-6 words. Longer groups.
 
-Break on sentence boundaries, 150ms+ pauses, or max word count.
+For Simplified Chinese captions, use these additional limits:
+
+- Prefer 8-14 full-width character units per cue; cap a line at 16 units at
+  truthful ATA word boundaries.
+- Keep one line by default and use no more than two lines.
+- Count full-width CJK characters and punctuation as one unit; half-width Latin
+  characters and punctuation count as half a unit.
+- Treat adult reading speed above 9 character units per second as a review
+  finding; do not fake timing to make the metric pass.
+
+Break on sentence boundaries, complete phrases at soft punctuation, 150ms+
+pauses, or the applicable word/character limit. Phrase boundaries take
+priority, but the character limit remains a hard overflow guard. Never split
+an ATA word merely to satisfy the limit because that would invent timing. If
+one ATA token itself exceeds 16 units, report it for transcript/alignment
+review instead of silently retiming it.
 
 ## Positioning
 

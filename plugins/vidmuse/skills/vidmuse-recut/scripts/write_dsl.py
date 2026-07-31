@@ -20,13 +20,76 @@ import math
 import re
 import subprocess
 import sys
+import unicodedata
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
 
 from asset_gate import check as check_asset_gate
 
-TERMINAL_PUNCT = set("。！？!?再；;…")
+TERMINAL_PUNCT = set("。！？!?；;…")
+SOFT_PUNCT = set("，,、：:")
+CJK_PREFERRED_CUE_UNITS = 14
+CJK_MAX_CUE_UNITS = 16
+CJK_PAUSE_BREAK_SECONDS = 0.15
+DEFAULT_PAUSE_BREAK_SECONDS = 0.45
+
+
+def contains_cjk(text: str) -> bool:
+    return any("\u3400" <= char <= "\u9fff" for char in text)
+
+
+def display_units(text: str) -> float:
+    """Approximate Chinese subtitle width in full-width character units."""
+    return sum(
+        1.0 if unicodedata.east_asian_width(char) in {"W", "F"} else 0.5
+        for char in text
+        if not char.isspace()
+    )
+
+
+def split_cjk_tokens(
+    tokens: list[tuple[str, float, float]],
+) -> list[list[tuple[str, float, float]]]:
+    """Balance an overlong Chinese phrase without splitting ATA tokens."""
+    text = "".join(token[0] for token in tokens)
+    if not contains_cjk(text) or display_units(text) <= CJK_MAX_CUE_UNITS:
+        return [tokens]
+
+    groups: list[list[tuple[str, float, float]]] = []
+    group: list[tuple[str, float, float]] = []
+    group_units = 0.0
+    for token in tokens:
+        token_units = display_units(token[0])
+        if group and group_units + token_units > CJK_MAX_CUE_UNITS:
+            groups.append(group)
+            group = []
+            group_units = 0.0
+        group.append(token)
+        group_units += token_units
+    if group:
+        groups.append(group)
+
+    for index in range(len(groups) - 2, -1, -1):
+        left, right = groups[index], groups[index + 1]
+        while len(left) > 1:
+            left_units = display_units("".join(token[0] for token in left))
+            right_units = display_units("".join(token[0] for token in right))
+            moved_units = display_units(left[-1][0])
+            if right_units + moved_units > CJK_MAX_CUE_UNITS:
+                break
+            before = max(
+                abs(left_units - CJK_PREFERRED_CUE_UNITS),
+                abs(right_units - CJK_PREFERRED_CUE_UNITS),
+            )
+            after = max(
+                abs(left_units - moved_units - CJK_PREFERRED_CUE_UNITS),
+                abs(right_units + moved_units - CJK_PREFERRED_CUE_UNITS),
+            )
+            if after >= before:
+                break
+            right.insert(0, left.pop())
+    return groups
 
 
 def load_json(path: Path) -> Any | None:
@@ -445,37 +508,39 @@ def words_to_subtitles(words: list[dict[str, Any]], duration: float | None) -> l
     scale = 0.001 if max_t > 1000 else 1.0
 
     cues: list[dict[str, Any]] = []
-    buf: list[str] = []
-    cue_start: float | None = None
-    cue_end: float = 0.0
-    pause_break = 0.45  # seconds
+    buf: list[tuple[str, float, float]] = []
 
     def flush():
-        nonlocal buf, cue_start, cue_end
-        if not buf or cue_start is None:
+        nonlocal buf
+        if not buf:
             buf = []
-            cue_start = None
             return
-        text = "".join(buf) if any("\u4e00" <= c <= "\u9fff" for t in buf for c in t) else " ".join(buf)
-        text = re.sub(r"\s+", " ", text).strip()
-        if not text:
-            buf = []
-            cue_start = None
-            return
-        end = cue_end
-        if duration is not None:
-            end = min(end, duration)
-        start = min(cue_start, end)
-        cues.append(
-            {
-                "id": f"subtitle-{len(cues) + 1:03d}",
-                "text": text,
-                "startTime": round(start, 3),
-                "endTime": round(max(end, start + 0.05), 3),
-            }
-        )
+        cjk_context = contains_cjk("".join(token[0] for token in buf))
+        for group in split_cjk_tokens(buf):
+            parts = [token[0] for token in group]
+            joined = "".join(parts) if contains_cjk("".join(parts)) else " ".join(parts)
+            text = re.sub(r"\s+", " ", joined).strip()
+            if not text:
+                continue
+            start = group[0][1]
+            end = group[-1][2]
+            if duration is not None:
+                end = min(end, duration)
+            start = min(start, end)
+            if cjk_context and display_units(text) > CJK_MAX_CUE_UNITS:
+                print(
+                    f"[warn] subtitle ATA token exceeds {CJK_MAX_CUE_UNITS} units: {text!r}",
+                    file=sys.stderr,
+                )
+            cues.append(
+                {
+                    "id": f"subtitle-{len(cues) + 1:03d}",
+                    "text": text,
+                    "startTime": round(start, 3),
+                    "endTime": round(max(end, start + 0.05), 3),
+                }
+            )
         buf = []
-        cue_start = None
 
     prev_end: float | None = None
     for w in words:
@@ -487,18 +552,23 @@ def words_to_subtitles(words: list[dict[str, Any]], duration: float | None) -> l
         if duration is not None:
             s = min(s, duration)
             e = min(e, duration)
+        buffer_text = "".join(token[0] for token in buf)
+        pause_break = (
+            CJK_PAUSE_BREAK_SECONDS
+            if contains_cjk(buffer_text + t)
+            else DEFAULT_PAUSE_BREAK_SECONDS
+        )
         if prev_end is not None and s - prev_end >= pause_break and buf:
             flush()
-        if cue_start is None:
-            cue_start = s
-        buf.append(t)
-        cue_end = e
+        buf.append((t, s, e))
         prev_end = e
         # terminal punct on word
         if t and t[-1] in TERMINAL_PUNCT:
             flush()
+        elif t and t[-1] in SOFT_PUNCT and contains_cjk("".join(token[0] for token in buf)):
+            flush()
         # long cue safety
-        elif cue_start is not None and (e - cue_start) >= 6.0 and buf:
+        elif buf and (e - buf[0][1]) >= 6.0:
             flush()
 
     flush()
