@@ -2,8 +2,10 @@ import { strict as assert } from "node:assert";
 import { test } from "node:test";
 import {
   findMediaUrl,
+  isRetryableAsrError,
   modelSupportsRoute,
   parseVidMuseJson,
+  runVidMuseAsr,
   runVidMuseJson,
   selectVidMuseModel,
   wordsFromAlignment,
@@ -26,6 +28,51 @@ test("runVidMuseJson passes output=json without a shell", () => {
   assert.equal(captured.command, "vidmuse");
   assert.deepEqual(captured.args.slice(-2), ["-o", "json"]);
   assert.equal(captured.options.encoding, "utf8");
+});
+
+test("ASR retries two transient CLI failures and succeeds on the third attempt", () => {
+  let calls = 0;
+  const retries = [];
+  const result = runVidMuseAsr("talk.wav", {
+    retryDelayMs: 0,
+    onRetry(event) {
+      retries.push(event);
+    },
+    spawnSync(command, args) {
+      calls += 1;
+      assert.equal(command, "vidmuse");
+      assert.match(args[3], /"sub_model_type":"asr"/);
+      if (calls < 3) return { status: 1, stdout: "", stderr: "HTTP 503 upstream unavailable" };
+      return { status: 0, stdout: '{"data":{"text":"hello"}}', stderr: "" };
+    },
+  });
+  assert.equal(result.data.text, "hello");
+  assert.equal(calls, 3);
+  assert.equal(retries.length, 2);
+  assert.deepEqual(
+    retries.map(({ attempt, maxAttempts }) => ({ attempt, maxAttempts })),
+    [
+      { attempt: 1, maxAttempts: 3 },
+      { attempt: 2, maxAttempts: 3 },
+    ],
+  );
+});
+
+test("ASR does not retry deterministic authentication and parameter failures", () => {
+  let calls = 0;
+  assert.throws(
+    () =>
+      runVidMuseAsr("talk.wav", {
+        retryDelayMs: 0,
+        spawnSync() {
+          calls += 1;
+          return { status: 1, stdout: "", stderr: "401 unauthorized: please log in" };
+        },
+      }),
+    /unauthorized/,
+  );
+  assert.equal(calls, 1);
+  assert.equal(isRetryableAsrError(new Error("invalid parameter: files")), false);
 });
 
 test("live default model wins for the requested route", () => {

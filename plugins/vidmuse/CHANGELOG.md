@@ -8,6 +8,14 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 
 ## Unreleased
 
+### More reliable transcription input
+
+- Added a deterministic ffmpeg/ffprobe utility that extracts speech-ready WAV
+  audio from uploaded video, with optional compact MP3 output.
+- Made VidMuse ASR retry transient CLI/API failures twice by default with
+  exponential backoff, while authentication, credit, validation, and other
+  deterministic failures return immediately.
+
 ## 0.5.0 — 2026-07-30
 
 ### Distributed creative ownership

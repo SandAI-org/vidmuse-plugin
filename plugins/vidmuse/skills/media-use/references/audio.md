@@ -57,6 +57,9 @@ node <SKILL_DIR>/scripts/transcribe.mjs --input talk.mp4 --out talk.transcribe.j
 - No supplied text: VidMuse ASR returns text, then ATA adds word timing.
 - `--text` / `--text-file`: skip ASR and align approved text.
 - `--asr-only`: text only, explicitly no caption timing.
+- Retryable ASR CLI/API failures retry twice by default (three total attempts).
+  Authentication, credit, validation, and other deterministic failures do not
+  retry. Use `--asr-retries` to override the retry count.
 
 ASR mistakes in names, products, and numbers must be surfaced to the user.
 Corrections require re-running ATA; never hand-edit individual word times.

@@ -3,7 +3,7 @@
 import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { basename, extname, resolve } from "node:path";
 import { parseArgs } from "node:util";
-import { alignWithVidMuse, runVidMuseModel } from "./lib/vidmuse-cli.mjs";
+import { alignWithVidMuse, runVidMuseAsr } from "./lib/vidmuse-cli.mjs";
 import { track } from "./lib/telemetry.mjs";
 
 const { values: args } = parseArgs({
@@ -13,6 +13,7 @@ const { values: args } = parseArgs({
     text: { type: "string" },
     "text-file": { type: "string" },
     "asr-only": { type: "boolean", default: false },
+    "asr-retries": { type: "string", default: "2" },
     json: { type: "boolean", default: false },
     help: { type: "boolean", short: "h", default: false },
   },
@@ -29,7 +30,10 @@ Usage:
 
 Without supplied text, VidMuse ASR first returns the transcript. ATA then aligns
 that text to the same media and produces word-level timestamps. Use --text or
---text-file to skip ASR and align corrected/user-authored text.`);
+--text-file to skip ASR and align corrected/user-authored text.
+
+ASR retries twice by default after a retryable CLI/API failure (3 attempts
+total). Use --asr-retries 0 to disable retries or 3 to allow 4 attempts.`);
   process.exit(0);
 }
 
@@ -96,12 +100,16 @@ try {
   let text = suppliedText();
   let textSource = text ? "provided" : "vidmuse-asr";
   if (!text) {
-    const asr = runVidMuseModel({
-      files: [inputPath],
-      extra_params: { sub_model_type: "asr" },
+    const asr = runVidMuseAsr(inputPath, {
+      retries: Number(args["asr-retries"]),
+      onRetry({ attempt, maxAttempts, delayMs, error }) {
+        console.error(
+          `VidMuse ASR attempt ${attempt}/${maxAttempts} failed: ${error.message}; ` +
+            `retrying in ${delayMs}ms`,
+        );
+      },
     });
     text = String(asr?.text || asr?.data?.text || "").trim();
-    if (!text) throw new Error("VidMuse ASR returned no text");
   }
 
   if (args["asr-only"]) {

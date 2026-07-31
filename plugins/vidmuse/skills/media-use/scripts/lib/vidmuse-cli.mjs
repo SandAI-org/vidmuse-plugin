@@ -22,7 +22,10 @@ function commandError(args, result) {
   const stderr = String(result.stderr || "").trim();
   const stdout = String(result.stdout || "").trim();
   const detail = stderr || stdout || result.error?.message || `exit ${result.status}`;
-  return new Error(`vidmuse ${args.join(" ")} failed: ${detail}`);
+  const error = new Error(`vidmuse ${args.join(" ")} failed: ${detail}`);
+  error.code = result.error?.code;
+  error.vidmuseDetail = detail;
+  return error;
 }
 
 export function parseVidMuseJson(stdout) {
@@ -159,6 +162,58 @@ export function runVidMuseModel(params, options = {}) {
     ["model", "run", "--param", JSON.stringify(params)],
     { ...options, timeout: options.timeout ?? 3_600_000 },
   );
+}
+
+export function runVidMuseAsr(input, options = {}) {
+  const {
+    retries = 2,
+    retryDelayMs = 1000,
+    onRetry,
+    ...modelOptions
+  } = options;
+  if (!Number.isInteger(retries) || retries < 0) {
+    throw new Error("ASR retries must be a non-negative integer");
+  }
+  if (!Number.isFinite(retryDelayMs) || retryDelayMs < 0) {
+    throw new Error("ASR retry delay must be a non-negative number");
+  }
+
+  const maxAttempts = retries + 1;
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const response = runVidMuseModel(
+        {
+          files: [input],
+          extra_params: { sub_model_type: "asr" },
+        },
+        modelOptions,
+      );
+      const text = String(response?.text || response?.data?.text || "").trim();
+      if (!text) throw new Error("VidMuse ASR returned no text");
+      return response;
+    } catch (error) {
+      if (attempt >= maxAttempts || !isRetryableAsrError(error)) throw error;
+      const delayMs = retryDelayMs * 2 ** (attempt - 1);
+      onRetry?.({ attempt, maxAttempts, delayMs, error });
+      sleepMs(delayMs);
+    }
+  }
+  throw new Error("VidMuse ASR failed without an error");
+}
+
+export function isRetryableAsrError(error) {
+  if (error?.code === "ENOENT") return false;
+  const detail = String(error?.vidmuseDetail || error?.message || "");
+  return !(
+    /\b(?:400|401|403|404|422)\b/.test(detail) ||
+    /unauthori[sz]ed|forbidden|not authenticated|login required|please log in/i.test(detail) ||
+    /invalid (?:param|parameter|argument|request)|validation failed|unknown option/i.test(detail) ||
+    /insufficient (?:credit|credits|balance)|model not found|does not support/i.test(detail)
+  );
+}
+
+function sleepMs(ms) {
+  if (ms > 0) Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 }
 
 export function listVidMuseVoices({ modelName, language = "en", limit = 20 } = {}, options = {}) {

@@ -26,3 +26,8 @@ transcript cuts, and semantic edit points. Output contains:
 
 Use `--text-file corrected.txt` to rerun ATA after correcting names or numbers.
 Never hand-edit individual timestamps. `--asr-only` is explicitly untimed.
+
+ASR calls retry transient CLI/API failures twice by default with exponential
+backoff, for at most three attempts. Deterministic authentication, credit,
+validation, and unsupported-model failures return immediately. Override the
+number of retries with `--asr-retries`.

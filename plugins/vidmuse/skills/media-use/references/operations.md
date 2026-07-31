@@ -3,6 +3,22 @@
 AI generation belongs to VidMuse CLI. Deterministic file transforms use local
 ffmpeg/ffprobe, then register the output with `resolve --from`.
 
+## Extract audio
+
+For ASR, transcription, alignment, or speech analysis, extract a mono 16 kHz
+PCM WAV:
+
+```bash
+node <SKILL_DIR>/scripts/extract-audio.mjs --input talk.mp4
+```
+
+The default output is `talk.wav` next to the input. Use `--out speech.wav` to
+choose a path, or `--out speech.mp3` for a smaller stereo 44.1 kHz MP3. WAV is
+the preferred intermediate because it is lossless and avoids another lossy
+decode step; MP3 is appropriate for upload, sharing, and storage-constrained
+workflows. Use `--sample-rate`, `--channels`, and `--bitrate` to override the
+presets.
+
 ## Cut / trim
 
 ```bash

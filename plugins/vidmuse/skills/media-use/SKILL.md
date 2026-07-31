@@ -132,7 +132,9 @@ node <SKILL_DIR>/scripts/transcribe.mjs --input talk.mp4 --text-file approved.tx
 
 No supplied text means **VidMuse ASR → recognized text → VidMuse ATA → word
 timestamps**. Supplying `--text` or `--text-file` skips ASR and aligns the
-approved text with ATA. ASR alone is never treated as timed captions.
+approved text with ATA. ASR alone is never treated as timed captions. Retryable
+ASR CLI/API failures retry twice by default (three total attempts); authentication,
+credit, validation, and other deterministic failures fail immediately.
 
 For one standalone TTS result:
 
@@ -157,6 +159,14 @@ never invent word times.
 Use ffmpeg/ffprobe for cut, crop, reframe, stitch, audio ducking, loudness, and
 format conversion, then register the output with `resolve --from`. These are
 media transforms, not AI provider work. Read `references/operations.md`.
+
+For a speech-recognition-ready WAV (mono, 16 kHz, PCM s16le):
+
+```bash
+node <SKILL_DIR>/scripts/extract-audio.mjs --input talk.mp4
+```
+
+Use `--out talk.mp3` when compact transfer matters more than lossless input.
 
 ## Environment check
 
