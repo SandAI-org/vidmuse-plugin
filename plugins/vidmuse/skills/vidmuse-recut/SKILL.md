@@ -209,6 +209,19 @@ the editorial need is known:
 python3 scripts/effects.py --index
 ```
 
+Prefer `curated` records — especially `native:*` items, which are proven
+in-house mechanisms — before adapting an unreviewed registry item, and before
+writing any effect from scratch. Hand-rolled effects regress to the model's
+mean; the library exists so films inherit wins instead of re-deriving them.
+
+For any beat that should land on speech (hero lines, list reveals, quiet
+passages), resolve the exact word timings first — never guess:
+
+```bash
+python3 scripts/word_sync.py "$WORK_DIR/transcript.json" --find "<phrase>"
+python3 scripts/word_sync.py "$WORK_DIR/transcript.json" --gaps 0.5
+```
+
 Do not stop at a second direction gate when the selected-system HTML faithfully
 implements the chosen candidate. Apply later direction feedback through
 `/vidmuse-design` so `FRAME.md` remains the single visual authority.
@@ -262,6 +275,21 @@ npx hyperframes lint
 npx hyperframes check
 npx hyperframes keyframes public --runtime all
 npx hyperframes snapshot public --at <review-times>
+```
+
+Then run the VidMuse packaging lints on the same evidence. Both are blocking:
+a failure is a named finding in `evaluation.json`, not a style opinion.
+
+```bash
+# Every font stack must resolve inside FRAME.md's resolved families; a CJK
+# stack that can fall through to bare serif ships 宋体 and fails.
+python3 scripts/packaging_lint.py fonts "$WORK_DIR/public/index.html" \
+  --allow "<FRAME.md resolved families, comma-separated>"
+
+# No overlay may cover a detected face (rendered frame vs clean source frame
+# at the same timestamp, full frames at matching aspect).
+python3 scripts/packaging_lint.py faces \
+  --rendered <snapshot.png> --source <source-frame.jpg>
 ```
 
 Packaging may proceed from confirmed hero frames to a full review. Director

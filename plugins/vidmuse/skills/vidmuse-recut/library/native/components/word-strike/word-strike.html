@@ -1,0 +1,119 @@
+<!--
+  VidMuse native component: word-strike (金句砸词)
+
+  A hero line that assembles word by word ON the spoken word: each word pops
+  in at its ASR timestamp; one designated strike word lands harder (heavier
+  weight, accent color, a slam with a small settle). This is the single
+  highest-leverage "alive" move in talking-head packaging — the graphic reacts
+  to the voice instead of decorating it.
+
+  Data source: word timestamps from `scripts/word_sync.py <transcript> --find
+  "<phrase>"`. Never invent timings; if the phrase is not in the transcript,
+  do not use this component.
+
+  Host contract:
+  - Paste the styles and markup into the composition; one copy per hero line.
+  - Build the word spans from real word_sync output, then call
+    attachWordStrike({ timeline, rootSelector, words, strikeIndex, start })
+    once before registering the timeline. `words` is the word_sync `words`
+    array; timestamps are absolute video seconds and the function offsets them
+    against `start` (the moment the line's container is on stage).
+  - Adapt font, size, colors to FRAME.md. The strike color must be the
+    project accent, not this demo's placeholder.
+  - Use at most once or twice per film. A strike on every line is a template.
+
+  Seek-safe: pure GSAP fromTo tweens on the host's paused timeline; no
+  Date.now, no rAF, no CSS animation.
+-->
+<style>
+  .vm-word-strike {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8%;
+    pointer-events: none;
+    z-index: 4;
+  }
+
+  .vm-word-strike-line {
+    max-width: 82%;
+    text-align: center;
+    font-family: var(--vm-ws-font, "Noto Sans SC"), sans-serif;
+    font-size: var(--vm-ws-size, 72px);
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--vm-ws-fg, #fcf6e2);
+    text-shadow: 0 2px 24px rgb(0 0 0 / 45%);
+  }
+
+  .vm-word-strike-line .vm-ws-word {
+    display: inline-block;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  .vm-word-strike-line .vm-ws-strike {
+    font-weight: 900;
+    color: var(--vm-ws-accent, #e8552b);
+  }
+</style>
+
+<div class="vm-word-strike" data-vm-word-strike>
+  <!-- Host rebuilds this line from word_sync output: one span per word,
+       class vm-ws-strike on the strike word. Example shape only. -->
+  <p class="vm-word-strike-line">
+    <span class="vm-ws-word">每次</span>
+    <span class="vm-ws-word">大模型</span>
+    <span class="vm-ws-word">迭代</span>
+    <span class="vm-ws-word">都会</span>
+    <span class="vm-ws-word vm-ws-strike">杀死</span>
+    <span class="vm-ws-word">很多</span>
+    <span class="vm-ws-word">AI</span>
+    <span class="vm-ws-word">初创</span>
+  </p>
+</div>
+
+<script>
+  /**
+   * Attach the word-strike choreography to the host's paused timeline.
+   *
+   * @param {object} opts
+   * @param {gsap.core.Timeline} opts.timeline  host timeline (paused)
+   * @param {string} [opts.rootSelector="[data-vm-word-strike]"]
+   * @param {Array<{text:string,start:number,end:number}>} opts.words
+   *        word_sync output; absolute video seconds. Must align 1:1 with the
+   *        .vm-ws-word spans in document order (merge ASR characters into the
+   *        same groups you rendered as spans).
+   * @param {number} opts.strikeIndex  index of the strike word in `words`
+   * @param {number} opts.start        absolute second the line goes on stage
+   * @param {number} [opts.hold=2.4]   seconds the finished line holds
+   */
+  function attachWordStrike(opts) {
+    var root = document.querySelector(opts.rootSelector || "[data-vm-word-strike]");
+    var spans = root.querySelectorAll(".vm-ws-word");
+    if (spans.length !== opts.words.length) {
+      throw new Error("word-strike: span count " + spans.length + " != words " + opts.words.length);
+    }
+    var tl = opts.timeline;
+    opts.words.forEach(function (w, i) {
+      var at = opts.start + (w.start - opts.words[0].start);
+      if (i === opts.strikeIndex) {
+        // The slam: drop from above at scale, then a short settle.
+        tl.fromTo(spans[i],
+          { opacity: 0, scale: 2.1, y: -30 },
+          { opacity: 1, scale: 1, y: 0, duration: 0.22, ease: "power3.in" }, at);
+        tl.to(spans[i], { scale: 1.06, duration: 0.09, ease: "power1.out" }, at + 0.22);
+        tl.to(spans[i], { scale: 1, duration: 0.12, ease: "power2.out" }, at + 0.31);
+      } else {
+        tl.fromTo(spans[i],
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, at);
+      }
+    });
+    var last = opts.words[opts.words.length - 1];
+    var exitAt = opts.start + (last.end - opts.words[0].start) + (opts.hold == null ? 2.4 : opts.hold);
+    tl.to(root, { opacity: 0, duration: 0.35, ease: "power1.inOut" }, exitAt);
+  }
+</script>
