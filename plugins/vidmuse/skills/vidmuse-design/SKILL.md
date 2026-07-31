@@ -119,11 +119,12 @@ Read only the craft references needed by the decision. For every fresh Recut
 project without a previously approved named look, follow
 `references/direction-picker.md` before authoring `FRAME.md`. The user's choice
 from the single three-candidate `frame-showcase.html` is the only blocking
-direction stop. On an autonomous run, self-select from the same three worlds.
-Skip the comparison only for a pre-approved direction/preset or a resumed
-project with an approved `FRAME.md`. Fixed palette rows in `data/palettes/`
-are exploration seeds, never defaults or a replacement for source-derived
-color.
+direction stop. Self-selection is allowed only when the user explicitly asks
+VidMuse to auto-select the visual direction; a general autonomous or
+"show me what you can do" request is not enough. Skip the comparison only for
+a pre-approved direction/preset or a resumed project with an approved
+`FRAME.md`. Fixed palette rows in `data/palettes/` are exploration seeds, never
+defaults or a replacement for source-derived color.
 
 ## 3. Author the project authority
 
@@ -149,11 +150,12 @@ The validator proves shape, not taste.
 
 Read `references/frame-showcase.md`. Author
 `<project>/frame-showcase.html` from `FRAME.md` tokens and real project
-content. When the file already carried the three-direction gate, update that
-same file to the selected direction's full proof surface; do not emit a
-second HTML. For footage-led films, use real keyframes from the exact treatment
-ranges. Show two or three caption identities, the recommended aspect/layout,
-and the planned density.
+content. When the file already carried the three-direction gate, keep that
+comparison visible, mark the winner, and append the selected direction's full
+proof surface in the same file; do not replace it or emit a second HTML. For
+footage-led films, use real keyframes from the exact treatment ranges. Show two
+or three caption identities, the recommended aspect/layout, and the planned
+density.
 
 Run the counted Taste Gate before presenting. Apply feedback to `FRAME.md`
 first, then update the showcase so the two artifacts cannot disagree.

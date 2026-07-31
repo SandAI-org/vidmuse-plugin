@@ -48,8 +48,11 @@ project artifact under `videos/<project-name>/` or a user-named work directory.
 
 Proceed without asking for safe, in-scope local work: inspection, transcript
 alignment, deterministic asset resolution, planning, composition, and
-validation. Pause at two creative gates unless the user requested an
-autonomous run:
+validation. Coverage may be skipped when the user explicitly requests an
+autonomous run. The fresh-project direction gate is stricter: pause unless the
+user already approved a named look/preset or explicitly asked VidMuse to
+auto-select the visual direction. Generic requests such as "直接做", "看看实力",
+"完整做完", or "在隔离环境试跑" do not authorize a direction skip.
 
 - **coverage:** production mode, chapters/acts, proposed interventions, quiet
   passages, and any generated-video proposal;
@@ -57,7 +60,7 @@ autonomous run:
   project-grounded worlds in `frame-showcase.html`; that choice authorizes the
   single winning `FRAME.md` and the selected-system version of the same HTML.
 
-Record an autonomous skip in the relevant artifact. Generated video inside a
+Record any authorized skip in the relevant artifact. Generated video inside a
 recut needs per-instance approval unless the BRIEF already authorizes it.
 Export `final.mp4` only after Timeline approval. If ASR fails, ask for text
 once; do not loop.
@@ -185,9 +188,12 @@ approved asset references. Pass `film_mode: recut-packaging` or
 `FRAME.md` contract, caption identity, and real-footage showcase gate. On every
 fresh Recut project without a previously approved named look, it follows
 `references/direction-picker.md`: before the one direction stop, it emits only
-one `frame-showcase.html` containing exactly three candidates. The user's
-choice satisfies the direction gate; Design then writes the single winning
-`FRAME.md`, updates the same HTML, and returns:
+one `frame-showcase.html` containing exactly three showcase-grade candidates.
+Present its path and the three names, then end the turn; do not write
+`FRAME.md`, choose a winner, or start production until the user replies. The
+user's choice satisfies the direction gate. Design then writes the single
+winning `FRAME.md`, preserves the three-way comparison in the same HTML, adds
+the selected-system proof below it, and returns:
 
 - project `FRAME.md` and `frame-showcase.html`;
 - a successful `frame_md.py --check` report;

@@ -8,15 +8,19 @@ before any timeline work.
 The same file has two successive states on a fresh Recut project:
 
 1. **Direction selection:** exactly three complete, project-grounded worlds
-   share the page; each shows real content, core tokens, frame/caption grammar,
-   motion temperament, fit, and risk. One is recommended and the user chooses.
-2. **Selected-system proof:** after the choice, update the same file from the
-   winning `FRAME.md` into the full contract below. This is review evidence,
-   not a second blocking gate when it faithfully implements the user's choice.
+   share the page. Each renders the same three or more project moments: a
+   source/caption state, a developed proof/treatment state, and another layout
+   state with live motion temperament. One is recommended; the page is shown
+   and work stops until the user chooses.
+2. **Selected-system proof:** after the choice, keep the comparison visible,
+   mark the winner, and append the full contract below from the winning
+   `FRAME.md`. This is review evidence, not a second blocking gate when it
+   faithfully implements the user's choice.
 
 Candidate tokens in the first state are scoped comparison material, not three
 project authorities. Do not create extra FRAME, JSON, or HTML artifacts for
-them. The one-source-of-truth rules below apply after selection.
+them. Do not remove their comparison section after selection. The
+one-source-of-truth rules below apply to the appended selected-system proof.
 
 It replaces the old template-generated style board. There is no generator
 script. The selection state follows `direction-picker.md`; after selection,

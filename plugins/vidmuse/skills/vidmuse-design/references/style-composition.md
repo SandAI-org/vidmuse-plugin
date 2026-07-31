@@ -195,8 +195,9 @@ on real footage in the frame showcase and rendered review.
    - When the direction gate is active, present the candidates to the user at
      or before the showcase round; the user's pick is the external dice that
      keeps the film off the average.
-   - On an autonomous run, self-compare the candidates against the charter
-     dimensions and record why the winner won *and* why each loser lost.
+   - Only when the user explicitly requests automatic visual-direction
+     selection, self-compare the candidates against the charter dimensions and
+     record why the winner won *and* why each loser lost.
      Diversity must be checkable, not claimed: each candidate names a
      different would-be `anchor` (or explicit no-anchor) and a different
      primary material in terms FRAME.md would use — candidates that differ
