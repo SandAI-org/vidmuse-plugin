@@ -9,23 +9,26 @@ selection begins.
 Production mode is a **density and image-ownership choice**, not a quality
 ladder. Packaging films can be excellent; Director films can be overcooked.
 
-Choose **Packaging mode** when:
+Start in **Director mode**. This means planning the complete viewing experience
+— including source-only passages — rather than filling the frame with graphics.
 
-- the plate is mostly single-camera talking head without B-roll, product demo,
-  or true on-screen data;
-- the user asks for restrained / source-led treatment, or never asked for
-  launch-film / promo / full-frame redesign language;
-- runtime is short (≈≤3 min mono) and credibility lives in the speaker's face.
+Use **Packaging mode** instead when:
 
-Choose **Director mode** when:
+- the user explicitly asks for restrained, overlay-led, or source-led
+  treatment; or
+- the approved brief already fixes Packaging as the production mode.
 
-- the user explicitly wants official-sample, launch-film, promo, motion-film,
-  or effect-first quality; **or**
-- the argument truly needs full-frame visual proof the plate cannot carry
-  (comparisons, causal systems, product states) — and those proofs stay scarce.
+Keep **Director mode** when:
 
-If unsure, draft Packaging density first; escalate only named beats to Director
-proof rather than labeling the whole film "Director" by habit.
+- the request does not explicitly select Packaging;
+- the user wants official-sample, launch-film, promo, motion-film, or
+  effect-first quality; **or**
+- the argument benefits from planned acts, source-state changes, proof scenes,
+  sound direction, or deliberate quiet.
+
+If unsure, keep Director's scene-level reasoning and default individual beats
+to source-only or light treatment. Escalate only named proofs; do not treat the
+mode label as permission to over-design.
 
 Record the choice and evidence in `video-context.json`. Do not infer permission
 to generate unlicensed music, synthetic people, or external footage from

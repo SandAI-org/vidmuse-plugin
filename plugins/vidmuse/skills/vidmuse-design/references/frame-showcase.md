@@ -1,14 +1,32 @@
 # Frame Showcase
 
-`frame-showcase.html` is the confirmation-gate artifact: a single self-contained
-HTML page, authored by you for this project, that lets the user see the design
-system live and see it landing on their own footage — before any timeline work.
+`frame-showcase.html` is the direction-gate and design-evidence artifact: a
+single self-contained HTML page, authored by you for this project, that lets
+the user see the design system live and see it landing on their own footage —
+before any timeline work.
+
+The same file has two successive states on a fresh Recut project:
+
+1. **Direction selection:** exactly three complete, project-grounded worlds
+   share the page; each shows real content, core tokens, frame/caption grammar,
+   motion temperament, fit, and risk. One is recommended and the user chooses.
+2. **Selected-system proof:** after the choice, update the same file from the
+   winning `FRAME.md` into the full contract below. This is review evidence,
+   not a second blocking gate when it faithfully implements the user's choice.
+
+Candidate tokens in the first state are scoped comparison material, not three
+project authorities. Do not create extra FRAME, JSON, or HTML artifacts for
+them. The one-source-of-truth rules below apply after selection.
 
 It replaces the old template-generated style board. There is no generator
-script; you write the page the way the private VidMuse frame packs write
-theirs, driven entirely by the work directory's `FRAME.md`.
+script. The selection state follows `direction-picker.md`; after selection,
+write the page the way the private VidMuse frame packs write theirs, driven
+entirely by the work directory's `FRAME.md`.
 
-## Contract
+## Selected-system proof contract
+
+Everything from this heading onward applies only after the user has selected a
+direction and the winning `FRAME.md` exists.
 
 **One source of truth.** Every color, font, size, radius, and motion value on
 the page comes from `FRAME.md` frontmatter, wired through CSS custom properties
@@ -88,9 +106,9 @@ treatment belongs to a section the scene detector skipped. Choose the frame
 each treatment actually sits on — a hook treatment on the opening frame, a
 quote treatment on the frame where the quote is spoken.
 
-## Review before showing
+## Review selected-system proof
 
-Before presenting the page, open it yourself and run the FRAME.md
+Before sharing the proof page, open it yourself and run the FRAME.md
 Pre-Render Self-Audit **and Taste Gate** against the treatment frames —
 squint, silence, restraint, anchor, fabrication, source-led share, status-chrome
 cap, single-anchor honesty. Fix what fails.
@@ -125,12 +143,14 @@ the film's declared band, and no treatment's graphics occupy it without a
 recorded reason. A showcase whose treatments each look fine but collectively
 crowd the caption out of its zone is the failure this section exists to catch.
 
-Gate question order for the user (and yourself):
+Review question order:
 
 1. Does this look like **this room / this person**?
 2. Is the argument clearer without turning into a methodology deck?
 
-The user's round is for direction decisions, not for catching contrast bugs.
+Run these questions yourself. Reopen user input only when this proof exposes a
+material departure from the selected candidate; otherwise do not create a
+second direction stop.
 
 ## Taste tells that fail the gate
 
@@ -144,6 +164,6 @@ The user's round is for direction decisions, not for catching contrast bugs.
   reason — or the page shows no caption at all, leaving the film's most
   constant element unconfirmed.
 
-Present the page path to the user together with the render-strategy questions
-(aspect, canvas layout, intervention plan). Apply corrections to `FRAME.md`
-first, then re-wire the showcase tokens — the two artifacts never disagree.
+Share the selected-system page as non-blocking evidence, then continue. Apply
+corrections to `FRAME.md` first, then re-wire the showcase tokens — the two
+artifacts never disagree.

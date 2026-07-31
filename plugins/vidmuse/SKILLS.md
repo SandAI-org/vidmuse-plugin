@@ -60,6 +60,9 @@ Keep product skills as thin control layers:
   outputs, and blocking success criteria.
 - State each instruction once. Put schemas, catalogs, examples, craft rules,
   and troubleshooting in a named reference or deterministic script.
+- For policy-only workflow changes, reuse existing artifacts and templates.
+  Do not introduce a schema migration, validator, or persistent artifact unless
+  the requested user outcome requires it.
 - Load references by decision branch; do not make every run read every path.
 - Keep a constraint only when it protects safety, product truth, workflow
   ownership, or a measured failure. Prefer explaining the reason over adding

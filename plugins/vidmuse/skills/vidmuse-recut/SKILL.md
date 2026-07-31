@@ -4,8 +4,8 @@ description: >
   Recut or package existing speaking footage into a designed VidMuse film.
   Use for talking-heads, interviews, podcasts, founder or product explainers,
   and launch-film treatments that need captions, visual proof, kinetic type,
-  reframing, PiP, or mixed media. Default to source-led Packaging; use Director
-  density for explicit launch/promo intent or evidence the plate cannot carry.
+  reframing, PiP, or mixed media. Start in source-grounded Director mode;
+  Packaging is an explicit restrained alternative, not the silent default.
   Use media-use for standalone transcription, trimming, cropping, or another
   single media result. Use vidmuse-create when no speaking footage exists.
 ---
@@ -26,9 +26,10 @@ justified proof scene.
 1. **Preserve truth.** Derive words, timing, claims, identity, and source state
    from the recording and approved material. Never invent word times, data, UI
    proof, or brand assets.
-2. **Choose density, not prestige.** Packaging is correct when the speaker and
-   room carry the film. Director mode earns full-frame scenes through explicit
-   launch intent or evidence the plate cannot show.
+2. **Direct by default; spend density deliberately.** Director mode plans the
+   complete film but may still choose quiet, source-only scenes. It does not
+   authorize constant full-frame graphics. Use Packaging when the user asks
+   for a restrained overlay-led treatment.
 3. **Direct before selecting effects.** Map the argument, relations, energy,
    quiet passages, and visual proofs before browsing mechanisms.
 4. **Keep one visual authority.** User intent and source footage lead;
@@ -52,8 +53,9 @@ autonomous run:
 
 - **coverage:** production mode, chapters/acts, proposed interventions, quiet
   passages, and any generated-video proposal;
-- **direction:** `FRAME.md`, treatments on real keyframes, caption identity,
-  aspect/layout, and intervention density.
+- **direction:** on a fresh project, the user's choice from exactly three
+  project-grounded worlds in `frame-showcase.html`; that choice authorizes the
+  single winning `FRAME.md` and the selected-system version of the same HTML.
 
 Record an autonomous skip in the relevant artifact. Generated video inside a
 recut needs per-instance approval unless the BRIEF already authorizes it.
@@ -128,12 +130,15 @@ Build `video-context.json` from the full transcript, metadata, request, brand
 material, and representative frames. Inspect frames when composition, subject
 position, shot changes, demonstrations, or safe zones affect a decision.
 
-Use `references/director-pass.md` to choose production mode:
+Use `references/director-pass.md` to confirm production mode:
 
-- default to **Packaging** for a mostly static speaking plate whose credibility
-  lives in the speaker;
-- choose **Director** for explicit launch/promo/motion-film intent or scarce
-  full-frame proof the plate cannot carry.
+- start in **Director** so acts, source states, quiet passages, proof, handoffs,
+  and sound are deliberately planned;
+- use **Packaging** only when the user explicitly asks for restrained,
+  source-led overlay treatment or the approved brief already fixes that mode.
+
+Director is the planning default, not a density quota. A mostly static speaking
+plate may remain source-led for most of its runtime.
 
 Mode controls density and artifacts, not permission to generate media.
 
@@ -177,8 +182,12 @@ approved asset references. Pass `film_mode: recut-packaging` or
 `film_mode: recut-director` from the active Recut mode.
 
 `vidmuse-design` privately owns the taste catalogs, preset frame packs,
-`FRAME.md` contract, caption identity, and real-footage showcase gate. It
-returns:
+`FRAME.md` contract, caption identity, and real-footage showcase gate. On every
+fresh Recut project without a previously approved named look, it follows
+`references/direction-picker.md`: before the one direction stop, it emits only
+one `frame-showcase.html` containing exactly three candidates. The user's
+choice satisfies the direction gate; Design then writes the single winning
+`FRAME.md`, updates the same HTML, and returns:
 
 - project `FRAME.md` and `frame-showcase.html`;
 - a successful `frame_md.py --check` report;
@@ -194,9 +203,9 @@ the editorial need is known:
 python3 scripts/effects.py --index
 ```
 
-Wait at the direction gate unless autonomy was authorized. Apply direction
-feedback through `/vidmuse-design` so `FRAME.md` remains the single visual
-authority.
+Do not stop at a second direction gate when the selected-system HTML faithfully
+implements the chosen candidate. Apply later direction feedback through
+`/vidmuse-design` so `FRAME.md` remains the single visual authority.
 
 ### 5. Plan and build
 

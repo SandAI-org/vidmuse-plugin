@@ -50,7 +50,7 @@ Load only the slice needed for the current decision:
 | What good means and who wins conflicts | `references/aesthetic-charter.md`, then `references/taste-authority.md` |
 | Choose Preset vs Composed and author tokens | `references/style-composition.md` |
 | Resolve frame composition, type, or motion character | `references/video-frame-craft.md`, `references/typography-craft.md`, or `references/motion-temperament.md` |
-| Compare genuinely different visual worlds | `references/direction-picker.md` and `templates/direction-picker.html` |
+| Run the fresh-project three-direction gate | `references/direction-picker.md` and `templates/direction-picker.html` |
 | Inspect available looks | run `scripts/taste.py --index` for one domain |
 | Inspect a candidate | run `scripts/taste.py <ids> --get --domain <domain>` |
 | Validate project design tokens | run `scripts/frame_md.py <project>/FRAME.md --check` |
@@ -115,16 +115,21 @@ Name the obvious category rut before selecting. Use zero or one profile anchor,
 derive exact tokens from the film evidence, and record why serious alternatives
 lost. Profiles are precedents, not token templates.
 
-Read only the craft references needed by the decision. If more than one
-credible visual world remains, use the optional two-phase direction picker;
-otherwise proceed directly. Fixed palette rows in `data/palettes/` are
-exploration seeds, never defaults or a replacement for source-derived color.
+Read only the craft references needed by the decision. For every fresh Recut
+project without a previously approved named look, follow
+`references/direction-picker.md` before authoring `FRAME.md`. The user's choice
+from the single three-candidate `frame-showcase.html` is the only blocking
+direction stop. On an autonomous run, self-select from the same three worlds.
+Skip the comparison only for a pre-approved direction/preset or a resumed
+project with an approved `FRAME.md`. Fixed palette rows in `data/palettes/`
+are exploration seeds, never defaults or a replacement for source-derived
+color.
 
 ## 3. Author the project authority
 
-Write `<project>/FRAME.md` using schema `vidmuse.design.frame.v1` and the
-contract in `references/style-composition.md`. It is the sole authored token
-law for:
+After the direction is selected, write `<project>/FRAME.md` using schema
+`vidmuse.design.frame.v1` and the contract in
+`references/style-composition.md`. It is the sole authored token law for:
 
 - colors, type, spacing, material and depth;
 - motion temperament rather than implementation tweens;
@@ -144,7 +149,9 @@ The validator proves shape, not taste.
 
 Read `references/frame-showcase.md`. Author
 `<project>/frame-showcase.html` from `FRAME.md` tokens and real project
-content. For footage-led films, use real keyframes from the exact treatment
+content. When the file already carried the three-direction gate, update that
+same file to the selected direction's full proof surface; do not emit a
+second HTML. For footage-led films, use real keyframes from the exact treatment
 ranges. Show two or three caption identities, the recommended aspect/layout,
 and the planned density.
 

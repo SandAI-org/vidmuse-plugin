@@ -188,9 +188,8 @@ on real footage in the frame showcase and rendered review.
 4. **Build a diverse shortlist.** Propose candidate directions drawn from at
    least two different visual cultures or material families, each grounded in
    something this footage actually offers (room, wardrobe, light, content
-   metaphor). Three candidates is the default; a short Packaging-mode film
-   (roughly ≤3 min, quiet plate) may carry two — the burden scales with how
-   much direction the film will actually hold. If all candidates share one
+   metaphor). Every fresh Recut direction gate carries exactly three
+   candidates. If all candidates share one
    material family, the derivation stopped at the most obvious association —
    widen it.
    - When the direction gate is active, present the candidates to the user at
