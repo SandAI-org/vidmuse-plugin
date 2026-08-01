@@ -222,10 +222,10 @@ python3 scripts/effects.py --index
 
 Prefer `curated` records — especially `native:*` items, which are proven
 in-house mechanisms — before adapting an unreviewed registry item, and before
-writing any effect from scratch. Records with a `preview` field carry a
-rendered PNG next to the effect source; open it before choosing between
-candidates, and regenerate it with `scripts/render_previews.py` after editing
-an effect. Hand-rolled effects regress to the model's
+writing any effect from scratch. Library items supply supporting grammar
+(identity, chapters, captions, camera moves); the film's signature sequence
+must grow out of this video's content, footage, or metaphor — library items
+may serve as its parts, never as the finished move. Hand-rolled effects regress to the model's
 mean; the library exists so films inherit wins instead of re-deriving them.
 
 For any beat that should land on speech (hero lines, list reveals, quiet
