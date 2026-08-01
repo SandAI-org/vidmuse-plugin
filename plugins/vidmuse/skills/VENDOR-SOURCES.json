@@ -1,6 +1,6 @@
 {
   "schema": "vidmuse.plugin-vendor.v1",
-  "pluginVersion": "0.5.0",
+  "pluginVersion": "0.5.1",
   "vendoredAt": "2026-07-22T03:21:16Z",
   "hyperframes": {
     "source": "local-clone",
@@ -33,6 +33,12 @@
     "skills/vidmuse-design/SKILL.md": "Private VidMuse visual-direction capability: progressive taste lookup, private frame packs, project FRAME.md, caption identity, treatment grammar, and real-content showcase.",
     "skills/media-use": "Adapted from the vendored Media OS into a user-facing VidMuse media capability and shared runtime: standalone ASR/ATA/TTS/generation/transforms, exact workflow execution, no film or semantic-asset ownership.",
     "skills/hyperframes-cli": "VidMuse boundary patch: composition/render-engine operations only; general doctor, TTS, transcription, background edits, AI generation, provider auth, and product delivery route through media-use + VidMuse CLI.",
+    "0.5.1": [
+      "closed Recut startup, transcript materialization, automatic source-frame extraction, and Timeline refresh gaps",
+      "added explicit Timeline versus HyperFrames caption ownership to prevent duplicate spoken captions",
+      "made Create's agency pre-production contract opt-in while preserving a compact standard production path",
+      "separated unavailable validation coverage from failed checks and aligned evaluation passes with documented review stages"
+    ],
     "0.5.0": [
       "retired the standalone creative compatibility skill and distributed its capabilities across focused VidMuse and HyperFrames skills",
       "vidmuse-design owns frame craft, typography semantics, motion temperament, direction comparison, adherence review, 13 private frame packs, and palette seeds",

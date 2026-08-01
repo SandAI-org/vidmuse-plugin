@@ -25,6 +25,19 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 - Made long local media transcribe through overlapping five-minute WAV chunks,
   merging repeated boundary text before full-media ATA alignment.
 
+## 0.5.1 — 2026-08-01
+
+### Workflow reliability
+
+- Closed Recut startup ordering and transcript-shape gaps, and added automatic
+  timestamped source-frame extraction for grounded safe-zone analysis.
+- Added explicit Timeline/HyperFrames caption ownership and mandatory DSL
+  refreshes after timing corrections and before delivery.
+- Made Create's agency pre-production contract opt-in while retaining a
+  compact standard path and executable baked Timeline delivery.
+- Distinguished partial or unavailable validation coverage from real failures,
+  and aligned evaluation passes with the documented review loop.
+
 ## 0.5.0 — 2026-07-30
 
 ### Distributed creative ownership
