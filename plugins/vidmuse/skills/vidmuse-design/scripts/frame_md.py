@@ -57,6 +57,17 @@ MODES = ("preset", "composed")
 PRODUCTION_MODES = ("packaging", "director")
 FILM_MODES = ("recut-packaging", "recut-director", "create")
 CREATE_PATHS = ("promo", "explainer", "vox")
+TREATMENT_WEIGHTS = (
+    "bare-text",
+    "emphasis",
+    "line-mark",
+    "camera",
+    "diagram",
+    "panel-card",
+    "grammar",
+)
+TREATMENT_SURFACES = ("none", "full-field", "panel")
+TREATMENT_BACKINGS = ("none", "gradient", "solid", "translucent")
 REQUIRED_MOTION = ("dur_fast", "dur_base", "dur_slow", "ease_enter", "ease_exit")
 REQUIRED_FILM_SPINE = (
     "editorial_stance",
@@ -250,6 +261,62 @@ def _lint_current(spec: dict[str, Any], source: str) -> dict[str, Any]:
                     f"create_path must be one of {CREATE_PATHS} in create mode, "
                     f"got {create_path!r}"
                 )
+
+        treatments = spec.get("treatments")
+        if film_mode == "recut-packaging":
+            if not isinstance(treatments, dict) or not treatments:
+                problems.append(
+                    "treatments must be a non-empty mapping in recut-packaging mode; "
+                    "the production handoff may not infer surface geometry from prose"
+                )
+            else:
+                for treatment_id, treatment in treatments.items():
+                    label = f"treatments.{treatment_id}"
+                    if not isinstance(treatment_id, str) or not treatment_id.strip():
+                        problems.append("treatments keys must be non-empty strings")
+                        continue
+                    if not isinstance(treatment, dict):
+                        problems.append(f"{label} must be a mapping")
+                        continue
+                    weight = treatment.get("weight")
+                    surface = treatment.get("surface")
+                    backing = treatment.get("backing")
+                    source = treatment.get("source")
+                    approved_frame = treatment.get("approved_frame")
+                    required = treatment.get("required_in_production")
+                    max_instances = treatment.get("max_instances")
+                    if weight not in TREATMENT_WEIGHTS:
+                        problems.append(f"{label}.weight must be one of {TREATMENT_WEIGHTS}")
+                    if surface not in TREATMENT_SURFACES:
+                        problems.append(f"{label}.surface must be one of {TREATMENT_SURFACES}")
+                    if backing not in TREATMENT_BACKINGS:
+                        problems.append(f"{label}.backing must be one of {TREATMENT_BACKINGS}")
+                    for field, value, suffixes in (
+                        ("source", source, (".html",)),
+                        ("approved_frame", approved_frame, (".png", ".jpg", ".jpeg", ".webp")),
+                    ):
+                        if not isinstance(value, str) or not value.strip():
+                            problems.append(f"{label}.{field} must be a relative path")
+                        else:
+                            candidate = Path(value)
+                            if candidate.is_absolute() or ".." in candidate.parts:
+                                problems.append(f"{label}.{field} must stay inside the project")
+                            if candidate.suffix.lower() not in suffixes:
+                                problems.append(f"{label}.{field} must end in one of {suffixes}")
+                    if not isinstance(required, bool):
+                        problems.append(f"{label}.required_in_production must be true or false")
+                    if not isinstance(max_instances, int) or isinstance(max_instances, bool) or max_instances < 1:
+                        problems.append(f"{label}.max_instances must be a positive integer")
+                    if surface == "none" and backing != "none":
+                        problems.append(f"{label}: surface none requires backing none")
+                    if surface == "full-field" and backing == "none":
+                        problems.append(f"{label}: full-field surface requires a visible backing")
+                    if surface == "panel" and backing == "none":
+                        problems.append(f"{label}: panel surface requires a visible backing")
+                    if surface == "panel" and weight != "panel-card":
+                        problems.append(f"{label}: panel surface must use weight panel-card")
+                    if weight == "panel-card" and surface != "panel":
+                        problems.append(f"{label}: weight panel-card must use surface panel")
     elif schema == SCHEMA_V5:
         production_mode = spec.get("production_mode")
         if production_mode not in PRODUCTION_MODES:
@@ -306,6 +373,7 @@ def _lint_current(spec: dict[str, Any], source: str) -> dict[str, Any]:
         "typography": len(typography),
         "spacing": len(spacing),
         "components": len(components or {}),
+        "treatments": len(spec.get("treatments") or {}),
     }
     if schema == SCHEMA_DESIGN_V1:
         report.update(

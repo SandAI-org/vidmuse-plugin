@@ -25,6 +25,20 @@ Format: version <= git tag conceptually; plugin and package.json versions stay i
 - Made long local media transcribe through overlapping five-minute WAV chunks,
   merging repeated boundary text before full-media ATA alignment.
 
+## 0.5.2 — 2026-08-01
+
+### Locked visual-direction handoff
+
+- Promoted selected Packaging treatments into reusable HTML sources shared by
+  the showcase and production instead of asking production to redraw the look.
+- Added an executable `FRAME.md.treatments` surface contract and
+  `design-lock.json` hashes for FRAME/showcase/CSS/treatment/evidence continuity.
+- Added final precheck failures for redrawn sources, surface/weight drift,
+  panel-card budget violations, missing treatment comparisons, and material
+  rendered-vs-approved frame differences.
+- Added strict Packaging evaluation v2 evidence requirements; legacy v1
+  evaluations remain readable but can no longer claim `ready` or `approved`.
+
 ## 0.5.1 — 2026-08-01
 
 ### Workflow reliability

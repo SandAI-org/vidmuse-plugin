@@ -41,10 +41,12 @@ token there restyles the whole page. No second copy of the palette anywhere.
 via `<link>`, keyframe images referenced by relative path from the work
 directory. No build step; the file opens from disk.
 
-**Live rendering, not screenshots, for the system itself.** Palette chips,
-type specimens, component demos, and treatment mini-frames are real DOM styled
-by the tokens. Mini-frames use `aspect-ratio` + `container-type: size` with
-`cqw` units so they are true miniatures of the render canvas.
+**Live rendering, not screenshots, for the system itself.** Palette chips and
+type specimens are real DOM styled by the tokens. Packaging treatment frames
+must mount the exact production-ready HTML named by
+`FRAME.md.treatments.<id>.source`; do not redraw a similar-looking specimen in
+the showcase. Use an iframe or another direct HTML mount so showcase and
+production share the same bytes and `design-system/selected-system.css`.
 
 **Real footage for the packaging points.** The page must also show the design
 on the user's video, not only on abstract specimens. Extract representative
@@ -66,14 +68,20 @@ Order and naming are yours; a viewer must be able to find all seven.
 3. **Typography** — one row per typography token, rendered at size in its real
    font, with the token name and metrics alongside.
 4. **Components** — each `components:` entry from FRAME.md rendered as a live
-   demo at realistic proportions.
+   demo at realistic proportions. A component tile is not treatment evidence:
+   never put a shell-less component on a decorative card merely to make the
+   specimen grid tidy, because that visually contradicts the production
+   contract.
 5. **Treatments on footage** — the heart of the page. For each Frame Treatment
    in FRAME.md, one 16:9 (or project-aspect) frame that composes the treatment
    **over a real keyframe from the section of the video where it will be
    used**, with its time range and packaging intent labeled. A Registry effect
    that will carry the treatment appears here as its adapted hero state — the
    installed mechanism restyled with the project tokens and filled with real
-   transcript content, not the upstream demo styling.
+   transcript content, not the upstream demo styling. Each frame mounts the
+   locked `source` HTML and labels its declared `surface`, `backing`, and
+   `weight`; if the visible frame contradicts those labels, fix the treatment
+   before handoff.
    In Director mode, include the hero state of every substantial scene,
    including full-frame takeovers; use real source frames wherever the scene
    retains or composites footage.
@@ -172,3 +180,21 @@ second direction stop.
 Share the selected-system page as non-blocking evidence, then continue. Apply
 corrections to `FRAME.md` first, then re-wire the showcase tokens — the two
 artifacts never disagree.
+
+## Promote the selection into production input
+
+After the selected-system proof passes, export one full-canvas developed-state
+PNG per treatment to its `approved_frame` path. The image must use the same
+source timestamp and canvas aspect that production will use; a cropped
+component specimen is not valid evidence.
+
+Then create `design-lock.json` with `scripts/design_lock.py --create`. This is
+the handoff boundary:
+
+- the showcase continues to mount the exact treatment source files;
+- Recut mounts those same files via `data-composition-src`;
+- shared CSS and treatment HTML are hash-locked;
+- changing the selected design requires updating FRAME/showcase/evidence and
+  intentionally regenerating the lock.
+
+Do not return control to production without a successful lock receipt.

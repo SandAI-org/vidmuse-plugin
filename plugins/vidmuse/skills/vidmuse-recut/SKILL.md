@@ -94,10 +94,10 @@ Keep decisions inspectable:
 | --- | --- |
 | Truth | `metadata.json`, `audio.mp3`, `transcript-source.txt`, `transcript-receipt.json`, `transcript.json`, `video-context.json` |
 | Editorial | `asset-plan.json`, `packaging-analysis.md`, and Director-only `STORYBOARD.md` |
-| Direction | `FRAME.md`, `frame-showcase.html` |
+| Direction | `FRAME.md`, `frame-showcase.html`; Packaging also `design-lock.json`, `design-system/`, `design-evidence/approved/` |
 | Plan | Packaging `packaging-analysis.md` (optional `edit-plan.json` work note) or Director `scene-plan.json` |
 | Production | `effect-sources.json`, `asset-sources.json`, `public/` |
-| Review and delivery | `evaluation.json`, `dsl.json`, optional `output.mp4`, final `final.mp4` |
+| Review and delivery | `design-evidence/rendered/`, complete contact sheet, `evaluation.json`, `dsl.json`, optional `output.mp4`, final `final.mp4` |
 
 Resume from valid artifacts instead of restarting approved work.
 
@@ -239,7 +239,10 @@ the selected-system proof below it, and returns:
 - preset/composed mode and selected anchor;
 - recommended caption identity and treatment layout, with the owner-declared
   aspect/caption band and planned intervention density preserved;
-- pack `effect_affinity` and treatment constraints.
+- pack `effect_affinity` and treatment constraints;
+- in Packaging mode, a successful `design-lock.json` receipt plus the exact
+  treatment HTML sources, shared `selected-system.css`, and approved developed
+  frames. These are production inputs, not references to reinterpret.
 
 Do not load a second look source or browse another preset library. Browse the
 effect catalog only after the design capability returns and
@@ -304,6 +307,15 @@ Record adaptations and pinned dependencies in `effect-sources.json`. Assemble
 one paused timeline; each sub-composition owns an independent registered
 timeline.
 
+In Packaging mode, every planned treatment mounts the Design-owned locked
+source with `data-composition-src`; label the mount with matching
+`data-treatment-id`, `data-treatment-surface`, and `data-treatment-weight`.
+Do not copy its markup into a new generic wrapper or restyle its morphology in
+`public/index.html`. Content and timing may vary through the source's declared
+variables, but the selected surface remains the selected surface. If face
+avoidance cannot be solved without changing it, return to `/vidmuse-design`,
+update the showcase and approved frame, and intentionally regenerate the lock.
+
 Refresh the Timeline overlay as production lands:
 
 ```bash
@@ -334,8 +346,15 @@ each snapshot/source frame pair at the same timestamp:
 ```bash
 python3 scripts/precheck.py "$WORK_DIR" \
   --pair <snapshot.png>:<source-frame.jpg> \
+  --design-pair <treatment-id>=<rendered-developed-state.png> \
   --allow-continuous <ids-of-deliberate-continuous-systems>
 ```
+
+Provide one `--design-pair` for every treatment used by Packaging. Precheck
+fails when a source was reimplemented, the lock changed, a panel budget was
+exceeded, or a rendered developed state materially differs from the approved
+frame. Face overlap and design adherence are separate objectives: improving
+one never waives the other.
 
 When the BRIEF explicitly chooses a display family normally blocked as a CJK
 fallback tell, pass it through `--allow-banned-fonts <family>`. An absent
@@ -350,6 +369,15 @@ Packaging may proceed from confirmed hero frames to a full review. Director
 mode follows the rendered loop: hero frames, motion reel, act review when
 useful, full draft, correction review, and final polish. Correct narrative and
 source-state failures before local timing or finish.
+
+Before writing `ready`, generate a contact sheet covering every packaging
+window and keep the individual rendered comparison frames inside the project.
+Packaging writes schema `vidmuse.packaging.evaluation.v2`; it requires the
+full-coverage precheck JSON receipt, design-lock receipt, compared-treatment
+evidence, complete contact-sheet coverage, continuous-playback evidence, face
+pairs, and no open major/critical
+findings. Legacy Packaging v1 may remain pending/readable but cannot claim
+`ready` or `approved`.
 
 Evaluate exported pixels, transitions, audio, assets, and open findings in
 `evaluation.json`, then validate:

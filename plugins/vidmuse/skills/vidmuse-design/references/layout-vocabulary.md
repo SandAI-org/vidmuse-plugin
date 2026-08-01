@@ -85,6 +85,12 @@ In Packaging mode, the budget constrains heavy surfaces only. Light weights (`ba
 - `panel-card` slots: **at most 2** per video (scale proportionally past ~5 min), summed duration ≤ **20%** of the video, and never two in a row.
 - If the plan has more `panel-card` slots than `camera` + `emphasis` combined, it is a slide deck, not a packaged video.
 
+For `recut-packaging`, encode the weight and `surface: panel` in
+`FRAME.md.treatments`; `design_lock.py --check` enforces the instance cap and
+adjacency from actual production mounts. A bounded translucent rectangle is a
+panel-card regardless of whether its component is named `marker`, `veil`,
+`quote`, or `chapter`.
+
 Director-mode full-frame narrative scenes are complete shots, not panel cards,
 and do not count against this limit. They are constrained instead by the act
 energy contour, visual-proof requirement, complete timeline coverage, and

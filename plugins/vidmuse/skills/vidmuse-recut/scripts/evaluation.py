@@ -16,6 +16,7 @@ from pathlib import Path
 from typing import Any
 
 SCHEMA_V1 = "vidmuse.packaging.evaluation.v1"
+SCHEMA_PACKAGING_V2 = "vidmuse.packaging.evaluation.v2"
 SCHEMA_V2 = "vidmuse.recut.evaluation.v2"
 STATUSES = ("pending", "needs_revision", "ready", "approved", "rejected")
 PASS_STATUSES = ("pending", "pass", "fail")
@@ -69,6 +70,11 @@ def _check_v1(value: dict[str, Any], path: Path) -> dict[str, Any]:
             problems.append(f"v1 missing {key}")
     if value.get("status") not in STATUSES:
         problems.append("v1 status is invalid")
+    if value.get("status") in ("ready", "approved"):
+        problems.append(
+            f"legacy {SCHEMA_V1} cannot claim {value.get('status')}; migrate to "
+            f"{SCHEMA_PACKAGING_V2} with locked design evidence and a complete contact sheet"
+        )
     if problems:
         raise EvaluationError(f"{path}: " + "; ".join(problems))
     return {
@@ -78,6 +84,181 @@ def _check_v1(value: dict[str, Any], path: Path) -> dict[str, Any]:
         "production_mode": "packaging",
         "status": value.get("status"),
         "compatibility": "v1",
+    }
+
+
+def _evidence_path(path: Path, value: Any, label: str, problems: list[str]) -> Path | None:
+    if not _text(value):
+        problems.append(f"{label} must be a non-empty project-relative path")
+        return None
+    candidate = Path(value)
+    if candidate.is_absolute() or ".." in candidate.parts:
+        problems.append(f"{label} must stay inside the project")
+        return None
+    resolved = (path.parent / candidate).resolve()
+    try:
+        resolved.relative_to(path.parent.resolve())
+    except ValueError:
+        problems.append(f"{label} escapes the project")
+        return None
+    if not resolved.is_file():
+        problems.append(f"{label} does not exist: {resolved}")
+    return resolved
+
+
+def _check_packaging_v2(value: dict[str, Any], path: Path) -> dict[str, Any]:
+    problems: list[str] = []
+    if not _text(value.get("project_id")):
+        problems.append("project_id must be non-empty text")
+    status = value.get("status")
+    if status not in STATUSES:
+        problems.append(f"status must be one of {STATUSES}")
+    render = value.get("render")
+    if not isinstance(render, dict):
+        problems.append("render must be an object")
+        render = {}
+    hard = value.get("hard_checks")
+    if not isinstance(hard, dict):
+        problems.append("hard_checks must be an object")
+        hard = {}
+    aesthetic = value.get("aesthetic_review")
+    if not isinstance(aesthetic, dict):
+        problems.append("aesthetic_review must be an object")
+        aesthetic = {}
+    if not isinstance(value.get("feedback"), dict):
+        problems.append("feedback must be an object")
+
+    findings = value.get("findings")
+    if not isinstance(findings, list):
+        problems.append("findings must be an array")
+        findings = []
+    open_material: list[str] = []
+    for index, finding in enumerate(findings):
+        label = f"findings[{index}]"
+        if not isinstance(finding, dict):
+            problems.append(f"{label} must be an object")
+            continue
+        if not _text(finding.get("id")) or not _text(finding.get("note")):
+            problems.append(f"{label} needs id and note")
+        severity = finding.get("severity")
+        finding_status = finding.get("status")
+        if severity not in ("critical", "major", "minor"):
+            problems.append(f"{label}.severity is invalid")
+        if finding_status not in ("open", "resolved", "waived"):
+            problems.append(f"{label}.status is invalid")
+        if severity in ("critical", "major") and finding_status == "open":
+            open_material.append(str(finding.get("id")))
+
+    overlay_windows = hard.get("overlay_windows")
+    design = hard.get("design_adherence")
+    contact_sheet = value.get("contact_sheet")
+    final_status = status in ("ready", "approved")
+    compared_treatments: list[str] = []
+    if final_status:
+        for key in ("hyperframes_check", "vidmuse_precheck"):
+            if hard.get(key) != "pass":
+                problems.append(f"{status} requires hard_checks.{key}=pass")
+        precheck_path = _evidence_path(
+            path,
+            hard.get("precheck_receipt"),
+            "hard_checks.precheck_receipt",
+            problems,
+        )
+        if precheck_path and precheck_path.is_file():
+            try:
+                precheck_receipt = json.loads(precheck_path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                problems.append("hard_checks.precheck_receipt is not valid JSON")
+            else:
+                if not isinstance(precheck_receipt, dict) or precheck_receipt.get("pass") is not True:
+                    problems.append("hard_checks.precheck_receipt must record pass=true")
+                if isinstance(precheck_receipt, dict) and precheck_receipt.get("coverage") != "full":
+                    problems.append("hard_checks.precheck_receipt must record coverage=full")
+        if not isinstance(overlay_windows, int) or isinstance(overlay_windows, bool) or overlay_windows < 1:
+            problems.append(f"{status} requires a positive hard_checks.overlay_windows")
+            overlay_windows = 0
+        face_pairs = hard.get("face_overlay_pairs")
+        if not isinstance(face_pairs, int) or isinstance(face_pairs, bool) or face_pairs < 1:
+            problems.append(f"{status} requires at least one face/source evidence pair")
+        playback = hard.get("continuous_playback")
+        if not isinstance(playback, dict) or playback.get("status") != "pass":
+            problems.append(f"{status} requires continuous_playback.status=pass")
+        else:
+            _evidence_path(path, playback.get("evidence"), "hard_checks.continuous_playback.evidence", problems)
+
+        if not isinstance(design, dict) or design.get("status") != "pass":
+            problems.append(f"{status} requires hard_checks.design_adherence.status=pass")
+        else:
+            lock_path = _evidence_path(path, design.get("lock"), "hard_checks.design_adherence.lock", problems)
+            compared = design.get("compared_treatments")
+            if not isinstance(compared, list) or not compared or any(not _text(item) for item in compared):
+                problems.append("design_adherence.compared_treatments must name every compared treatment")
+            else:
+                compared_treatments = list(dict.fromkeys(compared))
+            if lock_path and lock_path.is_file():
+                try:
+                    design_lock = json.loads(lock_path.read_text(encoding="utf-8"))
+                except json.JSONDecodeError:
+                    problems.append("hard_checks.design_adherence.lock is not valid JSON")
+                else:
+                    locked = design_lock.get("treatments") if isinstance(design_lock, dict) else None
+                    if not isinstance(locked, dict):
+                        problems.append("design lock has no treatments object")
+                    else:
+                        required_ids = {
+                            treatment_id
+                            for treatment_id, contract in locked.items()
+                            if isinstance(contract, dict) and contract.get("required_in_production") is True
+                        }
+                        missing_compared = sorted(required_ids - set(compared_treatments))
+                        if missing_compared:
+                            problems.append(
+                                "design_adherence.compared_treatments misses locked treatments: "
+                                + ", ".join(missing_compared)
+                            )
+            evidence = design.get("evidence")
+            if not isinstance(evidence, list) or not evidence:
+                problems.append("design_adherence.evidence must contain rendered comparison frames")
+            else:
+                if len(evidence) < len(compared_treatments):
+                    problems.append("design_adherence.evidence must cover every compared treatment")
+                for index, item in enumerate(evidence):
+                    _evidence_path(path, item, f"hard_checks.design_adherence.evidence[{index}]", problems)
+
+        if not isinstance(contact_sheet, dict):
+            problems.append(f"{status} requires contact_sheet evidence")
+        else:
+            _evidence_path(path, contact_sheet.get("path"), "contact_sheet.path", problems)
+            if contact_sheet.get("coverage") != "all":
+                problems.append("contact_sheet.coverage must be 'all'")
+            frame_count = contact_sheet.get("frame_count")
+            if not isinstance(frame_count, int) or isinstance(frame_count, bool) or frame_count < overlay_windows:
+                problems.append("contact_sheet.frame_count must cover every overlay window")
+
+        if aesthetic.get("status") != "pass":
+            problems.append(f"{status} requires aesthetic_review.status=pass")
+        aesthetic_evidence = aesthetic.get("evidence")
+        if not isinstance(aesthetic_evidence, list) or not aesthetic_evidence:
+            problems.append("aesthetic_review.evidence must contain real rendered frames")
+        else:
+            for index, item in enumerate(aesthetic_evidence):
+                _evidence_path(path, item, f"aesthetic_review.evidence[{index}]", problems)
+        if open_material:
+            problems.append(f"{status} has open material findings: {', '.join(open_material)}")
+        if status == "approved":
+            _evidence_path(path, render.get("final_mp4"), "render.final_mp4", problems)
+
+    if problems:
+        raise EvaluationError(f"{path}: " + "; ".join(problems))
+    return {
+        "ok": True,
+        "path": str(path),
+        "schema": SCHEMA_PACKAGING_V2,
+        "production_mode": "packaging",
+        "status": status,
+        "overlay_windows": overlay_windows or 0,
+        "compared_treatments": len(compared_treatments),
+        "open_material_findings": len(open_material),
     }
 
 
@@ -118,8 +299,12 @@ def check(path: Path) -> dict[str, Any]:
     schema = value.get("schema")
     if schema == SCHEMA_V1:
         return _check_v1(value, path)
+    if schema == SCHEMA_PACKAGING_V2:
+        return _check_packaging_v2(value, path)
     if schema != SCHEMA_V2:
-        raise EvaluationError(f"{path}: schema must be {SCHEMA_V1!r} or {SCHEMA_V2!r}")
+        raise EvaluationError(
+            f"{path}: schema must be {SCHEMA_V1!r}, {SCHEMA_PACKAGING_V2!r}, or {SCHEMA_V2!r}"
+        )
 
     problems: list[str] = []
     if not _text(value.get("project_id")):

@@ -146,6 +146,12 @@ After the direction is selected, write `<project>/FRAME.md` using schema
 - captions, safe zones, aspect behavior and signature move;
 - Director-only film spine and act-world differences when supplied by owner.
 
+For `recut-packaging`, author the executable `treatments:` contract from
+`references/style-composition.md`. Each treatment names its surface category,
+intervention weight, backing, production HTML source, approved developed-state
+frame, requirement, and instance cap. Ambiguous prose such as `veil` is not a
+surface category.
+
 Validate its mechanical shape:
 
 ```bash
@@ -171,6 +177,21 @@ first, then update the showcase so the two artifacts cannot disagree.
 Before handoff, apply `references/design-adherence.md` to the representative
 artifact.
 
+For `recut-packaging`, promote each selected treatment into
+`design-system/treatments/<id>.html`, share
+`design-system/selected-system.css`, mount those exact sources in the
+showcase, and export their full-canvas developed states under
+`design-evidence/approved/`. Then freeze the approved bytes:
+
+```bash
+python3 scripts/design_lock.py "<project>" --create \
+  --selected-direction "<chosen direction>"
+```
+
+Do not hand production a screenshot plus prose and ask it to recreate the
+look. The locked treatment HTML is production input; later visual changes
+return here and intentionally regenerate the lock.
+
 ## 5. Return control
 
 Report to the owning workflow:
@@ -179,6 +200,8 @@ Report to the owning workflow:
 - selected anchor or explicit no-anchor;
 - footage/subject evidence behind the direction;
 - `FRAME.md` and `frame-showcase.html` paths;
+- for Recut Packaging, `design-lock.json`, shared CSS, treatment source paths,
+  and approved-frame paths;
 - the successful `frame_md.py --check` report;
 - recommended caption identity and treatment layout, the owner-declared
   aspect/caption band, and planned density;

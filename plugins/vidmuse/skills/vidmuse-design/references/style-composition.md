@@ -133,6 +133,51 @@ New projects use `vidmuse.design.frame.v1`. Frontmatter records `film_mode`
 `vidmuse.recut.frame.v4/v5` as read-only compatibility schemas for existing
 projects; do not author new files with them.
 
+### Executable Packaging treatments
+
+`recut-packaging` also requires a non-empty `treatments:` mapping. This is the
+spatial contract that prevents prose such as “veil” from being reinterpreted
+as a convenient rectangle during production. Every treatment declares:
+
+```yaml
+treatments:
+  time-compression:
+    weight: bare-text          # layout-vocabulary intervention weight
+    surface: full-field        # none | full-field | panel
+    backing: gradient          # none | gradient | solid | translucent
+    source: design-system/treatments/time-compression.html
+    approved_frame: design-evidence/approved/time-compression.png
+    required_in_production: true
+    max_instances: 1
+```
+
+- `surface: none` requires `backing: none` and is direct typography/line work.
+- `surface: full-field` is an edge-reaching field such as a whole-frame or
+  edge gradient. It is not a bounded card even when translucent.
+- `surface: panel` is the only bounded backing surface and must use
+  `weight: panel-card`. Conversely, `panel-card` may not masquerade as another
+  weight.
+- `source` is production-ready HTML, not a specimen. The selected-system
+  showcase mounts this exact file, and Recut later mounts the same bytes via
+  `data-composition-src`.
+- `approved_frame` is a full-canvas screenshot of the source at its developed
+  state on the real treatment frame. It becomes rendered-comparison evidence.
+
+Put shared treatment CSS in `design-system/selected-system.css`. Each source
+HTML imports it; do not duplicate its spatial rules inside the showcase.
+After the user selects the direction and all treatments are proved, freeze the
+handoff:
+
+```bash
+python3 scripts/design_lock.py "$WORK_DIR" --create \
+  --selected-direction "<chosen direction name>"
+```
+
+The resulting `design-lock.json` hashes `FRAME.md`, the selected showcase,
+shared CSS, treatment sources, and approved frames. Later design changes go
+back through VidMuse Design, update the showcase/evidence, and create a new
+lock. Production never edits locked treatment files in place.
+
 The prose explains the decisions those tokens cannot:
 
 - overview and a frame-craft bar of visible quality tests;
