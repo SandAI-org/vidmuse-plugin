@@ -13,7 +13,11 @@ evidence until explicit stop conditions pass.
 5. **Correction review:** resolve every material finding. A no-change review is
    valid only when it records that no material issue was found.
 6. **Final polish:** verify technical integrity, typography, subtitles, audio,
-   media quality, and export metadata.
+   media quality, and export metadata — including a continuous-playback watch
+   of every packaged span in the served Timeline (see the continuous-playback
+   contract in [`vidmuse-timeline.md`](vidmuse-timeline.md)); seek-driven
+   evidence alone cannot detect a paused timeline that fails to advance during
+   real playback.
 
 ## Hero-frame review
 

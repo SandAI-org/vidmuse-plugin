@@ -146,6 +146,28 @@ For **layered** Timeline preview, the packaging HTML must not fight the main tra
 
 - Local assets under the HTML’s directory; relative URLs; no `../` escape of the asset root for Timeline-served overlays when possible.
 
+### Continuous-playback contract (known host gap)
+
+Every agent-side evidence tool — `snapshot`, `keyframes`, scrubbing, and even
+`vidmuse render` — drives the overlay by **seek**: it samples the paused GSAP
+timeline at explicit times. Continuous playback in the served Timeline UI is a
+different host path, and it has been observed **not advancing a paused GSAP
+timeline**: the overlay backdrop renders while its animated text and graphics
+stay at their initial hidden state, leaving bare color blocks on screen.
+Seek-correct is therefore not proof of play-correct, and `final.mp4` may
+render correctly while the serve preview is broken — but the user approves on
+the preview, so the preview is the contract.
+
+Before presenting any Timeline cut to the user:
+
+1. Press play and watch every packaged span **continuously** in the served
+   Timeline — no scrubbing through it.
+2. Confirm overlay text and graphics reach their developed states during
+   continuous playback, not only after a seek lands inside the span.
+3. Record the result as evidence under `technical_integrity` (Director) or
+   `hard_checks` (Packaging) in `evaluation.json`. A continuous-playback
+   failure is a material finding, not a style note.
+
 ## Subtitles vs designed type
 
 | Kind | Where | Role |

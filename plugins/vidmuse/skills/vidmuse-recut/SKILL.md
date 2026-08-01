@@ -295,13 +295,20 @@ Then run the VidMuse mechanical gate on the same evidence. One command, one
 JSON report; every failure is a named finding in `evaluation.json`, not a
 style opinion. It bundles FRAME.md shape, font stacks against FRAME.md's own
 families (banned CJK faces and bare-serif fallbacks ship 宋体 and fail),
-effects-overlay integrity, and face/overlay overlap for each snapshot/source
-frame pair at the same timestamp:
+overlay dwell budgets and span coverage (no clip outstays its budget, timed
+windows are readable so `write_dsl.py` cannot fall back to one full-duration
+item, packaging does not blanket the runtime), and face/overlay overlap for
+each snapshot/source frame pair at the same timestamp:
 
 ```bash
 python3 scripts/precheck.py "$WORK_DIR" \
-  --pair <snapshot.png>:<source-frame.jpg>
+  --pair <snapshot.png>:<source-frame.jpg> \
+  --allow-continuous <ids-of-deliberate-continuous-systems>
 ```
+
+The gate is seek-blind: it samples states and cannot watch playback. The
+continuous-playback watch in `references/vidmuse-timeline.md` stays a
+separate mandatory step before presenting any cut.
 
 Packaging may proceed from confirmed hero frames to a full review. Director
 mode follows the rendered loop: hero frames, motion reel, act review when
@@ -323,6 +330,12 @@ is not the user surface and must not auto-open; use Timeline for review.
 Keep layered delivery by default: source on main, HyperFrames packaging on a
 sub-track, program audio on sounds, and one owner for the spoken captions.
 Re-read `dsl.json` before edits and preserve Timeline write-back by stable id.
+
+Before presenting the cut, play every packaged span **continuously** in the
+served Timeline and confirm overlay content reaches its developed states.
+Snapshots, keyframes, and scrubbing are all seek-driven and cannot detect a
+paused timeline that fails to advance during real playback (contract and
+evidence rules in `references/vidmuse-timeline.md`).
 
 After user approval:
 
