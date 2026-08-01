@@ -43,6 +43,8 @@ npx hyperframes lint
 # Required final gate; includes lint. Does NOT open Studio.
 npx hyperframes check
 npx hyperframes snapshot --at <midpoints>
+npx hyperframes snapshot --at <midpoints> --describe false
+npx hyperframes keyframes public --runtime all
 
 # User-facing review in this plugin (default):
 vidmuse serve "$WORK_DIR/dsl.json"
@@ -170,6 +172,10 @@ The specialized commands are deliberately documented by their owning workflows:
 npx hyperframes present <project-dir> --port 3004 --no-open
 npx hyperframes beats <project-dir> --json
 npx hyperframes keyframes <project-dir> --json
+npx hyperframes keyframes <project-dir> --runtime all --json
 ```
 
 `present` serves a navigable deck with presenter and audience synchronization. `beats` is the standalone Studio beat-grid utility defined in `references/beats.md`. `keyframes` surfaces seek-safe animation and motion-path diagnostics.
+`keyframes --runtime all` evaluates every discovered composition runtime.
+`snapshot --describe false` disables generated snapshot descriptions when only
+pixel evidence is needed.

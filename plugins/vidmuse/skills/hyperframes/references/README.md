@@ -20,6 +20,7 @@
 | Path | Treat as |
 | --- | --- |
 | `intent-interview.md`, `pitch-round.md` | VidMuse-normalized briefing notes; `/vidmuse` owns fresh routing |
+| `route-briefs.md` | Historical route-to-brief mapping; inventory only, never the VidMuse front door |
 | `routes/*` | Historical contracts; `routes/talking-head-recut.md` is a **redirect stub** → `/vidmuse-recut` |
 | `skill-lifecycle.md` | Upstream install mechanics — overridden by plugin bundling + whitelist in `vidmuse-recut/scripts/setup.sh` |
 | `capability-menu.md`, `workflow-catalog.md` | Capability vocabulary; overlay row already points at `/vidmuse-recut` |
