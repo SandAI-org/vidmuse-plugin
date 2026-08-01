@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- Preview harness: word-strike frozen at its developed moment (strike word
+     just landed). Backdrop approximates a warm talking-head room so the card
+     reads in context; real projects always place it over footage. -->
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- vendored copy so headless preview renders offline and deterministically -->
+    <script src="../../../../assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1280px; height: 720px; overflow: hidden; }
+      .backdrop {
+        position: absolute; inset: 0;
+        background:
+          radial-gradient(720px 420px at 68% 38%, #efe3c0 0%, #e3d5ae 55%, #cdbf8e 100%);
+      }
+      .backdrop::after {
+        /* stand-in for the dimmed footage under a hero line */
+        content: ""; position: absolute; inset: 0;
+        background: rgb(28 24 18 / 62%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="backdrop"></div>
+
+    <style>
+      .vm-word-strike {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 8%;
+        pointer-events: none;
+        z-index: 4;
+      }
+      .vm-word-strike-line {
+        max-width: 82%;
+        text-align: center;
+        font-family: var(--vm-ws-font, "PingFang SC", "Noto Sans SC"), sans-serif;
+        font-size: var(--vm-ws-size, 72px);
+        font-weight: 700;
+        line-height: 1.35;
+        color: var(--vm-ws-fg, #fcf6e2);
+        text-shadow: 0 2px 24px rgb(0 0 0 / 45%);
+      }
+      .vm-word-strike-line .vm-ws-word {
+        display: inline-block;
+        opacity: 0;
+        will-change: transform, opacity;
+      }
+      .vm-word-strike-line .vm-ws-strike {
+        font-weight: 900;
+        color: var(--vm-ws-accent, #e8552b);
+      }
+    </style>
+
+    <div class="vm-word-strike" data-vm-word-strike>
+      <p class="vm-word-strike-line">
+        <span class="vm-ws-word">每次</span>
+        <span class="vm-ws-word">大模型</span>
+        <span class="vm-ws-word">迭代</span>
+        <span class="vm-ws-word">都会</span>
+        <span class="vm-ws-word vm-ws-strike">杀死</span>
+        <span class="vm-ws-word">很多</span>
+        <span class="vm-ws-word">AI</span>
+        <span class="vm-ws-word">初创</span>
+      </p>
+    </div>
+
+    <script>
+      function attachWordStrike(opts) {
+        var root = document.querySelector(opts.rootSelector || "[data-vm-word-strike]");
+        var spans = root.querySelectorAll(".vm-ws-word");
+        if (spans.length !== opts.words.length) {
+          throw new Error("word-strike: span count " + spans.length + " != words " + opts.words.length);
+        }
+        var tl = opts.timeline;
+        opts.words.forEach(function (w, i) {
+          var at = opts.start + (w.start - opts.words[0].start);
+          if (i === opts.strikeIndex) {
+            tl.fromTo(spans[i],
+              { opacity: 0, scale: 2.1, y: -30 },
+              { opacity: 1, scale: 1, y: 0, duration: 0.22, ease: "power3.in" }, at);
+            tl.to(spans[i], { scale: 1.06, duration: 0.09, ease: "power1.out" }, at + 0.22);
+            tl.to(spans[i], { scale: 1, duration: 0.12, ease: "power2.out" }, at + 0.31);
+          } else {
+            tl.fromTo(spans[i],
+              { opacity: 0, y: 14 },
+              { opacity: 1, y: 0, duration: 0.18, ease: "power2.out" }, at);
+          }
+        });
+        var last = opts.words[opts.words.length - 1];
+        var exitAt = opts.start + (last.end - opts.words[0].start) + (opts.hold == null ? 2.4 : opts.hold);
+        tl.to(root, { opacity: 0, duration: 0.35, ease: "power1.inOut" }, exitAt);
+      }
+
+      // Real word timings from ai-native-2min transcript (word_sync output),
+      // grouped to match the eight rendered spans.
+      var words = [
+        { text: "每次",   start: 44.44, end: 44.72 },
+        { text: "大模型", start: 44.72, end: 45.28 },
+        { text: "迭代",   start: 45.28, end: 45.60 },
+        { text: "都会",   start: 45.60, end: 45.84 },
+        { text: "杀死",   start: 45.84, end: 46.20 },
+        { text: "很多",   start: 46.20, end: 46.50 },
+        { text: "AI",     start: 46.63, end: 46.79 },
+        { text: "初创",   start: 46.90, end: 47.40 },
+      ];
+      var tl = gsap.timeline({ paused: true });
+      attachWordStrike({ timeline: tl, words: words, strikeIndex: 4, start: 0 });
+      // Freeze at the developed moment: the strike has landed and settled.
+      tl.seek(words[4].start - words[0].start + 0.45);
+    </script>
+  </body>
+</html>

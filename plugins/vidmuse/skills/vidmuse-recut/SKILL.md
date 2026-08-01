@@ -157,7 +157,18 @@ node ../vidmuse-assets/scripts/asset_plan.mjs --project "$WORK_DIR" --resolve
 
 ### 3. Propose and confirm coverage
 
-Follow `references/packaging-analysis.md`. Analyze the complete transcript and
+Follow `references/packaging-analysis.md`. First materialize the mechanical
+source facts, then analyze against them instead of guessing:
+
+```bash
+python3 scripts/source_map.py "$WORK_DIR" --out "$WORK_DIR/source-map.json"
+```
+
+`source-map.json` supplies per-10s speech rate and energy, silences (quiet-beat
+candidates), face bounding boxes, safe thirds-grid cells for card placement,
+and dominant frame colors per sampled frame. Cards land in `safe_cells`, quiet
+passages come from real silences and `quiet` buckets, and palette derivation
+starts from measured `dominant_colors`. Analyze the complete transcript and
 distributed source frames before selecting a style or effect. Plan continuous
 systems, timed interventions, visual proofs, source-state changes, deliberate
 silence, and chapter/act energy. Treat sequence, causality, comparison, and
@@ -211,7 +222,10 @@ python3 scripts/effects.py --index
 
 Prefer `curated` records — especially `native:*` items, which are proven
 in-house mechanisms — before adapting an unreviewed registry item, and before
-writing any effect from scratch. Hand-rolled effects regress to the model's
+writing any effect from scratch. Records with a `preview` field carry a
+rendered PNG next to the effect source; open it before choosing between
+candidates, and regenerate it with `scripts/render_previews.py` after editing
+an effect. Hand-rolled effects regress to the model's
 mean; the library exists so films inherit wins instead of re-deriving them.
 
 For any beat that should land on speech (hero lines, list reveals, quiet
@@ -277,19 +291,16 @@ npx hyperframes keyframes public --runtime all
 npx hyperframes snapshot public --at <review-times>
 ```
 
-Then run the VidMuse packaging lints on the same evidence. Both are blocking:
-a failure is a named finding in `evaluation.json`, not a style opinion.
+Then run the VidMuse mechanical gate on the same evidence. One command, one
+JSON report; every failure is a named finding in `evaluation.json`, not a
+style opinion. It bundles FRAME.md shape, font stacks against FRAME.md's own
+families (banned CJK faces and bare-serif fallbacks ship 宋体 and fail),
+effects-overlay integrity, and face/overlay overlap for each snapshot/source
+frame pair at the same timestamp:
 
 ```bash
-# Every font stack must resolve inside FRAME.md's resolved families; a CJK
-# stack that can fall through to bare serif ships 宋体 and fails.
-python3 scripts/packaging_lint.py fonts "$WORK_DIR/public/index.html" \
-  --allow "<FRAME.md resolved families, comma-separated>"
-
-# No overlay may cover a detected face (rendered frame vs clean source frame
-# at the same timestamp, full frames at matching aspect).
-python3 scripts/packaging_lint.py faces \
-  --rendered <snapshot.png> --source <source-frame.jpg>
+python3 scripts/precheck.py "$WORK_DIR" \
+  --pair <snapshot.png>:<source-frame.jpg>
 ```
 
 Packaging may proceed from confirmed hero frames to a full review. Director
