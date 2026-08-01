@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Validate and resolve the structured film plan (film-plan.json).
 
-The structured plan is the machine-readable mirror of film-plan.md for
-non-Vox create films. It is the single input for shot_scaffold.py (GSAP
-skeleton) and check_motion.py (fast correctness preflight), so the picture and
-timing the user reviewed are the ones implemented.
+The structured plan is an optional machine-readable implementation contract for
+non-Vox create films. ``production_process: standard`` validates the compact
+single-direction plan. ``agency`` additionally requires three treatments,
+reviewed storyboard frames, an animatic hash, and approval receipts. Both modes
+can feed shot_scaffold.py and check_motion.py when those tools are useful.
 
 Usage:
   python3 scripts/film_plan.py "$WORK_DIR" --validate
@@ -58,6 +59,7 @@ TRANSITIONS = {
 }
 UI_PROOF = {"screenshot-camera", "hybrid-slices", "full-html-rebuild"}
 PREPRODUCTION_CONTRACT = "agency-preproduction.v1"
+PRODUCTION_PROCESSES = {"standard", "agency"}
 PREPRODUCTION_DOC_FIELDS = {
     "brief",
     "directions",
@@ -122,6 +124,10 @@ def validate(plan: dict[str, Any]) -> list[str]:
 
     if plan.get("create_path") not in PATHS:
         err(f"create_path must be one of {sorted(PATHS)} (vox films do not use this file)")
+    production_process = plan.get("production_process", "standard")
+    if production_process not in PRODUCTION_PROCESSES:
+        err(f"production_process must be one of {sorted(PRODUCTION_PROCESSES)}")
+    agency_process = production_process == "agency"
     if plan.get("asset_plan") != ASSET_PLAN_NAME:
         err(f"asset_plan must equal {ASSET_PLAN_NAME} (Semantic Asset Pass is required)")
 
@@ -140,9 +146,9 @@ def validate(plan: dict[str, Any]) -> list[str]:
                 err(f"creative_direction.{field} is required")
 
     preproduction = plan.get("preproduction")
-    if not isinstance(preproduction, dict):
-        err("preproduction is required (agency pre-production hard fail 14)")
-    else:
+    if agency_process and not isinstance(preproduction, dict):
+        err("agency pre-production is required for production_process=agency")
+    elif agency_process:
         if preproduction.get("contract") != PREPRODUCTION_CONTRACT:
             err(f"preproduction.contract must equal {PREPRODUCTION_CONTRACT}")
         for field in sorted(PREPRODUCTION_DOC_FIELDS):
@@ -270,10 +276,17 @@ def validate(plan: dict[str, Any]) -> list[str]:
                 if not isinstance(value, str) or not value.strip():
                     err(f"{where}: layer_map.{field} is required")
         board = beat.get("storyboard_frames")
-        if not isinstance(board, list) or not board or not all(
-            isinstance(item, str) and item.strip() for item in board
+        if agency_process and (
+            not isinstance(board, list) or not board or not all(
+                isinstance(item, str) and item.strip() for item in board
+            )
         ):
-            err(f"{where}: storyboard_frames must reference approved frame image(s)")
+            err(f"{where}: storyboard_frames must reference approved frame image(s) in agency mode")
+        elif board is not None and (
+            not isinstance(board, list)
+            or not all(isinstance(item, str) and item.strip() for item in board)
+        ):
+            err(f"{where}: storyboard_frames must be a path list when present")
 
         proof = beat.get("ui_proof_path")
         if proof is not None and proof not in UI_PROOF:
@@ -382,6 +395,8 @@ def _project_file(work: Path, value: str, label: str) -> tuple[Path | None, str 
 def validate_preproduction(work: Path, plan: dict[str, Any]) -> list[str]:
     """Validate pre-production receipts against files in the project."""
     errors: list[str] = []
+    if plan.get("production_process", "standard") != "agency":
+        return errors
     preproduction = plan.get("preproduction")
     direction = plan.get("creative_direction")
     if not isinstance(preproduction, dict) or not isinstance(direction, dict):
@@ -551,6 +566,8 @@ def _request_fingerprint(query: dict[str, Any]) -> str:
         "entity": _identity(query.get("entity")),
         "variant": str(query.get("variant", "")).strip().lower(),
         "provider": str(query.get("provider", "")).strip().lower(),
+        "core_pack_id": str(query.get("core_pack_id", "")).strip(),
+        "creator_library_id": str(query.get("creator_library_id", "")).strip(),
     }
     payload = json.dumps(
         normalized, ensure_ascii=False, separators=(",", ":")

@@ -115,6 +115,16 @@ contracts, generated scaffolds, or motion reports unless the user asks for
 that production process or the project already depends on one of those
 artifacts.
 
+When a structured implementation plan is useful, set
+`film-plan.json.production_process` explicitly:
+
+- `standard` (default): one selected direction, film design read, connected
+  beats, grounded assets, and authored shot windows;
+- `agency`: the optional three-treatment/storyboard/animatic approval process.
+
+`film_plan.py` validates both profiles. Agency receipts and hashes are hard
+requirements only in `agency` mode.
+
 Technical lint, media receipts, deterministic timing, claim truth, and a
 complete normal-speed playback remain necessary production hygiene.
 

@@ -32,14 +32,15 @@ under the owning project's work directory.
 | Audience, proposition, chapters, beats, intervention timing, quiet passages | active film workflow |
 | Semantic logos, icons, photos, fonts, licenses, local asset receipts | `vidmuse-assets` + `media-use` |
 | Visual direction, tokens, treatment grammar, caption identity, showcase | `vidmuse-design` |
+| Aspect and caption-band geometry | owning film workflow; Design proves the declared band without moving it |
 | Effect mechanism and Registry installation | active film workflow + `hyperframes-registry` |
 | Seek-safe composition and animation implementation | HyperFrames technical skills |
 | Timeline, evaluation, render, final delivery | active film workflow |
 
 Do not reopen routing or rewrite editorial coverage. Consume the workflow's
 BRIEF, source analysis, representative frames, packaging/film plan, approved
-asset references, aspect, and density budget; return `FRAME.md` and
-`frame-showcase.html`.
+asset references, aspect/caption band, and planned intervention density;
+return `FRAME.md` and `frame-showcase.html`.
 
 ## Context discipline
 
@@ -57,6 +58,7 @@ Load only the slice needed for the current decision:
 | Confirm direction on real footage | `references/frame-showcase.md` |
 | Check the implementation against the authority | `references/design-adherence.md` |
 | Design captions, information devices, or layout | only the applicable craft reference |
+| Resolve card/source zones or panel-card budgets | `references/layout-vocabulary.md` |
 | Diagnose visual/temporal template tells | only the relevant sections of `references/packaging-tells.md` |
 
 Scripts may read the complete JSONL catalog mechanically; their compact output
@@ -126,6 +128,12 @@ a pre-approved direction/preset or a resumed project with an approved
 `FRAME.md`. Fixed palette rows in `data/palettes/` are exploration seeds, never
 defaults or a replacement for source-derived color.
 
+For `film_mode: create`, do not apply the Recut three-direction stop. Build one
+best-supported direction and include a compact alternative note only when it
+helps explain the choice. Continue without blocking unless the user explicitly
+asks to compare directions; then show two to four materially distinct options
+and wait for that requested comparison.
+
 ## 3. Author the project authority
 
 After the direction is selected, write `<project>/FRAME.md` using schema
@@ -154,8 +162,9 @@ content. When the file already carried the three-direction gate, keep that
 comparison visible, mark the winner, and append the selected direction's full
 proof surface in the same file; do not replace it or emit a second HTML. For
 footage-led films, use real keyframes from the exact treatment ranges. Show two
-or three caption identities, the recommended aspect/layout, and the planned
-density.
+or three caption identities inside the owner-declared aspect and caption band,
+plus the planned density. Design may recommend an identity or layout treatment,
+but it does not recommend a second band position.
 
 Run the counted Taste Gate before presenting. Apply feedback to `FRAME.md`
 first, then update the showcase so the two artifacts cannot disagree.
@@ -171,7 +180,8 @@ Report to the owning workflow:
 - footage/subject evidence behind the direction;
 - `FRAME.md` and `frame-showcase.html` paths;
 - the successful `frame_md.py --check` report;
-- recommended caption identity, aspect/layout, and density;
+- recommended caption identity and treatment layout, the owner-declared
+  aspect/caption band, and planned density;
 - pack `effect_affinity` or treatment constraints the implementation must
   respect;
 - unresolved direction questions or failed gate items.

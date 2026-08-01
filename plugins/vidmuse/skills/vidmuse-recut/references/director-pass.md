@@ -68,7 +68,7 @@ but it is not proof by itself.
 **Density cap on locked-off mono with no B-roll:** do not prove every sentence.
 
 - ≤1 full-frame Hero proof per ~60–90s (or one clear Hero on a ≤2 min clip);
-- ≤1–2 light rails / indexes that reappear;
+- ≤1 continuous rail/index system that may reappear across the film;
 - majority source-led beats (captions ± whisper labels);
 - cascade nets, dual timelines, pressure loops, module stacks, and night canvases
   are scarce — each needs a unique relation the plate cannot show;

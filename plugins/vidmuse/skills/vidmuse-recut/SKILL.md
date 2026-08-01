@@ -54,6 +54,11 @@ user already approved a named look/preset or explicitly asked VidMuse to
 auto-select the visual direction. Generic requests such as "直接做", "看看实力",
 "完整做完", or "在隔离环境试跑" do not authorize a direction skip.
 
+`effect-first` may help select Director mode and may authorize presenting a
+completed storyboard after the fact when the user explicitly requested that
+autonomous process. It does not by itself skip the separate fresh-project
+visual-direction gate.
+
 - **coverage:** production mode, chapters/acts, proposed interventions, quiet
   passages, and any generated-video proposal;
 - **direction:** on a fresh project, the user's choice from exactly three
@@ -90,7 +95,7 @@ Keep decisions inspectable:
 | Truth | `metadata.json`, `audio.mp3`, `transcript-source.txt`, `transcript-receipt.json`, `transcript.json`, `video-context.json` |
 | Editorial | `asset-plan.json`, `packaging-analysis.md`, and Director-only `STORYBOARD.md` |
 | Direction | `FRAME.md`, `frame-showcase.html` |
-| Plan | Packaging `edit-plan.json` or Director `scene-plan.json` |
+| Plan | Packaging `packaging-analysis.md` (optional `edit-plan.json` work note) or Director `scene-plan.json` |
 | Production | `effect-sources.json`, `asset-sources.json`, `public/` |
 | Review and delivery | `evaluation.json`, `dsl.json`, optional `output.mp4`, final `final.mp4` |
 
@@ -116,6 +121,13 @@ when available; otherwise run ASR automatically, then ATA. Materialize the
 receipt's exact `text` and flat `words` array, preserve provenance, and clamp
 all downstream times to media duration. Corrections update the source text and
 rerun ATA; never hand-edit word timing.
+
+```bash
+node ../media-use/scripts/transcribe.mjs \
+  --input "$VIDEO_PATH" --out "$WORK_DIR/transcript-receipt.json"
+python3 scripts/materialize_transcript.py "$WORK_DIR/transcript-receipt.json" \
+  --out "$WORK_DIR/transcript.json"
+```
 
 Start the layered Timeline as soon as source media and transcript exist:
 
@@ -150,10 +162,17 @@ inspected source. Write and validate `asset-plan.json` even when deliberately
 empty. Resolve only approved deterministic opportunities:
 
 ```bash
+node ../vidmuse-assets/scripts/asset_plan.mjs \
+  --project "$WORK_DIR" --init --workflow recut
+# Fill opportunities and decision_inputs before stamping the pass.
 node ../vidmuse-assets/scripts/asset_plan.mjs --project "$WORK_DIR" --complete-pass
 node ../vidmuse-assets/scripts/asset_plan.mjs --project "$WORK_DIR" --validate
 node ../vidmuse-assets/scripts/asset_plan.mjs --project "$WORK_DIR" --resolve
 ```
+
+Run `--init` once only; an existing plan is preserved unless `--force` is
+explicitly supplied. Recut plans always carry `workflow: "recut"` because the
+Timeline attachment and evaluation asset gates enforce it.
 
 ### 3. Propose and confirm coverage
 
@@ -179,6 +198,14 @@ source/transcript evidence, approved `asset_refs`, risks, and explicit quiet
 passages. There is no effect quota. Apply the proof-density cap in
 `references/director-pass.md` to locked-off footage.
 
+The analysis also names two explicit handoff fields used by Design:
+
+- `treatment_classes`: the selected packaging families paired with their
+  `continuous|light|medium|hero` intensity; it is a vocabulary, not a quota;
+- `intervention_density`: the planned treated ranges, source-only ranges, and
+  relative treatment weights derived from evidence. Do not convert it into a
+  fixed effects-per-minute target.
+
 In Director mode, write `STORYBOARD.md` after coverage confirmation. Every
 substantial scene needs a narrative job, visual proof, source mode, developed
 state, handoff, and sound intent; animated repetition of the spoken line is
@@ -191,8 +218,9 @@ was authorized.
 
 After coverage is settled, load `/vidmuse-design`. Give it the BRIEF,
 `video-context.json`, representative real frames, transcript, approved
-packaging analysis, aspect/caption band, treatment classes, density budget, and
-approved asset references. Pass `film_mode: recut-packaging` or
+packaging analysis, aspect/caption band, `treatment_classes`,
+`intervention_density`, and approved asset references. Pass
+`film_mode: recut-packaging` or
 `film_mode: recut-director` from the active Recut mode.
 
 `vidmuse-design` privately owns the taste catalogs, preset frame packs,
@@ -209,7 +237,8 @@ the selected-system proof below it, and returns:
 - project `FRAME.md` and `frame-showcase.html`;
 - a successful `frame_md.py --check` report;
 - preset/composed mode and selected anchor;
-- recommended caption identity, aspect/layout, and density;
+- recommended caption identity and treatment layout, with the owner-declared
+  aspect/caption band and planned intervention density preserved;
 - pack `effect_affinity` and treatment constraints.
 
 Do not load a second look source or browse another preset library. Browse the
@@ -242,8 +271,10 @@ implements the chosen candidate. Apply later direction feedback through
 
 ### 5. Plan and build
 
-Write `edit-plan.json` for Packaging. In Director mode, translate the
-storyboard into `scene-plan.json` and validate it:
+In Packaging mode, `packaging-analysis.md` is the authoritative plan. Write an
+optional `edit-plan.json` only when another tool or collaborator explicitly
+needs a machine-readable work note; it is not a delivery gate. In Director
+mode, translate the storyboard into `scene-plan.json` and validate it:
 
 ```bash
 python3 scripts/scene_plan.py "$WORK_DIR/scene-plan.json" --check
@@ -306,6 +337,11 @@ python3 scripts/precheck.py "$WORK_DIR" \
   --allow-continuous <ids-of-deliberate-continuous-systems>
 ```
 
+When the BRIEF explicitly chooses a display family normally blocked as a CJK
+fallback tell, pass it through `--allow-banned-fonts <family>`. An absent
+OpenCV runtime or omitted face pair is reported as partial coverage, never as a
+successful face check.
+
 The gate is seek-blind: it samples states and cannot watch playback. The
 continuous-playback watch in `references/vidmuse-timeline.md` stays a
 separate mandatory step before presenting any cut.
@@ -322,6 +358,14 @@ Evaluate exported pixels, transitions, audio, assets, and open findings in
 python3 scripts/evaluation.py "$WORK_DIR/evaluation.json" --check
 ```
 
+Corrections that change any `data-start`, `data-duration`, overlay binding, or
+caption-owner decision must refresh the Timeline before delivery:
+
+```bash
+python3 scripts/write_dsl.py "$WORK_DIR" --mode layered \
+  --caption-owner timeline
+```
+
 Do not report approval while a named failure remains open. HyperFrames Studio
 is not the user surface and must not auto-open; use Timeline for review.
 
@@ -330,6 +374,15 @@ is not the user surface and must not auto-open; use Timeline for review.
 Keep layered delivery by default: source on main, HyperFrames packaging on a
 sub-track, program audio on sounds, and one owner for the spoken captions.
 Re-read `dsl.json` before edits and preserve Timeline write-back by stable id.
+
+Refresh once more from the corrected project state immediately before serving.
+Use `--caption-owner hf` when the HyperFrames composition owns continuous
+captions; use `timeline` when DSL `subtitles[]` owns them:
+
+```bash
+python3 scripts/write_dsl.py "$WORK_DIR" --mode layered \
+  --caption-owner timeline
+```
 
 Before presenting the cut, play every packaged span **continuously** in the
 served Timeline and confirm overlay content reaches its developed states.

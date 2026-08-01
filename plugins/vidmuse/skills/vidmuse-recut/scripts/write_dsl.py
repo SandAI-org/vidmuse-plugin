@@ -643,6 +643,7 @@ def build_dsl(
     baked_path: Path | None,
     force_duration: float | None,
     single_overlay: bool = False,
+    caption_owner: str = "timeline",
 ) -> dict[str, Any]:
     work = work.resolve()
     project = work.name
@@ -666,7 +667,7 @@ def build_dsl(
     if fps is None:
         fps = 30.0
 
-    subtitles = load_subtitles(work, duration)
+    subtitles = load_subtitles(work, duration) if caption_owner == "timeline" else []
 
     options: dict[str, Any] = {
         "aspectRatio": aspect_label(width, height),
@@ -853,6 +854,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--source", type=Path, default=None, help="override source video path")
     ap.add_argument("--baked", type=Path, default=None, help="override output.mp4 path")
     ap.add_argument("--duration", type=float, default=None, help="force totalDuration seconds")
+    ap.add_argument(
+        "--caption-owner",
+        choices=("timeline", "hf"),
+        default="timeline",
+        help="timeline writes subtitles[]; hf leaves subtitles[] empty because the composition owns captions",
+    )
     ap.add_argument("--force", action="store_true", help="overwrite dsl.json ignoring user subtitles")
     ap.add_argument("-o", "--output", type=Path, default=None, help="default: <work>/dsl.json")
     args = ap.parse_args(argv)
@@ -881,6 +888,7 @@ def main(argv: list[str] | None = None) -> int:
         baked_path=args.baked,
         force_duration=args.duration,
         single_overlay=args.single_overlay,
+        caption_owner=args.caption_owner,
     )
 
     out_path = args.output or (work / "dsl.json")
@@ -888,6 +896,11 @@ def main(argv: list[str] | None = None) -> int:
         prev = load_json(out_path)
         if isinstance(prev, dict):
             dsl = merge_preserve_user(prev, dsl)
+    # Caption ownership is a product decision, independent of --force and of
+    # Timeline write-back preservation. Never resurrect edited Timeline cues
+    # when the HyperFrames composition owns the continuous spoken line.
+    if args.caption_owner == "hf":
+        dsl["subtitles"] = []
 
     text = json.dumps(dsl, ensure_ascii=False, indent=2) + "\n"
     tmp = out_path.with_suffix(".json.tmp")

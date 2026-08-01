@@ -24,13 +24,75 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
+import subprocess
 import sys
 from pathlib import Path
 
 BUCKET = 10.0          # seconds per speech-rate bucket
 DIFF_EDGE_THRESH = 18  # mean Sobel magnitude below this = visually quiet cell
 MODEL = Path(__file__).resolve().parents[1] / "assets" / "vendor" / "face_detection_yunet_2023mar.onnx"
+
+
+def pick_source_video(work: Path) -> Path | None:
+    """Find the staged source without importing the Timeline writer."""
+    for candidate in (
+        work / "public" / "input-video.mp4",
+        work / "public" / "source.mp4",
+        work / "source" / "input-video.mp4",
+        work / "source-video.mp4",
+        work / "input.mp4",
+    ):
+        if candidate.is_file():
+            return candidate
+    return None
+
+
+def extract_frames(
+    video: Path,
+    frames_dir: Path,
+    duration: float,
+    interval: float,
+) -> dict:
+    """Materialize timestamp-named frames consumed by ``frame_time``."""
+    frames_dir.mkdir(parents=True, exist_ok=True)
+    timestamps = [i * interval for i in range(max(1, math.ceil(duration / interval)))]
+    written: list[str] = []
+    errors: list[str] = []
+    for timestamp in timestamps:
+        label = f"{timestamp:g}"
+        output = frames_dir / f"f{label}s.jpg"
+        if output.is_file():
+            written.append(output.name)
+            continue
+        try:
+            run = subprocess.run(
+                [
+                    "ffmpeg", "-y", "-ss", label, "-i", str(video),
+                    "-frames:v", "1", "-vf", "scale=960:-2", str(output),
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except OSError as exc:
+            errors.append(f"ffmpeg unavailable: {exc}")
+            break
+        if run.returncode == 0 and output.is_file():
+            written.append(output.name)
+        else:
+            detail = run.stderr.strip().splitlines()
+            errors.append(
+                f"{label}s: {detail[-1] if detail else f'ffmpeg exited {run.returncode}'}"
+            )
+    return {
+        "source": str(video),
+        "interval_seconds": interval,
+        "requested": len(timestamps),
+        "written": len(written),
+        "errors": errors,
+    }
 
 
 def speech_map(transcript: Path, min_gap: float) -> dict:
@@ -120,6 +182,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("work_dir", type=Path)
     parser.add_argument("--min-gap", type=float, default=0.5)
+    parser.add_argument(
+        "--frame-interval",
+        type=float,
+        default=10.0,
+        help="seconds between automatically extracted source frames (default 10)",
+    )
     parser.add_argument("--out", type=Path, help="write JSON here as well as stdout summary")
     args = parser.parse_args()
 
@@ -133,6 +201,31 @@ def main() -> int:
         result["speech"] = {"error": "transcript.json missing"}
 
     frames_dir = work / "frames"
+    existing_frames = (
+        [path for path in frames_dir.glob("f*s.*") if frame_time(path) is not None]
+        if frames_dir.is_dir()
+        else []
+    )
+    if not existing_frames:
+        source = pick_source_video(work)
+        speech_duration = (result.get("speech") or {}).get("duration")
+        if source and isinstance(speech_duration, (int, float)) and speech_duration > 0:
+            if args.frame_interval <= 0:
+                raise SystemExit("--frame-interval must be greater than zero")
+            result["frame_extraction"] = extract_frames(
+                source,
+                frames_dir,
+                float(speech_duration),
+                args.frame_interval,
+            )
+        else:
+            result["frame_extraction"] = {
+                "status": "unavailable",
+                "error": (
+                    "no timestamp-named frames and no staged source/duration; "
+                    "stage public/input-video.mp4 and materialize transcript.json"
+                ),
+            }
     frame_files = sorted(
         (p for p in frames_dir.glob("f*s.*") if frame_time(p) is not None),
         key=frame_time) if frames_dir.is_dir() else []
@@ -148,6 +241,9 @@ def main() -> int:
         result["frames"] = [analyze_frame(p, detector, cv2, np) for p in frame_files]
     else:
         result["frames"] = []
+        result["frames_error"] = result.get("frame_extraction", {}).get(
+            "error", "no timestamp-named frames were produced"
+        )
 
     payload = json.dumps(result, ensure_ascii=False, indent=2)
     if args.out:

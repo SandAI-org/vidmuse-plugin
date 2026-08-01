@@ -88,6 +88,16 @@ Explore freely before pruning, but do not optimize for candidate count. There is
 
 Adapt the structure to the video and the user's review needs. A concise grouped proposal can be better than a wide mechanical table; a complex evidence-heavy review may deserve the full structure.
 
+Two fields close the handoff to `vidmuse-design`:
+
+- **Treatment classes** are the packaging families selected for this film,
+  paired with their intensity (`continuous`, `light`, `medium`, or `hero`).
+  Example: `comparison: medium`, `spoken captions: continuous`.
+- **Intervention density** is an evidence-backed description of treated ranges,
+  source-only ranges, and relative weights. It is not a count target or hard
+  interval. The Markdown may summarize it as ranges plus the reason each dense
+  cluster or quiet passage exists.
+
 ```markdown
 # 包装点分析
 

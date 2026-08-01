@@ -23,7 +23,7 @@ Apply the first matching row:
 | State | Action |
 | --- | --- |
 | The user requests one exact operation on an existing project | Perform only that operation through the matching domain skill. Do not reopen film discovery. |
-| VidMuse artifacts already identify an owner (`packaging-analysis.md`, `edit-plan.json`, `scene-plan.json`, `film-plan.json`, `asset-plan.json`) | Resume that owner and preserve its decisions. |
+| VidMuse artifacts already identify an owner (`packaging-analysis.md`, `scene-plan.json`, `film-plan.json`, `asset-plan.json`) | Resume that owner and preserve its decisions. |
 | A specific edit belongs to an active `/vidmuse-recut` or `/vidmuse-create` run | Return to that workflow; load a domain skill only for the requested layer. |
 | Fresh request | Route once with § 2. |
 
@@ -105,4 +105,6 @@ For a standalone capability request, load only that capability:
 
 Return the requested artifact and its receipt. Do not create `FRAME.md`,
 storyboards, film plans, or Timeline projects unless the requested deliverable
-is a film.
+is a film. An explicit request may inspect or revise an existing film's
+`FRAME.md`; it does not authorize creating a new visual authority for a
+standalone media result.

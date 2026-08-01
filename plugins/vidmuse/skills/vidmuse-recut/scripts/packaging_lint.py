@@ -46,19 +46,29 @@ def parse_stacks(text: str) -> list[list[str]]:
     return stacks
 
 
-def lint_fonts(paths: list[Path], allow: list[str]) -> list[dict]:
+def contains_cjk(text: str) -> bool:
+    return any("\u3400" <= char <= "\u9fff" for char in text)
+
+
+def lint_fonts(
+    paths: list[Path],
+    allow: list[str],
+    allow_banned: list[str] | None = None,
+) -> list[dict]:
     allowed = {f.strip().lower() for f in allow if f.strip()}
+    banned_exceptions = {f.strip().lower() for f in (allow_banned or []) if f.strip()}
     findings = []
     for path in paths:
         text = path.read_text(encoding="utf-8", errors="replace")
+        cjk_document = contains_cjk(text)
         for stack in parse_stacks(text):
             named = [f for f in stack if f not in {"serif", "sans-serif", "monospace", "system-ui", "cursive"}]
-            banned = [f for f in stack if f in BANNED_FAMILIES]
+            banned = [f for f in stack if f in BANNED_FAMILIES and f not in banned_exceptions]
             if banned:
                 findings.append({"file": str(path), "stack": stack, "error": f"banned family {banned}"})
             if allowed and named and not any(f in allowed for f in named):
                 findings.append({"file": str(path), "stack": stack, "error": "no allowed family in stack"})
-            if stack and stack[-1] == "serif":
+            if cjk_document and stack and stack[-1] == "serif":
                 findings.append({
                     "file": str(path), "stack": stack,
                     "error": "stack falls back to bare serif — CJK text will render as 宋体 when the named faces miss",
@@ -71,7 +81,10 @@ def lint_faces(rendered: Path, source: Path, coverage_limit: float) -> dict:
         import cv2
         import numpy as np
     except ImportError:
-        return {"error": "opencv missing: pip3 install opencv-python-headless"}
+        return {
+            "status": "unavailable",
+            "error": "opencv missing: pip3 install opencv-python-headless",
+        }
     src = cv2.imread(str(source))
     ren = cv2.imread(str(rendered))
     if src is None or ren is None:
@@ -217,6 +230,11 @@ def main() -> int:
     f = sub.add_parser("fonts", help="lint font-family stacks in HTML/CSS files")
     f.add_argument("files", nargs="+", type=Path)
     f.add_argument("--allow", default="", help="comma-separated whitelist from FRAME.md resolved fonts")
+    f.add_argument(
+        "--allow-banned",
+        default="",
+        help="comma-separated BRIEF-approved display families such as kaiti or fangsong",
+    )
     c = sub.add_parser("faces", help="fail when overlays cover a detected face")
     c.add_argument("--rendered", required=True, type=Path)
     c.add_argument("--source", required=True, type=Path)
@@ -233,7 +251,11 @@ def main() -> int:
     args = parser.parse_args()
 
     if args.cmd == "fonts":
-        findings = lint_fonts(args.files, args.allow.split(","))
+        findings = lint_fonts(
+            args.files,
+            args.allow.split(","),
+            args.allow_banned.split(","),
+        )
         print(json.dumps({"pass": not findings, "findings": findings}, ensure_ascii=False, indent=2))
         return 1 if findings else 0
     if args.cmd == "overlay":
@@ -248,6 +270,8 @@ def main() -> int:
         return 0 if report.get("pass") else 1
     report = lint_faces(args.rendered, args.source, args.limit)
     print(json.dumps(report, ensure_ascii=False, indent=2))
+    if report.get("status") == "unavailable":
+        return 2
     return 0 if report.get("pass") else 1
 
 

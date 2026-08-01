@@ -87,22 +87,32 @@ def main() -> int:
                         help="max share of the runtime packaging windows may occupy (default 0.6)")
     parser.add_argument("--allow-continuous", default="",
                         help="comma-separated clip ids exempt from the dwell limit")
+    parser.add_argument(
+        "--allow-banned-fonts",
+        default="",
+        help="comma-separated BRIEF-approved display families (for example Kaiti)",
+    )
     parser.add_argument("--full", action="store_true",
                         help="also validate the plugin's effects-overlay catalog (maintenance check)")
     args = parser.parse_args()
 
     work = args.work_dir.resolve()
-    report: dict = {"work_dir": str(work), "checks": {}, "pass": True}
+    report: dict = {
+        "work_dir": str(work),
+        "checks": {},
+        "pass": True,
+        "coverage": "full",
+    }
 
     # 1. FRAME.md
     frame_md = work / "FRAME.md"
     families: set[str] = set()
     if frame_md.is_file():
-        code, payload, err = run_json(["python3", str(DESIGN_SCRIPTS / "frame_md.py"), str(frame_md), "--check"])
+        code, payload, err = run_json([sys.executable, str(DESIGN_SCRIPTS / "frame_md.py"), str(frame_md), "--check"])
         report["checks"]["frame_md"] = {"pass": code == 0, "detail": payload or err}
         if code != 0:
             report["pass"] = False
-        _, tokens, _ = run_json(["python3", str(DESIGN_SCRIPTS / "frame_md.py"), str(frame_md), "--extract"])
+        _, tokens, _ = run_json([sys.executable, str(DESIGN_SCRIPTS / "frame_md.py"), str(frame_md), "--extract"])
         if tokens:
             families = collect_families(tokens)
     else:
@@ -110,11 +120,17 @@ def main() -> int:
         report["pass"] = False
 
     # 2. Fonts in every composition/showcase HTML
-    html_files = sorted({*work.glob("public/**/*.html"), *work.glob("*.html")})
+    html_files = sorted({
+        *work.glob("public/**/*.html"),
+        *work.glob("hyperframes/**/*.html"),
+        *work.glob("*.html"),
+    })
     if html_files:
-        cmd = ["python3", str(SCRIPTS / "packaging_lint.py"), "fonts", *map(str, html_files)]
+        cmd = [sys.executable, str(SCRIPTS / "packaging_lint.py"), "fonts", *map(str, html_files)]
         if families:
             cmd += ["--allow", ",".join(sorted(families))]
+        if args.allow_banned_fonts:
+            cmd += ["--allow-banned", args.allow_banned_fonts]
         code, payload, err = run_json(cmd)
         report["checks"]["fonts"] = {
             "pass": code == 0,
@@ -128,7 +144,7 @@ def main() -> int:
         report["checks"]["fonts"] = {"pass": True, "detail": "no HTML yet"}
 
     # 3. Overlay dwell budgets and span coverage
-    cmd = ["python3", str(SCRIPTS / "packaging_lint.py"), "overlay", str(work),
+    cmd = [sys.executable, str(SCRIPTS / "packaging_lint.py"), "overlay", str(work),
            "--dwell-limit", str(args.dwell_limit),
            "--coverage-limit", str(args.coverage_limit)]
     if args.allow_continuous:
@@ -140,7 +156,7 @@ def main() -> int:
 
     # 5. Effects catalog integrity — plugin maintenance, opt-in per film
     if args.full:
-        code, payload, err = run_json(["python3", str(SCRIPTS / "effects.py"), "--validate"])
+        code, payload, err = run_json([sys.executable, str(SCRIPTS / "effects.py"), "--validate"])
         report["checks"]["effects_overlay"] = {"pass": code == 0, "detail": payload or err}
         if code != 0:
             report["pass"] = False
@@ -150,18 +166,33 @@ def main() -> int:
     for spec in args.pair:
         rendered, _, source = spec.partition(":")
         code, payload, err = run_json([
-            "python3", str(SCRIPTS / "packaging_lint.py"), "faces",
+            sys.executable, str(SCRIPTS / "packaging_lint.py"), "faces",
             "--rendered", str((work / rendered) if not Path(rendered).is_absolute() else rendered),
             "--source", str((work / source) if not Path(source).is_absolute() else source),
             "--limit", str(args.face_limit),
         ])
         entry = payload if isinstance(payload, dict) else {"error": err}
-        entry["pass"] = code == 0 and not entry.get("error")
+        unavailable = entry.get("status") == "unavailable"
+        entry["pass"] = None if unavailable else code == 0 and not entry.get("error")
         pairs.append(entry)
-        if not entry["pass"]:
+        if unavailable:
+            report["coverage"] = "partial"
+        elif not entry["pass"]:
             report["pass"] = False
-    report["checks"]["faces"] = {"pass": all(p.get("pass") for p in pairs) if pairs else True,
-                                 "pairs": pairs or "none supplied"}
+    if pairs:
+        available_pairs = [pair for pair in pairs if pair.get("pass") is not None]
+        faces_pass = all(pair.get("pass") for pair in available_pairs) if available_pairs else None
+        face_status = "checked" if available_pairs else "unavailable"
+    else:
+        faces_pass = None
+        face_status = "skipped"
+        report["coverage"] = "partial"
+    report["checks"]["faces"] = {
+        "pass": faces_pass,
+        "status": face_status,
+        "pairs": pairs,
+        **({"note": "no rendered/source pairs supplied"} if not pairs else {}),
+    }
 
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 0 if report["pass"] else 1

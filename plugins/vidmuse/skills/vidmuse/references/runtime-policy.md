@@ -36,7 +36,7 @@ HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init …
 ```
 
 The environment variable remains required until the vendored
-`hyperframes/references/skill-lifecycle.md` confirms that the CLI flag alone
+`hyperframes-cli/references/init-and-scaffold.md` confirms that the CLI flag alone
 prevents skill refresh.
 
 ## Preview and delivery
@@ -50,6 +50,9 @@ vidmuse serve <project>/dsl.json
 Do not auto-open HyperFrames Studio or `npx hyperframes preview`. Use
 HyperFrames `lint`, `check`, `snapshot`, `keyframes`, and optional renders for
 craft verification. Open Studio only when the user explicitly requests it.
+The query-only forms `preview --context --json` and
+`preview --selection --json` are allowed against an already running,
+user-requested Studio session because they do not start or open Studio.
 
 ## Work directories
 

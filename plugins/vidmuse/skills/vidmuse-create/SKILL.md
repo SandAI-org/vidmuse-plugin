@@ -127,6 +127,12 @@ When using narration, save the approved text, audio receipt, final audio,
 ATA transcript, and probed duration in the project. Regenerating narration
 also regenerates alignment.
 
+Start a sound-first Timeline when narration is ready:
+
+```bash
+python3 ../vidmuse-recut/scripts/write_dsl.py "$WORK_DIR" --mode audio
+```
+
 ### 4. Plan the film as connected scenes
 
 Plan timing from the real audio duration or the chosen music edit. For a short
@@ -147,6 +153,13 @@ Use `DESIGN.md`, `SCRIPT.md`, `STORYBOARD.md`, frame sketches, or an animatic
 when they help the current film. They are working media, not mandatory
 paperwork. Preserve decisions that the implementation needs; omit ceremony
 that adds no creative information.
+
+If the implementation benefits from the structured
+`film-plan.py → shot_scaffold.py → check_motion.py` toolchain, write
+`film-plan.json` with `production_process: standard`. Use
+`production_process: agency` only when the user requests the three-treatment,
+storyboard, animatic, and approval-receipt process. The agency profile is not a
+default gate.
 
 ### 5. Resolve only useful assets
 
@@ -200,9 +213,20 @@ camera, blocking, hierarchy, or handoff.
 
 ### 8. Deliver on VidMuse Timeline
 
-Refresh the project DSL after program picture exists and serve it with
-`vidmuse serve`. Timeline should contain the finished picture plus the sound
-layers and subtitles the user requested.
+Refresh the project DSL after the finished program master exists and serve it
+with `vidmuse serve`. Timeline should contain that master plus the subtitles the
+user requested.
+
+```bash
+python3 ../vidmuse-recut/scripts/write_dsl.py "$WORK_DIR" \
+  --mode baked --baked "$WORK_DIR/output.mp4" \
+  --caption-owner timeline
+vidmuse serve "$WORK_DIR/dsl.json"
+```
+
+Use `--caption-owner hf` instead when the finished HyperFrames picture already
+owns continuous spoken captions. The explicit owner prevents Timeline subtitles
+from being rendered over the same words a second time.
 
 Report:
 

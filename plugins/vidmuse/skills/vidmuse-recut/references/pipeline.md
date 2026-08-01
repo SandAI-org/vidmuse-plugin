@@ -14,6 +14,11 @@ ffprobe -v error -select_streams v:0 \
   -show_entries stream=width,height,r_frame_rate \
   -show_entries format=duration -of json "$VIDEO_PATH" > "$WORK_DIR/metadata.json"
 
+# stage the seek-safe source before the early Timeline handoff
+mkdir -p "$WORK_DIR/public"
+ffmpeg -y -i "$VIDEO_PATH" -c:v libx264 -crf 18 -g 30 -keyint_min 30 \
+  -pix_fmt yuv420p -movflags +faststart -c:a aac "$WORK_DIR/public/input-video.mp4"
+
 # audio for transcript alignment
 ffmpeg -y -i "$VIDEO_PATH" -vn -acodec libmp3lame -q:a 2 "$WORK_DIR/audio.mp3"
 ```
@@ -22,7 +27,16 @@ fps = the `r_frame_rate` fraction evaluated (`30000/1001 → 29.97`).
 
 ## Transcript handling
 
-`transcript.json` is a flat array of word objects `[{ "text", "start", "end" }, …]` — no `segments`, no `words` wrapper. Group words into sentences at terminal punctuation and pauses — the alignment response's utterance boundaries are the natural grouping. The text comes from the user; when it mismatches the audio, fix the source text and re-run the alignment; never hand-edit timestamps.
+`transcript.json` is a flat array of word objects `[{ "text", "start", "end" }, …]` — no `segments`, no `words` wrapper. Keep the media-use wrapper as `transcript-receipt.json`, then materialize the canonical Recut view:
+
+```bash
+node ../media-use/scripts/transcribe.mjs \
+  --input "$VIDEO_PATH" --out "$WORK_DIR/transcript-receipt.json"
+python3 scripts/materialize_transcript.py "$WORK_DIR/transcript-receipt.json" \
+  --out "$WORK_DIR/transcript.json"
+```
+
+Group words into sentences at terminal punctuation and pauses — the alignment response's utterance boundaries are the natural grouping. The text comes from the user; when it mismatches the audio, fix the source text and re-run the alignment, then materialize again; never hand-edit timestamps.
 
 **Clamp to media duration.** Alignment can return the final word's `end` past the actual clip length. Clamp every slot `end` and the composition duration to the `metadata.json` duration, or the render shows a black tail.
 
@@ -38,12 +52,8 @@ User-supplied or licensed local fonts still live under `public/fonts/` and use
 explicit `@font-face` declarations. Do not copy the skill's legacy vendored GSAP
 into every project when the selected effects already use the approved pinned CDN.
 
-**Re-encode the source with dense keyframes.** Sources with a sparse GOP (keyframe interval > ~1 s) freeze on seek in the renderer — a frozen frame under the overlays. Set `-g` / `-keyint_min` to the composition fps:
-
-```bash
-ffmpeg -y -i "$VIDEO_PATH" -c:v libx264 -crf 18 -g 30 -keyint_min 30 \
-  -pix_fmt yuv420p -movflags +faststart -c:a aac "$WORK_DIR/public/input-video.mp4"
-```
+The dense-keyframe source was already created during Probe because the early
+Timeline handoff depends on it. Do not postpone that re-encode to this stage.
 
 ## Assembly structure
 
@@ -80,6 +90,6 @@ npx hyperframes snapshot public --at <slot-midpoints>   # eyeball each frame
 PRODUCER_BROWSER_GPU_MODE=hardware npx hyperframes render public -o output.mp4 --fps <fps>
 ```
 
-`PRODUCER_BROWSER_GPU_MODE=hardware` is strongly recommended on macOS; software rendering times out on most laptops. `validate` / `inspect` / `layout` are deprecated aliases of `check` — do not use them. After bake, verify duration / resolution / fps with `ffprobe` against `edit-plan.json` (Packaging mode) or `scene-plan.json` (Director mode) when using bake evidence. Director mode keeps `motion-reel.mp4`, optional `act-renders/`, `output-draft.mp4`, and correction evidence before final delivery.
+`PRODUCER_BROWSER_GPU_MODE=hardware` is strongly recommended on macOS; software rendering times out on most laptops. `validate` / `inspect` / `layout` are deprecated aliases of `check` — do not use them. After bake, verify duration / resolution / fps with `ffprobe` against probed source metadata and approved Packaging ranges, or against `scene-plan.json` in Director mode. Director mode keeps `motion-reel.mp4`, optional `act-renders/`, `output-draft.mp4`, and correction evidence before final delivery.
 
 Do not use `npx hyperframes preview` as the user-facing packaging surface — that role belongs to `vidmuse serve`. **Hard rule:** never auto-start HF Studio during create/recut gates, checks, or handoffs. Agent picture tools are `lint` / `check` / `snapshot` / `keyframes` only. `hyperframes play --no-open` is allowed for composition-only watch if the user asks to see raw HF HTML without multi-track assembly. HF Studio (`preview`) is opt-in only when the user explicitly requests it.

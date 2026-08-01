@@ -95,8 +95,9 @@ Order and naming are yours; a viewer must be able to find all seven.
    same reason: the first mechanism a model reaches for is the one every run
    would ship. In preset mode the pack's `caption-skin.html` is candidate one
    and `effect_affinity` bounds the rest; in composed mode each candidate is
-   drawn from FRAME.md tokens. Label the band's aspect and pixel range so the
-   user is approving a position, not only a look.
+   drawn from FRAME.md tokens. Label the owning workflow's already-declared
+   aspect and pixel range so every identity is proved in the same reserved
+   band; caption identity selection does not reopen band position.
 
 ## Keyframe extraction
 

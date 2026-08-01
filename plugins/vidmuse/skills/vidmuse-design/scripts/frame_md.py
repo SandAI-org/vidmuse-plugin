@@ -343,12 +343,17 @@ def _lint_legacy(spec: dict[str, Any], source: str) -> dict[str, Any]:
     }
 
 
-def check(path: Path) -> dict[str, Any]:
+def check(path: Path, *, allow_template_pack: bool = False) -> dict[str, Any]:
     spec = load_design_document(path)
     if spec.get("schema") in CURRENT_SCHEMAS:
         return _lint_current(spec, str(path))
     if _is_template_pack(spec):
-        return _lint_template_pack(spec, str(path))
+        if allow_template_pack:
+            return _lint_template_pack(spec, str(path))
+        raise FrameMdError(
+            f"{path}: project FRAME.md is missing schema; "
+            "template packs may be checked only with --template-pack"
+        )
     return _lint_legacy(spec, str(path))
 
 
@@ -360,13 +365,22 @@ def main() -> int:
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--check", action="store_true", help="mechanical lint; JSON report on success")
     group.add_argument("--extract", action="store_true", help="print the parsed tokens as JSON")
+    parser.add_argument(
+        "--template-pack",
+        action="store_true",
+        help="allow a schema-less official/private frame-pack source",
+    )
     args = parser.parse_args()
 
     try:
         if args.extract:
             print(json.dumps(load_design_document(args.path), ensure_ascii=False, indent=2))
         else:
-            print(json.dumps(check(args.path), ensure_ascii=False, indent=2))
+            print(json.dumps(
+                check(args.path, allow_template_pack=args.template_pack),
+                ensure_ascii=False,
+                indent=2,
+            ))
     except FrameMdError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

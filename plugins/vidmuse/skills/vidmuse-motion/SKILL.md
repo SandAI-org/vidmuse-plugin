@@ -135,8 +135,15 @@ npx hyperframes snapshot "$COMP_DIR" --at <recipe verify.times> -o "$WORK/proof"
 | `weekly-bar-rise` | Category/week bars grow with labels | medium |
 | `sparkline-draw` | Single series line draws L→R | medium |
 | `stat-card-trio` | 1–3 evidence cards entrance + orchestration | low |
+| `collapse-merge-morph` | Many inputs collapse into one resolved state | medium |
+| `cue-paced-reveal` | Reveal named elements on real narration cues | low |
+| `line-carry-transition` | Carry one semantic line across a handoff | medium |
+| `pullback-reveal` | Pull back from detail into the larger system | high |
+| `ui-strip-away-lock` | Remove interface chrome and lock the proof state | medium |
 
-Full bodies: `references/recipes/<id>.md`. Index: `references/index.jsonl`.
+The table mirrors all records currently in `references/index.jsonl`; query the
+index rather than relying on memory when the catalog grows. Full bodies live at
+`references/recipes/<id>.md`.
 
 ## Docs for humans / skill authors
 
