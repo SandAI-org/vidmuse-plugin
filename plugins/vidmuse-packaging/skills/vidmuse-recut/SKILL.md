@@ -166,7 +166,7 @@ Open the HTML in a browser when local browser control is available and inspect i
 
 Present the original preview to the user as the design-approval checkpoint before bulk card construction. Keep the already-running VidMuse subtitle Serve session alive; the design page complements it and does not replace Timeline review. In collaborative work, revise `FRAME.md` and the preview together until the direction is accepted. In autonomous work, publish the page and overview as a visible checkpoint, then continue without converting it into a template choice.
 
-**Gate:** `design-preview/index.html` exists, uses real source material, visibly demonstrates the bespoke system across representative conditions, and agrees with `FRAME.md`. Final card construction may not begin before this gate.
+**Gate (blocking): the design gate is `FRAME.md` plus `design-preview/index.html`, accepted together.** Both must exist, and the preview must use real source material, visibly demonstrate the bespoke system across representative conditions, and agree with `FRAME.md`. Present both to the user and wait: the preview is the reviewable surface, `FRAME.md` is the normative one, and accepting a preview whose `FRAME.md` disagrees with it approves nothing. Final card construction may not begin before this gate. If the user asks for changes, revise both and re-present; do not carry an unaccepted direction into bulk card construction.
 
 ## Build a film system, not a row of cards
 
@@ -257,6 +257,8 @@ Keep the official data and rendering contracts; replace only these execution pro
 
 Treat `storyboard.json` as the official agent planning artifact; no CLI parses it. Treat `public/index.html` as the render source of truth.
 
+Presence is not sufficient for `dsl.json`. It must expose one Timeline item per approved packaging moment, reconciled against `storyboard.json` and the implemented hosts per the Timeline synchronization gate. Add `timeline-overlay/index.html` (or the per-card hosts it replaces) whenever an overlay-safe host was derived.
+
 ## Visual QA gate
 
 Before rendering, snapshot the start, hero/midpoint, and end of every card window and inspect them at output ratio. For any card window longer than 12 seconds or with a staged reveal, also snapshot each intermediate reveal state, including the state immediately after entrance. Pass only when all are true:
@@ -283,6 +285,64 @@ Before rendering, snapshot the start, hero/midpoint, and end of every card windo
 
 Fix, downgrade, reposition, change layout, or remove any failing card. Then run the official HyperFrames lint, browser check, snapshots, and render steps.
 
+## Timeline synchronization gate (blocking, before render)
+
+The film has two user-visible delivery surfaces, not one: a playable cut, and packaging the user can see and edit as discrete segments on the Timeline. A correct `output.mp4` does not make the project complete. This gate is fail-closed — an omission must make delivery impossible, not merely undocumented.
+
+The subtitle-review DSL is provisional. Its empty `graphics` track is correct only before packaging implementation begins, and is never an acceptable final state once the approved storyboard contains packaging moments. Before final render, result reporting, or delivery:
+
+1. Map every approved storyboard card to exactly one timed HyperFrames item on the DSL `graphics` track, preserving a stable ID, absolute `startTime`, `duration`, `endTime`, and `params.sourceStartTime`.
+2. Make every packaging moment individually visible. One full-span graphics item is allowed only when the user explicitly asks for a consolidated, non-editable representation.
+3. Use an overlay-safe host whenever the DSL already owns the main video, program audio, or captions. Such a host must not contain duplicate source video, program audio, or Timeline-owned subtitles.
+4. Reconcile `storyboard.json`, the implemented HyperFrames card hosts, and `dsl.json`. Counts must match and no start time or duration may differ by more than one output frame.
+5. Run the HyperFrames host check and the DSL validator, restart Serve, and confirm from the live Timeline that every packaging item is exposed.
+6. **Present the Timeline to the user and let them review the packaging points there before rendering.** This is the render gate: the user sees the packaging as segments on the graphics track, at their real times, and confirms them.
+
+Reconciliation is owner-level semantic validation. `validate-dsl` checks structural legality and must keep allowing a legitimately zero-packaging project, so it cannot detect "storyboard has 8 cards, graphics has 0" — only this workflow can.
+
+If any reconciliation or UI check fails, the project is incomplete. Do not render, do not report success, and never describe delivery as complete.
+
+### Packaging-point DSL shape
+
+Write packaging into a `type: "sub"` graphics track using the `videos` collection, one item per packaging point:
+
+```json
+{
+  "id": "graphics",
+  "type": "sub",
+  "videos": [
+    {
+      "id": "card-01",
+      "type": "hyperframes",
+      "startTime": 0.32,
+      "duration": 5.48,
+      "endTime": 5.8,
+      "htmlSourceFilePath": "timeline-overlay/index.html",
+      "params": { "sourceStartTime": 0.32, "enabled": true }
+    }
+  ]
+}
+```
+
+`params.sourceStartTime` depends on which host the item points at, and getting it wrong silently shifts the packaging:
+
+- **One shared overlay host on the film's clock** (above): `sourceStartTime` equals the item's `startTime`. The host's finite duration must cover `sourceStartTime + duration`, so a shared host has to span the whole film.
+- **A per-card host whose internal time starts at 0**: `sourceStartTime` is `0`.
+
+When the same long host backs several items, set the intended source time on every item rather than relying on shared-source inference.
+
+Invariants:
+
+- `type: "sub"` on the graphics track, so items are placed by absolute `startTime`.
+- New projects use `videos`; never populate both `videos` and the legacy `items`.
+- `duration > 0` and `endTime = startTime + duration`.
+- IDs are unique project-wide and should match the `storyboard.json` card IDs.
+- `htmlSourceFilePath` points at a complete, independently renderable host — never a card fragment such as `public/cards/card-01.html`, and never a raw Registry template.
+- Pointing at `public/index.html` is wrong whenever that file still carries the source video, program audio, or the same captions the DSL owns: mounting it duplicates media. Derive an overlay-safe host from the validated composition instead — keep the cards and the one GSAP master timeline, remove the source video, program audio, subtitles, and opaque background, keep the transparent canvas plus local fonts, then re-run the HyperFrames check on it.
+- All timings within one frame of the storyboard and HyperFrames implementation.
+
+An empty `graphics` track when `storyboard.json` already holds packaging moments is an unfinished state, never a deliverable one.
+
 ## Verify the rendered film
 
 Treat `output.mp4` as the final QA subject; passing HTML checks does not certify the film. After rendering, verify the actual file:
@@ -293,6 +353,8 @@ Treat `output.mp4` as the final QA subject; passing HTML checks does not certify
 - spot-check caption text and timing against `subtitles.timeline.json`, including the last displayed frame of fading text for contrast.
 
 Fix at the source and re-render on any failure. Do not deliver a file whose rendered frames were never inspected.
+
+Delivery is fail-closed across both surfaces. Before claiming completion, confirm the rendered film passed inspection **and** that the Timeline still exposes every packaging item. A verified `output.mp4` beside an empty or unreconciled `graphics` track is an incomplete delivery, and reporting it as finished is the defect this gate exists to prevent.
 
 ## Ownership and boundaries
 
