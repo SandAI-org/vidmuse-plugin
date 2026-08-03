@@ -33,6 +33,7 @@ First decide whether the user wants a complete film. A complete film remains own
 6. Distinguish Timeline delivery from CLI syntax. Working on a Timeline project belongs to `vidmuse-timeline`; running or explaining a specific command belongs to `vidmuse-cli`.
 7. Route by material system, not by beat count. When paper-collage metaphor is the film's own visual language — a collage explainer or collage B-roll — `vidmuse-vox` owns it end to end, including the script, voice choice, and duration plan, and loads `vidmuse-media` to execute narration and alignment. When a film's primary proof is real capture, product UI, or supplied footage and collage would only be one texture among many, `vidmuse-create` stays the owner and may load `vidmuse-vox` for individual clips. A single already-decided image or video generation with no metaphor judgment or approval gates is `vidmuse-media`.
 8. If two owners remain plausible and choosing incorrectly would change the deliverable, ask one short question about the final output. Do not conduct the production brief here.
+9. Do not check credits or quote costs while routing. Every owner checks the balance before its own first paid call and owns the budget conversation for its deliverable. A "how many credits do I have" question is itself a `vidmuse-cli` request.
 
 ## Handoff
 

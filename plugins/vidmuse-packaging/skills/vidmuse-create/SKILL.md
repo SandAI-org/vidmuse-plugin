@@ -157,6 +157,8 @@ Load `vidmuse-media` for only the operations it actually implements, and `vidmus
 
 Narration intent, language, and voice were settled in step 1 — execute that decision rather than reopening it. Before the first paid call of a run, state the model and its live unit price so the spend is knowingly authorized, and lock the script as plain text first: it is the cheapest gate in the pipeline, and a wrong script wastes the synthesis, the alignment, and every duration derived from them.
 
+Also ask `vidmuse-cli` for the credit balance before that first paid call, and compare it against the run's estimated generation spend. When the balance is short, do not refuse the film and do not quietly shrink it: propose a version the balance can pay for, say what the user will hold at the end, name the shortfall for the rest, and give the top-up link once — `https://vidmuse.ai/en/pricing`. Never begin a batch the balance cannot finish; a half-paid film is worse than a smaller one. See `vidmuse-vox` for the fuller budget protocol when a run is heavy on generated media.
+
 **Every narrated film gets word-level timing. There is no exception for narration this workflow generated itself.** Request `transcribe-and-align` from `vidmuse-media` and require the validated flat `transcript.json` before any beat receives a duration:
 
 - For supplied speech, the words are not known in advance: run the full ASR → correction → ATA chain.

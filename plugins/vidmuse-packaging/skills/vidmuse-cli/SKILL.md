@@ -1,6 +1,6 @@
 ---
 name: vidmuse-cli
-description: "Operate the bundled VidMuse command-line interface for authentication, profiles, credits, models, generated assets, voices, styles, memories, threads, messages, and VidMuse DSL preview or rendering. Load whenever another VidMuse skill needs to invoke the CLI. The current plugin bundle supports macOS on Apple silicon and does not require a package download. Do not make film, editorial, design, placement, or asset-planning decisions."
+description: "Operate the bundled VidMuse command-line interface for authentication, profiles, credit balance and cost estimation, models, generated assets, voices, styles, memories, threads, messages, and VidMuse DSL preview or rendering. Load whenever another VidMuse skill needs to invoke the CLI or needs to know what a generation will cost against the user's balance. The current plugin bundle supports macOS on Apple silicon and does not require a package download. Do not make film, editorial, design, placement, or asset-planning decisions."
 ---
 
 # VidMuse CLI
@@ -70,6 +70,38 @@ When login is required, prefer the agent-friendly device flow:
 
 Stop and return the approval URL when user action is required. Run `logout`, memory mutations, thread creation/use, or message sending only when the user's request or the calling workflow authorizes that external state change.
 
+## Credits and cost preflight
+
+Reading the balance is free, is never a paid call, and is the only honest basis for a cost warning:
+
+```bash
+"$VIDMUSE_BIN" plan get -o json
+```
+
+It returns `credits` as the spendable balance, plus `planName`, `hasActivePlan`, `nextRenewTime`, and a `creditDetails` array whose entries carry `creditAmount`, `creditType`, and `expireTime`. Report the `credits` total; do not sum `creditDetails` yourself, and do not echo the email from `profile get`.
+
+Estimate cost from the chosen model's live `priceItems` rather than a remembered rate. Each item has a `unit_type`, an optional `properties` filter, and `price.output` in credits per unit:
+
+| `unit_type` | estimate |
+| --- | --- |
+| `seconds` | `duration_seconds × price.output` |
+| `images` | `image_count × price.output` |
+| `30 seconds` | `ceil(audio_seconds / 30) × price.output` |
+
+Match `properties` to the request you are actually sending — `resolution`, and `audio` on models that price sound separately. An item with no `properties` is the fallback default, not a cheaper option.
+
+Do not assume price rises with resolution. On `minimax/hailuo-h3` today, 1080p costs 11 credits/second while 720p costs 12, so the higher tier is the cheaper one; on `seedance-2.0-pro` 1080p is 50 against 720p's 20. Read both before recommending a tier.
+
+Check the balance before the first paid call of a run, and again before any batch whose estimate is a large fraction of what is left. When the estimate is close to the balance, also read `creditDetails[].expireTime`: a balance that covers the run today may not cover it next week.
+
+When the balance cannot be read, treat it as unknown. Report the estimate and the failure, and let the owning workflow decide — never invent a balance, and never let an unreadable balance silently become either a green light or a refusal.
+
+When the balance is short, return the numbers and this link, once:
+
+> https://vidmuse.ai/en/pricing
+
+Then hand the shortfall back to the caller. Deciding what to build within a budget is the owning workflow's judgment, not this skill's: do not shrink a request, drop a stage, downgrade a resolution, or abandon a run here, and do not treat a sufficient balance as authorization to spend.
+
 ## Model execution
 
 Discover compatible models first with `model list` filters. Pass exactly one complete Aion request JSON object through `model run --param`; do not rename, infer, or translate request fields.
@@ -109,7 +141,9 @@ Audio-text alignment (ATA) is not a separate CLI subcommand. Discover and invoke
 
 Require the discovered model name to be exactly `doubao_speech/audio_text_alignment` with subtype `ata`. Its request must contain the corrected ASR text in `prompt` and the same local audio in `files`; omit `generation_type`, `messages`, and unrelated generation controls. Return the complete raw response to `vidmuse-media`. Never describe ASR text as aligned or use ASR-only output to construct timed captions.
 
-Before a credit-consuming generation, ensure the chosen model supports the requested operation and that the caller has supplied all material inputs. A successful media generation returns public result URLs; return those URLs to `vidmuse-media` or the owning workflow for download and provenance recording.
+Before a credit-consuming generation, ensure the chosen model supports the requested operation, that the caller has supplied all material inputs, and that the balance has been checked as above.
+
+A run that fails on insufficient credits mid-batch is the expensive failure: earlier beats are already paid for and the film is unfinishable. Surface the balance before the batch, not after the provider rejects a call. A successful media generation returns public result URLs; return those URLs to `vidmuse-media` or the owning workflow for download and provenance recording.
 
 ## Local preview and render
 
@@ -135,7 +169,8 @@ Do not start `serve` as an implicit preview after rendering. Start it when reque
 
 ## Boundaries
 
-- Own binary resolution, command syntax, authentication mechanics, execution, and result parsing.
+- Own binary resolution, command syntax, authentication mechanics, execution, result parsing, balance reads, and cost arithmetic from live `priceItems`.
 - Do not decide story, cut points, packaging density, visual direction, asset need, model choice strategy, or timeline content.
+- Do not decide what to cut when credits are short, and do not spend up to the balance because it happens to be sufficient. Report balance, estimate, and shortfall; the owning workflow decides.
 - Do not invent undocumented flags. Re-read live help when a command rejects an argument.
 - Do not expose credentials, treat stderr as clean structured data, or report success from a zero-byte/missing output.

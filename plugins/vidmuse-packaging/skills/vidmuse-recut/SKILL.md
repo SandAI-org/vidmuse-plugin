@@ -239,6 +239,7 @@ Keep the official data and rendering contracts; replace only these execution pro
 5. Use the pinned HyperFrames domain skills for composition, animation, validation, snapshots, and local render.
 6. Use snapshots and the already-running `vidmuse-timeline` Serve session for review. Never start HyperFrames Studio, `hyperframes preview`, or the HyperFrames Timeline UI.
 7. Never use HyperFrames TTS, transcription, background-removal, vision, or locally downloaded model paths.
+8. Ask `vidmuse-cli` for the credit balance before the first paid call, and state the estimate against it. A recut spends far less than a generated film — transcription and any generated inserts — but a run that dies on insufficient credits after the design work still wastes the design work. When the balance is short, propose what it can pay for rather than refusing, and give `https://vidmuse.ai/en/pricing` once.
 
 ## Required artifacts
 

@@ -1,6 +1,6 @@
 ---
 name: vidmuse-vox
-description: "Build a Vox-style editorial halftone paper-collage film whose picture length is planned from the narration. Use when the user asks for collage b-roll, 拼贴 b-roll, 半调拼贴, 纸拼贴, vox 风格, editorial collage, a collage explainer, or wants script lines turned into assemble-from-empty visual metaphors. Resolve the voice spine first through vidmuse-media — narration then word alignment — then derive one clip per argument at a duration that covers its narration span, and enforce three approval gates: metaphor, still, then motion. Do not use for talking-head packaging, for real product-UI proof, or when an editable layered timeline is required."
+description: "Build a Vox-style editorial halftone paper-collage film whose picture length is planned from the narration. Use when the user asks for collage b-roll, 拼贴 b-roll, 半调拼贴, 纸拼贴, vox 风格, editorial collage, a collage explainer, or wants script lines turned into assemble-from-empty visual metaphors. Resolve the voice spine first through vidmuse-media — narration then word alignment — then derive one clip per argument at a duration that covers its narration span, cost the plan against the live credit balance, and enforce three approval gates: metaphor, still, then motion. Do not use for talking-head packaging, for real product-UI proof, or when an editable layered timeline is required."
 ---
 
 # VidMuse Vox
@@ -44,12 +44,12 @@ Every model call goes through `vidmuse-cli` and the bundled binary. There is no 
 | narration (multilingual) | `elevenlabs/eleven_multilingual_v2` | `vidmuse-media` | when the script is not zh/en |
 | word alignment | `doubao_speech/audio_text_alignment` | `vidmuse-media` | mandatory; 1 credit per 30 seconds |
 | still (Gate 2) | `gpt-image-2` | this skill | 16 credits per image; `text_to_image` and `image_to_image` |
-| motion (Gate 3, default) | `seedance-2.0-pro` | this skill | 4–15 second integers; 20 credits/second at 720p |
-| motion (fallback) | `minimax/hailuo-h3` | this skill | 5–15 second integers; 12 credits/second at 720p |
+| motion (Gate 3, default) | `minimax/hailuo-h3` | this skill | 5–15 second integers; 12 credits/second at 720p |
+| motion (fallback) | `seedance-2.0-pro` | this skill | 4–15 second integers; 20 credits/second at 720p |
 
 Voice and alignment run through `vidmuse-media`, which owns every media model call and its artifact verification. Collage stills and motion are generated here, because the metaphor, duration, and framing judgment behind each request is inseparable from the request itself.
 
-Confirm every id in the live catalog before the first paid call of a run — ids move:
+Confirm every id in the live catalog before the first paid call of a run — ids and prices both move:
 
 ```bash
 "$VIDMUSE_BIN" model list -o json > "$WORK_DIR/model-list.json"
@@ -57,9 +57,11 @@ Confirm every id in the live catalog before the first paid call of a run — ids
 
 If a model is absent or renamed, report that and stop the branch. Do not silently substitute another model, and do not fall back to Veo.
 
-Default to `720p`. State the cost before Gate 3 so the user chooses knowingly: at 720p a 12-second beat is 240 credits on `seedance-2.0-pro` and 144 on `minimax/hailuo-h3`. At 1080p `seedance-2.0-pro` jumps to 50 credits/second, so raise resolution only when the user asks and knows the multiplier.
+Default to `720p`. State the cost before Gate 3 so the user chooses knowingly: at 720p a 12-second beat is 144 credits on `minimax/hailuo-h3` and 240 on `seedance-2.0-pro`. Re-read the live `priceItems` before each batch rather than trusting these numbers, and let `vidmuse-cli` do the arithmetic from the catalog.
 
-`minimax/hailuo-h3` cannot go below 5 seconds. When a beat is planned at 4 seconds and the run switches to the fallback, either replan that beat to 5 seconds or keep it on `seedance-2.0-pro`; never silently ship a 5-second clip against a 4-second plan.
+Do not assume a higher resolution costs more. `minimax/hailuo-h3` currently prices 1080p at 11 credits/second against 720p's 12, so 1080p is both better and cheaper on the default model — read the live prices and say so when it happens. On `seedance-2.0-pro` the intuition holds: 1080p is 50 against 720p's 20.
+
+`minimax/hailuo-h3` lists `duration_options` from 4 to 15, but its own model description restricts duration to 5–15 second integers. Treat 5 seconds as the floor: the catalog's `4` is not trustworthy here. When a span needs less than 5 seconds, round up to 5, or state plainly that the beat is moving to `seedance-2.0-pro`, which honors 4. Never silently ship a 5-second clip against a 4-second plan.
 
 ## Always set `generation_type`
 
@@ -68,9 +70,11 @@ Pass `generation_type` explicitly in the `--param` JSON on every image, video, a
 | model | legal values |
 | --- | --- |
 | `gpt-image-2` | `text_to_image`, `image_to_image` |
-| `seedance-2.0-pro` | `image_to_video`, `images_to_video`, `reference_to_video` |
 | `minimax/hailuo-h3` | `image_to_video`, `images_to_video`, `reference_to_video`, `text_to_video` |
+| `seedance-2.0-pro` | `image_to_video`, `images_to_video`, `reference_to_video` |
 | voice models | `text_to_speech` |
+
+This skill always sends `images_to_video` for motion: the two-image first/last-frame mode is what makes an approved still binding on the result. Do not reach for `image_to_video` or `text_to_video` to work around a bad clip.
 
 Text-to-video on Seedance is a separate id (`seedance-2.0-pro-t2v`), not a mode of the pro model. For image and video models, a model's `options.required_params` keys are its legal values; re-read them after `model list` rather than trusting this table, and never invent a value that is not a key on that model.
 
@@ -116,7 +120,7 @@ Split the aligned transcript into **arguments**, not sentences. One argument is 
 For each beat record:
 
 - `beat_id` and the `script_span` start/end read from aligned word timings
-- `target_duration_s`: the smallest value in the model's live `duration_options` that covers the span
+- `target_duration_s`: the smallest legal duration that covers the span — the smallest value in the model's live `duration_options`, floored at 5 on `minimax/hailuo-h3`
 - the viewer's job: notice, understand, feel, or remember
 - `motion_mode`: `assemble` for short spans, `hybrid` with phases for long ones
 - relation to the neighbouring beats: sequence, cause and effect, contrast, dependence
@@ -129,6 +133,75 @@ Reject the plan and replan when any of these is true:
 - every beat is the same treatment at the same intensity
 
 Present the beat plan with its durations and wait for confirmation before Gate 1 metaphors.
+
+## Phase 1b: budget the film against the real balance
+
+The beat plan is the first moment the film's total cost is knowable, and nothing has been paid for yet. Cost it here, before Gate 1, so a budget conversation happens while it is still cheap.
+
+Ask `vidmuse-cli` for the balance and for per-model prices from the live catalog, then estimate:
+
+```text
+stills   = beat_count × image_price
+motion   = Σ(target_duration_s × video_price_per_second)
+narration = narration_seconds × tts_price_per_second
+alignment = ceil(narration_seconds / 30) × ata_price
+```
+
+Add a retry reserve of roughly 20 percent of the motion subtotal. Some beat will need a second attempt, and a plan that spends the last credit on the first pass has no room for the retry ladder. State the reserve as a separate line rather than hiding it in the estimate.
+
+Record it in `budget.json` — the prices used, the balance at plan time, the estimate, the reserve, and the scope actually authorized — and present the total with the beat plan:
+
+```json
+{
+  "balance_at_plan": 4072,
+  "prices": { "image": 16, "video_per_s": 12, "tts_per_s": 1, "ata_per_30s": 1 },
+  "estimate": { "narration": 76, "alignment": 3, "stills": 128, "motion": 912, "reserve": 182 },
+  "total_with_reserve": 1301,
+  "authorized_scope": "all 8 beats"
+}
+```
+
+Then update `spent` as the run proceeds, so the delivery report quotes actual spend rather than the estimate.
+
+### When the balance covers the film
+
+Say the total, the balance, and what remains — one line, no alarm. A sufficient balance is not authorization to spend it all: the gates still apply, and cost is still stated before Gate 3.
+
+### When the balance is short
+
+Do not refuse the film, and do not silently shrink it. A user who can see one finished beat understands what the full film would be; a user who is only told "insufficient credits" has been given a dead end and no reason to care.
+
+Offer a **partial film the balance can actually pay for**, then let the user choose:
+
+1. Pick the beats that demonstrate the most — usually the opening beat plus the single strongest metaphor, not beats 1 through N in order. A film's first beat and its best beat prove the style; its middle beats prove only that there are more of them.
+2. Cost that subset explicitly, including the retry reserve, and keep it inside the balance.
+3. Say what the user will hold at the end: which beats are finished, which are planned but unshot, and that the metaphor plan and voice spine already cover the whole film.
+4. Name what the remainder needs — the credit shortfall for the beats left unshot.
+
+Cheaper knobs, in the order to reach for them:
+
+| knob | effect | cost |
+| --- | --- | --- |
+| fewer beats, each at full planned duration | a real, complete, shorter film | proportional |
+| resolution tier | read live prices first — on `minimax/hailuo-h3` 1080p is currently *cheaper* than 720p | sometimes free |
+| model choice | `minimax/hailuo-h3` at 12/s against `seedance-2.0-pro` at 20/s | ~40 percent off motion |
+| stills only, no motion | a contact sheet proving the visual system | 16 credits per beat |
+
+Never buy a discount by shortening a beat below its narration span. That breaks the one rule this skill exists to enforce, and the result is a film that fails QA rather than a cheaper film. Cut whole beats instead.
+
+When motion is unaffordable at any duration, offer the stills-only path: generate the approved stills, deliver the contact sheet, and say plainly that motion needs a top-up. That still gives the user something real to judge.
+
+Then, once and without repeating it, point to where credits come from:
+
+> https://vidmuse.ai/en/pricing
+
+State it as the practical next step and move on. Do not open with it before showing the numbers, do not repeat it at each gate, do not add urgency, and do not make finishing the film contingent on a purchase the user has not asked to make. If the user declines to top up, build the affordable version well and stop there.
+
+### Mid-run
+
+Re-check the balance before Gate 3, since narration, alignment, and stills have spent against it since Phase 1b. If a batch would exceed the balance, stop before sending it and return to the choice above — never begin a batch that will fail partway, leaving paid-for beats inside an unfinishable film.
+
+Report actual spend at delivery, not the estimate.
 
 ## Mandatory approval protocol
 
@@ -158,7 +231,9 @@ If the user approves only some stills, advance only those. Regenerate the rest a
 
 ### Gate 3: motion generation
 
-Only after the still is approved, and only at that beat's `target_duration_s`. Do not ask which video model to use — go to `seedance-2.0-pro` unless the user named another or a retry rule applies.
+Only after the still is approved, and only at that beat's `target_duration_s`. Do not ask which video model to use — go to `minimax/hailuo-h3` unless the user named another or a retry rule applies.
+
+Re-check the balance against this batch's estimate before sending it, and state the cost. If the batch no longer fits, stop and return to the budget choice in Phase 1b rather than starting beats that cannot all finish.
 
 ## Success criteria
 
@@ -196,6 +271,7 @@ videos/YYYY-MM-DD-vox-<title>/
 ├── transcript.json
 ├── voice-spine.json
 ├── beat-plan.md
+├── budget.json
 ├── gate2-qa.md
 ├── gate3-qa.md
 ├── still-contact-sheet.jpg
@@ -366,7 +442,9 @@ Default order:
 base structure → figure or key card → connectors → action → final result
 ```
 
-For a long beat, phase the assembly across the full span so motion never stalls into a held frame:
+Split the action into 2–4 phases whose boundaries are continuous and whose last boundary is exactly `duration` — a phase list that stops at 10s on a 13-second clip invites a three-second freeze. As a starting split: establish the subject over the first 20–30 percent, unfold the cause over the next 35–45 percent, complete the metaphor over the last 25–35 percent, and let the supplied composition settle in the final 0.5–1.0 second. Keep one main visual verb per beat — assemble, extend, open, weigh — because a second competing verb is what makes a clip read as two shots.
+
+Phase the assembly across the full span so motion never stalls into a held frame:
 
 ```text
 Paper-collage stop-motion assembly, using Image 1 as the exact empty first frame and Image 2 as the exact completed last frame. In one continuous locked-off vertical shot lasting the full [N] seconds, open on the empty flat [color] paper field.
@@ -393,7 +471,7 @@ Record one job per beat, then call the CLI. Order is load-bearing: `image_urls[0
 
 ```json
 {
-  "model_name": "seedance-2.0-pro",
+  "model_name": "minimax/hailuo-h3",
   "generation_type": "images_to_video",
   "prompt": "<animation prompt>",
   "image_urls": [
@@ -402,24 +480,49 @@ Record one job per beat, then call the CLI. Order is load-bearing: `image_urls[0
   ],
   "duration": 7,
   "resolution": "720p",
-  "aspect_ratio": "9:16",
-  "generate_audio": false
+  "aspect_ratio": "9:16"
 }
 ```
 
-`duration` is that beat's `target_duration_s`, never a default. Confirm the value is in the model's live `duration_options` before sending.
+`duration` is that beat's `target_duration_s`, never a default. Confirm the value is in the model's live `duration_options` and at or above the model's real floor before sending — on `minimax/hailuo-h3` that floor is 5, not the advertised 4.
 
-To fall back to `minimax/hailuo-h3`, keep the same two-image order and change `model_name`, but drop `generate_audio` and honor its 5-second floor. Never send `negative_prompt`, `guidance_scale`, `extra_params`, or a custom watermark URL, and do not mix keyframe mode with multi-element reference mode.
+Send nothing beyond those fields. `minimax/hailuo-h3` rejects `negative_prompt`, and `guidance_scale`, `keep_original_sound`, `audio_id`, `voice_list`, avatar parameters, a custom watermark URL, and any `extra_params` have no place in this workflow. Omit `generate_audio` on `minimax/hailuo-h3` — pass `false` only if the interface demands the key. The prompt is capped at 7000 characters and must be non-empty. Do not mix keyframe mode with multi-element reference mode: no reference video, no reference audio, no `elements`.
+
+To fall back to `seedance-2.0-pro`, keep the same two-image order, change `model_name`, and add `"generate_audio": false`.
+
+Both models accept a frame up to 30 MB with each side in 256–5760 pixels and an aspect ratio within 0.4–2.5, which the 1080×1920 normalization above already satisfies.
 
 Run beats concurrently, but treat each as independent — one failure must not restart a beat that already passed. Download every returned URL into `runs/v01/raw.mp4` and extend that beat's `provenance.json`.
 
-### 4. Force silent delivery
+Record what the provider actually returned next to what was requested, plus the single variable this run changed, so a second attempt is evidence rather than a guess:
 
-Silence is enforced by the request and by ffmpeg, not by the prompt. Leave `generate_audio` false, then strip any track that still arrives:
+```json
+{
+  "run_id": "01-clock/v01",
+  "request": { "model_name": "minimax/hailuo-h3", "duration": 7, "resolution": "720p" },
+  "changed_variable": "none",
+  "provider_output": { "resolution": "1440x2560", "fps": 24, "duration": 7.29 },
+  "normalized_output": { "resolution": "720x1280", "fps": 24, "duration": 7.0, "audio_tracks": 0 },
+  "qa": { "first_frame": "pass", "last_frame": "pass", "continuity": "pass", "style": "pass" }
+}
+```
+
+A prompt pattern earns reuse on the next film only after its beat passed Gate 3 QA. Reuse the phase skeleton and swap the nouns, colors, and timings; do not start a new beat from a blank prompt, and do not promote wording that only ever shipped with a flaw.
+
+### 4. Normalize to spec and force silent delivery
+
+Do not assume the provider honored the request. `minimax/hailuo-h3` asked for `720p` has returned 1440×2560 at 24fps, running 0.1–0.7 second longer than the requested `duration`. A beat that is 0.4 second long is a beat that no longer matches its narration span, so normalize every clip locally before QA rather than treating `raw.mp4` as deliverable.
+
+Keep `raw.mp4` read-only and write a new file. Silence, frame size, frame rate, and length are all enforced here, not by the prompt:
 
 ```bash
-ffmpeg -y -i "$RUN/raw.mp4" -map 0:v:0 -c:v copy -an "$RUN/final-noaudio.mp4"
+ffmpeg -y -i "$RUN/raw.mp4" \
+  -vf "scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280,setsar=1,fps=24" \
+  -frames:v $(( TARGET_DURATION_S * 24 )) \
+  -an "$RUN/final-noaudio.mp4"
 ```
+
+Trim the provider's surplus tail frames; never pad a short clip with a freeze frame, which makes the motion appear to stick at the end. If a clip comes back materially *shorter* than requested, that is a regeneration, not a padding job.
 
 Deliver `final-noaudio.mp4` per beat and carry narration as a separate track, so a script change never forces a picture rerun.
 
@@ -436,7 +539,7 @@ ffmpeg -y -i "$RUN/final-noaudio.mp4" \
 
 Pass criteria:
 
-- The measured duration equals `target_duration_s` and covers the narration span.
+- The measured duration of the normalized file equals `target_duration_s` and covers the narration span. A longer `raw.mp4` is the provider's habit, not a defect — check that normalization trimmed it rather than that the model obeyed.
 - Motion continues through the whole clip; no dead held stretch in the middle or a long freeze at the end.
 - The first frame is close to an empty color field; a slight early edge reveal is acceptable.
 - Structure, figures, or cards enter progressively rather than fading in globally.
@@ -458,16 +561,23 @@ For a batch, merge the per-beat sheets into `video-contact-sheet-all.jpg` and `e
 
 ### Common failures
 
+Change exactly one variable per retry. Two changes at once buys a clip without buying the knowledge of what fixed it, which is the whole reason the next beat still costs full price.
+
 | symptom | action |
 | --- | --- |
 | clip shorter than the span | replan `target_duration_s` and regenerate; never pad with a held still |
-| motion stalls mid-clip | rewrite the prompt with explicit per-second phases covering the full span |
+| motion stalls mid-clip | rewrite the phases to cover the full span, add "Distribute action across all N seconds", and push the last key action into the final 25 percent |
 | early edge reveal on frame 1 | acceptable when slight; for a strict empty field, prepend a held frame |
 | weak assembly feel | cut element count and rewrite as explicit per-piece slide in / snap into place |
-| last frame drifts | strengthen "Image 2 is the exact completed last frame" and "End by holding the supplied completed composition" |
-| fake lettering | return to the still and regenerate; never patch it in the video prompt |
-| assembly still fails after two tries | switch that beat to `minimax/hailuo-h3` at the same duration, or raise resolution, and state the cost |
+| last frame drifts | strengthen "Image 2 is the exact approved completed last frame" and "End by holding the supplied completed composition" before touching the model |
+| a cut or camera move appears | repeat the locked-off clause and delete any wording that reads as camera language |
+| objects appear that are not in the still | add "no objects beyond those in Image 2" and reduce the number of actions |
+| style turns photoreal mid-clip | make the material signature more specific and simplify the action; if it persists, strengthen the first frame rather than piling on modifiers |
+| structure still unstable after the ladder | shorten to 5–8 seconds or split the beat in two; do not keep growing the prompt |
+| assembly still fails after two tries | switch that beat to `seedance-2.0-pro` at the same duration, or raise resolution, and state the cost |
 | one beat fails | rerun only that job |
+| a call fails on insufficient credits | do not retry it; report what is finished, what the remainder costs, and the top-up link once. A retry cannot succeed and only delays an honest answer |
+| the retry reserve is exhausted mid-run | stop, deliver the passing beats, and state which beats remain and what they need. Do not spend a reserve earmarked for retries on new beats |
 | TTS returns HTTP 502 / `aion api returned status 400` | a missing route or voice, not an outage: send `generation_type: "text_to_speech"` and a `voice_id` resolved through `model_ids`. Never retry the identical request or fall back to another TTS path |
 | `voice list` shows no voices in the script's language | the default page size is 20; re-run with `--limit 200` before reporting the language unsupported |
 
@@ -475,11 +585,14 @@ For a batch, merge the per-beat sheets into `video-contact-sheet-all.jpg` and `e
 
 Hand over per beat `final-noaudio.mp4` with its measured duration and narration span, the contact sheets, the end-frame comparisons, `narration.mp3`, `transcript.json`, and one sentence on how each argument became its metaphor.
 
-Report the total credits spent across TTS, alignment, stills, and motion. When a defect comes from the model's fast-generation limits, say so plainly. Recommend the HyperFrames path only when precise layer control is genuinely required.
+Report the total credits actually spent across TTS, alignment, stills, and motion, against the Phase 1b estimate. When a defect comes from the model's fast-generation limits, say so plainly. Recommend the HyperFrames path only when precise layer control is genuinely required.
+
+When the film shipped as an affordable subset, close by naming exactly which beats are finished and which remain, and what the remainder would cost — the beat plan and voice spine already cover the whole film, so the unshot beats are a resumable job, not lost work.
 
 ## Boundaries
 
-- Own the beat and duration plan, the gate protocol, metaphor and color judgment, prompts, provider selection within the table above, still and motion result fetching, provenance, and QA.
+- Own the beat and duration plan, the gate protocol, metaphor and color judgment, prompts, provider selection within the table above, still and motion result fetching, provenance, QA, and — when credits are short — which beats to keep. Let `vidmuse-cli` read the balance and compute cost; the editorial choice of what survives a budget is this skill's.
+- Do not shorten a beat below its narration span to fit a budget, start a batch the balance cannot finish, or turn a shortfall into a refusal when an affordable subset would still show the user something real.
 - Load `vidmuse-media` for narration synthesis and word alignment. Decide the script and the voice; let it execute the call, verify the artifact, and own the `transcript.json` contract. Do not call a TTS or alignment model directly, hand-roll that contract, or hand-edit word timings.
 - Load `vidmuse-cli` for the still and motion calls; do not reimplement authentication, upload, or command syntax.
 - Do not route generation through HyperFrames-managed models, a local Gemini API key, or a downloaded local model, and never substitute OS or browser TTS.

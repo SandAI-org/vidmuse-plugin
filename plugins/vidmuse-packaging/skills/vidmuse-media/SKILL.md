@@ -43,6 +43,7 @@ Never substitute SRT for `transcript.json` inside a film workflow. Treat the wor
 - Require the input to exist, be readable, and match the requested operation.
 - Resolve `ffprobe` and `ffmpeg`; use `FFPROBE_BIN` or `FFMPEG_BIN` only when explicitly supplied or safely discovered.
 - Load `vidmuse-cli` for TTS, ASR, or alignment. Use its bundled binary and authentication rules.
+- For a paid operation, have `vidmuse-cli` read the credit balance and estimate the cost from live `priceItems` first. State both to the caller. When the balance will not cover it, report the shortfall with `https://vidmuse.ai/en/pricing` once and let the caller decide — do not silently truncate the input, downgrade quality, or retry a call the provider rejected for insufficient credits.
 - Use absolute input and output paths for provider calls.
 - Do not overwrite an existing output unless the user or owning workflow explicitly allows it.
 

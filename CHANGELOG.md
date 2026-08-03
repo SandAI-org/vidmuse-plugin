@@ -5,6 +5,96 @@ All notable changes to the VidMuse packaging plugin.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Credit-aware cost preflight across every paid path.** `vidmuse-cli` gained a
+  balance-and-cost section: `plan get -o json` returns a spendable `credits`
+  total plus per-bucket `creditDetails[].expireTime`, and estimates are computed
+  from each model's live `priceItems` (`seconds`, `images`, and `30 seconds` unit
+  types, matched on `properties` such as `resolution` and `audio`) rather than a
+  remembered rate. Reading the balance is free and is now required before the
+  first paid call of a run, and again before any batch that is a large fraction
+  of what remains. An unreadable balance is reported as unknown — never invented,
+  and never silently converted into either a green light or a refusal.
+- **`vidmuse-vox` gained a budget phase (Phase 1b) between the beat plan and
+  Gate 1.** The beat plan is the first moment the film's total cost is knowable
+  and nothing has been paid for, so the film is costed there, including a retry
+  reserve of ~20 percent of the motion subtotal — a plan that spends its last
+  credit on the first pass has no room for the retry ladder. Recorded in a new
+  `budget.json` artifact.
+- **A short balance now yields an affordable film rather than a refusal.** When
+  credits will not cover the plan, the skill proposes the subset the balance can
+  actually pay for — the opening beat plus the strongest metaphor, not beats 1
+  through N in order — states what the user will hold at the end, names the
+  shortfall for the rest, and gives `https://vidmuse.ai/en/pricing` once, after
+  the numbers rather than before them. Cheaper knobs are ordered by preference,
+  down to a stills-only contact sheet when motion is unaffordable at any
+  duration. Beats are dropped whole: shortening a beat below its narration span
+  to fit a budget is forbidden, since that produces a film that fails QA rather
+  than a cheaper film. If the user declines to top up, the affordable version is
+  built well and the run stops there.
+- Batches that the balance cannot finish must not start, since a mid-batch credit
+  failure leaves paid-for beats inside an unfinishable film. A call rejected for
+  insufficient credits is never retried. `vidmuse-create`, `vidmuse-recut`, and
+  `vidmuse-media` check the balance before their own first paid call; the
+  `vidmuse` router explicitly does not, since each owner owns its own budget
+  conversation.
+
+### Changed
+
+- **`vidmuse-vox` motion now defaults to `minimax/hailuo-h3`.** A production run
+  confirmed the two-image first/last-frame assembly holds up on H3 at 12
+  credits/second against `seedance-2.0-pro`'s 20 — a 12-second beat drops from
+  240 credits to 144 at the same 720p delivery spec. `seedance-2.0-pro` becomes
+  the fallback and keeps its role in the retry ladder. Because H3 has a
+  5-second floor, no beat may be planned at 4 seconds under the default: round
+  the span up to 5, or say plainly that the beat is moving to Seedance.
+- The request shape narrowed to what H3 accepts: `generate_audio` is omitted
+  rather than sent false, and `guidance_scale`, `keep_original_sound`,
+  `audio_id`, `voice_list`, avatar parameters, watermark URLs, and
+  `extra_params` are named as fields to never send. Quoted credit figures are
+  now explicitly stale-by-default — re-read the live price before each batch.
+- **Higher resolution is not assumed to cost more, because on H3 it does not.**
+  The live catalog prices `minimax/hailuo-h3` at 11 credits/second for 1080p
+  against 12 for 720p, so 1080p is both better and cheaper on the new default
+  model; `seedance-2.0-pro` keeps the intuitive ordering at 20 against 50. Both
+  `vidmuse-vox` and `vidmuse-cli` now say to read the live prices and to
+  surface the inversion when it appears.
+- **H3's 5-second floor is treated as authoritative over its own
+  `duration_options`.** The catalog advertises `[4, …, 15]` while the same
+  model's description restricts duration to 5–15 second integers, so the `4` is
+  not trustworthy: spans under 5 seconds round up to 5, or move to
+  `seedance-2.0-pro`, which honors 4. Beat planning now floors
+  `target_duration_s` at 5 on the default model rather than trusting the
+  advertised option list.
+
+### Fixed
+
+- **Motion output is normalized locally before QA rather than trusted.** A `720p`
+  request has returned 1440×2560 at 24fps running 0.1–0.7 second past the
+  requested `duration`, and a beat that is 0.4 second long no longer matches
+  the narration span it was planned from. Each clip is now scaled, frame-rate
+  locked, and trimmed to exactly `target_duration_s × 24` frames from a
+  read-only `raw.mp4`, cutting the provider's surplus tail rather than padding a
+  short clip with a freeze frame. The duration pass criterion checks the
+  normalized file, not the model's obedience.
+
+### Added
+
+- Animation prompts must split action into 2–4 continuous phases whose last
+  boundary equals `duration` exactly, with a recommended 20–30 / 35–45 / 25–35
+  percent split and one main visual verb per beat — a phase list that stops
+  short of the full span is what produces an end-of-clip freeze.
+- A single-variable retry rule and an ordered failure ladder covering stalled
+  motion, drifting end frames, cuts and camera moves, invented objects, and
+  mid-clip photoreal drift, ending in shortening or splitting the beat rather
+  than growing the prompt further.
+- Per-run provenance records the provider's returned spec beside the requested
+  one plus the one variable that run changed, and a prompt pattern earns reuse
+  on the next film only after its beat passed Gate 3 QA.
+
 ## [0.2.2] — 2026-08-03
 
 ### Fixed

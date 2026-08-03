@@ -33,9 +33,15 @@ Adaptations for this repo:
   `vidmuse-cli`. This removes the upstream skill's only host-environment dependency, so the
   workflow no longer requires Codex.
 - Video generation repointed from a direct `gemini-omni-flash-preview` API call to
-  `seedance-2.0-pro` through `vidmuse-cli`, with `minimax/hailuo-h3` as the fallback. Both
+  `minimax/hailuo-h3` through `vidmuse-cli`, with `seedance-2.0-pro` as the fallback. Both
   accept a two-image request meaning exactly first frame and last frame. The upstream legacy
   Veo script is dropped.
+- **Motion output is normalized locally before QA.** The provider does not reliably honor the
+  requested resolution or duration — a `720p` request has returned 1440×2560 running several
+  tenths of a second long — so each clip is scaled, frame-rate locked, and trimmed to exactly
+  `target_duration_s × 24` frames, with surplus tail frames cut rather than short clips padded
+  by a freeze. `raw.mp4` is kept read-only, and provenance records the returned spec beside the
+  requested one plus the single variable each retry changed.
 - An explicit `generation_type` is now required on every image, video, and voice model call.
   For image and video models a model's `options.required_params` keys are its legal route
   values. The voice models are an exception to that inference: they report
@@ -52,6 +58,11 @@ Adaptations for this repo:
   authentication and local-path upload are handled by the bundled CLI.
 - Result fetching, local verification, and per-item `provenance.json` were added, since
   VidMuse model runs return public URLs rather than local files.
+- **A budget phase was added between the beat plan and the first gate.** The upstream skill has
+  no cost model. VidMuse costs the whole film from live catalog prices, compares it against the
+  real credit balance plus a retry reserve, and — when the balance is short — offers a subset the
+  balance can pay for rather than refusing the film or silently shrinking it. Beats may be
+  dropped whole; a beat is never shortened below its narration span to fit a budget.
 - Artifacts aligned to the `videos/<project>/` convention, and Chinese-named project
   artifacts renamed to the repo's English filenames.
 
