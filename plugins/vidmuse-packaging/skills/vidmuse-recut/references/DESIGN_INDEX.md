@@ -102,7 +102,7 @@ root: `container-type: inline-size` + `font-size: clamp(64px, 8.5cqi, 132px)`.
 ## Source aspect ratio independence
 
 Output canvas is independent of source video aspect. Three supported
-output ratios (selected by the user in Step 7.0 of SKILL.md):
+output ratios (see [legacy-creative-heuristics.md](./legacy-creative-heuristics.md) for the official selection flow):
 
 | ratio  | canvas    | `storyboard.layout`                                    | best for                                                   |
 | ------ | --------- | ------------------------------------------------------ | ---------------------------------------------------------- |

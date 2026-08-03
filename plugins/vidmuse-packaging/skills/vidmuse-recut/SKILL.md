@@ -16,12 +16,11 @@ Act as the video's content-packaging director, not a card generator. Read what t
 
 ## Protocol precedence
 
-Read [official-protocol.md](./references/official-protocol.md) completely before executing a recut. Use it as the pinned technical and rendering contract.
+Read [official-protocol.md](./references/official-protocol.md) completely before executing a recut. Use it as the pinned technical and rendering contract. Do not read [legacy-creative-heuristics.md](./references/legacy-creative-heuristics.md) — it preserves the replaced official Step 6/7 creative workflow and applies only when the user activates the shipped design gallery.
 
 This skill replaces the official Step 6/7 creative heuristics for card selection, card count, placement, and mandatory template selection:
 
-- Let selected semantic beats determine card count. Never add a card to meet the official five-card floor.
-- Use the official duration-and-density formula only as a final pacing warning, never as a target.
+- Let selected semantic beats determine card count. Card count is an output of beat selection, never an input: do not compute the official duration-and-density formula, and never add a card to meet the official five-card floor. Judge pacing from the beats themselves — alternating quiet and emphasized passages — not from a per-minute number.
 - Analyze the transcript and source frames before recommending layout, style, or density. Do not ask the user to choose a card count before analysis.
 - Choose layouts per moment when needed; do not force one global layout onto every beat.
 - Default to a bespoke `FRAME.md` derived from the source audit. Do not ask the user to choose an official style, layout, frame, or preset as a prerequisite and do not auto-select one.
@@ -33,6 +32,7 @@ Keep every official schema, asset, HTML, animation, validation, and rendering ru
 Only when the user activates the shipped gallery, read the selected files from:
 
 - [DESIGN_INDEX.md](./references/DESIGN_INDEX.md) for the style × layout × frame matrix
+- [legacy-creative-heuristics.md](./references/legacy-creative-heuristics.md) for the official card-count formula, visual-direction questionnaire, and layout recipes
 - `references/styles/<key>.html` for the chosen card style
 - `references/layouts/<key>.html` for the chosen composition layout
 - `references/frames/<key>.html` for the chosen video frame
