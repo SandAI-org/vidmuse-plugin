@@ -5,6 +5,107 @@ All notable changes to the VidMuse packaging plugin.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] — 2026-08-03
+
+### Fixed
+
+- **`vidmuse-create` no longer produces slideshows.** The workflow could reach a
+  finished film without a single word-level timestamp: step 5 required the
+  ASR → correction → ATA chain only "for supplied speech", so narration this
+  workflow synthesized itself was timed by its `ffprobe` total duration alone.
+  With no anchors, the existing cue-chain and "graphics respond to words"
+  instructions had nothing to bind to. Alignment is now mandatory for every
+  narrated film — the synthesized-narration branch skips ASR and begins at ATA,
+  as `vidmuse-media` already supports — and `transcript.json` joins the official
+  artifact table.
+- **Beat durations come from measured narration spans.** Each beat reads its
+  `script_span` from the aligned words, adopting the rule `vidmuse-vox` already
+  enforces: spans of 6.5 / 15.3 / 9.5 seconds become beats of about
+  7 / 15 / 10 seconds, never an even division of the total.
+
+### Added
+
+- **`vidmuse-recut` gained a blocking Timeline synchronization gate.** A real run
+  delivered a correct `output.mp4` containing all 8 packaging moments while
+  `dsl.json`'s `graphics` track held 0 — the film was right, but the Timeline
+  exposed no editable packaging. The requirement to patch graphics back into the
+  DSL already existed, but it was spread across skills and sat after render and
+  result reporting, so the flow was fail-open: an omission still delivered
+  successfully. It is now fail-closed and placed before render. Every approved
+  storyboard card maps to exactly one timed item, counts are reconciled across
+  `storyboard.json`, the implemented hosts, and `dsl.json` within one output
+  frame, and the user reviews the packaging points as segments on the Timeline
+  before anything renders. `dsl.json` merely existing no longer satisfies
+  `Required artifacts`, and completion now requires both delivery surfaces — a
+  verified render beside an unreconciled graphics track is an incomplete
+  delivery.
+- **The packaging-point DSL shape is documented.** One item per packaging point
+  on a `type: "sub"` graphics track using `videos`, with the
+  `params.sourceStartTime` rule that silently shifts packaging when wrong: it
+  equals `startTime` for a shared overlay host on the film's clock, and `0` for a
+  per-card host starting at its own zero. Mounting `public/index.html` directly
+  is called out as duplicating media whenever the DSL already owns the source
+  video, program audio, or captions; the fix is an overlay-safe host derived from
+  the validated composition, keeping the cards and the single GSAP master
+  timeline while stripping source video, program audio, subtitles, and the opaque
+  background. Card fragments and raw Registry templates are rejected as hosts.
+  Reconciliation is documented as owner-level semantic validation, since
+  `validate-dsl` must keep allowing a legitimately zero-packaging project and
+  therefore cannot catch this class of omission.
+- **Three irreversible parameters are now confirmed with the user, not inferred.**
+  Duration, aspect ratio, and narration intent (TTS / supplied / silent) each
+  invalidate the whole film when guessed wrong: duration drives beat count and
+  script length, aspect ratio drives capture headroom and every crop, and
+  narration intent decides whether word-level alignment exists at all. Step 1
+  previously discouraged asking — "ask one short question only when an
+  unresolved choice would materially change the deliverable" — so a run could
+  silently adopt 16:9 and a guessed length. They are now one short up-front
+  exchange presented with a recommendation, before anything is captured,
+  written, or paid for. An unstated aspect ratio is missing information, not
+  permission to assume; an explicit "you decide" is an answer and is recorded as
+  an assumption in `BRIEF.md`. A resumed project treats them as settled and does
+  not re-ask.
+- **A per-beat semantic-event contract.** Beats split at arguments rather than
+  sentences, and each beat records the ordered changes it must show with their
+  causes. Any beat over roughly four seconds needs at least two distinct events;
+  an entrance plus its own resolution counts as one. Single-event beats must be
+  short or record why the stillness is deliberate. Silent films are held to the
+  same density — only their anchors differ, coming from actions, reading load,
+  and music instead of word onsets. Four
+  explicit rejections cover the failure shape: beats one-to-one with sentences,
+  one spoken passage over one unchanging picture, uniform treatment throughout,
+  and a beat whose only event is its own entrance.
+- **The animation map is now a Create gate.** Step 9's checks were entirely
+  static, and a slide deck passes all of them — an unchanging screenshot is a
+  flawless snapshot and a coherent contact sheet. `animation-map.mjs` and its
+  dead-zone report are the only mechanical evidence that the film moves. Each
+  dead zone must be either a named defensible stillness or a missing entrance,
+  and every storyboard event must appear at its anchor; an unexplained dead zone
+  spanning narration is blocking.
+- **A named motion vocabulary for Product mode.** Seven existing
+  `hyperframes-animation` rules for real-interface footage — `3d-page-scroll`,
+  `camera-cursor-tracking`, `context-sensitive-cursor`, `cursor-click-ripple`,
+  `control-target-sync`, `coordinate-target-zoom`, `multi-phase-camera`,
+  plus sequencing and focus-transfer families — are mapped to beat jobs so each
+  run stops rediscovering which rules apply to screenshot-led films. The beat's
+  event still chooses the rule, never the reverse.
+
+### Changed
+
+- **The recut design gate is explicitly `FRAME.md` plus `design-preview/index.html`,
+  accepted together.** The gate previously named only the preview, leaving the
+  normative artifact out of the approval. Accepting a preview whose `FRAME.md`
+  disagrees with it approves nothing, so both are now presented and the workflow
+  waits; a revision round revises both.
+- **Camera restraint is scoped to whole-frame work.** "Treat full-frame
+  reframing and source-camera transforms as expensive attention transfers" read,
+  when executed mechanically, as a general instruction to move less. It now
+  states explicitly that it is not a budget on semantic events inside the frame
+  and never justifies a static picture under a spoken passage: a held frame
+  containing an anchored reveal or state change is the intended default.
+- **Four checks were added to the film quality gate.** The previous fourteen
+  were all satisfiable by a competent slideshow.
+
 ## [0.2.1] — 2026-08-03
 
 ### Fixed
