@@ -1,7 +1,7 @@
 {
   "name": "vidmuse-packaging",
-  "version": "0.1.0+codex.20260803052337",
-  "description": "Package, recut, design, choreograph, source, review, and render VidMuse projects with focused product skills, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
+  "version": "0.2.0",
+  "description": "Package, recut, design, choreograph, source, review, and render VidMuse projects with focused product skills, narration-timed editorial collage generation, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
   "author": {
     "name": "VidMuse"
   },
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "VidMuse Packaging",
     "shortDescription": "Design and package creator-led videos",
-    "longDescription": "A minimal VidMuse architecture with one router, two film owners, focused design and semantic-motion capabilities, a dedicated CLI skill carrying its macOS Apple-silicon executable, pinned HyperFrames domain skills, and the official talking-head recut visual protocol adapted to VidMuse media and review providers.",
+    "longDescription": "A minimal VidMuse architecture with one router, two film owners, focused design and semantic-motion capabilities, a gated editorial paper-collage generator whose clip lengths are planned from narration, a dedicated CLI skill carrying its macOS Apple-silicon executable, pinned HyperFrames domain skills, and the official talking-head recut visual protocol adapted to VidMuse media and review providers.",
     "developerName": "VidMuse",
     "category": "Creativity",
     "brandColor": "#8B5CF6",
@@ -22,6 +22,7 @@
     "defaultPrompt": [
       "Create a designed video from this idea",
       "Recut this speaking video",
+      "Make a paper-collage film from this script",
       "Open this project in VidMuse Timeline"
     ]
   }

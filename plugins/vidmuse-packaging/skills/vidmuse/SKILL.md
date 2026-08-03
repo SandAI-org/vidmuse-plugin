@@ -18,6 +18,7 @@ First decide whether the user wants a complete film. A complete film remains own
 | Visual direction, style system, or `FRAME.md` only | `vidmuse-design` |
 | Motion direction, speech synchronization, camera/PIP choreography, effect selection, or animation lifecycle only | `vidmuse-motion` |
 | Asset decisions, identity, sourcing plan, library policy, or licensing only | `vidmuse-assets` |
+| Vox-style editorial paper-collage film or B-roll, where each clip's length is planned from narration | `vidmuse-vox` |
 | One concrete media output: transcript, voice, music, image, video, trim, crop, transform, grade, or background removal | `vidmuse-media` |
 | Open, assemble, serve, review, synchronize, or render a VidMuse Timeline/DSL project | `vidmuse-timeline` |
 | A direct `vidmuse` command or account/service operation: login, update, profile, plan, credits, models, voices, styles, memory, threads, or messages | `vidmuse-cli` |
@@ -30,7 +31,8 @@ First decide whether the user wants a complete film. A complete film remains own
 4. Keep semantic motion subordinate to the film owner. `vidmuse-motion` decides choreography after the owner selects a beat; `hyperframes-animation` implements it after the motion brief exists.
 5. Distinguish asset judgment from media execution. Deciding which logo or font is appropriate belongs to `vidmuse-assets`; downloading or transforming an already-decided file belongs to `vidmuse-media`.
 6. Distinguish Timeline delivery from CLI syntax. Working on a Timeline project belongs to `vidmuse-timeline`; running or explaining a specific command belongs to `vidmuse-cli`.
-7. If two owners remain plausible and choosing incorrectly would change the deliverable, ask one short question about the final output. Do not conduct the production brief here.
+7. Route by material system, not by beat count. When paper-collage metaphor is the film's own visual language — a collage explainer or collage B-roll — `vidmuse-vox` owns it end to end, including the script, voice choice, and duration plan, and loads `vidmuse-media` to execute narration and alignment. When a film's primary proof is real capture, product UI, or supplied footage and collage would only be one texture among many, `vidmuse-create` stays the owner and may load `vidmuse-vox` for individual clips. A single already-decided image or video generation with no metaphor judgment or approval gates is `vidmuse-media`.
+8. If two owners remain plausible and choosing incorrectly would change the deliverable, ask one short question about the final output. Do not conduct the production brief here.
 
 ## Handoff
 

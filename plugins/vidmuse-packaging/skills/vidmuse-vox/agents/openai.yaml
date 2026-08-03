@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Vox"
+  short_description: "Narration-timed halftone paper-collage film"
+  default_prompt: "Use $vidmuse-vox to build an editorial halftone paper-collage film from this script. Resolve the voice spine first (VidMuse TTS then word alignment), plan one clip per argument at a duration that covers its narration span, then follow the three gates strictly: propose only the visual metaphors and wait; after approval generate only the stills and wait again; after the stills are approved generate motion at each planned duration with contact sheets, without asking which model to use."

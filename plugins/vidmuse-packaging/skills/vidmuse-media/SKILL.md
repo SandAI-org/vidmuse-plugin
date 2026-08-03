@@ -1,24 +1,27 @@
 ---
 name: vidmuse-media
-description: "Produce the minimal verified media artifacts required by VidMuse speaking-video workflows: probe local audio/video metadata, extract audio, transcribe with VidMuse ASR, align the transcript to explicit word timestamps, validate or normalize the official flat transcript.json contract, derive safe-length Timeline subtitles or optional SRT, and extract representative source frames. Also use for these operations as standalone deliverables. Do not decide story, packaging, placement, visual direction, or model strategy, and do not claim unimplemented generation or transformation capabilities."
+description: "Produce the minimal verified media artifacts required by VidMuse film workflows: probe local audio/video metadata, extract audio, synthesize narration with VidMuse TTS, transcribe with VidMuse ASR, align a transcript or locked script to explicit word timestamps, validate or normalize the official flat transcript.json contract, derive safe-length Timeline subtitles or optional SRT, and extract representative source frames. Also use for these operations as standalone deliverables. Do not decide story, packaging, placement, visual direction, script wording, or voice casting, and do not claim unimplemented generation or transformation capabilities."
 ---
 
 # VidMuse Media
 
 Turn one exact media operation into a verified local artifact. Own execution and data integrity; let the calling film skill decide why the artifact is needed and how it is used.
 
-## V1 scope
+## Scope
 
-Implement only:
+Implement:
 
 1. `probe`
 2. `extract-audio`
-3. `transcribe-and-align`
-4. `transcript-to-srt`
-5. `transcript-to-timeline-subtitles`
-6. `extract-frames`
+3. `text-to-speech`
+4. `transcribe-and-align`
+5. `transcript-to-srt`
+6. `transcript-to-timeline-subtitles`
+7. `extract-frames`
 
-Do not expand a request into TTS, BGM, SFX, image/video generation, download, trim, crop, reframe, background removal, or grading in this version.
+Do not expand a request into BGM, SFX, image/video generation, download, trim, crop, reframe, background removal, or grading in this version.
+
+Own every media model call a film workflow needs. A film owner decides *whether* narration is generated, in what voice, and from what script; this skill decides nothing editorial and only executes the call, verifies the artifact, and returns it. When a caller needs a media operation that is not in this list, report the exact missing capability rather than routing around this skill.
 
 ## Output contracts
 
@@ -26,6 +29,7 @@ Do not expand a request into TTS, BGM, SFX, image/video generation, download, tr
 | --- | --- |
 | probe | `metadata.json` from ffprobe with format and stream metadata |
 | extract audio | `audio.mp3`, first program-audio stream, mono 16 kHz |
+| TTS | `narration.mp3` plus the complete raw response as `tts.raw.json` |
 | ASR | raw JSON containing a non-empty `text` string |
 | alignment | raw provider JSON retained until its exact structure is inspected |
 | transcript | flat `transcript.json`: `[{"text":"word","start":0.0,"end":0.2}]` in seconds |
@@ -38,7 +42,7 @@ Never substitute SRT for `transcript.json` inside a film workflow. Treat the wor
 
 - Require the input to exist, be readable, and match the requested operation.
 - Resolve `ffprobe` and `ffmpeg`; use `FFPROBE_BIN` or `FFMPEG_BIN` only when explicitly supplied or safely discovered.
-- Load `vidmuse-cli` only for ASR or alignment. Use its bundled binary and authentication rules.
+- Load `vidmuse-cli` for TTS, ASR, or alignment. Use its bundled binary and authentication rules.
 - Use absolute input and output paths for provider calls.
 - Do not overwrite an existing output unless the user or owning workflow explicitly allows it.
 
@@ -66,6 +70,42 @@ Use the first program-audio stream and fail clearly when none exists:
 
 After extraction, probe `audio.mp3` and require a nonzero duration, one audio stream, 16 kHz sample rate, and no video stream.
 
+## Synthesize narration
+
+Generate speech only from a script the caller has already locked. Do not rewrite, trim, translate, or re-punctuate it, and do not choose the voice or model on editorial grounds — the owning workflow supplies both.
+
+Confirm the requested voice model exists in the live catalog first, because ids move:
+
+```bash
+"$VIDMUSE_BIN" model list -o json > "$WORK_DIR/model-list.json"
+```
+
+Current voice models, all priced per second of output:
+
+| model | use |
+| --- | --- |
+| `minimax/speech-2.6-hd` | Chinese-forward narration |
+| `index-tts-2/text-to-speech` | voice cloning from a reference `audio_url`; zh/en |
+| `elevenlabs/eleven_multilingual_v2` | scripts outside zh/en |
+
+Call it with the locked script as `prompt`, serializing the JSON with a real encoder:
+
+```bash
+"$VIDMUSE_BIN" model run -o json --param "$(python3 -c '
+import json, sys
+print(json.dumps({
+    "model_name": sys.argv[1],
+    "prompt": open(sys.argv[2], encoding="utf-8").read().strip(),
+}, ensure_ascii=False))' "$VOICE_MODEL" "$WORK_DIR/script.txt")" \
+  > "$WORK_DIR/tts.raw.json"
+```
+
+Add `voice_id`, `language`, or `audio_url` only when the caller supplied them and the model's `supported_params` lists them. Omit `generation_type`: the voice models currently expose empty `required_params`. If a call fails asking for a route, pass exactly what the error names rather than guessing an audio type.
+
+Save the complete response as `tts.raw.json` before interpreting it. Inspect its actual keys and write the returned audio to `$WORK_DIR/narration.mp3`, downloading a result URL when that is what the response carries. Never synthesize silence, substitute OS or browser TTS, or fabricate a duration when the shape is unclear — report the unexpected response instead.
+
+After writing the file, probe it and require a nonzero duration and at least one audio stream. Return the local path, the measured duration, and the model name to the caller. Regenerated narration invalidates any existing alignment: when the script or voice changes, the caller must re-align, and a stale `transcript.json` is a defect.
+
 ## Transcribe and align
 
 Use two distinct VidMuse CLI calls. Serialize request JSON with a real JSON encoder; never construct it by interpolating unescaped paths or transcript text.
@@ -75,6 +115,8 @@ Treat the chain as indivisible for every timed-caption workflow:
 `ASR text → spelling/name correction → Doubao ATA → validated word timings → subtitle grouping`
 
 ASR supplies language content, not trustworthy cue timing. Doubao ATA is mandatory whenever `transcript.json`, SRT, Timeline subtitles, or Serve captions are required. Never send raw ASR text directly into subtitle grouping, never reuse ASR segments as word timings, and never consider the transcription stage complete until ATA returns explicit timing.
+
+When the audio was synthesized from a script the caller already owns, the locked script is the exact text: skip ASR and its correction pass and begin at ATA with that script as `prompt`. Everything after ATA is unchanged, and ATA remains mandatory. Do not treat an authored script as a substitute for word timing, and do not skip ASR for any recorded audio, where the spoken words are not known in advance.
 
 ### 1. ASR text
 
@@ -165,6 +207,7 @@ Do not crop, resize, annotate, detect subjects, or decide safe zones. Return fra
 
 - Own exact media execution, timing integrity, file verification, and standalone outputs.
 - Do not decide whether a film needs a graphic or asset, where it appears, how dense packaging should be, or how it animates.
-- Do not replace VidMuse ASR/alignment with HyperFrames transcription, downloaded local models, or guessed timings.
+- Do not decide whether narration should exist, how the script reads, or which voice suits the film; execute the call the owner specifies.
+- Do not replace VidMuse TTS/ASR/alignment with HyperFrames transcription or synthesis, OS or browser TTS, downloaded local models, or guessed timings.
 - Route visual interpretation of extracted frames back to `vidmuse-recut` or the owning film skill.
 - Route DSL preview and render to `vidmuse-timeline` through `vidmuse-cli`.
