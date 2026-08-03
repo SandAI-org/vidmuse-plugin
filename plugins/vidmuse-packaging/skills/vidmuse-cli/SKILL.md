@@ -78,7 +78,19 @@ Discover compatible models first with `model list` filters. Pass exactly one com
 "$VIDMUSE_BIN" model run --param '<complete-json-object>' -o json
 ```
 
-For video, use the canonical generation types `text_to_video`, `image_to_video`, `images_to_video`, `reference_to_video`, or `avatar`. Audio may use `text_to_audio`, `text_to_music`, `text_to_speech`, or `sound_effect`. Image requests omit `generation_type`; local paths in supported media fields are uploaded by the CLI.
+For video, use the canonical generation types `text_to_video`, `image_to_video`, `images_to_video`, `reference_to_video`, or `avatar`. Audio uses `text_to_audio`, `text_to_music`, `text_to_speech`, or `sound_effect`. Image requests omit `generation_type`; local paths in supported media fields are uploaded by the CLI.
+
+Send `generation_type` on every audio request rather than relying on the documented `text_to_audio` default, and send it even when the model reports `required_params: {}` — the voice models do, and they still reject a request without it. A rejected Aion request surfaces as `API error (HTTP 502)` wrapping `aion api returned status 400`, with no indication of which field is wrong; report that shape verbatim instead of inferring an outage or retrying unchanged.
+
+Text-to-speech also needs a voice selector, and `voice_id` values are model-specific:
+
+```bash
+"$VIDMUSE_BIN" voice list -o json --limit 200
+"$VIDMUSE_BIN" voice search -q "news anchor" -o json
+"$VIDMUSE_BIN" voice get <voiceId> -o json
+```
+
+`voice list` and `voice search` default to a page size of 20; pass `--limit` before reporting that a language has no voices. For `minimax/speech-2.6-hd`, pass the id under the entry's `model_ids["minimax/speech-2.6-hd"]`, not the catalog `voice_id`. Successful voice runs return a bare JSON array of public URLs with no task id.
 
 ASR is a special request and must contain exactly one local audio/video file or one public HTTP(S) audio URL:
 

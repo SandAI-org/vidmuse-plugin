@@ -39,7 +39,7 @@ Every model call goes through `vidmuse-cli` and the bundled binary. There is no 
 
 | stage | model | executed by | notes |
 | --- | --- | --- | --- |
-| narration | `minimax/speech-2.6-hd` | `vidmuse-media` | Chinese-forward; 1 credit per second |
+| narration | `minimax/speech-2.6-hd` | `vidmuse-media` | zh/en; needs a cast `voice_id`; 1 credit per second |
 | narration (voice cloning) | `index-tts-2/text-to-speech` | `vidmuse-media` | strongest cloning; zh/en; needs a reference `audio_url` |
 | narration (multilingual) | `elevenlabs/eleven_multilingual_v2` | `vidmuse-media` | when the script is not zh/en |
 | word alignment | `doubao_speech/audio_text_alignment` | `vidmuse-media` | mandatory; 1 credit per 30 seconds |
@@ -63,17 +63,18 @@ Default to `720p`. State the cost before Gate 3 so the user chooses knowingly: a
 
 ## Always set `generation_type`
 
-A model's `options.required_params` keys **are** its legal `generation_type` values. Multi-mode models return 400 without one, so pass it explicitly in the `--param` JSON:
+Pass `generation_type` explicitly in the `--param` JSON on every image, video, and voice call. Missing it returns 400:
 
 | model | legal values |
 | --- | --- |
 | `gpt-image-2` | `text_to_image`, `image_to_image` |
 | `seedance-2.0-pro` | `image_to_video`, `images_to_video`, `reference_to_video` |
 | `minimax/hailuo-h3` | `image_to_video`, `images_to_video`, `reference_to_video`, `text_to_video` |
+| voice models | `text_to_speech` |
 
-Text-to-video on Seedance is a separate id (`seedance-2.0-pro-t2v`), not a mode of the pro model. Re-read `required_params` after `model list` rather than trusting this table, and never invent a value that is not a key on that model.
+Text-to-video on Seedance is a separate id (`seedance-2.0-pro-t2v`), not a mode of the pro model. For image and video models, a model's `options.required_params` keys are its legal values; re-read them after `model list` rather than trusting this table, and never invent a value that is not a key on that model.
 
-The voice and alignment models currently expose empty `required_params`. Omit `generation_type` for them; if a call fails asking for one, pass exactly what the error names.
+`required_params` does **not** work that way for the voice models. All three report `required_params: {}`, and that empty object is not permission to omit the route — voice calls still need `generation_type: "text_to_speech"` and also the model's voice selector (`voice_id` for `minimax/speech-2.6-hd`, a reference `audio_url` for `index-tts-2/text-to-speech`). Omitting either yields an opaque `aion api returned status 400` that names no field. `vidmuse-media` owns those calls and the voice-id resolution; do not work around it after a 400.
 
 ## Phase 0: voice spine
 
@@ -87,9 +88,18 @@ Confirm the script as text first — it is the cheapest gate in the pipeline. Sa
 
 ### 2. Generate narration
 
-Load `vidmuse-media` and request `text-to-speech` with the locked script and the chosen voice model. It owns the model call, the response shape, and file verification; decide the voice here and let it execute. Expect `narration.mp3` and its measured duration back.
+Load `vidmuse-media` and request `text-to-speech` with the locked script, the chosen voice model, and a specific voice. It owns the model call, the voice-id resolution, the response shape, and file verification; decide the casting here and let it execute. Expect `narration.mp3` and its measured duration back.
 
-Pick the voice from the script's language, not habit: `minimax/speech-2.6-hd` for Chinese-forward narration, `index-tts-2/text-to-speech` when the user supplies a reference voice to clone, `elevenlabs/eleven_multilingual_v2` outside zh/en.
+Pick the model from the script's language, not habit: `minimax/speech-2.6-hd` for zh/en narration, `index-tts-2/text-to-speech` when the user supplies a reference voice to clone, `elevenlabs/eleven_multilingual_v2` outside zh/en.
+
+Then cast an actual voice, because `minimax/speech-2.6-hd` will not run without one. Browse the library and choose on the film's terms — the `summary` and `detail` fields describe persona and use case:
+
+```bash
+"$VIDMUSE_BIN" voice list -o json --limit 200
+"$VIDMUSE_BIN" voice search -q "documentary narrator" -o json
+```
+
+Pass the catalog `voice_id` (such as `F-ZH-002`) to `vidmuse-media` and let it map that to the model-specific id. Never invent a voice id or silently accept a default: an uncast narration is a casting decision made by omission. When cloning with `index-tts-2/text-to-speech`, the user's reference recording replaces the voice id, and without that recording the branch stops here.
 
 ### 3. Align to word timings
 
@@ -458,6 +468,8 @@ For a batch, merge the per-beat sheets into `video-contact-sheet-all.jpg` and `e
 | fake lettering | return to the still and regenerate; never patch it in the video prompt |
 | assembly still fails after two tries | switch that beat to `minimax/hailuo-h3` at the same duration, or raise resolution, and state the cost |
 | one beat fails | rerun only that job |
+| TTS returns HTTP 502 / `aion api returned status 400` | a missing route or voice, not an outage: send `generation_type: "text_to_speech"` and a `voice_id` resolved through `model_ids`. Never retry the identical request or fall back to another TTS path |
+| `voice list` shows no voices in the script's language | the default page size is 20; re-run with `--limit 200` before reporting the language unsupported |
 
 ## Delivery
 

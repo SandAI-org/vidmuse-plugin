@@ -80,29 +80,66 @@ Confirm the requested voice model exists in the live catalog first, because ids 
 "$VIDMUSE_BIN" model list -o json > "$WORK_DIR/model-list.json"
 ```
 
-Current voice models, all priced per second of output:
+Current voice models, all priced per second of output. Each one requires its own voice selector — this is the most common cause of a failed TTS call:
 
-| model | use |
-| --- | --- |
-| `minimax/speech-2.6-hd` | Chinese-forward narration |
-| `index-tts-2/text-to-speech` | voice cloning from a reference `audio_url`; zh/en |
-| `elevenlabs/eleven_multilingual_v2` | scripts outside zh/en |
+| model | use | required voice selector |
+| --- | --- | --- |
+| `minimax/speech-2.6-hd` | zh/en narration; default | `voice_id` from `voice list` `model_ids` |
+| `index-tts-2/text-to-speech` | voice cloning from a reference recording; zh/en | `audio_url` reference; no `voice_id` |
+| `elevenlabs/eleven_multilingual_v2` | scripts outside zh/en | a native ElevenLabs `voice_id`, supplied by the caller |
 
-Call it with the locked script as `prompt`, serializing the JSON with a real encoder:
+Every TTS request needs **both** `generation_type: "text_to_speech"` and the model's voice selector. Omitting either returns `aion api returned status 400`, surfaced by the CLI as `API error (HTTP 502)` with no field name in it. Do not read that opaque 400 as an outage, a bad script, or a missing credit — check these two fields first.
+
+Ignore `required_params` when deciding whether to send `generation_type`. All three voice models report `required_params: {}`, and that empty object is not permission to omit the route; Aion still rejects the request. `supported_params` remains a useful signal for which *optional* fields a model accepts.
+
+### Resolve the voice id first
+
+For `minimax/speech-2.6-hd`, `voice_id` must be the **model-specific** id under `model_ids["minimax/speech-2.6-hd"]`, not the catalog `voice_id` such as `M-ZH-002`. Passing the catalog id is rejected with the same opaque 400.
+
+`voice list` defaults to a page size of 20, which currently returns English voices only. Always pass an explicit `--limit` before concluding a language is unavailable:
+
+```bash
+"$VIDMUSE_BIN" voice list -o json --limit 200 > "$WORK_DIR/voice-list.json"
+```
+
+Resolve the caller's chosen catalog id to the model id, and fail loudly rather than guessing a voice:
+
+```bash
+VOICE_ID="$(python3 -c '
+import json, sys
+voices = json.load(open(sys.argv[1], encoding="utf-8"))["data"]
+wanted, model = sys.argv[2], sys.argv[3]
+for v in voices:
+    if v["voice_id"] == wanted:
+        resolved = (v.get("model_ids") or {}).get(model)
+        if not resolved:
+            sys.exit(f"voice {wanted} has no id for {model}")
+        print(resolved)
+        break
+else:
+    sys.exit(f"voice {wanted} not in catalog")' \
+  "$WORK_DIR/voice-list.json" "$CATALOG_VOICE_ID" "$VOICE_MODEL")"
+```
+
+### Call the model
+
+Serialize the JSON with a real encoder:
 
 ```bash
 "$VIDMUSE_BIN" model run -o json --param "$(python3 -c '
 import json, sys
 print(json.dumps({
     "model_name": sys.argv[1],
+    "generation_type": "text_to_speech",
     "prompt": open(sys.argv[2], encoding="utf-8").read().strip(),
-}, ensure_ascii=False))' "$VOICE_MODEL" "$WORK_DIR/script.txt")" \
+    "voice_id": sys.argv[3],
+}, ensure_ascii=False))' "$VOICE_MODEL" "$WORK_DIR/script.txt" "$VOICE_ID")" \
   > "$WORK_DIR/tts.raw.json"
 ```
 
-Add `voice_id`, `language`, or `audio_url` only when the caller supplied them and the model's `supported_params` lists them. Omit `generation_type`: the voice models currently expose empty `required_params`. If a call fails asking for a route, pass exactly what the error names rather than guessing an audio type.
+For `index-tts-2/text-to-speech`, drop `voice_id` and pass the caller's reference recording as `audio_url` plus `language` (`zh` or `en`). Add `language` to the other models only when the caller supplied it and `supported_params` lists it.
 
-Save the complete response as `tts.raw.json` before interpreting it. Inspect its actual keys and write the returned audio to `$WORK_DIR/narration.mp3`, downloading a result URL when that is what the response carries. Never synthesize silence, substitute OS or browser TTS, or fabricate a duration when the shape is unclear — report the unexpected response instead.
+Save the complete response as `tts.raw.json` before interpreting it. A successful voice run returns a bare JSON array of public URLs — `["https://.../a141ccbc632ac1d3.mp3"]` — with no wrapper object and no task id, so read element `0` rather than looking for an `audio_url` or `data` key. Download it to `$WORK_DIR/narration.mp3`. Never synthesize silence, substitute OS or browser TTS, or fabricate a duration when the shape is unclear — report the unexpected response instead.
 
 After writing the file, probe it and require a nonzero duration and at least one audio stream. Return the local path, the measured duration, and the model name to the caller. Regenerated narration invalidates any existing alignment: when the script or voice changes, the caller must re-align, and a stale `transcript.json` is a defect.
 
@@ -140,7 +177,9 @@ First confirm the live catalog contains the exact model `doubao_speech/audio_tex
 }
 ```
 
-Omit `generation_type`. Save the complete ASR response as `asr.raw.json` and the complete alignment response as `ata.raw.json` before interpreting either one. Their presence is the audit trail that prevents an ASR-only run from silently reaching Serve.
+Omit `generation_type` here. ASR and ATA are the genuine exceptions to the rule that voice calls carry a route: ASR is selected by `extra_params.sub_model_type`, and ATA by its model name alone. Do not copy `text_to_speech` into either request.
+
+Save the complete ASR response as `asr.raw.json` and the complete alignment response as `ata.raw.json` before interpreting either one. Their presence is the audit trail that prevents an ASR-only run from silently reaching Serve.
 
 Inspect the actual response shape. Accept it only when it explicitly provides ordered word tokens with numeric start and end times and a documented time unit. Map those explicit fields to `text`, `start`, and `end` in seconds. Do not infer milliseconds versus seconds from magnitude, split segment durations evenly, or invent word timings.
 

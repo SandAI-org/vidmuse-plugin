@@ -5,6 +5,38 @@ All notable changes to the VidMuse packaging plugin.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] — 2026-08-03
+
+### Fixed
+
+- **Text-to-speech calls no longer fail with an opaque 400.** `vidmuse-media` and
+  `vidmuse-vox` instructed agents to omit `generation_type` on voice requests,
+  reasoning from the voice models' empty `options.required_params`. Aion rejects
+  such requests. Every TTS request now carries
+  `generation_type: "text_to_speech"`, and the `required_params`-keys-are-legal-
+  routes rule is scoped to image and video models, where it holds.
+- **Narration now resolves a real `voice_id`.** `minimax/speech-2.6-hd` requires
+  one, and it must be the model-specific id under
+  `model_ids["minimax/speech-2.6-hd"]` rather than the catalog `voice_id` such as
+  `F-ZH-002`; the catalog id is rejected identically. `vidmuse-media` owns the
+  resolution and fails loudly on an unknown voice, `vidmuse-vox` casts the voice
+  as an explicit editorial decision, and `index-tts-2/text-to-speech` instead
+  takes the caller's reference `audio_url`.
+
+### Changed
+
+- **Voice failures are documented as request defects, not outages.** A rejected
+  Aion request surfaces as `API error (HTTP 502)` wrapping `aion api returned
+  status 400` with no field name, so the previous "pass exactly what the error
+  names" guidance was unreachable. The skills now name the two fields to check
+  and forbid retrying an unchanged request.
+- **`vidmuse-cli` documents the `voice` surface** and warns that `voice list` and
+  `voice search` default to a page size of 20, which currently returns English
+  voices only — Chinese voices require an explicit `--limit`.
+- **The TTS response shape is stated.** A successful voice run returns a bare
+  JSON array of public URLs with no wrapper object and no task id. ASR and ATA
+  remain the genuine exceptions that carry no `generation_type`.
+
 ## [0.2.0] — 2026-08-03
 
 ### Added

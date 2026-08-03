@@ -36,9 +36,12 @@ Adaptations for this repo:
   `seedance-2.0-pro` through `vidmuse-cli`, with `minimax/hailuo-h3` as the fallback. Both
   accept a two-image request meaning exactly first frame and last frame. The upstream legacy
   Veo script is dropped.
-- An explicit `generation_type` is now required on every multi-mode model call, since a
-  model's `options.required_params` keys are its legal route values and omitting one returns
-  a 400.
+- An explicit `generation_type` is now required on every image, video, and voice model call.
+  For image and video models a model's `options.required_params` keys are its legal route
+  values. The voice models are an exception to that inference: they report
+  `required_params: {}` yet still reject a request that omits `text_to_speech`, so the route
+  is now stated unconditionally rather than derived from the catalog. Narration also requires
+  an explicitly cast voice, resolved from `voice list` `model_ids` to a model-specific id.
 - Trimmed the upstream animation prompt's negative list to shot discipline only. The
   artifact-suppression negatives (no subtitles, no logo, no watermark, no text, no sound) are
   removed: current video models do not volunteer that content, and naming it risks
