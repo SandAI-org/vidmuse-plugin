@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Assets"
+  short_description: "Select story evidence and capture coverage"
+  default_prompt: "Use $vidmuse-assets to select evidence-led assets and capture coverage for this project."

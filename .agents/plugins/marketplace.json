@@ -1,0 +1,20 @@
+{
+  "name": "vidmuse-plugin",
+  "interface": {
+    "displayName": "VidMuse Plugin"
+  },
+  "plugins": [
+    {
+      "name": "vidmuse-packaging",
+      "source": {
+        "source": "local",
+        "path": "./plugins/vidmuse-packaging"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Creativity"
+    }
+  ]
+}

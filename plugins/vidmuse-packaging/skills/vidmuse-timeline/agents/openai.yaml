@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Timeline"
+  short_description: "Assemble and validate VidMuse DSL projects"
+  default_prompt: "Use $vidmuse-timeline to assemble, validate, and open this project as a VidMuse DSL v2 Timeline."

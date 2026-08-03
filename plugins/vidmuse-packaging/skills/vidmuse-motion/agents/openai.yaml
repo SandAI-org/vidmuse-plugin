@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Motion"
+  short_description: "Direct speech-synchronized cinematic motion"
+  default_prompt: "Use $vidmuse-motion to design causal, speech-synchronized motion for this film."

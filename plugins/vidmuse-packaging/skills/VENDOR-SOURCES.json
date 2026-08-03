@@ -1,0 +1,69 @@
+{
+  "schema": "vidmuse-packaging.vendor.v1",
+  "vidmuseCli": {
+    "distribution": "bundled",
+    "platform": "darwin-arm64",
+    "path": "skills/vidmuse-cli/assets/bin/vidmuse-darwin-arm64",
+    "sha256": "662cbdedd7740bc127ced5a2b49416ce4e8b2d3de0f85ac3e9a4f99f3f5fc4a4",
+    "signature": "Developer ID Application: Beijing Sandai Technology Co., Ltd (M923Q9L6YY)",
+    "policy": "Use the plugin-carried binary without a package download or automatic update."
+  },
+  "openFonts": {
+    "policy": "A minimal curated pack distributed unmodified under OFL-1.1. Stage only selected families into a film project and carry each license and provenance receipt with it.",
+    "manifest": "skills/vidmuse-design/assets/fonts/font-pack.json",
+    "googleFonts": {
+      "repository": "https://github.com/google/fonts",
+      "ref": "2796410152d4f9524b68ed46e69c1b60f8e0f7c3",
+      "families": [
+        "Instrument Serif",
+        "Newsreader",
+        "Space Grotesk",
+        "Noto Sans SC"
+      ]
+    },
+    "smileySans": {
+      "repository": "https://github.com/atelier-anchor/smiley-sans",
+      "ref": "v2.0.1",
+      "family": "Smiley Sans / 得意黑"
+    }
+  },
+  "hyperframes": {
+    "repository": "https://github.com/heygen-com/hyperframes",
+    "ref": "343c02518889f46ee3962256b19ac4189264907d",
+    "policy": "Pinned upstream domain skills with minimal VidMuse policy patches: no HyperFrames Studio/timeline UI and no HyperFrames-managed AI/media model selection or downloads.",
+    "skills": [
+      "hyperframes-core",
+      "hyperframes-cli",
+      "hyperframes-animation",
+      "hyperframes-keyframes",
+      "hyperframes-registry"
+    ],
+    "resources": {
+      "vidmuse-design-frame-presets": {
+        "source": "skills/hyperframes-creative/frame-presets",
+        "destination": "skills/vidmuse-design/references/frame-presets",
+        "contents": "The complete official set of FRAME.md templates, caption skins, showcase HTML, and preset-local fonts.",
+        "policy": "Keep as an optional user-visible gallery, inactive by default. VidMuse independently authors FRAME.md from the content and source unless the user explicitly selects a preset; then source analysis, human-presence rules, protected regions, and the approved project FRAME.md govern adaptation."
+      }
+    },
+    "workflow_resources": {
+      "vidmuse-recut": {
+        "source": "skills/talking-head-recut",
+        "policy": "Preserve official styles, layouts, frames, fonts, GSAP asset, Storyboard v3, card HTML, composition, and media contract. Replace HyperFrames model-backed transcription and Studio review with VidMuse adapters, and override only the official card-count and placement heuristics with VidMuse content direction and visual-occupancy safety rules."
+      }
+    },
+    "patches": {
+      "hyperframes-core": "Preserved the composition and planning contracts; replaced Studio review with snapshot review and routed media models to VidMuse.",
+      "hyperframes-cli": "Preserved unrelated CLI capabilities; removed Studio/timeline entry points and HyperFrames model-backed media preprocessing.",
+      "hyperframes-animation": "Kept deterministic animation knowledge; routed transcript timings to VidMuse media.",
+      "hyperframes-keyframes": "Unmodified; its timelines and models refer to animation/3D mechanics, not UI or AI models.",
+      "hyperframes-registry": "Preserved discovery, installation, wiring, templates, and contribution guidance; replaced preview validation with snapshots."
+    },
+    "excluded": {
+      "hyperframes": "VidMuse owns product routing.",
+      "hyperframes-creative": "The workflow skill remains excluded because vidmuse-design owns visual direction; its official frame-presets are vendored as a pinned resource subset.",
+      "media-use": "vidmuse-media owns media execution.",
+      "creation-workflows": "vidmuse-create and vidmuse-recut own film workflows."
+    }
+  }
+}

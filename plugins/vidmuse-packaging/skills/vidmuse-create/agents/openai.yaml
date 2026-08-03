@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Create"
+  short_description: "Create complete designed VidMuse films"
+  default_prompt: "Use $vidmuse-create to create a complete evidence-led VidMuse film from this idea or source."

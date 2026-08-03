@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse"
+  short_description: "Route VidMuse requests to the right workflow"
+  default_prompt: "Use $vidmuse to route this request to the right VidMuse workflow."

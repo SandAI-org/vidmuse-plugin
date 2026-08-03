@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse CLI"
+  short_description: "Run the bundled VidMuse CLI safely"
+  default_prompt: "Use $vidmuse-cli to run the appropriate bundled VidMuse CLI command and return a verified result."

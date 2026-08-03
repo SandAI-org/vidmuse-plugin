@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Recut"
+  short_description: "Package speaking footage with an original preview"
+  default_prompt: "Use $vidmuse-recut to analyze this speaking video, show me its original HTML design preview, and package it with source-aware graphics."

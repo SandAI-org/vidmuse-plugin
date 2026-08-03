@@ -1,0 +1,182 @@
+{
+  "schema": "vidmuse.font-pack.v1",
+  "policy": {
+    "license": "OFL-1.1",
+    "distribution": "unmodified-bundled",
+    "selection": "Stage only the families selected for a project.",
+    "rendering": "Use local project URLs only; never fetch fonts during render."
+  },
+  "fonts": [
+    {
+      "id": "instrument-serif",
+      "family": "Instrument Serif",
+      "displayName": "Instrument Serif",
+      "scripts": ["Latin"],
+      "roles": ["display", "pull-quote", "editorial-accent"],
+      "license": {
+        "spdx": "OFL-1.1",
+        "path": "instrument-serif/OFL.txt",
+        "sha256": "129ed7618959716959f2941fdd5b49e0ad6e6c1d78726761786a00253d865521",
+        "size": 4405,
+        "reservedNames": []
+      },
+      "source": {
+        "repository": "https://github.com/google/fonts",
+        "ref": "2796410152d4f9524b68ed46e69c1b60f8e0f7c3",
+        "upstream": "https://github.com/Instrument/instrument-serif"
+      },
+      "faces": [
+        {
+          "path": "instrument-serif/InstrumentSerif-Regular.ttf",
+          "format": "truetype",
+          "weight": "400",
+          "style": "normal",
+          "sha256": "498efd461f6ddfcb7a111bf9a565709d2085d48201d501ead960d93e84ffbb88",
+          "size": 70012
+        },
+        {
+          "path": "instrument-serif/InstrumentSerif-Italic.ttf",
+          "format": "truetype",
+          "weight": "400",
+          "style": "italic",
+          "sha256": "08939b8bdf534afec24ae0ef5e03f948940cd9a8fe08e7fecbad040e62327385",
+          "size": 71592
+        }
+      ]
+    },
+    {
+      "id": "newsreader",
+      "family": "Newsreader",
+      "displayName": "Newsreader Variable",
+      "scripts": ["Latin"],
+      "roles": ["editorial-body", "quotation", "long-form"],
+      "license": {
+        "spdx": "OFL-1.1",
+        "path": "newsreader/OFL.txt",
+        "sha256": "fdfad38143ec470553cae82a1e45320bdd1b9ec70415d37bd0171051d8a4ded8",
+        "size": 4394,
+        "reservedNames": []
+      },
+      "source": {
+        "repository": "https://github.com/google/fonts",
+        "ref": "2796410152d4f9524b68ed46e69c1b60f8e0f7c3",
+        "upstream": "https://github.com/productiontype/NewsReader"
+      },
+      "axes": {
+        "opsz": "6 72",
+        "wght": "200 800"
+      },
+      "faces": [
+        {
+          "path": "newsreader/Newsreader-Variable.ttf",
+          "format": "truetype",
+          "weight": "200 800",
+          "style": "normal",
+          "sha256": "8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1",
+          "size": 451664
+        },
+        {
+          "path": "newsreader/Newsreader-Italic-Variable.ttf",
+          "format": "truetype",
+          "weight": "200 800",
+          "style": "italic",
+          "sha256": "796668611f80b64d5adf182fde3b6f29ed83b4e7cbec7b96937e84ac01364792",
+          "size": 495684
+        }
+      ]
+    },
+    {
+      "id": "space-grotesk",
+      "family": "Space Grotesk",
+      "displayName": "Space Grotesk Variable",
+      "scripts": ["Latin"],
+      "roles": ["supporting-sans", "utility", "data"],
+      "license": {
+        "spdx": "OFL-1.1",
+        "path": "space-grotesk/OFL.txt",
+        "sha256": "564ce565c371c5e5bbf286006565a7c9aa55a9f56e7ca58d56e05d649dd61a72",
+        "size": 4495,
+        "reservedNames": []
+      },
+      "source": {
+        "repository": "https://github.com/google/fonts",
+        "ref": "2796410152d4f9524b68ed46e69c1b60f8e0f7c3",
+        "upstream": "https://github.com/floriankarsten/space-grotesk"
+      },
+      "axes": {
+        "wght": "300 700"
+      },
+      "faces": [
+        {
+          "path": "space-grotesk/SpaceGrotesk-Variable.ttf",
+          "format": "truetype",
+          "weight": "300 700",
+          "style": "normal",
+          "sha256": "acad6de1fc93436f5c0f1f4137751ef04f1aea3063e7036535970ffcfbd79f72",
+          "size": 136676
+        }
+      ]
+    },
+    {
+      "id": "noto-sans-sc",
+      "family": "Noto Sans SC",
+      "displayName": "Noto Sans SC Variable",
+      "scripts": ["Simplified Chinese", "Latin"],
+      "roles": ["chinese-body", "caption", "information", "interface"],
+      "license": {
+        "spdx": "OFL-1.1",
+        "path": "noto-sans-sc/OFL.txt",
+        "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+        "size": 4388,
+        "reservedNames": ["Source"]
+      },
+      "source": {
+        "repository": "https://github.com/google/fonts",
+        "ref": "2796410152d4f9524b68ed46e69c1b60f8e0f7c3",
+        "upstream": "https://github.com/notofonts/noto-cjk"
+      },
+      "axes": {
+        "wght": "100 900"
+      },
+      "faces": [
+        {
+          "path": "noto-sans-sc/NotoSansSC-Variable.ttf",
+          "format": "truetype",
+          "weight": "100 900",
+          "style": "normal",
+          "sha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da",
+          "size": 17772300
+        }
+      ]
+    },
+    {
+      "id": "smiley-sans",
+      "family": "Smiley Sans",
+      "displayName": "得意黑 / Smiley Sans",
+      "scripts": ["Simplified Chinese", "Latin"],
+      "roles": ["chinese-display", "kinetic-title", "short-emphasis"],
+      "license": {
+        "spdx": "OFL-1.1",
+        "path": "smiley-sans/OFL.txt",
+        "sha256": "9401f4050f1b66c26b6ccdc8b0e14a3c1cc37aac122eda84386f25854a9bec72",
+        "size": 4422,
+        "reservedNames": ["Smiley", "得意黑"]
+      },
+      "source": {
+        "repository": "https://github.com/atelier-anchor/smiley-sans",
+        "ref": "v2.0.1",
+        "release": "https://github.com/atelier-anchor/smiley-sans/releases/tag/v2.0.1"
+      },
+      "faces": [
+        {
+          "path": "smiley-sans/SmileySans-Oblique.woff2",
+          "format": "woff2",
+          "weight": "400",
+          "style": "oblique",
+          "sha256": "731f22973349404b15a88a99ef3b5dd4104c0965c23b7e485c1f11e84fea99e2",
+          "size": 1150924
+        }
+      ]
+    }
+  ]
+}

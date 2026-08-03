@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Design"
+  short_description: "Direct a film visual language with taste"
+  default_prompt: "Use $vidmuse-design to turn this film brief into a specific, tasteful FRAME.md and an intentional HyperFrames library plan."

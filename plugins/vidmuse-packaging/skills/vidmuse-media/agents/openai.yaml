@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Media"
+  short_description: "Prepare verified media and transcript artifacts"
+  default_prompt: "Use $vidmuse-media to prepare and verify the exact media or transcript artifact required by this workflow."
