@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-page-waterfall-wall",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Page Waterfall Wall",
+  "description": "Three tall page columns travel at unequal speeds with the center reversed while a slow camera push turns the moving archive into a dimensional wall.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "ui-entrance", "waterfall", "ticker", "page-wall"],
+  "files": [{ "path": "shot-page-waterfall-wall.html", "target": "compositions/shot-page-waterfall-wall.html", "type": "hyperframes:composition" }]
+}

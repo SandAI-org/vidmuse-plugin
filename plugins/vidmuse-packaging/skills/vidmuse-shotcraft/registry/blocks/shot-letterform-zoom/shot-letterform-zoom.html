@@ -1,0 +1,253 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Destination accent","default":"#5d5ce2"},{"id":"title","type":"string","label":"Portal word","default":"DASH"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .lz-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #5d5ce2;
+        }
+        .lz-page {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          padding: 78px 96px;
+          background: #171a18;
+          color: #f5f3ed;
+        }
+        .lz-head {
+          display: flex;
+          justify-content: space-between;
+          font-size: 17px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .lz-page h1 {
+          margin-top: 50px;
+          font-size: 76px;
+          letter-spacing: -4px;
+        }
+        .lz-grid {
+          display: grid;
+          grid-template-columns: 310px 1fr;
+          gap: 28px;
+          margin-top: 58px;
+        }
+        .lz-panel {
+          height: 650px;
+          padding: 28px;
+          border: 1px solid #424642;
+          border-radius: 22px;
+          background: #252a26;
+        }
+        .lz-line {
+          width: 68%;
+          height: 14px;
+          margin-bottom: 18px;
+          border-radius: 7px;
+          background: #8d918d;
+        }
+        .lz-main:after {
+          content: "";
+          display: block;
+          height: 390px;
+          margin-top: 95px;
+          border-radius: 20px;
+          background: linear-gradient(135deg, var(--accent), #2d275f);
+        }
+        .lz-plate {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 773px 508px;
+        }
+        .lz-svg {
+          position: absolute;
+          inset: 0;
+          display: block;
+        }
+        .lz-sub {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 812px;
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+        }
+        .lz-sub i {
+          display: block;
+          width: 240px;
+          height: 16px;
+          border-radius: 8px;
+          background: #8f918d;
+        }
+        .lz-sub i:last-child {
+          width: 130px;
+          background: #c8c6bf;
+        }
+        .lz-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 38px;
+          z-index: 20;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(20, 22, 20, 0.9);
+          color: #fff;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="lz-root"
+        data-hf-id="hf-lz-root"
+        data-composition-id="shot-letterform-zoom"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="lz-fill">
+          <div id="lz-page" class="lz-page">
+            <div class="lz-head">
+              <span data-layout-allow-overlap data-layout-allow-occlusion
+                >CHAPTER 03</span
+              ><span data-layout-allow-overlap data-layout-allow-occlusion
+                >LIVE</span
+              >
+            </div>
+            <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+              The title becomes the door.
+            </h1>
+            <div class="lz-grid">
+              <div class="lz-panel">
+                <div class="lz-line"></div>
+                <div class="lz-line"></div>
+              </div>
+              <div class="lz-panel lz-main"><div class="lz-line"></div></div>
+            </div>
+          </div>
+          <div id="lz-plate" class="lz-plate" data-layout-allow-overflow>
+            <svg
+              class="lz-svg"
+              width="1920"
+              height="1080"
+              viewBox="0 0 1920 1080"
+            >
+              <defs>
+                <mask id="lz-cut">
+                  <rect width="1920" height="1080" fill="#fff" />
+                  <text
+                    id="lz-mask-title"
+                    x="960"
+                    y="741"
+                    text-anchor="middle"
+                    fill="#000"
+                    font-family="Helvetica Neue,Helvetica,Arial,sans-serif"
+                    font-weight="900"
+                    font-size="560"
+                  >
+                    DASH
+                  </text>
+                </mask>
+              </defs>
+              <rect
+                width="1920"
+                height="1080"
+                fill="#e9e7e0"
+                mask="url(#lz-cut)"
+              />
+              <text
+                id="lz-outline-title"
+                data-layout-allow-overlap
+                data-layout-allow-occlusion
+                x="960"
+                y="741"
+                text-anchor="middle"
+                fill="none"
+                stroke="#171a18"
+                stroke-width="3"
+                opacity=".3"
+                font-family="Helvetica Neue,Helvetica,Arial,sans-serif"
+                font-weight="900"
+                font-size="560"
+              >
+                DASH
+              </text>
+            </svg>
+            <div class="lz-sub"><i></i><i></i></div>
+          </div>
+          <div
+            class="lz-caption"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            LETTERFORM PORTAL / EXPONENTIAL PUSH
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#lz-root .lz-fill"),
+            tl = gsap.timeline({ paused: true }),
+            word = (v.title || "DASH").toUpperCase();
+          fill.style.setProperty("--accent", v.accent || "#5d5ce2");
+          document.querySelector("#lz-mask-title").textContent = word;
+          document.querySelector("#lz-outline-title").textContent = word;
+          gsap.set("#lz-page", { scale: 1, transformOrigin: "773px 508px" });
+          gsap.set("#lz-plate", { scale: 1, filter: "blur(0px)" });
+          tl.to(
+            "#lz-plate",
+            {
+              scale: 28,
+              filter: "blur(.57px)",
+              duration: 2,
+              ease: "power4.in",
+            },
+            0.833,
+          )
+            .to(
+              "#lz-page",
+              { scale: 1.1, duration: 2, ease: "power2.in" },
+              0.833,
+            )
+            .to("#lz-plate", { opacity: 0, duration: 0.3, ease: "none" }, 2.5)
+            .to(
+              "#lz-page",
+              { scale: 1, duration: 0.833, ease: "power3.out" },
+              2.833,
+            )
+            .set("#lz-plate", { display: "none" }, 2.834);
+          window.__timelines["shot-letterform-zoom"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Sheen accent","default":"#f5f5f3"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .shs-fill {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+        }
+        .shs-card {
+          position: relative;
+          width: 760px;
+          height: 420px;
+          padding: 64px 72px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 28px;
+          overflow: hidden;
+          border-radius: 24px;
+          background: #292824;
+          box-shadow: 0 12px 40px rgba(0, 0, 0, 0.22);
+        }
+        .shs-pro {
+          color: var(--accent);
+          font-size: 130px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: 2px;
+        }
+        .shs-line {
+          height: 16px;
+          border-radius: 8px;
+          background: #62615b;
+        }
+        .shs-a {
+          width: 380px;
+        }
+        .shs-b {
+          width: 260px;
+        }
+        .shs-band {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1216px;
+          height: 420px;
+          background: linear-gradient(
+            115deg,
+            transparent 42%,
+            rgba(255, 255, 255, 0.32) 50%,
+            transparent 58%
+          );
+        }
+      </style>
+      <div
+        data-hf-id="hf-shs-root"
+        id="shs-root"
+        data-composition-id="shot-sheen-sweep"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="shs-fill" style="--accent: #f5f5f3">
+          <article data-hf-id="hf-shs-card" id="shs-card" class="shs-card">
+            <strong class="shs-pro">PRO</strong>
+            <div class="shs-line shs-a"></div>
+            <div class="shs-line shs-b"></div>
+            <div id="shs-band" class="shs-band" data-layout-allow-overflow></div>
+          </article>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("shs-root"),
+            fill = root.querySelector(".shs-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#f5f5f3");
+          gsap.set("#shs-band", { x: -1216 });
+          tl.to(
+            "#shs-band",
+            { x: 760, duration: 0.933, ease: "power2.inOut" },
+            1.333,
+          );
+          window.__timelines["shot-sheen-sweep"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

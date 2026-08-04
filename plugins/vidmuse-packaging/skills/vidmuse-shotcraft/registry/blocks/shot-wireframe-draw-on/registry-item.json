@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-wireframe-draw-on",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Wireframe Draw On",
+  "description": "A dashboard draws itself as staggered blueprint strokes before an amber vertical scan converts the wireframe into a finished interface from left to right.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "ui-entrance", "wireframe", "draw-on", "scan"],
+  "files": [{ "path": "shot-wireframe-draw-on.html", "target": "compositions/shot-wireframe-draw-on.html", "type": "hyperframes:composition" }]
+}

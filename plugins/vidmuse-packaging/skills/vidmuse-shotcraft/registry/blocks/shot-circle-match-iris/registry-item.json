@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-circle-match-iris",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Circle Match Iris",
+  "description": "Two focus pulses establish a real avatar center before a same-center iris reveals a growing donut chart, synchronizing the sweep and 78-percent readout.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "transition", "iris", "match-cut", "circle", "data"],
+  "files": [
+    {
+      "path": "shot-circle-match-iris.html",
+      "target": "compositions/shot-circle-match-iris.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

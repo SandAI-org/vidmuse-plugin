@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-beat-step-list-theme-cycle",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Beat Step List Theme Cycle",
+  "description": "A fixed selection pill, vertical adjective list, accent color, and full field advance together on three evenly spaced beats.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.2,
+  "tags": ["shotcraft", "rhythm", "list", "theme", "beat", "color-cycle"],
+  "files": [
+    {
+      "path": "shot-beat-step-list-theme-cycle.html",
+      "target": "compositions/shot-beat-step-list-theme-cycle.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

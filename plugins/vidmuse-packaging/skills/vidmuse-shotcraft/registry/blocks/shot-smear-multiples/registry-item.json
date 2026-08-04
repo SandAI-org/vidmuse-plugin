@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-smear-multiples",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Smear Multiples",
+  "description": "A card crosses nine hundred pixels with four separately readable full-card afterimages that trail at different offsets, converge into the body, and disappear before the landing hold.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "rhythm", "smear", "ghosts", "afterimage", "cards"],
+  "files": [
+    {
+      "path": "shot-smear-multiples.html",
+      "target": "compositions/shot-smear-multiples.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

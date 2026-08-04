@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-sakuga-timing-shift",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Sakuga Timing Shift",
+  "description": "A card travels in visible three-frame holds before switching on one beat into a fast stretched return with two countable ghosts, overshoot, and squash landing.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "rhythm", "sakuga", "stepped", "smear", "timing"],
+  "files": [
+    {
+      "path": "shot-sakuga-timing-shift.html",
+      "target": "compositions/shot-sakuga-timing-shift.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

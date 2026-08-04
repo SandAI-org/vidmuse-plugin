@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-karaoke-fill-sync",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Karaoke Fill Sync",
+  "description": "Four words fill from readable gray to dark ink on uneven speech timings while a thick reader rule tracks the active word.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "typography", "speech", "karaoke", "highlight"],
+  "files": [{ "path": "shot-karaoke-fill-sync.html", "target": "compositions/shot-karaoke-fill-sync.html", "type": "hyperframes:composition" }]
+}

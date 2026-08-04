@@ -1,0 +1,24 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-barn-door-split",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Barn Door Split",
+  "description": "An old page previews its center seam twice, then splits into pixel-aligned halves that accelerate outward with lit torn edges while the replacement page settles underneath.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "barn-door",
+    "split",
+    "reveal",
+    "replacement"
+  ],
+  "files": [
+    {
+      "path": "shot-barn-door-split.html",
+      "target": "compositions/shot-barn-door-split.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

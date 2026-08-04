@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-masking-tape-slap",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Masking Tape Slap",
+  "description": "A paper card floats in and oscillates until two torn masking-tape strips slap its opposite corners, suppressing motion and flattening the shadow.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "ui-entrance", "paper", "tape", "slap"],
+  "files": [{ "path": "shot-masking-tape-slap.html", "target": "compositions/shot-masking-tape-slap.html", "type": "hyperframes:composition" }]
+}

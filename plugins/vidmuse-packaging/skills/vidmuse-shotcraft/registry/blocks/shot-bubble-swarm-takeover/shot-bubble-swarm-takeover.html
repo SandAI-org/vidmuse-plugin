@@ -1,0 +1,436 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Pearl tint","default":"#d8c2ff"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .bst-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #ecebe6;
+          color: #181b19;
+          font-family: Inter, sans-serif;
+          --accent: #d8c2ff;
+        }
+        .bst-page {
+          position: absolute;
+          inset: 0;
+          padding: 92px 116px;
+        }
+        #bst-page-b {
+          opacity: 0;
+          background: #171a18;
+          color: #f6f4ee;
+        }
+        .bst-top {
+          display: flex;
+          justify-content: space-between;
+          font-size: 16px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .bst-page h1 {
+          margin-top: 64px;
+          font-size: 76px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .bst-layout {
+          display: grid;
+          grid-template-columns: 360px 1fr;
+          gap: 28px;
+          margin-top: 58px;
+        }
+        .bst-panel {
+          height: 560px;
+          padding: 30px;
+          border: 1px solid #cccac3;
+          border-radius: 24px;
+          background: #f7f6f1;
+        }
+        #bst-page-b .bst-panel {
+          border-color: #444944;
+          background: #242824;
+        }
+        .bst-panel i {
+          display: block;
+          width: 74%;
+          height: 15px;
+          margin-bottom: 20px;
+          border-radius: 8px;
+          background: #a4a49f;
+        }
+        .bst-panel i:nth-child(2) {
+          width: 48%;
+        }
+        .bst-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+        .bst-card {
+          height: 270px;
+          padding: 26px;
+          border: 1px solid #d2d0c9;
+          border-radius: 20px;
+          background: #faf9f5;
+        }
+        #bst-page-b .bst-card {
+          border-color: #454a45;
+          background: #272c28;
+        }
+        .bst-card:before {
+          content: "";
+          display: block;
+          width: 54%;
+          height: 15px;
+          border-radius: 8px;
+          background: #878983;
+        }
+        .bst-card:after {
+          content: "";
+          display: block;
+          height: 120px;
+          margin-top: 58px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, var(--accent), #a8dbff);
+        }
+        .bst-whiteout {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #fff;
+        }
+        .bst-bubbles {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        .bst-bubble {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100px;
+          height: 100px;
+          border: 2px solid rgba(255, 255, 255, 0.88);
+          border-radius: 50%;
+          opacity: 0;
+          background: linear-gradient(
+            135deg,
+            #fff 4%,
+            var(--tint) 46%,
+            #f6dafa 72%,
+            #fff 100%
+          );
+          box-shadow:
+            inset 18px 18px 32px rgba(255, 255, 255, 0.75),
+            inset -16px -18px 34px rgba(120, 105, 180, 0.17),
+            0 0 32px rgba(255, 255, 255, 0.35);
+        }
+        .bst-bubble:after {
+          content: "";
+          position: absolute;
+          left: 19%;
+          top: 14%;
+          width: 23%;
+          height: 17%;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.86);
+          transform: rotate(-22deg);
+        }
+        .bst-bubble[data-depth="0"] {
+          opacity: 0;
+          box-shadow:
+            inset 10px 10px 20px rgba(255, 255, 255, 0.75),
+            0 0 22px rgba(255, 255, 255, 0.32);
+        }
+        .bst-capsule {
+          position: absolute;
+          left: 0;
+          top: 0;
+          z-index: 4;
+          padding: 18px 38px;
+          border: 2px solid rgba(255, 255, 255, 0.92);
+          border-radius: 60px;
+          opacity: 0;
+          background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.98),
+            rgba(232, 218, 255, 0.96)
+          );
+          box-shadow: 0 10px 34px rgba(110, 90, 170, 0.22);
+          color: #4c3e74;
+          font-size: 42px;
+          font-weight: 950;
+          white-space: nowrap;
+        }
+        .bst-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 9;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(20, 23, 21, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="bst-root"
+        data-hf-id="hf-bst-root"
+        data-composition-id="shot-bubble-swarm-takeover"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="bst-fill">
+          <div id="bst-page-a" class="bst-page" data-layout-allow-overflow>
+            <div class="bst-top">
+              <span data-layout-allow-occlusion>GLOBAL WORKSPACE</span
+              ><span data-layout-allow-occlusion>01</span>
+            </div>
+            <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+              One place for every team.
+            </h1>
+            <div class="bst-layout">
+              <div class="bst-panel"><i></i><i></i><i></i></div>
+              <div class="bst-grid">
+                <div class="bst-card"></div>
+                <div class="bst-card"></div>
+                <div class="bst-card"></div>
+                <div class="bst-card"></div>
+              </div>
+            </div>
+          </div>
+          <div id="bst-page-b" class="bst-page" data-layout-allow-overflow>
+            <div class="bst-top">
+              <span data-layout-allow-occlusion>CONNECTED WORLD</span
+              ><span data-layout-allow-occlusion>02</span>
+            </div>
+            <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+              Speak every language.
+            </h1>
+            <div class="bst-layout">
+              <div class="bst-panel"><i></i><i></i><i></i></div>
+              <div class="bst-grid">
+                <div class="bst-card"></div>
+                <div class="bst-card"></div>
+                <div class="bst-card"></div>
+                <div class="bst-card"></div>
+              </div>
+            </div>
+          </div>
+          <div class="bst-whiteout"></div>
+          <div class="bst-bubbles"></div>
+          <div id="bst-cap0" class="bst-capsule" data-layout-allow-overlap>
+            Hallo!
+          </div>
+          <div id="bst-cap1" class="bst-capsule" data-layout-allow-overlap>
+            Hola!
+          </div>
+          <div id="bst-cap2" class="bst-capsule" data-layout-allow-overlap>
+            Ciao!
+          </div>
+          <div class="bst-caption">40 PEARLS / FULL COVERAGE / HIDDEN CUT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#bst-root .bst-fill"),
+            host = fill.querySelector(".bst-bubbles"),
+            tl = gsap.timeline({ paused: true }),
+            tints = [v.accent || "#d8c2ff", "#c8e6ff", "#f6cfe4", "#cdeef2"];
+          fill.style.setProperty("--accent", v.accent || "#d8c2ff");
+          function rng(seed) {
+            return function () {
+              seed |= 0;
+              seed = (seed + 0x6d2b79f5) | 0;
+              var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+              t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+              return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+            };
+          }
+          var bubbles = [];
+          for (var i = 0; i < 34; i++) {
+            var r = rng(1000 + i * 97),
+              edge = Math.floor(r() * 4),
+              along = r(),
+              sx = edge === 1 ? 2240 : edge === 3 ? -320 : along * 1920,
+              sy = edge === 0 ? -320 : edge === 2 ? 1400 : along * 1080,
+              depth = i % 3,
+              size =
+                depth === 0
+                  ? 90 + r() * 110
+                  : depth === 1
+                    ? 200 + r() * 180
+                    : 420 + r() * 260,
+              tx = 140 + r() * 1640,
+              ty = 100 + r() * 880,
+              start = 0.267 + r() * 1.4,
+              el = document.createElement("div");
+            el.className = "bst-bubble";
+            el.setAttribute("data-layout-allow-overflow", "");
+            el.dataset.depth = String(depth);
+            el.style.width = size + "px";
+            el.style.height = size + "px";
+            el.style.setProperty(
+              "--tint",
+              tints[Math.floor(r() * tints.length)],
+            );
+            host.appendChild(el);
+            gsap.set(el, {
+              x: sx - size / 2,
+              y: sy - size / 2,
+              scale: 0.22,
+              rotation: r() * 50 - 25,
+            });
+            bubbles.push(el);
+            tl.to(el, { opacity: 1, duration: 0.233, ease: "none" }, start)
+              .to(
+                el,
+                {
+                  x: tx - size / 2,
+                  y: ty - size / 2,
+                  scale: 1,
+                  rotation: r() * 22 - 11,
+                  duration: 2.5 - start,
+                  ease: "power3.out",
+                },
+                start,
+              )
+              .to(
+                el,
+                {
+                  x: (tx - 960) * 2.4 + tx - size / 2,
+                  y: (ty - 540) * 2.4 + ty - size / 2,
+                  scale: 0.65,
+                  opacity: 0,
+                  duration: 1.4,
+                  ease: "power2.in",
+                },
+                2.567,
+              );
+          }
+          var grid = [
+            [340, 300],
+            [960, 240],
+            [1580, 330],
+            [320, 800],
+            [980, 860],
+            [1600, 780],
+          ];
+          grid.forEach(function (pos, i) {
+            var r = rng(7000 + i * 131),
+              size = 900 + r() * 240,
+              sx = i % 4 === 1 ? 2520 : i % 4 === 3 ? -600 : pos[0],
+              sy = i % 4 === 0 ? -600 : i % 4 === 2 ? 1680 : pos[1],
+              el = document.createElement("div");
+            el.className = "bst-bubble";
+            el.setAttribute("data-layout-allow-overflow", "");
+            el.dataset.depth = "2";
+            el.style.width = size + "px";
+            el.style.height = size + "px";
+            el.style.setProperty("--tint", tints[i % tints.length]);
+            host.appendChild(el);
+            gsap.set(el, { x: sx - size / 2, y: sy - size / 2, scale: 0.22 });
+            tl.to(
+              el,
+              { opacity: 1, duration: 0.233, ease: "none" },
+              0.733 + i * 0.07,
+            )
+              .to(
+                el,
+                {
+                  x: pos[0] - size / 2,
+                  y: pos[1] - size / 2,
+                  scale: 1,
+                  duration: 1.7,
+                  ease: "power3.out",
+                },
+                0.734 + i * 0.07,
+              )
+              .to(
+                el,
+                {
+                  x: (pos[0] - 960) * 2.5 + pos[0] - size / 2,
+                  y: (pos[1] - 540) * 2.5 + pos[1] - size / 2,
+                  scale: 0.65,
+                  opacity: 0,
+                  duration: 1.4,
+                  ease: "power2.in",
+                },
+                2.567,
+              );
+          });
+          [
+            ["#bst-cap0", 330, 230],
+            ["#bst-cap1", 1010, 300],
+            ["#bst-cap2", 1460, 720],
+          ].forEach(function (c, i) {
+            tl.set(
+              c[0],
+              { x: c[1], y: c[2], scale: 0.5, rotation: i === 1 ? 7 : -6 },
+              1 + i * 0.15,
+            )
+              .to(
+                c[0],
+                { opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" },
+                1.001 + i * 0.15,
+              )
+              .to(
+                c[0],
+                {
+                  x: c[1] + (c[1] - 960) * 1.8,
+                  y: c[2] + (c[2] - 540) * 1.8,
+                  opacity: 0,
+                  duration: 1.2,
+                  ease: "power2.in",
+                },
+                2.6,
+              );
+          });
+          tl.to(
+            "#bst-page-a,#bst-page-b",
+            { scale: 1.02, duration: 4.1, ease: "none" },
+            0,
+          )
+            .to(
+              "#bst-root .bst-whiteout",
+              { opacity: 0.92, duration: 0.867, ease: "power2.inOut" },
+              1.4,
+            )
+            .set("#bst-page-b", { opacity: 1 }, 2.5)
+            .set("#bst-page-a", { opacity: 0 }, 2.501)
+            .to(
+              "#bst-root .bst-whiteout",
+              { opacity: 0, duration: 0.733, ease: "power2.inOut" },
+              2.734,
+            );
+          window.__timelines["shot-bubble-swarm-takeover"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

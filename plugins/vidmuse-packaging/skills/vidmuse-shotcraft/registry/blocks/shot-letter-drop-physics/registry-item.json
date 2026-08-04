@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-letter-drop-physics",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Letter Drop Physics",
+  "description": "Letters fall under accelerating gravity, rebound twice with decaying height, settle at seeded angles, then snap into formation.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "typography", "physics", "bounce", "playful"],
+  "files": [{ "path": "shot-letter-drop-physics.html", "target": "compositions/shot-letter-drop-physics.html", "type": "hyperframes:composition" }]
+}

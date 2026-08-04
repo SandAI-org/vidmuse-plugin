@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-counter-tick-sparks",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Counter Tick Sparks",
+  "description": "A 0-to-12,847 counter emits a deterministic spark burst at every thousand, doubles the final burst, and lands with a compact confirmation pulse.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "data", "counter", "sparks", "milestone"],
+  "files": [{ "path": "shot-counter-tick-sparks.html", "target": "compositions/shot-counter-tick-sparks.html", "type": "hyperframes:composition" }]
+}

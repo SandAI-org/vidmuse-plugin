@@ -292,9 +292,11 @@ Then link `assets/fonts/vidmuse/fonts.css`. The staging command verifies every b
 - Prefer one orchestrated causal sequence over scattered effects. Leave frequently recurring elements calmer than rare hero moments, and treat source-camera changes as expensive attention transfers rather than ambient punctuation.
 - Define rhythm, weight, direction, source-camera temperament, picture-in-picture behavior, continuity anchors, and restraint here. Let `vidmuse-motion` derive speech-synchronized cue chains and complete lifecycles, then let `hyperframes-animation` choose the exact seekable GSAP or supported runtime implementation.
 
-## Use the official HyperFrames library with intent
+## Use the HyperFrames libraries with intent
 
-Treat the HyperFrames Registry as the official component vocabulary and this skill as the art director. The catalog shows what can be built; it does not decide what the film should say.
+Treat the official HyperFrames Registry and local `vidmuse-shotcraft` library as component
+vocabularies and this skill as the art director. The catalogs show what can be built; they
+do not decide what the film should say.
 
 1. Read `hyperframes-registry` before discovery and `hyperframes-core` before implementation.
 2. Query the target project's configured catalog with `npx hyperframes catalog --json`. Do not rely on a memorized list when the live catalog is available.
@@ -303,6 +305,13 @@ Treat the HyperFrames Registry as the official component vocabulary and this ski
 5. Prefer a close official block or component to recreating it. Install the exact named item with `hyperframes add <name>` only after selecting it.
 6. Adapt content, variables, palette, typography, timing, crop, and composition to `FRAME.md`; preserve the official item contract and deterministic behavior.
 7. Use a custom HyperFrames composition when no official item expresses the idea accurately. Do not distort a library item beyond recognition merely to claim reuse.
+
+For a transition, title, camera, UI entrance, interaction, data, impact, rhythm, opening,
+or outro job, load `vidmuse-shotcraft` after the job and cue chain are named. Query its
+bilingual job index, inspect no more than three serious candidates, and apply the same
+semantic-fit score above. Install a selected `shot-*` through the Shotcraft local installer,
+not `hyperframes add`; the official Registry remains configured for upstream items. Respect
+the catalog's fail-closed recut policy and the block's native 16:9 adaptation cost.
 
 Choose the unit correctly:
 

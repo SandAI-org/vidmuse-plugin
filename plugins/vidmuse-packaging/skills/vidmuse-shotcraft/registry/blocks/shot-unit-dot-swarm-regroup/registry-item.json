@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-unit-dot-swarm-regroup",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Unit Dot Swarm Regroup",
+  "description": "Three hundred twenty customer dots migrate from a seeded swarm into plan clusters, measured columns, and a final dot-matrix total.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.2,
+  "tags": ["shotcraft", "data", "dots", "swarm", "regroup"],
+  "files": [{ "path": "shot-unit-dot-swarm-regroup.html", "target": "compositions/shot-unit-dot-swarm-regroup.html", "type": "hyperframes:composition" }]
+}

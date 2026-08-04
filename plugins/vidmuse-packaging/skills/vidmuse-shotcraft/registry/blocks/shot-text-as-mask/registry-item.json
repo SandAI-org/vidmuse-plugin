@@ -1,0 +1,14 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-text-as-mask",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Text As Mask",
+  "description": "A moving dashboard is revealed inside giant type, then a counter-scaled mask expansion hands off to the full interface without distortion.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "opening", "typography", "mask", "ui"],
+  "files": [
+    { "path": "shot-text-as-mask.html", "target": "compositions/shot-text-as-mask.html", "type": "hyperframes:composition" },
+    { "path": "assets/projects-full.png", "target": "assets/textures/projects-full.png", "type": "hyperframes:asset" }
+  ]
+}

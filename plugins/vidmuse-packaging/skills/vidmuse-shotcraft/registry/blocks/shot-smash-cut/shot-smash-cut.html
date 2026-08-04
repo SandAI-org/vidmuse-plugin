@@ -1,0 +1,263 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#ff6747"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .smc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          --accent: #ff6747;
+        }
+        .smc-noise,
+        .smc-calm {
+          position: absolute;
+          inset: 0;
+        }
+        .smc-bg {
+          position: absolute;
+          inset: 0;
+          background: #e9e7e0;
+          color: #181b19;
+          transform-origin: 50% 50%;
+          filter: blur(1.5px);
+        }
+        .smc-head {
+          position: absolute;
+          left: 65px;
+          right: 65px;
+          top: 55px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 21px;
+          font-weight: 900;
+        }
+        .smc-title {
+          position: absolute;
+          left: 80px;
+          top: 150px;
+          width: 680px;
+          font-size: 80px;
+          line-height: 0.94;
+          letter-spacing: -5px;
+        }
+        .smc-grid {
+          position: absolute;
+          left: 790px;
+          right: 80px;
+          top: 130px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        .smc-card {
+          height: 385px;
+          padding: 28px;
+          border: 1px solid #c9c5bd;
+          border-radius: 24px;
+          background: #faf8f3;
+        }
+        .smc-card i {
+          display: block;
+          width: 60%;
+          height: 13px;
+          margin-bottom: 16px;
+          border-radius: 8px;
+          background: #252925;
+        }
+        .smc-card i + i {
+          width: 35%;
+          background: #b7b5ae;
+        }
+        .smc-card:after {
+          content: "";
+          display: block;
+          height: 165px;
+          margin-top: 60px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #d6d2c9, var(--accent));
+          opacity: 0.65;
+        }
+        .smc-fly {
+          position: absolute;
+          left: 730px;
+          top: 380px;
+          width: 460px;
+          height: 300px;
+          padding: 32px;
+          border-radius: 26px;
+          background: #faf8f3;
+          box-shadow: 0 18px 55px rgba(0, 0, 0, 0.3);
+          opacity: 0;
+        }
+        .smc-fly i {
+          display: block;
+          width: 60%;
+          height: 14px;
+          margin-bottom: 16px;
+          border-radius: 8px;
+          background: #242824;
+        }
+        .smc-fly i + i {
+          width: 35%;
+          background: #b7b5ae;
+        }
+        .smc-fly:after {
+          content: "";
+          display: block;
+          height: 125px;
+          margin-top: 50px;
+          border-radius: 15px;
+          background: linear-gradient(135deg, var(--accent), #ffc4b5);
+        }
+        .smc-calm {
+          opacity: 0;
+          background: #171a19;
+          color: white;
+        }
+        .smc-calm .smc-card {
+          background: #242927;
+          border-color: #3b423f;
+        }
+        .smc-calm .smc-card i {
+          background: #f2efe9;
+        }
+        .smc-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 20;
+          padding: 9px 13px;
+          border-radius: 5px;
+          background: #181b19;
+          color: white;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="smc-root"
+        data-hf-id="hf-smc-root"
+        data-composition-id="shot-smash-cut"
+        data-start="0"
+        data-duration="4.5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="smc-fill">
+          <div id="smc-noise" class="smc-noise">
+            <div id="smc-bg" class="smc-bg">
+              <div class="smc-head">
+                <span>ACCELERATE</span><span>NO BRAKES</span>
+              </div>
+              <h1 class="smc-title">Everything moves until nothing does.</h1>
+              <div class="smc-grid">
+                <div class="smc-card"><i></i><i></i></div>
+                <div class="smc-card"><i></i><i></i></div>
+                <div class="smc-card"><i></i><i></i></div>
+                <div class="smc-card"><i></i><i></i></div>
+              </div>
+            </div>
+            <div class="smc-fly"><i></i><i></i></div>
+            <div class="smc-fly"><i></i><i></i></div>
+            <div class="smc-fly"><i></i><i></i></div>
+            <div class="smc-fly"><i></i><i></i></div>
+            <div class="smc-fly"><i></i><i></i></div>
+          </div>
+          <div id="smc-calm" class="smc-calm">
+            <div class="smc-head">
+              <span>CONTROL</span><span>COMPLETE SILENCE</span>
+            </div>
+            <h1 class="smc-title">Everything is exactly where it belongs.</h1>
+            <div class="smc-grid">
+              <div class="smc-card"><i></i><i></i></div>
+              <div class="smc-card"><i></i><i></i></div>
+              <div class="smc-card"><i></i><i></i></div>
+              <div class="smc-card"><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="smc-caption">
+            MAXIMUM MOTION / ONE-FRAME CUT / ZERO MOTION
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#smc-root .smc-fill"),
+            tl = gsap.timeline({ paused: true }),
+            flies = document.querySelectorAll("#smc-root .smc-fly"),
+            paths = [
+              [-1400, -120, 1400, 60, -6, 5],
+              [1400, 180, -1400, -100, 7, -4],
+              [-300, -900, 200, 900, -3, 8],
+              [-1300, 800, 1300, -750, 5, -7],
+              [1350, -780, -1350, 820, -8, 4],
+            ];
+          fill.style.setProperty("--accent", v.accent || "#ff6747");
+          tl.to(
+            "#smc-bg",
+            { scale: 1.55, rotation: 1.8, duration: 1.4, ease: "power2.in" },
+            0,
+          );
+          flies.forEach(function (c, i) {
+            for (var k = 0; k < 2; k++) {
+              var p = paths[i],
+                t = i * 0.133 + k * 0.667,
+                d = k === 0 ? 0.533 : 0.4;
+              tl.fromTo(
+                c,
+                {
+                  opacity: 1,
+                  x: p[0],
+                  y: p[1],
+                  rotation: p[4],
+                  scale: 1.5,
+                  filter: "blur(1px)",
+                },
+                {
+                  opacity: 1,
+                  x: p[2],
+                  y: p[3],
+                  rotation: p[5],
+                  scale: 3,
+                  filter: "blur(5px)",
+                  duration: d,
+                  ease: "power2.in",
+                  immediateRender: false,
+                },
+                t,
+              ).set(c, { opacity: 0 }, t + d);
+            }
+          });
+          tl.set("#smc-noise", { opacity: 0 }, 1.4).set(
+            "#smc-calm",
+            { opacity: 1 },
+            1.4,
+          );
+          window.__timelines["shot-smash-cut"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

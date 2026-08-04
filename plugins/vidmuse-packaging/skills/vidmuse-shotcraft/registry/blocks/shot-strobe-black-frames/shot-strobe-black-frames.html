@@ -1,0 +1,211 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Target accent","default":"#8b68ff"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .sbf-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          color: #181b19;
+          --accent: #8b68ff;
+        }
+        .sbf-page {
+          position: absolute;
+          inset: 0;
+          transform-origin: 1070px 817px;
+        }
+        .sbf-head {
+          position: absolute;
+          left: 65px;
+          right: 65px;
+          top: 55px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 21px;
+          font-weight: 900;
+        }
+        .sbf-title {
+          position: absolute;
+          left: 80px;
+          top: 160px;
+          width: 620px;
+          font-size: 78px;
+          line-height: 0.95;
+          letter-spacing: -5px;
+        }
+        .sbf-grid {
+          position: absolute;
+          left: 790px;
+          right: 80px;
+          top: 130px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        .sbf-card {
+          height: 385px;
+          padding: 28px;
+          border: 1px solid #cac6be;
+          border-radius: 24px;
+          background: #faf8f3;
+        }
+        .sbf-card i {
+          display: block;
+          width: 58%;
+          height: 13px;
+          margin-bottom: 16px;
+          border-radius: 8px;
+          background: #252925;
+        }
+        .sbf-card i + i {
+          width: 35%;
+          background: #b7b5ae;
+        }
+        .sbf-card:after {
+          content: "";
+          display: block;
+          height: 165px;
+          margin-top: 60px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #d6d2c9, var(--accent));
+          opacity: 0.64;
+        }
+        .sbf-target {
+          position: absolute;
+          left: 790px;
+          top: 533px;
+          width: 525px;
+          height: 385px;
+          border: 4px dashed #777a75;
+          border-radius: 25px;
+        }
+        .sbf-label {
+          position: absolute;
+          left: 60px;
+          top: 38px;
+          z-index: 5;
+          padding: 11px 15px;
+          border-radius: 5px;
+          background: #181b19;
+          color: white;
+          font-size: 18px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+        .sbf-black {
+          position: absolute;
+          inset: 0;
+          z-index: 20;
+          opacity: 0;
+          background: #0c0c0c;
+        }
+        .sbf-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 5;
+          color: #585a56;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="sbf-root"
+        data-hf-id="hf-sbf-root"
+        data-composition-id="shot-strobe-black-frames"
+        data-start="0"
+        data-duration="4.5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div id="sbf-fill" class="sbf-fill">
+          <div id="sbf-page" class="sbf-page" data-layout-allow-overflow>
+            <div class="sbf-head"><span></span><span>PHOTOSENSITIVE</span></div>
+            <h1 class="sbf-title">Pressure arrives between the frames.</h1>
+            <div class="sbf-grid">
+              <div class="sbf-card"><i></i><i></i></div>
+              <div class="sbf-card"><i></i><i></i></div>
+              <div class="sbf-card"><i></i><i></i></div>
+              <div class="sbf-card"><i></i><i></i></div>
+            </div>
+            <div class="sbf-target"></div>
+          </div>
+          <div class="sbf-label">STROBE BLACK FRAMES</div>
+          <div class="sbf-caption">8 / 7 / 6 / 5 / 4 / 3 / 3 / 3</div>
+          <div id="sbf-black" class="sbf-black"></div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.getElementById("sbf-fill"),
+            tl = gsap.timeline({ paused: true }),
+            flashes = [40, 48, 55, 61, 66, 70, 73, 76, 79],
+            black = document.getElementById("sbf-black"),
+            content = document.querySelectorAll(
+              "#sbf-page,.sbf-label,.sbf-caption",
+            );
+          fill.style.setProperty("--accent", v.accent || "#8b68ff");
+          gsap.set(fill, { filter: "brightness(1)" });
+          tl.to(
+            "#sbf-page",
+            { scale: 1.05, duration: 2.667, ease: "power2.in" },
+            0,
+          );
+          flashes.forEach(function (f) {
+            var t = f / 30;
+            tl.call(
+              function () {
+                black.style.opacity = "1";
+                content.forEach(function (el) {
+                  el.style.opacity = "0";
+                });
+              },
+              null,
+              t,
+            ).call(
+              function () {
+                black.style.opacity = "0";
+                content.forEach(function (el) {
+                  el.style.opacity = "1";
+                });
+              },
+              null,
+              t + 0.067,
+            );
+          });
+          tl.set("#sbf-page", { scale: 1.35 }, 2.7)
+            .set(
+              "#sbf-root .sbf-title,#sbf-root .sbf-head",
+              { opacity: 0 },
+              2.7,
+            )
+            .set(fill, { filter: "brightness(.88)" }, 2.7)
+            .set(fill, { filter: "brightness(1)" }, 2.767);
+          window.__timelines["shot-strobe-black-frames"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

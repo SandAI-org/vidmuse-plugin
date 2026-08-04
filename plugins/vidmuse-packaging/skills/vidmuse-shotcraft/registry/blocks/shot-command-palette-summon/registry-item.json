@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-command-palette-summon",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Command Palette Summon",
+  "description": "The interface yields through dimming and blur while a command palette lands with overshoot, reveals five options, accepts two keystrokes, and physically collapses to two results.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "command-palette",
+    "search",
+    "keyboard",
+    "filter",
+    "summon"
+  ],
+  "files": [
+    {
+      "path": "shot-command-palette-summon.html",
+      "target": "compositions/shot-command-palette-summon.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

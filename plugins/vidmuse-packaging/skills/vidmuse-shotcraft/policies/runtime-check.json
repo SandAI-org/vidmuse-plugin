@@ -1,0 +1,30 @@
+{
+  "schema": "vidmuse-shotcraft.runtime-check-policy.v1",
+  "cliVersion": "0.7.90",
+  "knownFindings": {
+    "seek-sweep-manual-qa": [
+      "shot-icon-field-colorize",
+      "shot-letterspace-materialize"
+    ],
+    "intentional-layering-or-visual-adaptation": [
+      "shot-before-after-slider-scrub",
+      "shot-beat-step-list-theme-cycle",
+      "shot-blinds-slice",
+      "shot-brand-frame-snap",
+      "shot-brake-reticle-lock",
+      "shot-changelog-scroll-brake",
+      "shot-clock-wipe",
+      "shot-confetti-crossfire",
+      "shot-neon-frame-orbit-drop",
+      "shot-needle-sweep-selftest",
+      "shot-odometer-digit-roll",
+      "shot-particle-sand-fill",
+      "shot-smash-cut",
+      "shot-steep-tilt-glide",
+      "shot-tape-scroll-fixed-pointer",
+      "shot-timeline-travel",
+      "shot-unit-dot-swarm-regroup"
+    ]
+  },
+  "policy": "Known findings may contain Layout, Motion, or Contrast diagnostics only. Any install, Lint, or Runtime failure remains unexpected and fails the audit. Every known-finding block still requires project-specific visual QA and adaptation before use."
+}

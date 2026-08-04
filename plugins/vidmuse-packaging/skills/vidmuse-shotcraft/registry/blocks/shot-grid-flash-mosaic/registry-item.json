@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-grid-flash-mosaic",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Grid Flash Mosaic",
+  "description": "Nine product fragments pop into a three-by-three mosaic at two-frame intervals, breathe as a complete wall, and resolve when the center cell accelerates to full screen.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "rhythm", "grid", "mosaic", "flash", "zoom"],
+  "files": [
+    {
+      "path": "shot-grid-flash-mosaic.html",
+      "target": "compositions/shot-grid-flash-mosaic.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

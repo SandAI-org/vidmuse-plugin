@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;accent&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Marker color&quot;,&quot;default&quot;:&quot;#b45309&quot;},
+  {&quot;id&quot;:&quot;cardWidth&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Card width&quot;,&quot;default&quot;:460,&quot;min&quot;:320,&quot;max&quot;:620,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;},
+  {&quot;id&quot;:&quot;gap&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Card gap&quot;,&quot;default&quot;:60,&quot;min&quot;:20,&quot;max&quot;:160,&quot;step&quot;:5,&quot;unit&quot;:&quot;px&quot;}
+]"><head></head>
+  <body>
+    <template>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .fa-fill { position: absolute; inset: 0; overflow: hidden; background: #f9f6f1; }
+        #fa-rail { position: absolute; left: 0; top: 370px; height: 420px; display: block; }
+        .fa-card { position: absolute; width: var(--cardWidth); border-radius: 12px; box-shadow: 0 4px 16px rgba(31,28,23,.1); display: block; }
+        #fa-annotation { position: absolute; inset: 0; display: block; }
+      </style>
+      <div data-hf-id="hf-fa-root" id="fa-root" data-composition-id="shot-freeze-annotate" data-start="0" data-duration="4.5" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+        <div data-hf-id="hf-fa-fill" class="fa-fill">
+          <div data-hf-id="hf-fa-rail" id="fa-rail" data-layout-allow-overflow="">
+            <img data-hf-id="hf-fa-card0" class="fa-card" src="assets/textures/card1.png" alt="" data-i="0">
+            <img data-hf-id="hf-fa-card1" class="fa-card" src="assets/textures/card2.png" alt="" data-i="1">
+            <img data-hf-id="hf-fa-card2" class="fa-card" src="assets/textures/card3.png" alt="" data-i="2">
+            <img data-hf-id="hf-fa-card3" class="fa-card" src="assets/textures/card5.png" alt="" data-i="3">
+            <img data-hf-id="hf-fa-card4" class="fa-card" src="assets/textures/card6.png" alt="" data-i="4">
+            <img data-hf-id="hf-fa-target" class="fa-card" src="assets/textures/card4-hires.png" alt="" data-i="5">
+            <img data-hf-id="hf-fa-card6" class="fa-card" src="assets/textures/card7.png" alt="" data-i="6">
+            <img data-hf-id="hf-fa-card7" class="fa-card" src="assets/textures/card8.png" alt="" data-i="7">
+            <img data-hf-id="hf-fa-card8" class="fa-card" src="assets/textures/card9.png" alt="" data-i="8">
+            <img data-hf-id="hf-fa-card9" class="fa-card" src="assets/textures/card1-b.png" alt="" data-i="9">
+            <img data-hf-id="hf-fa-card10" class="fa-card" src="assets/textures/card2-b.png" alt="" data-i="10">
+            <img data-hf-id="hf-fa-card11" class="fa-card" src="assets/textures/card3-b.png" alt="" data-i="11">
+            <img data-hf-id="hf-fa-card12" class="fa-card" src="assets/textures/card5-b.png" alt="" data-i="12">
+            <img data-hf-id="hf-fa-card13" class="fa-card" src="assets/textures/card6-b.png" alt="" data-i="13">
+          </div>
+          <svg data-hf-id="hf-fa-annotation" id="fa-annotation" width="1920" height="1080" viewBox="0 0 1920 1080" aria-hidden="true" data-layout-ignore="">
+            <defs data-hf-id="hf-mh0t"><filter data-hf-id="hf-z1ab" id="fa-rough"><feturbulence data-hf-id="hf-26ox" type="fractalNoise" baseFrequency=".02" numOctaves="2" seed="7" result="n" /><fedisplacementmap data-hf-id="hf-h6lp" in="SourceGraphic" in2="n" scale="7" /></filter></defs>
+            <ellipse data-hf-id="hf-fa-ring" id="fa-ring" cx="960" cy="560" rx="290" ry="230" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="1750" stroke-dashoffset="1750" transform="rotate(-6 960 560)" filter="url(#fa-rough)" />
+            <path data-hf-id="hf-fa-arrow" id="fa-arrow" d="M1290 190 Q1180 240 1100 320" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="420" stroke-dashoffset="420" filter="url(#fa-rough)" />
+          </svg>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var vars = window.__hyperframes.getVariables();
+          var cardWidth = Number(vars.cardWidth || 460);
+          var gap = Number(vars.gap || 60);
+          var root = document.getElementById("fa-root");
+          root.style.setProperty("--cardWidth", cardWidth + "px");
+          root.style.setProperty("--accent", vars.accent || "#b45309");
+          Array.prototype.forEach.call(document.querySelectorAll("#fa-rail .fa-card"), function (el) { el.style.left = Number(el.dataset.i) * (cardWidth + gap) + "px"; });
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#fa-rail", { x: -880 }, { x: -1870, duration: 1.5, ease: "none" }, 0);
+          tl.to("#fa-ring", { strokeDashoffset: 0, duration: .267, ease: "power2.out" }, 1.733);
+          tl.to("#fa-arrow", { strokeDashoffset: 0, duration: .2, ease: "power2.out" }, 2);
+          tl.to("#fa-annotation", { opacity: 0, duration: .267, ease: "none" }, 3.2);
+          tl.to("#fa-rail", { x: -2948, duration: 1.167, ease: "none" }, 3.333);
+          window.__timelines["shot-freeze-annotate"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

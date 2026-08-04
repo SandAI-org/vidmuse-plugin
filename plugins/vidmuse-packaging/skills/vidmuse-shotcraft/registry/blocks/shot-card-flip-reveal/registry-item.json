@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-card-flip-reveal",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Card Flip Reveal",
+  "description": "Three semantic feature cards flip around Y with ten-frame stagger, a side-edge sheen, twelve-degree overshoot, and a long hold on paired result metrics.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.833,
+  "tags": ["shotcraft", "transition", "card", "flip", "3d", "result-reveal"],
+  "files": [
+    {
+      "path": "shot-card-flip-reveal.html",
+      "target": "compositions/shot-card-flip-reveal.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

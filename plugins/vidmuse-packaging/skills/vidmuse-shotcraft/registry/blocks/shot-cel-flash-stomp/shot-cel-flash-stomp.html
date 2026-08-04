@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;word1&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;First word&quot;,&quot;default&quot;:&quot;SHIP&quot;,&quot;maxLength&quot;:12},
+  {&quot;id&quot;:&quot;word2&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Second word&quot;,&quot;default&quot;:&quot;FASTER&quot;,&quot;maxLength&quot;:12},
+  {&quot;id&quot;:&quot;word3&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Final word&quot;,&quot;default&quot;:&quot;TODAY&quot;,&quot;maxLength&quot;:12},
+  {&quot;id&quot;:&quot;background&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Background&quot;,&quot;default&quot;:&quot;#ececea&quot;},
+  {&quot;id&quot;:&quot;ink&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Ink&quot;,&quot;default&quot;:&quot;#171717&quot;}
+]"><head></head><body><template>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}.cfs-fill{position:absolute;inset:0;overflow:hidden;background:var(--background);color:var(--ink);font-family:Inter,sans-serif}
+    #cfs-title{position:absolute;left:120px;top:94px;font-size:24px;font-weight:750;letter-spacing:.16em;text-transform:uppercase}
+    #cfs-title:after{content:"";display:block;width:96px;height:5px;margin-top:17px;background:#e89c2f}
+    .cfs-word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:210px;font-weight:850;letter-spacing:-.03em;opacity:0;transform-origin:50% 54%;white-space:nowrap}
+    #cfs-bar{position:absolute;left:0;right:0;bottom:0;height:96px;background:var(--ink);opacity:0;display:flex;align-items:center;gap:20px;padding:0 120px}
+    .cfs-chip{width:40px;height:40px;border-radius:10px;background:#e89c2f}.cfs-line{width:320px;height:16px;border-radius:8px;background:#7d7d79}.cfs-line.end{width:180px;margin-left:auto;background:#e89c2f}
+  </style>
+  <div data-hf-id="hf-cfs-root" id="cfs-root" data-composition-id="shot-cel-flash-stomp" data-start="0" data-duration="4.8" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+    <div data-hf-id="hf-cfs-fill" class="cfs-fill">
+      <div data-hf-id="hf-cfs-title" id="cfs-title">CEL FLASH STOMP</div>
+      <div data-hf-id="hf-cfs-w1" id="cfs-w1" class="cfs-word" data-layout-allow-overflow></div><div data-hf-id="hf-cfs-w2" id="cfs-w2" class="cfs-word" data-layout-allow-overflow></div><div data-hf-id="hf-cfs-w3" id="cfs-w3" class="cfs-word" data-layout-allow-overflow></div>
+      <div data-hf-id="hf-cfs-bar" id="cfs-bar"><div class="cfs-chip"></div><div class="cfs-line"></div><div class="cfs-line end"></div></div>
+    </div>
+  </div>
+  <script>(function(){window.__timelines=window.__timelines||{};var v=window.__hyperframes.getVariables(),root=document.getElementById("cfs-root"),bg=v.background||"#ececea",ink=v.ink||"#171717";root.style.setProperty("--background",bg);root.style.setProperty("--ink",ink);document.getElementById("cfs-w1").textContent=v.word1||"SHIP";document.getElementById("cfs-w2").textContent=v.word2||"FASTER";document.getElementById("cfs-w3").textContent=v.word3||"TODAY";var tl=gsap.timeline({paused:true});function hit(sel,at,rot,dark,len){tl.set(".cfs-word",{opacity:0},at).set(sel,{opacity:1,scale:1.18,rotation:rot},at).to(sel,{scale:.98,duration:.133,ease:"power4.out"},at).to(sel,{scale:1,duration:.067,ease:"power2.out"},at+.133);for(var i=0;i<len;i+=2){tl.set(".cfs-fill",{backgroundColor:i%4===0?dark:bg},at+.2+i/30)}tl.set(".cfs-fill",{backgroundColor:bg},at+.2+len/30)}hit("#cfs-w1",0,2.5,"#cfcfca",6);hit("#cfs-w2",1,-2.5,"#cfcfca",6);hit("#cfs-w3",2,0,"#c4c4c0",8);tl.to("#cfs-bar",{opacity:1,duration:.467,ease:"power2.out"},2.2);window.__timelines["shot-cel-flash-stomp"]=tl})();</script>
+</template></body></html>

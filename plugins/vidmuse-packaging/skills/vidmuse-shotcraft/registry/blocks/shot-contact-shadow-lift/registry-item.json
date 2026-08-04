@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-contact-shadow-lift",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Contact Shadow Lift",
+  "description": "Three dashboard cards are called forward one at a time as their independent contact shadows widen, soften, and tighten on landing.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": ["shotcraft", "ui-entrance", "cards", "shadow", "lift"],
+  "files": [{ "path": "shot-contact-shadow-lift.html", "target": "compositions/shot-contact-shadow-lift.html", "type": "hyperframes:composition" }]
+}

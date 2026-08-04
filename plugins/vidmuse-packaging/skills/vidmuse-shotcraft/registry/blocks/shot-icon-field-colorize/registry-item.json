@@ -1,0 +1,13 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-icon-field-colorize",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Icon Field Colorize",
+  "description": "A seeded field of 170 grayscale icons appears in staggered batches before four fast color waves sweep downward.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "opening", "icons", "color", "stagger"],
+  "files": [
+    { "path": "shot-icon-field-colorize.html", "target": "compositions/shot-icon-field-colorize.html", "type": "hyperframes:composition" }
+  ]
+}

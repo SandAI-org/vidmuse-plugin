@@ -1,0 +1,361 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"glowColor","type":"color","label":"Relay glow","default":"#eaeae6"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ofr-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #1d1d1b;
+          font-family: Inter, sans-serif;
+        }
+        .ofr-orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(100px);
+          opacity: 0;
+        }
+        .ofr-a {
+          left: 1140px;
+          top: -20px;
+          width: 720px;
+          height: 720px;
+          background: radial-gradient(
+            circle,
+            color-mix(in srgb, var(--glow) 26%, transparent),
+            transparent 70%
+          );
+        }
+        .ofr-b {
+          left: 580px;
+          top: 570px;
+          width: 640px;
+          height: 640px;
+          background: radial-gradient(
+            circle,
+            color-mix(in srgb, var(--glow) 20%, transparent),
+            transparent 70%
+          );
+        }
+        .ofr-card {
+          position: absolute;
+          width: 420px;
+          height: 250px;
+          padding: 24px;
+          border: 1.5px solid #5a5a58;
+          border-radius: 14px;
+          background: #262624;
+          opacity: 0.55;
+        }
+        .ofr-ca {
+          left: 230px;
+          top: 170px;
+        }
+        .ofr-cb {
+          left: 1270px;
+          top: 300px;
+        }
+        .ofr-cc {
+          left: 700px;
+          top: 740px;
+        }
+        .ofr-title {
+          height: 15px;
+          width: 62%;
+          border-radius: 8px;
+          background: #4a4a48;
+        }
+        .ofr-line {
+          height: 10px;
+          margin-top: 12px;
+          border-radius: 5px;
+          background: #383836;
+        }
+        .ofr-line:nth-child(2) {
+          width: 80%;
+        }
+        .ofr-line:nth-child(3) {
+          width: 62%;
+        }
+        .ofr-foot {
+          position: absolute;
+          left: 24px;
+          bottom: 24px;
+          width: 102px;
+          height: 24px;
+          border-radius: 12px;
+          background: #444542;
+        }
+        .ofr-svg {
+          position: absolute;
+          inset: 0;
+        }
+        .ofr-path {
+          fill: none;
+          stroke: var(--glow);
+          stroke-width: 5;
+          stroke-linecap: round;
+          filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.55));
+          opacity: 0;
+        }
+        .ofr-head {
+          fill: #fff;
+          filter: drop-shadow(0 0 18px #fff);
+          opacity: 0;
+        }
+      </style>
+      <div
+        data-hf-id="hf-ofr-root"
+        id="ofr-root"
+        data-composition-id="shot-orb-flyline-relay"
+        data-start="0"
+        data-duration="5.167"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="ofr-fill" style="--glow: #eaeae6">
+          <div
+            id="ofr-orb-a"
+            class="ofr-orb ofr-a"
+            data-layout-allow-overflow
+          ></div>
+          <div
+            id="ofr-orb-b"
+            class="ofr-orb ofr-b"
+            data-layout-allow-overflow
+          ></div>
+          <article id="ofr-card-a" class="ofr-card ofr-ca">
+            <div class="ofr-title"></div>
+            <div class="ofr-line"></div>
+            <div class="ofr-line"></div>
+            <div class="ofr-foot"></div>
+          </article>
+          <article id="ofr-card-b" class="ofr-card ofr-cb">
+            <div class="ofr-title"></div>
+            <div class="ofr-line"></div>
+            <div class="ofr-line"></div>
+            <div class="ofr-foot"></div>
+          </article>
+          <article id="ofr-card-c" class="ofr-card ofr-cc">
+            <div class="ofr-title"></div>
+            <div class="ofr-line"></div>
+            <div class="ofr-line"></div>
+            <div class="ofr-foot"></div>
+          </article>
+          <svg class="ofr-svg" viewBox="0 0 1920 1080">
+            <path
+              id="ofr-path-1"
+              class="ofr-path"
+              d="M440 295 C820 90 1300 180 1480 425"
+            />
+            <circle id="ofr-head-1" class="ofr-head" cx="440" cy="295" r="9" />
+            <path
+              id="ofr-path-2"
+              class="ofr-path"
+              d="M1480 425 C1620 820 1240 1000 910 865"
+            />
+            <circle id="ofr-head-2" class="ofr-head" cx="1480" cy="425" r="9" />
+          </svg>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("ofr-root"),
+            fill = root.querySelector(".ofr-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--glow", v.glowColor || "#eaeae6");
+          ["#ofr-path-1", "#ofr-path-2"].forEach(function (s) {
+            var p = root.querySelector(s),
+              n = p.getTotalLength();
+            gsap.set(p, { strokeDasharray: n, strokeDashoffset: n });
+          });
+          tl.to(
+            ".ofr-orb",
+            { opacity: 1, duration: 0.6, ease: "power3.out" },
+            0,
+          )
+            .to(
+              "#ofr-orb-a",
+              {
+                keyframes: [
+                  { x: -140, y: 125, duration: 1 },
+                  { x: 90, y: -75, duration: 1.1 },
+                  { x: -55, y: 105, duration: 1 },
+                  { x: -30, y: 72, duration: 0.9 },
+                ],
+                ease: "sine.inOut",
+              },
+              0,
+            )
+            .to(
+              "#ofr-orb-b",
+              {
+                keyframes: [
+                  { x: 125, y: -105, duration: 0.9 },
+                  { x: -95, y: -165, duration: 1.1 },
+                  { x: 118, y: -70, duration: 1 },
+                  { x: 92, y: -92, duration: 0.9 },
+                ],
+                ease: "sine.inOut",
+              },
+              0,
+            )
+            .to(
+              "#ofr-card-a",
+              {
+                opacity: 1,
+                borderColor: "#f4f4ef",
+                boxShadow: "0 0 24px 6px rgba(255,255,255,.24)",
+                duration: 0.267,
+                ease: "power3.out",
+              },
+              0.267,
+            )
+            .to(
+              "#ofr-card-a",
+              {
+                boxShadow: "0 0 8px 2px rgba(255,255,255,.08)",
+                duration: 0.5,
+                ease: "none",
+              },
+              0.534,
+            )
+            .set("#ofr-path-1", { opacity: 1 }, 0.6)
+            .set("#ofr-head-1", { opacity: 1 }, 0.6)
+            .to(
+              "#ofr-path-1",
+              { strokeDashoffset: 0, duration: 0.8, ease: "power3.out" },
+              0.6,
+            )
+            .to(
+              "#ofr-head-1",
+              {
+                keyframes: [
+                  { x: 298, y: -101, duration: 0.2 },
+                  { x: 595, y: -104, duration: 0.2 },
+                  { x: 855, y: -22, duration: 0.2 },
+                  { x: 1040, y: 130, duration: 0.2 },
+                ],
+                ease: "none",
+              },
+              0.6,
+            )
+            .set("#ofr-head-1", { opacity: 0 }, 1.4)
+            .to(
+              "#ofr-card-b",
+              {
+                opacity: 1,
+                borderColor: "#fff",
+                boxShadow: "0 0 28px 7px rgba(255,255,255,.3)",
+                duration: 0.2,
+                ease: "power3.out",
+              },
+              1.4,
+            )
+            .to(
+              "#ofr-orb-a",
+              {
+                filter: "blur(100px) brightness(1.8)",
+                duration: 0.167,
+                ease: "power3.out",
+                yoyo: true,
+                repeat: 1,
+              },
+              1.4,
+            )
+            .to(
+              "#ofr-path-1",
+              { opacity: 0, duration: 0.467, ease: "none" },
+              1.533,
+            )
+            .to(
+              "#ofr-card-b",
+              {
+                boxShadow: "0 0 8px 2px rgba(255,255,255,.08)",
+                duration: 0.533,
+                ease: "none",
+              },
+              1.6,
+            )
+            .set("#ofr-path-2", { opacity: 1 }, 1.733)
+            .set("#ofr-head-2", { opacity: 1 }, 1.733)
+            .to(
+              "#ofr-path-2",
+              { strokeDashoffset: 0, duration: 0.8, ease: "power3.out" },
+              1.733,
+            )
+            .to(
+              "#ofr-head-2",
+              {
+                keyframes: [
+                  { x: 16, y: 254, duration: 0.2 },
+                  { x: -109, y: 419, duration: 0.2 },
+                  { x: -322, y: 484, duration: 0.2 },
+                  { x: -570, y: 440, duration: 0.2 },
+                ],
+                ease: "none",
+              },
+              1.733,
+            )
+            .set("#ofr-head-2", { opacity: 0 }, 2.533)
+            .to(
+              "#ofr-card-c",
+              {
+                opacity: 1,
+                borderColor: "#fff",
+                boxShadow: "0 0 28px 7px rgba(255,255,255,.3)",
+                duration: 0.2,
+                ease: "power3.out",
+              },
+              2.533,
+            )
+            .to(
+              "#ofr-orb-b",
+              {
+                filter: "blur(100px) brightness(1.8)",
+                duration: 0.167,
+                ease: "power3.out",
+                yoyo: true,
+                repeat: 1,
+              },
+              2.533,
+            )
+            .to(
+              "#ofr-path-2",
+              { opacity: 0, duration: 0.467, ease: "none" },
+              2.666,
+            )
+            .to(
+              "#ofr-card-c",
+              {
+                boxShadow: "0 0 8px 2px rgba(255,255,255,.08)",
+                duration: 0.533,
+                ease: "none",
+              },
+              2.733,
+            );
+          window.__timelines["shot-orb-flyline-relay"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

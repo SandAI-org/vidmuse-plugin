@@ -1,0 +1,243 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Interface accent","default":"#5b55c8"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .csr-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #000;
+          font-family: Inter, sans-serif;
+          --accent: #5b55c8;
+        }
+        .csr-ui {
+          position: absolute;
+          z-index: 1;
+          inset: 0;
+          padding: 90px 120px;
+          overflow: hidden;
+          background: #f6f6f5;
+          color: #2c2c2c;
+          transform-origin: 18% 12%;
+          clip-path: circle(300px at 140px 90px);
+        }
+        .csr-title {
+          display: flex;
+          gap: 26px;
+          align-items: center;
+          font-size: 118px;
+          font-weight: 800;
+          letter-spacing: -5px;
+          line-height: 1;
+        }
+        .csr-chevron {
+          width: 0;
+          height: 0;
+          margin-top: 26px;
+          border-left: 16px solid transparent;
+          border-right: 16px solid transparent;
+          border-top: 20px solid #3a3a3a;
+        }
+        .csr-tabs {
+          display: flex;
+          gap: 64px;
+          margin-top: 90px;
+          font-size: 44px;
+          color: #555;
+        }
+        .csr-tabs span {
+          padding: 10px 0;
+        }
+        .csr-tabs span:first-child {
+          padding: 10px 34px;
+          border-radius: 14px;
+          background: #e9e8f6;
+          color: var(--accent);
+          font-weight: 700;
+        }
+        .csr-list {
+          margin-top: 70px;
+        }
+        .csr-row {
+          display: flex;
+          gap: 30px;
+          align-items: center;
+          padding: 28px 0;
+        }
+        .csr-check {
+          width: 42px;
+          height: 42px;
+          border: 3px solid #c9c9c7;
+          border-radius: 10px;
+        }
+        .csr-dot {
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: var(--accent);
+        }
+        .csr-avatar {
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          background: #efe4e2;
+        }
+        .csr-copy {
+          width: 900px;
+        }
+        .csr-copy i {
+          display: block;
+          width: 620px;
+          height: 22px;
+          margin-bottom: 16px;
+          border-radius: 11px;
+          background: #3f3f3f;
+        }
+        .csr-copy i:last-child {
+          width: 760px;
+          height: 18px;
+          background: linear-gradient(90deg, #8f8bd8 0 42%, #d8d8d6 42%);
+        }
+        .csr-glow {
+          position: absolute;
+          left: -210px;
+          top: -260px;
+          width: 700px;
+          height: 700px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.95),
+            rgba(255, 255, 255, 0.28) 42%,
+            transparent 73%
+          );
+          filter: blur(26px);
+          opacity: 0;
+          transform-origin: center;
+          pointer-events: none;
+        }
+        .csr-caption {
+          position: absolute;
+          z-index: 2;
+          right: 60px;
+          bottom: 50px;
+          color: #eee;
+          padding: 9px 13px;
+          border-radius: 8px;
+          background: rgba(0, 0, 0, 0.78);
+          font-size: 20px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-csr-root"
+        id="csr-root"
+        data-composition-id="shot-corner-spotlight-reveal"
+        data-start="0"
+        data-duration="3.5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="csr-fill">
+          <div
+            id="csr-ui"
+            class="csr-ui"
+            data-layout-allow-overflow
+            data-layout-allow-overlap
+          >
+            <div
+              class="csr-title"
+              data-layout-allow-overflow
+              data-layout-allow-occlusion
+            >
+              Inbox
+              <div class="csr-chevron"></div>
+            </div>
+            <div
+              class="csr-tabs"
+              data-layout-allow-overflow
+              data-layout-allow-occlusion
+            >
+              <span>All</span><span>Tasks</span><span>Docs</span
+              ><span>People</span><span>Chat</span>
+            </div>
+            <div class="csr-list" data-layout-allow-overflow>
+              <div class="csr-row">
+                <i class="csr-check"></i><i class="csr-dot"></i
+                ><i class="csr-avatar"></i>
+                <div class="csr-copy"><i></i><i></i></div>
+              </div>
+              <div class="csr-row">
+                <i class="csr-check"></i><i class="csr-dot"></i
+                ><i class="csr-avatar"></i>
+                <div class="csr-copy"><i></i><i></i></div>
+              </div>
+              <div class="csr-row">
+                <i class="csr-check"></i><i class="csr-dot"></i
+                ><i class="csr-avatar"></i>
+                <div class="csr-copy"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="csr-glow"
+            class="csr-glow"
+            data-layout-allow-overflow
+            data-layout-allow-overlap
+          ></div>
+          <div class="csr-caption">LIGHT BECOMES THE CUT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#csr-root .csr-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#5b55c8");
+          gsap.set("#csr-ui", { scale: 1.75, x: -40, y: -30, rotation: -1.2 });
+          gsap.set("#csr-glow", { scale: 0.45 });
+          tl.to(
+            "#csr-ui",
+            {
+              clipPath: "circle(2400px at 420px 260px)",
+              scale: 1.47,
+              x: 30,
+              y: 20,
+              rotation: 0,
+              duration: 3.333,
+              ease: "none",
+            },
+            0,
+          )
+            .to("#csr-glow", { opacity: 0.9, duration: 0.333, ease: "none" }, 0)
+            .to(
+              "#csr-glow",
+              { x: 280, y: 170, scale: 5.4, duration: 3.2, ease: "none" },
+              0,
+            )
+            .to("#csr-glow", { opacity: 0, duration: 1, ease: "none" }, 2.0);
+          window.__timelines["shot-corner-spotlight-reveal"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

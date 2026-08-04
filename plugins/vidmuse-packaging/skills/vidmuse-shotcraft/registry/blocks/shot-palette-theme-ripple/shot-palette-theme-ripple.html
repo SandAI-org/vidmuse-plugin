@@ -1,0 +1,227 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Ripple accent","default":"#8f6cff"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ptr-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          --accent: #8f6cff;
+        }
+        .ptr-page {
+          position: absolute;
+          inset: 0;
+          padding: 90px 110px;
+        }
+        .ptr-light {
+          background: #ece9e2;
+          color: #292824;
+        }
+        .ptr-dark {
+          background: #111116;
+          color: #f5f3f7;
+          clip-path: circle(12px at 960px 475px);
+        }
+        .ptr-page h1 {
+          margin-top: 100px;
+          font-size: 94px;
+          letter-spacing: -5px;
+        }
+        .ptr-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          margin-top: 72px;
+        }
+        .ptr-card {
+          height: 240px;
+          border: 1px solid #ccc8c0;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .ptr-dark .ptr-card {
+          border-color: #37343f;
+          background: #202027;
+        }
+        .ptr-palette {
+          position: absolute;
+          left: 610px;
+          top: 330px;
+          width: 700px;
+          border: 1px solid #4b4a51;
+          border-radius: 22px;
+          background: #17171a;
+          color: #f5f4f7;
+          box-shadow: 0 35px 90px rgba(0, 0, 0, 0.5);
+          opacity: 0;
+        }
+        .ptr-input {
+          height: 92px;
+          display: flex;
+          align-items: center;
+          padding: 0 30px;
+          border-bottom: 1px solid #35343a;
+          font-size: 30px;
+        }
+        .ptr-row {
+          height: 66px;
+          padding: 0 30px;
+          display: flex;
+          align-items: center;
+          color: #aaa8b0;
+        }
+        .ptr-core {
+          position: absolute;
+          left: 950px;
+          top: 465px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background: #fff;
+          box-shadow: 0 0 30px 12px var(--accent);
+          opacity: 0;
+        }
+        .ptr-ring {
+          position: absolute;
+          left: 960px;
+          top: 475px;
+          width: 24px;
+          height: 24px;
+          margin: -12px;
+          border: 5px solid #fff;
+          border-radius: 50%;
+          box-shadow: 0 0 18px var(--accent);
+          opacity: 0;
+        }
+        .ptr-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          padding: 8px 12px;
+          border-radius: 8px;
+          background: rgba(0, 0, 0, 0.78);
+          color: #fff;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-ptr-root"
+        id="ptr-root"
+        data-composition-id="shot-palette-theme-ripple"
+        data-start="0"
+        data-duration="5.5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="ptr-fill">
+          <div
+            class="ptr-page ptr-light"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <h1>Design in daylight.</h1>
+            <div class="ptr-grid">
+              <i class="ptr-card"></i><i class="ptr-card"></i
+              ><i class="ptr-card"></i>
+            </div>
+          </div>
+          <div
+            id="ptr-dark"
+            class="ptr-page ptr-dark"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <h1>Design after dark.</h1>
+            <div class="ptr-grid">
+              <i class="ptr-card"></i><i class="ptr-card"></i
+              ><i class="ptr-card"></i>
+            </div>
+          </div>
+          <section id="ptr-palette" class="ptr-palette">
+            <div class="ptr-input">/ <span id="ptr-word"></span><b>|</b></div>
+            <div class="ptr-row">Switch appearance to dark theme</div>
+            <div class="ptr-row">Theme settings</div>
+          </section>
+          <div id="ptr-core" class="ptr-core"></div>
+          <div id="ptr-ring" class="ptr-ring" data-layout-allow-overflow></div>
+          <div class="ptr-caption">COMMAND / POINT / THEME</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#ptr-root .ptr-fill"),
+            word = document.getElementById("ptr-word"),
+            tl = gsap.timeline({ paused: true }),
+            txt = "dark";
+          fill.style.setProperty("--accent", v.accent || "#8f6cff");
+          gsap.set("#ptr-palette", { y: -20, scale: 0.97 });
+          tl.to(
+            "#ptr-palette",
+            {
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              duration: 0.5,
+              ease: "back.out(1.8)",
+            },
+            0.3,
+          );
+          txt.split("").forEach(function (ch, i) {
+            tl.call(
+              function () {
+                word.textContent = txt.slice(0, i + 1);
+              },
+              null,
+              1 + i * 0.18,
+            );
+          });
+          tl.to(
+            "#ptr-palette",
+            { scale: 0, opacity: 0, duration: 0.4, ease: "power3.in" },
+            1.9,
+          )
+            .set("#ptr-core,#ptr-ring", { opacity: 1 }, 2.3)
+            .to(
+              "#ptr-dark",
+              {
+                clipPath: "circle(1350px at 960px 475px)",
+                duration: 1.2,
+                ease: "power3.out",
+              },
+              2.3,
+            )
+            .to(
+              "#ptr-ring",
+              { scale: 105, opacity: 0, duration: 1.2, ease: "power3.out" },
+              2.3,
+            )
+            .to("#ptr-core", { opacity: 0, duration: 0.333 }, 2.633)
+            .set(".ptr-light", { opacity: 0 }, 3.5);
+          window.__timelines["shot-palette-theme-ripple"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

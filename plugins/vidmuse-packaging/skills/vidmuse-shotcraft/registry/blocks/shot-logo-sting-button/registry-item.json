@@ -1,0 +1,15 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-logo-sting-button",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Logo Sting Button",
+  "description": "A dashboard blacks out into a logo hold, flashes a twelve-frame UI close-up easter egg, then returns to the final lockup.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.733,
+  "tags": ["shotcraft", "outro", "logo", "sting", "ui"],
+  "files": [
+    { "path": "shot-logo-sting-button.html", "target": "compositions/shot-logo-sting-button.html", "type": "hyperframes:composition" },
+    { "path": "assets/projects-full.png", "target": "assets/textures/projects-full.png", "type": "hyperframes:asset" },
+    { "path": "assets/vidmuse-logo-white.svg", "target": "assets/branding/vidmuse-logo-white.svg", "type": "hyperframes:asset" }
+  ]
+}

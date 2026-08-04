@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-darkfield-flight",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Darkfield Flight",
+  "description": "The source rushes forward into a live dark dust field before a softly blurred destination arrives from depth and resolves cleanly.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "transition", "darkfield", "depth", "flight", "shot-transitions-4"],
+  "files": [
+    {
+      "path": "shot-darkfield-flight.html",
+      "target": "compositions/shot-darkfield-flight.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

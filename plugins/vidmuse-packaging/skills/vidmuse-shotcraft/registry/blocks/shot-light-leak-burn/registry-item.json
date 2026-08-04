@@ -1,0 +1,26 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-light-leak-burn",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Light Leak Burn",
+  "description": "Three warm amber light fields sweep diagonally into an overexposed core, conceal the edit at peak intensity, and leave the destination with a film-like afterglow.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "light-leak",
+    "burn",
+    "amber",
+    "film",
+    "warm",
+    "hidden-cut"
+  ],
+  "files": [
+    {
+      "path": "shot-light-leak-burn.html",
+      "target": "compositions/shot-light-leak-burn.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

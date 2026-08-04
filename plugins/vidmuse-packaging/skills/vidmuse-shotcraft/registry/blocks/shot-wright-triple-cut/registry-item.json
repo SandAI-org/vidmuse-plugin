@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-wright-triple-cut",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Wright Triple Cut",
+  "description": "Three ten-frame action close-ups press, toggle, and flip before a six-frame whip returns to the completed dashboard and a highlighted result card.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "rhythm", "hard-cut", "workflow", "whip", "result"],
+  "files": [
+    {
+      "path": "shot-wright-triple-cut.html",
+      "target": "compositions/shot-wright-triple-cut.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

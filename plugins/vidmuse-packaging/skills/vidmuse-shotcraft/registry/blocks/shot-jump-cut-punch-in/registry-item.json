@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-jump-cut-punch-in",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Jump Cut Punch In",
+  "description": "A fixed dashboard composition jumps without interpolation from 1.0x to 1.6x to 2.6x around one target card, with two-frame dark ticks at both edits.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "rhythm", "jump-cut", "punch-in", "camera", "hard-cut"],
+  "files": [
+    {
+      "path": "shot-jump-cut-punch-in.html",
+      "target": "compositions/shot-jump-cut-punch-in.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

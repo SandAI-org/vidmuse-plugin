@@ -1,0 +1,183 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"plateColor","type":"color","label":"Beat plate","default":"#77756f"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .btp-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+        }
+        .btp-stage {
+          position: absolute;
+          inset: 0;
+          transform-origin: center;
+        }
+        .btp-title {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 660px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 160px;
+          font-weight: 900;
+          letter-spacing: -1px;
+          white-space: nowrap;
+        }
+        .btp-plate {
+          mix-blend-mode: multiply;
+          opacity: 0;
+        }
+        .btp-light {
+          color: var(--plate);
+        }
+        .btp-cards {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 660px;
+          display: flex;
+          justify-content: center;
+          gap: 44px;
+        }
+        .btp-card {
+          width: 330px;
+          height: 200px;
+          padding: 26px;
+          border: 1px solid #cac7c0;
+          border-radius: 16px;
+          background: #faf9f5;
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+        .btp-card:before {
+          content: "";
+          display: block;
+          width: 55%;
+          height: 24px;
+          border-radius: 8px;
+          background: #74726c;
+        }
+        .btp-card:after {
+          content: "";
+          display: block;
+          width: 82%;
+          height: 11px;
+          margin-top: 28px;
+          border-radius: 6px;
+          background: #d0cdc6;
+        }
+        .btp-dots {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 950px;
+          display: flex;
+          justify-content: center;
+          gap: 60px;
+        }
+        .btp-dot {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: #aaa79f;
+        }
+      </style>
+      <div
+        data-hf-id="hf-btp-root"
+        id="btp-root"
+        data-composition-id="shot-beat-pump"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="btp-fill" style="--plate: #77756f">
+          <div id="btp-stage" class="btp-stage" data-layout-allow-overflow>
+            <div id="btp-single" class="btp-title">ON THE BEAT</div>
+            <div id="btp-light" class="btp-title btp-plate btp-light" data-layout-allow-overlap>
+              ON THE BEAT
+            </div>
+            <div id="btp-dark" class="btp-title btp-plate" data-layout-allow-overlap>ON THE BEAT</div>
+            <div class="btp-cards">
+              <div class="btp-card"></div>
+              <div class="btp-card"></div>
+              <div class="btp-card"></div>
+            </div>
+            <div class="btp-dots">
+              <i id="btp-dot-1" class="btp-dot"></i
+              ><i id="btp-dot-2" class="btp-dot"></i
+              ><i id="btp-dot-3" class="btp-dot"></i
+              ><i id="btp-dot-4" class="btp-dot"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("btp-root"),
+            fill = root.querySelector(".btp-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--plate", v.plateColor || "#77756f");
+          function beat(i, at, a) {
+            tl.set("#btp-stage", { scale: 1.08 }, at)
+              .to(
+                "#btp-stage",
+                { scale: 1, duration: 0.467, ease: "expo.out" },
+                at,
+              )
+              .set("#btp-single", { opacity: 0 }, at)
+              .set("#btp-light,#btp-dark", { opacity: 1 }, at)
+              .set("#btp-light", { x: -a, y: a * 0.45 }, at)
+              .set("#btp-dark", { x: a, y: -a * 0.45 }, at)
+              .to(
+                "#btp-light,#btp-dark",
+                { x: 0, y: 0, duration: 0.4, ease: "elastic.out(1,.3)" },
+                at,
+              )
+              .set("#btp-light,#btp-dark", { opacity: 0 }, at + 0.4)
+              .set("#btp-single", { opacity: 1 }, at + 0.4)
+              .set(
+                "#btp-dot-" + i,
+                { backgroundColor: "#292824", scale: 1.8 },
+                at,
+              )
+              .to(
+                "#btp-dot-" + i,
+                { scale: 1, duration: 0.267, ease: "power3.out" },
+                at,
+              );
+          }
+          beat(1, 1, 4);
+          beat(2, 1.8, 7);
+          beat(3, 2.6, 11);
+          beat(4, 3.4, 16);
+          window.__timelines["shot-beat-pump"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

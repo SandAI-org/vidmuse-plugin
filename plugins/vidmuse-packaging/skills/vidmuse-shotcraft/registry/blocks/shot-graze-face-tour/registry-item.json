@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-graze-face-tour",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Graze Face Tour",
+  "description": "Three steep, close-surface camera passes tour a sidebar, top navigation, and task list while elevated interface elements land in sequence with depth-aware shadows.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "camera", "graze", "surface-tour", "depth"],
+  "files": [{ "path": "shot-graze-face-tour.html", "target": "compositions/shot-graze-face-tour.html", "type": "hyperframes:composition" }]
+}

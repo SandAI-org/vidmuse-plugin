@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;pageImage&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Dashboard image&quot;,&quot;default&quot;:&quot;assets/textures/projects-full.png&quot;},
+  {&quot;id&quot;:&quot;pulse&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Row pulse&quot;,&quot;default&quot;:&quot;#2f2f2f&quot;},
+  {&quot;id&quot;:&quot;startZoom&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Start zoom&quot;,&quot;default&quot;:3.2,&quot;min&quot;:1.5,&quot;max&quot;:5,&quot;step&quot;:0.1}
+]"><head></head><body><template>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}.cr-fill{position:absolute;inset:0;overflow:hidden;background:#ececea}#cr-camera{position:absolute;left:0;top:0;width:1920px;height:1746px;transform-origin:0 0}#cr-page{position:absolute;inset:0;width:1920px;height:auto;display:block}.cr-pulse{position:absolute;left:256px;width:1628px;height:171.2px;border-radius:14px;background:var(--pulse);opacity:0;mix-blend-mode:multiply}
+    #cr-pulse-0{top:108px}#cr-pulse-1{top:299.2px}#cr-pulse-2{top:490.4px}#cr-pulse-3{top:681.6px}#cr-pulse-4{top:872.8px}
+  </style>
+  <div data-hf-id="hf-cr-root" id="cr-root" data-composition-id="shot-crane-rise-reveal" data-start="0" data-duration="5" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+    <div data-hf-id="hf-cr-fill" class="cr-fill"><div data-hf-id="hf-cr-camera" id="cr-camera" data-layout-allow-overflow>
+      <img data-hf-id="hf-cr-page" id="cr-page" data-var-src="pageImage" src="assets/textures/projects-full.png" alt="">
+      <div data-hf-id="hf-cr-pulse-0" id="cr-pulse-0" class="cr-pulse" data-layout-ignore></div><div data-hf-id="hf-cr-pulse-1" id="cr-pulse-1" class="cr-pulse" data-layout-ignore></div><div data-hf-id="hf-cr-pulse-2" id="cr-pulse-2" class="cr-pulse" data-layout-ignore></div><div data-hf-id="hf-cr-pulse-3" id="cr-pulse-3" class="cr-pulse" data-layout-ignore></div><div data-hf-id="hf-cr-pulse-4" id="cr-pulse-4" class="cr-pulse" data-layout-ignore></div>
+    </div></div>
+  </div>
+  <script>(function(){window.__timelines=window.__timelines||{};var v=window.__hyperframes.getVariables();var r=document.getElementById("cr-root");r.style.setProperty("--pulse",v.pulse||"#2f2f2f");var z=Number(v.startZoom||3.2);var cam=document.getElementById("cr-camera");var tl=gsap.timeline({paused:true});tl.set(cam,{x:960-520*z,y:540-958.4*z,scale:z},0);tl.to(cam,{x:0,y:0,scale:1,duration:3.333,ease:"power2.out"},.667);[3.1,2.333,1.667,1.033,.667].forEach(function(at,i){var sel="#cr-pulse-"+i;tl.to(sel,{opacity:.22,duration:.133,ease:"power2.out"},at);tl.to(sel,{opacity:0,duration:.6,ease:"power2.in"},at+.133)});window.__timelines["shot-crane-rise-reveal"]=tl})();</script>
+</template></body></html>

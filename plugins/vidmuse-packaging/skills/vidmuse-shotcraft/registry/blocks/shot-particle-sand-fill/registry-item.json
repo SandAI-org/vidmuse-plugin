@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-particle-sand-fill",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Particle Sand Fill",
+  "description": "Four data columns are built grain by grain from staggered square-particle rain, bounce once at the stack, then condense into clean solid bars and value labels.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.8,
+  "tags": ["shotcraft", "data", "particles", "bar-chart", "accumulation"],
+  "files": [{ "path": "shot-particle-sand-fill.html", "target": "compositions/shot-particle-sand-fill.html", "type": "hyperframes:composition" }]
+}

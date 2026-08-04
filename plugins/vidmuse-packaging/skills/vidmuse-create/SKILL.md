@@ -187,7 +187,9 @@ The direction must include:
 - one content-specific human trace;
 - an explicit rejection of foreign template language and gratuitous decoration.
 
-Keep official presets optional. Use the official HyperFrames Registry as a capability vocabulary, not as the art director. Select a block or component only after naming the beat's communicative job.
+Keep official presets optional. Use the official HyperFrames Registry and the local
+`vidmuse-shotcraft` library as capability vocabularies, not as art directors. Select a block
+or component only after naming the beat's communicative job.
 
 **Gate:** the visual system could not be pasted unchanged onto an unrelated film and every major treatment is traceable to content or source evidence.
 
@@ -226,8 +228,20 @@ Create human presence through observed behavior, causal response, selective deta
 
 Load `hyperframes-registry` for discovery, `hyperframes-core` for the composition contract, and `hyperframes-animation` for seek-safe implementation. Query the live catalog; do not rely on a memorized component list.
 
+When the approved job calls for a transition, title treatment, camera move, UI entrance,
+interaction, data beat, impact, rhythm device, opening, or outro, also load
+`vidmuse-shotcraft`. Search it by the job and shortlist no more than three blocks. Install an
+exact selected `shot-*` item through its local `install-local.mjs`; never send a `shot-*`
+name to `hyperframes add`, change the project's official Registry URL, or bulk-install a
+tag. Prefer the official item whenever it is the better semantic fit.
+
 - Prefer a close official item when it expresses the correct semantic job.
 - Remove demo content and adapt the item to `FRAME.md` without breaking its contract.
+- Treat a Shotcraft mount's manifest duration as the complete source recipe. Shortening the
+  host mount does not retime the internal timeline; retime the installed GSAP timeline and
+  its internal duration together when the beat span differs.
+- Treat every Shotcraft block as native 16:9. Re-author it for another aspect ratio and pass
+  full QA, or choose a different treatment; do not scale the full stage as adaptation.
 - Use custom HTML/SVG/CSS/GSAP when no official item fits; do not distort a component beyond recognition merely to reuse it.
 - Keep one paused master timeline registered on `window.__timelines`.
 - Keep render-time media local and deterministic.

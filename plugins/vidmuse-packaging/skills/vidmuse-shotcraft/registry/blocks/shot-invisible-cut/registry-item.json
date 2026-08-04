@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-invisible-cut",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Invisible Cut",
+  "description": "An oversized blurred foreground card and four trailing echoes sweep across the lens, fully occluding the hard cut while the destination settles from the opposite shove.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "invisible-cut",
+    "foreground",
+    "occlusion",
+    "motion-blur",
+    "one-take"
+  ],
+  "files": [
+    {
+      "path": "shot-invisible-cut.html",
+      "target": "compositions/shot-invisible-cut.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

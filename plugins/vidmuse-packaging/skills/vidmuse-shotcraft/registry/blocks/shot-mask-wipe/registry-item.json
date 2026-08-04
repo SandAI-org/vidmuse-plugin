@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-mask-wipe",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Mask Wipe",
+  "description": "A selected source card becomes a portal: its window expands to the full frame while the destination detail counter-scales into place and the old card face disappears.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "transition", "mask-wipe", "portal", "shared-geometry", "card", "detail"],
+  "files": [
+    {
+      "path": "shot-mask-wipe.html",
+      "target": "compositions/shot-mask-wipe.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

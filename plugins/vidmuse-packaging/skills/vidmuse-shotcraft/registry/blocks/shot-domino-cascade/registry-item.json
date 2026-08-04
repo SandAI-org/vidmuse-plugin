@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-domino-cascade",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Domino Cascade",
+  "description": "A falling title transfers momentum through four staggered card bounces into a second impact that drives a dark sidebar into place.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "rhythm", "domino", "cascade", "impact", "sidebar"],
+  "files": [
+    {
+      "path": "shot-domino-cascade.html",
+      "target": "compositions/shot-domino-cascade.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

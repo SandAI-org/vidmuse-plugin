@@ -1,0 +1,215 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#ef5f48"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .dmc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          color: #181b19;
+          --accent: #ef5f48;
+        }
+        .dmc-world {
+          position: absolute;
+          inset: 0;
+        }
+        .dmc-title {
+          position: absolute;
+          left: 240px;
+          top: 240px;
+          width: 1680px;
+          text-align: center;
+          font-size: 120px;
+          font-weight: 950;
+          letter-spacing: -7px;
+          transform: translateY(-500px);
+        }
+        .dmc-floor {
+          position: absolute;
+          left: 310px;
+          top: 928px;
+          width: 1540px;
+          height: 6px;
+          border-radius: 5px;
+          background: #8d8c86;
+        }
+        .dmc-card {
+          position: absolute;
+          top: 700px;
+          width: 340px;
+          height: 220px;
+          padding: 28px;
+          border: 1px solid #cbc7bf;
+          border-radius: 22px;
+          background: #faf8f3;
+          transform-origin: 50% 100%;
+          box-shadow: 0 16px 34px rgba(0, 0, 0, 0.1);
+        }
+        .dmc-card i {
+          display: block;
+          width: 58%;
+          height: 13px;
+          margin-bottom: 17px;
+          border-radius: 8px;
+          background: #242824;
+        }
+        .dmc-card i + i {
+          width: 35%;
+          background: #bbb9b2;
+        }
+        .dmc-card:after {
+          content: "";
+          display: block;
+          height: 78px;
+          margin-top: 40px;
+          border-radius: 13px;
+          background: linear-gradient(135deg, var(--accent), #ffc6b8);
+        }
+        .dmc-card:nth-child(3) {
+          left: 340px;
+        }
+        .dmc-card:nth-child(4) {
+          left: 720px;
+        }
+        .dmc-card:nth-child(5) {
+          left: 1100px;
+        }
+        .dmc-card:nth-child(6) {
+          left: 1480px;
+        }
+        .dmc-side {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 240px;
+          height: 1080px;
+          padding: 34px 24px;
+          background: #171a19;
+          transform: translateX(-260px);
+        }
+        .dmc-side b {
+          display: block;
+          width: 44px;
+          height: 44px;
+          margin-bottom: 46px;
+          border-radius: 10px;
+          background: var(--accent);
+        }
+        .dmc-side i {
+          display: block;
+          height: 13px;
+          margin-bottom: 22px;
+          border-radius: 8px;
+          background: #676d69;
+        }
+        .dmc-side i:nth-child(2n) {
+          width: 72%;
+        }
+        .dmc-side i:nth-child(2n + 1) {
+          width: 48%;
+        }
+        .dmc-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          color: #585a56;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="dmc-root"
+        data-hf-id="hf-dmc-root"
+        data-composition-id="shot-domino-cascade"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="dmc-fill">
+          <div id="dmc-world" class="dmc-world">
+            <div class="dmc-floor"></div>
+            <div id="dmc-title" class="dmc-title" data-layout-allow-overflow>
+              CHAIN REACTION
+            </div>
+            <div class="dmc-card"><i></i><i></i></div>
+            <div class="dmc-card"><i></i><i></i></div>
+            <div class="dmc-card"><i></i><i></i></div>
+            <div id="dmc-last" class="dmc-card"><i></i><i></i></div>
+            <div id="dmc-side" class="dmc-side">
+              <b></b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+          <div class="dmc-caption">IMPACT 01 / CASCADE / IMPACT 02</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#dmc-root .dmc-fill"),
+            tl = gsap.timeline({ paused: true }),
+            cards = document.querySelectorAll("#dmc-root .dmc-card");
+          fill.style.setProperty("--accent", v.accent || "#ef5f48");
+          tl.to("#dmc-title", { y: 0, duration: 0.5, ease: "power3.in" }, 1.2)
+            .set("#dmc-world", { y: 10 }, 1.7)
+            .to("#dmc-world", { y: -6, duration: 0.033 })
+            .to("#dmc-world", { y: 3, duration: 0.033 })
+            .to("#dmc-world", { y: 0, duration: 0.067 });
+          cards.forEach(function (c, i) {
+            var t = 1.7 + i * 0.167;
+            tl.to(c, { y: -60, duration: 0.2, ease: "power2.out" }, t).to(
+              c,
+              { y: 0, duration: 0.2, ease: "power2.in" },
+              t + 0.201,
+            );
+          });
+          tl.to(
+            "#dmc-last",
+            { rotation: -3, duration: 0.1, ease: "power2.out" },
+            2.5,
+          )
+            .set("#dmc-world", { y: 6 }, 2.6)
+            .to("#dmc-world", { y: -3, duration: 0.033 })
+            .to("#dmc-world", { y: 0, duration: 0.067 })
+            .to(
+              "#dmc-side",
+              { x: 272, duration: 0.467, ease: "power3.out" },
+              2.6,
+            )
+            .to(
+              "#dmc-side",
+              { x: 260, duration: 0.267, ease: "power1.inOut" },
+              3.068,
+            )
+            .to(
+              "#dmc-last",
+              { rotation: 0, duration: 0.267, ease: "power1.inOut" },
+              3.068,
+            );
+          window.__timelines["shot-domino-cascade"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

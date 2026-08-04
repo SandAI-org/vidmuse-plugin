@@ -1,0 +1,13 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-magician-card-flourish",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Magician Card Flourish",
+  "description": "A rotating cyan lens flare releases a card from extreme depth into a slowing arc, thirteen spins, a hard landing, and one sheen pass.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.7,
+  "tags": ["shotcraft", "opening", "card", "3d", "flare"],
+  "files": [
+    { "path": "shot-magician-card-flourish.html", "target": "compositions/shot-magician-card-flourish.html", "type": "hyperframes:composition" }
+  ]
+}

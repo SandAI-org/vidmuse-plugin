@@ -1,0 +1,1692 @@
+{
+  "3d": [
+    "shot-card-flip-reveal",
+    "shot-card-flock",
+    "shot-cloner-depth-echo",
+    "shot-cube-rotate",
+    "shot-exploded-view",
+    "shot-magician-card-flourish",
+    "shot-popup-book-rise",
+    "shot-runway-ground-skim"
+  ],
+  "3d-flip": [
+    "shot-integration-hub-map"
+  ],
+  "accelerando": [
+    "shot-beat-cut-accelerando"
+  ],
+  "acceleration": [
+    "shot-smash-cut"
+  ],
+  "accumulation": [
+    "shot-particle-sand-fill"
+  ],
+  "afterimage": [
+    "shot-smear-multiples"
+  ],
+  "agent": [
+    "shot-ai-stream-response"
+  ],
+  "ai": [
+    "shot-ai-stream-response"
+  ],
+  "amber": [
+    "shot-light-leak-burn"
+  ],
+  "ambient": [
+    "shot-glow-orb-ambient"
+  ],
+  "anime": [
+    "shot-anime-impact"
+  ],
+  "annotation": [
+    "shot-freeze-annotate"
+  ],
+  "assembly": [
+    "shot-letterform-drift-assembly",
+    "shot-split-text-stagger",
+    "shot-stroke-segment-build"
+  ],
+  "attention": [
+    "shot-attention-bounce"
+  ],
+  "audio": [
+    "shot-voice-waveform-live"
+  ],
+  "autolayout": [
+    "shot-autolayout-gap-dial"
+  ],
+  "axis": [
+    "shot-axis-rescale-shock"
+  ],
+  "backspace": [
+    "shot-typewriter-error-retype"
+  ],
+  "bar-chart": [
+    "shot-particle-sand-fill"
+  ],
+  "barn-door": [
+    "shot-barn-door-split"
+  ],
+  "beat": [
+    "shot-beat-pump",
+    "shot-beat-step-list-theme-cycle",
+    "shot-font-weight-pump"
+  ],
+  "bento": [
+    "shot-bento-light-up"
+  ],
+  "black": [
+    "shot-black-title-card-transition"
+  ],
+  "black-frames": [
+    "shot-strobe-black-frames"
+  ],
+  "blackout": [
+    "shot-drop-blackout-slam"
+  ],
+  "bleed": [
+    "shot-ink-bleed-reveal"
+  ],
+  "blinds": [
+    "shot-blinds-slice"
+  ],
+  "bloom": [
+    "shot-halation-bloom"
+  ],
+  "blur": [
+    "shot-rack-focus-relay",
+    "shot-whip-pan"
+  ],
+  "bounce": [
+    "shot-attention-bounce",
+    "shot-letter-drop-physics"
+  ],
+  "brake": [
+    "shot-changelog-scroll-brake"
+  ],
+  "brand": [
+    "shot-brand-frame-snap",
+    "shot-brand-ink-open",
+    "shot-color-block-step-wipe",
+    "shot-letterform-drift-assembly",
+    "shot-ui-brand-morph"
+  ],
+  "brand-color": [
+    "shot-bottom-push-stack-wipe"
+  ],
+  "brand-curtain": [
+    "shot-bubble-swarm-takeover"
+  ],
+  "bubbles": [
+    "shot-bubble-swarm-takeover"
+  ],
+  "bullet-time": [
+    "shot-bullet-time-freeze-orbit"
+  ],
+  "bumper": [
+    "shot-trailer-bumper"
+  ],
+  "burn": [
+    "shot-light-leak-burn"
+  ],
+  "burst": [
+    "shot-impact-burst-kit",
+    "shot-pop-burst-confirm"
+  ],
+  "cadence": [
+    "shot-card-footage-cadence"
+  ],
+  "camera": [
+    "shot-bullet-time-freeze-orbit",
+    "shot-crane-rise-reveal",
+    "shot-crash-impact",
+    "shot-crash-zoom",
+    "shot-cursor-performance",
+    "shot-depth-dolly-zoom",
+    "shot-depth-multiplane",
+    "shot-drone-dive-landing",
+    "shot-dutch-roll-to-level",
+    "shot-exploded-view",
+    "shot-graze-face-tour",
+    "shot-jump-cut-punch-in",
+    "shot-line-carry-transition",
+    "shot-overhead-tabletop-drop",
+    "shot-paper-plane-messenger",
+    "shot-pull-back-isolation",
+    "shot-slow-push-in",
+    "shot-spotlight-hero-card",
+    "shot-steep-tilt-glide",
+    "shot-tilt-reveal",
+    "shot-whip-pan"
+  ],
+  "camera-chase": [
+    "shot-deck-deal-flyin"
+  ],
+  "camera-pan": [
+    "shot-slide-spotlight-pan"
+  ],
+  "camera-punch": [
+    "shot-type-and-filter"
+  ],
+  "canvas": [
+    "shot-cast-ensemble",
+    "shot-panel-to-canvas"
+  ],
+  "card": [
+    "shot-card-flip-reveal",
+    "shot-magician-card-flourish",
+    "shot-mask-wipe",
+    "shot-sheen-sweep",
+    "shot-spotlight-hero-card"
+  ],
+  "cards": [
+    "shot-axial-stretch",
+    "shot-contact-shadow-lift",
+    "shot-deck-deal-flyin",
+    "shot-flip-grid-reflow",
+    "shot-hit-counter",
+    "shot-impact-burst-kit",
+    "shot-panel-to-canvas",
+    "shot-smear-multiples"
+  ],
+  "cascade": [
+    "shot-diagram-cascade",
+    "shot-domino-cascade"
+  ],
+  "celebration": [
+    "shot-confetti-crossfire"
+  ],
+  "changelog": [
+    "shot-changelog-scroll-brake"
+  ],
+  "chapter": [
+    "shot-black-title-card-transition",
+    "shot-bottom-push-stack-wipe",
+    "shot-cube-rotate",
+    "shot-letterform-zoom",
+    "shot-title-demote-to-label",
+    "shot-versus-slam"
+  ],
+  "chart": [
+    "shot-axis-rescale-shock",
+    "shot-oscilloscope-stream"
+  ],
+  "checkmark": [
+    "shot-pop-burst-confirm"
+  ],
+  "cinematic": [
+    "shot-tracking-expand-reveal"
+  ],
+  "circle": [
+    "shot-circle-match-iris"
+  ],
+  "click": [
+    "shot-cursor-performance"
+  ],
+  "clock-wipe": [
+    "shot-clock-wipe"
+  ],
+  "clone": [
+    "shot-cloner-depth-echo"
+  ],
+  "close-up": [
+    "shot-paparazzi-flash"
+  ],
+  "collaboration": [
+    "shot-cast-ensemble",
+    "shot-dialogue-duet"
+  ],
+  "color": [
+    "shot-icon-field-colorize"
+  ],
+  "color-block": [
+    "shot-color-block-step-wipe"
+  ],
+  "color-cycle": [
+    "shot-beat-step-list-theme-cycle"
+  ],
+  "combo": [
+    "shot-hit-counter"
+  ],
+  "comic": [
+    "shot-comic-panel-split"
+  ],
+  "command": [
+    "shot-keycap-smash-cut"
+  ],
+  "command-palette": [
+    "shot-command-palette-summon",
+    "shot-palette-theme-ripple"
+  ],
+  "comparison": [
+    "shot-before-after-slider-scrub",
+    "shot-versus-slam"
+  ],
+  "completion": [
+    "shot-ai-stream-response"
+  ],
+  "confetti": [
+    "shot-confetti-crossfire"
+  ],
+  "confirmation": [
+    "shot-pop-burst-confirm"
+  ],
+  "connection": [
+    "shot-flyline-arc"
+  ],
+  "continuous": [
+    "shot-line-carry-transition"
+  ],
+  "converge": [
+    "shot-text-column-converge"
+  ],
+  "copy-revision": [
+    "shot-typewriter-error-retype"
+  ],
+  "corner-reveal": [
+    "shot-corner-spotlight-reveal"
+  ],
+  "counter": [
+    "shot-counter-tick-sparks",
+    "shot-hit-counter",
+    "shot-list-stack-press"
+  ],
+  "crane": [
+    "shot-crane-rise-reveal"
+  ],
+  "crash-zoom": [
+    "shot-anime-impact",
+    "shot-crash-impact"
+  ],
+  "crt": [
+    "shot-line-unfold-panel"
+  ],
+  "cube": [
+    "shot-cube-rotate"
+  ],
+  "cursor": [
+    "shot-cast-ensemble",
+    "shot-cursor-performance",
+    "shot-dialogue-duet",
+    "shot-segmented-thumb-hero",
+    "shot-ui-strip-away-outro"
+  ],
+  "curve": [
+    "shot-text-on-path"
+  ],
+  "dark": [
+    "shot-glow-orb-ambient",
+    "shot-orb-flyline-relay"
+  ],
+  "dark-mode": [
+    "shot-palette-theme-ripple",
+    "shot-theme-sweep-toggle"
+  ],
+  "darkfield": [
+    "shot-darkfield-flight"
+  ],
+  "dashboard": [
+    "shot-flyline-arc",
+    "shot-reticle-lock-on"
+  ],
+  "data": [
+    "shot-axis-rescale-shock",
+    "shot-before-after-slider-scrub",
+    "shot-brake-reticle-lock",
+    "shot-changelog-scroll-brake",
+    "shot-circle-match-iris",
+    "shot-confetti-crossfire",
+    "shot-counter-tick-sparks",
+    "shot-needle-sweep-selftest",
+    "shot-odometer-digit-roll",
+    "shot-oscilloscope-stream",
+    "shot-particle-sand-fill",
+    "shot-tape-scroll-fixed-pointer",
+    "shot-timeline-travel",
+    "shot-unit-dot-swarm-regroup"
+  ],
+  "data-refresh": [
+    "shot-clock-wipe"
+  ],
+  "dataviz": [
+    "shot-dataviz-landscape-open"
+  ],
+  "deal": [
+    "shot-deck-deal-flyin"
+  ],
+  "decode": [
+    "shot-scramble-decode"
+  ],
+  "depth": [
+    "shot-cloner-depth-echo",
+    "shot-darkfield-flight",
+    "shot-depth-dolly-zoom",
+    "shot-graze-face-tour"
+  ],
+  "design-tool": [
+    "shot-autolayout-gap-dial"
+  ],
+  "detail": [
+    "shot-mask-wipe"
+  ],
+  "detail-to-overview": [
+    "shot-shared-element-morph"
+  ],
+  "developer": [
+    "shot-scramble-decode"
+  ],
+  "diagram": [
+    "shot-diagram-cascade"
+  ],
+  "dialogue": [
+    "shot-dialogue-duet"
+  ],
+  "digits": [
+    "shot-odometer-digit-roll"
+  ],
+  "displace": [
+    "shot-glitch-displace"
+  ],
+  "dive": [
+    "shot-drone-dive-landing"
+  ],
+  "document": [
+    "shot-document-typewriter-reveal"
+  ],
+  "dolly-zoom": [
+    "shot-depth-dolly-zoom"
+  ],
+  "domino": [
+    "shot-domino-cascade"
+  ],
+  "dots": [
+    "shot-unit-dot-swarm-regroup"
+  ],
+  "draw-on": [
+    "shot-draw-svg-trace",
+    "shot-wireframe-draw-on"
+  ],
+  "drift": [
+    "shot-letterform-drift-assembly"
+  ],
+  "drone": [
+    "shot-drone-dive-landing"
+  ],
+  "drop": [
+    "shot-drop-blackout-slam",
+    "shot-neon-frame-orbit-drop",
+    "shot-overhead-tabletop-drop"
+  ],
+  "dutch-angle": [
+    "shot-dutch-roll-to-level"
+  ],
+  "edge-light": [
+    "shot-glow-wake-sleep-panel",
+    "shot-slide-spotlight-pan"
+  ],
+  "editorial": [
+    "shot-paper-title-card",
+    "shot-word-relay-filmstrip"
+  ],
+  "effects": [
+    "shot-anime-impact",
+    "shot-attention-bounce",
+    "shot-beat-pump",
+    "shot-brand-frame-snap",
+    "shot-corner-spotlight-reveal",
+    "shot-flyline-arc",
+    "shot-glow-orb-ambient",
+    "shot-glow-wake-sleep-panel",
+    "shot-gradient-word-sweep",
+    "shot-halation-bloom",
+    "shot-hit-counter",
+    "shot-impact-burst-kit",
+    "shot-kanada-perspective-snap",
+    "shot-line-boil",
+    "shot-line-unfold-panel",
+    "shot-misregistration-hit",
+    "shot-orb-flyline-relay",
+    "shot-pop-burst-confirm",
+    "shot-reticle-lock-on",
+    "shot-score-slam",
+    "shot-sheen-sweep",
+    "shot-slide-spotlight-pan",
+    "shot-spotlight-sweep"
+  ],
+  "energy": [
+    "shot-flash-cut"
+  ],
+  "ensemble": [
+    "shot-cast-ensemble"
+  ],
+  "evidence": [
+    "shot-ai-stream-response"
+  ],
+  "exploded-view": [
+    "shot-exploded-view"
+  ],
+  "fast": [
+    "shot-whip-pan"
+  ],
+  "feature-list": [
+    "shot-pill-slot-cycle",
+    "shot-word-relay-filmstrip"
+  ],
+  "film": [
+    "shot-light-leak-burn"
+  ],
+  "filmstrip": [
+    "shot-word-relay-filmstrip"
+  ],
+  "filter": [
+    "shot-command-palette-summon",
+    "shot-type-and-filter"
+  ],
+  "fixed-camera": [
+    "shot-steep-tilt-glide"
+  ],
+  "fixed-pointer": [
+    "shot-tape-scroll-fixed-pointer"
+  ],
+  "flare": [
+    "shot-magician-card-flourish"
+  ],
+  "flash": [
+    "shot-cel-flash-stomp",
+    "shot-flash-cut",
+    "shot-grid-flash-mosaic",
+    "shot-paparazzi-flash"
+  ],
+  "flight": [
+    "shot-darkfield-flight"
+  ],
+  "flip": [
+    "shot-card-flip-reveal",
+    "shot-flip-grid-reflow",
+    "shot-grid-wave-flip",
+    "shot-shared-element-morph"
+  ],
+  "flyline": [
+    "shot-flyline-arc",
+    "shot-orb-flyline-relay"
+  ],
+  "font-weight": [
+    "shot-font-weight-pump"
+  ],
+  "foreground": [
+    "shot-invisible-cut"
+  ],
+  "forerun": [
+    "shot-neon-frame-forerun"
+  ],
+  "frame": [
+    "shot-brand-frame-snap",
+    "shot-line-carry-transition",
+    "shot-neon-frame-forerun"
+  ],
+  "freeze": [
+    "shot-bullet-time-freeze-orbit",
+    "shot-freeze-annotate"
+  ],
+  "gap": [
+    "shot-autolayout-gap-dial"
+  ],
+  "gauge": [
+    "shot-needle-sweep-selftest",
+    "shot-tape-scroll-fixed-pointer"
+  ],
+  "generation": [
+    "shot-diagram-cascade"
+  ],
+  "geometry": [
+    "shot-blinds-slice",
+    "shot-clock-wipe"
+  ],
+  "ghosts": [
+    "shot-smear-multiples"
+  ],
+  "glide": [
+    "shot-steep-tilt-glide"
+  ],
+  "glitch": [
+    "shot-glitch-displace"
+  ],
+  "glow": [
+    "shot-glow-orb-ambient",
+    "shot-gradient-word-sweep",
+    "shot-halation-bloom"
+  ],
+  "gradient": [
+    "shot-gradient-word-sweep"
+  ],
+  "graze": [
+    "shot-graze-face-tour"
+  ],
+  "grid": [
+    "shot-flip-grid-reflow",
+    "shot-grid-flash-mosaic",
+    "shot-grid-wave-flip"
+  ],
+  "growth": [
+    "shot-axis-rescale-shock",
+    "shot-text-on-path"
+  ],
+  "halation": [
+    "shot-halation-bloom"
+  ],
+  "hand-drawn": [
+    "shot-line-boil"
+  ],
+  "handoff": [
+    "shot-dialogue-duet"
+  ],
+  "hard-cut": [
+    "shot-beat-cut-accelerando",
+    "shot-card-footage-cadence",
+    "shot-flash-cut",
+    "shot-hashtag-pill-materialize",
+    "shot-jump-cut-punch-in",
+    "shot-paparazzi-flash",
+    "shot-slow-push-in",
+    "shot-trailer-bumper",
+    "shot-wright-triple-cut"
+  ],
+  "hashtag": [
+    "shot-hashtag-pill-materialize"
+  ],
+  "hidden-cut": [
+    "shot-glitch-displace",
+    "shot-light-leak-burn"
+  ],
+  "high-energy": [
+    "shot-glitch-displace"
+  ],
+  "highlight": [
+    "shot-karaoke-fill-sync"
+  ],
+  "history": [
+    "shot-timeline-travel"
+  ],
+  "hit-stop": [
+    "shot-hit-counter"
+  ],
+  "hud": [
+    "shot-line-unfold-panel",
+    "shot-reticle-lock-on"
+  ],
+  "icon": [
+    "shot-attention-bounce"
+  ],
+  "icons": [
+    "shot-icon-field-colorize"
+  ],
+  "impact": [
+    "shot-anime-impact",
+    "shot-crash-impact",
+    "shot-domino-cascade",
+    "shot-drop-blackout-slam",
+    "shot-halation-bloom",
+    "shot-hit-counter",
+    "shot-impact-burst-kit",
+    "shot-kanada-perspective-snap",
+    "shot-keycap-smash-cut",
+    "shot-misregistration-hit",
+    "shot-smash-cut",
+    "shot-versus-slam"
+  ],
+  "ink": [
+    "shot-ink-bleed-reveal"
+  ],
+  "integration": [
+    "shot-integration-hub-map"
+  ],
+  "interaction": [
+    "shot-ai-stream-response",
+    "shot-autolayout-gap-dial",
+    "shot-cast-ensemble",
+    "shot-command-palette-summon",
+    "shot-cursor-performance",
+    "shot-diagram-cascade",
+    "shot-dialogue-duet",
+    "shot-hashtag-pill-materialize",
+    "shot-keycap-smash-cut",
+    "shot-palette-theme-ripple",
+    "shot-panel-to-canvas",
+    "shot-segmented-thumb-hero",
+    "shot-theme-sweep-toggle",
+    "shot-type-and-filter",
+    "shot-voice-waveform-live"
+  ],
+  "interface": [
+    "shot-brand-frame-snap",
+    "shot-tilt-reveal"
+  ],
+  "invisible-cut": [
+    "shot-invisible-cut"
+  ],
+  "iris": [
+    "shot-circle-match-iris"
+  ],
+  "isolation": [
+    "shot-pull-back-isolation"
+  ],
+  "jump-cut": [
+    "shot-jump-cut-punch-in"
+  ],
+  "kanada": [
+    "shot-kanada-perspective-snap"
+  ],
+  "karaoke": [
+    "shot-karaoke-fill-sync"
+  ],
+  "keyboard": [
+    "shot-command-palette-summon"
+  ],
+  "keycap": [
+    "shot-keycap-smash-cut"
+  ],
+  "kpi": [
+    "shot-score-slam"
+  ],
+  "landing": [
+    "shot-drone-dive-landing",
+    "shot-runway-ground-skim"
+  ],
+  "launch": [
+    "shot-outro-group-photo-launch",
+    "shot-spectrum-morph-ui"
+  ],
+  "layers": [
+    "shot-exploded-view"
+  ],
+  "layout": [
+    "shot-title-demote-to-label"
+  ],
+  "letterform": [
+    "shot-letterform-zoom"
+  ],
+  "lift": [
+    "shot-contact-shadow-lift"
+  ],
+  "light": [
+    "shot-glow-orb-ambient",
+    "shot-sheen-sweep",
+    "shot-spotlight-sweep"
+  ],
+  "light-leak": [
+    "shot-light-leak-burn"
+  ],
+  "light-up": [
+    "shot-bento-light-up"
+  ],
+  "line": [
+    "shot-line-carry-transition",
+    "shot-line-unfold-panel",
+    "shot-stroke-segment-build"
+  ],
+  "line-boil": [
+    "shot-line-boil"
+  ],
+  "linear": [
+    "shot-corner-spotlight-reveal",
+    "shot-slide-spotlight-pan"
+  ],
+  "lines": [
+    "shot-dataviz-landscape-open"
+  ],
+  "list": [
+    "shot-beat-step-list-theme-cycle",
+    "shot-list-stack-press",
+    "shot-row-embed"
+  ],
+  "live": [
+    "shot-oscilloscope-stream"
+  ],
+  "lock": [
+    "shot-brake-reticle-lock"
+  ],
+  "lock-on": [
+    "shot-reticle-lock-on"
+  ],
+  "logo": [
+    "shot-icon-flip-bloom",
+    "shot-logo-sting-button",
+    "shot-outro-group-photo-launch",
+    "shot-ui-strip-away-outro"
+  ],
+  "marker": [
+    "shot-marker-underline-title"
+  ],
+  "marquee": [
+    "shot-neon-triple-marquee"
+  ],
+  "mask": [
+    "shot-ink-bleed-reveal",
+    "shot-letterform-zoom",
+    "shot-split-text-stagger",
+    "shot-text-as-mask"
+  ],
+  "mask-wipe": [
+    "shot-mask-wipe"
+  ],
+  "match-cut": [
+    "shot-circle-match-iris"
+  ],
+  "materialize": [
+    "shot-hashtag-pill-materialize",
+    "shot-panel-to-canvas"
+  ],
+  "measurement": [
+    "shot-autolayout-gap-dial"
+  ],
+  "mechanical": [
+    "shot-split-flap-title"
+  ],
+  "messenger": [
+    "shot-paper-plane-messenger"
+  ],
+  "metric": [
+    "shot-odometer-digit-roll",
+    "shot-pull-back-isolation"
+  ],
+  "migration": [
+    "shot-panel-to-canvas"
+  ],
+  "milestone": [
+    "shot-confetti-crossfire",
+    "shot-counter-tick-sparks"
+  ],
+  "misregistration": [
+    "shot-beat-pump",
+    "shot-misregistration-hit"
+  ],
+  "mode-switch": [
+    "shot-brand-frame-snap",
+    "shot-segmented-thumb-hero"
+  ],
+  "montage": [
+    "shot-beat-cut-accelerando"
+  ],
+  "morph": [
+    "shot-icon-flip-bloom",
+    "shot-morph-from-primitive",
+    "shot-panel-to-canvas",
+    "shot-shared-element-morph",
+    "shot-spectrum-morph-ui",
+    "shot-ui-brand-morph"
+  ],
+  "mosaic": [
+    "shot-grid-flash-mosaic"
+  ],
+  "motion-blur": [
+    "shot-invisible-cut"
+  ],
+  "needle": [
+    "shot-needle-sweep-selftest"
+  ],
+  "neon": [
+    "shot-neon-frame-forerun",
+    "shot-neon-frame-orbit-drop",
+    "shot-neon-triple-marquee"
+  ],
+  "network": [
+    "shot-integration-hub-map"
+  ],
+  "notification": [
+    "shot-attention-bounce"
+  ],
+  "occlusion": [
+    "shot-invisible-cut"
+  ],
+  "odometer": [
+    "shot-odometer-digit-roll"
+  ],
+  "one-take": [
+    "shot-invisible-cut"
+  ],
+  "opening": [
+    "shot-brand-ink-open",
+    "shot-crane-rise-reveal",
+    "shot-dataviz-landscape-open",
+    "shot-icon-field-colorize",
+    "shot-keycap-smash-cut",
+    "shot-letterspace-materialize",
+    "shot-magician-card-flourish",
+    "shot-spotlight-hero-card",
+    "shot-stroke-segment-build",
+    "shot-text-as-mask"
+  ],
+  "orb": [
+    "shot-glow-orb-ambient",
+    "shot-orb-flyline-relay"
+  ],
+  "orbit": [
+    "shot-bullet-time-freeze-orbit",
+    "shot-neon-frame-orbit-drop"
+  ],
+  "organic": [
+    "shot-ink-bleed-reveal"
+  ],
+  "oscilloscope": [
+    "shot-oscilloscope-stream"
+  ],
+  "outline": [
+    "shot-letterspace-materialize"
+  ],
+  "outro": [
+    "shot-icon-flip-bloom",
+    "shot-logo-sting-button",
+    "shot-neon-triple-marquee",
+    "shot-outro-group-photo-launch",
+    "shot-text-column-converge",
+    "shot-ui-brand-morph",
+    "shot-ui-strip-away-outro"
+  ],
+  "overhead": [
+    "shot-overhead-tabletop-drop"
+  ],
+  "page-turn": [
+    "shot-cube-rotate"
+  ],
+  "page-wall": [
+    "shot-page-waterfall-wall"
+  ],
+  "panel": [
+    "shot-attention-bounce",
+    "shot-line-unfold-panel"
+  ],
+  "panels": [
+    "shot-comic-panel-split"
+  ],
+  "paper": [
+    "shot-masking-tape-slap",
+    "shot-paper-title-card",
+    "shot-popup-book-rise"
+  ],
+  "paper-plane": [
+    "shot-paper-plane-messenger"
+  ],
+  "parallax": [
+    "shot-dataviz-landscape-open",
+    "shot-depth-multiplane",
+    "shot-paper-plane-messenger"
+  ],
+  "parameter": [
+    "shot-autolayout-gap-dial"
+  ],
+  "particles": [
+    "shot-impact-burst-kit",
+    "shot-outro-group-photo-launch",
+    "shot-particle-sand-fill",
+    "shot-score-slam"
+  ],
+  "path": [
+    "shot-text-on-path"
+  ],
+  "perspective": [
+    "shot-kanada-perspective-snap"
+  ],
+  "photosensitive": [
+    "shot-strobe-black-frames"
+  ],
+  "physics": [
+    "shot-letter-drop-physics"
+  ],
+  "pill": [
+    "shot-hashtag-pill-materialize",
+    "shot-pill-slot-cycle"
+  ],
+  "pixel": [
+    "shot-color-block-step-wipe"
+  ],
+  "playful": [
+    "shot-letter-drop-physics"
+  ],
+  "portal": [
+    "shot-letterform-zoom",
+    "shot-mask-wipe"
+  ],
+  "premium": [
+    "shot-sheen-sweep"
+  ],
+  "primitive": [
+    "shot-morph-from-primitive"
+  ],
+  "print": [
+    "shot-ink-bleed-reveal",
+    "shot-misregistration-hit"
+  ],
+  "product": [
+    "shot-card-footage-cadence"
+  ],
+  "product-demo": [
+    "shot-crash-zoom",
+    "shot-depth-multiplane",
+    "shot-speed-ramp"
+  ],
+  "prompt": [
+    "shot-diagram-cascade"
+  ],
+  "pull-back": [
+    "shot-pull-back-isolation"
+  ],
+  "pump": [
+    "shot-beat-pump"
+  ],
+  "punch-in": [
+    "shot-cursor-performance",
+    "shot-jump-cut-punch-in",
+    "shot-strobe-black-frames"
+  ],
+  "push": [
+    "shot-bottom-push-stack-wipe"
+  ],
+  "rack-focus": [
+    "shot-rack-focus-relay"
+  ],
+  "radar": [
+    "shot-clock-wipe"
+  ],
+  "radial": [
+    "shot-corner-spotlight-reveal"
+  ],
+  "reflow": [
+    "shot-flip-grid-reflow"
+  ],
+  "regroup": [
+    "shot-unit-dot-swarm-regroup"
+  ],
+  "relay": [
+    "shot-flyline-arc",
+    "shot-orb-flyline-relay",
+    "shot-rack-focus-relay"
+  ],
+  "replacement": [
+    "shot-barn-door-split"
+  ],
+  "resolve": [
+    "shot-dutch-roll-to-level"
+  ],
+  "result": [
+    "shot-wright-triple-cut"
+  ],
+  "result-reveal": [
+    "shot-card-flip-reveal"
+  ],
+  "reticle": [
+    "shot-brake-reticle-lock",
+    "shot-reticle-lock-on"
+  ],
+  "reveal": [
+    "shot-barn-door-split",
+    "shot-skeleton-reveal",
+    "shot-spotlight-sweep",
+    "shot-text-column-converge",
+    "shot-tilt-reveal",
+    "shot-tracking-expand-reveal"
+  ],
+  "rgb": [
+    "shot-anime-impact"
+  ],
+  "rhythm": [
+    "shot-beat-cut-accelerando",
+    "shot-beat-pump",
+    "shot-beat-step-list-theme-cycle",
+    "shot-card-footage-cadence",
+    "shot-cel-flash-stomp",
+    "shot-comic-panel-split",
+    "shot-domino-cascade",
+    "shot-drop-blackout-slam",
+    "shot-flip-grid-reflow",
+    "shot-font-weight-pump",
+    "shot-freeze-annotate",
+    "shot-grid-flash-mosaic",
+    "shot-jump-cut-punch-in",
+    "shot-paparazzi-flash",
+    "shot-sakuga-timing-shift",
+    "shot-smash-cut",
+    "shot-smear-multiples",
+    "shot-spectrum-morph-ui",
+    "shot-speed-ramp",
+    "shot-strobe-black-frames",
+    "shot-trailer-bumper",
+    "shot-wright-triple-cut"
+  ],
+  "ring": [
+    "shot-score-slam"
+  ],
+  "ripple": [
+    "shot-cursor-performance",
+    "shot-palette-theme-ripple"
+  ],
+  "riso": [
+    "shot-beat-pump",
+    "shot-misregistration-hit"
+  ],
+  "roll": [
+    "shot-dutch-roll-to-level"
+  ],
+  "row": [
+    "shot-row-embed"
+  ],
+  "runway": [
+    "shot-runway-ground-skim"
+  ],
+  "sakuga": [
+    "shot-sakuga-timing-shift"
+  ],
+  "scan": [
+    "shot-clock-wipe",
+    "shot-wireframe-draw-on"
+  ],
+  "score": [
+    "shot-score-slam"
+  ],
+  "scramble": [
+    "shot-scramble-decode"
+  ],
+  "scroll": [
+    "shot-brake-reticle-lock",
+    "shot-changelog-scroll-brake",
+    "shot-row-embed"
+  ],
+  "scrub": [
+    "shot-before-after-slider-scrub"
+  ],
+  "search": [
+    "shot-command-palette-summon",
+    "shot-type-and-filter"
+  ],
+  "segmented-control": [
+    "shot-segmented-thumb-hero"
+  ],
+  "self-test": [
+    "shot-needle-sweep-selftest"
+  ],
+  "send": [
+    "shot-paper-plane-messenger"
+  ],
+  "shadow": [
+    "shot-contact-shadow-lift"
+  ],
+  "shared-element": [
+    "shot-shared-element-morph"
+  ],
+  "shared-geometry": [
+    "shot-mask-wipe"
+  ],
+  "sheen": [
+    "shot-sheen-sweep"
+  ],
+  "shot-transitions-4": [
+    "shot-darkfield-flight"
+  ],
+  "shot-transitions-5": [
+    "shot-rack-focus-relay"
+  ],
+  "shot-transitions-6": [
+    "shot-black-title-card-transition"
+  ],
+  "shotcraft": [
+    "shot-ai-stream-response",
+    "shot-anime-impact",
+    "shot-attention-bounce",
+    "shot-autolayout-gap-dial",
+    "shot-axial-stretch",
+    "shot-axis-rescale-shock",
+    "shot-barn-door-split",
+    "shot-beat-cut-accelerando",
+    "shot-beat-pump",
+    "shot-beat-step-list-theme-cycle",
+    "shot-before-after-slider-scrub",
+    "shot-bento-light-up",
+    "shot-black-title-card-transition",
+    "shot-blinds-slice",
+    "shot-bottom-push-stack-wipe",
+    "shot-brake-reticle-lock",
+    "shot-brand-frame-snap",
+    "shot-brand-ink-open",
+    "shot-bubble-swarm-takeover",
+    "shot-bullet-time-freeze-orbit",
+    "shot-card-flip-reveal",
+    "shot-card-flock",
+    "shot-card-footage-cadence",
+    "shot-cast-ensemble",
+    "shot-cel-flash-stomp",
+    "shot-changelog-scroll-brake",
+    "shot-circle-match-iris",
+    "shot-clock-wipe",
+    "shot-cloner-depth-echo",
+    "shot-color-block-step-wipe",
+    "shot-comic-panel-split",
+    "shot-command-palette-summon",
+    "shot-confetti-crossfire",
+    "shot-contact-shadow-lift",
+    "shot-corner-spotlight-reveal",
+    "shot-counter-tick-sparks",
+    "shot-crane-rise-reveal",
+    "shot-crash-impact",
+    "shot-crash-zoom",
+    "shot-cube-rotate",
+    "shot-cursor-performance",
+    "shot-darkfield-flight",
+    "shot-dataviz-landscape-open",
+    "shot-deck-deal-flyin",
+    "shot-depth-dolly-zoom",
+    "shot-depth-multiplane",
+    "shot-diagram-cascade",
+    "shot-dialogue-duet",
+    "shot-document-typewriter-reveal",
+    "shot-domino-cascade",
+    "shot-draw-svg-trace",
+    "shot-drone-dive-landing",
+    "shot-drop-blackout-slam",
+    "shot-dutch-roll-to-level",
+    "shot-exploded-view",
+    "shot-flash-cut",
+    "shot-flip-grid-reflow",
+    "shot-flyline-arc",
+    "shot-font-weight-pump",
+    "shot-freeze-annotate",
+    "shot-glitch-displace",
+    "shot-glow-orb-ambient",
+    "shot-glow-wake-sleep-panel",
+    "shot-gradient-word-sweep",
+    "shot-graze-face-tour",
+    "shot-grid-flash-mosaic",
+    "shot-grid-wave-flip",
+    "shot-halation-bloom",
+    "shot-hashtag-pill-materialize",
+    "shot-hit-counter",
+    "shot-icon-field-colorize",
+    "shot-icon-flip-bloom",
+    "shot-impact-burst-kit",
+    "shot-ink-bleed-reveal",
+    "shot-integration-hub-map",
+    "shot-invisible-cut",
+    "shot-jump-cut-punch-in",
+    "shot-kanada-perspective-snap",
+    "shot-karaoke-fill-sync",
+    "shot-keycap-smash-cut",
+    "shot-letter-drop-physics",
+    "shot-letterform-drift-assembly",
+    "shot-letterform-zoom",
+    "shot-letterspace-materialize",
+    "shot-light-leak-burn",
+    "shot-line-boil",
+    "shot-line-carry-transition",
+    "shot-line-unfold-panel",
+    "shot-list-stack-press",
+    "shot-logo-sting-button",
+    "shot-magician-card-flourish",
+    "shot-marker-underline-title",
+    "shot-mask-wipe",
+    "shot-masking-tape-slap",
+    "shot-misregistration-hit",
+    "shot-morph-from-primitive",
+    "shot-needle-sweep-selftest",
+    "shot-neon-frame-forerun",
+    "shot-neon-frame-orbit-drop",
+    "shot-neon-triple-marquee",
+    "shot-odometer-digit-roll",
+    "shot-orb-flyline-relay",
+    "shot-oscilloscope-stream",
+    "shot-outro-group-photo-launch",
+    "shot-overhead-tabletop-drop",
+    "shot-page-waterfall-wall",
+    "shot-palette-theme-ripple",
+    "shot-panel-to-canvas",
+    "shot-paparazzi-flash",
+    "shot-paper-plane-messenger",
+    "shot-paper-title-card",
+    "shot-particle-sand-fill",
+    "shot-pill-slot-cycle",
+    "shot-pop-burst-confirm",
+    "shot-popup-book-rise",
+    "shot-pull-back-isolation",
+    "shot-rack-focus-relay",
+    "shot-reticle-lock-on",
+    "shot-row-embed",
+    "shot-runway-ground-skim",
+    "shot-sakuga-timing-shift",
+    "shot-score-slam",
+    "shot-scramble-decode",
+    "shot-segmented-thumb-hero",
+    "shot-shared-element-morph",
+    "shot-sheen-sweep",
+    "shot-skeleton-reveal",
+    "shot-slide-spotlight-pan",
+    "shot-slow-push-in",
+    "shot-smash-cut",
+    "shot-smear-multiples",
+    "shot-spectrum-morph-ui",
+    "shot-speed-ramp",
+    "shot-split-flap-title",
+    "shot-split-text-stagger",
+    "shot-spotlight-hero-card",
+    "shot-spotlight-sweep",
+    "shot-steep-tilt-glide",
+    "shot-strobe-black-frames",
+    "shot-stroke-segment-build",
+    "shot-tape-scroll-fixed-pointer",
+    "shot-terminal-typewriter",
+    "shot-text-as-mask",
+    "shot-text-column-converge",
+    "shot-text-on-path",
+    "shot-theme-sweep-toggle",
+    "shot-tilt-reveal",
+    "shot-timeline-travel",
+    "shot-title-demote-to-label",
+    "shot-tracking-expand-reveal",
+    "shot-trailer-bumper",
+    "shot-type-and-filter",
+    "shot-typewriter-error-retype",
+    "shot-ui-brand-morph",
+    "shot-ui-strip-away-outro",
+    "shot-unit-dot-swarm-regroup",
+    "shot-versus-slam",
+    "shot-voice-waveform-live",
+    "shot-whip-pan",
+    "shot-wireframe-draw-on",
+    "shot-word-relay-filmstrip",
+    "shot-wright-triple-cut"
+  ],
+  "shutter": [
+    "shot-paparazzi-flash"
+  ],
+  "sidebar": [
+    "shot-domino-cascade"
+  ],
+  "signal": [
+    "shot-orb-flyline-relay"
+  ],
+  "single-pass": [
+    "shot-sheen-sweep"
+  ],
+  "skeleton": [
+    "shot-skeleton-reveal"
+  ],
+  "slam": [
+    "shot-drop-blackout-slam",
+    "shot-impact-burst-kit",
+    "shot-kanada-perspective-snap",
+    "shot-score-slam",
+    "shot-versus-slam"
+  ],
+  "slap": [
+    "shot-masking-tape-slap"
+  ],
+  "sleep": [
+    "shot-glow-wake-sleep-panel"
+  ],
+  "slice": [
+    "shot-blinds-slice"
+  ],
+  "slider": [
+    "shot-before-after-slider-scrub"
+  ],
+  "slot": [
+    "shot-pill-slot-cycle"
+  ],
+  "slow-push": [
+    "shot-slow-push-in"
+  ],
+  "smash-cut": [
+    "shot-keycap-smash-cut",
+    "shot-smash-cut"
+  ],
+  "smear": [
+    "shot-sakuga-timing-shift",
+    "shot-smear-multiples"
+  ],
+  "snap": [
+    "shot-kanada-perspective-snap"
+  ],
+  "sparks": [
+    "shot-counter-tick-sparks"
+  ],
+  "spatial": [
+    "shot-shared-element-morph"
+  ],
+  "spectrum": [
+    "shot-spectrum-morph-ui"
+  ],
+  "speech": [
+    "shot-karaoke-fill-sync"
+  ],
+  "speed-lines": [
+    "shot-anime-impact"
+  ],
+  "speed-ramp": [
+    "shot-speed-ramp"
+  ],
+  "split": [
+    "shot-barn-door-split",
+    "shot-comic-panel-split"
+  ],
+  "split-flap": [
+    "shot-split-flap-title"
+  ],
+  "split-screen": [
+    "shot-versus-slam"
+  ],
+  "spotlight": [
+    "shot-corner-spotlight-reveal",
+    "shot-glow-wake-sleep-panel",
+    "shot-slide-spotlight-pan",
+    "shot-spotlight-hero-card",
+    "shot-spotlight-sweep"
+  ],
+  "stack": [
+    "shot-bottom-push-stack-wipe",
+    "shot-list-stack-press"
+  ],
+  "stagger": [
+    "shot-bento-light-up",
+    "shot-blinds-slice",
+    "shot-icon-field-colorize",
+    "shot-popup-book-rise",
+    "shot-split-text-stagger"
+  ],
+  "stepped": [
+    "shot-sakuga-timing-shift"
+  ],
+  "steps": [
+    "shot-color-block-step-wipe"
+  ],
+  "sting": [
+    "shot-logo-sting-button"
+  ],
+  "stomp": [
+    "shot-cel-flash-stomp"
+  ],
+  "streaming": [
+    "shot-ai-stream-response"
+  ],
+  "stretch": [
+    "shot-axial-stretch"
+  ],
+  "strips": [
+    "shot-glitch-displace"
+  ],
+  "strobe": [
+    "shot-strobe-black-frames"
+  ],
+  "stroke": [
+    "shot-draw-svg-trace"
+  ],
+  "submit": [
+    "shot-voice-waveform-live"
+  ],
+  "success": [
+    "shot-pop-burst-confirm"
+  ],
+  "summon": [
+    "shot-command-palette-summon"
+  ],
+  "surface-tour": [
+    "shot-graze-face-tour"
+  ],
+  "svg": [
+    "shot-draw-svg-trace",
+    "shot-morph-from-primitive"
+  ],
+  "svg-filter": [
+    "shot-line-boil"
+  ],
+  "swarm": [
+    "shot-bubble-swarm-takeover",
+    "shot-unit-dot-swarm-regroup"
+  ],
+  "sweep": [
+    "shot-spotlight-sweep",
+    "shot-theme-sweep-toggle"
+  ],
+  "tabletop": [
+    "shot-overhead-tabletop-drop"
+  ],
+  "tag": [
+    "shot-hashtag-pill-materialize"
+  ],
+  "takeover": [
+    "shot-comic-panel-split"
+  ],
+  "tape": [
+    "shot-masking-tape-slap",
+    "shot-tape-scroll-fixed-pointer"
+  ],
+  "target": [
+    "shot-reticle-lock-on"
+  ],
+  "tear": [
+    "shot-glitch-displace"
+  ],
+  "tension": [
+    "shot-slow-push-in"
+  ],
+  "terminal": [
+    "shot-terminal-typewriter"
+  ],
+  "texture": [
+    "shot-line-boil"
+  ],
+  "theme": [
+    "shot-beat-step-list-theme-cycle",
+    "shot-palette-theme-ripple",
+    "shot-theme-sweep-toggle"
+  ],
+  "thumb": [
+    "shot-segmented-thumb-hero"
+  ],
+  "ticker": [
+    "shot-page-waterfall-wall"
+  ],
+  "tilt": [
+    "shot-steep-tilt-glide",
+    "shot-tilt-reveal"
+  ],
+  "timeline": [
+    "shot-timeline-travel"
+  ],
+  "timing": [
+    "shot-sakuga-timing-shift"
+  ],
+  "title": [
+    "shot-letterform-zoom",
+    "shot-marker-underline-title",
+    "shot-misregistration-hit",
+    "shot-split-flap-title",
+    "shot-spotlight-sweep",
+    "shot-trailer-bumper"
+  ],
+  "title-card": [
+    "shot-black-title-card-transition",
+    "shot-paper-title-card"
+  ],
+  "toggle": [
+    "shot-segmented-thumb-hero",
+    "shot-theme-sweep-toggle"
+  ],
+  "tracking": [
+    "shot-tracking-expand-reveal"
+  ],
+  "trailer": [
+    "shot-trailer-bumper"
+  ],
+  "transition": [
+    "shot-barn-door-split",
+    "shot-black-title-card-transition",
+    "shot-blinds-slice",
+    "shot-bottom-push-stack-wipe",
+    "shot-bubble-swarm-takeover",
+    "shot-card-flip-reveal",
+    "shot-card-flock",
+    "shot-circle-match-iris",
+    "shot-clock-wipe",
+    "shot-color-block-step-wipe",
+    "shot-corner-spotlight-reveal",
+    "shot-cube-rotate",
+    "shot-darkfield-flight",
+    "shot-dialogue-duet",
+    "shot-flash-cut",
+    "shot-glitch-displace",
+    "shot-ink-bleed-reveal",
+    "shot-invisible-cut",
+    "shot-letterform-zoom",
+    "shot-light-leak-burn",
+    "shot-line-carry-transition",
+    "shot-mask-wipe",
+    "shot-paper-plane-messenger",
+    "shot-rack-focus-relay",
+    "shot-shared-element-morph",
+    "shot-title-demote-to-label",
+    "shot-versus-slam",
+    "shot-whip-pan"
+  ],
+  "travel": [
+    "shot-timeline-travel"
+  ],
+  "tree": [
+    "shot-diagram-cascade"
+  ],
+  "typewriter": [
+    "shot-brand-ink-open",
+    "shot-document-typewriter-reveal",
+    "shot-terminal-typewriter",
+    "shot-typewriter-error-retype"
+  ],
+  "typing": [
+    "shot-cast-ensemble",
+    "shot-type-and-filter"
+  ],
+  "typography": [
+    "shot-brand-ink-open",
+    "shot-card-footage-cadence",
+    "shot-cel-flash-stomp",
+    "shot-document-typewriter-reveal",
+    "shot-font-weight-pump",
+    "shot-gradient-word-sweep",
+    "shot-halation-bloom",
+    "shot-karaoke-fill-sync",
+    "shot-letter-drop-physics",
+    "shot-letterform-drift-assembly",
+    "shot-letterspace-materialize",
+    "shot-marker-underline-title",
+    "shot-neon-triple-marquee",
+    "shot-paper-title-card",
+    "shot-pill-slot-cycle",
+    "shot-scramble-decode",
+    "shot-split-flap-title",
+    "shot-split-text-stagger",
+    "shot-stroke-segment-build",
+    "shot-terminal-typewriter",
+    "shot-text-as-mask",
+    "shot-text-column-converge",
+    "shot-text-on-path",
+    "shot-title-demote-to-label",
+    "shot-tracking-expand-reveal",
+    "shot-typewriter-error-retype",
+    "shot-word-relay-filmstrip"
+  ],
+  "ui": [
+    "shot-card-flock",
+    "shot-crane-rise-reveal",
+    "shot-logo-sting-button",
+    "shot-text-as-mask",
+    "shot-ui-strip-away-outro"
+  ],
+  "ui-entrance": [
+    "shot-axial-stretch",
+    "shot-bento-light-up",
+    "shot-cloner-depth-echo",
+    "shot-contact-shadow-lift",
+    "shot-deck-deal-flyin",
+    "shot-draw-svg-trace",
+    "shot-grid-wave-flip",
+    "shot-integration-hub-map",
+    "shot-list-stack-press",
+    "shot-masking-tape-slap",
+    "shot-morph-from-primitive",
+    "shot-neon-frame-forerun",
+    "shot-neon-frame-orbit-drop",
+    "shot-page-waterfall-wall",
+    "shot-popup-book-rise",
+    "shot-row-embed",
+    "shot-runway-ground-skim",
+    "shot-skeleton-reveal",
+    "shot-wireframe-draw-on"
+  ],
+  "ui-reveal": [
+    "shot-document-typewriter-reveal",
+    "shot-glow-wake-sleep-panel",
+    "shot-terminal-typewriter"
+  ],
+  "ui-tour": [
+    "shot-slide-spotlight-pan"
+  ],
+  "underline": [
+    "shot-marker-underline-title"
+  ],
+  "unfold": [
+    "shot-line-unfold-panel"
+  ],
+  "velocity": [
+    "shot-axial-stretch"
+  ],
+  "verdict": [
+    "shot-smash-cut"
+  ],
+  "versus": [
+    "shot-versus-slam"
+  ],
+  "voice": [
+    "shot-voice-waveform-live"
+  ],
+  "wake": [
+    "shot-glow-wake-sleep-panel"
+  ],
+  "warm": [
+    "shot-light-leak-burn"
+  ],
+  "waterfall": [
+    "shot-page-waterfall-wall"
+  ],
+  "wave": [
+    "shot-blinds-slice",
+    "shot-grid-wave-flip"
+  ],
+  "waveform": [
+    "shot-spectrum-morph-ui",
+    "shot-voice-waveform-live"
+  ],
+  "whip": [
+    "shot-wright-triple-cut"
+  ],
+  "whip-pan": [
+    "shot-whip-pan"
+  ],
+  "whiteout": [
+    "shot-bubble-swarm-takeover",
+    "shot-flash-cut"
+  ],
+  "wipe": [
+    "shot-blinds-slice",
+    "shot-theme-sweep-toggle"
+  ],
+  "wireframe": [
+    "shot-skeleton-reveal",
+    "shot-wireframe-draw-on"
+  ],
+  "wordmark": [
+    "shot-letterspace-materialize"
+  ],
+  "workflow": [
+    "shot-wright-triple-cut"
+  ],
+  "zoom": [
+    "shot-crash-zoom",
+    "shot-grid-flash-mosaic",
+    "shot-letterform-zoom"
+  ]
+}

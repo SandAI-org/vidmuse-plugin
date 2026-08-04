@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;headline&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Headline&quot;,&quot;default&quot;:&quot;STRONGER&quot;,&quot;maxLength&quot;:16},
+  {&quot;id&quot;:&quot;accentA&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Accent A&quot;,&quot;default&quot;:&quot;#ff5ad0&quot;},
+  {&quot;id&quot;:&quot;accentB&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Accent B&quot;,&quot;default&quot;:&quot;#5ad0ff&quot;},
+  {&quot;id&quot;:&quot;background&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Background&quot;,&quot;default&quot;:&quot;#060509&quot;}
+]"><head></head>
+  <body>
+    <template>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .cf-fill { position: absolute; inset: 0; overflow: hidden; background: var(--background); }
+        #cf-wall { position: absolute; inset: 0; overflow: hidden; opacity: .12; }
+        .cf-wall-row { position: absolute; left: -600px; white-space: nowrap; font: italic 800 330px/1 "Avenir Next", Futura, sans-serif; letter-spacing: 6px; color: transparent; -webkit-text-stroke: 4px var(--accentA); text-shadow: 0 0 18px var(--accentA); }
+        .cf-wall-row:nth-child(2) { top: 240px; -webkit-text-stroke-color: var(--accentB); text-shadow: 0 0 18px var(--accentB); }
+        .cf-wall-row:nth-child(3) { top: 620px; }
+        #cf-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,.72) 85%); }
+        #cf-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; perspective: 1400px; transform-style: preserve-3d; }
+        .cf-card-wrap { position: absolute; width: 560px; height: 400px; display: block; transform-style: preserve-3d; }
+        .cf-card { width: 560px; height: 400px; background: #fbfbfc; border-radius: 14px; box-shadow: 0 0 60px rgba(190,140,255,.3), 0 22px 60px rgba(0,0,0,.55); display: flex; overflow: hidden; }
+        .cf-side { width: 128px; padding: 18px 14px; background: #f3f3f6; display: flex; flex-direction: column; gap: 13px; }
+        .cf-side i, .cf-body i { display: block; height: 9px; border-radius: 5px; background: #d9d9df; }
+        .cf-side i:nth-child(2) { width: 68%; } .cf-side i:nth-child(3) { width: 86%; } .cf-side i:nth-child(4) { width: 58%; } .cf-side i:nth-child(5) { width: 78%; } .cf-side i:nth-child(6) { width: 64%; }
+        .cf-body { flex: 1; padding: 28px; display: flex; flex-direction: column; gap: 17px; }
+        .cf-title { font: 700 28px/1.1 "Avenir Next", Futura, sans-serif; color: #3a3a44; }
+        .cf-body i:nth-of-type(1) { width: 60%; height: 11px; background: #ececf1; } .cf-body i:nth-of-type(2) { width: 86%; } .cf-body i:nth-of-type(3) { width: 72%; } .cf-body i:nth-of-type(4) { width: 91%; } .cf-body i:nth-of-type(5) { width: 64%; }
+        #cf-ring { position: absolute; left: 630px; top: 210px; width: 660px; height: 660px; opacity: 0; display: block; }
+        #cf-headline { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; font: italic 800 330px/1 "Avenir Next", Futura, sans-serif; letter-spacing: 2px; color: color-mix(in srgb, var(--accentA) 48%, #30132f); -webkit-text-stroke: 5px var(--accentB); text-shadow: 0 0 26px color-mix(in srgb, var(--accentA) 60%, transparent); white-space: nowrap; }
+      </style>
+      <div data-hf-id="hf-859q" id="cf-root" data-composition-id="shot-card-flock" data-start="0" data-duration="4.333" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+        <div data-hf-id="hf-7sgj" class="cf-fill">
+          <div data-hf-id="hf-z8gs" id="cf-wall" data-layout-ignore="">
+            <div data-hf-id="hf-yjma" id="cf-row-1" class="cf-wall-row">FASTER&#160;&#160;FASTER&#160;&#160;FASTER</div>
+            <div data-hf-id="hf-xip1" id="cf-row-2" class="cf-wall-row">FASTER&#160;&#160;FASTER&#160;&#160;FASTER</div>
+            <div data-hf-id="hf-mwak" id="cf-row-3" class="cf-wall-row">FASTER&#160;&#160;FASTER&#160;&#160;FASTER</div>
+            <div data-hf-id="hf-7cyt" id="cf-vignette"></div>
+          </div>
+          <div data-hf-id="hf-d6jx" id="cf-stage" data-layout-allow-occlusion="">
+            <div data-hf-id="hf-gzlf" id="cf-card-1" class="cf-card-wrap"><div data-hf-id="hf-jbgy" class="cf-card"><div data-hf-id="hf-xuh5" class="cf-side"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0zjc"></i></div><div data-hf-id="hf-puvo" class="cf-body"><div data-hf-id="hf-ir36" class="cf-title">Inbox</div><i data-hf-id="hf-zsm9"></i><i data-hf-id="hf-06xa"></i><i data-hf-id="hf-26gf"></i><i data-hf-id="hf-2krg"></i><i data-hf-id="hf-oz7w"></i></div></div></div>
+            <div data-hf-id="hf-643s" id="cf-card-2" class="cf-card-wrap"><div data-hf-id="hf-hxxy" class="cf-card"><div data-hf-id="hf-wjul" class="cf-side"><i data-hf-id="hf-okwv"></i><i data-hf-id="hf-o6lu"></i><i data-hf-id="hf-jqbp"></i><i data-hf-id="hf-qkg0"></i><i data-hf-id="hf-q64z"></i><i data-hf-id="hf-prty"></i></div><div data-hf-id="hf-36p8" class="cf-body"><div data-hf-id="hf-cqcb" class="cf-title">List view</div><i data-hf-id="hf-pdix"></i><i data-hf-id="hf-hqsk"></i><i data-hf-id="hf-hchj"></i><i data-hf-id="hf-8d0n"></i><i data-hf-id="hf-8rbo"></i></div></div></div>
+            <div data-hf-id="hf-6vrl" id="cf-card-3" class="cf-card-wrap"><div data-hf-id="hf-ic8z" class="cf-card"><div data-hf-id="hf-xqro" class="cf-side"><i data-hf-id="hf-7kel"></i><i data-hf-id="hf-7ypm"></i><i data-hf-id="hf-9y8r"></i><i data-hf-id="hf-acjs"></i><i data-hf-id="hf-95mp"></i><i data-hf-id="hf-9jxq"></i></div><div data-hf-id="hf-1zs5" class="cf-body"><div data-hf-id="hf-1iet" class="cf-title">Home</div><i data-hf-id="hf-bjgv"></i><i data-hf-id="hf-bxrw"></i><i data-hf-id="hf-7lcu"></i><i data-hf-id="hf-771t"></i><i data-hf-id="hf-8dyw"></i></div></div></div>
+          </div>
+          <svg data-hf-id="hf-57xh" id="cf-ring" viewBox="0 0 660 660" aria-hidden="true" data-layout-ignore="">
+            <defs data-hf-id="hf-mh0t">
+              <filter data-hf-id="hf-83c3" id="cf-smoke" x="-60%" y="-60%" width="220%" height="220%">
+                <feturbulence data-hf-id="hf-qug3" type="fractalNoise" baseFrequency=".013 .016" numOctaves="4" seed="11" result="noise" />
+                <fedisplacementmap data-hf-id="hf-svrv" in="SourceGraphic" in2="noise" scale="85" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+              <lineargradient data-hf-id="hf-aphx" id="cf-ring-gradient" x1="0" y1="0" x2="0" y2="1"><stop data-hf-id="hf-6xrr" offset="0" stop-color="#e6c5ae" /><stop data-hf-id="hf-d44d" offset=".38" stop-color="#dc8fc8" /><stop data-hf-id="hf-oxnx" offset="1" stop-color="#9b72d0" /></lineargradient>
+            </defs>
+            <circle data-hf-id="hf-g7lj" cx="330" cy="330" r="190" fill="none" stroke="#bc78c9" stroke-opacity=".28" stroke-width="126" filter="url(#cf-smoke)" />
+            <circle data-hf-id="hf-hl0d" cx="330" cy="330" r="190" fill="none" stroke="url(#cf-ring-gradient)" stroke-width="72" filter="url(#cf-smoke)" />
+          </svg>
+          <div data-hf-id="hf-wpge" id="cf-headline" data-var-text="headline">STRONGER</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var vars = window.__hyperframes.getVariables();
+          var root = document.getElementById("cf-root");
+          root.style.setProperty("--accentA", vars.accentA || "#ff5ad0");
+          root.style.setProperty("--accentB", vars.accentB || "#5ad0ff");
+          root.style.setProperty("--background", vars.background || "#060509");
+          var tl = gsap.timeline({ paused: true });
+          tl.to("#cf-wall", { opacity: 1, duration: .533, ease: "none" }, .2);
+          tl.fromTo("#cf-row-1", { x: 0 }, { x: -220, duration: 2.333, ease: "none" }, 0);
+          tl.fromTo("#cf-row-2", { x: 0 }, { x: 220, duration: 2.333, ease: "none" }, 0);
+          tl.fromTo("#cf-row-3", { x: 0 }, { x: -220, duration: 2.333, ease: "none" }, 0);
+          var starts = [
+            { id: "#cf-card-1", x: -8, y: -16, rx: 9, ry: 88, rz: 12, s: 1.05, mx: -135, my: -92, mrx: 16, mry: 44, mrz: -8, ms: 1.38, fx: -108, fy: -76, frx: 4, fry: 13, frz: -2, fs: 1.62, cx: -20, cy: -12, cry: 55 },
+            { id: "#cf-card-2", x: 0, y: 0, rx: 8, ry: 89, rz: 12, s: 1, mx: -16, my: -7, mrx: 13, mry: 38, mrz: -7, ms: 1.42, fx: -5, fy: -2, frx: 3, fry: 11, frz: -2, fs: 1.68, cx: 0, cy: 0, cry: 60 },
+            { id: "#cf-card-3", x: 8, y: 16, rx: 7, ry: 90, rz: 12, s: .95, mx: 112, my: 78, mrx: 11, mry: 34, mrz: -6, ms: 1.46, fx: 90, fy: 70, frx: 2, fry: 9, frz: -1, fs: 1.74, cx: 15, cy: 10, cry: 65 }
+          ];
+          starts.forEach(function (c) {
+            tl.fromTo(c.id, { x: c.x, y: c.y, rotationX: c.rx, rotationY: c.ry, rotationZ: c.rz, scale: c.s, opacity: 1 }, { x: c.mx, y: c.my, rotationX: c.mrx, rotationY: c.mry, rotationZ: c.mrz, scale: c.ms, duration: .8, ease: "power3.out" }, .333);
+            tl.to(c.id, { x: c.fx, y: c.fy, rotationX: c.frx, rotationY: c.fry, rotationZ: c.frz, scale: c.fs, duration: .667, ease: "power2.out" }, 1.133);
+            tl.to(c.id, { rotationX: c.frx - 1.2, rotationY: c.fry + 4.1, rotationZ: c.frz + .6, duration: .267, ease: "sine.inOut" }, 1.8);
+            tl.to(c.id, { x: c.cx, y: c.cy, rotationX: 0, rotationY: c.cry, rotationZ: 4, scale: .12, duration: .333, ease: "power2.in" }, 2.067);
+            tl.to(c.id, { opacity: 0, duration: .15, ease: "power3.in" }, 2.25);
+          });
+          tl.to("#cf-wall", { opacity: 0, duration: .467, ease: "power2.in" }, 2.067);
+          tl.fromTo("#cf-ring", { opacity: 0, scale: .18, rotation: 0 }, { opacity: 1, scale: 1, rotation: 20, duration: .9, ease: "power3.out" }, 2.333);
+          tl.to("#cf-ring", { opacity: .72, scale: 1.35, rotation: 28, duration: 1.1, ease: "sine.out" }, 3.233);
+          tl.fromTo("#cf-headline", { opacity: 0, scale: .6 }, { opacity: .8, scale: .9, duration: .4, ease: "power3.out" }, 2.8);
+          tl.to("#cf-headline", { opacity: 1, scale: 1, duration: .733, ease: "power2.out" }, 3.2);
+          window.__timelines["shot-card-flock"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

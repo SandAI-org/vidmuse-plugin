@@ -1,0 +1,29 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-speed-ramp",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Speed Ramp",
+  "description": "A fast-slow-fast card rail that creates a readable focus window and velocity-linked blur contrast.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "rhythm", "speed-ramp", "product-demo"],
+  "files": [
+    { "path": "shot-speed-ramp.html", "target": "compositions/shot-speed-ramp.html", "type": "hyperframes:composition" },
+    { "path": "assets/card1.png", "target": "assets/textures/card1.png", "type": "hyperframes:asset" },
+    { "path": "assets/card2.png", "target": "assets/textures/card2.png", "type": "hyperframes:asset" },
+    { "path": "assets/card3.png", "target": "assets/textures/card3.png", "type": "hyperframes:asset" },
+    { "path": "assets/card4-hires.png", "target": "assets/textures/card4-hires.png", "type": "hyperframes:asset" },
+    { "path": "assets/card5.png", "target": "assets/textures/card5.png", "type": "hyperframes:asset" },
+    { "path": "assets/card6.png", "target": "assets/textures/card6.png", "type": "hyperframes:asset" },
+    { "path": "assets/card7.png", "target": "assets/textures/card7.png", "type": "hyperframes:asset" },
+    { "path": "assets/card8.png", "target": "assets/textures/card8.png", "type": "hyperframes:asset" },
+    { "path": "assets/card9.png", "target": "assets/textures/card9.png", "type": "hyperframes:asset" },
+    { "path": "assets/card1-b.png", "target": "assets/textures/card1-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card2-b.png", "target": "assets/textures/card2-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card3-b.png", "target": "assets/textures/card3-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card5-b.png", "target": "assets/textures/card5-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card6-b.png", "target": "assets/textures/card6-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card7-b.png", "target": "assets/textures/card7-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card8-b.png", "target": "assets/textures/card8-b.png", "type": "hyperframes:asset" }
+  ]
+}

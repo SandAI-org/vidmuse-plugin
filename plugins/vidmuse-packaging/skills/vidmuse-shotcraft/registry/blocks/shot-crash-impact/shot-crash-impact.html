@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;pageImage&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Page image&quot;,&quot;default&quot;:&quot;assets/textures/projects-full.png&quot;},
+  {&quot;id&quot;:&quot;targetImage&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Target image&quot;,&quot;default&quot;:&quot;assets/textures/card4-hires.png&quot;},
+  {&quot;id&quot;:&quot;targetX&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Target X&quot;,&quot;default&quot;:960,&quot;min&quot;:0,&quot;max&quot;:1920,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;},
+  {&quot;id&quot;:&quot;targetY&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Target Y&quot;,&quot;default&quot;:772,&quot;min&quot;:0,&quot;max&quot;:1746,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;},
+  {&quot;id&quot;:&quot;zoom&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Impact zoom&quot;,&quot;default&quot;:2.5,&quot;min&quot;:1,&quot;max&quot;:5,&quot;step&quot;:0.05}
+]"><head></head>
+  <body>
+    <template>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .ci-fill { position: absolute; inset: 0; overflow: hidden; background: #f9f6f1; }
+        #ci-camera { position: absolute; width: 1920px; height: 1746px; transform-origin: 0 0; display: block; }
+        #ci-page { position: absolute; left: 0; top: 0; width: 1920px; height: auto; display: block; }
+        #ci-target { position: absolute; left: 781.328px; top: 616px; width: 357.328px; height: 312px; display: block; }
+      </style>
+      <div data-hf-id="hf-ci-root" id="ci-root" data-composition-id="shot-crash-impact" data-start="0" data-duration="4" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+        <div data-hf-id="hf-ci-fill" class="ci-fill">
+          <svg data-hf-id="hf-ci-filter" width="0" height="0" aria-hidden="true" style="position:absolute"><filter data-hf-id="hf-18q9" id="ci-streak" x="-40%" y="-40%" width="180%" height="180%"><fegaussianblur data-hf-id="hf-vupw" id="ci-blur" stdDeviation="0 0" /></filter></svg>
+          <div data-hf-id="hf-ci-camera" id="ci-camera" data-layout-allow-overflow="" style="filter:url(#ci-streak)">
+            <img data-hf-id="hf-ci-page" id="ci-page" data-var-src="pageImage" src="assets/textures/projects-full.png" alt="">
+            <img data-hf-id="hf-ci-target" id="ci-target" data-var-src="targetImage" src="assets/textures/card4-hires.png" alt="">
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var vars = window.__hyperframes.getVariables();
+          var targetX = Number(vars.targetX || 960);
+          var targetY = Number(vars.targetY || 772);
+          var impactZoom = Number(vars.zoom || 2.5);
+          var camera = document.getElementById("ci-camera");
+          var blurNode = document.getElementById("ci-blur");
+          var blur = { v: 0 };
+          var hitX = 960 - targetX * impactZoom;
+          var hitY = 540 - targetY * impactZoom;
+          function writeBlur() { blurNode.setAttribute("stdDeviation", blur.v + " " + blur.v); }
+          var tl = gsap.timeline({ paused: true });
+          tl.set(camera, { x: 0, y: -180, scale: 1 }, 0);
+          tl.to(camera, { x: hitX, y: hitY, scale: impactZoom, duration: .2, ease: "power3.in" }, 1.333);
+          tl.to(blur, { v: 18, duration: .2, ease: "power3.in", onUpdate: writeBlur }, 1.333);
+          tl.to(blur, { v: 0, duration: .033, ease: "none", onUpdate: writeBlur }, 1.533);
+          tl.to(camera, { keyframes: [
+            { x: hitX + 12, y: hitY + 8, scale: impactZoom, duration: .033, ease: "none" },
+            { x: hitX - 8, y: hitY - 6, scale: impactZoom, duration: .033, ease: "none" },
+            { x: hitX + 5, y: hitY + 3, scale: impactZoom, duration: .033, ease: "none" },
+            { x: hitX - 2, y: hitY - 2, scale: impactZoom, duration: .033, ease: "none" },
+            { x: hitX, y: hitY, scale: impactZoom, duration: .067, ease: "power2.out" }
+          ], ease: "none" }, 1.533);
+          window.__timelines["shot-crash-impact"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

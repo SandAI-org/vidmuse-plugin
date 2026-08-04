@@ -1,0 +1,27 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-freeze-annotate",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Freeze Annotate",
+  "description": "A card rail freezes on a target while a rough marker ring and arrow draw on, then resumes.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "rhythm", "freeze", "annotation"],
+  "files": [
+    { "path": "shot-freeze-annotate.html", "target": "compositions/shot-freeze-annotate.html", "type": "hyperframes:composition" },
+    { "path": "assets/card1.png", "target": "assets/textures/card1.png", "type": "hyperframes:asset" },
+    { "path": "assets/card2.png", "target": "assets/textures/card2.png", "type": "hyperframes:asset" },
+    { "path": "assets/card3.png", "target": "assets/textures/card3.png", "type": "hyperframes:asset" },
+    { "path": "assets/card4-hires.png", "target": "assets/textures/card4-hires.png", "type": "hyperframes:asset" },
+    { "path": "assets/card5.png", "target": "assets/textures/card5.png", "type": "hyperframes:asset" },
+    { "path": "assets/card6.png", "target": "assets/textures/card6.png", "type": "hyperframes:asset" },
+    { "path": "assets/card7.png", "target": "assets/textures/card7.png", "type": "hyperframes:asset" },
+    { "path": "assets/card8.png", "target": "assets/textures/card8.png", "type": "hyperframes:asset" },
+    { "path": "assets/card9.png", "target": "assets/textures/card9.png", "type": "hyperframes:asset" },
+    { "path": "assets/card1-b.png", "target": "assets/textures/card1-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card2-b.png", "target": "assets/textures/card2-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card3-b.png", "target": "assets/textures/card3-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card5-b.png", "target": "assets/textures/card5-b.png", "type": "hyperframes:asset" },
+    { "path": "assets/card6-b.png", "target": "assets/textures/card6-b.png", "type": "hyperframes:asset" }
+  ]
+}

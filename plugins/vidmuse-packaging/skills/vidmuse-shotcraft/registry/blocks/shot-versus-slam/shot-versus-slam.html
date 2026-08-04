@@ -1,0 +1,238 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accentA","type":"color","label":"Left accent","default":"#5d5ce2"},{"id":"accentB","type":"color","label":"Right accent","default":"#ff7354"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .vs-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #171a18;
+          font-family: Inter, sans-serif;
+          --a: #5d5ce2;
+          --b: #ff7354;
+        }
+        .vs-arena {
+          position: absolute;
+          inset: 0;
+        }
+        .vs-half {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+        }
+        .vs-left {
+          clip-path: polygon(0 0, 1075px 0, 845px 1080px, 0 1080px);
+        }
+        .vs-right {
+          clip-path: polygon(1075px 0, 1920px 0, 1920px 1080px, 845px 1080px);
+        }
+        .vs-page {
+          position: absolute;
+          inset: 0;
+          padding: 86px 100px;
+          color: #f7f5ee;
+        }
+        .vs-left .vs-page {
+          background: var(--a);
+        }
+        .vs-right .vs-page {
+          background: var(--b);
+          text-align: right;
+        }
+        .vs-page small {
+          font-size: 17px;
+          font-weight: 900;
+          letter-spacing: 4px;
+        }
+        .vs-right small {
+          color: #171a18;
+        }
+        .vs-page h1 {
+          margin-top: 120px;
+          font-size: 120px;
+          line-height: 0.9;
+          letter-spacing: -7px;
+        }
+        .vs-card {
+          width: 680px;
+          height: 400px;
+          margin-top: 90px;
+          border: 2px solid rgba(255, 255, 255, 0.45);
+          border-radius: 26px;
+          background: rgba(255, 255, 255, 0.16);
+        }
+        .vs-right .vs-card {
+          margin-left: auto;
+        }
+        .vs-preview {
+          position: absolute;
+          inset: 0;
+          opacity: 0.5;
+        }
+        .vs-seam {
+          position: absolute;
+          left: 954px;
+          top: -160px;
+          width: 12px;
+          height: 1400px;
+          background: #171a18;
+          opacity: 0;
+          transform: rotate(12deg);
+        }
+        .vs-stamp-wrap {
+          position: absolute;
+          left: 960px;
+          top: 540px;
+          opacity: 0;
+          transform: translate(-50%, -50%) rotate(12deg);
+        }
+        .vs-stamp {
+          padding: 18px 46px;
+          border: 6px solid #171a18;
+          border-radius: 20px;
+          background: #f7f5ee;
+          color: #171a18;
+          box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+          font-size: 140px;
+          font-weight: 950;
+          line-height: 0.85;
+        }
+        .vs-flash {
+          position: absolute;
+          inset: 0;
+          background: #fff;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .vs-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 38px;
+          z-index: 20;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(20, 22, 20, 0.9);
+          color: #fff;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="vs-root"
+        data-hf-id="hf-vs-root"
+        data-composition-id="shot-versus-slam"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="vs-fill">
+          <div id="vs-arena" class="vs-arena">
+            <svg class="vs-preview" width="1920" height="1080">
+              <line
+                x1="1075"
+                y1="0"
+                x2="845"
+                y2="1080"
+                stroke="#f7f5ee"
+                stroke-width="4"
+                stroke-dasharray="18 16"
+              />
+            </svg>
+            <div id="vs-left" class="vs-half vs-left">
+              <div class="vs-page">
+                <small>OPTION A</small>
+                <h1>FAST.<br />FAMILIAR.</h1>
+                <div class="vs-card"></div>
+              </div>
+            </div>
+            <div id="vs-right" class="vs-half vs-right">
+              <div class="vs-page">
+                <small>OPTION B</small>
+                <h1>BOLD.<br />NEW.</h1>
+                <div class="vs-card"></div>
+              </div>
+            </div>
+            <div class="vs-seam" data-layout-allow-overflow></div>
+            <div class="vs-stamp-wrap"><div class="vs-stamp">VS</div></div>
+          </div>
+          <div class="vs-flash"></div>
+          <div class="vs-caption">10F COLLISION / FLASH + SHAKE + STAMP</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#vs-root .vs-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--a", v.accentA || "#5d5ce2");
+          fill.style.setProperty("--b", v.accentB || "#ff7354");
+          gsap.set("#vs-left", { x: -1200 });
+          gsap.set("#vs-right", { x: 1200 });
+          gsap.set("#vs-root .vs-stamp", { scale: 1.6 });
+          tl.to("#vs-left", { x: 0, duration: 0.333, ease: "power3.in" }, 0.667)
+            .to(
+              "#vs-right",
+              { x: 0, duration: 0.333, ease: "power3.in" },
+              0.667,
+            )
+            .set("#vs-root .vs-preview", { opacity: 0 }, 1)
+            .set("#vs-root .vs-seam,#vs-root .vs-stamp-wrap", { opacity: 1 }, 1)
+            .set("#vs-root .vs-flash", { opacity: 0.9 }, 1)
+            .to(
+              "#vs-root .vs-flash",
+              { opacity: 0, duration: 0.1, ease: "none" },
+              1,
+            )
+            .to(
+              "#vs-root .vs-stamp",
+              { scale: 1, duration: 0.2, ease: "back.out(2.6)" },
+              1,
+            )
+            .to("#vs-arena", { x: 10, y: 5, duration: 0.033, ease: "none" }, 1)
+            .to(
+              "#vs-arena",
+              { x: -7, y: -4, duration: 0.033, ease: "none" },
+              1.033,
+            )
+            .to(
+              "#vs-arena",
+              { x: 4, y: 2, duration: 0.033, ease: "none" },
+              1.066,
+            )
+            .to(
+              "#vs-arena",
+              { x: -2, y: -1, duration: 0.033, ease: "none" },
+              1.099,
+            )
+            .to(
+              "#vs-arena",
+              { x: 0, y: 0, duration: 0.067, ease: "none" },
+              1.132,
+            );
+          window.__timelines["shot-versus-slam"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

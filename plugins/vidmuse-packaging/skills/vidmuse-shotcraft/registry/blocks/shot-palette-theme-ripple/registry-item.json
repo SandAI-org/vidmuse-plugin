@@ -1,0 +1,24 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-palette-theme-ripple",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Palette Theme Ripple",
+  "description": "A command palette types a dark-theme request, contracts into its confirmation point, and launches a concentric theme ripple that replaces a matched light interface with its dark state.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.5,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "theme",
+    "command-palette",
+    "ripple",
+    "dark-mode"
+  ],
+  "files": [
+    {
+      "path": "shot-palette-theme-ripple.html",
+      "target": "compositions/shot-palette-theme-ripple.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

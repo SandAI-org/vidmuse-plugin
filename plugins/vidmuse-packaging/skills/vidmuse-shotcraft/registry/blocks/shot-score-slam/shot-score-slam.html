@@ -1,0 +1,233 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Score accent","default":"#b45309"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .scs-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+        }
+        .scs-bg {
+          position: absolute;
+          inset: -30px;
+          transform: scale(1.05);
+          filter: blur(6px);
+          opacity: 0.55;
+        }
+        .scs-side {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 220px;
+          background: #d6d5d0;
+        }
+        .scs-box {
+          position: absolute;
+          width: 480px;
+          height: 310px;
+          border-radius: 18px;
+          background: #faf9f5;
+          border: 1px solid #d0cdc6;
+        }
+        .scs-box:nth-child(2) {
+          left: 280px;
+          top: 180px;
+        }
+        .scs-box:nth-child(3) {
+          left: 800px;
+          top: 180px;
+        }
+        .scs-box:nth-child(4) {
+          left: 1320px;
+          top: 180px;
+        }
+        .scs-title {
+          position: absolute;
+          left: 120px;
+          top: 96px;
+          font-size: 54px;
+          font-weight: 900;
+        }
+        .scs-card {
+          position: absolute;
+          left: 730px;
+          top: 410px;
+          width: 460px;
+          height: 260px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          border: 3px solid #c9c6bf;
+          border-radius: 18px;
+          background: #faf9f5;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+          opacity: 0;
+          transform-origin: center;
+        }
+        .scs-score {
+          font-size: 110px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -3px;
+        }
+        .scs-sub {
+          color: #77756f;
+          font-size: 26px;
+          font-weight: 700;
+          letter-spacing: 4px;
+        }
+        .scs-ring {
+          position: absolute;
+          left: 530px;
+          top: 110px;
+          width: 860px;
+          height: 860px;
+          border: 6px solid #292824;
+          border-radius: 50%;
+          opacity: 0;
+          transform-origin: center;
+        }
+        .scs-dust {
+          position: absolute;
+          left: 951px;
+          top: 650px;
+          width: 24px;
+          height: 24px;
+          border-radius: 3px;
+          background: #292824;
+          opacity: 0;
+        }
+      </style>
+      <div
+        data-hf-id="hf-scs-root"
+        id="scs-root"
+        data-composition-id="shot-score-slam"
+        data-start="0"
+        data-duration="4.5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="scs-fill" style="--accent: #b45309">
+          <div id="scs-shake">
+            <div class="scs-bg">
+              <div class="scs-side" data-layout-allow-overflow></div>
+              <div class="scs-box"></div>
+              <div class="scs-box"></div>
+              <div class="scs-box"></div>
+            </div>
+            <div class="scs-title">SCORE SLAM</div>
+            <div id="scs-particles"></div>
+            <div
+              id="scs-ring"
+              class="scs-ring"
+              data-layout-allow-overflow
+            ></div>
+            <article id="scs-card" class="scs-card" data-layout-allow-overflow>
+              <strong class="scs-score">+247%</strong
+              ><span class="scs-sub">QUARTERLY GROWTH</span>
+            </article>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("scs-root"),
+            fill = root.querySelector(".scs-fill"),
+            host = document.getElementById("scs-particles"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#b45309");
+          for (var i = 0; i < 8; i++) {
+            var p = document.createElement("i"),
+              a = (i * Math.PI) / 4 + Math.sin((i + 3) * 127.3) * 0.35,
+              dist = 160 + ((i * 47) % 160);
+            p.className = "scs-dust";
+            p.id = "scs-dust-" + i;
+            host.appendChild(p);
+            tl.set(p, { opacity: 0.9, scale: 1 }, 0.467).to(
+              p,
+              {
+                x: Math.cos(a) * dist,
+                y: Math.sin(a) * dist + 90,
+                opacity: 0,
+                scale: 0.25,
+                duration: 0.533,
+                ease: "power3.out",
+              },
+              0.467,
+            );
+          }
+          gsap.set("#scs-card", {
+            scale: 2.5,
+            rotation: 5,
+            y: -80,
+            opacity: 0,
+          });
+          gsap.set("#scs-ring", { scale: 0.07, opacity: 0 });
+          tl.to(
+            "#scs-card",
+            {
+              scale: 0.97,
+              rotation: 0,
+              y: 0,
+              opacity: 1,
+              duration: 0.2,
+              ease: "power2.in",
+            },
+            0.267,
+          )
+            .to(
+              "#scs-card",
+              { scale: 1, duration: 0.267, ease: "power3.out" },
+              0.467,
+            )
+            .set("#scs-ring", { opacity: 0.75 }, 0.467)
+            .to(
+              "#scs-ring",
+              { scale: 1, opacity: 0, duration: 0.467, ease: "power3.out" },
+              0.467,
+            )
+            .to(
+              "#scs-shake",
+              {
+                keyframes: [
+                  { x: 14, y: -10, duration: 0.034 },
+                  { x: -8, y: 6, duration: 0.034 },
+                  { x: 4, y: -3, duration: 0.034 },
+                  { x: -2, y: 1, duration: 0.034 },
+                  { x: 0, y: 0, duration: 0.034 },
+                ],
+                ease: "none",
+              },
+              0.467,
+            );
+          window.__timelines["shot-score-slam"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

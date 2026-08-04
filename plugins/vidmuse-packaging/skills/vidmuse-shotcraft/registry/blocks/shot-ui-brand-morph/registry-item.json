@@ -1,0 +1,14 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-ui-brand-morph",
+  "type": "hyperframes:block",
+  "title": "Shotcraft UI to Brand Morph",
+  "description": "A message input sends, compresses into a pill, and reveals the supplied VidMuse SVG wordmark.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "outro", "brand", "morph"],
+  "files": [
+    { "path": "shot-ui-brand-morph.html", "target": "compositions/shot-ui-brand-morph.html", "type": "hyperframes:composition" },
+    { "path": "assets/vidmuse-logo-white.svg", "target": "assets/branding/vidmuse-logo-white.svg", "type": "hyperframes:asset" }
+  ]
+}

@@ -1,0 +1,269 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Selection accent","default":"#2d2d2b"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .agd-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #ecebe6;
+          font-family: Inter, sans-serif;
+          color: #292824;
+          --accent: #2d2d2b;
+          background-image: radial-gradient(#c9c7c0 2px, transparent 2px);
+          background-size: 52px 52px;
+        }
+        .agd-title {
+          position: absolute;
+          top: 245px;
+          width: 100%;
+          text-align: center;
+          color: #6d6b65;
+          font-size: 44px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .agd-readout {
+          display: inline-block;
+          min-width: 130px;
+          margin-left: 24px;
+          padding: 5px 22px;
+          border-radius: 12px;
+          background: var(--accent);
+          color: #f2f2f0;
+          font-variant-numeric: tabular-nums;
+        }
+        .agd-selection {
+          position: absolute;
+          top: 464px;
+          height: 152px;
+          border: 3px solid var(--accent);
+          border-radius: 6px;
+          opacity: 0;
+        }
+        .agd-handle {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          margin: -8px;
+          border: 3px solid var(--accent);
+          border-radius: 3px;
+          background: #fff;
+        }
+        .agd-block {
+          position: absolute;
+          top: 490px;
+          height: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 2px solid #c9c7c0;
+          border-radius: 14px;
+          background: #faf9f5;
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+        }
+        .agd-block i {
+          height: 16px;
+          border-radius: 8px;
+          background: #85837d;
+        }
+        .agd-measure {
+          position: absolute;
+          top: 646px;
+          height: 3px;
+          background: var(--accent);
+          opacity: 0;
+        }
+        .agd-measure:before,
+        .agd-measure:after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          width: 3px;
+          height: 62px;
+          background: #77756f;
+          opacity: 0.6;
+        }
+        .agd-measure:before {
+          left: 0;
+        }
+        .agd-measure:after {
+          right: 0;
+        }
+        .agd-badge {
+          position: absolute;
+          left: 50%;
+          top: 20px;
+          transform: translateX(-50%);
+          padding: 5px 13px;
+          border-radius: 10px;
+          background: var(--accent);
+          color: #fff;
+          font-size: 22px;
+          font-weight: 800;
+          font-variant-numeric: tabular-nums;
+        }
+        .agd-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #65635e;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-agd-root"
+        id="agd-root"
+        data-composition-id="shot-autolayout-gap-dial"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="agd-fill">
+          <div class="agd-title">
+            GAP <span id="agd-readout" class="agd-readout">12</span>
+          </div>
+          <div id="agd-selection" class="agd-selection"></div>
+          <div id="agd-blocks"></div>
+          <div id="agd-measures"></div>
+          <div class="agd-caption">ONE PARAMETER · ONE SOURCE OF TRUTH</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#agd-root .agd-fill"),
+            host = document.getElementById("agd-blocks"),
+            mh = document.getElementById("agd-measures"),
+            sel = document.getElementById("agd-selection"),
+            read = document.getElementById("agd-readout"),
+            widths = [230, 190, 265, 210, 245],
+            blocks = [],
+            measures = [],
+            state = { gap: 12 },
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#2d2d2b");
+          widths.forEach(function (w, i) {
+            var b = document.createElement("div");
+            b.className = "agd-block";
+            b.style.width = w + "px";
+            b.innerHTML = '<i style="width:' + (w - 76) + 'px"></i>';
+            host.appendChild(b);
+            blocks.push(b);
+            if (i < 4) {
+              var m = document.createElement("div");
+              m.className = "agd-measure";
+              m.innerHTML = '<b class="agd-badge">12</b>';
+              mh.appendChild(m);
+              measures.push(m);
+            }
+          });
+          function render() {
+            var g = state.gap,
+              total =
+                widths.reduce(function (a, b) {
+                  return a + b;
+                }, 0) +
+                g * 4,
+              x = (1920 - total) / 2,
+              start = x;
+            blocks.forEach(function (b, i) {
+              b.style.left = x + "px";
+              x += widths[i] + g;
+            });
+            sel.style.left = start - 26 + "px";
+            sel.style.width = total + 52 + "px";
+            measures.forEach(function (m, i) {
+              var gx = parseFloat(blocks[i].style.left) + widths[i];
+              m.style.left = gx + "px";
+              m.style.width = g + "px";
+              m.querySelector("b").textContent = String(Math.round(g / 2) * 2);
+            });
+            read.textContent = String(Math.round(g / 2) * 2);
+          }
+          render();
+          [
+            [0, 0],
+            [50, 0],
+            [100, 0],
+            [0, 50],
+            [100, 50],
+            [0, 100],
+            [50, 100],
+            [100, 100],
+          ].forEach(function (p) {
+            var h = document.createElement("i");
+            h.className = "agd-handle";
+            h.style.left = p[0] + "%";
+            h.style.top = p[1] + "%";
+            sel.appendChild(h);
+          });
+          tl.to(
+            "#agd-selection",
+            { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" },
+            0.067,
+          )
+            .to(".agd-measure", { opacity: 1, duration: 0.267 }, 0.267)
+            .to(
+              state,
+              {
+                gap: 110,
+                duration: 1.267,
+                ease: "power2.inOut",
+                onUpdate: render,
+              },
+              0.467,
+            )
+            .to(
+              state,
+              { gap: 5, duration: 0.7, ease: "power2.in", onUpdate: render },
+              2.2,
+            )
+            .to(
+              state,
+              { gap: 18, duration: 0.3, ease: "power2.out", onUpdate: render },
+              2.901,
+            )
+            .to(
+              state,
+              { gap: 12, duration: 0.4, ease: "power2.out", onUpdate: render },
+              3.202,
+            )
+            .to(
+              "#agd-readout,.agd-badge",
+              {
+                scale: 1.1,
+                duration: 0.08,
+                yoyo: true,
+                repeat: 7,
+                ease: "none",
+              },
+              0.5,
+            );
+          window.__timelines["shot-autolayout-gap-dial"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

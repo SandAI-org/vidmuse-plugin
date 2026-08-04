@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-sheen-sweep",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Sheen Sweep",
+  "description": "A single clipped diagonal highlight crosses one dark premium card from fully offscreen left to fully offscreen right, leaving the subject exactly unchanged before and after.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "effects", "sheen", "light", "premium", "card", "single-pass"],
+  "files": [{ "path": "shot-sheen-sweep.html", "target": "compositions/shot-sheen-sweep.html", "type": "hyperframes:composition" }]
+}

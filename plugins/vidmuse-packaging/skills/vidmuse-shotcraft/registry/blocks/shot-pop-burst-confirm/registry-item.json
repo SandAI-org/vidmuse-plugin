@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-pop-burst-confirm",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Pop Burst Confirm",
+  "description": "A large confirmation icon compresses, overshoots open, draws its checkmark, and releases a radial ring and ten deterministic rays before a deployed label springs in.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "effects", "confirmation", "success", "burst", "checkmark"],
+  "files": [{ "path": "shot-pop-burst-confirm.html", "target": "compositions/shot-pop-burst-confirm.html", "type": "hyperframes:composition" }]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-spectrum-morph-ui",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Spectrum Morph UI",
+  "description": "A single underline separates into twenty-eight bottom-aligned pseudo-FFT bars, performs fourteen deterministic amplitude states, and rejoins into an exact quiet line.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "rhythm", "spectrum", "waveform", "morph", "launch"],
+  "files": [
+    {
+      "path": "shot-spectrum-morph-ui.html",
+      "target": "compositions/shot-spectrum-morph-ui.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

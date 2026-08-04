@@ -49,6 +49,27 @@
       "assets/demo-*.gif": "README demo media, not a runtime dependency."
     }
   },
+  "vidmuseShotcraft": {
+    "repository": "https://github.com/Vincentwei1021/video-shotcraft",
+    "ref": "d4915443232e89527fdc9d7e79f132ba411fc440",
+    "license": "Apache-2.0",
+    "copyright": "Copyright 2026 Wei Yihao",
+    "sourceArtifact": "hf-shotcraft-pilot/registry",
+    "canonicalPayload": "skills/vidmuse-shotcraft/registry/blocks",
+    "registryTreeSha256": "4bc8aa8d8848391fb5091e16875ca3deb3dfc99abf5b7ab66b559a4a31b7f97c",
+    "notice": "skills/vidmuse-shotcraft/NOTICE.md",
+    "licenseFile": "skills/vidmuse-shotcraft/LICENSE.apache-2.0.txt",
+    "policy": "Ship all 162 canonical HyperFrames Registry blocks in-tree. Discover by an approved communicative job, install exact shot-* names through the local installer, isolate project assets per block, replace every demonstration surface before publishing, and never mount a raw Registry item in VidMuse Timeline.",
+    "skills": [
+      "vidmuse-shotcraft"
+    ],
+    "integration": {
+      "create": "Full vocabulary after story, evidence, FRAME.md, beat duration, and cue chain are settled.",
+      "recut": "Fail-closed policy: recut:safe first, recut:adapt only with structural review, and unlabeled blocks remain create-only.",
+      "officialRegistry": "The remote HyperFrames Registry remains configured for upstream items; Shotcraft is installed from the plugin filesystem."
+    },
+    "adaptations": "Added bilingual job indexes, a separately maintained recut policy, deterministic catalog and integrity checks, an offline local installer with item-namespaced assets and overwrite protection, project lock receipts, and VidMuse create/recut policy gates. The 162 motion payloads themselves remain the canonical pilot Registry versions."
+  },
   "hyperframes": {
     "repository": "https://github.com/heygen-com/hyperframes",
     "ref": "343c02518889f46ee3962256b19ac4189264907d",
@@ -77,9 +98,9 @@
     "patches": {
       "hyperframes-core": "Preserved the composition and planning contracts; replaced Studio review with snapshot review and routed media models to VidMuse.",
       "hyperframes-cli": "Preserved unrelated CLI capabilities; removed Studio/timeline entry points and HyperFrames model-backed media preprocessing.",
-      "hyperframes-animation": "Kept deterministic animation knowledge; routed transcript timings to VidMuse media.",
+      "hyperframes-animation": "Kept deterministic animation knowledge; routed transcript timings to VidMuse media and cross-linked installable Shotcraft transition blocks without merging catalogs.",
       "hyperframes-keyframes": "Unmodified; its timelines and models refer to animation/3D mechanics, not UI or AI models.",
-      "hyperframes-registry": "Preserved discovery, installation, wiring, templates, and contribution guidance; replaced preview validation with snapshots."
+      "hyperframes-registry": "Preserved discovery, installation, wiring, templates, and contribution guidance; replaced preview validation with snapshots and cross-linked VidMuse's separate filesystem Shotcraft Registry."
     },
     "excluded": {
       "hyperframes": "VidMuse owns product routing.",

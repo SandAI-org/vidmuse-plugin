@@ -1,0 +1,14 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-crane-rise-reveal",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Crane Rise Reveal",
+  "description": "A dashboard begins in a bottom-row close-up, cranes upward into a full view, and pulses each newly revealed row.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "opening", "camera", "crane", "ui"],
+  "files": [
+    { "path": "shot-crane-rise-reveal.html", "target": "compositions/shot-crane-rise-reveal.html", "type": "hyperframes:composition" },
+    { "path": "assets/projects-full.png", "target": "assets/textures/projects-full.png", "type": "hyperframes:asset" }
+  ]
+}

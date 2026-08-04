@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-misregistration-hit",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Misregistration Hit",
+  "description": "An IMPACT title accelerates from offscreen, splits on contact into light and dark multiply plates that oscillate in opposite directions, then snaps into registration with a four-frame scale pulse.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "effects", "riso", "misregistration", "impact", "print", "title"],
+  "files": [{ "path": "shot-misregistration-hit.html", "target": "compositions/shot-misregistration-hit.html", "type": "hyperframes:composition" }]
+}

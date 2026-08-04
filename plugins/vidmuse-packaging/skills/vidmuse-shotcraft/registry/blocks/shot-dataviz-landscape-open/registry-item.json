@@ -1,0 +1,13 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-dataviz-landscape-open",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Dataviz Landscape Open",
+  "description": "Near, mid, and far workflow tributaries draw into a luminous trunk while a steady lateral camera move exposes parallax and labels.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.5,
+  "tags": ["shotcraft", "opening", "dataviz", "lines", "parallax"],
+  "files": [
+    { "path": "shot-dataviz-landscape-open.html", "target": "compositions/shot-dataviz-landscape-open.html", "type": "hyperframes:composition" }
+  ]
+}

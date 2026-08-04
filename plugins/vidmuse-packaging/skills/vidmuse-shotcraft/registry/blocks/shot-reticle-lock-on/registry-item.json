@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-reticle-lock-on",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Reticle Lock On",
+  "description": "Four oversized targeting corners fly across a live dashboard, contract with an overshoot around one card, flash the captured target, and extend a compact identification label.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3,
+  "tags": ["shotcraft", "effects", "hud", "reticle", "target", "lock-on", "dashboard"],
+  "files": [{ "path": "shot-reticle-lock-on.html", "target": "compositions/shot-reticle-lock-on.html", "type": "hyperframes:composition" }]
+}

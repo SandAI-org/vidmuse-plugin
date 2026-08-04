@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;prefix&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Prefix&quot;,&quot;default&quot;:&quot;Meet the&quot;,&quot;maxLength&quot;:24},
+  {&quot;id&quot;:&quot;keyword&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Keyword&quot;,&quot;default&quot;:&quot;new&quot;,&quot;maxLength&quot;:12},
+  {&quot;id&quot;:&quot;secondLine&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Second line&quot;,&quot;default&quot;:&quot;VidMuse AI&quot;,&quot;maxLength&quot;:28},
+  {&quot;id&quot;:&quot;background&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Background&quot;,&quot;default&quot;:&quot;#f4f4f2&quot;}
+]"><head></head><body><template>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}.mut-fill{position:absolute;inset:0;overflow:hidden;background:var(--background);color:#191919;font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center}
+    #mut-title{font-size:118px;font-weight:740;line-height:1.12;letter-spacing:-.035em;text-align:center;opacity:0;transform:translateY(36px)}#mut-key{position:relative;display:inline-block;font-style:italic;margin-left:.12em}
+    #mut-mark{position:absolute;left:-12px;bottom:-28px;width:280px;height:52px;overflow:visible}#mut-stroke{fill:#111;clip-path:url(#mut-reveal)}
+  </style>
+  <div data-hf-id="hf-mut-root" id="mut-root" data-composition-id="shot-marker-underline-title" data-start="0" data-duration="1.5" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+    <div data-hf-id="hf-mut-fill" class="mut-fill"><div data-hf-id="hf-mut-title" id="mut-title"><div><span data-hf-id="hf-mut-prefix" id="mut-prefix"></span><span data-hf-id="hf-mut-key" id="mut-key"><span data-hf-id="hf-mut-keyword" id="mut-keyword"></span><svg data-hf-id="hf-mut-mark" id="mut-mark" viewBox="0 0 280 52" aria-hidden="true"><defs><clipPath id="mut-reveal"><rect data-hf-id="hf-mut-clip" id="mut-clip" x="0" y="-10" width="0" height="72"/></clipPath></defs><path data-hf-id="hf-mut-stroke" id="mut-stroke" d="M0 31 L7 22 L42 20 L75 17 L111 17 L145 14 L181 15 L215 11 L248 10 L273 7 L280 12 L266 21 L232 24 L197 27 L162 29 L126 31 L91 34 L53 37 L18 39 Z"/></svg></span></div><div data-hf-id="hf-mut-line2" id="mut-line2"></div></div></div>
+  </div>
+  <script>(function(){window.__timelines=window.__timelines||{};var v=window.__hyperframes.getVariables();document.getElementById("mut-root").style.setProperty("--background",v.background||"#f4f4f2");document.getElementById("mut-prefix").textContent=(v.prefix||"Meet the")+" ";document.getElementById("mut-keyword").textContent=v.keyword||"new";document.getElementById("mut-line2").textContent=v.secondLine||"VidMuse AI";var tl=gsap.timeline({paused:true});tl.fromTo("#mut-title",{opacity:0,y:36},{opacity:1,y:0,duration:.733,ease:"power3.out"},0).to("#mut-clip",{attr:{width:286},duration:.333,ease:"power2.out"},1.067);window.__timelines["shot-marker-underline-title"]=tl})();</script>
+</template></body></html>

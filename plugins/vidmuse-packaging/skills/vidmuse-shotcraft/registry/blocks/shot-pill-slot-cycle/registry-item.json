@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-pill-slot-cycle",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Pill Slot Cycle",
+  "description": "A fixed sentence stem anchors six vertically cycling feature pills before the slot resolves into a final phrase.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.833,
+  "tags": ["shotcraft", "typography", "feature-list", "pill", "slot"],
+  "files": [{ "path": "shot-pill-slot-cycle.html", "target": "compositions/shot-pill-slot-cycle.html", "type": "hyperframes:composition" }]
+}

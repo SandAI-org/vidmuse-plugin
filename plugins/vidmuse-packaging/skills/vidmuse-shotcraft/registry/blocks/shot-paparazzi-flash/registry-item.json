@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-paparazzi-flash",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Paparazzi Flash",
+  "description": "Three white-flash shutter cuts move through wide, card, and number crops of one live product moment, with a short physical settle after each exposure and a long final hold.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "rhythm", "flash", "shutter", "hard-cut", "close-up"],
+  "files": [
+    {
+      "path": "shot-paparazzi-flash.html",
+      "target": "compositions/shot-paparazzi-flash.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

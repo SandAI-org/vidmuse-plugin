@@ -1,0 +1,26 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-letterform-zoom",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Letterform Zoom",
+  "description": "A destination page appears through a heavyweight word cut into a title plate; an origin-locked exponential push enlarges the letterforms until the page takes over.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "letterform",
+    "zoom",
+    "portal",
+    "title",
+    "mask",
+    "chapter"
+  ],
+  "files": [
+    {
+      "path": "shot-letterform-zoom.html",
+      "target": "compositions/shot-letterform-zoom.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

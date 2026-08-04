@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-split-flap-title",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Split Flap Title",
+  "description": "A seeded airport-board title flips through deterministic glyphs in a left-to-right wave, then clicks into its final phrase.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "typography", "split-flap", "mechanical", "title"],
+  "files": [{ "path": "shot-split-flap-title.html", "target": "compositions/shot-split-flap-title.html", "type": "hyperframes:composition" }]
+}

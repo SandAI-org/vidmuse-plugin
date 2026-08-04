@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-scramble-decode",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Scramble Decode",
+  "description": "Deterministic mono glyph noise resolves left to right, flashing each locked character and advancing a completion rule.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "typography", "decode", "scramble", "developer"],
+  "files": [{ "path": "shot-scramble-decode.html", "target": "compositions/shot-scramble-decode.html", "type": "hyperframes:composition" }]
+}

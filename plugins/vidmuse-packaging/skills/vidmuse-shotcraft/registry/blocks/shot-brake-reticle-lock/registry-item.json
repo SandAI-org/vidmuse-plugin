@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-brake-reticle-lock",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Brake Reticle Lock",
+  "description": "A dark release feed accelerates, overshoots and snaps back while four amber L-corners arrive on the same brake frame to lock the target release.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "data", "scroll", "reticle", "lock"],
+  "files": [{ "path": "shot-brake-reticle-lock.html", "target": "compositions/shot-brake-reticle-lock.html", "type": "hyperframes:composition" }]
+}

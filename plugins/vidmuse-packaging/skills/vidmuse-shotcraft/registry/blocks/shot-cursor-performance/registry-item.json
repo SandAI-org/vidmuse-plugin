@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-cursor-performance",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Cursor Performance",
+  "description": "An oversized pointer arrives through a shaped three-part move, hovers and presses a dark action, emits a decoupled ripple, and pulls the page camera into and back from the click point.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "cursor",
+    "click",
+    "punch-in",
+    "ripple",
+    "camera"
+  ],
+  "files": [
+    {
+      "path": "shot-cursor-performance.html",
+      "target": "compositions/shot-cursor-performance.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

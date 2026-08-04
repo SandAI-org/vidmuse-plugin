@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-trailer-bumper",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Trailer Bumper",
+  "description": "A trailer cadence of three nine-frame product cuts, a six-frame pure-black interruption, and a sixteen-frame launch-title rise into a long readable hold.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "rhythm", "trailer", "bumper", "hard-cut", "title"],
+  "files": [
+    {
+      "path": "shot-trailer-bumper.html",
+      "target": "compositions/shot-trailer-bumper.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

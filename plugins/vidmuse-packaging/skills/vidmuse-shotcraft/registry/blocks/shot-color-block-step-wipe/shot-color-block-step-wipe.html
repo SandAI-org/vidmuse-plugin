@@ -1,0 +1,275 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"blue","type":"color","label":"Center block","default":"#2383e2"},{"id":"red","type":"color","label":"Corner block","default":"#e8503a"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cbs-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --blue: #2383e2;
+          --red: #e8503a;
+        }
+        .cbs-a,
+        .cbs-b {
+          position: absolute;
+          inset: 0;
+        }
+        .cbs-blue {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 0;
+          height: 0;
+          transform: translate(-50%, -50%);
+          background: var(--blue);
+        }
+        .cbs-badge {
+          position: absolute;
+          left: 875px;
+          top: 455px;
+          width: 170px;
+          height: 170px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          opacity: 0;
+          background: #fff8ee;
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+        }
+        .cbs-face {
+          position: relative;
+          width: 110px;
+          height: 110px;
+        }
+        .cbs-eye {
+          position: absolute;
+          top: 33px;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #171a18;
+        }
+        .cbs-eye:first-child {
+          left: 25px;
+        }
+        .cbs-eye:nth-child(2) {
+          right: 25px;
+        }
+        .cbs-mouth {
+          position: absolute;
+          left: 29px;
+          top: 63px;
+          width: 52px;
+          height: 28px;
+          border-bottom: 7px solid #171a18;
+          border-radius: 0 0 50% 50%;
+        }
+        .cbs-b {
+          opacity: 0;
+          background: #ecebe6;
+        }
+        .cbs-gray {
+          position: absolute;
+          inset: 0;
+          padding: 90px 160px;
+        }
+        .cbs-gray h1 {
+          width: 560px;
+          height: 40px;
+          border-radius: 12px;
+          background: #333633;
+        }
+        .cbs-gray i {
+          display: block;
+          height: 18px;
+          margin-top: 24px;
+          border-radius: 9px;
+          background: #aaa9a4;
+        }
+        .cbs-gray i:nth-of-type(1) {
+          width: 92%;
+        }
+        .cbs-gray i:nth-of-type(2) {
+          width: 78%;
+        }
+        .cbs-gray i:nth-of-type(3) {
+          width: 86%;
+        }
+        .cbs-panels {
+          display: flex;
+          gap: 32px;
+          margin-top: 54px;
+        }
+        .cbs-panel {
+          width: 420px;
+          height: 280px;
+          padding: 28px;
+          border: 1px solid #cbc9c2;
+          border-radius: 18px;
+          background: #faf9f5;
+        }
+        .cbs-panel:before,
+        .cbs-panel:after {
+          content: "";
+          display: block;
+          width: 68%;
+          height: 14px;
+          border-radius: 7px;
+          background: #999a94;
+        }
+        .cbs-panel:after {
+          height: 130px;
+          width: 100%;
+          margin-top: 58px;
+          background: #deddd7;
+        }
+        .cbs-red {
+          position: absolute;
+          inset: 0;
+          background: var(--red);
+          clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+        }
+        .cbs-carry {
+          position: absolute;
+          left: 1890px;
+          top: 1035px;
+          width: 420px;
+          height: 290px;
+          padding: 28px;
+          border: 1px solid #d2d0c9;
+          border-radius: 16px;
+          background: #faf9f5;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+          transform: rotate(-4deg);
+        }
+        .cbs-carry:before,
+        .cbs-carry:after {
+          content: "";
+          display: block;
+          width: 62%;
+          height: 14px;
+          border-radius: 7px;
+          background: #323632;
+        }
+        .cbs-carry:after {
+          width: 100%;
+          height: 150px;
+          margin-top: 55px;
+          background: #dddcd6;
+        }
+        .cbs-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 5;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(19, 22, 20, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="cbs-root"
+        data-hf-id="hf-cbs-root"
+        data-composition-id="shot-color-block-step-wipe"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cbs-fill">
+          <div class="cbs-a">
+            <div class="cbs-blue"></div>
+            <div class="cbs-badge">
+              <div class="cbs-face">
+                <i class="cbs-eye"></i><i class="cbs-eye"></i
+                ><i class="cbs-mouth"></i>
+              </div>
+            </div>
+          </div>
+          <div class="cbs-b">
+            <div class="cbs-gray">
+              <h1></h1>
+              <i></i><i></i><i></i>
+              <div class="cbs-panels">
+                <div class="cbs-panel"></div>
+                <div class="cbs-panel"></div>
+              </div>
+            </div>
+            <div class="cbs-red"></div>
+            <div class="cbs-carry"></div>
+          </div>
+          <div class="cbs-caption">ZERO INTERPOLATION / UNEVEN HARD STEPS</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#cbs-root .cbs-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--blue", v.blue || "#2383e2");
+          fill.style.setProperty("--red", v.red || "#e8503a");
+          tl.set("#cbs-root .cbs-badge", { opacity: 0, scale: 0 }, 0);
+          [
+            [0.267, 280, 96],
+            [0.533, 820, 96],
+            [0.8, 1340, 320],
+            [1.067, 1920, 580],
+            [1.467, 1920, 1080],
+          ].forEach(function (s) {
+            tl.set("#cbs-root .cbs-blue", { width: s[1], height: s[2] }, s[0]);
+          });
+          tl.set("#cbs-root .cbs-badge", { opacity: 1, scale: 0.55 }, 1.733)
+            .set("#cbs-root .cbs-badge", { scale: 1.12 }, 1.933)
+            .set("#cbs-root .cbs-badge", { scale: 1 }, 2.1)
+            .set("#cbs-root .cbs-a", { opacity: 0 }, 2.6)
+            .set("#cbs-root .cbs-b", { opacity: 1 }, 2.6)
+            .set(
+              "#cbs-root .cbs-red",
+              { clipPath: "polygon(58% 100%,100% 58%,100% 100%)" },
+              2.8,
+            )
+            .set("#cbs-root .cbs-carry", { x: -620, y: -380 }, 2.8)
+            .set(
+              "#cbs-root .cbs-red",
+              { clipPath: "polygon(-6% 100%,100% -6%,100% 100%)" },
+              3.2,
+            )
+            .set("#cbs-root .cbs-carry", { x: -1120, y: -620 }, 3.2)
+            .set(
+              "#cbs-root .cbs-red",
+              { clipPath: "polygon(-100% 100%,100% -100%,100% 100%)" },
+              3.6,
+            )
+            .set("#cbs-root .cbs-carry", { x: -1540, y: -830 }, 3.6);
+          window.__timelines["shot-color-block-step-wipe"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

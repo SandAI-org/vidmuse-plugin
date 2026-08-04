@@ -1,0 +1,135 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"plateColor","type":"color","label":"Misregistration plate","default":"#77756f"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .mrh-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+        }
+        .mrh-rule {
+          position: absolute;
+          left: 510px;
+          top: 740px;
+          width: 900px;
+          height: 6px;
+          border-radius: 3px;
+          background: #aaa79f;
+        }
+        .mrh-title {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 200px;
+          font-weight: 900;
+          letter-spacing: -1px;
+          white-space: nowrap;
+        }
+        .mrh-plate {
+          mix-blend-mode: multiply;
+          opacity: 0;
+        }
+        .mrh-light {
+          color: var(--plate);
+        }
+        .mrh-dark {
+          color: #292824;
+        }
+      </style>
+      <div
+        data-hf-id="hf-mrh-root"
+        id="mrh-root"
+        data-composition-id="shot-misregistration-hit"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="mrh-fill" style="--plate: #77756f">
+          <div class="mrh-rule"></div>
+          <div id="mrh-single" class="mrh-title">IMPACT</div>
+          <div id="mrh-light" class="mrh-title mrh-plate mrh-light" data-layout-allow-overlap data-layout-allow-overflow>IMPACT</div>
+          <div id="mrh-dark" class="mrh-title mrh-plate mrh-dark" data-layout-allow-overlap data-layout-allow-overflow>IMPACT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("mrh-root"),
+            fill = root.querySelector(".mrh-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--plate", v.plateColor || "#77756f");
+          gsap.set("#mrh-single", { x: 1400 });
+          tl.to(
+            "#mrh-single",
+            { x: 0, duration: 0.267, ease: "power3.in" },
+            0.667,
+          )
+            .set("#mrh-single", { opacity: 0 }, 0.934)
+            .set("#mrh-light,#mrh-dark", { opacity: 1 }, 0.934)
+            .to(
+              "#mrh-light",
+              {
+                keyframes: [
+                  { x: -16, y: 7, duration: 0.18 },
+                  { x: 12, y: -5, duration: 0.2 },
+                  { x: -9, y: 4, duration: 0.22 },
+                  { x: 7, y: -3, duration: 0.24 },
+                  { x: -5, y: 2, duration: 0.27 },
+                  { x: 4, y: -2, duration: 0.357 },
+                ],
+                ease: "none",
+              },
+              0.934,
+            )
+            .to(
+              "#mrh-dark",
+              {
+                keyframes: [
+                  { x: 16, y: -7, duration: 0.18 },
+                  { x: -12, y: 5, duration: 0.2 },
+                  { x: 9, y: -4, duration: 0.22 },
+                  { x: -7, y: 3, duration: 0.24 },
+                  { x: 5, y: -2, duration: 0.27 },
+                  { x: -4, y: 2, duration: 0.357 },
+                ],
+                ease: "none",
+              },
+              0.934,
+            )
+            .set("#mrh-light,#mrh-dark", { opacity: 0 }, 2.4)
+            .set("#mrh-single", { opacity: 1, scale: 1.03 }, 2.4)
+            .to(
+              "#mrh-single",
+              { scale: 1, duration: 0.133, ease: "power2.out" },
+              2.4,
+            );
+          window.__timelines["shot-misregistration-hit"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

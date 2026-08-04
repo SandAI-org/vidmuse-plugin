@@ -1,0 +1,257 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Ignition accent","default":"#8f6cff"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ksc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #111114;
+          font-family: Inter, sans-serif;
+          color: #f5f4f7;
+          --accent: #8f6cff;
+        }
+        .ksc-key {
+          position: absolute;
+          left: 770px;
+          top: 330px;
+          width: 380px;
+          height: 250px;
+          display: grid;
+          place-items: center;
+          border: 3px solid #5b5963;
+          border-radius: 48px;
+          background: linear-gradient(#34333a, #232228);
+          box-shadow:
+            0 18px 0 #0a0a0c,
+            0 34px 70px rgba(0, 0, 0, 0.65);
+          font-size: 86px;
+          font-weight: 900;
+          transform-origin: center bottom;
+        }
+        .ksc-key small {
+          position: absolute;
+          bottom: 25px;
+          font-size: 18px;
+          letter-spacing: 4px;
+          color: #9e9ca6;
+        }
+        .ksc-ring {
+          position: absolute;
+          left: 960px;
+          top: 570px;
+          width: 90px;
+          height: 90px;
+          margin: -45px;
+          border: 7px solid var(--accent);
+          border-radius: 50%;
+          opacity: 0;
+        }
+        .ksc-roar {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+        }
+        .ksc-roar-card {
+          position: absolute;
+          width: 420px;
+          height: 260px;
+          border: 2px solid #ddd;
+          border-radius: 24px;
+          background: #f8f7f3;
+          box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+        }
+        .ksc-roar-card:before,
+        .ksc-roar-card:after {
+          content: "";
+          position: absolute;
+          left: 34px;
+          height: 18px;
+          border-radius: 9px;
+          background: #555;
+        }
+        .ksc-roar-card:before {
+          top: 44px;
+          width: 220px;
+        }
+        .ksc-roar-card:after {
+          top: 88px;
+          width: 310px;
+          background: #bbb;
+        }
+        .ksc-final {
+          position: absolute;
+          inset: 0;
+          padding: 84px 120px;
+          background: #eceae5;
+          color: #292824;
+          opacity: 0;
+        }
+        .ksc-top {
+          height: 72px;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+        }
+        .ksc-mini {
+          width: 74px;
+          height: 52px;
+          display: grid;
+          place-items: center;
+          border-radius: 14px;
+          background: #292824;
+          color: #fff;
+          font-weight: 900;
+          box-shadow: 0 7px 0 #aaa;
+        }
+        .ksc-final h1 {
+          margin-top: 94px;
+          font-size: 108px;
+          letter-spacing: -5px;
+        }
+        .ksc-final p {
+          margin-top: 24px;
+          font-size: 30px;
+          color: #66635e;
+        }
+        .ksc-wall {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          margin-top: 70px;
+        }
+        .ksc-wall i {
+          height: 190px;
+          border: 1px solid #ccc9c1;
+          border-radius: 20px;
+          background: #faf9f5;
+        }
+        .ksc-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #fff;
+          padding: 8px 12px;
+          border-radius: 8px;
+          background: rgba(0, 0, 0, 0.78);
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-ksc-root"
+        id="ksc-root"
+        data-composition-id="shot-keycap-smash-cut"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="ksc-fill">
+          <div id="ksc-key" class="ksc-key" data-layout-allow-occlusion>
+            CMD K<small>PRESS TO LAUNCH</small>
+          </div>
+          <div id="ksc-ring" class="ksc-ring"></div>
+          <div id="ksc-roar" class="ksc-roar">
+            <div class="ksc-roar-card" style="left: -260px; top: 80px"></div>
+            <div class="ksc-roar-card" style="left: 1760px; top: 90px"></div>
+            <div class="ksc-roar-card" style="left: 180px; top: 900px"></div>
+            <div class="ksc-roar-card" style="left: 1340px; top: 900px"></div>
+            <div class="ksc-roar-card" style="left: 750px; top: -240px"></div>
+            <div class="ksc-roar-card" style="left: 760px; top: 1060px"></div>
+          </div>
+          <div id="ksc-final" class="ksc-final">
+            <div class="ksc-top">
+              <div class="ksc-mini">K</div>
+              <b>COMMAND CENTER</b>
+            </div>
+            <h1>Everything, one keystroke away.</h1>
+            <p>Search, create, switch, and launch without leaving the flow.</p>
+            <div class="ksc-wall"><i></i><i></i><i></i></div>
+          </div>
+          <div class="ksc-caption">PRESS → ROAR → VERDICT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#ksc-root .ksc-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#8f6cff");
+          tl.to(
+            "#ksc-key",
+            {
+              y: -12,
+              rotation: -1,
+              duration: 0.416,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: 1,
+            },
+            0,
+          )
+            .to(
+              "#ksc-key",
+              {
+                scaleY: 0.48,
+                y: 14,
+                boxShadow: "0 3px 0 #0a0a0c,0 8px 24px rgba(0,0,0,.6)",
+                duration: 0.1,
+                ease: "power3.in",
+              },
+              0.833,
+            )
+            .set("#ksc-ring", { opacity: 1, scale: 1 }, 0.833)
+            .to(
+              "#ksc-ring",
+              { scale: 6.22, duration: 0.7, ease: "power3.out" },
+              0.833,
+            )
+            .to("#ksc-ring", { opacity: 0, duration: 0.9, ease: "none" }, 0.833)
+            .set("#ksc-roar", { opacity: 1 }, 0.933)
+            .to(
+              ".ksc-roar-card",
+              {
+                x: function (i) {
+                  return [850, -850, 720, -720, 0, 0][i];
+                },
+                y: function (i) {
+                  return [320, 300, -650, -660, 620, -650][i];
+                },
+                scale: 3,
+                rotation: function (i) {
+                  return [-12, 10, 8, -9, 4, -5][i];
+                },
+                filter: "blur(5px)",
+                duration: 1,
+                ease: "power2.in",
+              },
+              0.933,
+            )
+            .set("#ksc-key,#ksc-ring,#ksc-roar", { opacity: 0 }, 1.933)
+            .set("#ksc-final", { opacity: 1 }, 1.933);
+          window.__timelines["shot-keycap-smash-cut"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

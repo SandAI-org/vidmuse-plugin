@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-pull-back-isolation",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Pull Back Isolation",
+  "description": "The camera pulls from an extreme metric close-up into a wide field as surrounding cards extinguish outward and the hero remains alone in a dark glowing finish.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "camera", "pull-back", "isolation", "metric"],
+  "files": [{ "path": "shot-pull-back-isolation.html", "target": "compositions/shot-pull-back-isolation.html", "type": "hyperframes:composition" }]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-icon-flip-bloom",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Icon Flip Bloom",
+  "description": "A UI icon anticipates, flips to a thin edge, blooms, and resolves into a supplied SVG lockup.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "outro", "logo", "morph"],
+  "files": [
+    { "path": "shot-icon-flip-bloom.html", "target": "compositions/shot-icon-flip-bloom.html", "type": "hyperframes:composition" },
+    { "path": "assets/vidmuse-logo-white.svg", "target": "assets/branding/vidmuse-logo-white.svg", "type": "hyperframes:asset" }
+  ]
+}

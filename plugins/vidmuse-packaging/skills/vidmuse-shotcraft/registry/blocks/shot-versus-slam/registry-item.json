@@ -1,0 +1,26 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-versus-slam",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Versus Slam",
+  "description": "Two 78-degree split screens accelerate into a center collision where a flash, decaying shake, solid seam, and overshooting VS stamp land on the same frame.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "versus",
+    "slam",
+    "split-screen",
+    "comparison",
+    "impact",
+    "chapter"
+  ],
+  "files": [
+    {
+      "path": "shot-versus-slam.html",
+      "target": "compositions/shot-versus-slam.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

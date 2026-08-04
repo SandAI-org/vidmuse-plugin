@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-beat-pump",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Beat Pump",
+  "description": "Four evenly spaced beats punch the entire card layout to 1.08×, split the headline into progressively wider riso plates, and permanently activate one more timing dot before a clean hold.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "effects", "rhythm", "beat", "pump", "riso", "misregistration"],
+  "files": [{ "path": "shot-beat-pump.html", "target": "compositions/shot-beat-pump.html", "type": "hyperframes:composition" }]
+}

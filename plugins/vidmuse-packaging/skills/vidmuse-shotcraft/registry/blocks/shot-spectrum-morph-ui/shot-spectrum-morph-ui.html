@@ -1,0 +1,145 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Spectrum accent","default":"#181b19"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .spm-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          color: #181b19;
+          --accent: #181b19;
+        }
+        .spm-title {
+          position: absolute;
+          top: 320px;
+          width: 100%;
+          text-align: center;
+          font-size: 120px;
+          font-weight: 950;
+          letter-spacing: -5px;
+          opacity: 0;
+        }
+        .spm-bars {
+          position: absolute;
+          left: 600px;
+          bottom: 460px;
+          width: 720px;
+          height: 150px;
+        }
+        .spm-bar {
+          position: absolute;
+          bottom: 0;
+          width: 25.714px;
+          height: 8px;
+          border-radius: 3px 3px 0 0;
+          background: var(--accent);
+          transform-origin: 50% 100%;
+        }
+        .spm-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          color: #585a56;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="spm-root"
+        data-hf-id="hf-spm-root"
+        data-composition-id="shot-spectrum-morph-ui"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="spm-fill">
+          <div class="spm-title">LAUNCH WEEK</div>
+          <div id="spm-bars" class="spm-bars"></div>
+          <div class="spm-caption">LINE / SPECTRUM / LINE</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#spm-root .spm-fill"),
+            host = document.getElementById("spm-bars"),
+            tl = gsap.timeline({ paused: true }),
+            bars = [];
+          fill.style.setProperty("--accent", v.accent || "#181b19");
+          function noise(i, s) {
+            var x = Math.sin((i + 1) * 12.9898 + s * 78.233) * 43758.5453;
+            return x - Math.floor(x);
+          }
+          for (var i = 0; i < 28; i++) {
+            var b = document.createElement("i");
+            b.className = "spm-bar";
+            b.style.left = i * 25.714 + "px";
+            host.appendChild(b);
+            bars.push(b);
+          }
+          tl.to(
+            ".spm-title",
+            { opacity: 1, duration: 0.333, ease: "power2.out" },
+            0,
+          );
+          bars.forEach(function (b, i) {
+            var splitX = i * (20 + 6) - i * 25.714,
+              env = 0.4 + 0.6 * Math.pow(1 - i / 27, 1.1);
+            tl.to(
+              b,
+              { x: splitX, width: 20, duration: 0.267, ease: "power3.out" },
+              0.833,
+            );
+            for (var s = 0; s < 14; s++) {
+              var h =
+                8 +
+                92 *
+                  Math.abs(Math.sin(i * 0.7 + s * 0.79)) *
+                  (0.4 + 0.6 * noise(i, s)) *
+                  env;
+              tl.to(
+                b,
+                { height: h, duration: 0.1, ease: "sine.inOut" },
+                1.1 + s * 0.133,
+              );
+            }
+            tl.to(
+              b,
+              {
+                height: 8,
+                x: 0,
+                width: 25.714,
+                duration: 0.4,
+                ease: "power3.out",
+              },
+              2.967,
+            );
+          });
+          window.__timelines["shot-spectrum-morph-ui"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

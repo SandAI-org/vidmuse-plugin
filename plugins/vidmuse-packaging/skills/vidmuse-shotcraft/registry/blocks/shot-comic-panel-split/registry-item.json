@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-comic-panel-split",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Comic Panel Split",
+  "description": "One dashboard becomes three oblique comic panels at wide, card, and KPI distances before the KPI panel expands past both seams into a clean full-screen close-up.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "rhythm", "comic", "panels", "split", "takeover"],
+  "files": [
+    {
+      "path": "shot-comic-panel-split.html",
+      "target": "compositions/shot-comic-panel-split.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

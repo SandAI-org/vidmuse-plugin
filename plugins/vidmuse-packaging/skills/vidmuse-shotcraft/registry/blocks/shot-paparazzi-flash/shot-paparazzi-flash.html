@@ -1,0 +1,226 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#ffcf4a"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .pff-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #0d1010;
+          font-family: Inter, sans-serif;
+          --accent: #ffcf4a;
+        }
+        .pff-shudder,
+        .pff-footage {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 50%;
+        }
+        .pff-stage {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 60% 42%, #2a3130, #0d1010 72%);
+          color: white;
+        }
+        .pff-nav {
+          position: absolute;
+          left: 165px;
+          right: 165px;
+          top: 55px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 22px;
+          font-weight: 900;
+        }
+        .pff-hero {
+          position: absolute;
+          left: 200px;
+          top: 180px;
+          width: 660px;
+        }
+        .pff-hero h1 {
+          font-size: 82px;
+          line-height: 0.95;
+          letter-spacing: -5px;
+        }
+        .pff-hero p {
+          margin-top: 28px;
+          color: #9aa4a1;
+          font-size: 22px;
+          line-height: 1.5;
+        }
+        .pff-card {
+          position: absolute;
+          left: 920px;
+          top: 190px;
+          width: 720px;
+          height: 500px;
+          padding: 48px;
+          border-radius: 34px;
+          background: #f3f0e9;
+          color: #151817;
+          box-shadow: 0 36px 100px rgba(0, 0, 0, 0.45);
+        }
+        .pff-card small {
+          font-size: 17px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+        .pff-number {
+          margin-top: 52px;
+          font-size: 126px;
+          font-weight: 950;
+          letter-spacing: -7px;
+        }
+        .pff-number b {
+          color: #8a5b00;
+        }
+        .pff-chart {
+          height: 90px;
+          margin-top: 58px;
+          border-radius: 18px;
+          background: linear-gradient(
+            90deg,
+            #dad7cf 0 12%,
+            transparent 12% 16%,
+            #b5b6ae 16% 40%,
+            transparent 40% 44%,
+            var(--accent) 44% 100%
+          );
+        }
+        .pff-dock {
+          position: absolute;
+          left: 200px;
+          bottom: 110px;
+          display: flex;
+          gap: 16px;
+        }
+        .pff-dock i {
+          width: 170px;
+          height: 120px;
+          border-radius: 18px;
+          background: #1c2221;
+          border: 1px solid #333c39;
+        }
+        .pff-flash {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: white;
+        }
+        .pff-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          padding: 9px 13px;
+          border-radius: 5px;
+          background: #f2eee7;
+          color: #151817;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="pff-root"
+        data-hf-id="hf-pff-root"
+        data-composition-id="shot-paparazzi-flash"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="pff-fill">
+          <div id="pff-shudder" class="pff-shudder" data-layout-allow-overflow>
+            <div
+              id="pff-footage"
+              class="pff-footage"
+              data-layout-allow-overflow
+            >
+              <div class="pff-stage" data-layout-allow-overflow>
+                <div class="pff-nav" data-layout-allow-overflow>
+                  <span>PRISM / LIVE</span><span>Q3 HIGHLIGHT</span>
+                </div>
+                <div class="pff-hero" data-layout-allow-overflow>
+                  <h1>A signal worth stopping for.</h1>
+                  <p>
+                    Every view is the same moment. The cuts simply move us
+                    closer to the proof.
+                  </p>
+                </div>
+                <div class="pff-card" data-layout-allow-overflow>
+                  <small>VERIFIED MOMENTUM</small>
+                  <div class="pff-number">84<b>,213</b></div>
+                  <div class="pff-chart" data-layout-allow-overflow></div>
+                </div>
+                <div class="pff-dock" data-layout-allow-overflow>
+                  <i></i><i></i><i></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="pff-flash" class="pff-flash"></div>
+          <div class="pff-caption">WIDE / CARD / NUMBER</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#pff-root .pff-fill"),
+            tl = gsap.timeline({ paused: true }),
+            cuts = [1, 1.733, 2.333],
+            scales = [1, 2.3, 4],
+            origins = ["960px 540px", "1280px 410px", "1280px 360px"];
+          fill.style.setProperty("--accent", v.accent || "#ffcf4a");
+          gsap.set("#pff-footage", {
+            scale: 1.16,
+            transformOrigin: "900px 480px",
+          });
+          tl.to(
+            "#pff-footage",
+            { scale: 1.2, duration: 1, ease: "power1.inOut" },
+            0,
+          );
+          cuts.forEach(function (t, i) {
+            tl.set(
+              "#pff-footage",
+              { scale: scales[i], transformOrigin: origins[i] },
+              t,
+            )
+              .set("#pff-shudder", { scale: 1.03, y: -16 }, t)
+              .to(
+                "#pff-shudder",
+                { scale: 1, y: 0, duration: 0.2, ease: "power3.out" },
+                t + 0.001,
+              )
+              .set("#pff-flash", { opacity: 0.95 }, t)
+              .to(
+                "#pff-flash",
+                { opacity: 0, duration: 0.133, ease: "power2.out" },
+                t + 0.001,
+              );
+          });
+          window.__timelines["shot-paparazzi-flash"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-split-text-stagger",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Split Text Stagger",
+  "description": "Characters rise through individual baseline masks with a visible overshoot while a shared rule grows beneath the phrase.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "typography", "assembly", "stagger", "mask"],
+  "files": [{ "path": "shot-split-text-stagger.html", "target": "compositions/shot-split-text-stagger.html", "type": "hyperframes:composition" }]
+}

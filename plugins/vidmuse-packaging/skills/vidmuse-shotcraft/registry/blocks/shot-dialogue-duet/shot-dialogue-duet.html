@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cdd-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #101012;
+          font-family: Inter, sans-serif;
+        }
+        .cdd-fill:before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            ellipse 1100px 700px at 50% 48%,
+            rgba(255, 255, 255, 0.05),
+            transparent 70%
+          );
+        }
+        .cdd-actor {
+          position: absolute;
+          transform-origin: 0 0;
+        }
+        .cdd-actor svg {
+          display: block;
+          overflow: visible;
+        }
+        .cdd-badge {
+          position: absolute;
+          left: 34px;
+          top: 56px;
+          padding: 5px 13px;
+          border-radius: 8px;
+          color: #111;
+          font-size: 16px;
+          font-weight: 800;
+          white-space: nowrap;
+          opacity: 0;
+        }
+        .cdd-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #888894;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-cdd-root"
+        id="cdd-root"
+        data-composition-id="shot-dialogue-duet"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cdd-fill">
+          <div id="cdd-designer" class="cdd-actor" data-layout-allow-overflow>
+            <svg width="42" height="62" viewBox="0 0 13.5 20">
+              <path
+                d="M.5.5v16.7l4.2-3.8 2.6 6.1 2.7-1.2-2.6-6H13Z"
+                fill="#4c8df6"
+                stroke="#fff"
+                stroke-width="1.1"
+              />
+            </svg>
+            <div
+              class="cdd-badge"
+              data-layout-allow-overflow
+              style="background: #4c8df6"
+            >
+              Designer
+            </div>
+          </div>
+          <div id="cdd-developer" class="cdd-actor" data-layout-allow-overflow>
+            <svg width="42" height="62" viewBox="0 0 13.5 20">
+              <path
+                d="M.5.5v16.7l4.2-3.8 2.6 6.1 2.7-1.2-2.6-6H13Z"
+                fill="#2fbf71"
+                stroke="#fff"
+                stroke-width="1.1"
+              />
+            </svg>
+            <div
+              class="cdd-badge"
+              data-layout-allow-overflow
+              style="background: #2fbf71"
+            >
+              Developer
+            </div>
+          </div>
+          <div class="cdd-caption">POSITION BECOMES DIALOGUE</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true });
+          gsap.set("#cdd-designer", { x: -140, y: 260, scale: 2.8 });
+          gsap.set("#cdd-developer", { x: 2080, y: 820, scale: 2.8 });
+          tl.to(
+            "#cdd-designer",
+            {
+              keyframes: [
+                { x: 690, y: 520, duration: 0.8, ease: "power3.out" },
+                { x: 840, y: 496, duration: 1, ease: "power2.inOut" },
+                { x: 960, y: 340, duration: 0.55, ease: "power2.inOut" },
+                { x: 1190, y: 520, duration: 0.72, ease: "power2.inOut" },
+                { x: -320, y: 1240, duration: 0.8, ease: "power3.in" },
+              ],
+            },
+            0,
+          )
+            .to(
+              "#cdd-developer",
+              {
+                keyframes: [
+                  { x: 1230, y: 520, duration: 0.933, ease: "power3.out" },
+                  { x: 1300, y: 520, duration: 0.9, ease: "power2.inOut" },
+                  { x: 960, y: 680, duration: 0.55, ease: "power2.inOut" },
+                  { x: 730, y: 520, duration: 0.72, ease: "power2.inOut" },
+                ],
+              },
+              0.133,
+            )
+            .to(".cdd-badge", { opacity: 1, duration: 0.467 }, 0.4)
+            .to(
+              "#cdd-designer .cdd-badge",
+              { opacity: 0.28, filter: "saturate(.35)", duration: 0.467 },
+              2.333,
+            )
+            .to(
+              "#cdd-developer .cdd-badge",
+              { boxShadow: "0 0 22px #2fbf71", duration: 0.467 },
+              2.333,
+            )
+            .to("#cdd-developer .cdd-badge", { opacity: 0, duration: 0.4 }, 3.4)
+            .to(
+              "#cdd-developer",
+              {
+                x: -160,
+                y: -140,
+                scale: 68,
+                duration: 1.133,
+                ease: "power3.in",
+              },
+              3.333,
+            );
+          window.__timelines["shot-dialogue-duet"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

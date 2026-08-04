@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-typewriter-error-retype",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Typewriter Error Retype",
+  "description": "A first draft types in, pauses, backspaces to a shared stem, and resolves into a sharper replacement phrase.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": ["shotcraft", "typography", "typewriter", "backspace", "copy-revision"],
+  "files": [{ "path": "shot-typewriter-error-retype.html", "target": "compositions/shot-typewriter-error-retype.html", "type": "hyperframes:composition" }]
+}

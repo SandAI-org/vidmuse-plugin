@@ -1,0 +1,14 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-ui-strip-away-outro",
+  "type": "hyperframes:block",
+  "title": "Shotcraft UI Strip Away Outro",
+  "description": "A cursor clicks Publish as editor layers evaporate from the perimeter inward, leaving the button on black before the final logo handoff.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "outro", "ui", "cursor", "logo"],
+  "files": [
+    { "path": "shot-ui-strip-away-outro.html", "target": "compositions/shot-ui-strip-away-outro.html", "type": "hyperframes:composition" },
+    { "path": "assets/vidmuse-logo-white.svg", "target": "assets/branding/vidmuse-logo-white.svg", "type": "hyperframes:asset" }
+  ]
+}

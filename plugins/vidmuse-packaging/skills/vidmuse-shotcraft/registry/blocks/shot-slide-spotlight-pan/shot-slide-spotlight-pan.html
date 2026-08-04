@@ -1,0 +1,330 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Edge-light accent","default":"#b56cff"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ssp-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #050409;
+          font-family: Inter, sans-serif;
+          --accent: #b56cff;
+        }
+        .ssp-panel {
+          position: absolute;
+          left: 0;
+          top: 150px;
+          width: 3000px;
+          height: 1400px;
+          display: flex;
+          border-radius: 60px 60px 0 0;
+          overflow: hidden;
+          background: #f4f4f3;
+          color: #383836;
+          box-shadow: 0 -20px 70px rgba(170, 90, 245, 0.18);
+        }
+        .ssp-side {
+          width: 560px;
+          padding: 52px 48px;
+          border-right: 3px solid #e4e4e2;
+        }
+        .ssp-brand {
+          display: flex;
+          gap: 18px;
+          align-items: center;
+          margin-bottom: 56px;
+        }
+        .ssp-brand i:first-child {
+          width: 46px;
+          height: 46px;
+          border-radius: 12px;
+          background: #3c3c3a;
+        }
+        .ssp-brand i:last-child {
+          width: 150px;
+          height: 26px;
+          border-radius: 10px;
+          background: #3c3c3a;
+        }
+        .ssp-nav {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .ssp-nav i {
+          width: 330px;
+          height: 44px;
+          border-radius: 9px;
+          background: linear-gradient(
+            90deg,
+            #98989a 0 26px,
+            transparent 26px 42px,
+            #c6c6c4 42px 72%
+          );
+        }
+        .ssp-nav i:nth-child(2n) {
+          width: 400px;
+        }
+        .ssp-rule {
+          width: 130px;
+          height: 20px;
+          margin: 58px 0 24px;
+          border-radius: 9px;
+          background: #adadab;
+        }
+        .ssp-main {
+          flex: 1;
+          padding: 52px 64px;
+        }
+        .ssp-head {
+          display: flex;
+          gap: 22px;
+          align-items: center;
+          margin-bottom: 48px;
+        }
+        .ssp-head i {
+          width: 400px;
+          height: 26px;
+          border-radius: 11px;
+          background: #606060;
+        }
+        .ssp-head i:first-child {
+          width: 36px;
+          height: 30px;
+          background: #98989a;
+        }
+        .ssp-head i:nth-child(n + 3) {
+          width: 150px;
+          height: 18px;
+          background: #dededc;
+        }
+        .ssp-board {
+          display: flex;
+          gap: 84px;
+        }
+        .ssp-col {
+          width: 620px;
+          flex: none;
+          padding-top: 24px;
+          border-top: 6px solid #c4ad45;
+        }
+        .ssp-col:nth-child(2) {
+          border-color: var(--accent);
+        }
+        .ssp-col:nth-child(3) {
+          border-color: #4f8f6f;
+        }
+        .ssp-col-title {
+          width: 160px;
+          height: 20px;
+          margin-bottom: 30px;
+          border-radius: 9px;
+          background: #525250;
+        }
+        .ssp-task {
+          padding: 26px 0;
+          border-bottom: 2px solid #e1e1df;
+        }
+        .ssp-task i {
+          display: block;
+          width: 45%;
+          height: 13px;
+          margin-bottom: 13px;
+          border-radius: 7px;
+          background: #dededc;
+        }
+        .ssp-task i:nth-child(2) {
+          width: 70%;
+          height: 17px;
+          background: #aeaeac;
+        }
+        .ssp-task i:last-child {
+          width: 22px;
+          height: 16px;
+        }
+        .ssp-shade {
+          position: absolute;
+          inset: -60px;
+          background: radial-gradient(
+            ellipse 1350px 1000px at var(--head, -360px) 300px,
+            transparent 22%,
+            rgba(0, 0, 0, 0.5) 58%,
+            rgba(5, 4, 9, 0.97) 100%
+          );
+        }
+        .ssp-toplight,
+        .ssp-vlight {
+          position: absolute;
+          pointer-events: none;
+          opacity: 0;
+        }
+        .ssp-toplight {
+          left: -640px;
+          top: 94px;
+          width: 1280px;
+          height: 112px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            var(--accent),
+            #f7eaff,
+            var(--accent),
+            transparent
+          );
+          filter: blur(22px);
+        }
+        .ssp-topcore {
+          position: absolute;
+          left: 180px;
+          right: 180px;
+          top: 52px;
+          height: 7px;
+          background: linear-gradient(90deg, transparent, #fff, transparent);
+          filter: blur(1px);
+        }
+        .ssp-vlight {
+          left: 128px;
+          top: 340px;
+          width: 104px;
+          height: 840px;
+          background: linear-gradient(
+            180deg,
+            transparent,
+            var(--accent),
+            #f7eaff,
+            var(--accent),
+            transparent
+          );
+          filter: blur(22px);
+        }
+        .ssp-vcore {
+          position: absolute;
+          left: 49px;
+          top: 120px;
+          width: 6px;
+          height: 600px;
+          background: linear-gradient(180deg, transparent, #fff, transparent);
+        }
+        .ssp-eave {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 146px;
+          background: linear-gradient(#050409 78%, rgba(5, 4, 9, 0));
+        }
+        .ssp-caption {
+          position: absolute;
+          right: 58px;
+          bottom: 46px;
+          color: #d9d1e5;
+          font-size: 20px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-ssp-root"
+        id="ssp-root"
+        data-composition-id="shot-slide-spotlight-pan"
+        data-start="0"
+        data-duration="4.4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="ssp-fill">
+          <div id="ssp-panel" class="ssp-panel" data-layout-allow-overflow>
+            <aside class="ssp-side">
+              <div class="ssp-brand"><i></i><i></i></div>
+              <div class="ssp-nav"><i></i><i></i><i></i></div>
+              <div class="ssp-rule"></div>
+              <div class="ssp-nav"><i></i><i></i><i></i></div>
+            </aside>
+            <main class="ssp-main">
+              <div class="ssp-head"><i></i><i></i><i></i><i></i></div>
+              <div class="ssp-board">
+                <section class="ssp-col">
+                  <div class="ssp-col-title"></div>
+                  <div class="ssp-task"><i></i><i></i><i></i></div>
+                  <div class="ssp-task"><i></i><i></i><i></i></div>
+                </section>
+                <section class="ssp-col">
+                  <div class="ssp-col-title"></div>
+                  <div class="ssp-task"><i></i><i></i><i></i></div>
+                  <div class="ssp-task"><i></i><i></i><i></i></div>
+                </section>
+                <section class="ssp-col">
+                  <div class="ssp-col-title"></div>
+                  <div class="ssp-task"><i></i><i></i><i></i></div>
+                  <div class="ssp-task"><i></i><i></i><i></i></div>
+                </section>
+              </div>
+            </main>
+            <div id="ssp-shade" class="ssp-shade"></div>
+          </div>
+          <div
+            id="ssp-toplight"
+            class="ssp-toplight"
+            data-layout-allow-overflow
+          >
+            <div class="ssp-topcore"></div>
+          </div>
+          <div id="ssp-vlight" class="ssp-vlight" data-layout-allow-overflow>
+            <div class="ssp-vcore"></div>
+          </div>
+          <div class="ssp-eave"></div>
+          <div class="ssp-caption">EDGE-LIGHT CAMERA PAN</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#ssp-root .ssp-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#b56cff");
+          gsap.set("#ssp-panel", { x: 180 });
+          gsap.set("#ssp-shade", { "--head": "-360px" });
+          tl.to("#ssp-panel", { x: -1100, duration: 4.4, ease: "none" }, 0)
+            .to(
+              "#ssp-shade",
+              { "--head": "2600px", duration: 4.4, ease: "none" },
+              0,
+            )
+            .to("#ssp-vlight", { opacity: 1, duration: 0.2 }, 0)
+            .to(
+              "#ssp-vlight",
+              { x: -360, y: -620, duration: 0.533, ease: "none" },
+              0,
+            )
+            .to(
+              "#ssp-vlight",
+              { opacity: 0, duration: 0.7, ease: "none" },
+              0.533,
+            )
+            .to("#ssp-toplight", { opacity: 1, duration: 0.267 }, 0.267)
+            .to("#ssp-toplight", { x: 2240, duration: 4.0, ease: "none" }, 0.4)
+            .to("#ssp-toplight", { opacity: 0.18, duration: 0.4 }, 4.0);
+          window.__timelines["shot-slide-spotlight-pan"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

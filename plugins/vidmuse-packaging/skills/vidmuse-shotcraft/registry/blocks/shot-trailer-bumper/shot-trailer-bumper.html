@@ -1,0 +1,241 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#ff6848"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .trb-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          --accent: #ff6848;
+        }
+        .trb-shot {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transform-origin: 50% 50%;
+        }
+        .trb-shot:first-child {
+          opacity: 1;
+        }
+        .trb-page {
+          position: absolute;
+          inset: 0;
+          background: #e9e7e0;
+          color: #181b19;
+        }
+        .trb-head {
+          position: absolute;
+          left: 65px;
+          right: 65px;
+          top: 55px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 21px;
+          font-weight: 900;
+        }
+        .trb-title {
+          position: absolute;
+          left: 80px;
+          top: 150px;
+          width: 670px;
+          font-size: 80px;
+          line-height: 0.94;
+          letter-spacing: -5px;
+        }
+        .trb-grid {
+          position: absolute;
+          left: 790px;
+          right: 80px;
+          top: 130px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        .trb-card {
+          height: 385px;
+          padding: 28px;
+          border: 1px solid #c9c5bd;
+          border-radius: 24px;
+          background: #faf8f3;
+        }
+        .trb-card i {
+          display: block;
+          width: 60%;
+          height: 13px;
+          margin-bottom: 16px;
+          border-radius: 8px;
+          background: #252925;
+        }
+        .trb-card i + i {
+          width: 35%;
+          background: #b7b5ae;
+        }
+        .trb-card:after {
+          content: "";
+          display: block;
+          height: 165px;
+          margin-top: 60px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #d6d2c9, var(--accent));
+          opacity: 0.65;
+        }
+        .trb-b {
+          background: #171a19;
+          color: white;
+        }
+        .trb-b .trb-card {
+          background: #242927;
+          border-color: #3b423f;
+        }
+        .trb-b .trb-card i {
+          background: #f1eee7;
+        }
+        .trb-black {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #000;
+        }
+        .trb-open {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #e9e7e0;
+          display: grid;
+          place-items: center;
+          color: #181b19;
+          font-size: 168px;
+          font-weight: 950;
+          letter-spacing: -7px;
+        }
+        .trb-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 10;
+          padding: 9px 13px;
+          border-radius: 5px;
+          background: #181b19;
+          color: white;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="trb-root"
+        data-hf-id="hf-trb-root"
+        data-composition-id="shot-trailer-bumper"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="trb-fill">
+          <div id="trb-a" class="trb-shot">
+            <div class="trb-page">
+              <div class="trb-head">
+                <span>PRODUCT / A</span><span>00:09</span>
+              </div>
+              <h1 class="trb-title">Signals in motion.</h1>
+              <div class="trb-grid">
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="trb-b"
+            class="trb-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="trb-page trb-b">
+              <div class="trb-head">
+                <span>PRODUCT / B</span><span>00:18</span>
+              </div>
+              <h1 class="trb-title">The next system.</h1>
+              <div class="trb-grid">
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="trb-c"
+            class="trb-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="trb-page">
+              <div class="trb-grid">
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+                <div class="trb-card"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div id="trb-black" class="trb-black"></div>
+          <div id="trb-open" class="trb-open">THE LAUNCH</div>
+          <div class="trb-caption">9F / 9F / 9F / 6F BLACK / OPEN</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#trb-root .trb-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff6848");
+          tl.to("#trb-a", { scale: 1.04, duration: 0.3, ease: "none" }, 0)
+            .set("#trb-b", { opacity: 1, scale: 1 }, 0.3)
+            .set("#trb-a", { opacity: 0 }, 0.301)
+            .to("#trb-b", { scale: 1.04, duration: 0.3, ease: "none" }, 0.3)
+            .set(
+              "#trb-c",
+              { opacity: 1, scale: 2.2, transformOrigin: "58% 40%" },
+              0.6,
+            )
+            .set("#trb-b", { opacity: 0 }, 0.601)
+            .to("#trb-c", { scale: 2.288, duration: 0.3, ease: "none" }, 0.6)
+            .set("#trb-root .trb-caption", { opacity: 0 }, 0.9)
+            .set("#trb-black", { opacity: 1 }, 0.9)
+            .set("#trb-c", { opacity: 0 }, 0.901)
+            .set("#trb-black", { opacity: 0 }, 1.1)
+            .set("#trb-root .trb-caption", { opacity: 1 }, 1.1)
+            .set("#trb-open", { opacity: 0, y: 44 }, 1.1)
+            .to(
+              "#trb-open",
+              { opacity: 1, y: 0, duration: 0.533, ease: "power3.out" },
+              1.101,
+            );
+          window.__timelines["shot-trailer-bumper"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

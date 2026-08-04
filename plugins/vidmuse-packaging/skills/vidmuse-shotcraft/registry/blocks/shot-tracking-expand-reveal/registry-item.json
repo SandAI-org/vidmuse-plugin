@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-tracking-expand-reveal",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Tracking Expand Reveal",
+  "description": "A tightly compressed word breathes to wide cinematic tracking through per-character transforms while its subtitle resolves below.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "typography", "tracking", "cinematic", "reveal"],
+  "files": [{ "path": "shot-tracking-expand-reveal.html", "target": "compositions/shot-tracking-expand-reveal.html", "type": "hyperframes:composition" }]
+}

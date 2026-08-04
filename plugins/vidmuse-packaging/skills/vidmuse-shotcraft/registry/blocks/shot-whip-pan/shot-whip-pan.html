@@ -1,0 +1,196 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Destination accent","default":"#ff714f"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .whp-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #ff714f;
+        }
+        .whp-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 4800px;
+          height: 1080px;
+          filter: blur(0);
+        }
+        .whp-page {
+          position: absolute;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          padding: 90px 110px;
+          background: #e9e7e0;
+        }
+        .whp-a {
+          left: 0;
+        }
+        .whp-b {
+          left: 2880px;
+          background: #171a18;
+          color: #f3f1ea;
+        }
+        .whp-page h1 {
+          font-size: 76px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .whp-grid {
+          display: grid;
+          grid-template-columns: 340px 1fr;
+          gap: 26px;
+          margin-top: 70px;
+        }
+        .whp-side,
+        .whp-main {
+          height: 650px;
+          border: 1px solid #cbc9c2;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .whp-b .whp-side,
+        .whp-b .whp-main {
+          border-color: #414641;
+          background: #252a26;
+        }
+        .whp-side {
+          padding: 28px;
+        }
+        .whp-side i,
+        .whp-main i {
+          display: block;
+          width: 68%;
+          height: 14px;
+          margin-bottom: 20px;
+          border-radius: 7px;
+          background: #949691;
+        }
+        .whp-main {
+          padding: 32px;
+        }
+        .whp-main:after {
+          content: "";
+          display: block;
+          height: 380px;
+          margin-top: 130px;
+          border-radius: 20px;
+          background: #d5d3cc;
+        }
+        .whp-b .whp-main:after {
+          background: linear-gradient(135deg, var(--accent), #912f23);
+        }
+        .whp-smear {
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          opacity: 0;
+          background: repeating-linear-gradient(
+            90deg,
+            transparent 0 90px,
+            rgba(255, 255, 255, 0.16) 90px 130px
+          );
+        }
+        .whp-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 5;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(19, 22, 20, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="whp-root"
+        data-hf-id="hf-whp-root"
+        data-composition-id="shot-whip-pan"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="whp-fill">
+          <div id="whp-world" class="whp-world" data-layout-allow-overflow>
+            <div class="whp-page whp-a">
+              <h1>MOVE FAST.</h1>
+              <div class="whp-grid">
+                <div class="whp-side"><i></i><i></i></div>
+                <div class="whp-main"><i></i></div>
+              </div>
+            </div>
+            <div class="whp-page whp-b">
+              <h1>LAND CLEAN.</h1>
+              <div class="whp-grid">
+                <div class="whp-side"><i></i><i></i></div>
+                <div class="whp-main"><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="whp-smear"></div>
+          <div class="whp-caption">35F HOLD / 8F WHIP / DIRECT LOCK</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#whp-root .whp-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff714f");
+          tl.to(
+            "#whp-world",
+            { x: -2880, duration: 0.267, ease: "power2.inOut" },
+            1.167,
+          )
+            .to(
+              "#whp-world",
+              { filter: "blur(22px)", duration: 0.12, ease: "power2.in" },
+              1.167,
+            )
+            .to(
+              "#whp-world",
+              { filter: "blur(0px)", duration: 0.146, ease: "power2.out" },
+              1.288,
+            )
+            .to(
+              "#whp-root .whp-smear",
+              { opacity: 0.8, duration: 0.1, ease: "none" },
+              1.167,
+            )
+            .to(
+              "#whp-root .whp-smear",
+              { opacity: 0, duration: 0.167, ease: "none" },
+              1.268,
+            );
+          window.__timelines["shot-whip-pan"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

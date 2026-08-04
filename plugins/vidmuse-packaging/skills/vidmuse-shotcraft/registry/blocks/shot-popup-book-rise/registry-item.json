@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-popup-book-rise",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Popup Book Rise",
+  "description": "Six dashboard cards hinge upward from a steep paper page like a staggered pop-up book, with narrowing contact shadows and a subtle scene settle.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": ["shotcraft", "ui-entrance", "paper", "3d", "stagger"],
+  "files": [{ "path": "shot-popup-book-rise.html", "target": "compositions/shot-popup-book-rise.html", "type": "hyperframes:composition" }]
+}

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .bsl-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #241a12;
+          font-family: Inter, sans-serif;
+          color: white;
+        }
+        .bsl-list {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 465px;
+        }
+        .bsl-word {
+          height: 150px;
+          display: grid;
+          place-items: center;
+          color: rgba(255, 255, 255, 0.34);
+          font-size: 92px;
+          font-weight: 900;
+          letter-spacing: -4px;
+          position: relative;
+          z-index: 2;
+        }
+        .bsl-word:first-child {
+          color: #2a2018;
+        }
+        .bsl-pill {
+          position: absolute;
+          left: 510px;
+          top: 475px;
+          width: 900px;
+          height: 130px;
+          border-radius: 999px;
+          background: #d8d8d4;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.36);
+        }
+        .bsl-fade {
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 300px;
+          z-index: 4;
+        }
+        .bsl-top {
+          top: 0;
+          background: linear-gradient(#241a12, transparent);
+        }
+        .bsl-bottom {
+          bottom: 0;
+          background: linear-gradient(transparent, #241a12);
+        }
+        .bsl-beats {
+          position: absolute;
+          right: 62px;
+          bottom: 50px;
+          z-index: 8;
+          display: flex;
+          gap: 12px;
+        }
+        .bsl-beats i {
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.25);
+        }
+        .bsl-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 8;
+          color: #fff;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="bsl-root"
+        data-hf-id="hf-bsl-root"
+        data-composition-id="shot-beat-step-list-theme-cycle"
+        data-start="0"
+        data-duration="3.2"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div id="bsl-fill" class="bsl-fill">
+          <div id="bsl-pill" class="bsl-pill"></div>
+          <div id="bsl-list" class="bsl-list" data-layout-allow-occlusion>
+            <div class="bsl-word">modern</div>
+            <div class="bsl-word">playful</div>
+            <div class="bsl-word">expressive</div>
+            <div class="bsl-word">seamless</div>
+            <div class="bsl-word">intuitive</div>
+          </div>
+          <div
+            id="bsl-top"
+            class="bsl-fade bsl-top"
+            data-layout-allow-occlusion
+          ></div>
+          <div
+            id="bsl-bottom"
+            class="bsl-fade bsl-bottom"
+            data-layout-allow-occlusion
+          ></div>
+          <div class="bsl-beats"><i></i><i></i><i></i></div>
+          <div class="bsl-caption">ROW / COLOR / FIELD</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var tl = gsap.timeline({ paused: true }),
+            themes = [
+              { p: "#4fae62", b: "#1e2416" },
+              { p: "#8e6fd8", b: "#221a33" },
+              { p: "#d64d55", b: "#141c2e" },
+            ],
+            times = [1, 1.6, 2.2];
+          times.forEach(function (t, i) {
+            var idx = i + 1;
+            tl.to(
+              "#bsl-list",
+              { y: -150 * idx, duration: 0.2, ease: "power3.out" },
+              t,
+            )
+              .to(
+                "#bsl-pill",
+                {
+                  backgroundColor: themes[i].p,
+                  duration: 0.2,
+                  ease: "power3.out",
+                },
+                t,
+              )
+              .to(
+                "#bsl-fill",
+                {
+                  backgroundColor: themes[i].b,
+                  duration: 0.2,
+                  ease: "power3.out",
+                },
+                t,
+              )
+              .to(
+                "#bsl-top",
+                {
+                  backgroundImage:
+                    "linear-gradient(" + themes[i].b + ",transparent)",
+                  duration: 0.2,
+                },
+                t,
+              )
+              .to(
+                "#bsl-bottom",
+                {
+                  backgroundImage:
+                    "linear-gradient(transparent," + themes[i].b + ")",
+                  duration: 0.2,
+                },
+                t,
+              )
+              .set(".bsl-word", { color: "rgba(255,255,255,.34)" }, t)
+              .set(
+                ".bsl-word:nth-child(" + (idx + 1) + ")",
+                { color: "#ffffff" },
+                t + 0.001,
+              )
+              .set(
+                ".bsl-beats i:nth-child(" + idx + ")",
+                { backgroundColor: themes[i].p },
+                t,
+              )
+              .set("#bsl-pill", { scale: 1.12 }, t)
+              .to(
+                "#bsl-pill",
+                { scale: 0.97, duration: 0.11, ease: "power2.out" },
+                t + 0.001,
+              )
+              .to(
+                "#bsl-pill",
+                { scale: 1, duration: 0.09, ease: "power2.out" },
+                t + 0.112,
+              );
+          });
+          window.__timelines["shot-beat-step-list-theme-cycle"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

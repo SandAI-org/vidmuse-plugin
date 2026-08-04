@@ -10,6 +10,12 @@ The registry provides reusable blocks and components installable via `hyperframe
 - **Blocks** — standalone sub-compositions (own dimensions, duration, timeline). Included via `data-composition-src` in a host composition.
 - **Components** — effect snippets (no own dimensions). Pasted directly into a host composition's HTML.
 
+VidMuse also ships a second local Registry through `vidmuse-shotcraft`. Its `shot-*` blocks
+use the same block schema and host wiring, but the current HyperFrames CLI cannot load a
+filesystem Registry or merge two roots. Resolve and install those names through
+`vidmuse-shotcraft/scripts/install-local.mjs`; keep `hyperframes add` and this skill's live
+catalog commands for official upstream items.
+
 ## Quick reference
 
 ```bash

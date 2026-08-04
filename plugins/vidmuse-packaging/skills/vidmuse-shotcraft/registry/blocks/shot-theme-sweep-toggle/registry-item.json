@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-theme-sweep-toggle",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Theme Sweep Toggle",
+  "description": "A bright fifteen-degree boundary traverses two pixel-matched interface layers, revealing the dark theme in place, overscanning the lower corner, and settling the completed page with one subtle pulse.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "theme",
+    "dark-mode",
+    "sweep",
+    "wipe",
+    "toggle"
+  ],
+  "files": [
+    {
+      "path": "shot-theme-sweep-toggle.html",
+      "target": "compositions/shot-theme-sweep-toggle.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

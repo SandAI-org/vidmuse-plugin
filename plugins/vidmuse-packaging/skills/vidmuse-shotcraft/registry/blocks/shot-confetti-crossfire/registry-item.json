@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-confetti-crossfire",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Confetti Crossfire",
+  "description": "Two corner cannons launch one hundred deterministic grayscale-and-amber confetti pieces across a one-million-team milestone before clearing to a clean final card.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.2,
+  "tags": ["shotcraft", "data", "celebration", "confetti", "milestone"],
+  "files": [{ "path": "shot-confetti-crossfire.html", "target": "compositions/shot-confetti-crossfire.html", "type": "hyperframes:composition" }]
+}

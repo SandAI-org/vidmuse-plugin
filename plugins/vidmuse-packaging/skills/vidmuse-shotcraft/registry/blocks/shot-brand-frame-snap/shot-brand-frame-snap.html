@@ -1,0 +1,454 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[
+  {"id":"designColor","type":"color","label":"Design frame","default":"#3e7bfa"},
+  {"id":"devColor","type":"color","label":"Dev frame","default":"#1bc47d"}
+]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .bfs-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #161618;
+          font-family: Inter, sans-serif;
+          color: #202125;
+        }
+        .bfs-stage {
+          position: absolute;
+          inset: 44px;
+          overflow: hidden;
+          border-radius: 8px;
+          background: #f0f0ed;
+        }
+        .bfs-window {
+          position: absolute;
+          left: 180px;
+          top: 125px;
+          width: 1560px;
+          height: 830px;
+          overflow: hidden;
+          border: 2px solid #cecfcb;
+          border-radius: 16px;
+          background: #f6f6f2;
+          box-shadow: 0 28px 82px rgba(0, 0, 0, 0.3);
+          transform-origin: center;
+        }
+        .bfs-bar {
+          height: 52px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 0 22px;
+          border-bottom: 2px solid #d7d8d4;
+          background: #e9e9e7;
+        }
+        .bfs-dot {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #b4b6b0;
+        }
+        .bfs-path {
+          width: 260px;
+          height: 12px;
+          margin-left: 18px;
+          border-radius: 8px;
+          background: #d1d2ce;
+        }
+        .bfs-badge {
+          margin-left: auto;
+          padding: 7px 16px;
+          border-radius: 7px;
+          color: #fff;
+          font-size: 15px;
+          font-weight: 850;
+          letter-spacing: 1.6px;
+        }
+        .bfs-app {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 52px;
+          bottom: 0;
+          background: #f5f5f2;
+        }
+        .bfs-side {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 210px;
+          padding: 34px 24px;
+          background: #e5e6e2;
+          border-right: 1px solid #d0d1cd;
+        }
+        .bfs-logo {
+          height: 22px;
+          width: 116px;
+          margin-bottom: 52px;
+          border-radius: 7px;
+          background: #777b77;
+        }
+        .bfs-nav {
+          height: 13px;
+          margin: 0 0 25px;
+          border-radius: 7px;
+          background: #b7bab5;
+        }
+        .bfs-main {
+          position: absolute;
+          left: 210px;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          padding: 42px;
+        }
+        .bfs-heading {
+          height: 28px;
+          width: 350px;
+          border-radius: 9px;
+          background: #676b67;
+        }
+        .bfs-sub {
+          height: 12px;
+          width: 520px;
+          margin-top: 16px;
+          border-radius: 7px;
+          background: #c1c3bf;
+        }
+        .bfs-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          margin-top: 40px;
+        }
+        .bfs-card {
+          height: 250px;
+          padding: 24px;
+          border: 1px solid #d6d7d3;
+          border-radius: 18px;
+          background: #fff;
+          box-shadow: 0 9px 26px rgba(38, 42, 37, 0.06);
+        }
+        .bfs-kicker {
+          height: 10px;
+          width: 32%;
+          border-radius: 6px;
+          background: #c7c9c5;
+        }
+        .bfs-value {
+          height: 34px;
+          width: 60%;
+          margin-top: 24px;
+          border-radius: 9px;
+          background: #777b77;
+        }
+        .bfs-chart {
+          height: 82px;
+          margin-top: 36px;
+          border-radius: 12px;
+          background:
+            linear-gradient(
+              150deg,
+              transparent 46%,
+              #c3c6c1 47%,
+              #c3c6c1 51%,
+              transparent 52%
+            ),
+            linear-gradient(#f1f2ef 1px, transparent 1px);
+          background-size:
+            100% 100%,
+            100% 20px;
+        }
+        .bfs-dev {
+          opacity: 0;
+        }
+        .bfs-dev .bfs-grid {
+          grid-template-columns: 1.45fr 0.8fr;
+        }
+        .bfs-dev .bfs-card:first-child {
+          grid-row: span 2;
+          height: 526px;
+        }
+        .bfs-dev .bfs-card:not(:first-child) {
+          height: 251px;
+        }
+        .bfs-code {
+          height: 14px;
+          margin: 22px 0;
+          border-radius: 7px;
+          background: #c5c7c3;
+        }
+        .bfs-edge {
+          position: absolute;
+          z-index: 8;
+          background: var(--frame);
+          transform-origin: center;
+        }
+        .bfs-top,
+        .bfs-bottom {
+          left: 0;
+          width: 1920px;
+          height: 54px;
+        }
+        .bfs-top {
+          top: 0;
+        }
+        .bfs-bottom {
+          bottom: 0;
+        }
+        .bfs-left,
+        .bfs-right {
+          top: 0;
+          width: 54px;
+          height: 1080px;
+        }
+        .bfs-left {
+          left: 0;
+        }
+        .bfs-right {
+          right: 0;
+        }
+        .bfs-corner-label {
+          position: absolute;
+          left: 70px;
+          top: 0;
+          z-index: 9;
+          height: 54px;
+          display: flex;
+          align-items: center;
+          color: #fff;
+          font-size: 22px;
+          font-weight: 900;
+          letter-spacing: 3px;
+          opacity: 0;
+        }
+        .bfs-flash {
+          position: absolute;
+          inset: 0;
+          z-index: 12;
+          background: #fff;
+          opacity: 0;
+        }
+      </style>
+      <div
+        data-hf-id="hf-bfs-root"
+        id="bfs-root"
+        data-composition-id="shot-brand-frame-snap"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="bfs-fill" style="--frame: #3e7bfa">
+          <div class="bfs-stage">
+            <div data-hf-id="hf-bfs-window" id="bfs-window" class="bfs-window">
+              <div class="bfs-bar">
+                <span class="bfs-dot"></span><span class="bfs-dot"></span
+                ><span class="bfs-dot"></span><span class="bfs-path"></span
+                ><span id="bfs-badge" class="bfs-badge">DESIGN</span>
+              </div>
+              <div id="bfs-design" class="bfs-app">
+                <aside class="bfs-side">
+                  <div class="bfs-logo"></div>
+                  <div class="bfs-nav"></div>
+                  <div class="bfs-nav"></div>
+                  <div class="bfs-nav"></div>
+                  <div class="bfs-nav"></div>
+                </aside>
+                <main class="bfs-main">
+                  <div class="bfs-heading"></div>
+                  <div class="bfs-sub"></div>
+                  <div class="bfs-grid">
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-chart"></div>
+                    </article>
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-chart"></div>
+                    </article>
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-chart"></div>
+                    </article>
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-chart"></div>
+                    </article>
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-chart"></div>
+                    </article>
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-chart"></div>
+                    </article>
+                  </div>
+                </main>
+              </div>
+              <div id="bfs-dev" class="bfs-app bfs-dev">
+                <aside class="bfs-side">
+                  <div class="bfs-logo"></div>
+                  <div class="bfs-nav"></div>
+                  <div class="bfs-nav"></div>
+                  <div class="bfs-nav"></div>
+                </aside>
+                <main class="bfs-main">
+                  <div class="bfs-heading"></div>
+                  <div class="bfs-sub"></div>
+                  <div class="bfs-grid">
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-code"></div>
+                      <div class="bfs-code"></div>
+                      <div class="bfs-code"></div>
+                      <div class="bfs-code"></div>
+                      <div class="bfs-code"></div>
+                      <div class="bfs-code"></div>
+                    </article>
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-chart"></div>
+                    </article>
+                    <article class="bfs-card">
+                      <div class="bfs-kicker"></div>
+                      <div class="bfs-value"></div>
+                      <div class="bfs-chart"></div>
+                    </article>
+                  </div>
+                </main>
+              </div>
+            </div>
+          </div>
+          <div class="bfs-edge bfs-top" data-layout-allow-overflow></div>
+          <div class="bfs-edge bfs-bottom" data-layout-allow-overflow></div>
+          <div class="bfs-edge bfs-left" data-layout-allow-overflow></div>
+          <div class="bfs-edge bfs-right" data-layout-allow-overflow></div>
+          <div id="bfs-corner-label" class="bfs-corner-label">DESIGN</div>
+          <div id="bfs-flash" class="bfs-flash"></div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("bfs-root"),
+            fill = root.querySelector(".bfs-fill"),
+            badge = document.getElementById("bfs-badge"),
+            label = document.getElementById("bfs-corner-label"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--frame", v.designColor || "#3e7bfa");
+          gsap.set("#bfs-window", { y: 560, scale: 0.82, opacity: 0 });
+          gsap.set(".bfs-top,.bfs-bottom", { scaleX: 0 });
+          gsap.set(".bfs-left,.bfs-right", { scaleY: 0 });
+          gsap.set(badge, {
+            backgroundColor: v.designColor || "#3e7bfa",
+            color: "#171816",
+          });
+          tl.to(
+            ".bfs-top,.bfs-bottom",
+            { scaleX: 1, duration: 0.6, ease: "power3.out" },
+            0,
+          )
+            .to(
+              ".bfs-left,.bfs-right",
+              { scaleY: 1, duration: 0.6, ease: "power3.out" },
+              0,
+            )
+            .to(
+              "#bfs-corner-label",
+              { opacity: 1, duration: 0.32, ease: "power2.out" },
+              0.18,
+            )
+            .to(
+              "#bfs-window",
+              {
+                y: 0,
+                scale: 1,
+                opacity: 1,
+                duration: 0.9,
+                ease: "back.out(1.45)",
+              },
+              0.467,
+            )
+            .set("#bfs-design", { opacity: 0 }, 2.6)
+            .set("#bfs-dev", { opacity: 1 }, 2.6)
+            .set(fill, { css: { "--frame": v.devColor || "#1bc47d" } }, 2.6)
+            .set(
+              badge,
+              {
+                backgroundColor: v.devColor || "#1bc47d",
+                textContent: "DEV MODE",
+              },
+              2.6,
+            )
+            .set(label, { textContent: "DEV MODE" }, 2.6)
+            .to(
+              "#bfs-flash",
+              { opacity: 0.55, duration: 0.034, ease: "none" },
+              2.6,
+            )
+            .to(
+              "#bfs-flash",
+              { opacity: 0.19, duration: 0.067, ease: "none" },
+              2.634,
+            )
+            .to(
+              "#bfs-flash",
+              { opacity: 0, duration: 0.067, ease: "none" },
+              2.701,
+            )
+            .to(
+              ".bfs-top,.bfs-bottom",
+              {
+                scaleY: 1.22,
+                duration: 0.09,
+                ease: "power2.out",
+                yoyo: true,
+                repeat: 1,
+              },
+              2.6,
+            )
+            .to(
+              ".bfs-left,.bfs-right",
+              {
+                scaleX: 1.22,
+                duration: 0.09,
+                ease: "power2.out",
+                yoyo: true,
+                repeat: 1,
+              },
+              2.6,
+            );
+          window.__timelines["shot-brand-frame-snap"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

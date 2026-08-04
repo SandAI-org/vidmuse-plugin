@@ -1,0 +1,243 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Detail accent","default":"#6bd4a5"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .msw-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #6bd4a5;
+        }
+        .msw-a {
+          position: absolute;
+          inset: 0;
+          padding: 88px 110px;
+        }
+        .msw-a h1 {
+          font-size: 72px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .msw-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          margin-top: 80px;
+        }
+        .msw-card {
+          height: 312px;
+          padding: 26px;
+          border: 1px solid #cbc9c2;
+          border-radius: 14px;
+          background: #faf9f5;
+        }
+        .msw-card i {
+          display: block;
+          width: 64%;
+          height: 14px;
+          margin-bottom: 18px;
+          border-radius: 7px;
+          background: #92948f;
+        }
+        .msw-card:after {
+          content: "";
+          display: block;
+          height: 150px;
+          margin-top: 58px;
+          border-radius: 14px;
+          background: #d4d2cc;
+        }
+        .msw-window {
+          position: absolute;
+          left: 780px;
+          top: 436px;
+          width: 360px;
+          height: 312px;
+          overflow: hidden;
+          border-radius: 14px;
+          box-shadow: 0 16px 56px rgba(0, 0, 0, 0.25);
+        }
+        .msw-center {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 1920px;
+          height: 1080px;
+          transform: translate(-50%, -50%);
+        }
+        .msw-inner {
+          position: absolute;
+          inset: 0;
+          background: #171a18;
+          color: #f4f2eb;
+        }
+        .msw-inner h2 {
+          position: absolute;
+          left: 110px;
+          top: 90px;
+          font-size: 72px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .msw-detail {
+          position: absolute;
+          left: 110px;
+          right: 110px;
+          top: 220px;
+          bottom: 90px;
+          display: grid;
+          grid-template-columns: 340px 1fr;
+          gap: 26px;
+        }
+        .msw-side,
+        .msw-main {
+          border: 1px solid #414641;
+          border-radius: 22px;
+          background: #252a26;
+        }
+        .msw-main:after {
+          content: "";
+          display: block;
+          height: 420px;
+          margin: 150px 32px 0;
+          border-radius: 20px;
+          background: linear-gradient(135deg, var(--accent), #237253);
+        }
+        .msw-face {
+          position: absolute;
+          inset: 0;
+          padding: 26px;
+          border: 1px solid #cbc9c2;
+          border-radius: 14px;
+          background: #faf9f5;
+        }
+        .msw-face i {
+          display: block;
+          width: 64%;
+          height: 14px;
+          margin-bottom: 18px;
+          border-radius: 7px;
+          background: #92948f;
+        }
+        .msw-face:after {
+          content: "";
+          display: block;
+          height: 150px;
+          margin-top: 58px;
+          border-radius: 14px;
+          background: #d4d2cc;
+        }
+        .msw-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 5;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(242, 240, 233, 0.92);
+          color: #171a18;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="msw-root"
+        data-hf-id="hf-msw-root"
+        data-composition-id="shot-mask-wipe"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="msw-fill">
+          <div class="msw-a">
+            <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+              CHOOSE A FEATURE.
+            </h1>
+            <div class="msw-grid">
+              <div class="msw-card"><i></i><i></i></div>
+              <div class="msw-card"><i></i><i></i></div>
+              <div class="msw-card"><i></i><i></i></div>
+              <div class="msw-card"><i></i><i></i></div>
+              <div class="msw-card"><i></i><i></i></div>
+              <div class="msw-card"><i></i><i></i></div>
+            </div>
+          </div>
+          <div id="msw-window" class="msw-window" data-layout-allow-overflow>
+            <div class="msw-center">
+              <div id="msw-inner" class="msw-inner">
+                <h2 data-layout-allow-overlap data-layout-allow-occlusion>
+                  INSIDE THE FEATURE.
+                </h2>
+                <div class="msw-detail">
+                  <div class="msw-side"></div>
+                  <div class="msw-main"></div>
+                </div>
+              </div>
+            </div>
+            <div class="msw-face"><i></i><i></i></div>
+          </div>
+          <div class="msw-caption">
+            REAL CARD / SHARED GEOMETRY / DETAIL WORLD
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#msw-root .msw-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#6bd4a5");
+          gsap.set("#msw-inner", { scale: 0.42 });
+          tl.to(
+            "#msw-window",
+            {
+              x: -780,
+              y: -436,
+              width: 1920,
+              height: 1080,
+              borderRadius: 0,
+              duration: 1.5,
+              ease: "power3.inOut",
+            },
+            1.333,
+          )
+            .to(
+              "#msw-inner",
+              { scale: 1, duration: 1.5, ease: "power3.inOut" },
+              1.333,
+            )
+            .to(
+              "#msw-root .msw-face",
+              { opacity: 0, duration: 0.65, ease: "none" },
+              1.333,
+            )
+            .set("#msw-root .msw-a", { opacity: 0 }, 2.834);
+          window.__timelines["shot-mask-wipe"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#f3ff4a"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .dbs-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          --accent: #f3ff4a;
+        }
+        .dbs-page {
+          position: absolute;
+          inset: 0;
+          background: #e9e7e0;
+          color: #171a18;
+        }
+        .dbs-head {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 60px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 22px;
+          font-weight: 900;
+        }
+        .dbs-title {
+          position: absolute;
+          left: 80px;
+          top: 170px;
+          font-size: 92px;
+          line-height: 0.93;
+          letter-spacing: -6px;
+          width: 780px;
+        }
+        .dbs-panel {
+          position: absolute;
+          right: 120px;
+          top: 175px;
+          width: 700px;
+          height: 610px;
+          padding: 45px;
+          border-radius: 34px;
+          background: #171a18;
+          color: white;
+        }
+        .dbs-panel h2 {
+          font-size: 32px;
+        }
+        .dbs-bars {
+          height: 330px;
+          margin-top: 80px;
+          display: flex;
+          align-items: flex-end;
+          gap: 18px;
+        }
+        .dbs-bars i {
+          flex: 1;
+          border-radius: 10px 10px 2px 2px;
+          background: var(--accent);
+        }
+        .dbs-bars i:nth-child(1) {
+          height: 35%;
+        }
+        .dbs-bars i:nth-child(2) {
+          height: 60%;
+        }
+        .dbs-bars i:nth-child(3) {
+          height: 48%;
+        }
+        .dbs-bars i:nth-child(4) {
+          height: 82%;
+        }
+        .dbs-bars i:nth-child(5) {
+          height: 96%;
+        }
+        .dbs-beat {
+          position: absolute;
+          right: 58px;
+          bottom: 48px;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: #171a18;
+        }
+        .dbs-black {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #0c0c0c;
+        }
+        .dbs-slam {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #111;
+          display: grid;
+          place-items: center;
+          color: white;
+        }
+        .dbs-word {
+          font-size: 340px;
+          line-height: 1;
+          font-weight: 950;
+          letter-spacing: -16px;
+        }
+        .dbs-ring {
+          position: absolute;
+          left: 870px;
+          top: 450px;
+          width: 180px;
+          height: 180px;
+          border-radius: 50%;
+          border: 10px solid white;
+          opacity: 0;
+        }
+        .dbs-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          color: #5a5d59;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="dbs-root"
+        data-hf-id="hf-dbs-root"
+        data-composition-id="shot-drop-blackout-slam"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="dbs-fill">
+          <div id="dbs-page" class="dbs-page">
+            <div class="dbs-head">
+              <span>PHASE / CONTROL</span><span>PRE-DROP</span>
+            </div>
+            <h1 class="dbs-title">Hold the room. Then remove it.</h1>
+            <div class="dbs-panel">
+              <h2>Pressure build</h2>
+              <div class="dbs-bars"><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+            <div id="dbs-beat" class="dbs-beat"></div>
+            <div class="dbs-caption">BUILD / SILENCE / IMPACT</div>
+          </div>
+          <div id="dbs-black" class="dbs-black"></div>
+          <div id="dbs-slam" class="dbs-slam">
+            <div
+              id="dbs-ring"
+              class="dbs-ring"
+              data-layout-allow-overflow
+            ></div>
+            <div id="dbs-word" class="dbs-word">DROP</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#dbs-root .dbs-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#f3ff4a");
+          tl.to(
+            "#dbs-page",
+            {
+              scale: 1.02,
+              duration: 0.8,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: 1,
+            },
+            0,
+          );
+          [0, 0.4, 0.8, 1.2, 1.6].forEach(function (t) {
+            tl.set("#dbs-beat", { scale: 1.5, opacity: 1 }, t).to(
+              "#dbs-beat",
+              { scale: 1, opacity: 0.25, duration: 0.133, ease: "power2.out" },
+              t + 0.001,
+            );
+          });
+          tl.set("#dbs-page", { opacity: 0 }, 1.667)
+            .set("#dbs-black", { opacity: 1 }, 1.667)
+            .set("#dbs-black", { opacity: 0 }, 2.067)
+            .set("#dbs-slam", { opacity: 1 }, 2.067)
+            .set("#dbs-word", { scale: 1.35 }, 2.068)
+            .to(
+              "#dbs-word",
+              { scale: 1, duration: 0.167, ease: "power3.out" },
+              2.069,
+            )
+            .set("#dbs-ring", { opacity: 0.85, scale: 0.12 }, 2.068)
+            .to(
+              "#dbs-ring",
+              { scale: 10, opacity: 0, duration: 0.533, ease: "power3.out" },
+              2.069,
+            )
+            .set("#dbs-slam", { x: -9, y: 6 }, 2.068)
+            .to(
+              "#dbs-slam",
+              { x: 6, y: -4, duration: 0.033, ease: "none" },
+              2.101,
+            )
+            .to(
+              "#dbs-slam",
+              { x: -3, y: 2, duration: 0.033, ease: "none" },
+              2.135,
+            )
+            .to(
+              "#dbs-slam",
+              { x: 1, y: -1, duration: 0.067, ease: "none" },
+              2.169,
+            )
+            .set("#dbs-slam", { x: 0, y: 0 }, 2.237);
+          window.__timelines["shot-drop-blackout-slam"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

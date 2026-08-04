@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-score-slam",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Score Slam",
+  "description": "A large KPI card crashes into a soft-focus dashboard, rebounds to scale, throws a radial ring and deterministic dust, and lands on a readable growth score.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "effects", "slam", "score", "kpi", "ring", "particles"],
+  "files": [
+    {
+      "path": "shot-score-slam.html",
+      "target": "compositions/shot-score-slam.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

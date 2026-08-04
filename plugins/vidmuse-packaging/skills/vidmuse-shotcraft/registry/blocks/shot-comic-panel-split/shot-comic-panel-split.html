@@ -1,0 +1,375 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"KPI accent","default":"#ff6a48"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cps-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #fff;
+          font-family: Inter, sans-serif;
+          --accent: #ff6a48;
+        }
+        .cps-page {
+          position: absolute;
+          inset: 0;
+          background: #e9e7e0;
+          color: #181b19;
+        }
+        .cps-head {
+          position: absolute;
+          left: 65px;
+          right: 65px;
+          top: 55px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 21px;
+          font-weight: 900;
+        }
+        .cps-title {
+          position: absolute;
+          left: 80px;
+          top: 155px;
+          width: 660px;
+          font-size: 78px;
+          line-height: 0.95;
+          letter-spacing: -5px;
+        }
+        .cps-grid {
+          position: absolute;
+          left: 790px;
+          right: 80px;
+          top: 135px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        .cps-card {
+          height: 385px;
+          padding: 28px;
+          border: 1px solid #c9c5bd;
+          border-radius: 24px;
+          background: #faf8f3;
+        }
+        .cps-card i {
+          display: block;
+          width: 60%;
+          height: 13px;
+          margin-bottom: 16px;
+          border-radius: 8px;
+          background: #262a27;
+        }
+        .cps-card i + i {
+          width: 36%;
+          background: #b8b5ae;
+        }
+        .cps-card:after {
+          content: "";
+          display: block;
+          height: 165px;
+          margin-top: 60px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #d6d2c9, var(--accent));
+          opacity: 0.65;
+        }
+        .cps-kpi {
+          position: absolute;
+          left: 328px;
+          top: 320px;
+          width: 380px;
+          height: 160px;
+          border-radius: 16px;
+          background: #faf8f3;
+          display: grid;
+          place-items: center;
+          font-size: 92px;
+          font-weight: 950;
+          letter-spacing: -4px;
+          box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+        }
+        .cps-panel {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transform-origin: 50% 50%;
+        }
+        .cps-panel .cps-page {
+          transform-origin: 50% 50%;
+        }
+        .cps-p1 {
+          clip-path: polygon(0 0, 745px 0, 515px 1080px, 0 1080px);
+        }
+        .cps-p2 {
+          clip-path: polygon(755px 0, 1400px 0, 1170px 1080px, 525px 1080px);
+        }
+        .cps-p3 {
+          clip-path: polygon(1410px 0, 1920px 0, 1920px 1080px, 1180px 1080px);
+          z-index: 3;
+        }
+        .cps-p2 .cps-page {
+          transform-origin: 1070px 371px;
+        }
+        .cps-p3 .cps-page {
+          transform-origin: 518px 400px;
+        }
+        .cps-seams {
+          position: absolute;
+          inset: 0;
+          z-index: 6;
+          opacity: 0;
+        }
+        .cps-seams line.dark {
+          stroke: #2f2f2f;
+          stroke-width: 16;
+        }
+        .cps-seams line.light {
+          stroke: #fff;
+          stroke-width: 10;
+        }
+        .cps-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 10;
+          padding: 9px 13px;
+          border-radius: 5px;
+          background: #181b19;
+          color: white;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="cps-root"
+        data-hf-id="hf-cps-root"
+        data-composition-id="shot-comic-panel-split"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cps-fill">
+          <div id="cps-full" class="cps-page">
+            <div class="cps-head">
+              <span>PANEL / STORY</span><span>ONE MOMENT</span>
+            </div>
+            <h1 class="cps-title">One page. Three camera positions.</h1>
+            <div class="cps-grid">
+              <div class="cps-card"><i></i><i></i></div>
+              <div class="cps-card"><i></i><i></i></div>
+              <div class="cps-card"><i></i><i></i></div>
+              <div class="cps-card"><i></i><i></i></div>
+            </div>
+            <div class="cps-kpi">1,284</div>
+          </div>
+          <div
+            id="cps-p1"
+            class="cps-panel cps-p1"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="cps-page">
+              <div class="cps-head">
+                <span>PANEL / STORY</span><span>ONE MOMENT</span>
+              </div>
+              <h1 class="cps-title">One page. Three camera positions.</h1>
+              <div class="cps-grid">
+                <div class="cps-card"></div>
+                <div class="cps-card"></div>
+                <div class="cps-card"></div>
+                <div class="cps-card"></div>
+              </div>
+              <div class="cps-kpi">1,284</div>
+            </div>
+          </div>
+          <div
+            id="cps-p2"
+            class="cps-panel cps-p2"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="cps-page">
+              <div class="cps-head">
+                <span>PANEL / STORY</span><span>ONE MOMENT</span>
+              </div>
+              <h1 class="cps-title">One page. Three camera positions.</h1>
+              <div class="cps-grid">
+                <div class="cps-card"><i></i><i></i></div>
+                <div class="cps-card"><i></i><i></i></div>
+                <div class="cps-card"><i></i><i></i></div>
+                <div class="cps-card"><i></i><i></i></div>
+              </div>
+              <div class="cps-kpi">1,284</div>
+            </div>
+          </div>
+          <div
+            id="cps-p3"
+            class="cps-panel cps-p3"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+            data-layout-allow-overflow
+          >
+            <div class="cps-page">
+              <div class="cps-head">
+                <span>PANEL / STORY</span><span>ONE MOMENT</span>
+              </div>
+              <h1 class="cps-title">One page. Three camera positions.</h1>
+              <div class="cps-grid">
+                <div class="cps-card"><i></i><i></i></div>
+                <div class="cps-card"><i></i><i></i></div>
+                <div class="cps-card"><i></i><i></i></div>
+                <div class="cps-card"><i></i><i></i></div>
+              </div>
+              <div class="cps-kpi">1,284</div>
+            </div>
+          </div>
+          <svg
+            id="cps-seams"
+            class="cps-seams"
+            width="1920"
+            height="1080"
+            data-layout-allow-overflow
+          >
+            <line class="dark" x1="750" y1="-10" x2="520" y2="1090" />
+            <line class="light" x1="750" y1="-10" x2="520" y2="1090" />
+            <line
+              id="cps-s2d"
+              class="dark"
+              x1="1405"
+              y1="-10"
+              x2="1175"
+              y2="1090"
+            />
+            <line
+              id="cps-s2l"
+              class="light"
+              x1="1405"
+              y1="-10"
+              x2="1175"
+              y2="1090"
+            />
+          </svg>
+          <div class="cps-caption">WIDE / CARD / KPI / TAKEOVER</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#cps-root .cps-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff6a48");
+          gsap.set("#cps-p1 .cps-page", { x: 0, y: 0, scale: 1 });
+          gsap.set("#cps-p2 .cps-page", { x: -108, y: 169, scale: 1.9 });
+          gsap.set("#cps-p3 .cps-page", { x: 1089, y: 140, scale: 2.6 });
+          tl.set("#cps-full", { opacity: 0 }, 0.667)
+            .set(
+              "#cps-p1",
+              { opacity: 1, scale: 1.06, filter: "brightness(.7)" },
+              0.667,
+            )
+            .to(
+              "#cps-p1",
+              {
+                scale: 1,
+                filter: "brightness(1)",
+                duration: 0.1,
+                ease: "power3.out",
+              },
+              0.668,
+            )
+            .set(
+              "#cps-p2",
+              { opacity: 1, scale: 1.06, filter: "brightness(.7)" },
+              0.733,
+            )
+            .to(
+              "#cps-p2",
+              {
+                scale: 1,
+                filter: "brightness(1)",
+                duration: 0.1,
+                ease: "power3.out",
+              },
+              0.734,
+            )
+            .set(
+              "#cps-p3",
+              { opacity: 1, scale: 1.06, filter: "brightness(.7)" },
+              0.8,
+            )
+            .to(
+              "#cps-p3",
+              {
+                scale: 1,
+                filter: "brightness(1)",
+                duration: 0.1,
+                ease: "power3.out",
+              },
+              0.801,
+            )
+            .to(
+              "#cps-seams",
+              { opacity: 1, duration: 0.067, ease: "none" },
+              0.733,
+            )
+            .to(
+              "#cps-p1 .cps-page",
+              { scale: 1.03, duration: 0.6, ease: "none" },
+              0.9,
+            )
+            .to(
+              "#cps-p2 .cps-page",
+              { scale: 1.955, duration: 0.6, ease: "none" },
+              0.9,
+            )
+            .to(
+              "#cps-p3 .cps-page",
+              { scale: 2.68, duration: 0.6, ease: "none" },
+              0.9,
+            )
+            .to(
+              "#cps-p3",
+              {
+                clipPath:
+                  "polygon(-60px 0,1920px 0,1920px 1080px,-290px 1080px)",
+                duration: 0.4,
+                ease: "power3.out",
+              },
+              1.5,
+            )
+            .to(
+              "#cps-p3 .cps-page",
+              { x: 442, scale: 2.6, duration: 0.4, ease: "power3.out" },
+              1.5,
+            )
+            .to(
+              "#cps-seams",
+              { opacity: 0, duration: 0.133, ease: "none" },
+              1.767,
+            )
+            .set("#cps-p1,#cps-p2", { opacity: 0 }, 1.9);
+          window.__timelines["shot-comic-panel-split"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

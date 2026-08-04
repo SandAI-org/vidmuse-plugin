@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-neon-frame-orbit-drop",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Neon Frame Orbit Drop",
+  "description": "A lit product page travels from left-side to right-side perspective while all interface components descend and attach in one synchronized landing.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "ui-entrance", "neon", "orbit", "drop"],
+  "files": [{ "path": "shot-neon-frame-orbit-drop.html", "target": "compositions/shot-neon-frame-orbit-drop.html", "type": "hyperframes:composition" }]
+}

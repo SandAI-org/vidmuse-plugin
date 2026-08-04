@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-title-demote-to-label",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Title Demote to Label",
+  "description": "Two chapter-title variants reveal, hold, and continuously demote into a top-left section label while content grows below.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 6.533,
+  "tags": ["shotcraft", "typography", "chapter", "layout", "transition"],
+  "files": [{ "path": "shot-title-demote-to-label.html", "target": "compositions/shot-title-demote-to-label.html", "type": "hyperframes:composition" }]
+}

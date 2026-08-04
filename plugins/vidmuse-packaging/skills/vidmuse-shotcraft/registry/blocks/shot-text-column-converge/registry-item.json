@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-text-column-converge",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Text Column Converge",
+  "description": "Two edge-anchored mono columns hard-cut through feature words before converging once into a centered launch phrase.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.8,
+  "tags": ["shotcraft", "typography", "reveal", "converge", "outro"],
+  "files": [{ "path": "shot-text-column-converge.html", "target": "compositions/shot-text-column-converge.html", "type": "hyperframes:composition" }]
+}

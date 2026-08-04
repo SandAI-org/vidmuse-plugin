@@ -1,0 +1,252 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Destination accent","default":"#ff7354"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ic-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #ff7354;
+        }
+        .ic-page {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          padding: 82px 100px;
+          background: #e9e7e0;
+        }
+        .ic-b {
+          opacity: 0;
+          background: #171a18;
+          color: #f5f3ed;
+        }
+        .ic-top {
+          display: flex;
+          justify-content: space-between;
+          font-size: 17px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .ic-page h1 {
+          margin-top: 50px;
+          font-size: 78px;
+          letter-spacing: -4px;
+        }
+        .ic-layout {
+          display: grid;
+          grid-template-columns: 320px 1fr;
+          gap: 26px;
+          margin-top: 54px;
+        }
+        .ic-panel {
+          height: 650px;
+          padding: 28px;
+          border: 1px solid #c8c6bf;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .ic-b .ic-panel {
+          border-color: #444844;
+          background: #272c28;
+        }
+        .ic-line {
+          width: 68%;
+          height: 14px;
+          margin-bottom: 18px;
+          border-radius: 8px;
+          background: #989a95;
+        }
+        .ic-main:after {
+          content: "";
+          display: block;
+          height: 390px;
+          margin-top: 90px;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #c9c7c0, #eceae4);
+        }
+        .ic-b .ic-main:after {
+          background: linear-gradient(135deg, var(--accent), #8e2e21);
+        }
+        .ic-sweeper {
+          position: absolute;
+          left: 0;
+          top: 40px;
+          width: 1600px;
+          height: 1000px;
+          padding: 72px;
+          border-radius: 20px;
+          background: #f7f5ef;
+          box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+          filter: blur(8px);
+          opacity: 0;
+        }
+        .ic-sweeper:before {
+          content: "";
+          display: block;
+          width: 55%;
+          height: 42px;
+          border-radius: 21px;
+          background: #171a18;
+        }
+        .ic-sweeper:after {
+          content: "";
+          display: block;
+          height: 650px;
+          margin-top: 75px;
+          border-radius: 28px;
+          background: repeating-linear-gradient(
+            135deg,
+            #d0cec7 0 60px,
+            #ebe9e2 60px 120px
+          );
+        }
+        .ic-trail {
+          filter: blur(14px);
+          box-shadow: none;
+        }
+        .ic-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 38px;
+          z-index: 20;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(20, 22, 20, 0.9);
+          color: #fff;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="ic-root"
+        data-hf-id="hf-ic-root"
+        data-composition-id="shot-invisible-cut"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="ic-fill">
+          <div id="ic-a" class="ic-page ic-a">
+            <div class="ic-top"><span>WORKSPACE A</span><span>01</span></div>
+            <h1>One continuous take.</h1>
+            <div class="ic-layout">
+              <div class="ic-panel">
+                <div class="ic-line"></div>
+                <div class="ic-line"></div>
+              </div>
+              <div class="ic-panel ic-main"><div class="ic-line"></div></div>
+            </div>
+          </div>
+          <div id="ic-b" class="ic-page ic-b" data-layout-allow-overflow>
+            <div class="ic-top">
+              <span data-layout-allow-occlusion>WORKSPACE B</span
+              ><span data-layout-allow-occlusion>02</span>
+            </div>
+            <h1 data-layout-allow-occlusion>The scene has changed.</h1>
+            <div class="ic-layout">
+              <div class="ic-panel">
+                <div class="ic-line"></div>
+                <div class="ic-line"></div>
+              </div>
+              <div class="ic-panel ic-main"><div class="ic-line"></div></div>
+            </div>
+          </div>
+          <div
+            class="ic-sweeper ic-trail ic-t4"
+            data-layout-allow-overflow
+          ></div>
+          <div
+            class="ic-sweeper ic-trail ic-t3"
+            data-layout-allow-overflow
+          ></div>
+          <div
+            class="ic-sweeper ic-trail ic-t2"
+            data-layout-allow-overflow
+          ></div>
+          <div
+            class="ic-sweeper ic-trail ic-t1"
+            data-layout-allow-overflow
+          ></div>
+          <div
+            class="ic-sweeper ic-main-sweep"
+            data-layout-allow-overflow
+            data-layout-allow-occlusion
+          ></div>
+          <div class="ic-caption">OVERSIZED OCCLUSION / CUT AT FULL COVER</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#ic-root .ic-fill"),
+            tl = gsap.timeline({ paused: true }),
+            all = "#ic-root .ic-sweeper";
+          fill.style.setProperty("--accent", v.accent || "#ff7354");
+          gsap.set(all, {
+            x: -2200,
+            scale: 1.6,
+            skewX: -18,
+            transformOrigin: "50% 50%",
+          });
+          tl.set(all, { opacity: 1 }, 1.267)
+            .to("#ic-a", { x: -40, duration: 0.234, ease: "power2.in" }, 1.333)
+            .set("#ic-b", { x: 40 }, 1.333)
+            .to(
+              "#ic-root .ic-main-sweep",
+              { x: 2600, skewX: 18, duration: 0.467, ease: "power2.inOut" },
+              1.333,
+            )
+            .to(
+              "#ic-root .ic-t1",
+              { x: 2600, skewX: 18, duration: 0.49, ease: "power2.inOut" },
+              1.345,
+            )
+            .to(
+              "#ic-root .ic-t2",
+              { x: 2600, skewX: 18, duration: 0.51, ease: "power2.inOut" },
+              1.356,
+            )
+            .to(
+              "#ic-root .ic-t3",
+              { x: 2600, skewX: 18, duration: 0.53, ease: "power2.inOut" },
+              1.367,
+            )
+            .to(
+              "#ic-root .ic-t4",
+              { x: 2600, skewX: 18, duration: 0.55, ease: "power2.inOut" },
+              1.378,
+            )
+            .set("#ic-a", { opacity: 0 }, 1.566)
+            .set("#ic-b", { opacity: 1 }, 1.565)
+            .to("#ic-b", { x: 0, duration: 0.433, ease: "power3.out" }, 1.566)
+            .set(all, { opacity: 0 }, 1.94);
+          window.__timelines["shot-invisible-cut"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

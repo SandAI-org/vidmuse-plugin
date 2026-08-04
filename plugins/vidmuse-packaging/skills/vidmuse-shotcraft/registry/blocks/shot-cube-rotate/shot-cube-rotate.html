@@ -1,0 +1,301 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Destination accent","default":"#5ed0a1"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cur-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #dad9d3;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #5ed0a1;
+        }
+        .cur-blur {
+          position: absolute;
+          inset: 0;
+          filter: blur(0);
+        }
+        .cur-stage {
+          position: absolute;
+          left: 172.8px;
+          top: 97.2px;
+          width: 1574.4px;
+          height: 885.6px;
+          perspective: 1400px;
+        }
+        .cur-cube {
+          position: absolute;
+          inset: 0;
+          transform-style: preserve-3d;
+          transform: translateZ(-787.2px);
+        }
+        .cur-face {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          backface-visibility: hidden;
+          background: #f2f0e9;
+        }
+        .cur-a {
+          transform: rotateY(0deg) translateZ(787.2px);
+        }
+        .cur-b {
+          transform: rotateY(90deg) translateZ(787.2px);
+          filter: brightness(0.55);
+        }
+        .cur-page {
+          position: absolute;
+          inset: 0;
+          padding: 58px 66px;
+        }
+        .cur-b .cur-page {
+          background: #171b18;
+          color: #f5f3ed;
+        }
+        .cur-top {
+          display: flex;
+          justify-content: space-between;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .cur-page h1 {
+          margin-top: 42px;
+          font-size: 58px;
+          font-weight: 950;
+          letter-spacing: -3px;
+        }
+        .cur-layout {
+          display: grid;
+          grid-template-columns: 260px 1fr;
+          gap: 22px;
+          margin-top: 42px;
+        }
+        .cur-side,
+        .cur-main {
+          height: 540px;
+          border: 1px solid #cbc9c2;
+          border-radius: 18px;
+          background: #faf9f5;
+        }
+        .cur-b .cur-side,
+        .cur-b .cur-main {
+          border-color: #414641;
+          background: #252a26;
+        }
+        .cur-side {
+          padding: 24px;
+        }
+        .cur-side i,
+        .cur-main i {
+          display: block;
+          width: 72%;
+          height: 13px;
+          margin-bottom: 18px;
+          border-radius: 7px;
+          background: #9fa09b;
+        }
+        .cur-main {
+          padding: 28px;
+        }
+        .cur-main i:first-child {
+          width: 46%;
+          height: 18px;
+          background: #353834;
+        }
+        .cur-main:after {
+          content: "";
+          display: block;
+          height: 250px;
+          margin-top: 65px;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #d7d5cf, #aaa9a3);
+        }
+        .cur-b .cur-main:after {
+          background: linear-gradient(135deg, var(--accent), #277a5c);
+        }
+        .cur-seam {
+          position: absolute;
+          top: 0;
+          width: 150px;
+          height: 100%;
+          opacity: 0;
+        }
+        .cur-a .cur-seam {
+          right: 0;
+          background: linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 0.55)
+          );
+        }
+        .cur-b .cur-seam {
+          left: 0;
+          background: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 0.55)
+          );
+        }
+        .cur-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 3;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(19, 22, 20, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="cur-root"
+        data-hf-id="hf-cur-root"
+        data-composition-id="shot-cube-rotate"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cur-fill">
+          <div class="cur-blur">
+            <div class="cur-stage">
+              <div id="cur-cube" class="cur-cube" data-layout-allow-overflow>
+                <div
+                  id="cur-a"
+                  class="cur-face cur-a"
+                  data-layout-allow-overflow
+                >
+                  <div class="cur-page">
+                    <div class="cur-top">
+                      <span
+                        data-layout-allow-overlap
+                        data-layout-allow-occlusion
+                        >PRODUCT / BUILD</span
+                      ><span
+                        data-layout-allow-overlap
+                        data-layout-allow-occlusion
+                        >A</span
+                      >
+                    </div>
+                    <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+                      Design every detail.
+                    </h1>
+                    <div class="cur-layout">
+                      <div class="cur-side"><i></i><i></i><i></i></div>
+                      <div class="cur-main"><i></i><i></i></div>
+                    </div>
+                  </div>
+                  <div class="cur-seam"></div>
+                </div>
+                <div
+                  id="cur-b"
+                  class="cur-face cur-b"
+                  data-layout-allow-overflow
+                >
+                  <div class="cur-page">
+                    <div class="cur-top">
+                      <span
+                        data-layout-allow-overlap
+                        data-layout-allow-occlusion
+                        >PRODUCT / SHIP</span
+                      ><span
+                        data-layout-allow-overlap
+                        data-layout-allow-occlusion
+                        >B</span
+                      >
+                    </div>
+                    <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+                      Launch with confidence.
+                    </h1>
+                    <div class="cur-layout">
+                      <div class="cur-side"><i></i><i></i><i></i></div>
+                      <div class="cur-main"><i></i><i></i></div>
+                    </div>
+                  </div>
+                  <div class="cur-seam"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cur-caption">ADJACENT FACES / 90 DEG / SHADOWED EDGE</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#cur-root .cur-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#5ed0a1");
+          tl.to(
+            "#cur-cube",
+            { rotationY: -90, duration: 1.267, ease: "power2.inOut" },
+            1,
+          )
+            .to(
+              "#cur-a",
+              {
+                filter: "brightness(.55)",
+                duration: 1.267,
+                ease: "power2.inOut",
+              },
+              1,
+            )
+            .to(
+              "#cur-b",
+              {
+                filter: "brightness(1)",
+                duration: 1.267,
+                ease: "power2.inOut",
+              },
+              1,
+            )
+            .to(
+              "#cur-root .cur-seam",
+              { opacity: 0.9, duration: 0.633, ease: "power2.in" },
+              1,
+            )
+            .to(
+              "#cur-root .cur-seam",
+              { opacity: 0, duration: 0.633, ease: "power2.out" },
+              1.634,
+            )
+            .to(
+              "#cur-root .cur-blur",
+              { filter: "blur(1.5px)", duration: 0.633, ease: "power2.in" },
+              1,
+            )
+            .to(
+              "#cur-root .cur-blur",
+              { filter: "blur(0px)", duration: 0.633, ease: "power2.out" },
+              1.634,
+            )
+            .set("#cur-a", { opacity: 0 }, 2.268);
+          window.__timelines["shot-cube-rotate"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

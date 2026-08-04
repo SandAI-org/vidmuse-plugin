@@ -1,0 +1,24 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-type-and-filter",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Type And Filter",
+  "description": "A project-library query types in human cadence, collapses non-matching cards, promotes the surviving result, confirms it with paired ripples, and finishes on a deliberate camera punch.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "search",
+    "filter",
+    "typing",
+    "camera-punch"
+  ],
+  "files": [
+    {
+      "path": "shot-type-and-filter.html",
+      "target": "compositions/shot-type-and-filter.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

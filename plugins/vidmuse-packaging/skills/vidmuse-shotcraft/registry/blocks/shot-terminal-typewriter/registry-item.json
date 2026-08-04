@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-terminal-typewriter",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Terminal Typewriter",
+  "description": "A terminal command types at a measured cadence, then crash-pushes through the shell into a complete production dashboard.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.833,
+  "tags": ["shotcraft", "typography", "terminal", "typewriter", "ui-reveal"],
+  "files": [{ "path": "shot-terminal-typewriter.html", "target": "compositions/shot-terminal-typewriter.html", "type": "hyperframes:composition" }]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-spotlight-hero-card",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Spotlight Hero Card",
+  "description": "A wandering spotlight locks onto one card, the camera pushes to an oblique close-up, the card rises, receives two scan laps, and reseats.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.6,
+  "tags": ["shotcraft", "opening", "spotlight", "camera", "card"],
+  "files": [
+    { "path": "shot-spotlight-hero-card.html", "target": "compositions/shot-spotlight-hero-card.html", "type": "hyperframes:composition" },
+    { "path": "assets/projects-full.png", "target": "assets/textures/projects-full.png", "type": "hyperframes:asset" },
+    { "path": "assets/card4-hires.png", "target": "assets/textures/card4-hires.png", "type": "hyperframes:asset" }
+  ]
+}

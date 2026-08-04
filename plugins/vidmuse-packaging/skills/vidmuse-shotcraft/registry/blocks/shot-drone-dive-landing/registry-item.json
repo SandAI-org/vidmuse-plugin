@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-drone-dive-landing",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Drone Dive Landing",
+  "description": "A distant, steeply pitched interface accelerates toward camera with a brief focus smear and lands as a close, level dashboard.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "camera", "drone", "dive", "landing"],
+  "files": [{ "path": "shot-drone-dive-landing.html", "target": "compositions/shot-drone-dive-landing.html", "type": "hyperframes:composition" }]
+}

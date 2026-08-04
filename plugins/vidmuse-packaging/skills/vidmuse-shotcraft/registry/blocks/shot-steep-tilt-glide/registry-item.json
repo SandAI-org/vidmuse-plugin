@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-steep-tilt-glide",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Steep Tilt Glide",
+  "description": "A super-wide interface glides across a fixed 60-degree perspective camera with velocity ghosts, progressive illumination, and staggered component landings.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "camera", "tilt", "glide", "fixed-camera"],
+  "files": [{ "path": "shot-steep-tilt-glide.html", "target": "compositions/shot-steep-tilt-glide.html", "type": "hyperframes:composition" }]
+}

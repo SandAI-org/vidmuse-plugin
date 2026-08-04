@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-changelog-scroll-brake",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Changelog Scroll Brake",
+  "description": "A dense vertical release log accelerates through a year of updates, exponentially brakes on today's autonomous-workflow release, lifts it, and dims the surrounding context.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "data", "changelog", "scroll", "brake"],
+  "files": [{ "path": "shot-changelog-scroll-brake.html", "target": "compositions/shot-changelog-scroll-brake.html", "type": "hyperframes:composition" }]
+}

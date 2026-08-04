@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-rack-focus-relay",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Rack Focus Relay",
+  "description": "Two matched interface views exchange the focal plane through crossed blur, moving from an overview into a crisp detail view without a visible wipe.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "transition", "rack-focus", "blur", "relay", "shot-transitions-5"],
+  "files": [
+    {
+      "path": "shot-rack-focus-relay.html",
+      "target": "compositions/shot-rack-focus-relay.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

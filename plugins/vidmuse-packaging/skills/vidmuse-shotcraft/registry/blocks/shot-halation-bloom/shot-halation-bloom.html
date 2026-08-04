@@ -1,0 +1,117 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"textColor","type":"color","label":"Bloom text","default":"#f7f7f5"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .hlb-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #2a2a28;
+          font-family: Inter, sans-serif;
+        }
+        .hlb-label {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 110px;
+          color: #8f8f8d;
+          text-align: center;
+          font-size: 30px;
+          font-weight: 750;
+          letter-spacing: 0.35em;
+        }
+        .hlb-center {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text);
+          font-size: 260px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: -0.02em;
+        }
+        .hlb-bloom {
+          opacity: 0;
+          filter: blur(22px) brightness(1.8);
+        }
+        .hlb-main {
+          opacity: 0;
+        }
+      </style>
+      <div
+        data-hf-id="hf-hlb-root"
+        id="hlb-root"
+        data-composition-id="shot-halation-bloom"
+        data-start="0"
+        data-duration="4.833"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="hlb-fill" style="--text: #f7f7f5">
+          <div class="hlb-label">HALATION BLOOM</div>
+          <div id="hlb-bloom" class="hlb-center hlb-bloom" data-layout-allow-overlap data-layout-allow-overflow>10x</div>
+          <div id="hlb-main" class="hlb-center hlb-main" data-layout-allow-overlap>10x</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("hlb-root"),
+            fill = root.querySelector(".hlb-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--text", v.textColor || "#f7f7f5");
+          gsap.set("#hlb-main", { scale: 2.4, opacity: 0 });
+          gsap.set("#hlb-bloom", { scale: 1, opacity: 0 });
+          tl.to("#hlb-main", { opacity: 1, duration: 0.1, ease: "none" }, 0.267)
+            .to(
+              "#hlb-main",
+              { scale: 0.94, duration: 0.233, ease: "power2.in" },
+              0.267,
+            )
+            .to(
+              "#hlb-main",
+              { scale: 1, duration: 0.067, ease: "power2.out" },
+              0.5,
+            )
+            .set("#hlb-bloom", { opacity: 1, scale: 1 }, 0.5)
+            .to(
+              "#hlb-bloom",
+              { scale: 1.3, duration: 0.2, ease: "power3.out" },
+              0.5,
+            )
+            .to(
+              "#hlb-bloom",
+              { opacity: 0.35, duration: 0.667, ease: "none" },
+              0.7,
+            )
+            .to(
+              "#hlb-bloom",
+              { opacity: 0.22, duration: 0.5, ease: "power2.out" },
+              1.367,
+            );
+          window.__timelines["shot-halation-bloom"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

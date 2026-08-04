@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-diagram-cascade",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Diagram Cascade",
+  "description": "A typed generation prompt confirms, then connection paths grow before a root, two children, and four leaf nodes appear level by level and finish with one centered breath.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "diagram",
+    "cascade",
+    "prompt",
+    "tree",
+    "generation"
+  ],
+  "files": [
+    {
+      "path": "shot-diagram-cascade.html",
+      "target": "compositions/shot-diagram-cascade.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

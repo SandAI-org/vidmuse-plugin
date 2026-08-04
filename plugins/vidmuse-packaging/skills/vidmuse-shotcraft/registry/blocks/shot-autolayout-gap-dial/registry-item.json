@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-autolayout-gap-dial",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Autolayout Gap Dial",
+  "description": "One numeric gap parameter drives five unequal blocks, the selection frame, four live measuring lines, and stepped badges through an extreme expansion and spring-like return.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "autolayout",
+    "parameter",
+    "gap",
+    "measurement",
+    "design-tool"
+  ],
+  "files": [
+    {
+      "path": "shot-autolayout-gap-dial.html",
+      "target": "compositions/shot-autolayout-gap-dial.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

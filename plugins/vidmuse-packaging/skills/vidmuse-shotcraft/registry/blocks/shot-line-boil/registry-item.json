@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-line-boil",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Line Boil",
+  "description": "A clean outlined title card switches into stepped hand-drawn edge boil using deterministic SVG turbulence seeds, then removes the filter entirely and returns to an identical clean frame.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "effects", "line-boil", "hand-drawn", "svg-filter", "texture"],
+  "files": [{ "path": "shot-line-boil.html", "target": "compositions/shot-line-boil.html", "type": "hyperframes:composition" }]
+}

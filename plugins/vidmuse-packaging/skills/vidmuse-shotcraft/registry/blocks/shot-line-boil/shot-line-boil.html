@@ -1,0 +1,200 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"ink","type":"color","label":"Boil ink","default":"#292824"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .lbo-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: var(--ink);
+        }
+        .lbo-name {
+          position: absolute;
+          left: 120px;
+          top: 96px;
+          font-size: 54px;
+          font-weight: 900;
+        }
+        .lbo-art {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 56px;
+        }
+        .lbo-word {
+          font-size: 170px;
+          font-weight: 900;
+          line-height: 1;
+          letter-spacing: 4px;
+        }
+        .lbo-card {
+          width: 520px;
+          height: 300px;
+          padding: 36px 40px;
+          display: flex;
+          flex-direction: column;
+          gap: 26px;
+          border: 3px solid var(--ink);
+          border-radius: 20px;
+        }
+        .lbo-line {
+          height: 12px;
+          border-radius: 6px;
+          background: #aaa79f;
+        }
+        .lbo-a {
+          height: 16px;
+          width: 62%;
+          background: #77756f;
+        }
+        .lbo-b {
+          width: 88%;
+        }
+        .lbo-c {
+          width: 74%;
+        }
+        .lbo-d {
+          width: 81%;
+        }
+        .lbo-foot {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-top: auto;
+        }
+        .lbo-dot {
+          width: 30px;
+          height: 30px;
+          border: 3px solid var(--ink);
+          border-radius: 50%;
+        }
+        .lbo-short {
+          width: 120px;
+          height: 12px;
+          border-radius: 6px;
+          background: #77756f;
+        }
+        .lbo-tag {
+          position: absolute;
+          right: 72px;
+          bottom: 56px;
+          padding: 10px 22px;
+          border: 3px solid var(--ink);
+          border-radius: 999px;
+          background: #e9e7e2;
+          font-size: 30px;
+          font-weight: 800;
+          letter-spacing: 2px;
+        }
+        .lbo-on {
+          opacity: 0;
+        }
+      </style>
+      <div
+        data-hf-id="hf-lbo-root"
+        id="lbo-root"
+        data-composition-id="shot-line-boil"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="lbo-fill" style="--ink: #292824">
+          <svg width="0" height="0">
+            <defs>
+              <filter
+                id="lbo-filter"
+                x="-15%"
+                y="-15%"
+                width="130%"
+                height="130%"
+              >
+                <feTurbulence
+                  id="lbo-noise"
+                  type="fractalNoise"
+                  baseFrequency="0.015"
+                  numOctaves="2"
+                  seed="0"
+                  result="noise"
+                />
+                <feDisplacementMap
+                  in="SourceGraphic"
+                  in2="noise"
+                  scale="8"
+                  xChannelSelector="R"
+                  yChannelSelector="G"
+                />
+              </filter>
+            </defs>
+          </svg>
+          <div class="lbo-name">LINE BOIL</div>
+          <div id="lbo-art" class="lbo-art">
+            <div class="lbo-word">ALIVE</div>
+            <div class="lbo-card">
+              <div class="lbo-line lbo-a"></div>
+              <div class="lbo-line lbo-b"></div>
+              <div class="lbo-line lbo-c"></div>
+              <div class="lbo-line lbo-d"></div>
+              <div class="lbo-foot">
+                <div class="lbo-dot"></div>
+                <div class="lbo-short"></div>
+              </div>
+            </div>
+          </div>
+          <div id="lbo-off" class="lbo-tag" data-layout-allow-overlap>boil off</div>
+          <div id="lbo-on" class="lbo-tag lbo-on" data-layout-allow-overlap>boil on</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("lbo-root"),
+            fill = root.querySelector(".lbo-fill"),
+            noise = document.getElementById("lbo-noise"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--ink", v.ink || "#292824");
+          tl.set("#lbo-art", { filter: "url(#lbo-filter)" }, 1.167)
+            .to("#lbo-on", { opacity: 1, duration: 0.167, ease: "none" }, 1.167)
+            .to(
+              "#lbo-off",
+              { opacity: 0, duration: 0.167, ease: "none" },
+              1.167,
+            );
+          for (var i = 0; i < 24; i++)
+            tl.set(noise, { attr: { seed: i + 12 } }, 1.167 + i * 0.1);
+          tl.to("#lbo-on", { opacity: 0, duration: 0.167, ease: "none" }, 3.333)
+            .to(
+              "#lbo-off",
+              { opacity: 1, duration: 0.167, ease: "none" },
+              3.333,
+            )
+            .set("#lbo-art", { filter: "none" }, 3.5);
+          window.__timelines["shot-line-boil"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

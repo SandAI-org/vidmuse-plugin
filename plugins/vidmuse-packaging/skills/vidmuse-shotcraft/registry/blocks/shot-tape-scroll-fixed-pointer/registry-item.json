@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-tape-scroll-fixed-pointer",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Tape Scroll Fixed Pointer",
+  "description": "A vertical metric tape crawls, accelerates past a fixed pointer, overshoots, and rebounds onto a 420 MB/s final value while the camera reference stays locked.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "data", "gauge", "tape", "fixed-pointer"],
+  "files": [{ "path": "shot-tape-scroll-fixed-pointer.html", "target": "compositions/shot-tape-scroll-fixed-pointer.html", "type": "hyperframes:composition" }]
+}

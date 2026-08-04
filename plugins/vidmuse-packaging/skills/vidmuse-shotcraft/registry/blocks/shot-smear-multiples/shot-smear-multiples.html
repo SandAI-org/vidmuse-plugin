@@ -1,0 +1,152 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Card accent","default":"#ff704f"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .smm-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          color: #181b19;
+          --accent: #ff704f;
+        }
+        .smm-title {
+          position: absolute;
+          left: 120px;
+          top: 92px;
+          font-size: 54px;
+          font-weight: 950;
+          letter-spacing: -2px;
+        }
+        .smm-slot {
+          position: absolute;
+          top: 360px;
+          width: 520px;
+          height: 360px;
+          border: 3px dashed #8b8d88;
+          border-radius: 22px;
+        }
+        .smm-left {
+          left: 220px;
+        }
+        .smm-right {
+          left: 1120px;
+        }
+        .smm-card {
+          position: absolute;
+          left: 240px;
+          top: 380px;
+          width: 480px;
+          height: 320px;
+          padding: 38px;
+          border: 1px solid #c8c4bc;
+          border-radius: 26px;
+          background: #faf8f3;
+          box-shadow: 0 24px 56px rgba(0, 0, 0, 0.16);
+        }
+        .smm-card i {
+          display: block;
+          width: 62%;
+          height: 15px;
+          margin-bottom: 18px;
+          border-radius: 8px;
+          background: #242824;
+        }
+        .smm-card i + i {
+          width: 38%;
+          background: #b7b5ae;
+        }
+        .smm-card:after {
+          content: "";
+          display: block;
+          height: 140px;
+          margin-top: 58px;
+          border-radius: 17px;
+          background: linear-gradient(135deg, var(--accent), #ffc6b7);
+        }
+        .smm-ghost {
+          opacity: 0;
+        }
+        .smm-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          color: #585a56;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="smm-root"
+        data-hf-id="hf-smm-root"
+        data-composition-id="shot-smear-multiples"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="smm-fill">
+          <div class="smm-title">SMEAR MULTIPLES</div>
+          <div class="smm-slot smm-left"></div>
+          <div class="smm-slot smm-right"></div>
+          <div id="smm-g4" class="smm-card smm-ghost"><i></i><i></i></div>
+          <div id="smm-g3" class="smm-card smm-ghost"><i></i><i></i></div>
+          <div id="smm-g2" class="smm-card smm-ghost"><i></i><i></i></div>
+          <div id="smm-g1" class="smm-card smm-ghost"><i></i><i></i></div>
+          <div id="smm-body" class="smm-card"><i></i><i></i></div>
+          <div class="smm-caption">FOUR COUNTABLE GHOSTS / ONE BODY</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#smm-root .smm-fill"),
+            tl = gsap.timeline({ paused: true }),
+            ops = [0.45, 0.3, 0.18, 0.09];
+          fill.style.setProperty("--accent", v.accent || "#ff704f");
+          ops.forEach(function (op, i) {
+            var id = "#smm-g" + (i + 1),
+              t = 0.833 + i * 0.067;
+            tl.set(id, { opacity: op }, t)
+              .to(id, { x: 900, duration: 0.4, ease: "power2.inOut" }, t)
+              .to(
+                id,
+                { opacity: 0, x: 927, duration: 0.1, ease: "power2.out" },
+                t + 0.401,
+              );
+          });
+          tl.to(
+            "#smm-body",
+            { x: 927, duration: 0.4, ease: "power2.inOut" },
+            0.833,
+          ).to(
+            "#smm-body",
+            { x: 900, duration: 0.2, ease: "power3.out" },
+            1.234,
+          );
+          window.__timelines["shot-smear-multiples"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

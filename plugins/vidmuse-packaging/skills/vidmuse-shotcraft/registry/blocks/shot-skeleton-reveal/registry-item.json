@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-skeleton-reveal",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Skeleton Reveal",
+  "description": "A hand-drawn wireframe jitters into place, snaps to a polished collaboration window, and resolves four message rows from skeleton bars to readable content.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": ["shotcraft", "ui-entrance", "skeleton", "wireframe", "reveal"],
+  "files": [{ "path": "shot-skeleton-reveal.html", "target": "compositions/shot-skeleton-reveal.html", "type": "hyperframes:composition" }]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-axis-rescale-shock",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Axis Rescale Shock",
+  "description": "A revenue line breaks 220 pixels beyond its chart, forces a denser four-hundred-thousand-dollar axis, and lands with its true value label.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.6,
+  "tags": ["shotcraft", "data", "chart", "axis", "growth"],
+  "files": [{ "path": "shot-axis-rescale-shock.html", "target": "compositions/shot-axis-rescale-shock.html", "type": "hyperframes:composition" }]
+}

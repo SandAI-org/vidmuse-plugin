@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;wordA&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Top word&quot;,&quot;default&quot;:&quot;MAKE&quot;,&quot;maxLength&quot;:10},
+  {&quot;id&quot;:&quot;wordB&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Middle word&quot;,&quot;default&quot;:&quot;MOTION&quot;,&quot;maxLength&quot;:10},
+  {&quot;id&quot;:&quot;wordC&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Bottom word&quot;,&quot;default&quot;:&quot;MATTER&quot;,&quot;maxLength&quot;:10},
+  {&quot;id&quot;:&quot;colorA&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Top color&quot;,&quot;default&quot;:&quot;#efad36&quot;},
+  {&quot;id&quot;:&quot;colorB&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Middle color&quot;,&quot;default&quot;:&quot;#f3edf7&quot;},
+  {&quot;id&quot;:&quot;colorC&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Bottom color&quot;,&quot;default&quot;:&quot;#f08aa8&quot;},
+  {&quot;id&quot;:&quot;background&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Background&quot;,&quot;default&quot;:&quot;#151226&quot;}
+]"><head></head><body><template>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}.nm-fill{position:absolute;inset:0;overflow:hidden;background:linear-gradient(180deg,#0c0a17 0%,var(--background) 50%,#090711 100%)}
+    #nm-glow{position:absolute;left:160px;right:160px;top:180px;height:720px;border-radius:50%;background:radial-gradient(ellipse,rgba(126,83,163,.25),transparent 70%);filter:blur(45px)}
+    .nm-row{position:absolute;left:0;width:4200px;height:310px;display:flex;align-items:center;gap:88px;white-space:nowrap;will-change:transform,opacity;opacity:.35}.nm-row span{display:block;font:900 286px/.84 Inter,Arial,sans-serif;letter-spacing:-15px;color:color-mix(in srgb,var(--row-color) 8%,transparent);-webkit-text-fill-color:color-mix(in srgb,var(--row-color) 8%,transparent);-webkit-text-stroke:5px var(--row-color);text-shadow:0 0 9px var(--row-color),0 0 28px var(--row-color)}
+    #nm-row-a{top:55px;--row-color:var(--color-a)}#nm-row-b{top:383px;--row-color:var(--color-b)}#nm-row-c{top:711px;--row-color:var(--color-c)}
+  </style>
+  <div data-hf-id="hf-nm-root" id="nm-root" data-composition-id="shot-neon-triple-marquee" data-start="0" data-duration="5" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+    <div data-hf-id="hf-nm-fill" class="nm-fill"><div data-hf-id="hf-nm-glow" id="nm-glow" data-layout-ignore></div>
+      <div data-hf-id="hf-nm-row-a" id="nm-row-a" class="nm-row" data-layout-allow-overflow><span>MAKE</span><span>MAKE</span><span>MAKE</span><span>MAKE</span></div>
+      <div data-hf-id="hf-nm-row-b" id="nm-row-b" class="nm-row" data-layout-allow-overflow><span>MOTION</span><span>MOTION</span><span>MOTION</span></div>
+      <div data-hf-id="hf-nm-row-c" id="nm-row-c" class="nm-row" data-layout-allow-overflow><span>MATTER</span><span>MATTER</span><span>MATTER</span></div>
+    </div>
+  </div>
+  <script>(function(){window.__timelines=window.__timelines||{};var v=window.__hyperframes.getVariables();var r=document.getElementById("nm-root");r.style.setProperty("--color-a",v.colorA||"#efad36");r.style.setProperty("--color-b",v.colorB||"#f3edf7");r.style.setProperty("--color-c",v.colorC||"#f08aa8");r.style.setProperty("--background",v.background||"#151226");[["nm-row-a",v.wordA||"MAKE"],["nm-row-b",v.wordB||"MOTION"],["nm-row-c",v.wordC||"MATTER"]].forEach(function(pair){Array.from(document.getElementById(pair[0]).children).forEach(function(el){el.textContent=pair[1]})});var tl=gsap.timeline({paused:true});tl.fromTo("#nm-row-a",{x:-1200},{x:900,duration:5,ease:"none"},0);tl.fromTo("#nm-row-b",{x:-420},{x:-3020,duration:5,ease:"none"},0);tl.fromTo("#nm-row-c",{x:-1380},{x:720,duration:5,ease:"none"},0);tl.fromTo(".nm-row",{opacity:0},{opacity:.35,duration:.333,ease:"power2.out"},0);for(var cycle=0;cycle<3;cycle++){["#nm-row-a","#nm-row-b","#nm-row-c"].forEach(function(sel,i){var at=.4+cycle*1.35+i*.45;tl.to(sel,{opacity:1,duration:.2,ease:"sine.out"},at);tl.to(sel,{opacity:.35,duration:.4,ease:"sine.inOut"},at+.2)})}tl.to(".nm-row",{opacity:0,duration:.667,ease:"power2.in"},4.267);window.__timelines["shot-neon-triple-marquee"]=tl})();</script>
+</template></body></html>

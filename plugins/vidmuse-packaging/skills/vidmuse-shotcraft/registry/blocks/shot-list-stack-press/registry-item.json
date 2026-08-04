@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-list-stack-press",
+  "type": "hyperframes:block",
+  "title": "Shotcraft List Stack Press",
+  "description": "Five list cards rise from below, compress the accumulating stack on impact, increment a counter, grow delayed highlights, and finish under one glaze pass.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.667,
+  "tags": ["shotcraft", "ui-entrance", "list", "stack", "counter"],
+  "files": [{ "path": "shot-list-stack-press.html", "target": "compositions/shot-list-stack-press.html", "type": "hyperframes:composition" }]
+}

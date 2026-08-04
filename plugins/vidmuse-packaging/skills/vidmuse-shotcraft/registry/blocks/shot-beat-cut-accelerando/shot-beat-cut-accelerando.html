@@ -1,0 +1,323 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#ff7849"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .bca-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #ece9e2;
+          font-family: Inter, sans-serif;
+          color: #171918;
+          --accent: #ff7849;
+        }
+        .bca-view {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transform-origin: 50% 50%;
+          background: #ece9e2;
+        }
+        .bca-view:first-child {
+          opacity: 1;
+        }
+        .bca-top {
+          position: absolute;
+          left: 74px;
+          right: 74px;
+          top: 62px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .bca-brand {
+          font-size: 25px;
+          font-weight: 900;
+          letter-spacing: -1px;
+        }
+        .bca-chip {
+          padding: 10px 16px;
+          border-radius: 999px;
+          background: #181b19;
+          color: white;
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 2px;
+        }
+        .bca-title {
+          position: absolute;
+          left: 74px;
+          top: 160px;
+          width: 740px;
+          font-size: 84px;
+          line-height: 0.94;
+          letter-spacing: -5px;
+          font-weight: 900;
+        }
+        .bca-kpi {
+          position: absolute;
+          left: 1010px;
+          top: 165px;
+          width: 720px;
+          height: 260px;
+          border-radius: 32px;
+          padding: 38px;
+          background: #161918;
+          color: white;
+          box-shadow: 0 28px 70px rgba(0, 0, 0, 0.18);
+        }
+        .bca-num {
+          font-size: 110px;
+          font-weight: 900;
+          letter-spacing: -5px;
+        }
+        .bca-num b {
+          color: var(--accent);
+        }
+        .bca-label {
+          margin-top: 8px;
+          color: #aab1ab;
+          font-size: 18px;
+          letter-spacing: 3px;
+        }
+        .bca-grid {
+          position: absolute;
+          left: 74px;
+          right: 74px;
+          top: 515px;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 18px;
+        }
+        .bca-card {
+          height: 330px;
+          padding: 28px;
+          border: 1px solid #d3cfc6;
+          border-radius: 24px;
+          background: #f8f6f1;
+        }
+        .bca-card i {
+          display: block;
+          width: 55%;
+          height: 12px;
+          margin-bottom: 18px;
+          border-radius: 8px;
+          background: #262a27;
+        }
+        .bca-card i:nth-child(2) {
+          width: 34%;
+          background: #b9b7b0;
+        }
+        .bca-card:after {
+          content: "";
+          display: block;
+          height: 155px;
+          margin-top: 46px;
+          border-radius: 16px;
+          background: linear-gradient(145deg, var(--accent), #ffd0bc);
+          opacity: 0.75;
+        }
+        .bca-list {
+          position: absolute;
+          left: 430px;
+          right: 300px;
+          top: 190px;
+        }
+        .bca-list h2 {
+          margin-bottom: 38px;
+          font-size: 74px;
+          letter-spacing: -4px;
+        }
+        .bca-row {
+          height: 116px;
+          margin-bottom: 16px;
+          padding: 0 32px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-radius: 22px;
+          background: #f9f7f2;
+          border: 1px solid #d7d3cb;
+          font-size: 25px;
+          font-weight: 800;
+        }
+        .bca-row b {
+          color: var(--accent);
+          font-size: 36px;
+        }
+        .bca-flash {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: white;
+        }
+        .bca-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 10;
+          padding: 9px 13px;
+          border-radius: 5px;
+          background: #171918;
+          color: white;
+          font-size: 14px;
+          font-weight: 800;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="bca-root"
+        data-hf-id="hf-bca-root"
+        data-composition-id="shot-beat-cut-accelerando"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="bca-fill">
+          <div
+            id="bca-v0"
+            class="bca-view"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="bca-top">
+              <div class="bca-brand">NORTHSTAR / ANALYTICS</div>
+              <div class="bca-chip">LIVE SYSTEM</div>
+            </div>
+            <h1 class="bca-title">Clarity at operational speed.</h1>
+            <div class="bca-kpi">
+              <div class="bca-num">84<b>.2</b>K</div>
+              <div class="bca-label">ACTIVE SIGNALS</div>
+            </div>
+            <div class="bca-grid">
+              <div class="bca-card"><i></i><i></i></div>
+              <div class="bca-card"><i></i><i></i></div>
+              <div class="bca-card"><i></i><i></i></div>
+              <div class="bca-card"><i></i><i></i></div>
+            </div>
+          </div>
+          <div
+            id="bca-v1"
+            class="bca-view"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="bca-grid" style="top: 250px">
+              <div class="bca-card"><i></i><i></i></div>
+              <div class="bca-card"><i></i><i></i></div>
+              <div class="bca-card"><i></i><i></i></div>
+              <div class="bca-card"><i></i><i></i></div>
+            </div>
+          </div>
+          <div
+            id="bca-v2"
+            class="bca-view"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="bca-kpi" style="left: 600px; top: 300px">
+              <div class="bca-num">84<b>.2</b>K</div>
+              <div class="bca-label">ACTIVE SIGNALS</div>
+            </div>
+          </div>
+          <div
+            id="bca-v3"
+            class="bca-view"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="bca-list">
+              <h2>Release velocity</h2>
+              <div class="bca-row">North America <b>+28%</b></div>
+              <div class="bca-row">Europe <b>+19%</b></div>
+              <div class="bca-row">Asia Pacific <b>+34%</b></div>
+              <div class="bca-row">Latin America <b>+12%</b></div>
+            </div>
+          </div>
+          <div
+            id="bca-v4"
+            class="bca-view"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="bca-list" style="top: 300px">
+              <div class="bca-row">North America <b>+28%</b></div>
+              <div class="bca-row">Europe <b>+19%</b></div>
+              <div class="bca-row">Asia Pacific <b>+34%</b></div>
+            </div>
+          </div>
+          <div
+            id="bca-v5"
+            class="bca-view"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div
+              class="bca-row"
+              style="
+                position: absolute;
+                left: 460px;
+                right: 360px;
+                top: 365px;
+                height: 180px;
+                font-size: 38px;
+              "
+            >
+              Asia Pacific <b style="font-size: 76px">+34%</b>
+            </div>
+          </div>
+          <div id="bca-flash" class="bca-flash"></div>
+          <div class="bca-caption">16 / 12 / 8 / 6 / 4 FRAME CUTS</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#bca-root .bca-fill"),
+            tl = gsap.timeline({ paused: true }),
+            cuts = [1.633, 2.167, 2.567, 2.833, 3.033, 3.167],
+            ids = [
+              "#bca-v1",
+              "#bca-v2",
+              "#bca-v3",
+              "#bca-v4",
+              "#bca-v5",
+              "#bca-v0",
+            ];
+          fill.style.setProperty("--accent", v.accent || "#ff7849");
+          cuts.forEach(function (t, i) {
+            tl.set(".bca-view", { opacity: 0 }, t)
+              .set(ids[i], { opacity: 1 }, t)
+              .set("#bca-flash", { opacity: 0.06 }, t)
+              .set("#bca-flash", { opacity: 0 }, t + 0.034);
+          });
+          tl.to(
+            "#bca-v0",
+            { scale: 1.06, duration: 0.667, ease: "power3.out" },
+            3.168,
+          );
+          window.__timelines["shot-beat-cut-accelerando"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

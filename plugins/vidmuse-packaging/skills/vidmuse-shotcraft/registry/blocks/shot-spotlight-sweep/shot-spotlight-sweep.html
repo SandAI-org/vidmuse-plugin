@@ -1,0 +1,144 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"textColor","type":"color","label":"Spotlight text","default":"#f5f5f3"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .sps-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #2a2a28;
+          font-family: Inter, sans-serif;
+        }
+        .sps-title {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text);
+          font-size: 150px;
+          font-weight: 900;
+          line-height: 1.15;
+          letter-spacing: 0.04em;
+          text-align: center;
+          white-space: pre;
+        }
+        .sps-dim {
+          opacity: 0.07;
+        }
+        .sps-bright {
+          opacity: 1;
+          clip-path: circle(380px at 960px 540px);
+        }
+        .sps-final {
+          opacity: 0;
+        }
+        .sps-wall-light {
+          position: absolute;
+          left: 500px;
+          top: 80px;
+          width: 920px;
+          height: 920px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(245, 245, 243, 0.22),
+            rgba(245, 245, 243, 0.08) 55%,
+            transparent 72%
+          );
+        }
+        .sps-cone {
+          position: absolute;
+          left: 890px;
+          top: -40px;
+          width: 140px;
+          height: 810px;
+          background: linear-gradient(
+            to bottom,
+            rgba(245, 245, 243, 0.16),
+            rgba(245, 245, 243, 0.03) 85%,
+            transparent
+          );
+          clip-path: polygon(40% 0, 60% 0, 100% 100%, 0 100%);
+          transform-origin: center top;
+        }
+      </style>
+      <div
+        data-hf-id="hf-sps-root"
+        id="sps-root"
+        data-composition-id="shot-spotlight-sweep"
+        data-start="0"
+        data-duration="5.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="sps-fill" style="--text: #f5f5f3">
+          <div class="sps-title sps-dim"><div>SPOTLIGHT<br />ON</div></div>
+          <div id="sps-light">
+            <div id="sps-cone" class="sps-cone"></div>
+            <div id="sps-wall" class="sps-wall-light"></div>
+            <div id="sps-bright" class="sps-title sps-bright"><div>SPOTLIGHT<br />ON</div></div>
+          </div>
+          <div id="sps-final" class="sps-title sps-final"><div>SPOTLIGHT<br />ON</div></div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("sps-root"),
+            fill = root.querySelector(".sps-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--text", v.textColor || "#f5f5f3");
+          function sweep(x, at, d) {
+            tl.to(
+              "#sps-wall,#sps-cone",
+              { x: x, duration: d, ease: "sine.inOut" },
+              at,
+            ).to(
+              "#sps-bright",
+              {
+                clipPath: "circle(380px at " + (960 + x) + "px 540px)",
+                duration: d,
+                ease: "sine.inOut",
+              },
+              at,
+            );
+          }
+          sweep(560, 0, 0.458);
+          sweep(-560, 0.458, 0.916);
+          sweep(560, 1.374, 0.916);
+          sweep(-560, 2.29, 0.916);
+          sweep(0, 3.206, 0.461);
+          tl.to(
+            "#sps-final",
+            { opacity: 1, duration: 0.5, ease: "power3.out" },
+            3.667,
+          ).to(
+            "#sps-light",
+            { opacity: 0, duration: 0.5, ease: "none" },
+            3.667,
+          );
+          window.__timelines["shot-spotlight-sweep"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

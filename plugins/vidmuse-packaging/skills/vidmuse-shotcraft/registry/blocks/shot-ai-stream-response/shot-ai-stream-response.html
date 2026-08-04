@@ -1,0 +1,371 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Completion accent","default":"#b8f36a"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .asr-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #07090a;
+          font-family: Inter, sans-serif;
+          color: #f1f3f4;
+          --accent: #b8f36a;
+        }
+        .asr-back {
+          position: absolute;
+          inset: -30px;
+          background: radial-gradient(
+            circle at 50% 40%,
+            #253039 0,
+            #0c1114 48%,
+            #050708 100%
+          );
+          opacity: 0.85;
+        }
+        .asr-grid {
+          position: absolute;
+          inset: 0;
+          opacity: 0.18;
+          background-image:
+            linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+            linear-gradient(
+              90deg,
+              rgba(255, 255, 255, 0.08) 1px,
+              transparent 1px
+            );
+          background-size: 72px 72px;
+        }
+        .asr-panel {
+          position: absolute;
+          left: 344px;
+          top: 72px;
+          width: 1232px;
+          height: 936px;
+          overflow: hidden;
+          border: 1px solid rgba(184, 243, 106, 0.25);
+          border-radius: 29px;
+          background: linear-gradient(
+            145deg,
+            rgba(25, 29, 32, 0.985),
+            rgba(12, 15, 17, 0.99)
+          );
+          box-shadow:
+            0 46px 100px rgba(0, 0, 0, 0.58),
+            inset 0 1px rgba(255, 255, 255, 0.06);
+          opacity: 0;
+        }
+        .asr-head {
+          height: 76px;
+          display: flex;
+          align-items: center;
+          padding: 0 34px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .asr-mark {
+          width: 29px;
+          height: 29px;
+          display: grid;
+          place-items: center;
+          border-radius: 9px;
+          background: #e9edf0;
+          color: #15191b;
+          font-weight: 900;
+        }
+        .asr-name {
+          margin-left: 13px;
+          font-size: 22px;
+          font-weight: 650;
+        }
+        .asr-agent {
+          margin-left: auto;
+          color: #9da5ad;
+          font-size: 15px;
+        }
+        .asr-agent:before {
+          content: "";
+          display: inline-block;
+          width: 7px;
+          height: 7px;
+          margin-right: 9px;
+          border-radius: 50%;
+          background: var(--accent);
+        }
+        .asr-body {
+          padding: 28px 38px;
+        }
+        .asr-query {
+          height: 48px;
+          display: flex;
+          align-items: center;
+          padding: 0 18px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.05);
+          color: #c1c6cb;
+          font-size: 18px;
+        }
+        .asr-summary {
+          height: 119px;
+          padding-top: 20px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          overflow: hidden;
+        }
+        .asr-summary-inner {
+          opacity: 0;
+        }
+        .asr-kicker {
+          margin-bottom: 10px;
+          color: #939ca5;
+          font-size: 15px;
+          font-weight: 800;
+          letter-spacing: 0.12em;
+        }
+        .asr-answer {
+          font-size: 26px;
+          font-weight: 560;
+          line-height: 1.35;
+          letter-spacing: -0.022em;
+        }
+        .asr-rows {
+          height: 466px;
+          margin-top: 17px;
+        }
+        .asr-row {
+          height: 58px;
+          margin-bottom: 10px;
+          padding: 0 20px;
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          border-radius: 13px;
+          background: rgba(255, 255, 255, 0.025);
+          opacity: 0;
+        }
+        .asr-status {
+          position: relative;
+          width: 27px;
+          height: 27px;
+          flex: none;
+        }
+        .asr-ring {
+          position: absolute;
+          inset: 2px;
+          border: 2px solid rgba(183, 190, 199, 0.6);
+          border-top-color: var(--accent);
+          border-radius: 50%;
+        }
+        .asr-check {
+          position: absolute;
+          inset: 1px;
+          display: grid;
+          place-items: center;
+          border-radius: 50%;
+          background: var(--accent);
+          color: #15200d;
+          font-weight: 1000;
+          opacity: 0;
+        }
+        .asr-row-title {
+          flex: 1;
+          color: #e8eaed;
+          font-size: 21px;
+        }
+        .asr-meta {
+          color: #8d969f;
+          font-size: 16px;
+        }
+        .asr-complete {
+          height: 64px;
+          padding-top: 18px;
+          display: flex;
+          gap: 11px;
+          align-items: flex-start;
+          border-top: 1px solid rgba(255, 255, 255, 0.07);
+          opacity: 0;
+          color: #dce7d0;
+          font-size: 17px;
+        }
+        .asr-complete b {
+          width: 24px;
+          height: 24px;
+          display: grid;
+          place-items: center;
+          border-radius: 50%;
+          background: var(--accent);
+          color: #15200d;
+        }
+        .asr-complete small {
+          padding-top: 3px;
+          color: #7f8891;
+          font-size: 15px;
+        }
+        .asr-label {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #aab3bb;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-asr-root"
+        id="asr-root"
+        data-composition-id="shot-ai-stream-response"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="asr-fill">
+            <div id="asr-back" class="asr-back" data-layout-allow-overflow>
+              <div class="asr-grid"></div>
+            </div>
+          <section id="asr-panel" class="asr-panel">
+            <header class="asr-head">
+              <div class="asr-mark">A</div>
+              <div class="asr-name">Ask Atlas</div>
+              <div class="asr-agent">Workspace agent</div>
+            </header>
+            <div class="asr-body">
+              <div class="asr-query">
+                Review this codebase and identify the safest implementation path
+              </div>
+              <div class="asr-summary">
+                <div id="asr-summary" class="asr-summary-inner">
+                  <div class="asr-kicker">RESULT SUMMARY</div>
+                  <div class="asr-answer">
+                    The codebase is ready for a focused, low-risk
+                    implementation.
+                  </div>
+                </div>
+              </div>
+              <div id="asr-rows" class="asr-rows"></div>
+              <div id="asr-complete" class="asr-complete">
+                <b>✓</b><span>Analysis complete</span
+                ><small>7 checks finished · ready to build</small>
+              </div>
+            </div>
+          </section>
+          <div class="asr-label">CONCLUSION → EVIDENCE → COMPLETE</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#asr-root .asr-fill"),
+            host = document.getElementById("asr-rows"),
+            tl = gsap.timeline({ paused: true }),
+            rows = [
+              ["Indexed the workspace", "128 files"],
+              ["Mapped the authentication flow", "12 modules"],
+              ["Checked recent error traces", "No blockers"],
+              ["Matched API contracts to handlers", "24 routes"],
+              ["Verified permission boundaries", "6 roles"],
+              ["Cross-checked release notes", "3 changes"],
+              ["Prepared an implementation plan", "Ready"],
+            ],
+            cues = [1.4, 1.767, 2.1, 2.4, 2.667, 2.9, 3.1];
+          fill.style.setProperty("--accent", v.accent || "#b8f36a");
+          rows.forEach(function (r, i) {
+            var el = document.createElement("div");
+            el.className = "asr-row";
+            el.innerHTML =
+              '<div class="asr-status"><i class="asr-ring"></i><i class="asr-check">✓</i></div><div class="asr-row-title">' +
+              r[0] +
+              '</div><div class="asr-meta">' +
+              r[1] +
+              "</div>";
+            host.appendChild(el);
+            tl.fromTo(
+              el,
+              { y: 18, opacity: 0, filter: "blur(6px)" },
+              {
+                y: 0,
+                opacity: 1,
+                filter: "blur(0px)",
+                duration: 0.4,
+                ease: "power3.out",
+              },
+              cues[i],
+            )
+              .to(
+                el.querySelector(".asr-ring"),
+                { rotation: 100, opacity: 0, duration: 0.267 },
+                cues[i] + 0.1,
+              )
+              .to(
+                el.querySelector(".asr-check"),
+                {
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.267,
+                  ease: "back.out(1.8)",
+                },
+                cues[i] + 0.1,
+              );
+          });
+          gsap.set("#asr-panel", { y: 12, scale: 0.985 });
+          tl.to(
+            "#asr-panel",
+            { y: 0, scale: 1, opacity: 1, duration: 0.533, ease: "power3.out" },
+            0,
+          )
+            .to(
+              "#asr-back",
+              { scale: 0.962, duration: 3.333, ease: "power2.out" },
+              0,
+            )
+            .fromTo(
+              "#asr-summary",
+              { y: 10, opacity: 0, clipPath: "inset(0 100% 0 0)" },
+              {
+                y: 0,
+                opacity: 1,
+                clipPath: "inset(0 0% 0 0)",
+                duration: 0.4,
+                ease: "power3.out",
+              },
+              0.6,
+            )
+            .to(
+              "#asr-complete",
+              { opacity: 1, y: 0, duration: 0.333, ease: "power3.out" },
+              3.667,
+            )
+            .to(
+              "#asr-panel",
+              {
+                boxShadow:
+                  "0 46px 100px rgba(0,0,0,.58),inset 0 0 0 2px rgba(184,243,106,.55)",
+                duration: 0.167,
+                yoyo: true,
+                repeat: 1,
+              },
+              3.667,
+            );
+          window.__timelines["shot-ai-stream-response"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

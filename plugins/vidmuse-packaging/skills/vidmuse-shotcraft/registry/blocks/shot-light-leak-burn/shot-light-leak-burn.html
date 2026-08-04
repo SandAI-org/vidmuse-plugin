@@ -1,0 +1,316 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Destination accent","default":"#ff7354"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ll-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #ff7354;
+        }
+        .ll-page {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          padding: 82px 100px;
+          background: #e9e7e0;
+          filter: contrast(1) brightness(1);
+        }
+        .ll-b {
+          opacity: 0;
+          background: #171a18;
+          color: #f5f3ed;
+        }
+        .ll-head {
+          display: flex;
+          justify-content: space-between;
+          font-size: 17px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .ll-page h1 {
+          margin-top: 52px;
+          font-size: 78px;
+          letter-spacing: -4px;
+        }
+        .ll-grid {
+          display: grid;
+          grid-template-columns: 300px 1fr;
+          gap: 28px;
+          margin-top: 58px;
+        }
+        .ll-panel {
+          height: 640px;
+          padding: 28px;
+          border: 1px solid #c9c7c0;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .ll-b .ll-panel {
+          border-color: #424642;
+          background: #252a26;
+        }
+        .ll-line {
+          width: 70%;
+          height: 14px;
+          margin-bottom: 19px;
+          border-radius: 7px;
+          background: #999b96;
+        }
+        .ll-main:after {
+          content: "";
+          display: block;
+          height: 380px;
+          margin-top: 100px;
+          border-radius: 18px;
+          background: #d6d4cd;
+        }
+        .ll-b .ll-main:after {
+          background: linear-gradient(135deg, var(--accent), #8e2e21);
+        }
+        .ll-wash {
+          position: absolute;
+          inset: 0;
+          background: #e8a44a;
+          opacity: 0;
+          mix-blend-mode: screen;
+          pointer-events: none;
+        }
+        .ll-field {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1px;
+          height: 1px;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .ll-blob {
+          position: absolute;
+          border-radius: 50%;
+          mix-blend-mode: screen;
+          filter: blur(90px);
+        }
+        .ll-one {
+          left: -1010px;
+          top: -950px;
+          width: 1500px;
+          height: 1500px;
+          background: radial-gradient(
+            circle,
+            #f6c878 0%,
+            #f6c878cc 30%,
+            transparent 68%
+          );
+        }
+        .ll-two {
+          left: -975px;
+          top: -975px;
+          width: 1950px;
+          height: 1950px;
+          background: radial-gradient(
+            circle,
+            #e8a44a 0%,
+            #e8a44acc 30%,
+            transparent 68%
+          );
+          opacity: 0.84;
+        }
+        .ll-three {
+          left: -940px;
+          top: -900px;
+          width: 2400px;
+          height: 2400px;
+          background: radial-gradient(
+            circle,
+            #d98a2b 0%,
+            #d98a2bcc 30%,
+            transparent 68%
+          );
+          opacity: 0.58;
+        }
+        .ll-core {
+          position: absolute;
+          left: -550px;
+          top: -550px;
+          width: 1100px;
+          height: 1100px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            #fff3dd 0%,
+            #f6c878aa 45%,
+            transparent 70%
+          );
+          filter: blur(80px);
+          mix-blend-mode: screen;
+          opacity: 0;
+        }
+        .ll-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 38px;
+          z-index: 20;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(20, 22, 20, 0.9);
+          color: #fff;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="ll-root"
+        data-hf-id="hf-ll-root"
+        data-composition-id="shot-light-leak-burn"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="ll-fill">
+          <div id="ll-a" class="ll-page ll-a">
+            <div class="ll-head"><span>CURRENT PAGE</span><span>01</span></div>
+            <h1>Warm light hides the edit.</h1>
+            <div class="ll-grid">
+              <div class="ll-panel">
+                <div class="ll-line"></div>
+                <div class="ll-line"></div>
+              </div>
+              <div class="ll-panel ll-main"><div class="ll-line"></div></div>
+            </div>
+          </div>
+          <div id="ll-b" class="ll-page ll-b">
+            <div class="ll-head"><span>NEXT PAGE</span><span>02</span></div>
+            <h1>A softer way forward.</h1>
+            <div class="ll-grid">
+              <div class="ll-panel">
+                <div class="ll-line"></div>
+                <div class="ll-line"></div>
+              </div>
+              <div class="ll-panel ll-main"><div class="ll-line"></div></div>
+            </div>
+          </div>
+          <div class="ll-wash"></div>
+          <div id="ll-field" class="ll-field" data-layout-allow-overflow>
+            <div class="ll-blob ll-one"></div>
+            <div class="ll-blob ll-two"></div>
+            <div class="ll-blob ll-three"></div>
+            <div class="ll-core"></div>
+          </div>
+          <div class="ll-caption">AMBER LEAK / CUT AT PEAK / WARM EXIT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#ll-root .ll-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff7354");
+          gsap.set("#ll-field", { x: 2350, y: -500 });
+          gsap.set("#ll-root .ll-blob,#ll-root .ll-core", { opacity: 0 });
+          tl.set("#ll-field", { opacity: 1 }, 0.833)
+            .to(
+              "#ll-field",
+              { x: -650, y: 1500, duration: 2.334, ease: "power2.inOut" },
+              0.833,
+            )
+            .to(
+              "#ll-root .ll-one",
+              { opacity: 0.95, duration: 0.9, ease: "power2.in" },
+              0.833,
+            )
+            .to(
+              "#ll-root .ll-two",
+              { opacity: 0.8, duration: 0.9, ease: "power2.in" },
+              0.833,
+            )
+            .to(
+              "#ll-root .ll-three",
+              { opacity: 0.55, duration: 0.9, ease: "power2.in" },
+              0.833,
+            )
+            .to(
+              "#ll-root .ll-core",
+              { opacity: 1, duration: 0.9, ease: "power2.in" },
+              0.833,
+            )
+            .to(
+              "#ll-a",
+              {
+                filter: "contrast(.55) brightness(1.35)",
+                duration: 0.9,
+                ease: "power2.in",
+              },
+              0.833,
+            )
+            .to(
+              "#ll-root .ll-wash",
+              { opacity: 0.08, duration: 0.9, ease: "power2.in" },
+              0.833,
+            )
+            .set("#ll-b", { opacity: 1 }, 1.734)
+            .set("#ll-a", { opacity: 0 }, 1.735)
+            .to(
+              "#ll-b",
+              {
+                filter: "contrast(.55) brightness(1.35)",
+                duration: 0.001,
+                ease: "none",
+              },
+              1.734,
+            )
+            .to(
+              "#ll-b",
+              {
+                filter: "contrast(1) brightness(1)",
+                duration: 1.433,
+                ease: "power3.out",
+              },
+              1.735,
+            )
+            .to(
+              "#ll-root .ll-blob",
+              { opacity: 0, duration: 1.433, ease: "power3.out" },
+              1.734,
+            )
+            .to(
+              "#ll-root .ll-core",
+              { opacity: 0, duration: 1.15, ease: "power3.out" },
+              1.734,
+            )
+            .to(
+              "#ll-root .ll-wash",
+              { opacity: 0, duration: 1.433, ease: "power3.out" },
+              1.734,
+            )
+            .set("#ll-field", { opacity: 0 }, 3.168);
+          window.__timelines["shot-light-leak-burn"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

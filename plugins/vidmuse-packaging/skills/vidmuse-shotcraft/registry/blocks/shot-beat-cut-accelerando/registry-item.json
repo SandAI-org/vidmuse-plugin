@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-beat-cut-accelerando",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Beat Cut Accelerando",
+  "description": "Six product views hard-cut on 16, 12, 8, 6, and 4-frame intervals, then snap back to the establishing composition for a restrained closing push.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "rhythm", "hard-cut", "accelerando", "montage"],
+  "files": [
+    {
+      "path": "shot-beat-cut-accelerando.html",
+      "target": "compositions/shot-beat-cut-accelerando.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

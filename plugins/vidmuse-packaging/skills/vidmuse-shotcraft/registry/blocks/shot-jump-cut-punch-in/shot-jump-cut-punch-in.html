@@ -1,0 +1,187 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Target accent","default":"#ff6648"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .jcp-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          color: #181b19;
+          --accent: #ff6648;
+        }
+        .jcp-page {
+          position: absolute;
+          inset: 0;
+          transform-origin: 1070px 817px;
+        }
+        .jcp-head {
+          position: absolute;
+          left: 65px;
+          right: 65px;
+          top: 55px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 21px;
+          font-weight: 900;
+        }
+        .jcp-title {
+          position: absolute;
+          left: 80px;
+          top: 160px;
+          width: 620px;
+          font-size: 78px;
+          line-height: 0.95;
+          letter-spacing: -5px;
+        }
+        .jcp-grid {
+          position: absolute;
+          left: 790px;
+          right: 80px;
+          top: 130px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        .jcp-card {
+          height: 385px;
+          padding: 28px;
+          border: 1px solid #cac6be;
+          border-radius: 24px;
+          background: #faf8f3;
+        }
+        .jcp-card i {
+          display: block;
+          width: 58%;
+          height: 13px;
+          margin-bottom: 16px;
+          border-radius: 8px;
+          background: #252925;
+        }
+        .jcp-card i + i {
+          width: 35%;
+          background: #b7b5ae;
+        }
+        .jcp-card:after {
+          content: "";
+          display: block;
+          height: 165px;
+          margin-top: 60px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #d6d2c9, var(--accent));
+          opacity: 0.6;
+        }
+        .jcp-target {
+          position: absolute;
+          left: 790px;
+          top: 533px;
+          width: 525px;
+          height: 385px;
+          border: 4px dashed #777a75;
+          border-radius: 25px;
+        }
+        .jcp-label {
+          position: absolute;
+          left: 60px;
+          top: 38px;
+          z-index: 5;
+          padding: 11px 15px;
+          border-radius: 5px;
+          background: #181b19;
+          color: white;
+          font-size: 18px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+        .jcp-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 5;
+          color: #585a56;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="jcp-root"
+        data-hf-id="hf-jcp-root"
+        data-composition-id="shot-jump-cut-punch-in"
+        data-start="0"
+        data-duration="4.5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div id="jcp-fill" class="jcp-fill">
+          <div id="jcp-page" class="jcp-page" data-layout-allow-overflow>
+            <div class="jcp-head"><span></span><span>LEVEL 01</span></div>
+            <h1 class="jcp-title">Three distances. Zero transition frames.</h1>
+            <div class="jcp-grid">
+              <div class="jcp-card"><i></i><i></i></div>
+              <div class="jcp-card"><i></i><i></i></div>
+              <div class="jcp-card"><i></i><i></i></div>
+              <div class="jcp-card"><i></i><i></i></div>
+            </div>
+            <div class="jcp-target"></div>
+          </div>
+          <div class="jcp-label">JUMP CUT PUNCH-IN</div>
+          <div class="jcp-caption">1.0X / 1.6X / 2.6X</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.getElementById("jcp-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff6648");
+          gsap.set(fill, { filter: "brightness(1)" });
+          tl.set("#jcp-page", { scale: 1.6 }, 1.167)
+            .set(fill, { filter: "brightness(.92)" }, 1.167)
+            .set(fill, { filter: "brightness(1)" }, 1.234)
+            .call(
+              function () {
+                document.querySelector(
+                  "#jcp-root .jcp-head span:last-child",
+                ).textContent = "LEVEL 02";
+              },
+              null,
+              1.167,
+            )
+            .set("#jcp-page", { scale: 2.6 }, 2.333)
+            .set(fill, { filter: "brightness(.92)" }, 2.333)
+            .set(fill, { filter: "brightness(1)" }, 2.4)
+            .call(
+              function () {
+                document.querySelector(
+                  "#jcp-root .jcp-head span:last-child",
+                ).textContent = "LEVEL 03";
+              },
+              null,
+              2.333,
+            );
+          window.__timelines["shot-jump-cut-punch-in"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,240 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Root accent","default":"#2d2d2b"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .dgc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #ecebe6;
+          font-family: Inter, sans-serif;
+          color: #292824;
+          --accent: #2d2d2b;
+          background-image: radial-gradient(#cbc9c2 2px, transparent 2px);
+          background-size: 52px 52px;
+        }
+        .dgc-prompt {
+          position: absolute;
+          left: 460px;
+          top: 88px;
+          width: 1000px;
+          height: 84px;
+          padding: 0 36px;
+          display: flex;
+          align-items: center;
+          border: 3px solid #c9c7c0;
+          border-radius: 42px;
+          background: #faf9f5;
+          box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+          font-size: 30px;
+          font-weight: 650;
+          white-space: pre;
+        }
+        .dgc-prompt:before {
+          content: "";
+          width: 30px;
+          height: 30px;
+          margin-right: 20px;
+          border-radius: 50%;
+          background: #999791;
+          flex: none;
+        }
+        .dgc-letter {
+          opacity: 0;
+        }
+        .dgc-caret {
+          margin-left: 2px;
+        }
+        .dgc-tree {
+          position: absolute;
+          inset: 0;
+          transform-origin: 960px 620px;
+        }
+        .dgc-lines {
+          position: absolute;
+          inset: 0;
+        }
+        .dgc-edge {
+          fill: none;
+          stroke: #8e8c86;
+          stroke-width: 5;
+          stroke-linejoin: round;
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+        }
+        .dgc-node {
+          position: absolute;
+          width: 300px;
+          height: 110px;
+          padding: 0 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 10px;
+          border: 3px solid #c9c7c0;
+          border-radius: 16px;
+          background: #faf9f5;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+          transform: scale(0);
+          opacity: 0;
+        }
+        .dgc-node.root {
+          border-color: var(--accent);
+          background: var(--accent);
+        }
+        .dgc-node i {
+          width: 58%;
+          height: 16px;
+          border-radius: 8px;
+          background: #77756f;
+        }
+        .dgc-node i:last-child {
+          width: 70%;
+          height: 10px;
+          background: #d0cec7;
+        }
+        .dgc-node.root i {
+          background: #aaa8a2;
+        }
+        .dgc-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #65635e;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-dgc-root"
+        id="dgc-root"
+        data-composition-id="shot-diagram-cascade"
+        data-start="0"
+        data-duration="5.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="dgc-fill">
+          <div id="dgc-prompt" class="dgc-prompt"></div>
+          <div id="dgc-tree" class="dgc-tree">
+            <svg class="dgc-lines" width="1920" height="1080">
+              <path class="dgc-edge" d="M960 385V450H620V515" pathLength="1" />
+              <path class="dgc-edge" d="M960 385V450H1300V515" pathLength="1" />
+              <path class="dgc-edge" d="M620 625V700H400V765" pathLength="1" />
+              <path class="dgc-edge" d="M620 625V700H810V765" pathLength="1" />
+              <path
+                class="dgc-edge"
+                d="M1300 625V700H1110V765"
+                pathLength="1"
+              />
+              <path
+                class="dgc-edge"
+                d="M1300 625V700H1520V765"
+                pathLength="1"
+              />
+            </svg>
+            <div id="dgc-nodes"></div>
+          </div>
+          <div class="dgc-caption">PROMPT → CONNECTION → STRUCTURE</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#dgc-root .dgc-fill"),
+            prompt = document.getElementById("dgc-prompt"),
+            host = document.getElementById("dgc-nodes"),
+            tl = gsap.timeline({ paused: true }),
+            txt = "Generate an entity-relationship diagram",
+            pos = [
+              [960, 330],
+              [620, 570],
+              [1300, 570],
+              [400, 820],
+              [810, 820],
+              [1110, 820],
+              [1520, 820],
+            ],
+            starts = [1.733, 2.4, 2.6, 3.067, 3.267, 3.467, 3.667];
+          fill.style.setProperty("--accent", v.accent || "#2d2d2b");
+          txt.split("").forEach(function (ch, i) {
+            var s = document.createElement("span");
+            s.className = "dgc-letter";
+            s.textContent = ch;
+            prompt.appendChild(s);
+            tl.set(s, { opacity: 1 }, 0.2 + i / 33);
+          });
+          var caret = document.createElement("b");
+          caret.className = "dgc-caret";
+          caret.textContent = "|";
+          prompt.appendChild(caret);
+          tl.to(
+            caret,
+            {
+              opacity: 0,
+              duration: 0.267,
+              repeat: 5,
+              yoyo: true,
+              ease: "steps(1)",
+            },
+            0,
+          ).to(
+            prompt,
+            { borderColor: v.accent || "#2d2d2b", duration: 0.2 },
+            1.4,
+          );
+          pos.forEach(function (p, i) {
+            var n = document.createElement("div");
+            n.className = "dgc-node" + (i === 0 ? " root" : "");
+            n.style.left = p[0] - 150 + "px";
+            n.style.top = p[1] - 55 + "px";
+            n.innerHTML = "<i></i><i></i>";
+            host.appendChild(n);
+            if (i > 0)
+              tl.to(
+                document.querySelectorAll(".dgc-edge")[i - 1],
+                { strokeDashoffset: 0, duration: 0.533, ease: "power3.out" },
+                starts[i] - 0.267,
+              );
+            tl.to(
+              n,
+              { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" },
+              starts[i],
+            );
+          });
+          tl.to(
+            "#dgc-tree",
+            {
+              scale: 1.035,
+              duration: 0.4,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: 1,
+            },
+            4.4,
+          );
+          window.__timelines["shot-diagram-cascade"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

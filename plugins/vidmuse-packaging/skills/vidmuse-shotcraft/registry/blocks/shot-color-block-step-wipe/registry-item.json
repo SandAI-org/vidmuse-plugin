@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-color-block-step-wipe",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Color Block Step Wipe",
+  "description": "Two zero-interpolation brand-color wipes: a center strip expands in unequal hard steps and a corner triangle advances with a content card locked to the same beats.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "transition", "color-block", "steps", "pixel", "brand"],
+  "files": [
+    {
+      "path": "shot-color-block-step-wipe.html",
+      "target": "compositions/shot-color-block-step-wipe.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

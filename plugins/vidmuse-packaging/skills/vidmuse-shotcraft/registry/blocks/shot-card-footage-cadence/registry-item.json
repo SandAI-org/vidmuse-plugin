@@ -1,0 +1,24 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-card-footage-cadence",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Card Footage Cadence",
+  "description": "A transitionless UI-to-word cadence that alternates three product distances with SHIP, FASTER, and TODAY title cards before a restrained final push.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": [
+    "shotcraft",
+    "rhythm",
+    "cadence",
+    "hard-cut",
+    "product",
+    "typography"
+  ],
+  "files": [
+    {
+      "path": "shot-card-footage-cadence.html",
+      "target": "compositions/shot-card-footage-cadence.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

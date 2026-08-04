@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-cloner-depth-echo",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Cloner Depth Echo",
+  "description": "A hero card reproduces into seven staggered depth echoes, holds as a dimensional queue, then accelerates back into one elastic object.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": ["shotcraft", "ui-entrance", "3d", "clone", "depth"],
+  "files": [{ "path": "shot-cloner-depth-echo.html", "target": "compositions/shot-cloner-depth-echo.html", "type": "hyperframes:composition" }]
+}

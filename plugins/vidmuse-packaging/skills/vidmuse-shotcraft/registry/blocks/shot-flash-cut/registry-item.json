@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-flash-cut",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Flash Cut",
+  "description": "A pressured source-page push rises into a short warm whiteout, hides the edit at peak exposure, and falls away over the destination page.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "transition", "flash", "whiteout", "hard-cut", "energy"],
+  "files": [
+    {
+      "path": "shot-flash-cut.html",
+      "target": "compositions/shot-flash-cut.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

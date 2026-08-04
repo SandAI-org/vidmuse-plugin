@@ -1,0 +1,15 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-outro-group-photo-launch",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Outro Group Photo Launch",
+  "description": "Nine UI fragments fly in from four sides as a crane settles, then the logo, stage light, rule, sweep, and deterministic gold dust form a launch-event finale.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.833,
+  "tags": ["shotcraft", "outro", "launch", "logo", "particles"],
+  "files": [
+    { "path": "shot-outro-group-photo-launch.html", "target": "compositions/shot-outro-group-photo-launch.html", "type": "hyperframes:composition" },
+    { "path": "assets/projects-full.png", "target": "assets/textures/projects-full.png", "type": "hyperframes:asset" },
+    { "path": "assets/vidmuse-logo-white.svg", "target": "assets/branding/vidmuse-logo-white.svg", "type": "hyperframes:asset" }
+  ]
+}

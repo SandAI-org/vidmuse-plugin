@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-shared-element-morph",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Shared Element Morph",
+  "description": "A full-frame detail card continuously shrinks, moves, rounds, and softens its shadow before a three-percent overshoot lands it into its exact dashboard slot.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "shared-element",
+    "morph",
+    "flip",
+    "detail-to-overview",
+    "spatial"
+  ],
+  "files": [
+    {
+      "path": "shot-shared-element-morph.html",
+      "target": "compositions/shot-shared-element-morph.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

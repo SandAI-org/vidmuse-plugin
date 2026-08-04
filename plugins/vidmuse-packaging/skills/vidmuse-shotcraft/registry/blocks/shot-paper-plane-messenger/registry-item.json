@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-paper-plane-messenger",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Paper Plane Messenger",
+  "description": "A send-triggered camera pulls away from the source UI, follows a tangent-oriented paper plane through a layered world, and pushes into the destination conversation.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "transition", "paper-plane", "messenger", "send", "camera", "parallax"],
+  "files": [
+    {
+      "path": "shot-paper-plane-messenger.html",
+      "target": "compositions/shot-paper-plane-messenger.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

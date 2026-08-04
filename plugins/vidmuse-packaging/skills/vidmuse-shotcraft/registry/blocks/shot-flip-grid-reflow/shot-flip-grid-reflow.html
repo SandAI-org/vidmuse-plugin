@@ -1,0 +1,179 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#e95e44"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .fgr-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e8e6df;
+          font-family: Inter, sans-serif;
+          color: #181b19;
+          --accent: #e95e44;
+        }
+        .fgr-title {
+          position: absolute;
+          left: 70px;
+          top: 54px;
+          font-size: 44px;
+          font-weight: 950;
+          letter-spacing: -2px;
+        }
+        .fgr-card {
+          position: absolute;
+          top: 245px;
+          width: 280px;
+          height: 170px;
+          padding: 22px;
+          border: 1px solid #c9c5bd;
+          border-radius: 19px;
+          background: #faf8f3;
+          box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+          transform-origin: 50% 50%;
+        }
+        .fgr-card:nth-child(2) {
+          left: 60px;
+        }
+        .fgr-card:nth-child(3) {
+          left: 364px;
+        }
+        .fgr-card:nth-child(4) {
+          left: 668px;
+        }
+        .fgr-card:nth-child(5) {
+          left: 972px;
+        }
+        .fgr-card:nth-child(6) {
+          left: 1276px;
+        }
+        .fgr-card:nth-child(7) {
+          left: 1580px;
+        }
+        .fgr-card i {
+          display: block;
+          width: 62%;
+          height: 11px;
+          margin-bottom: 13px;
+          border-radius: 7px;
+          background: #282c29;
+        }
+        .fgr-card i + i {
+          width: 37%;
+          background: #b8b6af;
+        }
+        .fgr-card:after {
+          content: "";
+          display: block;
+          height: 62px;
+          margin-top: 26px;
+          border-radius: 11px;
+          background: linear-gradient(135deg, var(--accent), #ffc5b8);
+          opacity: 0.75;
+        }
+        .fgr-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          color: #585a56;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="fgr-root"
+        data-hf-id="hf-fgr-root"
+        data-composition-id="shot-flip-grid-reflow"
+        data-start="0"
+        data-duration="3.5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div id="fgr-fill" class="fgr-fill">
+          <div class="fgr-title">FLIP GRID REFLOW</div>
+          <div class="fgr-card"><i></i><i></i></div>
+          <div class="fgr-card"><i></i><i></i></div>
+          <div class="fgr-card"><i></i><i></i></div>
+          <div class="fgr-card"><i></i><i></i></div>
+          <div class="fgr-card"><i></i><i></i></div>
+          <div class="fgr-card"><i></i><i></i></div>
+          <div class="fgr-caption">ROW TO GRID / ONE BEAT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.getElementById("fgr-fill"),
+            tl = gsap.timeline({ paused: true }),
+            cards = document.querySelectorAll("#fgr-root .fgr-card"),
+            starts = [
+              [60, 245],
+              [364, 245],
+              [668, 245],
+              [972, 245],
+              [1276, 245],
+              [1580, 245],
+            ],
+            targets = [
+              [432, 307],
+              [432, 555],
+              [820, 307],
+              [820, 555],
+              [1208, 307],
+              [1208, 555],
+            ];
+          fill.style.setProperty("--accent", v.accent || "#e95e44");
+          gsap.set(fill, { filter: "brightness(1)" });
+          cards.forEach(function (c, i) {
+            var dx = targets[i][0] - starts[i][0],
+              dy = targets[i][1] - starts[i][1],
+              t = 1 + i * 0.05;
+            tl.to(
+              c,
+              {
+                x: dx,
+                y: dy,
+                scale: 1.3056,
+                duration: 0.533,
+                ease: "power2.inOut",
+              },
+              t,
+            ).to(
+              c,
+              { scale: 1.28, duration: 0.1, ease: "power3.out" },
+              t + 0.534,
+            );
+          });
+          tl.to(
+            fill,
+            { filter: "brightness(.78)", duration: 0.1, ease: "power2.in" },
+            1.933,
+          ).to(
+            fill,
+            { filter: "brightness(1)", duration: 0.1, ease: "power2.out" },
+            2.034,
+          );
+          window.__timelines["shot-flip-grid-reflow"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

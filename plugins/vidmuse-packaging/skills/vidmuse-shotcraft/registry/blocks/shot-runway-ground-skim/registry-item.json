@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-runway-ground-skim",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Runway Ground Skim",
+  "description": "Seven illuminated cards fall in a tightly overlapped 3D wave onto a dark runway dashboard before the whole page rises into a clean frontal view.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.933,
+  "tags": ["shotcraft", "ui-entrance", "runway", "3d", "landing"],
+  "files": [{ "path": "shot-runway-ground-skim.html", "target": "compositions/shot-runway-ground-skim.html", "type": "hyperframes:composition" }]
+}

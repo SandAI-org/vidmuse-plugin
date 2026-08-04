@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-clock-wipe",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Clock Wipe",
+  "description": "A fixed 73-point fan reveals the destination in one linear clockwise revolution while a four-layer radar edge stays visible over both light and dark page regions.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "clock-wipe",
+    "radar",
+    "geometry",
+    "scan",
+    "data-refresh"
+  ],
+  "files": [
+    {
+      "path": "shot-clock-wipe.html",
+      "target": "compositions/shot-clock-wipe.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

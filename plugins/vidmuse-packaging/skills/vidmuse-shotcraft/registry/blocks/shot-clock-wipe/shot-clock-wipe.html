@@ -1,0 +1,243 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Destination accent","default":"#5d5ce2"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cw-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #5d5ce2;
+        }
+        .cw-page {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          padding: 78px 96px;
+          background: #e9e7e0;
+        }
+        .cw-b {
+          opacity: 0;
+          background: #171a18;
+          color: #f5f3ed;
+        }
+        .cw-head {
+          display: flex;
+          justify-content: space-between;
+          font-size: 17px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .cw-page h1 {
+          margin-top: 52px;
+          font-size: 76px;
+          letter-spacing: -4px;
+        }
+        .cw-grid {
+          display: grid;
+          grid-template-columns: 310px 1fr;
+          gap: 28px;
+          margin-top: 58px;
+        }
+        .cw-panel {
+          height: 650px;
+          padding: 28px;
+          border: 1px solid #c9c7c0;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .cw-b .cw-panel {
+          border-color: #424642;
+          background: #252a26;
+        }
+        .cw-line {
+          width: 68%;
+          height: 14px;
+          margin-bottom: 18px;
+          border-radius: 7px;
+          background: #939590;
+        }
+        .cw-main:after {
+          content: "";
+          display: block;
+          height: 390px;
+          margin-top: 95px;
+          border-radius: 20px;
+          background: #d4d2cb;
+        }
+        .cw-b .cw-main:after {
+          background: linear-gradient(135deg, var(--accent), #2d275f);
+        }
+        .cw-radar {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .cw-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 38px;
+          z-index: 20;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(20, 22, 20, 0.9);
+          color: #fff;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="cw-root"
+        data-hf-id="hf-cw-root"
+        data-composition-id="shot-clock-wipe"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cw-fill">
+          <div id="cw-a" class="cw-page">
+            <div class="cw-head">
+              <span data-layout-allow-overlap>STATUS / A</span
+              ><span data-layout-allow-overlap>12:00</span>
+            </div>
+            <h1 data-layout-allow-overlap>Scan the next state.</h1>
+            <div class="cw-grid">
+              <div class="cw-panel">
+                <div class="cw-line"></div>
+                <div class="cw-line"></div>
+              </div>
+              <div class="cw-panel cw-main"><div class="cw-line"></div></div>
+            </div>
+          </div>
+          <div id="cw-b" class="cw-page cw-b">
+            <div class="cw-head">
+              <span data-layout-allow-overlap>STATUS / B</span
+              ><span data-layout-allow-overlap>UPDATED</span>
+            </div>
+            <h1 data-layout-allow-overlap>One complete revolution.</h1>
+            <div class="cw-grid">
+              <div class="cw-panel">
+                <div class="cw-line"></div>
+                <div class="cw-line"></div>
+              </div>
+              <div class="cw-panel cw-main"><div class="cw-line"></div></div>
+            </div>
+          </div>
+          <svg class="cw-radar" width="1920" height="1080">
+            <line
+              class="cw-ray cw-glow-a"
+              x1="960"
+              y1="540"
+              x2="960"
+              y2="-860"
+              stroke="rgba(255,255,255,.35)"
+              stroke-width="26"
+              stroke-linecap="round"
+            />
+            <line
+              class="cw-ray cw-glow-b"
+              x1="960"
+              y1="540"
+              x2="960"
+              y2="-860"
+              stroke="rgba(255,255,255,.60)"
+              stroke-width="13"
+              stroke-linecap="round"
+            />
+            <line
+              class="cw-ray cw-dark"
+              x1="960"
+              y1="540"
+              x2="960"
+              y2="-860"
+              stroke="rgba(0,0,0,.55)"
+              stroke-width="9"
+              stroke-linecap="round"
+            />
+            <line
+              class="cw-ray cw-core"
+              x1="960"
+              y1="540"
+              x2="960"
+              y2="-860"
+              stroke="rgba(255,255,255,.95)"
+              stroke-width="4"
+              stroke-linecap="round"
+            />
+          </svg>
+          <div class="cw-caption">360 DEG CLOCK SWEEP / FIXED 73-POINT FAN</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#cw-root .cw-fill"),
+            tl = gsap.timeline({ paused: true }),
+            cx = 960,
+            cy = 540,
+            r = 1400;
+          fill.style.setProperty("--accent", v.accent || "#5d5ce2");
+          function polar(deg) {
+            var a = (deg * Math.PI) / 180;
+            return [cx + r * Math.sin(a), cy - r * Math.cos(a)];
+          }
+          function fan(theta) {
+            var pts = [cx + "px " + cy + "px"];
+            for (var i = 0; i <= 72; i++) {
+              var p = polar((theta * i) / 72);
+              pts.push(p[0].toFixed(1) + "px " + p[1].toFixed(1) + "px");
+            }
+            return "polygon(" + pts.join(", ") + ")";
+          }
+          tl.set("#cw-b", { opacity: 1 }, 1).set(
+            "#cw-root .cw-radar",
+            { opacity: 1 },
+            1,
+          );
+          for (var f = 30; f <= 90; f++) {
+            var theta = (f - 30) * 6,
+              p = polar(theta);
+            tl.set("#cw-b", { clipPath: fan(theta) }, f / 30).set(
+              "#cw-root .cw-ray",
+              { attr: { x2: p[0], y2: p[1] } },
+              f / 30,
+            );
+          }
+          tl.set("#cw-b", { clipPath: "none" }, 3)
+            .set("#cw-a", { opacity: 0 }, 3)
+            .to(
+              "#cw-root .cw-radar",
+              { opacity: 0, duration: 0.2, ease: "none" },
+              3,
+            )
+            .set("#cw-root .cw-radar", { display: "none" }, 3.201);
+          window.__timelines["shot-clock-wipe"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-word-relay-filmstrip",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Word Relay Filmstrip",
+  "description": "Alternating editorial cards step one slot only when a right-aligned serif verb hands off to the next capability.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.2,
+  "tags": ["shotcraft", "typography", "filmstrip", "editorial", "feature-list"],
+  "files": [{ "path": "shot-word-relay-filmstrip.html", "target": "compositions/shot-word-relay-filmstrip.html", "type": "hyperframes:composition" }]
+}

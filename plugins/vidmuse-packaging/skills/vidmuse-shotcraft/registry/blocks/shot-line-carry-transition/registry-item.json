@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-line-carry-transition",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Line Carry Transition",
+  "description": "One six-pixel line grows from a progress rail, leads a 1920-pixel camera move through a 3840-pixel world, then turns hard corners to become the next scene's frame.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": ["shotcraft", "transition", "line", "camera", "continuous", "frame"],
+  "files": [
+    {
+      "path": "shot-line-carry-transition.html",
+      "target": "compositions/shot-line-carry-transition.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

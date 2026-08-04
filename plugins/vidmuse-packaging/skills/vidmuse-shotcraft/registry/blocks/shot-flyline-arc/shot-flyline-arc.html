@@ -1,0 +1,308 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"lineColor","type":"color","label":"Flyline color","default":"#fafafa"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .fla-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #dededb;
+          font-family: Inter, sans-serif;
+        }
+        .fla-side {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 220px;
+          padding: 42px 30px;
+          background: #d6d7d2;
+          border-right: 1px solid #bfc1bb;
+          filter: brightness(0.92);
+        }
+        .fla-brand {
+          width: 126px;
+          height: 24px;
+          border-radius: 7px;
+          background: #60645c;
+        }
+        .fla-nav {
+          height: 13px;
+          margin-top: 34px;
+          border-radius: 7px;
+          background: #aeb1aa;
+        }
+        .fla-top {
+          position: absolute;
+          left: 220px;
+          right: 0;
+          top: 0;
+          height: 72px;
+          background: #ecece8;
+          border-bottom: 1px solid #c9cbc5;
+        }
+        .fla-grid {
+          position: absolute;
+          left: 256px;
+          right: 36px;
+          top: 108px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: 454px 454px;
+          gap: 28px;
+          filter: brightness(0.92);
+        }
+        .fla-card {
+          position: relative;
+          padding: 30px;
+          border: 1px solid #c9cbc5;
+          border-radius: 14px;
+          background: #f8f8f4;
+          box-shadow: 0 12px 30px rgba(40, 44, 37, 0.08);
+          overflow: hidden;
+        }
+        .fla-k {
+          width: 96px;
+          height: 12px;
+          border-radius: 6px;
+          background: #b5b8b1;
+        }
+        .fla-v {
+          width: 220px;
+          height: 42px;
+          margin-top: 28px;
+          border-radius: 10px;
+          background: #656960;
+        }
+        .fla-chart {
+          position: absolute;
+          left: 30px;
+          right: 30px;
+          bottom: 30px;
+          height: 215px;
+          background:
+            linear-gradient(
+              150deg,
+              transparent 49%,
+              #bdc0b8 50%,
+              #bdc0b8 52%,
+              transparent 53%
+            ),
+            linear-gradient(#e4e5e0 1px, transparent 1px);
+          background-size:
+            100% 100%,
+            100% 36px;
+        }
+        .fla-svg {
+          position: absolute;
+          inset: 0;
+        }
+        .fla-under {
+          fill: none;
+          stroke: #2f2f2f;
+          stroke-width: 9;
+          stroke-linecap: round;
+        }
+        .fla-line {
+          fill: none;
+          stroke: var(--line);
+          stroke-width: 4.5;
+          stroke-linecap: round;
+        }
+        .fla-head {
+          fill: #fff;
+          stroke: #2f2f2f;
+          stroke-width: 3;
+          filter: drop-shadow(0 0 16px rgba(0, 0, 0, 0.45));
+          opacity: 0;
+        }
+        .fla-pulse {
+          fill: rgba(0, 0, 0, 0.14);
+          stroke: #2f2f2f;
+          stroke-width: 4;
+          opacity: 0;
+        }
+      </style>
+      <div
+        data-hf-id="hf-fla-root"
+        id="fla-root"
+        data-composition-id="shot-flyline-arc"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="fla-fill" style="--line: #fafafa">
+          <aside class="fla-side">
+            <div class="fla-brand"></div>
+            <div class="fla-nav"></div>
+            <div class="fla-nav"></div>
+            <div class="fla-nav"></div>
+            <div class="fla-nav"></div>
+          </aside>
+          <div class="fla-top"></div>
+          <main class="fla-grid">
+            <article class="fla-card">
+              <div class="fla-k"></div>
+              <div class="fla-v"></div>
+              <div class="fla-chart"></div>
+            </article>
+            <article class="fla-card">
+              <div class="fla-k"></div>
+              <div class="fla-v"></div>
+              <div class="fla-chart"></div>
+            </article>
+            <article class="fla-card">
+              <div class="fla-k"></div>
+              <div class="fla-v"></div>
+              <div class="fla-chart"></div>
+            </article>
+            <article class="fla-card">
+              <div class="fla-k"></div>
+              <div class="fla-v"></div>
+              <div class="fla-chart"></div>
+            </article>
+            <article class="fla-card">
+              <div class="fla-k"></div>
+              <div class="fla-v"></div>
+              <div class="fla-chart"></div>
+            </article>
+            <article class="fla-card">
+              <div class="fla-k"></div>
+              <div class="fla-v"></div>
+              <div class="fla-chart"></div>
+            </article>
+          </main>
+          <svg class="fla-svg" viewBox="0 0 1920 1080">
+            <path
+              id="fla-u1"
+              class="fla-under"
+              d="M518 335 C818 60 1322 380 1622 817"
+            />
+            <path
+              id="fla-l1"
+              class="fla-line"
+              d="M518 335 C818 60 1322 380 1622 817"
+            />
+            <circle id="fla-h1" class="fla-head" cx="518" cy="335" r="9" />
+            <rect
+              id="fla-p1"
+              class="fla-pulse"
+              x="1362"
+              y="592"
+              width="520"
+              height="450"
+              rx="14"
+            />
+            <path
+              id="fla-u2"
+              class="fla-under"
+              d="M1622 817 C1760 560 1360 150 1070 335"
+            />
+            <path
+              id="fla-l2"
+              class="fla-line"
+              d="M1622 817 C1760 560 1360 150 1070 335"
+            />
+            <circle id="fla-h2" class="fla-head" cx="1622" cy="817" r="9" />
+            <rect
+              id="fla-p2"
+              class="fla-pulse"
+              x="810"
+              y="110"
+              width="520"
+              height="450"
+              rx="14"
+            />
+          </svg>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("fla-root"),
+            fill = root.querySelector(".fla-fill"),
+            tl = gsap.timeline({ paused: true }),
+            paths = ["#fla-u1", "#fla-l1", "#fla-u2", "#fla-l2"];
+          fill.style.setProperty("--line", v.lineColor || "#fafafa");
+          paths.forEach(function (s) {
+            var p = root.querySelector(s),
+              n = p.getTotalLength();
+            gsap.set(p, { strokeDasharray: n, strokeDashoffset: n });
+          });
+          tl.to(
+            "#fla-u1,#fla-l1",
+            { strokeDashoffset: 0, duration: 0.733, ease: "power3.out" },
+            0.333,
+          )
+            .set("#fla-h1", { opacity: 1 }, 0.333)
+            .to(
+              "#fla-h1",
+              {
+                keyframes: [
+                  { x: 257, y: -102, duration: 0.183 },
+                  { x: 552, y: -26, duration: 0.183 },
+                  { x: 847, y: 184, duration: 0.183 },
+                  { x: 1104, y: 482, duration: 0.184 },
+                ],
+                ease: "none",
+              },
+              0.333,
+            )
+            .set("#fla-h1", { opacity: 0 }, 1.066)
+            .to(
+              "#fla-p1",
+              { opacity: 1, duration: 0.2, ease: "power3.out" },
+              1.066,
+            )
+            .to("#fla-p1", { opacity: 0, duration: 0.4, ease: "none" }, 1.266)
+            .to(
+              "#fla-u2,#fla-l2",
+              { strokeDashoffset: 0, duration: 0.733, ease: "power3.out" },
+              1.533,
+            )
+            .set("#fla-h2", { opacity: 1 }, 1.533)
+            .to(
+              "#fla-h2",
+              {
+                keyframes: [
+                  { x: 13, y: -210, duration: 0.183 },
+                  { x: -116, y: -407, duration: 0.183 },
+                  { x: -324, y: -521, duration: 0.183 },
+                  { x: -552, y: -482, duration: 0.184 },
+                ],
+                ease: "none",
+              },
+              1.533,
+            )
+            .set("#fla-h2", { opacity: 0 }, 2.266)
+            .to(
+              "#fla-p2",
+              { opacity: 1, duration: 0.2, ease: "power3.out" },
+              2.266,
+            )
+            .to("#fla-p2", { opacity: 0, duration: 0.4, ease: "none" }, 2.466);
+          window.__timelines["shot-flyline-arc"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

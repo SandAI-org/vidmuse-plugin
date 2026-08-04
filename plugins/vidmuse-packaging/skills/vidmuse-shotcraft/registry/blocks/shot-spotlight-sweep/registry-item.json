@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-spotlight-sweep",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Spotlight Sweep",
+  "description": "A soft circular spotlight and overhead cone sweep a dim two-line title twice, revealing only the illuminated letters before the entire phrase resolves into a clean static lockup.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": ["shotcraft", "effects", "spotlight", "light", "title", "reveal", "sweep"],
+  "files": [{ "path": "shot-spotlight-sweep.html", "target": "compositions/shot-spotlight-sweep.html", "type": "hyperframes:composition" }]
+}

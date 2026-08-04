@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-halation-bloom",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Halation Bloom",
+  "description": "A large 10× claim crash-zooms from 2.4× into a restrained rebound while a blurred duplicate blooms outward, falls independently, and settles as a stable soft halo.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.833,
+  "tags": ["shotcraft", "effects", "halation", "bloom", "glow", "impact", "typography"],
+  "files": [{ "path": "shot-halation-bloom.html", "target": "compositions/shot-halation-bloom.html", "type": "hyperframes:composition" }]
+}

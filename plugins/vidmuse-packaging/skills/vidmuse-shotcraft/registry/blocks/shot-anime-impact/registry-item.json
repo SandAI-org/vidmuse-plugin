@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-anime-impact",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Anime Impact",
+  "description": "A dashboard crashes into one target card, holds three graphic impact frames with inverted monochrome, cyan/red displacement, and thirty hand-built speed wedges, then clears into a lightly shaking close-up.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "effects", "anime", "impact", "crash-zoom", "speed-lines", "rgb"],
+  "files": [{ "path": "shot-anime-impact.html", "target": "compositions/shot-anime-impact.html", "type": "hyperframes:composition" }]
+}

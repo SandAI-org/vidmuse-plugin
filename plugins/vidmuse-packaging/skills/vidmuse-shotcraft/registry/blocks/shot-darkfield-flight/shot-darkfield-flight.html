@@ -1,0 +1,211 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Arrival accent","default":"#54d39b"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .dff-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #101311;
+          color: #f2f0e9;
+          font-family: Inter, sans-serif;
+          --accent: #54d39b;
+        }
+        .dff-page {
+          position: absolute;
+          inset: 0;
+          padding: 92px 110px;
+        }
+        .dff-b {
+          opacity: 0;
+          filter: blur(8px);
+        }
+        .dff-page h1 {
+          font-size: 76px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .dff-ui {
+          display: grid;
+          grid-template-columns: 330px 1fr;
+          gap: 26px;
+          margin-top: 70px;
+        }
+        .dff-side,
+        .dff-main {
+          height: 660px;
+          border: 1px solid #3e433f;
+          border-radius: 22px;
+          background: #222723;
+        }
+        .dff-side {
+          padding: 28px;
+        }
+        .dff-side i,
+        .dff-main i {
+          display: block;
+          width: 70%;
+          height: 14px;
+          margin-bottom: 20px;
+          border-radius: 7px;
+          background: #777c77;
+        }
+        .dff-main {
+          padding: 32px;
+        }
+        .dff-main i:first-child {
+          width: 46%;
+          height: 20px;
+          background: #d3d3cd;
+        }
+        .dff-main:after {
+          content: "";
+          display: block;
+          height: 390px;
+          margin-top: 120px;
+          border-radius: 20px;
+          background: linear-gradient(135deg, #383e39, #232824);
+        }
+        .dff-b .dff-main:after {
+          background: linear-gradient(135deg, var(--accent), #1c6a4d);
+        }
+        .dff-dust {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+        }
+        .dff-dust i {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          border-radius: 50%;
+          background: #737873;
+        }
+        .dff-dust i:nth-child(1) {
+          left: 15%;
+          top: 24%;
+        }
+        .dff-dust i:nth-child(2) {
+          left: 34%;
+          top: 68%;
+        }
+        .dff-dust i:nth-child(3) {
+          left: 56%;
+          top: 38%;
+        }
+        .dff-dust i:nth-child(4) {
+          left: 73%;
+          top: 74%;
+        }
+        .dff-dust i:nth-child(5) {
+          left: 88%;
+          top: 18%;
+        }
+        .dff-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 5;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(242, 240, 233, 0.92);
+          color: #171a18;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="dff-root"
+        data-hf-id="hf-dff-root"
+        data-composition-id="shot-darkfield-flight"
+        data-start="0"
+        data-duration="4.5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="dff-fill">
+          <div class="dff-page dff-a">
+            <h1>ACCELERATE.</h1>
+            <div class="dff-ui">
+              <div class="dff-side"><i></i><i></i></div>
+              <div class="dff-main"><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="dff-dust"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="dff-page dff-b">
+            <h1>ARRIVE FOCUSED.</h1>
+            <div class="dff-ui">
+              <div class="dff-side"><i></i><i></i></div>
+              <div class="dff-main"><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="dff-caption">PUSH / LIVE DARK GLIDE / ARRIVAL</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#dff-root .dff-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#54d39b");
+          gsap.set("#dff-root .dff-b", { x: 250, scale: 0.6 });
+          tl.to(
+            "#dff-root .dff-a",
+            {
+              x: -250,
+              scale: 2.2,
+              opacity: 0,
+              duration: 0.333,
+              ease: "power3.in",
+            },
+            0.8,
+          )
+            .set("#dff-root .dff-dust", { opacity: 1 }, 1.134)
+            .to(
+              "#dff-root .dff-dust",
+              { x: -120, duration: 0.6, ease: "none" },
+              1.134,
+            )
+            .set("#dff-root .dff-b", { opacity: 0.05 }, 1.333)
+            .to(
+              "#dff-root .dff-b",
+              {
+                x: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                opacity: 1,
+                duration: 0.467,
+                ease: "power3.out",
+              },
+              1.334,
+            )
+            .to(
+              "#dff-root .dff-dust",
+              { opacity: 0, duration: 0.267, ease: "none" },
+              1.6,
+            );
+          window.__timelines["shot-darkfield-flight"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

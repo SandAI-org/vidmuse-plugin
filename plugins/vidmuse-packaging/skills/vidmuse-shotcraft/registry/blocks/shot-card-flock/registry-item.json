@@ -1,0 +1,13 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-card-flock",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Card Flock",
+  "description": "Three crisp UI cards tumble into a 3D stack, collapse, and release a single turbulent smoke ring and headline.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "transition", "3d", "ui"],
+  "files": [
+    { "path": "shot-card-flock.html", "target": "compositions/shot-card-flock.html", "type": "hyperframes:composition" }
+  ]
+}

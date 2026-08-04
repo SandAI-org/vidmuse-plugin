@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;logoImage&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Logo SVG&quot;,&quot;default&quot;:&quot;assets/branding/vidmuse-logo-white.svg&quot;},
+  {&quot;id&quot;:&quot;background&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Background&quot;,&quot;default&quot;:&quot;#3d1f47&quot;},
+  {&quot;id&quot;:&quot;accent&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Bloom accent&quot;,&quot;default&quot;:&quot;#8ad8d4&quot;}
+]"><head></head>
+  <body>
+    <template>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .if-fill { position: absolute; inset: 0; overflow: hidden; background: var(--background); }
+        #if-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; perspective: 1200px; }
+        #if-icon, #if-flower { position: absolute; left: 790px; top: 370px; width: 340px; height: 340px; transform-origin: 170px 265px; display: block; }
+        #if-flower { opacity: 0; transform-origin: 170px 170px; }
+        #if-wordmark { position: absolute; left: 600px; top: 460px; width: 720px; height: 180px; object-fit: contain; opacity: 0; display: block; transform-origin: 360px 90px; filter: drop-shadow(0 0 34px rgba(255,255,255,.16)); }
+      </style>
+      <div data-hf-id="hf-if-root" id="if-root" data-composition-id="shot-icon-flip-bloom" data-start="0" data-duration="4.333" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+        <div data-hf-id="hf-if-fill" class="if-fill">
+          <div data-hf-id="hf-if-stage" id="if-stage">
+            <svg data-hf-id="hf-if-icon" id="if-icon" viewBox="0 0 340 340" aria-label="Message icon">
+              <rect data-hf-id="hf-kb80" x="58" y="50" width="224" height="172" rx="30" fill="none" stroke="#fff" stroke-width="24" />
+              <circle data-hf-id="hf-wjdq" cx="130" cy="116" r="16" fill="#fff" /><circle data-hf-id="hf-9a8n" cx="210" cy="116" r="16" fill="#fff" />
+              <path data-hf-id="hf-5qjo" d="M118 158 Q170 204 222 158" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" />
+              <path data-hf-id="hf-xnke" d="M34 274 H306" fill="none" stroke="#fff" stroke-width="28" stroke-linecap="round" />
+            </svg>
+            <svg data-hf-id="hf-if-flower" id="if-flower" viewBox="-50 -50 100 100" aria-hidden="true">
+              <ellipse data-hf-id="hf-1jqf" class="if-petal" cx="0" cy="-19" rx="8" ry="20" fill="var(--accent)" opacity=".92" />
+              <ellipse data-hf-id="hf-405j" class="if-petal" cx="0" cy="-19" rx="8" ry="20" fill="var(--accent)" opacity=".92" />
+              <ellipse data-hf-id="hf-3lui" class="if-petal" cx="0" cy="-19" rx="8" ry="20" fill="var(--accent)" opacity=".92" />
+              <ellipse data-hf-id="hf-37jh" class="if-petal" cx="0" cy="-19" rx="8" ry="20" fill="var(--accent)" opacity=".92" />
+              <ellipse data-hf-id="hf-5zoo" class="if-petal" cx="0" cy="-19" rx="8" ry="20" fill="var(--accent)" opacity=".92" />
+              <circle data-hf-id="hf-iln0" cx="0" cy="0" r="9" fill="#fff" />
+            </svg>
+            <img data-hf-id="hf-if-wordmark" id="if-wordmark" data-var-src="logoImage" src="assets/branding/vidmuse-logo-white.svg" alt="VidMuse">
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var vars = window.__hyperframes.getVariables();
+          var root = document.getElementById("if-root");
+          root.style.setProperty("--background", vars.background || "#3d1f47");
+          root.style.setProperty("--accent", vars.accent || "#8ad8d4");
+          var petals = document.querySelectorAll("#if-flower .if-petal");
+          var angles = [-144, -72, 0, 72, 144];
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#if-icon", { opacity: 0, scale: .7 }, { opacity: 1, scale: 1, duration: .5, ease: "back.out(1.4)" }, 0);
+          tl.to("#if-icon", { keyframes: [
+            { rotation: -12, duration: .2, ease: "sine.inOut" },
+            { rotation: 14, duration: .2, ease: "sine.inOut" },
+            { rotation: -18, duration: .2, ease: "sine.inOut" },
+            { rotation: 0, duration: .133, ease: "sine.inOut" }
+          ], ease: "none" }, .4);
+          tl.to("#if-icon", { scaleX: .04, opacity: .5, duration: .4, ease: "power3.in" }, 1.133);
+          tl.set("#if-icon", { opacity: 0 }, 1.533);
+          tl.fromTo("#if-flower", { opacity: 0, scaleX: .04, scaleY: .72 }, { opacity: 1, scaleX: 1, scaleY: 1, duration: .533, ease: "back.out(1.6)" }, 1.533);
+          Array.prototype.forEach.call(petals, function (petal, i) {
+            tl.fromTo(petal, { rotation: 0, svgOrigin: "0 0" }, { rotation: angles[i], svgOrigin: "0 0", duration: .533, ease: "back.out(1.5)" }, 1.533);
+          });
+          tl.to("#if-flower", { scale: 1.18, opacity: 0, duration: .467, ease: "power2.inOut" }, 2.067);
+          tl.fromTo("#if-wordmark", { opacity: 0, scale: .92, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, scale: 1, clipPath: "inset(0 0% 0 0)", duration: .9, ease: "power3.out" }, 2.133);
+          tl.to("#if-wordmark", { scale: 1.035, duration: .35, ease: "sine.inOut" }, 3.3);
+          tl.to("#if-wordmark", { scale: 1, duration: .35, ease: "sine.inOut" }, 3.65);
+          window.__timelines["shot-icon-flip-bloom"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

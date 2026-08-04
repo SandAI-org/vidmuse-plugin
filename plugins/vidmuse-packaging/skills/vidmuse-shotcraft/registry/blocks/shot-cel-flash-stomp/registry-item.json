@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-cel-flash-stomp",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Cel Flash Stomp",
+  "description": "Three oversized words stamp down on hard beats while only the background flashes, ending on a grounded label bar.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.8,
+  "tags": ["shotcraft", "typography", "rhythm", "stomp", "flash"],
+  "files": [{ "path": "shot-cel-flash-stomp.html", "target": "compositions/shot-cel-flash-stomp.html", "type": "hyperframes:composition" }]
+}

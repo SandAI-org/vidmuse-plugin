@@ -1,0 +1,251 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Result accent","default":"#ff6e4b"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cfr-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #181b19;
+          font-family: Inter, sans-serif;
+          --accent: #ff6e4b;
+        }
+        .cfr-title {
+          position: absolute;
+          left: 120px;
+          top: 92px;
+          font-size: 54px;
+          font-weight: 950;
+          letter-spacing: -2px;
+        }
+        .cfr-sub {
+          position: absolute;
+          left: 122px;
+          top: 166px;
+          color: #61635f;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 2px;
+        }
+        .cfr-wrap {
+          position: absolute;
+          top: 390px;
+          width: 440px;
+          height: 300px;
+          perspective: 1200px;
+        }
+        .cfr-wrap:nth-child(3) {
+          left: 240px;
+        }
+        .cfr-wrap:nth-child(4) {
+          left: 740px;
+        }
+        .cfr-wrap:nth-child(5) {
+          left: 1240px;
+        }
+        .cfr-card {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          transform-style: preserve-3d;
+        }
+        .cfr-face {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          border: 2px solid #c7c5bf;
+          border-radius: 16px;
+          background: #faf9f4;
+          box-shadow: 0 16px 42px rgba(0, 0, 0, 0.13);
+          backface-visibility: hidden;
+        }
+        .cfr-back {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transform: rotateY(180deg);
+        }
+        .cfr-ui {
+          display: grid;
+          grid-template-columns: 105px 1fr;
+          gap: 22px;
+          height: 100%;
+          padding: 28px;
+        }
+        .cfr-side {
+          border-radius: 11px;
+          background: #deddd7;
+        }
+        .cfr-main {
+          padding: 18px;
+          border: 1px solid #dbd9d2;
+          border-radius: 11px;
+          background: #f1f0eb;
+        }
+        .cfr-main i {
+          display: block;
+          width: 72%;
+          height: 13px;
+          margin-bottom: 16px;
+          border-radius: 7px;
+          background: #333733;
+        }
+        .cfr-main i:nth-child(2) {
+          width: 45%;
+          background: #aaa9a3;
+        }
+        .cfr-main:after {
+          content: "";
+          display: block;
+          height: 120px;
+          margin-top: 45px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, var(--accent), #ffc7b7);
+        }
+        .cfr-result {
+          font-size: 96px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .cfr-result small {
+          display: block;
+          margin-top: 12px;
+          color: #454740;
+          font-size: 16px;
+          text-align: center;
+          letter-spacing: 3px;
+        }
+        .cfr-sheen {
+          position: absolute;
+          inset: -20%;
+          transform: translateX(-135%) rotate(12deg);
+          opacity: 0;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(0, 0, 0, 0.32),
+            transparent
+          );
+        }
+        .cfr-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          color: #555852;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="cfr-root"
+        data-hf-id="hf-cfr-root"
+        data-composition-id="shot-card-flip-reveal"
+        data-start="0"
+        data-duration="4.833"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cfr-fill">
+          <div class="cfr-title">FEATURES BECOME RESULTS</div>
+          <div class="cfr-sub">THREE SEMANTIC FLIPS</div>
+          <div class="cfr-wrap">
+            <div id="cfr-card0" class="cfr-card">
+              <div class="cfr-face">
+                <div class="cfr-ui">
+                  <div class="cfr-side"></div>
+                  <div class="cfr-main"><i></i><i></i></div>
+                </div>
+                <div id="cfr-sh0" class="cfr-sheen"></div>
+              </div>
+              <div class="cfr-face cfr-back">
+                <div class="cfr-result">4.9x<small>FASTER</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="cfr-wrap">
+            <div id="cfr-card1" class="cfr-card">
+              <div class="cfr-face">
+                <div class="cfr-ui">
+                  <div class="cfr-side"></div>
+                  <div class="cfr-main"><i></i><i></i></div>
+                </div>
+                <div id="cfr-sh1" class="cfr-sheen"></div>
+              </div>
+              <div class="cfr-face cfr-back">
+                <div class="cfr-result">-38%<small>LESS WORK</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="cfr-wrap">
+            <div id="cfr-card2" class="cfr-card">
+              <div class="cfr-face">
+                <div class="cfr-ui">
+                  <div class="cfr-side"></div>
+                  <div class="cfr-main"><i></i><i></i></div>
+                </div>
+                <div id="cfr-sh2" class="cfr-sheen"></div>
+              </div>
+              <div class="cfr-face cfr-back">
+                <div class="cfr-result">99.9%<small>RELIABLE</small></div>
+              </div>
+            </div>
+          </div>
+          <div class="cfr-caption">18F FLIP / 12 DEG OVERSHOOT / 8F SETTLE</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#cfr-root .cfr-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff6e4b");
+          [0, 1, 2].forEach(function (i) {
+            var t = 0.6 + i * 0.333;
+            tl.to(
+              "#cfr-card" + i,
+              {
+                rotationY: 192,
+                duration: 0.6,
+                ease: "cubic-bezier(.55,0,.3,1)",
+              },
+              t,
+            )
+              .to(
+                "#cfr-card" + i,
+                { rotationY: 180, duration: 0.267, ease: "power4.out" },
+                t + 0.601,
+              )
+              .set("#cfr-sh" + i, { opacity: 1 }, t + 0.15)
+              .to(
+                "#cfr-sh" + i,
+                { x: "270%", duration: 0.36, ease: "none" },
+                t + 0.151,
+              )
+              .set("#cfr-sh" + i, { opacity: 0 }, t + 0.52);
+          });
+          window.__timelines["shot-card-flip-reveal"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

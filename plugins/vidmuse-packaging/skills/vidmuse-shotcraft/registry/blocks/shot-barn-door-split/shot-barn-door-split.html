@@ -1,0 +1,267 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"New-page accent","default":"#ff7354"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .bds-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #ff7354;
+        }
+        .bds-page {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          padding: 88px 110px;
+          background: #e9e7e0;
+        }
+        .bds-page-b {
+          transform: scale(1.06);
+          background: #171a18;
+          color: #f5f3ed;
+        }
+        .bds-top {
+          display: flex;
+          justify-content: space-between;
+          font-size: 16px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .bds-page h1 {
+          margin-top: 58px;
+          font-size: 76px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .bds-grid {
+          display: grid;
+          grid-template-columns: 390px 1fr;
+          gap: 28px;
+          margin-top: 58px;
+        }
+        .bds-side,
+        .bds-main {
+          height: 580px;
+          border: 1px solid #cbc9c2;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .bds-page-b .bds-side,
+        .bds-page-b .bds-main {
+          border-color: #414641;
+          background: #252a26;
+        }
+        .bds-side {
+          padding: 28px;
+        }
+        .bds-side i,
+        .bds-main i {
+          display: block;
+          width: 70%;
+          height: 14px;
+          margin-bottom: 20px;
+          border-radius: 7px;
+          background: #999b96;
+        }
+        .bds-main {
+          padding: 32px;
+        }
+        .bds-main i:first-child {
+          width: 46%;
+          height: 20px;
+          background: #333633;
+        }
+        .bds-main:after {
+          content: "";
+          display: block;
+          height: 300px;
+          margin-top: 90px;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #c9c7c0, #eceae4);
+        }
+        .bds-page-b .bds-main:after {
+          background: linear-gradient(135deg, var(--accent), #8d2d20);
+        }
+        .bds-door {
+          position: absolute;
+          top: 0;
+          width: 960px;
+          height: 1080px;
+          overflow: hidden;
+        }
+        .bds-left {
+          left: 0;
+        }
+        .bds-right {
+          left: 960px;
+        }
+        .bds-right .bds-page {
+          left: -960px;
+        }
+        .bds-edge {
+          position: absolute;
+          top: 0;
+          width: 3px;
+          height: 1080px;
+          opacity: 0;
+          background: #171a18;
+        }
+        .bds-left .bds-edge {
+          right: 0;
+          box-shadow: -8px 0 14px rgba(0, 0, 0, 0.4);
+        }
+        .bds-right .bds-edge {
+          left: 0;
+          box-shadow: 8px 0 14px rgba(0, 0, 0, 0.4);
+        }
+        .bds-crack {
+          position: absolute;
+          left: 959px;
+          top: 0;
+          width: 2px;
+          height: 1080px;
+          opacity: 0;
+          background: #171a18;
+        }
+        .bds-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 5;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(242, 240, 233, 0.92);
+          color: #171a18;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="bds-root"
+        data-hf-id="hf-bds-root"
+        data-composition-id="shot-barn-door-split"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="bds-fill">
+          <div
+            id="bds-page-b"
+            class="bds-page bds-page-b"
+            data-layout-allow-overflow
+          >
+            <div class="bds-top">
+              <span data-layout-allow-overlap data-layout-allow-occlusion
+                >NEW SYSTEM</span
+              ><span data-layout-allow-overlap data-layout-allow-occlusion
+                >02</span
+              >
+            </div>
+            <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+              Ready for what is next.
+            </h1>
+            <div class="bds-grid">
+              <div class="bds-side"><i></i><i></i><i></i></div>
+              <div class="bds-main"><i></i><i></i></div>
+            </div>
+          </div>
+          <div
+            id="bds-left"
+            class="bds-door bds-left"
+            data-layout-allow-overflow
+          >
+            <div class="bds-page">
+              <div class="bds-top">
+                <span data-layout-allow-overlap data-layout-allow-occlusion
+                  >OLD SYSTEM</span
+                ><span data-layout-allow-overlap data-layout-allow-occlusion
+                  >01</span
+                >
+              </div>
+              <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+                Built for yesterday.
+              </h1>
+              <div class="bds-grid">
+                <div class="bds-side"><i></i><i></i><i></i></div>
+                <div class="bds-main"><i></i><i></i></div>
+              </div>
+            </div>
+            <div class="bds-edge"></div>
+          </div>
+          <div
+            id="bds-right"
+            class="bds-door bds-right"
+            data-layout-allow-overflow
+          >
+            <div class="bds-page">
+              <div class="bds-top">
+                <span data-layout-allow-overlap data-layout-allow-occlusion
+                  >OLD SYSTEM</span
+                ><span data-layout-allow-overlap data-layout-allow-occlusion
+                  >01</span
+                >
+              </div>
+              <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+                Built for yesterday.
+              </h1>
+              <div class="bds-grid">
+                <div class="bds-side"><i></i><i></i><i></i></div>
+                <div class="bds-main"><i></i><i></i></div>
+              </div>
+            </div>
+            <div class="bds-edge"></div>
+          </div>
+          <div class="bds-crack"></div>
+          <div class="bds-caption">TWO CRACK FLASHES / ACCELERATED EXIT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#bds-root .bds-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff7354");
+          tl.set("#bds-root .bds-crack", { opacity: 1 }, 0.6)
+            .set("#bds-root .bds-crack", { opacity: 0 }, 0.733)
+            .set("#bds-root .bds-crack", { opacity: 1 }, 0.833)
+            .set("#bds-root .bds-crack", { opacity: 0 }, 0.967)
+            .set("#bds-root .bds-edge", { opacity: 1 }, 1)
+            .to("#bds-left", { x: -980, duration: 0.667, ease: "power3.in" }, 1)
+            .to("#bds-right", { x: 980, duration: 0.667, ease: "power3.in" }, 1)
+            .to(
+              "#bds-page-b",
+              { scale: 1, duration: 0.833, ease: "power3.out" },
+              1,
+            )
+            .set("#bds-left,#bds-right", { opacity: 0 }, 1.668);
+          window.__timelines["shot-barn-door-split"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

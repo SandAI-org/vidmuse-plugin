@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;logoImage&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Logo SVG&quot;,&quot;default&quot;:&quot;assets/branding/vidmuse-logo-white.svg&quot;},
+  {&quot;id&quot;:&quot;pageImage&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;UI image&quot;,&quot;default&quot;:&quot;assets/textures/projects-full.png&quot;},
+  {&quot;id&quot;:&quot;background&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Background&quot;,&quot;default&quot;:&quot;#000000&quot;}
+]"><head></head><body><template>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}.ls-fill{position:absolute;inset:0;overflow:hidden;background:var(--background)}.ls-scene{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden}#ls-dashboard{background:#ececea;opacity:0}#ls-dashboard-img{position:absolute;left:0;top:-180px;width:1920px;height:auto;display:block;transform-origin:0 0}#ls-darken{position:absolute;inset:0;background:#000;opacity:0}#ls-logo-scene{display:flex;align-items:center;justify-content:center;background:var(--background);opacity:0}#ls-logo{width:760px;height:190px;object-fit:contain;display:block;filter:drop-shadow(0 0 30px rgba(255,255,255,.12));transform-origin:center}#ls-tick{position:absolute;right:90px;bottom:80px;width:56px;height:56px;border-radius:50%;background:#2f2f2f;display:flex;align-items:center;justify-content:center;opacity:0}#ls-tick:after{content:"";width:20px;height:20px;border-radius:50%;background:#fff}
+  </style>
+  <div data-hf-id="hf-ls-root" id="ls-root" data-composition-id="shot-logo-sting-button" data-start="0" data-duration="4.733" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+    <div data-hf-id="hf-ls-fill" class="ls-fill">
+      <div data-hf-id="hf-ls-dashboard" id="ls-dashboard" class="ls-scene"><img data-hf-id="hf-ls-dashboard-img" id="ls-dashboard-img" data-var-src="pageImage" src="assets/textures/projects-full.png" alt="" data-layout-allow-overflow><div data-hf-id="hf-ls-darken" id="ls-darken"></div><div data-hf-id="hf-ls-tick" id="ls-tick" data-layout-ignore></div></div>
+      <div data-hf-id="hf-ls-logo-scene" id="ls-logo-scene" class="ls-scene"><img data-hf-id="hf-ls-logo" id="ls-logo" data-var-src="logoImage" src="assets/branding/vidmuse-logo-white.svg" alt="VidMuse"></div>
+    </div>
+  </div>
+  <script>(function(){window.__timelines=window.__timelines||{};var v=window.__hyperframes.getVariables();document.getElementById("ls-root").style.setProperty("--background",v.background||"#000000");gsap.set("#ls-dashboard",{opacity:1});var tl=gsap.timeline({paused:true});tl.to("#ls-darken",{opacity:1,duration:.3,ease:"power3.in"},.467);tl.set("#ls-dashboard",{opacity:0},.8);tl.set("#ls-logo-scene",{opacity:1},1);tl.fromTo("#ls-logo",{opacity:0,scale:.96},{opacity:1,scale:1,duration:.333,ease:"power3.out"},1);tl.set("#ls-logo-scene",{opacity:0},2.333);tl.set("#ls-dashboard",{opacity:1},2.333);tl.set("#ls-darken",{opacity:0},2.333);tl.set("#ls-dashboard-img",{x:-1054,y:-554,scale:2.4},2.333);tl.set("#ls-tick",{opacity:1},2.467);tl.set("#ls-tick",{opacity:0},2.533);tl.set("#ls-dashboard",{opacity:0},2.733);tl.set("#ls-logo-scene",{opacity:1},2.733);tl.set("#ls-logo",{opacity:1,scale:1},2.733);window.__timelines["shot-logo-sting-button"]=tl})();</script>
+</template></body></html>

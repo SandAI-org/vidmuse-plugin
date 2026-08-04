@@ -192,6 +192,15 @@ Treat source-camera motion as a high-attention spatial decision because it moves
 
 After selecting the spatial mode, load `vidmuse-motion` and build a cue chain from exact ATA word anchors plus relevant pauses, gestures, and source events. A card window defines availability, not one simultaneous entrance: reveal claims, branches, values, and consequences when the speaker reaches them, then hold and resolve intentionally. Hand the approved motion brief to `hyperframes-animation`; never select animation rules or effects before the semantic and temporal reason exists.
 
+Only after that cue chain exists may `vidmuse-shotcraft` be loaded for an installable
+implementation candidate. Query `recut:safe` first and shortlist no more than three;
+`recut:adapt` requires a named structural adaptation and `create-only` is unavailable by
+default. Install the exact `shot-*` item through the skill's local installer, strip every
+piece of demo content, and rebuild it against the approved source interval and `FRAME.md`.
+A Shotcraft block never relaxes protected-region, spatial-state, static-hero, overlay-host,
+or Timeline gates. In particular, the raw Registry payload and installed raw block are not
+valid `htmlSourceFilePath` values.
+
 Keep each packaging moment atomic. A treatment opens when its own payload is ready and closes when its referent expires; it does not open early as an empty shell waiting for later speech. When a chapter or claim will only be substantiated much later, split it into separate treatments — a brief self-contained chapter marker that enters, reads, and exits, then a later evidence treatment at its own anchor — instead of one long card whose first state is a bare heading. From its first rendered frame to its last, every visible state of a card must read as complete: no unexplained empty panel, no lone kicker above blank surface, no region reserved for content that has not arrived. If an intermediate state would look unfinished as a thumbnail, restructure the reveal or split the card.
 
 Repeated geometry is allowed only when it is an intentional named system such as a chapter rail or returning title. Do not place adjacent important beats in the same floating-panel silhouette merely with different copy. If three or more `support` or `hero` moments in the film still read as the same rectangle at a glance, redesign their spatial mode or relationship encoding. Do not solve flatness by stacking effects on one panel; create contrast between clean footage, integrated annotation, spatial re-composition, evidence, and justified takeovers.

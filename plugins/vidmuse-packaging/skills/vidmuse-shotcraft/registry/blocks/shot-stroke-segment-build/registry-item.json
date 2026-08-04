@@ -1,0 +1,13 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-stroke-segment-build",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Stroke Segment Build",
+  "description": "Sixteen line segments assemble the word SHIP in a deliberately scrambled reveal, followed by a compact landing pulse.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "opening", "typography", "line", "assembly"],
+  "files": [
+    { "path": "shot-stroke-segment-build.html", "target": "compositions/shot-stroke-segment-build.html", "type": "hyperframes:composition" }
+  ]
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;heroImage&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Hero card&quot;,&quot;default&quot;:&quot;assets/textures/card4-hires.png&quot;},
+  {&quot;id&quot;:&quot;zoom&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Background zoom&quot;,&quot;default&quot;:2.25,&quot;min&quot;:1.2,&quot;max&quot;:3,&quot;step&quot;:0.05},
+  {&quot;id&quot;:&quot;blur&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Final blur&quot;,&quot;default&quot;:3.5,&quot;min&quot;:0,&quot;max&quot;:12,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;px&quot;}
+]"><head></head>
+  <body>
+    <template>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .dz-fill { position: absolute; inset: 0; overflow: hidden; background: #efece6; }
+        #dz-world { position: absolute; inset: 0; transform-origin: 960px 540px; display: block; filter: url(#dz-blur-filter); }
+        #dz-page { position: absolute; left: 0; top: -400px; width: 1920px; opacity: .55; display: block; }
+        .dz-card { position: absolute; width: 320px; border-radius: 12px; opacity: .9; box-shadow: 0 6px 20px rgba(31,28,23,.12); display: block; }
+        #dz-hero { position: absolute; left: 700px; top: 312px; width: 520px; border-radius: 14px; box-shadow: 0 24px 68px rgba(31,28,23,.25); display: block; }
+      </style>
+      <div data-hf-id="hf-dz-root" id="dz-root" data-composition-id="shot-depth-dolly-zoom" data-start="0" data-duration="4.5" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+        <div data-hf-id="hf-dz-fill" class="dz-fill">
+          <svg data-hf-id="hf-dz-filter" width="0" height="0" aria-hidden="true" style="position:absolute"><filter data-hf-id="hf-ftgh" id="dz-blur-filter" x="-20%" y="-20%" width="140%" height="140%"><fegaussianblur data-hf-id="hf-0cu2" id="dz-blur" stdDeviation="0" /></filter></svg>
+          <div data-hf-id="hf-dz-world" id="dz-world" data-layout-allow-overflow="">
+            <img data-hf-id="hf-dz-page" id="dz-page" src="assets/textures/projects-full.png" alt="">
+            <img data-hf-id="hf-dz-card1" class="dz-card" src="assets/textures/card1.png" alt="" style="left:180px;top:140px">
+            <img data-hf-id="hf-dz-card2" class="dz-card" src="assets/textures/card2.png" alt="" style="left:1280px;top:120px">
+            <img data-hf-id="hf-dz-card3" class="dz-card" src="assets/textures/card3.png" alt="" style="left:240px;top:700px">
+            <img data-hf-id="hf-dz-card4" class="dz-card" src="assets/textures/card5.png" alt="" style="left:1220px;top:720px">
+            <img data-hf-id="hf-dz-card5" class="dz-card" src="assets/textures/card6.png" alt="" style="left:700px;top:60px">
+            <img data-hf-id="hf-dz-card6" class="dz-card" src="assets/textures/card7.png" alt="" style="left:760px;top:840px">
+            <img data-hf-id="hf-dz-card7" class="dz-card" src="assets/textures/card8.png" alt="" style="left:60px;top:420px">
+            <img data-hf-id="hf-dz-card8" class="dz-card" src="assets/textures/card9.png" alt="" style="left:1500px;top:430px">
+          </div>
+          <img data-hf-id="hf-dz-hero" id="dz-hero" data-var-src="heroImage" src="assets/textures/card4-hires.png" alt="">
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var vars = window.__hyperframes.getVariables();
+          var zoom = Number(vars.zoom || 2.25);
+          var finalBlur = Number(vars.blur || 3.5);
+          var blurNode = document.getElementById("dz-blur");
+          var blur = { v: 0 };
+          function writeBlur() { blurNode.setAttribute("stdDeviation", blur.v); }
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#dz-world", { scale: 1 }, { scale: zoom, duration: 3.167, ease: "power2.inOut" }, .5);
+          tl.to(blur, { v: finalBlur, duration: 3.167, ease: "power2.inOut", onUpdate: writeBlur }, .5);
+          tl.fromTo("#dz-hero", { scale: 1, boxShadow: "0 12px 40px rgba(31,28,23,.16)" }, { scale: 1, boxShadow: "0 28px 68px rgba(31,28,23,.26)", duration: 3.167, ease: "power2.inOut" }, .5);
+          window.__timelines["shot-depth-dolly-zoom"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

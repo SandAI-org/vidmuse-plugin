@@ -1,0 +1,271 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Hit accent","default":"#b45309"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .htc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+        }
+        .htc-bg {
+          position: absolute;
+          inset: 0;
+          opacity: 0.4;
+        }
+        .htc-side {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 220px;
+          background: #d9d8d3;
+        }
+        .htc-bgcard {
+          position: absolute;
+          width: 430px;
+          height: 250px;
+          border-radius: 16px;
+          background: #f8f7f3;
+          border: 1px solid #cfcdc7;
+        }
+        .htc-bgcard:before {
+          content: "";
+          position: absolute;
+          left: 30px;
+          top: 30px;
+          width: 180px;
+          height: 28px;
+          border-radius: 8px;
+          background: #7b7972;
+        }
+        .htc-bgcard:nth-child(2) {
+          left: 280px;
+          top: 130px;
+        }
+        .htc-bgcard:nth-child(3) {
+          left: 760px;
+          top: 130px;
+        }
+        .htc-bgcard:nth-child(4) {
+          left: 1240px;
+          top: 130px;
+        }
+        .htc-slot {
+          position: absolute;
+          top: 430px;
+          width: 420px;
+          height: 300px;
+          border: 3px dashed #aaa79f;
+          border-radius: 16px;
+        }
+        .htc-s1 {
+          left: 180px;
+        }
+        .htc-s2 {
+          left: 680px;
+        }
+        .htc-s3 {
+          left: 1180px;
+        }
+        .htc-card {
+          position: absolute;
+          top: 430px;
+          width: 420px;
+          height: 300px;
+          padding: 34px;
+          border: 2px solid #c9c6bf;
+          border-radius: 16px;
+          background: #faf9f5;
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+          transform-origin: center bottom;
+        }
+        .htc-c1 {
+          left: 180px;
+        }
+        .htc-c2 {
+          left: 680px;
+        }
+        .htc-c3 {
+          left: 1180px;
+        }
+        .htc-k {
+          width: 120px;
+          height: 13px;
+          border-radius: 7px;
+          background: #aaa79f;
+        }
+        .htc-v {
+          width: 240px;
+          height: 44px;
+          margin-top: 28px;
+          border-radius: 10px;
+          background: #5e5d57;
+        }
+        .htc-lines {
+          position: absolute;
+          left: 34px;
+          right: 34px;
+          bottom: 34px;
+          height: 100px;
+          border-radius: 12px;
+          background: repeating-linear-gradient(
+            to bottom,
+            #d5d2cb 0 10px,
+            transparent 10px 24px
+          );
+        }
+        .htc-dmg {
+          position: absolute;
+          top: 390px;
+          width: 420px;
+          text-align: center;
+          font-size: 72px;
+          font-weight: 900;
+          letter-spacing: -3px;
+          opacity: 0;
+        }
+        .htc-d1 {
+          left: 180px;
+        }
+        .htc-d2 {
+          left: 680px;
+        }
+        .htc-d3 {
+          left: 1180px;
+        }
+        .htc-counter {
+          position: absolute;
+          right: 70px;
+          top: 50px;
+          padding: 10px 34px 16px;
+          border-radius: 18px;
+          background: #292824;
+          color: #fff;
+          font-size: 84px;
+          font-weight: 900;
+          line-height: 1.1;
+          letter-spacing: -2px;
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+          opacity: 0.25;
+          transform-origin: center;
+        }
+      </style>
+      <div
+        data-hf-id="hf-htc-root"
+        id="htc-root"
+        data-composition-id="shot-hit-counter"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="htc-fill" style="--accent: #b45309">
+          <div class="htc-bg">
+            <div class="htc-side"></div>
+            <div class="htc-bgcard"></div>
+            <div class="htc-bgcard"></div>
+            <div class="htc-bgcard"></div>
+          </div>
+          <div class="htc-slot htc-s1"></div>
+          <div class="htc-slot htc-s2"></div>
+          <div class="htc-slot htc-s3"></div>
+          <article id="htc-card-1" class="htc-card htc-c1" data-layout-allow-overflow>
+            <div class="htc-k"></div>
+            <div class="htc-v"></div>
+            <div class="htc-lines"></div>
+          </article>
+          <article id="htc-card-2" class="htc-card htc-c2" data-layout-allow-overflow>
+            <div class="htc-k"></div>
+            <div class="htc-v"></div>
+            <div class="htc-lines"></div>
+          </article>
+          <article id="htc-card-3" class="htc-card htc-c3" data-layout-allow-overflow>
+            <div class="htc-k"></div>
+            <div class="htc-v"></div>
+            <div class="htc-lines"></div>
+          </article>
+          <div id="htc-dmg-1" class="htc-dmg htc-d1">+1.2k</div>
+          <div id="htc-dmg-2" class="htc-dmg htc-d2">+2.4k</div>
+          <div id="htc-dmg-3" class="htc-dmg htc-d3">+4.8k</div>
+          <div id="htc-counter" class="htc-counter">×0</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("htc-root"),
+            fill = root.querySelector(".htc-fill"),
+            counter = document.getElementById("htc-counter"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#b45309");
+          gsap.set(".htc-card", { y: -950, opacity: 0 });
+          function hit(i, at, peak, rot, size) {
+            var c = "#htc-card-" + i,
+              d = "#htc-dmg-" + i;
+            tl.set(c, { opacity: 1 }, at - 0.333)
+              .to(c, { y: 0, duration: 0.333, ease: "power2.in" }, at - 0.333)
+              .to(c, { scaleY: 0.94, duration: 0.034, ease: "none" }, at)
+              .to(
+                c,
+                { scaleY: 1, duration: 0.1, ease: "back.out(2)" },
+                at + 0.067,
+              )
+              .set(
+                counter,
+                {
+                  textContent: "×" + i,
+                  opacity: 1,
+                  rotation: rot,
+                  fontSize: size,
+                },
+                at,
+              )
+              .fromTo(
+                counter,
+                { scale: peak },
+                { scale: 1, duration: 0.267, ease: "power3.out" },
+                at,
+              )
+              .set(d, { opacity: 1, y: 0, scale: 1.4 }, at)
+              .to(
+                d,
+                {
+                  opacity: 0,
+                  y: -60,
+                  scale: 1,
+                  duration: 0.4,
+                  ease: "power2.out",
+                },
+                at,
+              );
+          }
+          hit(1, 1, 1.3, -2, 84);
+          hit(2, 2.067, 1.45, -4, 98);
+          hit(3, 3.133, 1.6, -6, 112);
+          window.__timelines["shot-hit-counter"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

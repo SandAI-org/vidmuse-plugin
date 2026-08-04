@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-impact-burst-kit",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Impact Burst Kit",
+  "description": "A hovering hero card slams into a three-card row, emits an expanding impact ring and fourteen deterministic fragments, then pushes and damps both neighboring cards.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": [
+    "shotcraft",
+    "effects",
+    "slam",
+    "impact",
+    "burst",
+    "cards",
+    "particles"
+  ],
+  "files": [
+    {
+      "path": "shot-impact-burst-kit.html",
+      "target": "compositions/shot-impact-burst-kit.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

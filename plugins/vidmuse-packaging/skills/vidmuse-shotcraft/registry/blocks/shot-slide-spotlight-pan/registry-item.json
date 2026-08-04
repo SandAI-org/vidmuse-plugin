@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-slide-spotlight-pan",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Slide Spotlight Pan",
+  "description": "A purple beam climbs the left edge, rounds the corner, and rides the top border at constant speed while an extra-wide interface slides left to create a coordinated camera pan.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.4,
+  "tags": [
+    "shotcraft",
+    "effects",
+    "spotlight",
+    "edge-light",
+    "camera-pan",
+    "ui-tour",
+    "linear"
+  ],
+  "files": [
+    {
+      "path": "shot-slide-spotlight-pan.html",
+      "target": "compositions/shot-slide-spotlight-pan.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

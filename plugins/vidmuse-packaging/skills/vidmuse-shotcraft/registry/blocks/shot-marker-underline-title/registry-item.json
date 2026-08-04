@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-marker-underline-title",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Marker Underline Title",
+  "description": "A clean two-line title settles before a rough, variable-width marker stroke draws beneath its italic keyword.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 1.5,
+  "tags": ["shotcraft", "typography", "title", "marker", "underline"],
+  "files": [{ "path": "shot-marker-underline-title.html", "target": "compositions/shot-marker-underline-title.html", "type": "hyperframes:composition" }]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-gradient-word-sweep",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Gradient Word Sweep",
+  "description": "A fast multicolor charge sweeps across one hero word, leaving restrained glow and sparse magenta lightning.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.5,
+  "tags": ["shotcraft", "typography", "effects", "gradient", "glow"],
+  "files": [{ "path": "shot-gradient-word-sweep.html", "target": "compositions/shot-gradient-word-sweep.html", "type": "hyperframes:composition" }]
+}

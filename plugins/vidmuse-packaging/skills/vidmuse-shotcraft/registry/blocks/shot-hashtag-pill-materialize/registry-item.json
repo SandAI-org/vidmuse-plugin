@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-hashtag-pill-materialize",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Hashtag Pill Materialize",
+  "description": "A hashtag types with a steady solid cursor, hard-cuts into an oversized pill, holds, scales and slides into a tag slot, then hard-cuts to the completed note page.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.5,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "hashtag",
+    "pill",
+    "materialize",
+    "hard-cut",
+    "tag"
+  ],
+  "files": [
+    {
+      "path": "shot-hashtag-pill-materialize.html",
+      "target": "compositions/shot-hashtag-pill-materialize.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

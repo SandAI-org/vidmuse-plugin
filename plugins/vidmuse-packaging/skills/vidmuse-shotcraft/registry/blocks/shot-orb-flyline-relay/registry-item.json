@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-orb-flyline-relay",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Orb Flyline Relay",
+  "description": "Glowing lines hand a signal through three dark cards while nearby ambient orbs surge at each arrival and the receiving cards illuminate in sequence.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.167,
+  "tags": ["shotcraft", "effects", "orb", "flyline", "relay", "signal", "dark"],
+  "files": [{ "path": "shot-orb-flyline-relay.html", "target": "compositions/shot-orb-flyline-relay.html", "type": "hyperframes:composition" }]
+}

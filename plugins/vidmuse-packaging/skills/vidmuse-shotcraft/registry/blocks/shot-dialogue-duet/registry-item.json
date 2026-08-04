@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-dialogue-duet",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Cursor Dialogue Duet",
+  "description": "Two named collaboration cursors enter, approach, orbit on opposite arcs, exchange visual focus, and hand the scene to a giant accelerating cursor wipe.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "cursor",
+    "collaboration",
+    "dialogue",
+    "handoff",
+    "transition"
+  ],
+  "files": [
+    {
+      "path": "shot-dialogue-duet.html",
+      "target": "compositions/shot-dialogue-duet.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

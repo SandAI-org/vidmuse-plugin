@@ -1,0 +1,4648 @@
+[
+  {
+    "name": "shot-crash-zoom",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Crash Zoom",
+    "description": "A rapid camera punch into a chosen target with overshoot and seek-safe directional blur.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "zoom",
+      "product-demo"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-crash-zoom.html",
+        "target": "compositions/shot-crash-zoom.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card4-hires.png",
+        "target": "assets/textures/card4-hires.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-depth-multiplane",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Depth Multiplane",
+    "description": "A three-depth product-surface move with independent background, reading plane, and foreground travel.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "parallax",
+      "product-demo"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-depth-multiplane.html",
+        "target": "compositions/shot-depth-multiplane.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/float-search.png",
+        "target": "assets/textures/float-search.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card1.png",
+        "target": "assets/textures/card1.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card2.png",
+        "target": "assets/textures/card2.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card3.png",
+        "target": "assets/textures/card3.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card4-hires.png",
+        "target": "assets/textures/card4-hires.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card4-focus.png",
+        "target": "assets/textures/card4-focus.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card5.png",
+        "target": "assets/textures/card5.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card6.png",
+        "target": "assets/textures/card6.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-card-flock",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Card Flock",
+    "description": "Three crisp UI cards tumble into a 3D stack, collapse, and release a single turbulent smoke ring and headline.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "3d",
+      "ui"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-card-flock.html",
+        "target": "compositions/shot-card-flock.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-speed-ramp",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Speed Ramp",
+    "description": "A fast-slow-fast card rail that creates a readable focus window and velocity-linked blur contrast.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "speed-ramp",
+      "product-demo"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-speed-ramp.html",
+        "target": "compositions/shot-speed-ramp.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/card1.png",
+        "target": "assets/textures/card1.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card2.png",
+        "target": "assets/textures/card2.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card3.png",
+        "target": "assets/textures/card3.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card4-hires.png",
+        "target": "assets/textures/card4-hires.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card5.png",
+        "target": "assets/textures/card5.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card6.png",
+        "target": "assets/textures/card6.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card7.png",
+        "target": "assets/textures/card7.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card8.png",
+        "target": "assets/textures/card8.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card9.png",
+        "target": "assets/textures/card9.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card1-b.png",
+        "target": "assets/textures/card1-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card2-b.png",
+        "target": "assets/textures/card2-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card3-b.png",
+        "target": "assets/textures/card3-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card5-b.png",
+        "target": "assets/textures/card5-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card6-b.png",
+        "target": "assets/textures/card6-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card7-b.png",
+        "target": "assets/textures/card7-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card8-b.png",
+        "target": "assets/textures/card8-b.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-ui-brand-morph",
+    "type": "hyperframes:block",
+    "title": "Shotcraft UI to Brand Morph",
+    "description": "A message input sends, compresses into a pill, and reveals the supplied VidMuse SVG wordmark.",
+    "tags": [
+      "shotcraft",
+      "outro",
+      "brand",
+      "morph"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-ui-brand-morph.html",
+        "target": "compositions/shot-ui-brand-morph.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/vidmuse-logo-white.svg",
+        "target": "assets/branding/vidmuse-logo-white.svg",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-crash-impact",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Crash Impact",
+    "description": "A rapid camera push that lands with a crisp, exponentially damped screen shake.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "impact",
+      "crash-zoom"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-crash-impact.html",
+        "target": "compositions/shot-crash-impact.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card4-hires.png",
+        "target": "assets/textures/card4-hires.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-depth-dolly-zoom",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Dolly Zoom",
+    "description": "A fixed hero card against a rapidly expanding and increasingly defocused world.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "depth",
+      "dolly-zoom"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-depth-dolly-zoom.html",
+        "target": "compositions/shot-depth-dolly-zoom.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card1.png",
+        "target": "assets/textures/card1.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card2.png",
+        "target": "assets/textures/card2.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card3.png",
+        "target": "assets/textures/card3.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card4-hires.png",
+        "target": "assets/textures/card4-hires.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card5.png",
+        "target": "assets/textures/card5.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card6.png",
+        "target": "assets/textures/card6.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card7.png",
+        "target": "assets/textures/card7.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card8.png",
+        "target": "assets/textures/card8.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card9.png",
+        "target": "assets/textures/card9.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-freeze-annotate",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Freeze Annotate",
+    "description": "A card rail freezes on a target while a rough marker ring and arrow draw on, then resumes.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "freeze",
+      "annotation"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-freeze-annotate.html",
+        "target": "compositions/shot-freeze-annotate.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/card1.png",
+        "target": "assets/textures/card1.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card2.png",
+        "target": "assets/textures/card2.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card3.png",
+        "target": "assets/textures/card3.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card4-hires.png",
+        "target": "assets/textures/card4-hires.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card5.png",
+        "target": "assets/textures/card5.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card6.png",
+        "target": "assets/textures/card6.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card7.png",
+        "target": "assets/textures/card7.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card8.png",
+        "target": "assets/textures/card8.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card9.png",
+        "target": "assets/textures/card9.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card1-b.png",
+        "target": "assets/textures/card1-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card2-b.png",
+        "target": "assets/textures/card2-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card3-b.png",
+        "target": "assets/textures/card3-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card5-b.png",
+        "target": "assets/textures/card5-b.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card6-b.png",
+        "target": "assets/textures/card6-b.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-icon-flip-bloom",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Icon Flip Bloom",
+    "description": "A UI icon anticipates, flips to a thin edge, blooms, and resolves into a supplied SVG lockup.",
+    "tags": [
+      "shotcraft",
+      "outro",
+      "logo",
+      "morph"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-icon-flip-bloom.html",
+        "target": "compositions/shot-icon-flip-bloom.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/vidmuse-logo-white.svg",
+        "target": "assets/branding/vidmuse-logo-white.svg",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-letterspace-materialize",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Letterspace Materialize",
+    "description": "A widely tracked wordmark draws on as a luminous outline before settling into a crystalline fill.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "typography",
+      "wordmark",
+      "outline"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-letterspace-materialize.html",
+        "target": "compositions/shot-letterspace-materialize.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-stroke-segment-build",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Stroke Segment Build",
+    "description": "Sixteen line segments assemble the word SHIP in a deliberately scrambled reveal, followed by a compact landing pulse.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "typography",
+      "line",
+      "assembly"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-stroke-segment-build.html",
+        "target": "compositions/shot-stroke-segment-build.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-neon-triple-marquee",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Neon Triple Marquee",
+    "description": "Three oversized outlined word bands cross in alternating directions while a traveling neon pulse moves between rows.",
+    "tags": [
+      "shotcraft",
+      "outro",
+      "typography",
+      "marquee",
+      "neon"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-neon-triple-marquee.html",
+        "target": "compositions/shot-neon-triple-marquee.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-crane-rise-reveal",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Crane Rise Reveal",
+    "description": "A dashboard begins in a bottom-row close-up, cranes upward into a full view, and pulses each newly revealed row.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "camera",
+      "crane",
+      "ui"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-crane-rise-reveal.html",
+        "target": "compositions/shot-crane-rise-reveal.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-icon-field-colorize",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Icon Field Colorize",
+    "description": "A seeded field of 170 grayscale icons appears in staggered batches before four fast color waves sweep downward.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "icons",
+      "color",
+      "stagger"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-icon-field-colorize.html",
+        "target": "compositions/shot-icon-field-colorize.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-logo-sting-button",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Logo Sting Button",
+    "description": "A dashboard blacks out into a logo hold, flashes a twelve-frame UI close-up easter egg, then returns to the final lockup.",
+    "tags": [
+      "shotcraft",
+      "outro",
+      "logo",
+      "sting",
+      "ui"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.733,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-logo-sting-button.html",
+        "target": "compositions/shot-logo-sting-button.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/vidmuse-logo-white.svg",
+        "target": "assets/branding/vidmuse-logo-white.svg",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-dataviz-landscape-open",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Dataviz Landscape Open",
+    "description": "Near, mid, and far workflow tributaries draw into a luminous trunk while a steady lateral camera move exposes parallax and labels.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "dataviz",
+      "lines",
+      "parallax"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-dataviz-landscape-open.html",
+        "target": "compositions/shot-dataviz-landscape-open.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-text-as-mask",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Text As Mask",
+    "description": "A moving dashboard is revealed inside giant type, then a counter-scaled mask expansion hands off to the full interface without distortion.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "typography",
+      "mask",
+      "ui"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-text-as-mask.html",
+        "target": "compositions/shot-text-as-mask.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-magician-card-flourish",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Magician Card Flourish",
+    "description": "A rotating cyan lens flare releases a card from extreme depth into a slowing arc, thirteen spins, a hard landing, and one sheen pass.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "card",
+      "3d",
+      "flare"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.7,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-magician-card-flourish.html",
+        "target": "compositions/shot-magician-card-flourish.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-ui-strip-away-outro",
+    "type": "hyperframes:block",
+    "title": "Shotcraft UI Strip Away Outro",
+    "description": "A cursor clicks Publish as editor layers evaporate from the perimeter inward, leaving the button on black before the final logo handoff.",
+    "tags": [
+      "shotcraft",
+      "outro",
+      "ui",
+      "cursor",
+      "logo"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-ui-strip-away-outro.html",
+        "target": "compositions/shot-ui-strip-away-outro.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/vidmuse-logo-white.svg",
+        "target": "assets/branding/vidmuse-logo-white.svg",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-brand-ink-open",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Brand Ink Open",
+    "description": "A crosshair draws in, a wordmark presses down letter by letter, a kicker types, the lockup holds for a full second, then exits upward.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "brand",
+      "typography",
+      "typewriter"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 2.767,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-brand-ink-open.html",
+        "target": "compositions/shot-brand-ink-open.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-spotlight-hero-card",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Spotlight Hero Card",
+    "description": "A wandering spotlight locks onto one card, the camera pushes to an oblique close-up, the card rises, receives two scan laps, and reseats.",
+    "tags": [
+      "shotcraft",
+      "opening",
+      "spotlight",
+      "camera",
+      "card"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.6,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-spotlight-hero-card.html",
+        "target": "compositions/shot-spotlight-hero-card.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/card4-hires.png",
+        "target": "assets/textures/card4-hires.png",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-outro-group-photo-launch",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Outro Group Photo Launch",
+    "description": "Nine UI fragments fly in from four sides as a crane settles, then the logo, stage light, rule, sweep, and deterministic gold dust form a launch-event finale.",
+    "tags": [
+      "shotcraft",
+      "outro",
+      "launch",
+      "logo",
+      "particles"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.833,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-outro-group-photo-launch.html",
+        "target": "compositions/shot-outro-group-photo-launch.html",
+        "type": "hyperframes:composition"
+      },
+      {
+        "path": "assets/projects-full.png",
+        "target": "assets/textures/projects-full.png",
+        "type": "hyperframes:asset"
+      },
+      {
+        "path": "assets/vidmuse-logo-white.svg",
+        "target": "assets/branding/vidmuse-logo-white.svg",
+        "type": "hyperframes:asset"
+      }
+    ]
+  },
+  {
+    "name": "shot-cel-flash-stomp",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Cel Flash Stomp",
+    "description": "Three oversized words stamp down on hard beats while only the background flashes, ending on a grounded label bar.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "rhythm",
+      "stomp",
+      "flash"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.8,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-cel-flash-stomp.html",
+        "target": "compositions/shot-cel-flash-stomp.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-gradient-word-sweep",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Gradient Word Sweep",
+    "description": "A fast multicolor charge sweeps across one hero word, leaving restrained glow and sparse magenta lightning.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "effects",
+      "gradient",
+      "glow"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-gradient-word-sweep.html",
+        "target": "compositions/shot-gradient-word-sweep.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-marker-underline-title",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Marker Underline Title",
+    "description": "A clean two-line title settles before a rough, variable-width marker stroke draws beneath its italic keyword.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "title",
+      "marker",
+      "underline"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 1.5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-marker-underline-title.html",
+        "target": "compositions/shot-marker-underline-title.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-pill-slot-cycle",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Pill Slot Cycle",
+    "description": "A fixed sentence stem anchors six vertically cycling feature pills before the slot resolves into a final phrase.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "feature-list",
+      "pill",
+      "slot"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.833,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-pill-slot-cycle.html",
+        "target": "compositions/shot-pill-slot-cycle.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-split-flap-title",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Split Flap Title",
+    "description": "A seeded airport-board title flips through deterministic glyphs in a left-to-right wave, then clicks into its final phrase.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "split-flap",
+      "mechanical",
+      "title"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-split-flap-title.html",
+        "target": "compositions/shot-split-flap-title.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-text-column-converge",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Text Column Converge",
+    "description": "Two edge-anchored mono columns hard-cut through feature words before converging once into a centered launch phrase.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "reveal",
+      "converge",
+      "outro"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.8,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-text-column-converge.html",
+        "target": "compositions/shot-text-column-converge.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-title-demote-to-label",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Title Demote to Label",
+    "description": "Two chapter-title variants reveal, hold, and continuously demote into a top-left section label while content grows below.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "chapter",
+      "layout",
+      "transition"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 6.533,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-title-demote-to-label.html",
+        "target": "compositions/shot-title-demote-to-label.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-word-relay-filmstrip",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Word Relay Filmstrip",
+    "description": "Alternating editorial cards step one slot only when a right-aligned serif verb hands off to the next capability.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "filmstrip",
+      "editorial",
+      "feature-list"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.2,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-word-relay-filmstrip.html",
+        "target": "compositions/shot-word-relay-filmstrip.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-split-text-stagger",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Split Text Stagger",
+    "description": "Characters rise through individual baseline masks with a visible overshoot while a shared rule grows beneath the phrase.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "assembly",
+      "stagger",
+      "mask"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-split-text-stagger.html",
+        "target": "compositions/shot-split-text-stagger.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-letterform-drift-assembly",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Letterform Drift Assembly",
+    "description": "Seeded letterforms drift inward from different directions, lock with dark pulses, and breathe once as an assembled word.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "assembly",
+      "drift",
+      "brand"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-letterform-drift-assembly.html",
+        "target": "compositions/shot-letterform-drift-assembly.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-tracking-expand-reveal",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Tracking Expand Reveal",
+    "description": "A tightly compressed word breathes to wide cinematic tracking through per-character transforms while its subtitle resolves below.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "tracking",
+      "cinematic",
+      "reveal"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-tracking-expand-reveal.html",
+        "target": "compositions/shot-tracking-expand-reveal.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-text-on-path",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Text on Path",
+    "description": "Letters travel with the tangent of a rising curve, pause on the path, then level into a conventional horizontal title.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "path",
+      "curve",
+      "growth"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-text-on-path.html",
+        "target": "compositions/shot-text-on-path.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-scramble-decode",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Scramble Decode",
+    "description": "Deterministic mono glyph noise resolves left to right, flashing each locked character and advancing a completion rule.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "decode",
+      "scramble",
+      "developer"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-scramble-decode.html",
+        "target": "compositions/shot-scramble-decode.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-letter-drop-physics",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Letter Drop Physics",
+    "description": "Letters fall under accelerating gravity, rebound twice with decaying height, settle at seeded angles, then snap into formation.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "physics",
+      "bounce",
+      "playful"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-letter-drop-physics.html",
+        "target": "compositions/shot-letter-drop-physics.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-font-weight-pump",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Font Weight Pump",
+    "description": "A centered phrase gains weight and outline on five explicit beats, with heavier horizontal accents and matching beat dots.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "rhythm",
+      "beat",
+      "font-weight"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-font-weight-pump.html",
+        "target": "compositions/shot-font-weight-pump.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-karaoke-fill-sync",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Karaoke Fill Sync",
+    "description": "Four words fill from readable gray to dark ink on uneven speech timings while a thick reader rule tracks the active word.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "speech",
+      "karaoke",
+      "highlight"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-karaoke-fill-sync.html",
+        "target": "compositions/shot-karaoke-fill-sync.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-terminal-typewriter",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Terminal Typewriter",
+    "description": "A terminal command types at a measured cadence, then crash-pushes through the shell into a complete production dashboard.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "terminal",
+      "typewriter",
+      "ui-reveal"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.833,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-terminal-typewriter.html",
+        "target": "compositions/shot-terminal-typewriter.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-typewriter-error-retype",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Typewriter Error Retype",
+    "description": "A first draft types in, pauses, backspaces to a shared stem, and resolves into a sharper replacement phrase.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "typewriter",
+      "backspace",
+      "copy-revision"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-typewriter-error-retype.html",
+        "target": "compositions/shot-typewriter-error-retype.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-document-typewriter-reveal",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Document Typewriter Reveal",
+    "description": "A dense collaborative brief writes itself in paired rows before navigation and document history panels wipe into place.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "document",
+      "typewriter",
+      "ui-reveal"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.667,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-document-typewriter-reveal.html",
+        "target": "compositions/shot-document-typewriter-reveal.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-paper-title-card",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Paper Title Card",
+    "description": "Editorial serif words settle from soft blur onto a warm paper field, with one italic accent, a rule, and a mono subline.",
+    "tags": [
+      "shotcraft",
+      "typography",
+      "editorial",
+      "paper",
+      "title-card"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 1.8,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-paper-title-card.html",
+        "target": "compositions/shot-paper-title-card.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-cloner-depth-echo",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Cloner Depth Echo",
+    "description": "A hero card reproduces into seven staggered depth echoes, holds as a dimensional queue, then accelerates back into one elastic object.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "3d",
+      "clone",
+      "depth"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-cloner-depth-echo.html",
+        "target": "compositions/shot-cloner-depth-echo.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-deck-deal-flyin",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Deck Deal Fly-in",
+    "description": "A physical stack orbits on dark metal, pulls into a dashboard, and deals up to twenty-six cards through a hard-accelerating camera chase.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "cards",
+      "deal",
+      "camera-chase"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-deck-deal-flyin.html",
+        "target": "compositions/shot-deck-deal-flyin.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-draw-svg-trace",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Draw SVG Trace",
+    "description": "A live pen dash traces a rounded card perimeter, flashes on closure, hands off to real UI chrome, then draws a shorter title rule.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "svg",
+      "stroke",
+      "draw-on"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-draw-svg-trace.html",
+        "target": "compositions/shot-draw-svg-trace.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-axial-stretch",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Axial Stretch",
+    "description": "Three cards fly from the right with velocity-shaped horizontal elongation, then squash and rebound into measured layout slots.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "cards",
+      "stretch",
+      "velocity"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.2,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-axial-stretch.html",
+        "target": "compositions/shot-axial-stretch.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-contact-shadow-lift",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Contact Shadow Lift",
+    "description": "Three dashboard cards are called forward one at a time as their independent contact shadows widen, soften, and tighten on landing.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "cards",
+      "shadow",
+      "lift"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-contact-shadow-lift.html",
+        "target": "compositions/shot-contact-shadow-lift.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-integration-hub-map",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Integration Hub Map",
+    "description": "A close document flips rapidly into a connected search hub as five app tiles arrive together and neon pipes begin transporting light.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "integration",
+      "3d-flip",
+      "network"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-integration-hub-map.html",
+        "target": "compositions/shot-integration-hub-map.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-list-stack-press",
+    "type": "hyperframes:block",
+    "title": "Shotcraft List Stack Press",
+    "description": "Five list cards rise from below, compress the accumulating stack on impact, increment a counter, grow delayed highlights, and finish under one glaze pass.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "list",
+      "stack",
+      "counter"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-list-stack-press.html",
+        "target": "compositions/shot-list-stack-press.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-morph-from-primitive",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Morph from Primitive",
+    "description": "A circle breathes once, morphs through eight matched cubic segments into a rounded product card, then receives its interface content.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "morph",
+      "primitive",
+      "svg"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-morph-from-primitive.html",
+        "target": "compositions/shot-morph-from-primitive.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-neon-frame-forerun",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Neon Frame Forerun",
+    "description": "A neon perimeter races ahead of a strongly tilted page while interface pieces settle from height and a field of background tubes lights, then recedes.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "neon",
+      "frame",
+      "forerun"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-neon-frame-forerun.html",
+        "target": "compositions/shot-neon-frame-forerun.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-neon-frame-orbit-drop",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Neon Frame Orbit Drop",
+    "description": "A lit product page travels from left-side to right-side perspective while all interface components descend and attach in one synchronized landing.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "neon",
+      "orbit",
+      "drop"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-neon-frame-orbit-drop.html",
+        "target": "compositions/shot-neon-frame-orbit-drop.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-page-waterfall-wall",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Page Waterfall Wall",
+    "description": "Three tall page columns travel at unequal speeds with the center reversed while a slow camera push turns the moving archive into a dimensional wall.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "waterfall",
+      "ticker",
+      "page-wall"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-page-waterfall-wall.html",
+        "target": "compositions/shot-page-waterfall-wall.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-masking-tape-slap",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Masking Tape Slap",
+    "description": "A paper card floats in and oscillates until two torn masking-tape strips slap its opposite corners, suppressing motion and flattening the shadow.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "paper",
+      "tape",
+      "slap"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-masking-tape-slap.html",
+        "target": "compositions/shot-masking-tape-slap.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-popup-book-rise",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Popup Book Rise",
+    "description": "Six dashboard cards hinge upward from a steep paper page like a staggered pop-up book, with narrowing contact shadows and a subtle scene settle.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "paper",
+      "3d",
+      "stagger"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-popup-book-rise.html",
+        "target": "compositions/shot-popup-book-rise.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-row-embed",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Row Embed",
+    "description": "A scrolling document absorbs six list rows in a rapid stagger, with a compact press, rebound, and temporary accent seam on each landing.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "list",
+      "row",
+      "scroll"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 2.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-row-embed.html",
+        "target": "compositions/shot-row-embed.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-runway-ground-skim",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Runway Ground Skim",
+    "description": "Seven illuminated cards fall in a tightly overlapped 3D wave onto a dark runway dashboard before the whole page rises into a clean frontal view.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "runway",
+      "3d",
+      "landing"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.933,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-runway-ground-skim.html",
+        "target": "compositions/shot-runway-ground-skim.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-skeleton-reveal",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Skeleton Reveal",
+    "description": "A hand-drawn wireframe jitters into place, snaps to a polished collaboration window, and resolves four message rows from skeleton bars to readable content.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "skeleton",
+      "wireframe",
+      "reveal"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-skeleton-reveal.html",
+        "target": "compositions/shot-skeleton-reveal.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-bento-light-up",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Bento Light Up",
+    "description": "A dim six-cell bento wall activates on a steady beat as amber outlines trace each card, content rises into full light, and the completed wall pushes in.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "bento",
+      "light-up",
+      "stagger"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-bento-light-up.html",
+        "target": "compositions/shot-bento-light-up.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-grid-wave-flip",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Grid Wave Flip",
+    "description": "A 3×3 wall flips from matte backs to content cards along a diagonal wavefront, with traveling edge glints and a final-cell overshoot.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "grid",
+      "flip",
+      "wave"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-grid-wave-flip.html",
+        "target": "compositions/shot-grid-wave-flip.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-wireframe-draw-on",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Wireframe Draw On",
+    "description": "A dashboard draws itself as staggered blueprint strokes before an amber vertical scan converts the wireframe into a finished interface from left to right.",
+    "tags": [
+      "shotcraft",
+      "ui-entrance",
+      "wireframe",
+      "draw-on",
+      "scan"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-wireframe-draw-on.html",
+        "target": "compositions/shot-wireframe-draw-on.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-bullet-time-freeze-orbit",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Bullet Time Freeze Orbit",
+    "description": "A chart freezes halfway through its growth while the camera performs a 55-degree side orbit, then time resumes and value labels settle in.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "bullet-time",
+      "freeze",
+      "orbit"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-bullet-time-freeze-orbit.html",
+        "target": "compositions/shot-bullet-time-freeze-orbit.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-dutch-roll-to-level",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Dutch Roll To Level",
+    "description": "A problem-state interface hangs at an uneasy Dutch angle with a slow drift before one decisive beat rolls the world level and replaces the warning with a clean card.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "dutch-angle",
+      "roll",
+      "resolve"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-dutch-roll-to-level.html",
+        "target": "compositions/shot-dutch-roll-to-level.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-pull-back-isolation",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Pull Back Isolation",
+    "description": "The camera pulls from an extreme metric close-up into a wide field as surrounding cards extinguish outward and the hero remains alone in a dark glowing finish.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "pull-back",
+      "isolation",
+      "metric"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-pull-back-isolation.html",
+        "target": "compositions/shot-pull-back-isolation.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-slow-push-in",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Slow Push In",
+    "description": "A large claim receives a barely perceptible accelerating push and deepening vignette for four seconds before a single hard cut releases into a bright interface.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "slow-push",
+      "tension",
+      "hard-cut"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-slow-push-in.html",
+        "target": "compositions/shot-slow-push-in.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-tilt-reveal",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Tilt Reveal",
+    "description": "A foreshortened interface rises from a near-edge-on top strip, unfolds toward the viewer, and settles into a clean frontal dashboard.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "tilt",
+      "reveal",
+      "interface"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.833,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-tilt-reveal.html",
+        "target": "compositions/shot-tilt-reveal.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-overhead-tabletop-drop",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Overhead Tabletop Drop",
+    "description": "An overhead camera tracks across three interface cards on a gridded tabletop, then drops onto the selected card and levels into a full-frame view.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "overhead",
+      "tabletop",
+      "drop"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.833,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-overhead-tabletop-drop.html",
+        "target": "compositions/shot-overhead-tabletop-drop.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-exploded-view",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Exploded View",
+    "description": "A complete interface separates into eight independently elevated 3D layers with depth-aware shadows, then reassembles into its original page.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "exploded-view",
+      "layers",
+      "3d"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-exploded-view.html",
+        "target": "compositions/shot-exploded-view.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-drone-dive-landing",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Drone Dive Landing",
+    "description": "A distant, steeply pitched interface accelerates toward camera with a brief focus smear and lands as a close, level dashboard.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "drone",
+      "dive",
+      "landing"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-drone-dive-landing.html",
+        "target": "compositions/shot-drone-dive-landing.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-graze-face-tour",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Graze Face Tour",
+    "description": "Three steep, close-surface camera passes tour a sidebar, top navigation, and task list while elevated interface elements land in sequence with depth-aware shadows.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "graze",
+      "surface-tour",
+      "depth"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-graze-face-tour.html",
+        "target": "compositions/shot-graze-face-tour.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-steep-tilt-glide",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Steep Tilt Glide",
+    "description": "A super-wide interface glides across a fixed 60-degree perspective camera with velocity ghosts, progressive illumination, and staggered component landings.",
+    "tags": [
+      "shotcraft",
+      "camera",
+      "tilt",
+      "glide",
+      "fixed-camera"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-steep-tilt-glide.html",
+        "target": "compositions/shot-steep-tilt-glide.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-before-after-slider-scrub",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Before After Slider Scrub",
+    "description": "Matched before-and-after interfaces share one draggable divider that flings to 76 percent, rebounds, pauses, and slowly scrubs back for a readable comparison.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "comparison",
+      "slider",
+      "scrub"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.8,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-before-after-slider-scrub.html",
+        "target": "compositions/shot-before-after-slider-scrub.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-oscilloscope-stream",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Oscilloscope Stream",
+    "description": "A production-traffic chart writes itself continuously, triggers one amplified signal spike and highlighted readout, then brakes into a true static monitor frame.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "chart",
+      "live",
+      "oscilloscope"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-oscilloscope-stream.html",
+        "target": "compositions/shot-oscilloscope-stream.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-unit-dot-swarm-regroup",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Unit Dot Swarm Regroup",
+    "description": "Three hundred twenty customer dots migrate from a seeded swarm into plan clusters, measured columns, and a final dot-matrix total.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "dots",
+      "swarm",
+      "regroup"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.2,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-unit-dot-swarm-regroup.html",
+        "target": "compositions/shot-unit-dot-swarm-regroup.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-axis-rescale-shock",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Axis Rescale Shock",
+    "description": "A revenue line breaks 220 pixels beyond its chart, forces a denser four-hundred-thousand-dollar axis, and lands with its true value label.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "chart",
+      "axis",
+      "growth"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.6,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-axis-rescale-shock.html",
+        "target": "compositions/shot-axis-rescale-shock.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-needle-sweep-selftest",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Needle Sweep Self-test",
+    "description": "Three mechanical gauges stagger through a full 270-degree self-test sweep, overshoot their real readings, and pop synchronized ready values.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "gauge",
+      "needle",
+      "self-test"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-needle-sweep-selftest.html",
+        "target": "compositions/shot-needle-sweep-selftest.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-tape-scroll-fixed-pointer",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Tape Scroll Fixed Pointer",
+    "description": "A vertical metric tape crawls, accelerates past a fixed pointer, overshoots, and rebounds onto a 420 MB/s final value while the camera reference stays locked.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "gauge",
+      "tape",
+      "fixed-pointer"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-tape-scroll-fixed-pointer.html",
+        "target": "compositions/shot-tape-scroll-fixed-pointer.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-odometer-digit-roll",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Odometer Digit Roll",
+    "description": "Four tabular digit reels decelerate and lock from left to right onto 99.98 percent, followed by one collective confirmation pulse and proof label.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "odometer",
+      "digits",
+      "metric"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-odometer-digit-roll.html",
+        "target": "compositions/shot-odometer-digit-roll.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-confetti-crossfire",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Confetti Crossfire",
+    "description": "Two corner cannons launch one hundred deterministic grayscale-and-amber confetti pieces across a one-million-team milestone before clearing to a clean final card.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "celebration",
+      "confetti",
+      "milestone"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.2,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-confetti-crossfire.html",
+        "target": "compositions/shot-confetti-crossfire.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-counter-tick-sparks",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Counter Tick Sparks",
+    "description": "A 0-to-12,847 counter emits a deterministic spark burst at every thousand, doubles the final burst, and lands with a compact confirmation pulse.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "counter",
+      "sparks",
+      "milestone"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-counter-tick-sparks.html",
+        "target": "compositions/shot-counter-tick-sparks.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-particle-sand-fill",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Particle Sand Fill",
+    "description": "Four data columns are built grain by grain from staggered square-particle rain, bounce once at the stack, then condense into clean solid bars and value labels.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "particles",
+      "bar-chart",
+      "accumulation"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.8,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-particle-sand-fill.html",
+        "target": "compositions/shot-particle-sand-fill.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-changelog-scroll-brake",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Changelog Scroll Brake",
+    "description": "A dense vertical release log accelerates through a year of updates, exponentially brakes on today's autonomous-workflow release, lifts it, and dims the surrounding context.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "changelog",
+      "scroll",
+      "brake"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-changelog-scroll-brake.html",
+        "target": "compositions/shot-changelog-scroll-brake.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-brake-reticle-lock",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Brake Reticle Lock",
+    "description": "A dark release feed accelerates, overshoots and snaps back while four amber L-corners arrive on the same brake frame to lock the target release.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "scroll",
+      "reticle",
+      "lock"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-brake-reticle-lock.html",
+        "target": "compositions/shot-brake-reticle-lock.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-timeline-travel",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Timeline Travel",
+    "description": "A horizontal product-history world accelerates past four releases as each card springs upright, then brakes and pushes into today's autonomous-workflow milestone.",
+    "tags": [
+      "shotcraft",
+      "data",
+      "timeline",
+      "travel",
+      "history"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-timeline-travel.html",
+        "target": "compositions/shot-timeline-travel.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-brand-frame-snap",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Brand Frame Snap",
+    "description": "A full-frame brand border draws on before a dashboard lands, then the border color, mode label, and interface layout snap together into a second state with a brief white flash.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "brand",
+      "frame",
+      "mode-switch",
+      "interface"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-brand-frame-snap.html",
+        "target": "compositions/shot-brand-frame-snap.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-line-unfold-panel",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Line Unfold Panel",
+    "description": "A luminous point races into a horizontal line, unfolds vertically into a dark HUD panel, holds readable data, and reverses through line and point into a clean empty field.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "hud",
+      "line",
+      "panel",
+      "unfold",
+      "crt"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-line-unfold-panel.html",
+        "target": "compositions/shot-line-unfold-panel.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-reticle-lock-on",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Reticle Lock On",
+    "description": "Four oversized targeting corners fly across a live dashboard, contract with an overshoot around one card, flash the captured target, and extend a compact identification label.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "hud",
+      "reticle",
+      "target",
+      "lock-on",
+      "dashboard"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-reticle-lock-on.html",
+        "target": "compositions/shot-reticle-lock-on.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-glow-orb-ambient",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Glow Orb Ambient",
+    "description": "Three broad blurred light orbs drift around a central dark card on independent organic paths while its edge glow breathes, then all movement settles into a reusable static ending.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "ambient",
+      "glow",
+      "orb",
+      "light",
+      "dark"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-glow-orb-ambient.html",
+        "target": "compositions/shot-glow-orb-ambient.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-flyline-arc",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Flyline Arc",
+    "description": "Two bright cubic flylines relay between dashboard cards with dark under-strokes, traveling heads, and arrival pulses before settling as a connected interface map.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "flyline",
+      "connection",
+      "dashboard",
+      "relay"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-flyline-arc.html",
+        "target": "compositions/shot-flyline-arc.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-orb-flyline-relay",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Orb Flyline Relay",
+    "description": "Glowing lines hand a signal through three dark cards while nearby ambient orbs surge at each arrival and the receiving cards illuminate in sequence.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "orb",
+      "flyline",
+      "relay",
+      "signal",
+      "dark"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.167,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-orb-flyline-relay.html",
+        "target": "compositions/shot-orb-flyline-relay.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-pop-burst-confirm",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Pop Burst Confirm",
+    "description": "A large confirmation icon compresses, overshoots open, draws its checkmark, and releases a radial ring and ten deterministic rays before a deployed label springs in.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "confirmation",
+      "success",
+      "burst",
+      "checkmark"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-pop-burst-confirm.html",
+        "target": "compositions/shot-pop-burst-confirm.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-attention-bounce",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Attention Bounce",
+    "description": "A large notification icon performs four progressively higher dock-style jumps with squash, stretch, shadow response, landing dust, an eight-percent camera pull, and a final feature panel reveal.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "attention",
+      "bounce",
+      "notification",
+      "icon",
+      "panel"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-attention-bounce.html",
+        "target": "compositions/shot-attention-bounce.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-hit-counter",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Hit Counter",
+    "description": "Three feature cards accelerate into dashed slots, each landing producing a short hit-stop, rising damage value, stronger tilted combo-counter pulse, and settled three-card payoff.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "impact",
+      "counter",
+      "combo",
+      "hit-stop",
+      "cards"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-hit-counter.html",
+        "target": "compositions/shot-hit-counter.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-anime-impact",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Anime Impact",
+    "description": "A dashboard crashes into one target card, holds three graphic impact frames with inverted monochrome, cyan/red displacement, and thirty hand-built speed wedges, then clears into a lightly shaking close-up.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "anime",
+      "impact",
+      "crash-zoom",
+      "speed-lines",
+      "rgb"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-anime-impact.html",
+        "target": "compositions/shot-anime-impact.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-spotlight-sweep",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Spotlight Sweep",
+    "description": "A soft circular spotlight and overhead cone sweep a dim two-line title twice, revealing only the illuminated letters before the entire phrase resolves into a clean static lockup.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "spotlight",
+      "light",
+      "title",
+      "reveal",
+      "sweep"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-spotlight-sweep.html",
+        "target": "compositions/shot-spotlight-sweep.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-sheen-sweep",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Sheen Sweep",
+    "description": "A single clipped diagonal highlight crosses one dark premium card from fully offscreen left to fully offscreen right, leaving the subject exactly unchanged before and after.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "sheen",
+      "light",
+      "premium",
+      "card",
+      "single-pass"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-sheen-sweep.html",
+        "target": "compositions/shot-sheen-sweep.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-halation-bloom",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Halation Bloom",
+    "description": "A large 10× claim crash-zooms from 2.4× into a restrained rebound while a blurred duplicate blooms outward, falls independently, and settles as a stable soft halo.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "halation",
+      "bloom",
+      "glow",
+      "impact",
+      "typography"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.833,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-halation-bloom.html",
+        "target": "compositions/shot-halation-bloom.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-line-boil",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Line Boil",
+    "description": "A clean outlined title card switches into stepped hand-drawn edge boil using deterministic SVG turbulence seeds, then removes the filter entirely and returns to an identical clean frame.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "line-boil",
+      "hand-drawn",
+      "svg-filter",
+      "texture"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-line-boil.html",
+        "target": "compositions/shot-line-boil.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-misregistration-hit",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Misregistration Hit",
+    "description": "An IMPACT title accelerates from offscreen, splits on contact into light and dark multiply plates that oscillate in opposite directions, then snaps into registration with a four-frame scale pulse.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "riso",
+      "misregistration",
+      "impact",
+      "print",
+      "title"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-misregistration-hit.html",
+        "target": "compositions/shot-misregistration-hit.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-beat-pump",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Beat Pump",
+    "description": "Four evenly spaced beats punch the entire card layout to 1.08×, split the headline into progressively wider riso plates, and permanently activate one more timing dot before a clean hold.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "rhythm",
+      "beat",
+      "pump",
+      "riso",
+      "misregistration"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-beat-pump.html",
+        "target": "compositions/shot-beat-pump.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-kanada-perspective-snap",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Kanada Perspective Snap",
+    "description": "A UI card rushes in from an extreme foreshortened angle, snaps almost square into a target slot, rebounds, and resolves through a short three-frame impact shake.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "slam",
+      "kanada",
+      "perspective",
+      "snap",
+      "impact"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-kanada-perspective-snap.html",
+        "target": "compositions/shot-kanada-perspective-snap.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-score-slam",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Score Slam",
+    "description": "A large KPI card crashes into a soft-focus dashboard, rebounds to scale, throws a radial ring and deterministic dust, and lands on a readable growth score.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "slam",
+      "score",
+      "kpi",
+      "ring",
+      "particles"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-score-slam.html",
+        "target": "compositions/shot-score-slam.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-impact-burst-kit",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Impact Burst Kit",
+    "description": "A hovering hero card slams into a three-card row, emits an expanding impact ring and fourteen deterministic fragments, then pushes and damps both neighboring cards.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "slam",
+      "impact",
+      "burst",
+      "cards",
+      "particles"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-impact-burst-kit.html",
+        "target": "compositions/shot-impact-burst-kit.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-glow-wake-sleep-panel",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Glow Wake Sleep Panel",
+    "description": "A violet edge light travels left to right across an oblique UI, revealing only the area beneath its head before the interface sleeps back into darkness with a residual right-edge glow.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "spotlight",
+      "wake",
+      "sleep",
+      "edge-light",
+      "ui-reveal"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-glow-wake-sleep-panel.html",
+        "target": "compositions/shot-glow-wake-sleep-panel.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-slide-spotlight-pan",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Slide Spotlight Pan",
+    "description": "A purple beam climbs the left edge, rounds the corner, and rides the top border at constant speed while an extra-wide interface slides left to create a coordinated camera pan.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "spotlight",
+      "edge-light",
+      "camera-pan",
+      "ui-tour",
+      "linear"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-slide-spotlight-pan.html",
+        "target": "compositions/shot-slide-spotlight-pan.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-corner-spotlight-reveal",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Corner Spotlight Reveal",
+    "description": "A strictly linear radial spotlight expands from the upper-left corner while the interface eases from an intimate close-up to a fully illuminated page, making light itself the transition.",
+    "tags": [
+      "shotcraft",
+      "effects",
+      "spotlight",
+      "corner-reveal",
+      "radial",
+      "transition",
+      "linear"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-corner-spotlight-reveal.html",
+        "target": "compositions/shot-corner-spotlight-reveal.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-ai-stream-response",
+    "type": "hyperframes:block",
+    "title": "Shotcraft AI Stream Response",
+    "description": "An agent panel establishes a readable conclusion first, then accelerates seven evidence rows with delayed status confirmations before one restrained completion pulse.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "ai",
+      "agent",
+      "streaming",
+      "evidence",
+      "completion"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-ai-stream-response.html",
+        "target": "compositions/shot-ai-stream-response.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-autolayout-gap-dial",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Autolayout Gap Dial",
+    "description": "One numeric gap parameter drives five unequal blocks, the selection frame, four live measuring lines, and stepped badges through an extreme expansion and spring-like return.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "autolayout",
+      "parameter",
+      "gap",
+      "measurement",
+      "design-tool"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-autolayout-gap-dial.html",
+        "target": "compositions/shot-autolayout-gap-dial.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-panel-to-canvas",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Panel to Canvas",
+    "description": "Three selected table rows leave a side panel along staggered raised arcs, crossfade from row layout into card layout, and settle as independent tilted canvas objects.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "canvas",
+      "materialize",
+      "migration",
+      "cards",
+      "morph"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-panel-to-canvas.html",
+        "target": "compositions/shot-panel-to-canvas.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-diagram-cascade",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Diagram Cascade",
+    "description": "A typed generation prompt confirms, then connection paths grow before a root, two children, and four leaf nodes appear level by level and finish with one centered breath.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "diagram",
+      "cascade",
+      "prompt",
+      "tree",
+      "generation"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-diagram-cascade.html",
+        "target": "compositions/shot-diagram-cascade.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-dialogue-duet",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Cursor Dialogue Duet",
+    "description": "Two named collaboration cursors enter, approach, orbit on opposite arcs, exchange visual focus, and hand the scene to a giant accelerating cursor wipe.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "cursor",
+      "collaboration",
+      "dialogue",
+      "handoff",
+      "transition"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-dialogue-duet.html",
+        "target": "compositions/shot-dialogue-duet.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-cast-ensemble",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Cursor Cast Ensemble",
+    "description": "Five named cursors arrive from different edges, drift around a dotted collaboration canvas, accompany a typed sticky note, and gather while retaining subtle life.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "cursor",
+      "collaboration",
+      "ensemble",
+      "canvas",
+      "typing"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-cast-ensemble.html",
+        "target": "compositions/shot-cast-ensemble.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-command-palette-summon",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Command Palette Summon",
+    "description": "The interface yields through dimming and blur while a command palette lands with overshoot, reveals five options, accepts two keystrokes, and physically collapses to two results.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "command-palette",
+      "search",
+      "keyboard",
+      "filter",
+      "summon"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-command-palette-summon.html",
+        "target": "compositions/shot-command-palette-summon.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-hashtag-pill-materialize",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Hashtag Pill Materialize",
+    "description": "A hashtag types with a steady solid cursor, hard-cuts into an oversized pill, holds, scales and slides into a tag slot, then hard-cuts to the completed note page.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "hashtag",
+      "pill",
+      "materialize",
+      "hard-cut",
+      "tag"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-hashtag-pill-materialize.html",
+        "target": "compositions/shot-hashtag-pill-materialize.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-cursor-performance",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Cursor Performance",
+    "description": "An oversized pointer arrives through a shaped three-part move, hovers and presses a dark action, emits a decoupled ripple, and pulls the page camera into and back from the click point.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "cursor",
+      "click",
+      "punch-in",
+      "ripple",
+      "camera"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-cursor-performance.html",
+        "target": "compositions/shot-cursor-performance.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-keycap-smash-cut",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Keycap Smash Cut",
+    "description": "A hovering faux-3D command key compresses into its base, ignites a widening ring and six accelerating cards, then hard-cuts at peak motion into a clean product verdict that reuses the key in its header.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "keycap",
+      "smash-cut",
+      "command",
+      "impact",
+      "opening"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-keycap-smash-cut.html",
+        "target": "compositions/shot-keycap-smash-cut.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-segmented-thumb-hero",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Segmented Thumb Hero",
+    "description": "A giant two-mode segmented control rises into view, receives a deliberate pointer click, moves its thumb in exactly eight frames, collapses the old icon, and springs the new identity into place.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "segmented-control",
+      "thumb",
+      "toggle",
+      "cursor",
+      "mode-switch"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-segmented-thumb-hero.html",
+        "target": "compositions/shot-segmented-thumb-hero.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-theme-sweep-toggle",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Theme Sweep Toggle",
+    "description": "A bright fifteen-degree boundary traverses two pixel-matched interface layers, revealing the dark theme in place, overscanning the lower corner, and settling the completed page with one subtle pulse.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "theme",
+      "dark-mode",
+      "sweep",
+      "wipe",
+      "toggle"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-theme-sweep-toggle.html",
+        "target": "compositions/shot-theme-sweep-toggle.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-palette-theme-ripple",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Palette Theme Ripple",
+    "description": "A command palette types a dark-theme request, contracts into its confirmation point, and launches a concentric theme ripple that replaces a matched light interface with its dark state.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "theme",
+      "command-palette",
+      "ripple",
+      "dark-mode"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-palette-theme-ripple.html",
+        "target": "compositions/shot-palette-theme-ripple.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-type-and-filter",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Type And Filter",
+    "description": "A project-library query types in human cadence, collapses non-matching cards, promotes the surviving result, confirms it with paired ripples, and finishes on a deliberate camera punch.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "search",
+      "filter",
+      "typing",
+      "camera-punch"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-type-and-filter.html",
+        "target": "compositions/shot-type-and-filter.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-voice-waveform-live",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Voice Waveform Live",
+    "description": "A deterministic sixty-four-bar waveform responds through speech, pause, renewed speech, and submission phases before collapsing into a quiet completed input state.",
+    "tags": [
+      "shotcraft",
+      "interaction",
+      "voice",
+      "waveform",
+      "audio",
+      "submit"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-voice-waveform-live.html",
+        "target": "compositions/shot-voice-waveform-live.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-beat-cut-accelerando",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Beat Cut Accelerando",
+    "description": "Six product views hard-cut on 16, 12, 8, 6, and 4-frame intervals, then snap back to the establishing composition for a restrained closing push.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "hard-cut",
+      "accelerando",
+      "montage"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-beat-cut-accelerando.html",
+        "target": "compositions/shot-beat-cut-accelerando.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-paparazzi-flash",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Paparazzi Flash",
+    "description": "Three white-flash shutter cuts move through wide, card, and number crops of one live product moment, with a short physical settle after each exposure and a long final hold.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "flash",
+      "shutter",
+      "hard-cut",
+      "close-up"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-paparazzi-flash.html",
+        "target": "compositions/shot-paparazzi-flash.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-beat-step-list-theme-cycle",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Beat Step List Theme Cycle",
+    "description": "A fixed selection pill, vertical adjective list, accent color, and full field advance together on three evenly spaced beats.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "list",
+      "theme",
+      "beat",
+      "color-cycle"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.2,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-beat-step-list-theme-cycle.html",
+        "target": "compositions/shot-beat-step-list-theme-cycle.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-drop-blackout-slam",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Drop Blackout Slam",
+    "description": "A breathing analytics build cuts to twelve frames of absolute black before a ring, decaying shake, and oversized DROP title strike on the downbeat.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "blackout",
+      "slam",
+      "drop",
+      "impact"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-drop-blackout-slam.html",
+        "target": "compositions/shot-drop-blackout-slam.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-wright-triple-cut",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Wright Triple Cut",
+    "description": "Three ten-frame action close-ups press, toggle, and flip before a six-frame whip returns to the completed dashboard and a highlighted result card.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "hard-cut",
+      "workflow",
+      "whip",
+      "result"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-wright-triple-cut.html",
+        "target": "compositions/shot-wright-triple-cut.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-domino-cascade",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Domino Cascade",
+    "description": "A falling title transfers momentum through four staggered card bounces into a second impact that drives a dark sidebar into place.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "domino",
+      "cascade",
+      "impact",
+      "sidebar"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-domino-cascade.html",
+        "target": "compositions/shot-domino-cascade.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-grid-flash-mosaic",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Grid Flash Mosaic",
+    "description": "Nine product fragments pop into a three-by-three mosaic at two-frame intervals, breathe as a complete wall, and resolve when the center cell accelerates to full screen.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "grid",
+      "mosaic",
+      "flash",
+      "zoom"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-grid-flash-mosaic.html",
+        "target": "compositions/shot-grid-flash-mosaic.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-flip-grid-reflow",
+    "type": "hyperframes:block",
+    "title": "Shotcraft FLIP Grid Reflow",
+    "description": "Six cards move from a single marquee row into a staggered three-by-two grid using explicit start and destination coordinates, landing scale correction, and one restrained brightness pulse.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "flip",
+      "grid",
+      "reflow",
+      "cards"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 3.5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-flip-grid-reflow.html",
+        "target": "compositions/shot-flip-grid-reflow.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-comic-panel-split",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Comic Panel Split",
+    "description": "One dashboard becomes three oblique comic panels at wide, card, and KPI distances before the KPI panel expands past both seams into a clean full-screen close-up.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "comic",
+      "panels",
+      "split",
+      "takeover"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-comic-panel-split.html",
+        "target": "compositions/shot-comic-panel-split.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-jump-cut-punch-in",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Jump Cut Punch In",
+    "description": "A fixed dashboard composition jumps without interpolation from 1.0x to 1.6x to 2.6x around one target card, with two-frame dark ticks at both edits.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "jump-cut",
+      "punch-in",
+      "camera",
+      "hard-cut"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-jump-cut-punch-in.html",
+        "target": "compositions/shot-jump-cut-punch-in.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-strobe-black-frames",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Strobe Black Frames",
+    "description": "Nine two-frame pure-black interruptions accelerate from eight-frame to three-frame spacing over a slow push, then uncover a hard 1.35x target-card punch and static finish.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "strobe",
+      "black-frames",
+      "punch-in",
+      "photosensitive"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-strobe-black-frames.html",
+        "target": "compositions/shot-strobe-black-frames.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-sakuga-timing-shift",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Sakuga Timing Shift",
+    "description": "A card travels in visible three-frame holds before switching on one beat into a fast stretched return with two countable ghosts, overshoot, and squash landing.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "sakuga",
+      "stepped",
+      "smear",
+      "timing"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-sakuga-timing-shift.html",
+        "target": "compositions/shot-sakuga-timing-shift.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-smear-multiples",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Smear Multiples",
+    "description": "A card crosses nine hundred pixels with four separately readable full-card afterimages that trail at different offsets, converge into the body, and disappear before the landing hold.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "smear",
+      "ghosts",
+      "afterimage",
+      "cards"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-smear-multiples.html",
+        "target": "compositions/shot-smear-multiples.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-spectrum-morph-ui",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Spectrum Morph UI",
+    "description": "A single underline separates into twenty-eight bottom-aligned pseudo-FFT bars, performs fourteen deterministic amplitude states, and rejoins into an exact quiet line.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "spectrum",
+      "waveform",
+      "morph",
+      "launch"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-spectrum-morph-ui.html",
+        "target": "compositions/shot-spectrum-morph-ui.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-trailer-bumper",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Trailer Bumper",
+    "description": "A trailer cadence of three nine-frame product cuts, a six-frame pure-black interruption, and a sixteen-frame launch-title rise into a long readable hold.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "trailer",
+      "bumper",
+      "hard-cut",
+      "title"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-trailer-bumper.html",
+        "target": "compositions/shot-trailer-bumper.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-card-footage-cadence",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Card Footage Cadence",
+    "description": "A transitionless UI-to-word cadence that alternates three product distances with SHIP, FASTER, and TODAY title cards before a restrained final push.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "cadence",
+      "hard-cut",
+      "product",
+      "typography"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-card-footage-cadence.html",
+        "target": "compositions/shot-card-footage-cadence.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-smash-cut",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Smash Cut",
+    "description": "Five product cards accelerate through two increasingly noisy passes while the background pushes and rolls, then a one-frame edit lands on a completely static verdict screen.",
+    "tags": [
+      "shotcraft",
+      "rhythm",
+      "smash-cut",
+      "acceleration",
+      "impact",
+      "verdict"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-smash-cut.html",
+        "target": "compositions/shot-smash-cut.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-bottom-push-stack-wipe",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Bottom Push Stack Wipe",
+    "description": "Three saturated chapters enter from the bottom as rigid full-screen slabs, physically pushing the prior scene out with a contact seam and heavy ease-out landing.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "chapter",
+      "push",
+      "stack",
+      "brand-color"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-bottom-push-stack-wipe.html",
+        "target": "compositions/shot-bottom-push-stack-wipe.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-bubble-swarm-takeover",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Bubble Swarm Takeover",
+    "description": "Forty deterministic pearlescent bubbles in three depth ranks swell into a full-screen branded curtain, hide a scene cut at whiteout peak, then disperse radially.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "bubbles",
+      "swarm",
+      "whiteout",
+      "brand-curtain"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-bubble-swarm-takeover.html",
+        "target": "compositions/shot-bubble-swarm-takeover.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-card-flip-reveal",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Card Flip Reveal",
+    "description": "Three semantic feature cards flip around Y with ten-frame stagger, a side-edge sheen, twelve-degree overshoot, and a long hold on paired result metrics.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "card",
+      "flip",
+      "3d",
+      "result-reveal"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.833,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-card-flip-reveal.html",
+        "target": "compositions/shot-card-flip-reveal.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-circle-match-iris",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Circle Match Iris",
+    "description": "Two focus pulses establish a real avatar center before a same-center iris reveals a growing donut chart, synchronizing the sweep and 78-percent readout.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "iris",
+      "match-cut",
+      "circle",
+      "data"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-circle-match-iris.html",
+        "target": "compositions/shot-circle-match-iris.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-color-block-step-wipe",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Color Block Step Wipe",
+    "description": "Two zero-interpolation brand-color wipes: a center strip expands in unequal hard steps and a corner triangle advances with a content card locked to the same beats.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "color-block",
+      "steps",
+      "pixel",
+      "brand"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-color-block-step-wipe.html",
+        "target": "compositions/shot-color-block-step-wipe.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-line-carry-transition",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Line Carry Transition",
+    "description": "One six-pixel line grows from a progress rail, leads a 1920-pixel camera move through a 3840-pixel world, then turns hard corners to become the next scene's frame.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "line",
+      "camera",
+      "continuous",
+      "frame"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5.333,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-line-carry-transition.html",
+        "target": "compositions/shot-line-carry-transition.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-cube-rotate",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Cube Rotate",
+    "description": "Two full pages occupy adjacent faces of a true CSS 3D cube, rotating ninety degrees through reciprocal brightness, a mid-turn shadowed edge, and temporary velocity blur.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "cube",
+      "3d",
+      "page-turn",
+      "chapter"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-cube-rotate.html",
+        "target": "compositions/shot-cube-rotate.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-barn-door-split",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Barn Door Split",
+    "description": "An old page previews its center seam twice, then splits into pixel-aligned halves that accelerate outward with lit torn edges while the replacement page settles underneath.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "barn-door",
+      "split",
+      "reveal",
+      "replacement"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-barn-door-split.html",
+        "target": "compositions/shot-barn-door-split.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-paper-plane-messenger",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Paper Plane Messenger",
+    "description": "A send-triggered camera pulls away from the source UI, follows a tangent-oriented paper plane through a layered world, and pushes into the destination conversation.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "paper-plane",
+      "messenger",
+      "send",
+      "camera",
+      "parallax"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-paper-plane-messenger.html",
+        "target": "compositions/shot-paper-plane-messenger.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-ink-bleed-reveal",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Ink Bleed Reveal",
+    "description": "A fixed-seed organic ink edge blooms across the frame while clean clipped content expands underneath and settles into the destination page.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "ink",
+      "bleed",
+      "print",
+      "mask",
+      "organic"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-ink-bleed-reveal.html",
+        "target": "compositions/shot-ink-bleed-reveal.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-flash-cut",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Flash Cut",
+    "description": "A pressured source-page push rises into a short warm whiteout, hides the edit at peak exposure, and falls away over the destination page.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "flash",
+      "whiteout",
+      "hard-cut",
+      "energy"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-flash-cut.html",
+        "target": "compositions/shot-flash-cut.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-darkfield-flight",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Darkfield Flight",
+    "description": "The source rushes forward into a live dark dust field before a softly blurred destination arrives from depth and resolves cleanly.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "darkfield",
+      "depth",
+      "flight",
+      "shot-transitions-4"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-darkfield-flight.html",
+        "target": "compositions/shot-darkfield-flight.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-rack-focus-relay",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Rack Focus Relay",
+    "description": "Two matched interface views exchange the focal plane through crossed blur, moving from an overview into a crisp detail view without a visible wipe.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "rack-focus",
+      "blur",
+      "relay",
+      "shot-transitions-5"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-rack-focus-relay.html",
+        "target": "compositions/shot-rack-focus-relay.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-black-title-card-transition",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Black Title Card Transition",
+    "description": "The source fades to black, a monospaced chapter title types into the center, and the title yields to the next page with a restrained editorial handoff.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "title-card",
+      "black",
+      "chapter",
+      "shot-transitions-6"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-black-title-card-transition.html",
+        "target": "compositions/shot-black-title-card-transition.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-whip-pan",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Whip Pan",
+    "description": "A held source page accelerates through a wide horizontal pan with blur and edge streaks, then snaps into a completely stable destination page.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "whip-pan",
+      "camera",
+      "blur",
+      "fast"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-whip-pan.html",
+        "target": "compositions/shot-whip-pan.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-mask-wipe",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Mask Wipe",
+    "description": "A selected source card becomes a portal: its window expands to the full frame while the destination detail counter-scales into place and the old card face disappears.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "mask-wipe",
+      "portal",
+      "shared-geometry",
+      "card",
+      "detail"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-mask-wipe.html",
+        "target": "compositions/shot-mask-wipe.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-glitch-displace",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Glitch Displace",
+    "description": "Sixteen intact horizontal page strips tear sideways under deterministic noise and grayscale ghosting, hiding a hard page cut before returning to a true static destination.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "glitch",
+      "displace",
+      "tear",
+      "strips",
+      "hidden-cut",
+      "high-energy"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.5,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-glitch-displace.html",
+        "target": "compositions/shot-glitch-displace.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-invisible-cut",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Invisible Cut",
+    "description": "An oversized blurred foreground card and four trailing echoes sweep across the lens, fully occluding the hard cut while the destination settles from the opposite shove.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "invisible-cut",
+      "foreground",
+      "occlusion",
+      "motion-blur",
+      "one-take"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-invisible-cut.html",
+        "target": "compositions/shot-invisible-cut.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-versus-slam",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Versus Slam",
+    "description": "Two 78-degree split screens accelerate into a center collision where a flash, decaying shake, solid seam, and overshooting VS stamp land on the same frame.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "versus",
+      "slam",
+      "split-screen",
+      "comparison",
+      "impact",
+      "chapter"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-versus-slam.html",
+        "target": "compositions/shot-versus-slam.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-light-leak-burn",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Light Leak Burn",
+    "description": "Three warm amber light fields sweep diagonally into an overexposed core, conceal the edit at peak intensity, and leave the destination with a film-like afterglow.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "light-leak",
+      "burn",
+      "amber",
+      "film",
+      "warm",
+      "hidden-cut"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-light-leak-burn.html",
+        "target": "compositions/shot-light-leak-burn.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-shared-element-morph",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Shared Element Morph",
+    "description": "A full-frame detail card continuously shrinks, moves, rounds, and softens its shadow before a three-percent overshoot lands it into its exact dashboard slot.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "shared-element",
+      "morph",
+      "flip",
+      "detail-to-overview",
+      "spatial"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.333,
+    "recut": "recut:safe",
+    "files": [
+      {
+        "path": "shot-shared-element-morph.html",
+        "target": "compositions/shot-shared-element-morph.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-letterform-zoom",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Letterform Zoom",
+    "description": "A destination page appears through a heavyweight word cut into a title plate; an origin-locked exponential push enlarges the letterforms until the page takes over.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "letterform",
+      "zoom",
+      "portal",
+      "title",
+      "mask",
+      "chapter"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 4.667,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-letterform-zoom.html",
+        "target": "compositions/shot-letterform-zoom.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-clock-wipe",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Clock Wipe",
+    "description": "A fixed 73-point fan reveals the destination in one linear clockwise revolution while a four-layer radar edge stays visible over both light and dark page regions.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "clock-wipe",
+      "radar",
+      "geometry",
+      "scan",
+      "data-refresh"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "recut:adapt",
+    "files": [
+      {
+        "path": "shot-clock-wipe.html",
+        "target": "compositions/shot-clock-wipe.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  },
+  {
+    "name": "shot-blinds-slice",
+    "type": "hyperframes:block",
+    "title": "Shotcraft Blinds Slice",
+    "description": "Twelve aligned vertical page slices exchange old and new faces with two-frame staggering, matched cubic seams, and a contrast-safe traveling highlight.",
+    "tags": [
+      "shotcraft",
+      "transition",
+      "blinds",
+      "slice",
+      "wipe",
+      "stagger",
+      "geometry",
+      "wave"
+    ],
+    "dimensions": {
+      "width": 1920,
+      "height": 1080
+    },
+    "duration": 5,
+    "recut": "create-only",
+    "files": [
+      {
+        "path": "shot-blinds-slice.html",
+        "target": "compositions/shot-blinds-slice.html",
+        "type": "hyperframes:composition"
+      }
+    ]
+  }
+]

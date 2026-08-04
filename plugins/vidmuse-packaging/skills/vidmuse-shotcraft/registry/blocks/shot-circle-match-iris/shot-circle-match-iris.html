@@ -1,0 +1,398 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Ring accent","default":"#f2f0e9"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cmi-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #181b19;
+          font-family: Inter, sans-serif;
+          --accent: #f2f0e9;
+        }
+        .cmi-a {
+          position: absolute;
+          inset: 0;
+          padding: 82px 90px 82px 246px;
+        }
+        .cmi-nav {
+          display: grid;
+          grid-template-columns: 360px 1fr;
+          gap: 28px;
+          margin-top: 112px;
+        }
+        .cmi-list {
+          height: 700px;
+          padding: 28px 24px;
+          border: 1px solid #cbc9c2;
+          border-radius: 22px;
+          background: #f7f6f1;
+        }
+        .cmi-row {
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          height: 96px;
+          padding: 0 16px;
+          border-bottom: 1px solid #dfddd6;
+        }
+        .cmi-avatar {
+          width: 44px;
+          height: 44px;
+          flex: none;
+          border: 3px solid #181b19;
+          border-radius: 50%;
+          background: #9d9e99;
+        }
+        .cmi-row i {
+          width: 150px;
+          height: 14px;
+          border-radius: 7px;
+          background: #a8a8a2;
+        }
+        .cmi-main {
+          height: 700px;
+          padding: 42px;
+          border: 1px solid #cbc9c2;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .cmi-main h1 {
+          font-size: 66px;
+          font-weight: 950;
+          letter-spacing: -3px;
+        }
+        .cmi-bars {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
+          margin-top: 84px;
+        }
+        .cmi-bars div {
+          height: 350px;
+          padding: 24px;
+          border-radius: 18px;
+          background: #e1e0da;
+        }
+        .cmi-bars div:before {
+          content: "";
+          display: block;
+          width: 65%;
+          height: 14px;
+          border-radius: 7px;
+          background: #999a95;
+        }
+        .cmi-pulse {
+          position: absolute;
+          left: 286px;
+          top: 362.8px;
+          width: 44px;
+          height: 44px;
+          border: 4px solid #181b19;
+          border-radius: 50%;
+          opacity: 0;
+        }
+        .cmi-b {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #181b19;
+          color: #f4f2eb;
+          clip-path: circle(22px at 308px 384.8px);
+        }
+        .cmi-ring {
+          position: absolute;
+          inset: 0;
+          overflow: visible;
+        }
+        .cmi-number {
+          position: absolute;
+          left: 158px;
+          top: 304px;
+          width: 300px;
+          height: 160px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          color: #f4f2eb;
+          font-size: 96px;
+          font-weight: 950;
+          letter-spacing: -3px;
+        }
+        .cmi-number small {
+          display: block;
+          width: 130px;
+          height: 12px;
+          margin-top: 8px;
+          border-radius: 7px;
+          background: #666966;
+        }
+        .cmi-furniture {
+          position: absolute;
+          left: 680px;
+          top: 260px;
+          opacity: 0;
+        }
+        .cmi-furniture h2 {
+          font-size: 64px;
+          font-weight: 950;
+          letter-spacing: -3px;
+        }
+        .cmi-furniture > i {
+          display: block;
+          width: 720px;
+          height: 16px;
+          margin-top: 26px;
+          border-radius: 8px;
+          background: #5a5e5a;
+        }
+        .cmi-furniture > i:nth-of-type(2) {
+          width: 590px;
+        }
+        .cmi-stats {
+          display: flex;
+          gap: 28px;
+          margin-top: 76px;
+        }
+        .cmi-stat {
+          width: 240px;
+          height: 160px;
+          padding: 22px;
+          border: 2px solid #555a55;
+          border-radius: 16px;
+          background: #292e2a;
+        }
+        .cmi-stat:before,
+        .cmi-stat:after {
+          content: "";
+          display: block;
+          width: 62%;
+          height: 13px;
+          border-radius: 7px;
+          background: #8c908c;
+        }
+        .cmi-stat:after {
+          width: 46%;
+          height: 34px;
+          margin-top: 58px;
+          background: #d6d5cf;
+        }
+        .cmi-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 3;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(242, 240, 233, 0.92);
+          color: #181b19;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="cmi-root"
+        data-hf-id="hf-cmi-root"
+        data-composition-id="shot-circle-match-iris"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cmi-fill">
+          <div class="cmi-a">
+            <div
+              data-layout-allow-occlusion
+              style="font-size: 16px; font-weight: 900; letter-spacing: 3px"
+            >
+              PEOPLE / OVERVIEW
+            </div>
+            <div class="cmi-nav">
+              <div class="cmi-list">
+                <div class="cmi-row">
+                  <div class="cmi-avatar"></div>
+                  <i></i>
+                </div>
+                <div class="cmi-row">
+                  <div id="cmi-anchor" class="cmi-avatar"></div>
+                  <i></i>
+                </div>
+                <div class="cmi-row">
+                  <div class="cmi-avatar"></div>
+                  <i></i>
+                </div>
+                <div class="cmi-row">
+                  <div class="cmi-avatar"></div>
+                  <i></i>
+                </div>
+                <div class="cmi-row">
+                  <div class="cmi-avatar"></div>
+                  <i></i>
+                </div>
+              </div>
+              <div class="cmi-main">
+                <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+                  Team momentum.
+                </h1>
+                <div class="cmi-bars">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="cmi-p0" class="cmi-pulse"></div>
+          <div id="cmi-p1" class="cmi-pulse"></div>
+          <div class="cmi-b">
+            <svg class="cmi-ring" width="1920" height="1080">
+              <circle
+                id="cmi-track"
+                cx="308"
+                cy="384.8"
+                r="22"
+                fill="none"
+                stroke="#555955"
+                stroke-width="12"
+              />
+              <circle
+                id="cmi-sweep"
+                cx="308"
+                cy="384.8"
+                r="22"
+                pathLength="1"
+                fill="none"
+                stroke="var(--accent)"
+                stroke-width="12"
+                stroke-linecap="round"
+                stroke-dasharray="1"
+                stroke-dashoffset="1"
+                transform="rotate(-90 308 384.8)"
+              />
+            </svg>
+            <div class="cmi-number">
+              <span id="cmi-value">0%</span><small></small>
+            </div>
+            <div class="cmi-furniture">
+              <h2 data-layout-allow-overlap>Momentum, measured.</h2>
+              <i></i><i></i>
+              <div class="cmi-stats">
+                <div class="cmi-stat"></div>
+                <div class="cmi-stat"></div>
+                <div class="cmi-stat"></div>
+              </div>
+            </div>
+            <div class="cmi-caption">ONE CENTER / AVATAR TO DONUT / 78%</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#cmi-root .cmi-fill"),
+            tl = gsap.timeline({ paused: true }),
+            counter = { value: 0 },
+            value = document.querySelector("#cmi-value");
+          fill.style.setProperty("--accent", v.accent || "#f2f0e9");
+          tl.to(
+            "#cmi-anchor",
+            { scale: 1.45, duration: 0.25, ease: "power2.out" },
+            0,
+          )
+            .to(
+              "#cmi-anchor",
+              { scale: 1, duration: 0.249, ease: "power2.in" },
+              0.251,
+            )
+            .to(
+              "#cmi-anchor",
+              { scale: 1.45, duration: 0.25, ease: "power2.out" },
+              0.501,
+            )
+            .to(
+              "#cmi-anchor",
+              { scale: 1, duration: 0.25, ease: "power2.in" },
+              0.751,
+            );
+          [0.0, 0.467].forEach(function (t, i) {
+            tl.set("#cmi-p" + i, { opacity: 0.85, scale: 1 }, t).to(
+              "#cmi-p" + i,
+              { scale: 2.82, opacity: 0, duration: 0.533, ease: "power2.out" },
+              t + 0.001,
+            );
+          });
+          tl.to(
+            "#cmi-root .cmi-b",
+            {
+              clipPath: "circle(2100px at 308px 384.8px)",
+              duration: 1.5,
+              ease: "power2.inOut",
+            },
+            1,
+          )
+            .set("#cmi-root .cmi-a,#cmi-p0,#cmi-p1", { opacity: 0 }, 2.501)
+            .to(
+              "#cmi-track,#cmi-sweep",
+              {
+                attr: { r: 170 },
+                strokeWidth: 40,
+                duration: 1.333,
+                ease: "power2.inOut",
+              },
+              1,
+            )
+            .to(
+              "#cmi-sweep",
+              { strokeDashoffset: 0.22, duration: 1.833, ease: "power3.out" },
+              1.5,
+            )
+            .to(
+              counter,
+              {
+                value: 78,
+                duration: 1.833,
+                ease: "power3.out",
+                onUpdate: function () {
+                  value.textContent = Math.round(counter.value) + "%";
+                },
+              },
+              1.5,
+            )
+            .to(
+              "#cmi-root .cmi-number",
+              { opacity: 1, duration: 0.667, ease: "power2.out" },
+              2.267,
+            )
+            .to(
+              "#cmi-root .cmi-furniture",
+              { opacity: 1, duration: 0.833, ease: "power2.out" },
+              2,
+            );
+          window.__timelines["shot-circle-match-iris"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

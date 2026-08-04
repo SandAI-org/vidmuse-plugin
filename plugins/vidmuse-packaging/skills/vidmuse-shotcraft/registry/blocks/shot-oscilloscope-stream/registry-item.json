@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-oscilloscope-stream",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Oscilloscope Stream",
+  "description": "A production-traffic chart writes itself continuously, triggers one amplified signal spike and highlighted readout, then brakes into a true static monitor frame.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "data", "chart", "live", "oscilloscope"],
+  "files": [{ "path": "shot-oscilloscope-stream.html", "target": "compositions/shot-oscilloscope-stream.html", "type": "hyperframes:composition" }]
+}

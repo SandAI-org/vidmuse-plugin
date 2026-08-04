@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-glow-wake-sleep-panel",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Glow Wake Sleep Panel",
+  "description": "A violet edge light travels left to right across an oblique UI, revealing only the area beneath its head before the interface sleeps back into darkness with a residual right-edge glow.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.4,
+  "tags": [
+    "shotcraft",
+    "effects",
+    "spotlight",
+    "wake",
+    "sleep",
+    "edge-light",
+    "ui-reveal"
+  ],
+  "files": [
+    {
+      "path": "shot-glow-wake-sleep-panel.html",
+      "target": "compositions/shot-glow-wake-sleep-panel.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

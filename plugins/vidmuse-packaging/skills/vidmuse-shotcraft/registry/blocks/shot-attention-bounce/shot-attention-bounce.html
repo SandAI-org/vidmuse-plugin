@@ -1,0 +1,268 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Attention accent","default":"#b45309"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .atb-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+        }
+        .atb-stage {
+          position: absolute;
+          inset: 0;
+          transform-origin: 760px 740px;
+        }
+        .atb-ground {
+          position: absolute;
+          left: 120px;
+          top: 940px;
+          width: 1680px;
+          height: 8px;
+          border-radius: 4px;
+          background: #a9a69f;
+        }
+        .atb-shadow {
+          position: absolute;
+          left: 592px;
+          top: 956px;
+          width: 336px;
+          height: 30px;
+          border-radius: 50%;
+          background: rgba(0, 0, 0, 0.18);
+          filter: blur(6px);
+        }
+        .atb-icon {
+          position: absolute;
+          left: 560px;
+          top: 540px;
+          width: 400px;
+          height: 400px;
+          transform-origin: center bottom;
+        }
+        .atb-panel {
+          position: absolute;
+          left: 1020px;
+          top: 500px;
+          width: 520px;
+          height: 330px;
+          padding: 34px;
+          border: 2px solid #c9c6bf;
+          border-radius: 20px;
+          background: #faf9f5;
+          box-shadow: 0 24px 55px rgba(46, 40, 30, 0.12);
+          opacity: 0;
+          transform-origin: left bottom;
+        }
+        .atb-new {
+          position: absolute;
+          left: 24px;
+          top: -28px;
+          padding: 10px 24px;
+          border-radius: 24px;
+          background: var(--accent);
+          color: #fff;
+          font-size: 26px;
+          font-weight: 850;
+        }
+        .atb-ph {
+          height: 24px;
+          width: 56%;
+          border-radius: 8px;
+          background: #67665f;
+        }
+        .atb-pl {
+          height: 13px;
+          margin-top: 22px;
+          border-radius: 7px;
+          background: #d1cec7;
+        }
+        .atb-pl:nth-of-type(2) {
+          width: 85%;
+        }
+        .atb-pl:nth-of-type(3) {
+          width: 66%;
+        }
+        .atb-action {
+          position: absolute;
+          left: 34px;
+          bottom: 34px;
+          width: 170px;
+          height: 50px;
+          border-radius: 14px;
+          background: #292824;
+        }
+        .atb-dust {
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #77756f;
+          opacity: 0;
+        }
+      </style>
+      <div
+        data-hf-id="hf-atb-root"
+        id="atb-root"
+        data-composition-id="shot-attention-bounce"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="atb-fill" style="--accent: #b45309">
+          <div id="atb-stage" class="atb-stage" data-layout-allow-overflow>
+            <div class="atb-ground"></div>
+            <div id="atb-shadow" class="atb-shadow"></div>
+            <svg id="atb-icon" class="atb-icon" viewBox="0 0 420 420">
+              <rect
+                x="14"
+                y="14"
+                width="392"
+                height="392"
+                rx="88"
+                fill="#faf9f5"
+                stroke="#292824"
+                stroke-width="18"
+              />
+              <path
+                d="M210 110 C160 110 140 155 138 200 C136 245 118 272 100 290 L320 290 C302 272 284 245 282 200 C280 155 260 110 210 110 Z"
+                fill="none"
+                stroke="#292824"
+                stroke-width="22"
+                stroke-linejoin="round"
+              />
+              <circle cx="210" cy="322" r="22" fill="var(--accent)" />
+            </svg>
+            <div id="atb-panel" class="atb-panel">
+              <div class="atb-new">New</div>
+              <div class="atb-ph"></div>
+              <div class="atb-pl"></div>
+              <div class="atb-pl"></div>
+              <div class="atb-action"></div>
+            </div>
+            <div id="atb-dust"></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("atb-root"),
+            fill = root.querySelector(".atb-fill"),
+            dust = document.getElementById("atb-dust"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#b45309");
+          for (var i = 0; i < 12; i++) {
+            var d = document.createElement("i");
+            d.className = "atb-dust";
+            d.style.left = 720 + (i % 3) * 40 + "px";
+            d.style.top = "922px";
+            dust.parentNode.appendChild(d);
+          }
+          function jump(at, up) {
+            tl.to(
+              "#atb-icon",
+              {
+                y: -up,
+                scaleX: 0.95,
+                scaleY: 1.08,
+                duration: 0.5 * (up / 480 + 0.45),
+                ease: "power2.out",
+              },
+              at,
+            )
+              .to(
+                "#atb-icon",
+                {
+                  y: 0,
+                  scaleX: 1.2,
+                  scaleY: 0.8,
+                  duration: 0.5 * (up / 480 + 0.45),
+                  ease: "power2.in",
+                },
+                at + 0.5 * (up / 480 + 0.45),
+              )
+              .to(
+                "#atb-icon",
+                { scaleX: 1, scaleY: 1, duration: 0.18, ease: "back.out(2)" },
+                at + 1 * (up / 480 + 0.45),
+              );
+            tl.to(
+              "#atb-shadow",
+              {
+                scaleX: 0.42,
+                opacity: 0.28,
+                duration: 0.5 * (up / 480 + 0.45),
+                ease: "power2.out",
+              },
+              at,
+            ).to(
+              "#atb-shadow",
+              {
+                scaleX: 1,
+                opacity: 1,
+                duration: 0.5 * (up / 480 + 0.45),
+                ease: "power2.in",
+              },
+              at + 0.5 * (up / 480 + 0.45),
+            );
+          }
+          jump(0.4, 200);
+          jump(1.0, 300);
+          jump(1.667, 380);
+          jump(2.4, 480);
+          [0.933, 1.6, 2.333, 3.2].forEach(function (at, j) {
+            var group = root.querySelectorAll(".atb-dust");
+            for (var k = 0; k < 3; k++) {
+              var el = group[j * 3 + k],
+                dir = k - 1;
+              tl.set(el, { opacity: 0.8, x: 0, y: 0 }, at).to(
+                el,
+                {
+                  x: dir * (90 + j * 25),
+                  y: -45 - (k % 2) * 20,
+                  opacity: 0,
+                  duration: 0.4,
+                  ease: "power3.out",
+                },
+                at,
+              );
+            }
+          });
+          tl.to(
+            "#atb-stage",
+            { scale: 1.08, duration: 0.533, ease: "power2.inOut" },
+            2.4,
+          ).fromTo(
+            "#atb-panel",
+            { scale: 0, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.8)" },
+            3.267,
+          );
+          window.__timelines["shot-attention-bounce"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

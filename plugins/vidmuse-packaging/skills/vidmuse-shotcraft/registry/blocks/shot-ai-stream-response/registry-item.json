@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-ai-stream-response",
+  "type": "hyperframes:block",
+  "title": "Shotcraft AI Stream Response",
+  "description": "An agent panel establishes a readable conclusion first, then accelerates seven evidence rows with delayed status confirmations before one restrained completion pulse.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "ai",
+    "agent",
+    "streaming",
+    "evidence",
+    "completion"
+  ],
+  "files": [
+    {
+      "path": "shot-ai-stream-response.html",
+      "target": "compositions/shot-ai-stream-response.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

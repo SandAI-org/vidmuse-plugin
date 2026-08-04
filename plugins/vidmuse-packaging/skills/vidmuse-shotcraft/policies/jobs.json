@@ -1,0 +1,137 @@
+{
+  "schema": "vidmuse-shotcraft.jobs.v1",
+  "jobs": [
+    {
+      "id": "scan-transition",
+      "labels": ["扫描式转场", "扫描转场", "scan transition", "radar wipe", "data refresh"],
+      "candidates": ["shot-clock-wipe", "shot-spotlight-sweep", "shot-corner-spotlight-reveal"],
+      "notes": "Use when a real state or chapter is being scanned into view."
+    },
+    {
+      "id": "hard-state-change",
+      "labels": ["硬切状态变化", "hard state change", "abrupt reveal", "impact cut"],
+      "candidates": ["shot-flash-cut", "shot-smash-cut", "shot-drop-blackout-slam", "shot-invisible-cut"],
+      "notes": "Reserve for a genuine reversal, payoff, or hard before/after boundary."
+    },
+    {
+      "id": "chapter-transition",
+      "labels": ["章节转场", "chapter transition", "section break", "argument change"],
+      "candidates": ["shot-black-title-card-transition", "shot-clock-wipe", "shot-line-carry-transition", "shot-bottom-push-stack-wipe"],
+      "notes": "Prefer one recurring chapter language across the film."
+    },
+    {
+      "id": "soft-cinematic-handoff",
+      "labels": ["柔和电影感转场", "soft cinematic transition", "light handoff", "focus handoff"],
+      "candidates": ["shot-light-leak-burn", "shot-rack-focus-relay", "shot-ink-bleed-reveal", "shot-shared-element-morph"],
+      "notes": "Use when continuity matters more than impact."
+    },
+    {
+      "id": "title-materialize",
+      "labels": ["标题出现", "标题生成", "title materialize", "headline reveal"],
+      "candidates": ["shot-letterspace-materialize", "shot-gradient-word-sweep", "shot-marker-underline-title", "shot-scramble-decode"],
+      "notes": "Match the title behavior to the claim rather than using it as decoration."
+    },
+    {
+      "id": "typed-explanation",
+      "labels": ["打字解释", "代码输入", "typed explanation", "typewriter", "terminal typing"],
+      "candidates": ["shot-terminal-typewriter", "shot-typewriter-error-retype", "shot-document-typewriter-reveal", "shot-karaoke-fill-sync"],
+      "notes": "Use when the act of entering or correcting language is itself evidence."
+    },
+    {
+      "id": "brand-opening",
+      "labels": ["品牌开场", "brand opening", "logo intro", "opening lockup"],
+      "candidates": ["shot-brand-ink-open", "shot-letterspace-materialize", "shot-icon-field-colorize", "shot-crane-rise-reveal"],
+      "notes": "Replace pilot branding and keep the opening subordinate to the film promise."
+    },
+    {
+      "id": "brand-outro",
+      "labels": ["品牌收尾", "brand outro", "logo outro", "closing lockup"],
+      "candidates": ["shot-logo-sting-button", "shot-ui-strip-away-outro", "shot-outro-group-photo-launch", "shot-icon-flip-bloom"],
+      "notes": "Use one clear close rather than a second feature montage."
+    },
+    {
+      "id": "camera-punch-in",
+      "labels": ["镜头推进", "强调放大", "camera punch in", "crash zoom", "focus detail"],
+      "candidates": ["shot-crash-zoom", "shot-jump-cut-punch-in", "shot-slow-push-in", "shot-depth-dolly-zoom"],
+      "notes": "A camera move must land on named evidence and then settle."
+    },
+    {
+      "id": "freeze-and-annotate",
+      "labels": ["定格标注", "freeze annotate", "freeze frame callout", "pause and explain"],
+      "candidates": ["shot-freeze-annotate", "shot-bullet-time-freeze-orbit", "shot-reticle-lock-on"],
+      "notes": "Protect faces and source text; annotation should clarify the frozen evidence."
+    },
+    {
+      "id": "data-countup",
+      "labels": ["数字增长", "计数器", "data countup", "counter", "odometer"],
+      "candidates": ["shot-odometer-digit-roll", "shot-counter-tick-sparks", "shot-hit-counter", "shot-particle-sand-fill"],
+      "notes": "The final value and unit remain readable after the motion resolves."
+    },
+    {
+      "id": "data-comparison",
+      "labels": ["数据对比", "前后对比", "data comparison", "before after", "rescale"],
+      "candidates": ["shot-before-after-slider-scrub", "shot-axis-rescale-shock", "shot-circle-match-iris"],
+      "notes": "Use when motion encodes a real comparison rather than decorative activity."
+    },
+    {
+      "id": "live-data-signal",
+      "labels": ["实时数据", "波形", "live data", "waveform", "oscilloscope", "gauge"],
+      "candidates": ["shot-oscilloscope-stream", "shot-voice-waveform-live", "shot-needle-sweep-selftest", "shot-unit-dot-swarm-regroup"],
+      "notes": "Bind the signal to a real source event or measured value."
+    },
+    {
+      "id": "ui-panel-arrival",
+      "labels": ["界面面板进入", "UI 面板出现", "ui panel entrance", "panel materialize"],
+      "candidates": ["shot-panel-to-canvas", "shot-bento-light-up", "shot-line-unfold-panel", "shot-contact-shadow-lift"],
+      "notes": "Create-only by default unless the panel can become a safe recut overlay."
+    },
+    {
+      "id": "ui-process-explanation",
+      "labels": ["界面流程解释", "ui process", "workflow diagram", "AI response"],
+      "candidates": ["shot-ai-stream-response", "shot-diagram-cascade", "shot-integration-hub-map", "shot-command-palette-summon"],
+      "notes": "Replace fictional UI with real product evidence or an explicitly designed explainer."
+    },
+    {
+      "id": "cursor-interaction",
+      "labels": ["鼠标交互", "光标点击", "cursor interaction", "click response"],
+      "candidates": ["shot-cursor-performance", "shot-command-palette-summon", "shot-hashtag-pill-materialize", "shot-segmented-thumb-hero"],
+      "notes": "The control response must follow the cursor action causally."
+    },
+    {
+      "id": "impact-emphasis",
+      "labels": ["冲击强调", "重击", "impact emphasis", "slam", "burst"],
+      "candidates": ["shot-impact-burst-kit", "shot-score-slam", "shot-anime-impact", "shot-pop-burst-confirm"],
+      "notes": "Save the strongest impact for the film's strongest proof or payoff."
+    },
+    {
+      "id": "glow-focus",
+      "labels": ["发光聚焦", "光扫强调", "glow focus", "spotlight", "sheen"],
+      "candidates": ["shot-spotlight-sweep", "shot-sheen-sweep", "shot-halation-bloom", "shot-glow-wake-sleep-panel"],
+      "notes": "Use light to direct attention, not as a permanent surface treatment."
+    },
+    {
+      "id": "rhythmic-acceleration",
+      "labels": ["节奏加速", "加速剪辑", "rhythmic acceleration", "accelerando", "beat cuts"],
+      "candidates": ["shot-beat-cut-accelerando", "shot-card-footage-cadence", "shot-trailer-bumper", "shot-strobe-black-frames"],
+      "notes": "The acceleration should land in a readable result rather than continuous noise."
+    },
+    {
+      "id": "beat-punctuation",
+      "labels": ["节拍强调", "节奏点", "beat punctuation", "beat pump", "flash beat"],
+      "candidates": ["shot-beat-pump", "shot-paparazzi-flash", "shot-cel-flash-stomp", "shot-attention-bounce"],
+      "notes": "Use on a known music, speech, or source-event anchor."
+    },
+    {
+      "id": "cards-rearrange",
+      "labels": ["卡片重排", "卡片组装", "cards rearrange", "card flock", "grid reflow"],
+      "candidates": ["shot-card-flock", "shot-flip-grid-reflow", "shot-domino-cascade", "shot-deck-deal-flyin"],
+      "notes": "Each card needs identity and a reason to move."
+    },
+    {
+      "id": "diagram-connect",
+      "labels": ["关系连接", "连线图", "diagram connect", "flow line", "network reveal"],
+      "candidates": ["shot-flyline-arc", "shot-orb-flyline-relay", "shot-integration-hub-map", "shot-diagram-cascade"],
+      "notes": "Draw causes before consequences and never reveal empty connector scaffolds."
+    }
+  ]
+}

@@ -1,0 +1,281 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#5b7cff"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .gfm-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e8e6df;
+          font-family: Inter, sans-serif;
+          --accent: #5b7cff;
+        }
+        .gfm-wall {
+          position: absolute;
+          inset: 0;
+        }
+        .gfm-cell {
+          position: absolute;
+          width: 600px;
+          height: 340px;
+          overflow: hidden;
+          border: 3px solid #181b19;
+          background: #faf8f3;
+          opacity: 0;
+          transform: scale(1.18);
+          transform-origin: 50% 50%;
+        }
+        .gfm-cell:nth-child(1),
+        .gfm-cell:nth-child(4),
+        .gfm-cell:nth-child(7) {
+          left: 48px;
+        }
+        .gfm-cell:nth-child(2),
+        .gfm-cell:nth-child(5),
+        .gfm-cell:nth-child(8) {
+          left: 660px;
+        }
+        .gfm-cell:nth-child(3),
+        .gfm-cell:nth-child(6),
+        .gfm-cell:nth-child(9) {
+          left: 1272px;
+        }
+        .gfm-cell:nth-child(-n + 3) {
+          top: 18px;
+        }
+        .gfm-cell:nth-child(n + 4):nth-child(-n + 6) {
+          top: 370px;
+        }
+        .gfm-cell:nth-child(n + 7) {
+          top: 722px;
+        }
+        .gfm-mini {
+          position: absolute;
+          left: 0;
+          top: 1px;
+          width: 1920px;
+          height: 1080px;
+          transform: scale(0.3125);
+          transform-origin: top left;
+          background: #e9e7e0;
+        }
+        .gfm-mini h1 {
+          position: absolute;
+          left: 80px;
+          top: 130px;
+          width: 700px;
+          font-size: 80px;
+          line-height: 0.95;
+          letter-spacing: -5px;
+        }
+        .gfm-mini .hero {
+          position: absolute;
+          left: 930px;
+          top: 120px;
+          width: 760px;
+          height: 350px;
+          padding: 45px;
+          border-radius: 34px;
+          background: #171a19;
+          color: white;
+          font-size: 94px;
+          font-weight: 950;
+        }
+        .gfm-mini .cards {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          top: 570px;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 18px;
+        }
+        .gfm-mini .cards i {
+          height: 320px;
+          border-radius: 24px;
+          background: #faf8f3;
+          border: 1px solid #cbc7bf;
+        }
+        .gfm-crop {
+          position: absolute;
+          inset: -20px;
+          background: linear-gradient(135deg, #121615, #353c39);
+          color: white;
+          padding: 45px;
+        }
+        .gfm-crop b {
+          display: block;
+          font-size: 78px;
+        }
+        .gfm-crop i {
+          display: block;
+          margin-top: 70px;
+          width: 80%;
+          height: 120px;
+          border-radius: 18px;
+          background: linear-gradient(90deg, var(--accent), #92a6ff);
+        }
+        .gfm-panel {
+          position: absolute;
+          inset: 0;
+          display: grid;
+          place-items: center;
+          background: #d8d5cd;
+        }
+        .gfm-panel:after {
+          content: "";
+          width: 430px;
+          height: 230px;
+          border-radius: 26px;
+          background: #f8f5ee;
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.14);
+        }
+        .gfm-dark {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #000;
+        }
+        .gfm-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 30;
+          padding: 9px 13px;
+          border-radius: 5px;
+          background: #181b19;
+          color: white;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="gfm-root"
+        data-hf-id="hf-gfm-root"
+        data-composition-id="shot-grid-flash-mosaic"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="gfm-fill">
+          <div id="gfm-wall" class="gfm-wall">
+            <div class="gfm-cell">
+              <div class="gfm-crop" data-layout-allow-overflow>
+                <b>01</b><i></i>
+              </div>
+              <div class="gfm-dark"></div>
+            </div>
+            <div class="gfm-cell">
+              <div class="gfm-panel"></div>
+              <div class="gfm-dark"></div>
+            </div>
+            <div class="gfm-cell">
+              <div class="gfm-crop" data-layout-allow-overflow>
+                <b>FLOW</b><i></i>
+              </div>
+              <div class="gfm-dark"></div>
+            </div>
+            <div class="gfm-cell">
+              <div class="gfm-crop" data-layout-allow-overflow>
+                <b>SIGNAL</b><i></i>
+              </div>
+              <div class="gfm-dark"></div>
+            </div>
+            <div id="gfm-center" class="gfm-cell" data-layout-allow-overflow>
+              <div class="gfm-mini">
+                <h1>One view. Every signal.</h1>
+                <div class="hero">84.2K</div>
+                <div class="cards"><i></i><i></i><i></i><i></i></div>
+              </div>
+              <div class="gfm-dark"></div>
+            </div>
+            <div class="gfm-cell">
+              <div class="gfm-crop" data-layout-allow-overflow>
+                <b>BUILD</b><i></i>
+              </div>
+              <div class="gfm-dark"></div>
+            </div>
+            <div class="gfm-cell">
+              <div class="gfm-crop" data-layout-allow-overflow>
+                <b>03</b><i></i>
+              </div>
+              <div class="gfm-dark"></div>
+            </div>
+            <div class="gfm-cell">
+              <div class="gfm-panel"></div>
+              <div class="gfm-dark"></div>
+            </div>
+            <div class="gfm-cell">
+              <div class="gfm-crop" data-layout-allow-overflow>
+                <b>LIVE</b><i></i>
+              </div>
+              <div class="gfm-dark"></div>
+            </div>
+          </div>
+          <div class="gfm-caption">NINE CELLS / SIXTEENTH-NOTE FILL</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#gfm-root .gfm-fill"),
+            tl = gsap.timeline({ paused: true }),
+            cells = document.querySelectorAll("#gfm-root .gfm-cell"),
+            order = [6, 2, 8, 0, 5, 3, 1, 7, 4];
+          fill.style.setProperty("--accent", v.accent || "#5b7cff");
+          order.forEach(function (idx, rank) {
+            var t = 0.833 + rank * 0.067,
+              c = cells[idx],
+              dark = c.querySelector(".gfm-dark");
+            tl.set(c, { opacity: 1 }, t)
+              .to(c, { scale: 1, duration: 0.1, ease: "power2.out" }, t)
+              .set(dark, { opacity: 0.45 }, t)
+              .to(
+                dark,
+                { opacity: 0, duration: 0.067, ease: "none" },
+                t + 0.001,
+              );
+          });
+          tl.to(
+            "#gfm-wall",
+            {
+              scale: 1.008,
+              duration: 0.233,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: 1,
+            },
+            1.467,
+          )
+            .to(
+              "#gfm-center",
+              { scale: 3.28, duration: 0.467, ease: "power3.in" },
+              1.934,
+            )
+            .set(".gfm-cell:not(#gfm-center)", { opacity: 0 }, 2.4);
+          window.__timelines["shot-grid-flash-mosaic"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

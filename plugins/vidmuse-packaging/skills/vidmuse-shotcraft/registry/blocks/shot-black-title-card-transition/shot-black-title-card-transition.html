@@ -1,0 +1,208 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"title","type":"text","label":"Chapter title","default":"THE NEXT CHAPTER"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .btc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #0e100f;
+          color: #f1efe8;
+          font-family: Inter, sans-serif;
+        }
+        .btc-page {
+          position: absolute;
+          inset: 0;
+          padding: 94px 110px;
+          background: #e9e7e0;
+          color: #171a18;
+        }
+        .btc-b {
+          opacity: 0;
+          background: #171a18;
+          color: #f2f0e9;
+        }
+        .btc-page h1 {
+          font-size: 74px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .btc-ui {
+          display: grid;
+          grid-template-columns: 330px 1fr;
+          gap: 26px;
+          margin-top: 70px;
+        }
+        .btc-side,
+        .btc-main {
+          height: 640px;
+          border: 1px solid #cbc9c2;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .btc-b .btc-side,
+        .btc-b .btc-main {
+          border-color: #414641;
+          background: #252a26;
+        }
+        .btc-side {
+          padding: 28px;
+        }
+        .btc-side i,
+        .btc-main i {
+          display: block;
+          width: 68%;
+          height: 14px;
+          margin-bottom: 20px;
+          border-radius: 7px;
+          background: #92948f;
+        }
+        .btc-main {
+          padding: 32px;
+        }
+        .btc-main:after {
+          content: "";
+          display: block;
+          height: 370px;
+          margin-top: 130px;
+          border-radius: 20px;
+          background: #d4d2cc;
+        }
+        .btc-b .btc-main:after {
+          background: linear-gradient(135deg, #61d09f, #226e50);
+        }
+        .btc-title {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+        }
+        .btc-title-box {
+          text-align: center;
+        }
+        .btc-kicker {
+          margin-bottom: 24px;
+          color: #8f938f;
+          font-family: monospace;
+          font-size: 20px;
+          font-weight: 800;
+          letter-spacing: 8px;
+        }
+        .btc-copy {
+          font-family: monospace;
+          font-size: 74px;
+          font-weight: 900;
+          letter-spacing: -2px;
+        }
+        .btc-copy span {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        .btc-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 5;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(242, 240, 233, 0.92);
+          color: #171a18;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="btc-root"
+        data-hf-id="hf-btc-root"
+        data-composition-id="shot-black-title-card-transition"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="btc-fill">
+          <div class="btc-page btc-a">
+            <h1>CHAPTER ONE</h1>
+            <div class="btc-ui">
+              <div class="btc-side"><i></i><i></i></div>
+              <div class="btc-main"><i></i></div>
+            </div>
+          </div>
+          <div class="btc-title">
+            <div class="btc-title-box">
+              <div class="btc-kicker">CHAPTER / 02</div>
+              <div class="btc-copy"></div>
+            </div>
+          </div>
+          <div class="btc-page btc-b">
+            <h1>CHAPTER TWO</h1>
+            <div class="btc-ui">
+              <div class="btc-side"><i></i><i></i></div>
+              <div class="btc-main"><i></i></div>
+            </div>
+          </div>
+          <div class="btc-caption">FADE / TYPE CARD / HANDOFF</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            box = document.querySelector("#btc-root .btc-copy"),
+            text = (v.title || "THE NEXT CHAPTER").toUpperCase().slice(0, 24),
+            tl = gsap.timeline({ paused: true });
+          text.split("").forEach(function (ch, i) {
+            var s = document.createElement("span");
+            s.textContent = ch === " " ? "\u00a0" : ch;
+            box.appendChild(s);
+            tl.to(
+              s,
+              { opacity: 1, y: 0, duration: 0.08, ease: "none" },
+              1.2 + i * 0.07,
+            );
+          });
+          tl.to(
+            "#btc-root .btc-a",
+            { opacity: 0, duration: 0.267, ease: "none" },
+            0.6,
+          )
+            .set("#btc-root .btc-title", { opacity: 1 }, 0.868)
+            .to(
+              "#btc-root .btc-title",
+              { opacity: 0, duration: 0.267, ease: "none" },
+              2.7,
+            )
+            .set("#btc-root .btc-b", { opacity: 1 }, 2.968)
+            .fromTo(
+              "#btc-root .btc-b",
+              { opacity: 0 },
+              { opacity: 1, duration: 0.3, ease: "none" },
+              2.969,
+            );
+          window.__timelines["shot-black-title-card-transition"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Action accent","default":"#5b55c8"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cpf-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+          --accent: #5b55c8;
+        }
+        .cpf-page {
+          position: absolute;
+          inset: 0;
+          transform-origin: 1270px 615px;
+        }
+        .cpf-side {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 280px;
+          background: #d7d5cf;
+        }
+        .cpf-head {
+          position: absolute;
+          left: 350px;
+          top: 120px;
+          font-size: 74px;
+          font-weight: 900;
+        }
+        .cpf-grid {
+          position: absolute;
+          left: 350px;
+          top: 270px;
+          right: 160px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+        }
+        .cpf-card {
+          height: 250px;
+          border: 1px solid #d0cdc6;
+          border-radius: 20px;
+          background: #faf9f5;
+        }
+        .cpf-button {
+          position: absolute;
+          left: 1120px;
+          top: 560px;
+          width: 300px;
+          height: 110px;
+          display: grid;
+          place-items: center;
+          border-radius: 24px;
+          background: #2f2f2f;
+          color: #fff;
+          font-size: 28px;
+          font-weight: 800;
+        }
+        .cpf-ripple {
+          position: absolute;
+          left: 1270px;
+          top: 615px;
+          width: 60px;
+          height: 60px;
+          margin: -30px;
+          border: 5px solid var(--accent);
+          border-radius: 50%;
+          opacity: 0;
+        }
+        .cpf-cursor {
+          position: absolute;
+          width: 130px;
+          height: 146px;
+          transform-origin: 0 0;
+        }
+        .cpf-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #55534f;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-cpf-root"
+        id="cpf-root"
+        data-composition-id="shot-cursor-performance"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cpf-fill">
+          <div id="cpf-page" class="cpf-page" data-layout-allow-overflow>
+            <div class="cpf-side"></div>
+            <div class="cpf-head">Build faster</div>
+            <div class="cpf-grid">
+              <div class="cpf-card"></div>
+              <div class="cpf-card"></div>
+              <div class="cpf-card"></div>
+            </div>
+            <button id="cpf-button" class="cpf-button">Create project</button>
+            <div id="cpf-ripple" class="cpf-ripple"></div>
+          </div>
+          <svg id="cpf-cursor" class="cpf-cursor" viewBox="0 0 20 22">
+            <path
+              d="M2 1V17l4.5-3.8L9.4 20l3-1.3-2.9-6.7 5.5-.4Z"
+              fill="#fff"
+              stroke="#292824"
+              stroke-width="1.5"
+            />
+          </svg>
+          <div class="cpf-caption">POINTER AS PERFORMANCE</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#cpf-root .cpf-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#5b55c8");
+          gsap.set("#cpf-cursor", { x: 2050, y: 980, rotation: -8 });
+          tl.to(
+            "#cpf-cursor",
+            {
+              keyframes: [
+                { x: 1500, y: 760, rotation: -2, duration: 0.4 },
+                { x: 1190, y: 530, rotation: 5, duration: 0.4 },
+                { x: 1225, y: 550, rotation: 0, duration: 0.2 },
+              ],
+              ease: "power3.out",
+            },
+            0.2,
+          )
+            .to(
+              "#cpf-button",
+              { backgroundColor: "#555553", scale: 1.05, duration: 0.133 },
+              1.067,
+            )
+            .to(
+              "#cpf-cursor",
+              { scale: 0.82, duration: 0.1, yoyo: true, repeat: 1 },
+              1.333,
+            )
+            .to(
+              "#cpf-button",
+              { scale: 0.96, duration: 0.1, yoyo: true, repeat: 1 },
+              1.333,
+            )
+            .set("#cpf-ripple", { opacity: 0.9, scale: 1 }, 1.333)
+            .to(
+              "#cpf-ripple",
+              { scale: 6.33, duration: 0.733, ease: "power3.out" },
+              1.333,
+            )
+            .to(
+              "#cpf-ripple",
+              { opacity: 0, duration: 0.867, ease: "none" },
+              1.333,
+            )
+            .to(
+              "#cpf-page",
+              { scale: 1.4, duration: 0.4, ease: "power3.out" },
+              1.333,
+            )
+            .to(
+              "#cpf-page",
+              { scale: 1, duration: 0.6, ease: "power2.inOut" },
+              2.4,
+            )
+            .to(
+              "#cpf-cursor",
+              { x: 1360, y: 680, duration: 0.6, ease: "power2.inOut" },
+              2.4,
+            );
+          window.__timelines["shot-cursor-performance"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

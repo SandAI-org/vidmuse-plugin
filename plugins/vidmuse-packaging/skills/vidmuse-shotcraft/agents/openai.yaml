@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse Shotcraft"
+  short_description: "Find and install semantic HyperFrames shot effects"
+  default_prompt: "Use $vidmuse-shotcraft to find and adapt the right installable shot treatment for this beat."

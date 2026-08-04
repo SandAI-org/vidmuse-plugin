@@ -1,0 +1,328 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Send accent","default":"#171a18"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ppm-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: linear-gradient(160deg, #e9e9e7, #d7d7d4);
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #171a18;
+        }
+        .ppm-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 3840px;
+          height: 1200px;
+          transform-origin: 0 0;
+        }
+        .ppm-window {
+          position: absolute;
+          width: 760px;
+          height: 500px;
+          overflow: hidden;
+          border: 2px solid #bdbdb8;
+          border-radius: 20px;
+          background: #fff;
+          box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
+        }
+        .ppm-a {
+          left: 140px;
+          top: 310px;
+        }
+        .ppm-b {
+          left: 2820px;
+          top: 350px;
+        }
+        .ppm-bar {
+          height: 54px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 0 20px;
+          border-bottom: 2px solid #d2d2cd;
+          background: #f2f2ef;
+        }
+        .ppm-bar i {
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background: #999a95;
+        }
+        .ppm-bar b {
+          width: 200px;
+          height: 13px;
+          margin-left: 14px;
+          border-radius: 7px;
+          background: #999a95;
+        }
+        .ppm-body {
+          padding: 26px;
+        }
+        .ppm-card {
+          height: 250px;
+          padding: 26px;
+          border: 1px solid #d0cec7;
+          border-radius: 16px;
+          background: #f3f2ed;
+        }
+        .ppm-card i {
+          display: block;
+          width: 62%;
+          height: 14px;
+          margin-bottom: 18px;
+          border-radius: 7px;
+          background: #999a95;
+        }
+        .ppm-card:after {
+          content: "";
+          display: block;
+          height: 110px;
+          margin-top: 50px;
+          border-radius: 12px;
+          background: linear-gradient(135deg, #d4d2cc, #efede7);
+        }
+        .ppm-b .ppm-card:after {
+          background: linear-gradient(135deg, #9ee1c5, #4baa83);
+        }
+        .ppm-send {
+          position: absolute;
+          right: 26px;
+          bottom: 24px;
+          padding: 16px 44px;
+          border-radius: 12px;
+          background: var(--accent);
+          color: white;
+          font-size: 28px;
+          font-weight: 900;
+        }
+        .ppm-plane {
+          position: absolute;
+          left: 730px;
+          top: 655px;
+          width: 180px;
+          height: 110px;
+          opacity: 0;
+          overflow: visible;
+        }
+        .ppm-prop {
+          position: absolute;
+          border: 20px solid #b7b7b3;
+          border-radius: 50%;
+          opacity: 0.55;
+        }
+        .ppm-prop.square {
+          border: 0;
+          border-radius: 20px;
+          background: #c2c2be;
+        }
+        .ppm-p1 {
+          left: 900px;
+          top: 110px;
+          width: 180px;
+          height: 180px;
+        }
+        .ppm-p2 {
+          left: 1370px;
+          top: 720px;
+          width: 280px;
+          height: 280px;
+        }
+        .ppm-p3 {
+          left: 1950px;
+          top: 50px;
+          width: 120px;
+          height: 120px;
+        }
+        .ppm-p4 {
+          left: 2360px;
+          top: 760px;
+          width: 360px;
+          height: 260px;
+        }
+        .ppm-p5 {
+          left: 2760px;
+          top: 120px;
+          width: 240px;
+          height: 240px;
+        }
+        .ppm-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 8;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(19, 22, 20, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="ppm-root"
+        data-hf-id="hf-ppm-root"
+        data-composition-id="shot-paper-plane-messenger"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="ppm-fill">
+          <div id="ppm-world" class="ppm-world" data-layout-allow-overflow>
+            <div class="ppm-prop ppm-p1"></div>
+            <div class="ppm-prop square ppm-p2"></div>
+            <div class="ppm-prop ppm-p3"></div>
+            <div class="ppm-prop square ppm-p4"></div>
+            <div class="ppm-prop ppm-p5"></div>
+            <div class="ppm-window ppm-a">
+              <div class="ppm-bar"><i></i><i></i><i></i><b></b></div>
+              <div class="ppm-body">
+                <div class="ppm-card"><i></i><i></i></div>
+                <div id="ppm-send" class="ppm-send">SEND</div>
+              </div>
+            </div>
+            <div class="ppm-window ppm-b">
+              <div class="ppm-bar"><i></i><i></i><i></i><b></b></div>
+              <div class="ppm-body">
+                <div class="ppm-card"><i></i><i></i></div>
+              </div>
+            </div>
+            <svg id="ppm-plane" class="ppm-plane" viewBox="0 0 180 110">
+              <polygon
+                points="176,30 6,4 62,66"
+                fill="#fff"
+                stroke="#aaa9a5"
+                stroke-width="3"
+              />
+              <polygon
+                points="176,30 62,66 78,102"
+                fill="#d4d4d1"
+                stroke="#aaa9a5"
+                stroke-width="3"
+              />
+              <polygon
+                points="176,30 6,4 50,44"
+                fill="#efefec"
+                stroke="#bdbdb8"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div class="ppm-caption">CLICK / PULL BACK / FOLLOW / TAKE OVER</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#ppm-root .ppm-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#171a18");
+          gsap.set("#ppm-world", { x: 154, y: -328, scale: 1.55 });
+          tl.to(
+            "#ppm-send",
+            { scale: 1.22, duration: 0.1, ease: "power2.out" },
+            0.4,
+          )
+            .to(
+              "#ppm-send",
+              { scale: 1, duration: 0.3, ease: "power2.out" },
+              0.501,
+            )
+            .to(
+              "#ppm-world",
+              {
+                x: 278,
+                y: 323,
+                scale: 0.62,
+                duration: 0.867,
+                ease: "power2.inOut",
+              },
+              0.533,
+            )
+            .set("#ppm-plane", { opacity: 1, scale: 0.3, rotation: -28 }, 1.067)
+            .to(
+              "#ppm-plane",
+              {
+                x: 420,
+                y: -440,
+                scale: 1.7,
+                rotation: -34,
+                duration: 0.7,
+                ease: "power2.in",
+              },
+              1.068,
+            )
+            .to(
+              "#ppm-plane",
+              {
+                x: 1680,
+                y: -130,
+                scale: 1.7,
+                rotation: 18,
+                duration: 0.95,
+                ease: "none",
+              },
+              1.769,
+            )
+            .to(
+              "#ppm-plane",
+              {
+                x: 1910,
+                y: -35,
+                scale: 1.1,
+                rotation: 12,
+                duration: 0.749,
+                ease: "power2.out",
+              },
+              2.72,
+            )
+            .to(
+              "#ppm-world",
+              { x: -733, y: 156, duration: 2.067, ease: "power2.inOut" },
+              1.401,
+            )
+            .to(
+              "#ppm-world",
+              {
+                x: -8960,
+                y: -1320,
+                scale: 3.1,
+                duration: 1.134,
+                ease: "power2.inOut",
+              },
+              3.733,
+            )
+            .to(
+              "#ppm-plane",
+              { opacity: 0, duration: 0.4, ease: "none" },
+              3.733,
+            );
+          window.__timelines["shot-paper-plane-messenger"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

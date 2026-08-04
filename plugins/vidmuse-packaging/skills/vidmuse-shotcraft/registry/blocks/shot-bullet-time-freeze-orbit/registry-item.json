@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-bullet-time-freeze-orbit",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Bullet Time Freeze Orbit",
+  "description": "A chart freezes halfway through its growth while the camera performs a 55-degree side orbit, then time resumes and value labels settle in.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "camera", "bullet-time", "freeze", "orbit"],
+  "files": [{ "path": "shot-bullet-time-freeze-orbit.html", "target": "compositions/shot-bullet-time-freeze-orbit.html", "type": "hyperframes:composition" }]
+}

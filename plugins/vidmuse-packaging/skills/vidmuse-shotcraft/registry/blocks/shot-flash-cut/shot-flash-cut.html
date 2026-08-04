@@ -1,0 +1,189 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Destination accent","default":"#ff6b4a"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .flc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #ff6b4a;
+        }
+        .flc-page {
+          position: absolute;
+          inset: 0;
+          padding: 90px 110px;
+        }
+        .flc-b {
+          opacity: 0;
+          background: #171a18;
+          color: #f4f2eb;
+        }
+        .flc-top {
+          display: flex;
+          justify-content: space-between;
+          font-size: 16px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .flc-page h1 {
+          margin-top: 60px;
+          font-size: 76px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .flc-grid {
+          display: grid;
+          grid-template-columns: 340px 1fr;
+          gap: 26px;
+          margin-top: 60px;
+        }
+        .flc-side,
+        .flc-main {
+          height: 600px;
+          border: 1px solid #cbc9c2;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .flc-b .flc-side,
+        .flc-b .flc-main {
+          border-color: #414641;
+          background: #252a26;
+        }
+        .flc-side {
+          padding: 28px;
+        }
+        .flc-side i,
+        .flc-main i {
+          display: block;
+          width: 68%;
+          height: 14px;
+          margin-bottom: 20px;
+          border-radius: 7px;
+          background: #969893;
+        }
+        .flc-main {
+          padding: 32px;
+        }
+        .flc-main:after {
+          content: "";
+          display: block;
+          height: 330px;
+          margin-top: 120px;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #d8d6cf, #aaa9a3);
+        }
+        .flc-b .flc-main:after {
+          background: linear-gradient(135deg, var(--accent), #8c2c20);
+        }
+        .flc-flash {
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          opacity: 0;
+          background: radial-gradient(
+            ellipse at 50% 45%,
+            rgba(255, 248, 235, 0.98),
+            rgba(255, 244, 224, 0.58) 55%,
+            transparent 80%
+          );
+        }
+        .flc-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 5;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(19, 22, 20, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="flc-root"
+        data-hf-id="hf-flc-root"
+        data-composition-id="shot-flash-cut"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="flc-fill">
+          <div class="flc-page flc-a">
+            <div class="flc-top"><span>WORKSPACE</span><span>A</span></div>
+            <h1>From intent...</h1>
+            <div class="flc-grid">
+              <div class="flc-side"><i></i><i></i></div>
+              <div class="flc-main"><i></i></div>
+            </div>
+          </div>
+          <div class="flc-page flc-b">
+            <div class="flc-top"><span>RESULT</span><span>B</span></div>
+            <h1>...to impact.</h1>
+            <div class="flc-grid">
+              <div class="flc-side"><i></i><i></i></div>
+              <div class="flc-main"><i></i></div>
+            </div>
+          </div>
+          <div class="flc-flash"></div>
+          <div class="flc-caption">5F RISE / HARD CUT / 5F FALL</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#flc-root .flc-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff6b4a");
+          gsap.set("#flc-root .flc-b", { scale: 1.08 });
+          tl.to(
+            "#flc-root .flc-a",
+            { scale: 1.16, duration: 1, ease: "power2.in" },
+            0.8,
+          )
+            .to(
+              "#flc-root .flc-flash",
+              { opacity: 0.85, duration: 0.167, ease: "none" },
+              1.633,
+            )
+            .set("#flc-root .flc-b", { opacity: 1 }, 1.8)
+            .set("#flc-root .flc-a", { opacity: 0 }, 1.801)
+            .to(
+              "#flc-root .flc-flash",
+              { opacity: 0, duration: 0.167, ease: "none" },
+              1.801,
+            )
+            .to(
+              "#flc-root .flc-b",
+              { scale: 1, duration: 0.4, ease: "power3.out" },
+              1.8,
+            );
+          window.__timelines["shot-flash-cut"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Control accent","default":"#292824"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .sth-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+          --accent: #292824;
+        }
+        .sth-control {
+          position: absolute;
+          left: 420px;
+          top: 430px;
+          width: 1080px;
+          height: 220px;
+          padding: 16px;
+          display: flex;
+          border: 3px solid #c7c4bc;
+          border-radius: 110px;
+          background: #d8d6d0;
+          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.18);
+          transform: translateY(200px);
+          opacity: 0;
+        }
+        .sth-thumb {
+          position: absolute;
+          left: 16px;
+          top: 16px;
+          width: 516px;
+          height: 182px;
+          border-radius: 91px;
+          background: #fff;
+          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+        }
+        .sth-seg {
+          position: relative;
+          z-index: 2;
+          width: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+          font-size: 52px;
+          font-weight: 850;
+        }
+        .sth-icon {
+          width: 64px;
+          height: 64px;
+          display: grid;
+          place-items: center;
+          border-radius: 20px;
+          background: #292824;
+          color: #fff;
+          font-size: 30px;
+          font-weight: 900;
+        }
+        .sth-new .sth-icon {
+          transform: scale(0);
+        }
+        .sth-cursor {
+          position: absolute;
+          width: 130px;
+          height: 146px;
+          z-index: 5;
+        }
+        .sth-ripple {
+          position: absolute;
+          left: 1222px;
+          top: 540px;
+          width: 40px;
+          height: 40px;
+          margin: -20px;
+          border: 4px solid #292824;
+          border-radius: 50%;
+          opacity: 0;
+          z-index: 4;
+        }
+        .sth-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #65635e;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-sth-root"
+        id="sth-root"
+        data-composition-id="shot-segmented-thumb-hero"
+        data-start="0"
+        data-duration="3.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="sth-fill">
+          <div id="sth-control" class="sth-control">
+            <div id="sth-thumb" class="sth-thumb"></div>
+            <div class="sth-seg sth-old">
+              <i id="sth-old-icon" class="sth-icon">A</i><span>Ask</span>
+            </div>
+            <div class="sth-seg sth-new">
+              <i id="sth-new-icon" class="sth-icon">C</i><span>Computer</span>
+            </div>
+          </div>
+          <svg id="sth-cursor" class="sth-cursor" viewBox="0 0 20 22">
+            <path
+              d="M2 1V17l4.5-3.8L9.4 20l3-1.3-2.9-6.7 5.5-.4Z"
+              fill="#fff"
+              stroke="#292824"
+              stroke-width="1.5"
+            />
+          </svg>
+          <div id="sth-ripple" class="sth-ripple"></div>
+          <div class="sth-caption">ARRIVE · DECIDE · SWITCH · REWARD</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#sth-root .sth-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#292824");
+          gsap.set("#sth-cursor", { x: 2050, y: 1050, rotation: -8 });
+          tl.to(
+            "#sth-control",
+            { y: 0, opacity: 1, duration: 0.6, ease: "back.out(1.5)" },
+            0,
+          )
+            .to(
+              "#sth-cursor",
+              {
+                x: 1160,
+                y: 490,
+                rotation: 0,
+                duration: 0.8,
+                ease: "power3.out",
+              },
+              0.6,
+            )
+            .to(
+              "#sth-cursor",
+              { scale: 0.86, duration: 0.1, yoyo: true, repeat: 1 },
+              1.4,
+            )
+            .set("#sth-ripple", { opacity: 0.8, scale: 1 }, 1.4)
+            .to(
+              "#sth-ripple",
+              { scale: 5, opacity: 0, duration: 0.4, ease: "power2.out" },
+              1.4,
+            )
+            .to(
+              "#sth-thumb",
+              { x: 516, duration: 0.267, ease: "power3.out" },
+              1.4,
+            )
+            .to(
+              "#sth-old-icon",
+              {
+                scale: 0,
+                width: 0,
+                opacity: 0,
+                duration: 0.2,
+                ease: "power2.in",
+              },
+              1.4,
+            )
+            .to(
+              "#sth-new-icon",
+              { scale: 1, duration: 0.45, ease: "back.out(1.8)" },
+              1.667,
+            );
+          window.__timelines["shot-segmented-thumb-hero"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

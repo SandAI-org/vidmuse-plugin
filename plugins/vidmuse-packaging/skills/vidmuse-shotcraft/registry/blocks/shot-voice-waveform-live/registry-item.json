@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-voice-waveform-live",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Voice Waveform Live",
+  "description": "A deterministic sixty-four-bar waveform responds through speech, pause, renewed speech, and submission phases before collapsing into a quiet completed input state.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "interaction", "voice", "waveform", "audio", "submit"],
+  "files": [
+    {
+      "path": "shot-voice-waveform-live.html",
+      "target": "compositions/shot-voice-waveform-live.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

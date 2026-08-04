@@ -1,0 +1,197 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Impact accent","default":"#b45309"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ani-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+        }
+        .ani-world {
+          position: absolute;
+          inset: 0;
+          transform-origin: 1070px 335px;
+        }
+        .ani-side {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 220px;
+          background: #d9d8d3;
+        }
+        .ani-grid {
+          position: absolute;
+          left: 256px;
+          right: 36px;
+          top: 108px;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: 454px 454px;
+          gap: 28px;
+        }
+        .ani-card {
+          position: relative;
+          padding: 30px;
+          border: 1px solid #cdcbc4;
+          border-radius: 14px;
+          background: #faf9f5;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        .ani-card:before {
+          content: "";
+          position: absolute;
+          left: 30px;
+          top: 30px;
+          width: 190px;
+          height: 40px;
+          border-radius: 9px;
+          background: #67665f;
+        }
+        .ani-target {
+          border: 3px solid #292824;
+        }
+        .ani-impact-title {
+          position: absolute;
+          left: 24px;
+          bottom: 96px;
+          font-size: 92px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .ani-lines {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          mix-blend-mode: difference;
+        }
+        .ani-wedge {
+          position: absolute;
+          left: 960px;
+          top: 540px;
+          width: 22px;
+          height: 1300px;
+          background: #fff;
+          clip-path: polygon(50% 0, 100% 100%, 0 100%);
+          transform-origin: 50% 0;
+        }
+        .ani-split-red,
+        .ani-split-cyan {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          mix-blend-mode: screen;
+        }
+        .ani-split-red {
+          background: rgba(255, 0, 51, 0.35);
+        }
+        .ani-split-cyan {
+          background: rgba(0, 229, 255, 0.35);
+        }
+      </style>
+      <div
+        data-hf-id="hf-ani-root"
+        id="ani-root"
+        data-composition-id="shot-anime-impact"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div id="ani-fill" class="ani-fill" style="--accent: #b45309">
+          <div id="ani-shake">
+            <div id="ani-world" class="ani-world" data-layout-allow-overflow>
+              <div class="ani-side"></div>
+              <main class="ani-grid">
+                <article class="ani-card"></article>
+                <article class="ani-card ani-target">
+                  <div class="ani-impact-title">IMPACT</div>
+                </article>
+                <article class="ani-card"></article>
+                <article class="ani-card"></article>
+                <article class="ani-card"></article>
+                <article class="ani-card"></article>
+              </main>
+            </div>
+            <div id="ani-red" class="ani-split-red"></div>
+            <div id="ani-cyan" class="ani-split-cyan"></div>
+            <div id="ani-lines" class="ani-lines"></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("ani-root"),
+            fill = document.getElementById("ani-fill"),
+            lines = document.getElementById("ani-lines"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#b45309");
+          for (var i = 0; i < 30; i++) {
+            var w = document.createElement("i");
+            w.className = "ani-wedge";
+            w.style.transform =
+              "rotate(" + (i * 12 + 6 * Math.sin(i * 7.13)) + "deg)";
+            w.style.width = 8 + 15 * Math.abs(Math.sin(i * 5.37)) + "px";
+            lines.appendChild(w);
+          }
+          tl.to(
+            "#ani-world",
+            { x: -110, y: 205, scale: 2.4, duration: 0.2, ease: "power3.in" },
+            0.8,
+          )
+            .set("#ani-fill", { backgroundColor: "#131315" }, 1)
+            .set("#ani-world", { filter: "invert(1) grayscale(1)" }, 1)
+            .set("#ani-lines,#ani-red,#ani-cyan", { opacity: 1 }, 1)
+            .set("#ani-red", { x: -8, y: 4 }, 1)
+            .set("#ani-cyan", { x: 8, y: -4 }, 1)
+            .set("#ani-lines", { rotation: 2, scale: 1.02 }, 1.033)
+            .set("#ani-red", { y: -4 }, 1.033)
+            .set("#ani-cyan", { y: 4 }, 1.033)
+            .set("#ani-lines", { rotation: -2, scale: 0.98 }, 1.066)
+            .set("#ani-red", { y: 4 }, 1.066)
+            .set("#ani-cyan", { y: -4 }, 1.066)
+            .set("#ani-fill", { backgroundColor: "#e9e7e2" }, 1.1)
+            .set("#ani-world", { filter: "none" }, 1.1)
+            .set("#ani-lines,#ani-red,#ani-cyan", { opacity: 0 }, 1.1)
+            .to(
+              "#ani-shake",
+              {
+                keyframes: [
+                  { x: 6, y: -3, duration: 0.034 },
+                  { x: -4, y: 4, duration: 0.034 },
+                  { x: 3, y: -2, duration: 0.034 },
+                  { x: -2, y: 1, duration: 0.034 },
+                  { x: 0, y: 0, duration: 0.1 },
+                ],
+                ease: "none",
+              },
+              1.1,
+            );
+          window.__timelines["shot-anime-impact"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

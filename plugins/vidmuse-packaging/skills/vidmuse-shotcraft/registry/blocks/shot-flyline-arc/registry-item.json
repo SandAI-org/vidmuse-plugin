@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-flyline-arc",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Flyline Arc",
+  "description": "Two bright cubic flylines relay between dashboard cards with dark under-strokes, traveling heads, and arrival pulses before settling as a connected interface map.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "effects", "flyline", "connection", "dashboard", "relay"],
+  "files": [{ "path": "shot-flyline-arc.html", "target": "compositions/shot-flyline-arc.html", "type": "hyperframes:composition" }]
+}

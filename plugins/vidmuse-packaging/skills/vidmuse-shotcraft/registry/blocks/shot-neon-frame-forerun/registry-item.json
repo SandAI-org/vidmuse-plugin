@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-neon-frame-forerun",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Neon Frame Forerun",
+  "description": "A neon perimeter races ahead of a strongly tilted page while interface pieces settle from height and a field of background tubes lights, then recedes.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "ui-entrance", "neon", "frame", "forerun"],
+  "files": [{ "path": "shot-neon-frame-forerun.html", "target": "compositions/shot-neon-frame-forerun.html", "type": "hyperframes:composition" }]
+}

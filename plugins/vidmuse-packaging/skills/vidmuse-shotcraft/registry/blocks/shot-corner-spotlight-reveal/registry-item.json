@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-corner-spotlight-reveal",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Corner Spotlight Reveal",
+  "description": "A strictly linear radial spotlight expands from the upper-left corner while the interface eases from an intimate close-up to a fully illuminated page, making light itself the transition.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.5,
+  "tags": [
+    "shotcraft",
+    "effects",
+    "spotlight",
+    "corner-reveal",
+    "radial",
+    "transition",
+    "linear"
+  ],
+  "files": [
+    {
+      "path": "shot-corner-spotlight-reveal.html",
+      "target": "compositions/shot-corner-spotlight-reveal.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

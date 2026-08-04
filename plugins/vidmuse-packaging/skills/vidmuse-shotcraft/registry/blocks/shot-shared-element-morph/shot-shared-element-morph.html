@@ -1,0 +1,291 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Card accent","default":"#5d5ce2"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .sm-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #5d5ce2;
+        }
+        .sm-dashboard {
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          background: #e9e7e0;
+          opacity: 0.9;
+        }
+        .sm-top {
+          position: absolute;
+          left: 220px;
+          right: 0;
+          top: 0;
+          height: 72px;
+          padding: 0 36px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid #c9c7c0;
+          font-size: 16px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+        .sm-side {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 220px;
+          height: 1080px;
+          padding: 32px 24px;
+          background: #171a18;
+          color: #f5f3ed;
+        }
+        .sm-side b {
+          font-size: 28px;
+        }
+        .sm-nav {
+          height: 13px;
+          margin-top: 32px;
+          border-radius: 7px;
+          background: #666a66;
+        }
+        .sm-grid {
+          position: absolute;
+          left: 256px;
+          top: 108px;
+          width: 1628px;
+          height: 936px;
+          display: grid;
+          grid-template-columns: repeat(3, 524px);
+          grid-template-rows: repeat(2, 454px);
+          gap: 28px;
+        }
+        .sm-slot {
+          padding: 26px;
+          border: 1px solid #c9c7c0;
+          border-radius: 14px;
+          background: #faf9f5;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        .sm-slot:nth-child(2n) {
+          background: #dedcd5;
+        }
+        .sm-line {
+          width: 62%;
+          height: 13px;
+          margin-bottom: 17px;
+          border-radius: 7px;
+          background: #979994;
+        }
+        .sm-card-inner {
+          position: relative;
+          width: 524px;
+          height: 454px;
+          padding: 34px;
+          background: #faf9f5;
+          color: #171a18;
+          overflow: hidden;
+        }
+        .sm-card-inner h2 {
+          font-size: 48px;
+          letter-spacing: -2px;
+        }
+        .sm-card-inner p {
+          margin-top: 12px;
+          color: #6f736f;
+          font-size: 17px;
+        }
+        .sm-chart {
+          position: absolute;
+          left: 34px;
+          right: 34px;
+          bottom: 34px;
+          height: 210px;
+          border-radius: 18px;
+          background: linear-gradient(155deg, var(--accent), #2d275f);
+        }
+        .sm-chart:after {
+          content: "";
+          position: absolute;
+          left: 40px;
+          right: 40px;
+          top: 82px;
+          height: 4px;
+          background: rgba(255, 255, 255, 0.75);
+          box-shadow:
+            80px -34px 0 rgba(255, 255, 255, 0.35),
+            180px 38px 0 rgba(255, 255, 255, 0.35);
+        }
+        .sm-target {
+          padding: 0;
+          overflow: hidden;
+        }
+        .sm-flyer {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+          background: #faf9f5;
+          box-shadow: 0 36px 110px rgba(0, 0, 0, 0.32);
+        }
+        .sm-flyer .sm-card-inner {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+        .sm-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 38px;
+          z-index: 20;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(20, 22, 20, 0.9);
+          color: #fff;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="sm-root"
+        data-hf-id="hf-sm-root"
+        data-composition-id="shot-shared-element-morph"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="sm-fill">
+          <div id="sm-dashboard" class="sm-dashboard">
+            <aside class="sm-side">
+              <b data-layout-allow-occlusion>ATLAS</b>
+              <div class="sm-nav"></div>
+              <div class="sm-nav"></div>
+              <div class="sm-nav"></div>
+            </aside>
+            <header class="sm-top">
+              <span data-layout-allow-occlusion>OVERVIEW</span
+              ><span data-layout-allow-occlusion>6 MODULES</span>
+            </header>
+            <main class="sm-grid">
+              <div class="sm-slot"><div class="sm-line"></div></div>
+              <div class="sm-slot"><div class="sm-line"></div></div>
+              <div class="sm-slot"><div class="sm-line"></div></div>
+              <div class="sm-slot"><div class="sm-line"></div></div>
+              <div class="sm-slot sm-target">
+                <div class="sm-card-inner">
+                  <h2 data-layout-allow-overlap data-layout-allow-occlusion>
+                    Momentum
+                  </h2>
+                  <p data-layout-allow-overlap data-layout-allow-occlusion>
+                    One object, returned to context.
+                  </p>
+                  <div class="sm-chart"></div>
+                </div>
+              </div>
+              <div class="sm-slot"><div class="sm-line"></div></div>
+            </main>
+          </div>
+          <div id="sm-flyer" class="sm-flyer" data-layout-allow-overflow>
+            <div class="sm-card-inner">
+              <h2 data-layout-allow-overlap data-layout-allow-occlusion>
+                Momentum
+              </h2>
+              <p data-layout-allow-overlap data-layout-allow-occlusion>
+                One object, returned to context.
+              </p>
+              <div class="sm-chart"></div>
+            </div>
+          </div>
+          <div class="sm-caption">FULL DETAIL / 3% OVERSHOOT / EXACT SLOT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#sm-root .sm-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#5d5ce2");
+          gsap.set("#sm-flyer .sm-card-inner", {
+            scale: 1920 / 524,
+            transformOrigin: "0 0",
+          });
+          gsap.set("#sm-root .sm-side b,#sm-root .sm-top span", { opacity: 0 });
+          tl.to(
+            "#sm-flyer",
+            {
+              x: 832.24,
+              y: 607.7,
+              width: 480.52,
+              height: 435.22,
+              borderRadius: 14.42,
+              boxShadow: "0 2px 8px rgba(0,0,0,.06)",
+              duration: 0.833,
+              ease: "power2.inOut",
+            },
+            1.167,
+          )
+            .to(
+              "#sm-flyer .sm-card-inner",
+              { scale: 0.97, duration: 0.833, ease: "power2.inOut" },
+              1.167,
+            )
+            .to(
+              "#sm-flyer",
+              {
+                x: 808,
+                y: 590,
+                width: 524,
+                height: 454,
+                borderRadius: 14,
+                duration: 0.333,
+                ease: "power3.out",
+              },
+              2,
+            )
+            .to(
+              "#sm-flyer .sm-card-inner",
+              { scale: 1, duration: 0.333, ease: "power3.out" },
+              2,
+            )
+            .to(
+              "#sm-dashboard",
+              { opacity: 1, duration: 0.167, ease: "power2.out" },
+              1.934,
+            )
+            .to(
+              "#sm-root .sm-side b,#sm-root .sm-top span",
+              { opacity: 1, duration: 0.2, ease: "none" },
+              1.167,
+            );
+          window.__timelines["shot-shared-element-morph"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

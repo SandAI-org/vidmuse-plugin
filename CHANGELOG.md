@@ -7,6 +7,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.4] — 2026-08-04
+
+### Added
+
+- **VidMuse now carries 162 locally installable HyperFrames Shotcraft blocks.** The
+  new `vidmuse-shotcraft` skill exposes bilingual communicative-job discovery for
+  transitions, type, camera, data, UI entrance, interaction, impact, rhythm,
+  openings, and outros without replacing the configured official HyperFrames
+  Registry. The complete canonical Registry is shipped in-tree with Apache-2.0
+  provenance, generated machine indexes, and a concise job guide.
+- **A fail-closed local installation path for every `shot-*` item.** The current
+  HyperFrames CLI cannot merge an HTTP Registry with a second filesystem root,
+  so Shotcraft owns `install-local.mjs`: it preflights every write, honors the
+  project's block and asset roots, isolates assets per item, refuses to overwrite
+  modified files without an explicit `--force`, writes `shotcraft-lock.json`, and
+  returns a complete `class="clip"` mount. Registry structure, Chinese job search,
+  recut policy, custom paths, asset isolation, and overwrite behavior have
+  deterministic tests.
+- **Recut safety is curated separately from generated indexes.** Thirty
+  blocks begin as `recut:safe`, thirty-one as `recut:adapt`, and every unlisted
+  block fails closed to `create-only`; regenerating catalog indexes cannot erase
+  the hand-maintained policy.
+
+### Changed
+
+- `vidmuse-create`, `vidmuse-recut`, `vidmuse-design`, the official Registry
+  guidance, and transition guidance now route approved jobs to Shotcraft without
+  letting the effect library take over story or motion direction. They explicitly
+  reject raw Timeline mounts, demo residue, whole-canvas aspect-ratio scaling, and
+  the false assumption that shortening a host mount automatically retimes a
+  block's internal GSAP timeline.
+
 ## [0.2.3] — 2026-08-04
 
 ### Added

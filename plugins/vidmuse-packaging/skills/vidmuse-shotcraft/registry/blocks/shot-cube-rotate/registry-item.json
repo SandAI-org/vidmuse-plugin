@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-cube-rotate",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Cube Rotate",
+  "description": "Two full pages occupy adjacent faces of a true CSS 3D cube, rotating ninety degrees through reciprocal brightness, a mid-turn shadowed edge, and temporary velocity blur.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "transition", "cube", "3d", "page-turn", "chapter"],
+  "files": [
+    {
+      "path": "shot-cube-rotate.html",
+      "target": "compositions/shot-cube-rotate.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

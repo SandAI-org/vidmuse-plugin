@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-timeline-travel",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Timeline Travel",
+  "description": "A horizontal product-history world accelerates past four releases as each card springs upright, then brakes and pushes into today's autonomous-workflow milestone.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "data", "timeline", "travel", "history"],
+  "files": [{ "path": "shot-timeline-travel.html", "target": "compositions/shot-timeline-travel.html", "type": "hyperframes:composition" }]
+}

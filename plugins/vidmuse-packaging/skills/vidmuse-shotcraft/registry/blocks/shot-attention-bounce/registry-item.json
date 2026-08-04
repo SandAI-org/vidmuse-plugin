@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-attention-bounce",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Attention Bounce",
+  "description": "A large notification icon performs four progressively higher dock-style jumps with squash, stretch, shadow response, landing dust, an eight-percent camera pull, and a final feature panel reveal.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "effects", "attention", "bounce", "notification", "icon", "panel"],
+  "files": [{ "path": "shot-attention-bounce.html", "target": "compositions/shot-attention-bounce.html", "type": "hyperframes:composition" }]
+}

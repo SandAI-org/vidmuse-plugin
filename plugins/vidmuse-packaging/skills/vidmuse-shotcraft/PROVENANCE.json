@@ -1,0 +1,11 @@
+{
+  "schema": "vidmuse-shotcraft.provenance.v1",
+  "registry": "vidmuse-shotcraft",
+  "blocks": 162,
+  "sourceArtifact": "hf-shotcraft-pilot/registry",
+  "canonicalPayload": "registry/blocks",
+  "sourceRepository": "https://github.com/Vincentwei1021/video-shotcraft",
+  "sourceCommit": "d4915443232e89527fdc9d7e79f132ba411fc440",
+  "license": "Apache-2.0",
+  "registryTreeSha256": "4bc8aa8d8848391fb5091e16875ca3deb3dfc99abf5b7ab66b559a4a31b7f97c"
+}

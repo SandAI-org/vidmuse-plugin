@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-slow-push-in",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Slow Push In",
+  "description": "A large claim receives a barely perceptible accelerating push and deepening vignette for four seconds before a single hard cut releases into a bright interface.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "camera", "slow-push", "tension", "hard-cut"],
+  "files": [{ "path": "shot-slow-push-in.html", "target": "compositions/shot-slow-push-in.html", "type": "hyperframes:composition" }]
+}

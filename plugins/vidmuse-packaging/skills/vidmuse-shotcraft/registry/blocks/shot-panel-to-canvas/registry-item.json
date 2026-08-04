@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-panel-to-canvas",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Panel to Canvas",
+  "description": "Three selected table rows leave a side panel along staggered raised arcs, crossfade from row layout into card layout, and settle as independent tilted canvas objects.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "canvas",
+    "materialize",
+    "migration",
+    "cards",
+    "morph"
+  ],
+  "files": [
+    {
+      "path": "shot-panel-to-canvas.html",
+      "target": "compositions/shot-panel-to-canvas.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

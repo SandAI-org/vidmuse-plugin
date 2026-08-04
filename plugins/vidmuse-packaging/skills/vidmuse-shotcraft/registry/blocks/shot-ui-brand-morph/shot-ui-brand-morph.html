@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;message&quot;,&quot;type&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Message&quot;,&quot;default&quot;:&quot;Ready, set, go!&quot;,&quot;maxLength&quot;:40},
+  {&quot;id&quot;:&quot;background&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Background&quot;,&quot;default&quot;:&quot;#3d1f47&quot;},
+  {&quot;id&quot;:&quot;foreground&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Foreground&quot;,&quot;default&quot;:&quot;#fdf6ee&quot;}
+]"><head></head>
+  <body>
+    <template>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .bm-fill { position: absolute; inset: 0; overflow: hidden; background: var(--background); font-family: Inter, sans-serif; }
+        #bm-logo { position: absolute; inset: 0; transform-origin: 960px 520px; }
+        #bm-box { position: absolute; left: 530px; top: 500px; width: 860px; height: 120px; border: 4px solid var(--foreground); border-radius: 26px; display: flex; align-items: center; padding: 0 34px; transform-origin: 430px 60px; }
+        #bm-message { color: var(--foreground); font-size: 44px; line-height: 1; white-space: nowrap; display: block; }
+        #bm-caret { display: inline-block; }
+        #bm-send { margin-left: auto; width: 72px; height: 72px; border-radius: 18px; background: var(--foreground); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+        #bm-send svg { width: 34px; height: 34px; }
+        #bm-wordmark { position: absolute; left: 640px; top: 460px; width: 640px; height: 160px; object-fit: contain; opacity: 0; display: block; transform-origin: 320px 80px; filter: drop-shadow(0 0 28px rgba(255,255,255,.16)); }
+        #bm-cursor { position: absolute; z-index: 50; width: 40px; height: 44px; display: block; }
+      </style>
+      <div data-hf-id="hf-k3m5" id="bm-root" data-composition-id="shot-ui-brand-morph" data-start="0" data-duration="5" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+        <div data-hf-id="hf-9g6n" class="bm-fill">
+          <div data-hf-id="hf-u1g9" id="bm-logo" data-layout-allow-overflow="">
+            <div data-hf-id="hf-ddmi" id="bm-box">
+              <div data-hf-id="hf-5u3c" id="bm-message"><span data-hf-id="hf-umss" data-var-text="message">Ready, set, go!</span><span data-hf-id="hf-g759" id="bm-caret">|</span></div>
+              <div data-hf-id="hf-l43d" id="bm-send"><svg data-hf-id="hf-t1p6" viewBox="0 0 34 34" aria-hidden="true"><path data-hf-id="hf-7lqt" d="M3 17 31 4 20 30 15 19Z" fill="var(--background)" /></svg></div>
+            </div>
+            <img data-hf-id="hf-ahpg" id="bm-wordmark" src="assets/branding/vidmuse-logo-white.svg" alt="VidMuse" />
+          </div>
+          <svg data-hf-id="hf-4pey" id="bm-cursor" viewBox="0 0 40 44" aria-hidden="true"><path data-hf-id="hf-z4ti" d="M4 2 4 34 13 26 19 40 26 37 20 23 32 22Z" fill="#fff" stroke="var(--background)" stroke-width="2" /></svg>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var vars = window.__hyperframes.getVariables();
+          var root = document.getElementById("bm-root");
+          root.style.setProperty("--background", vars.background || "#3d1f47");
+          root.style.setProperty("--foreground", vars.foreground || "#fdf6ee");
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#bm-cursor", { x: 1500, y: 900, opacity: 1 }, { x: 1330, y: 538, opacity: 1, duration: .733, ease: "power3.out" }, 0);
+          tl.to("#bm-cursor", { scale: .82, duration: .067, ease: "power2.in" }, .733);
+          tl.to("#bm-cursor", { scale: 1, duration: .067, ease: "power2.out" }, .8);
+          tl.to("#bm-send", { scale: .82, duration: .067, ease: "power2.in" }, .733);
+          tl.to("#bm-send", { scale: 1, duration: .133, ease: "back.out(1.4)" }, .8);
+          tl.to("#bm-message", { x: 700, y: -380, rotation: -10, opacity: 0, duration: .4, ease: "power3.in" }, .867);
+          tl.to("#bm-cursor", { opacity: 0, duration: .267, ease: "none" }, 1);
+          tl.to("#bm-send", { opacity: 0, duration: .2, ease: "none" }, 1.133);
+          tl.to("#bm-box", { y: -20, scaleX: .66, scaleY: .8, borderRadius: 80, backgroundColor: vars.foreground || "#fdf6ee", duration: .733, ease: "back.out(1.2)" }, 1.133);
+          tl.to("#bm-box", { opacity: 0, scaleX: .72, duration: .533, ease: "power2.inOut" }, 1.867);
+          tl.fromTo("#bm-wordmark", { opacity: 0, scale: .94, clipPath: "inset(0 100% 0 0)" }, { opacity: 1, scale: 1, clipPath: "inset(0 0% 0 0)", duration: .8, ease: "power3.out" }, 1.8);
+          tl.to("#bm-logo", { scale: 1.03, duration: .4, ease: "sine.inOut" }, 3.6);
+          tl.to("#bm-logo", { scale: 1, duration: .4, ease: "sine.inOut" }, 4);
+          tl.to("#bm-logo", { scale: 1.018, duration: .3, ease: "sine.inOut" }, 4.4);
+          tl.to("#bm-logo", { scale: 1, duration: .3, ease: "sine.inOut" }, 4.7);
+          window.__timelines["shot-ui-brand-morph"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

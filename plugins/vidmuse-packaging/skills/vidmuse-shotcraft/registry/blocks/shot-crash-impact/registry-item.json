@@ -1,0 +1,15 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-crash-impact",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Crash Impact",
+  "description": "A rapid camera push that lands with a crisp, exponentially damped screen shake.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "camera", "impact", "crash-zoom"],
+  "files": [
+    { "path": "shot-crash-impact.html", "target": "compositions/shot-crash-impact.html", "type": "hyperframes:composition" },
+    { "path": "assets/projects-full.png", "target": "assets/textures/projects-full.png", "type": "hyperframes:asset" },
+    { "path": "assets/card4-hires.png", "target": "assets/textures/card4-hires.png", "type": "hyperframes:asset" }
+  ]
+}

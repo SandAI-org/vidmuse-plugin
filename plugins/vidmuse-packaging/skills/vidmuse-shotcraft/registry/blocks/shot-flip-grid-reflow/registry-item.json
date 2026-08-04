@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-flip-grid-reflow",
+  "type": "hyperframes:block",
+  "title": "Shotcraft FLIP Grid Reflow",
+  "description": "Six cards move from a single marquee row into a staggered three-by-two grid using explicit start and destination coordinates, landing scale correction, and one restrained brightness pulse.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.5,
+  "tags": ["shotcraft", "rhythm", "flip", "grid", "reflow", "cards"],
+  "files": [
+    {
+      "path": "shot-flip-grid-reflow.html",
+      "target": "compositions/shot-flip-grid-reflow.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Focused section","default":"#7c63ff"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .rfr-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --accent: #7c63ff;
+        }
+        .rfr-scene {
+          position: absolute;
+          inset: 0;
+          padding: 96px 120px;
+        }
+        .rfr-b {
+          opacity: 0;
+          filter: blur(8px);
+        }
+        .rfr-scene h1 {
+          font-size: 72px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .rfr-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          margin-top: 84px;
+        }
+        .rfr-card {
+          height: 600px;
+          padding: 30px;
+          border: 1px solid #c9c7c0;
+          border-radius: 22px;
+          background: #faf9f5;
+          box-shadow: 0 18px 42px rgba(0, 0, 0, 0.08);
+        }
+        .rfr-card i {
+          display: block;
+          width: 66%;
+          height: 14px;
+          margin-bottom: 20px;
+          border-radius: 7px;
+          background: #92948f;
+        }
+        .rfr-card:after {
+          content: "";
+          display: block;
+          height: 330px;
+          margin-top: 130px;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #d9d7d0, #aaa9a3);
+        }
+        .rfr-b .rfr-card:after {
+          background: linear-gradient(135deg, var(--accent), #3b2c94);
+        }
+        .rfr-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 5;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(19, 22, 20, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="rfr-root"
+        data-hf-id="hf-rfr-root"
+        data-composition-id="shot-rack-focus-relay"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="rfr-fill">
+          <div class="rfr-scene rfr-a">
+            <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+              THE OVERVIEW
+            </h1>
+            <div class="rfr-row">
+              <div class="rfr-card"><i></i><i></i></div>
+              <div class="rfr-card"><i></i><i></i></div>
+              <div class="rfr-card"><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="rfr-scene rfr-b">
+            <h1 data-layout-allow-overlap data-layout-allow-occlusion>
+              THE DETAIL
+            </h1>
+            <div class="rfr-row">
+              <div class="rfr-card"><i></i><i></i></div>
+              <div class="rfr-card"><i></i><i></i></div>
+              <div class="rfr-card"><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="rfr-caption">
+            FOREGROUND OUT / FOCAL PLANE / BACKGROUND IN
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#rfr-root .rfr-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#7c63ff");
+          gsap.set("#rfr-root .rfr-b", { x: 80, scale: 1.05 });
+          tl.to(
+            "#rfr-root .rfr-a",
+            {
+              x: -80,
+              filter: "blur(8px)",
+              opacity: 0.12,
+              duration: 0.4,
+              ease: "power2.inOut",
+            },
+            0.9,
+          )
+            .set("#rfr-root .rfr-b", { opacity: 0.1 }, 1)
+            .to(
+              "#rfr-root .rfr-b",
+              {
+                x: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.inOut",
+              },
+              1.001,
+            )
+            .set("#rfr-root .rfr-a", { opacity: 0 }, 1.301);
+          window.__timelines["shot-rack-focus-relay"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

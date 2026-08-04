@@ -2,6 +2,11 @@
 
 A transition tells the viewer how two scenes relate. A crossfade says "this continues." A push slide says "next point." A blur crossfade says "drift with me." Choose transitions that match what the content is doing emotionally, not just technically.
 
+This directory is the implementation manual for scene seams. VidMuse's installable
+Shotcraft transition blocks live separately in `vidmuse-shotcraft`; query them only after
+the narrative relationship and transition energy are known. Do not merge that local block
+catalog into these CSS/shader technique lists.
+
 ## Contents
 
 - Animation rules for multi-scene compositions

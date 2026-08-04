@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-row-embed",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Row Embed",
+  "description": "A scrolling document absorbs six list rows in a rapid stagger, with a compact press, rebound, and temporary accent seam on each landing.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 2.333,
+  "tags": ["shotcraft", "ui-entrance", "list", "row", "scroll"],
+  "files": [{ "path": "shot-row-embed.html", "target": "compositions/shot-row-embed.html", "type": "hyperframes:composition" }]
+}

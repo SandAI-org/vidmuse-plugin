@@ -1,0 +1,334 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"green","type":"color","label":"Chapter one","default":"#2bac76"},{"id":"blue","type":"color","label":"Chapter two","default":"#36a9d6"},{"id":"pink","type":"color","label":"Chapter three","default":"#d91f58"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .bps-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e8e7e2;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --green: #2bac76;
+          --blue: #36a9d6;
+          --pink: #d91f58;
+        }
+        .bps-chapter {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+        #bps-c0 {
+          background: #e8e7e2;
+        }
+        #bps-c1 {
+          background: var(--green);
+          transform: translateY(1080px);
+        }
+        #bps-c2 {
+          background: var(--blue);
+          transform: translateY(1080px);
+        }
+        #bps-c3 {
+          background: var(--pink);
+          transform: translateY(1080px);
+        }
+        .bps-decor {
+          position: absolute;
+          height: 26px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.26);
+        }
+        .bps-d1 {
+          left: 120px;
+          top: 90px;
+          width: 500px;
+        }
+        .bps-d2 {
+          right: 140px;
+          bottom: 110px;
+          width: 340px;
+          opacity: 0.8;
+        }
+        .bps-dot {
+          position: absolute;
+          right: 220px;
+          top: 160px;
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.18);
+        }
+        .bps-window {
+          width: 860px;
+          height: 482px;
+          overflow: hidden;
+          border: 2px solid #bdbdb8;
+          border-radius: 20px;
+          background: #f5f4ef;
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+        }
+        .bps-bar {
+          height: 52px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 0 22px;
+          border-bottom: 2px solid #c9c9c4;
+          background: #f2f1ed;
+        }
+        .bps-bar i {
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #df635d;
+        }
+        .bps-bar i:nth-child(2) {
+          background: #e5b741;
+        }
+        .bps-bar i:nth-child(3) {
+          background: #69b95d;
+        }
+        .bps-bar b {
+          display: block;
+          width: 220px;
+          height: 14px;
+          margin-left: 18px;
+          border-radius: 8px;
+          background: #a7a7a2;
+        }
+        .bps-body {
+          display: grid;
+          grid-template-columns: 220px 1fr;
+          gap: 26px;
+          height: 430px;
+          padding: 34px;
+        }
+        .bps-side,
+        .bps-main {
+          border-radius: 14px;
+          background: #e2e1dc;
+        }
+        .bps-side {
+          padding: 26px 22px;
+        }
+        .bps-side i,
+        .bps-head i {
+          display: block;
+          height: 13px;
+          margin-bottom: 18px;
+          border-radius: 7px;
+          background: #aaa9a4;
+        }
+        .bps-side i:nth-child(2) {
+          width: 72%;
+        }
+        .bps-side i:nth-child(3) {
+          width: 86%;
+        }
+        .bps-main {
+          padding: 28px;
+          background: #faf9f5;
+          border: 1px solid #d8d7d1;
+        }
+        .bps-head i:first-child {
+          width: 48%;
+          height: 20px;
+          background: #343733;
+        }
+        .bps-head i:nth-child(2) {
+          width: 32%;
+        }
+        .bps-cards {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+          margin-top: 50px;
+        }
+        .bps-card {
+          height: 175px;
+          padding: 18px;
+          border: 1px solid #d5d4cf;
+          border-radius: 12px;
+          background: #ecebe6;
+        }
+        .bps-card:before,
+        .bps-card:after {
+          content: "";
+          display: block;
+          height: 12px;
+          width: 78%;
+          margin-bottom: 52px;
+          border-radius: 6px;
+          background: #9f9f9a;
+        }
+        .bps-card:after {
+          width: 52%;
+          height: 38px;
+          margin: 0;
+          background: #c5c4bf;
+        }
+        .bps-seam {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 40px;
+          transform: translateY(-40px);
+          background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+        }
+        .bps-label {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(19, 22, 20, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="bps-root"
+        data-hf-id="hf-bps-root"
+        data-composition-id="shot-bottom-push-stack-wipe"
+        data-start="0"
+        data-duration="4.667"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="bps-fill">
+          <div id="bps-c0" class="bps-chapter" data-layout-allow-overflow>
+            <div class="bps-window">
+              <div class="bps-bar"><i></i><i></i><i></i><b></b></div>
+              <div class="bps-body">
+                <div class="bps-side"><i></i><i></i><i></i></div>
+                <div class="bps-main">
+                  <div class="bps-head"><i></i><i></i></div>
+                  <div class="bps-cards">
+                    <div class="bps-card"></div>
+                    <div class="bps-card"></div>
+                    <div class="bps-card"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="bps-c1" class="bps-chapter" data-layout-allow-overflow>
+            <div class="bps-decor bps-d1"></div>
+            <div class="bps-decor bps-d2"></div>
+            <div class="bps-dot"></div>
+            <div class="bps-window">
+              <div class="bps-bar"><i></i><i></i><i></i><b></b></div>
+              <div class="bps-body">
+                <div class="bps-side"><i></i><i></i><i></i></div>
+                <div class="bps-main">
+                  <div class="bps-head"><i></i><i></i></div>
+                  <div class="bps-cards">
+                    <div class="bps-card"></div>
+                    <div class="bps-card"></div>
+                    <div class="bps-card"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bps-seam"></div>
+          </div>
+          <div id="bps-c2" class="bps-chapter" data-layout-allow-overflow>
+            <div class="bps-decor bps-d1"></div>
+            <div class="bps-decor bps-d2"></div>
+            <div class="bps-dot"></div>
+            <div class="bps-window">
+              <div class="bps-bar"><i></i><i></i><i></i><b></b></div>
+              <div class="bps-body">
+                <div class="bps-side"><i></i><i></i><i></i></div>
+                <div class="bps-main">
+                  <div class="bps-head"><i></i><i></i></div>
+                  <div class="bps-cards">
+                    <div class="bps-card"></div>
+                    <div class="bps-card"></div>
+                    <div class="bps-card"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bps-seam"></div>
+          </div>
+          <div id="bps-c3" class="bps-chapter" data-layout-allow-overflow>
+            <div class="bps-decor bps-d1"></div>
+            <div class="bps-decor bps-d2"></div>
+            <div class="bps-dot"></div>
+            <div class="bps-window">
+              <div class="bps-bar"><i></i><i></i><i></i><b></b></div>
+              <div class="bps-body">
+                <div class="bps-side"><i></i><i></i><i></i></div>
+                <div class="bps-main">
+                  <div class="bps-head"><i></i><i></i></div>
+                  <div class="bps-cards">
+                    <div class="bps-card"></div>
+                    <div class="bps-card"></div>
+                    <div class="bps-card"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bps-seam"></div>
+          </div>
+          <div class="bps-label">RIGID PUSH / 30F / THREE CHAPTERS</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#bps-root .bps-fill"),
+            tl = gsap.timeline({ paused: true }),
+            starts = [0.6, 1.833, 3.067];
+          fill.style.setProperty("--green", v.green || "#2bac76");
+          fill.style.setProperty("--blue", v.blue || "#36a9d6");
+          fill.style.setProperty("--pink", v.pink || "#d91f58");
+          starts.forEach(function (t, i) {
+            var old = "#bps-c" + i,
+              next = "#bps-c" + (i + 1),
+              seam = next + " .bps-seam";
+            tl.to(
+              old,
+              { y: -1080, duration: 1, ease: "cubic-bezier(.12,.9,.2,1)" },
+              t,
+            )
+              .to(
+                next,
+                { y: 0, duration: 1, ease: "cubic-bezier(.12,.9,.2,1)" },
+                t,
+              )
+              .set(seam, { opacity: 1 }, t)
+              .to(seam, { opacity: 0, duration: 0.18, ease: "none" }, t + 0.82);
+          });
+          window.__timelines["shot-bottom-push-stack-wipe"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

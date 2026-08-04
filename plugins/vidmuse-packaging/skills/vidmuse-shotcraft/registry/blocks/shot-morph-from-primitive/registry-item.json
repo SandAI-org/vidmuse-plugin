@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-morph-from-primitive",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Morph from Primitive",
+  "description": "A circle breathes once, morphs through eight matched cubic segments into a rounded product card, then receives its interface content.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "ui-entrance", "morph", "primitive", "svg"],
+  "files": [{ "path": "shot-morph-from-primitive.html", "target": "compositions/shot-morph-from-primitive.html", "type": "hyperframes:composition" }]
+}

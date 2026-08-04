@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-whip-pan",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Whip Pan",
+  "description": "A held source page accelerates through a wide horizontal pan with blur and edge streaks, then snaps into a completely stable destination page.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4,
+  "tags": ["shotcraft", "transition", "whip-pan", "camera", "blur", "fast"],
+  "files": [
+    {
+      "path": "shot-whip-pan.html",
+      "target": "compositions/shot-whip-pan.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

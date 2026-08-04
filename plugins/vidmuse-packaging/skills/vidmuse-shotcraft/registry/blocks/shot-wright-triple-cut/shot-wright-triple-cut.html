@@ -1,0 +1,385 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Result accent","default":"#ff6d45"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .wtc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          --accent: #ff6d45;
+        }
+        .wtc-shot {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #dedbd3;
+        }
+        .wtc-shot:first-child {
+          opacity: 1;
+        }
+        .wtc-dash {
+          position: absolute;
+          inset: 0;
+          background: #e9e7e0;
+          color: #181b19;
+        }
+        .wtc-head {
+          position: absolute;
+          left: 65px;
+          right: 65px;
+          top: 55px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 21px;
+          font-weight: 900;
+        }
+        .wtc-title {
+          position: absolute;
+          left: 80px;
+          top: 150px;
+          width: 650px;
+          font-size: 76px;
+          line-height: 0.95;
+          letter-spacing: -5px;
+        }
+        .wtc-grid {
+          position: absolute;
+          left: 790px;
+          right: 80px;
+          top: 130px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        .wtc-card {
+          height: 385px;
+          border: 1px solid #cbc7bf;
+          border-radius: 24px;
+          background: #faf8f3;
+          padding: 28px;
+        }
+        .wtc-card i {
+          display: block;
+          height: 13px;
+          width: 58%;
+          margin-bottom: 16px;
+          border-radius: 8px;
+          background: #262a27;
+        }
+        .wtc-card i + i {
+          width: 34%;
+          background: #b9b7b0;
+        }
+        .wtc-card:after {
+          content: "";
+          display: block;
+          margin-top: 62px;
+          height: 170px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #d9d5cc, var(--accent));
+          opacity: 0.55;
+        }
+        .wtc-stage {
+          position: absolute;
+          left: 260px;
+          right: 260px;
+          top: 140px;
+          height: 800px;
+          border: 4px solid #c6c2bb;
+          border-radius: 30px;
+          background: #faf8f3;
+          display: grid;
+          place-items: center;
+        }
+        .wtc-button {
+          width: 620px;
+          height: 190px;
+          border: 5px solid #a8a7a1;
+          border-radius: 42px;
+          background: #d0cec7;
+          display: grid;
+          place-items: center;
+        }
+        .wtc-button:after {
+          content: "";
+          width: 260px;
+          height: 30px;
+          border-radius: 20px;
+          background: #7b7c76;
+        }
+        .wtc-cursor {
+          position: absolute;
+          left: 912px;
+          top: 492px;
+          width: 96px;
+          height: 96px;
+          border: 8px solid white;
+          border-radius: 50%;
+          background: #181b19;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        }
+        .wtc-toggle {
+          position: relative;
+          width: 560px;
+          height: 240px;
+          border-radius: 130px;
+          background: #aaa9a3;
+        }
+        .wtc-knob {
+          position: absolute;
+          left: 24px;
+          top: 24px;
+          width: 192px;
+          height: 192px;
+          border-radius: 50%;
+          background: white;
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+        }
+        .wtc-flip {
+          width: 440px;
+          height: 560px;
+          border-radius: 34px;
+          background: #181b19;
+          color: white;
+          display: grid;
+          place-items: center;
+          font-size: 420px;
+          font-weight: 950;
+          line-height: 1;
+          perspective: 1200px;
+        }
+        .wtc-result {
+          position: absolute;
+          left: 808px;
+          top: 108px;
+          width: 524px;
+          height: 454px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.8);
+          border: 5px solid #2f2f2f;
+          display: grid;
+          place-items: center;
+          font-size: 260px;
+          font-weight: 950;
+          opacity: 0;
+          box-shadow: 0 0 70px white;
+        }
+        .wtc-echo {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+        }
+        .wtc-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 10;
+          padding: 9px 13px;
+          border-radius: 5px;
+          background: #181b19;
+          color: white;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="wtc-root"
+        data-hf-id="hf-wtc-root"
+        data-composition-id="shot-wright-triple-cut"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="wtc-fill">
+          <div id="wtc-wide" class="wtc-shot">
+            <div class="wtc-dash">
+              <div class="wtc-head">
+                <span>QUICK / CONFIG</span><span>THREE ACTIONS</span>
+              </div>
+              <h1 class="wtc-title">A whole workflow in three clicks.</h1>
+              <div class="wtc-grid">
+                <div class="wtc-card"><i></i><i></i></div>
+                <div class="wtc-card"><i></i><i></i></div>
+                <div class="wtc-card"><i></i><i></i></div>
+                <div class="wtc-card"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="wtc-c1"
+            class="wtc-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="wtc-stage">
+              <div id="wtc-button" class="wtc-button"></div>
+            </div>
+            <div id="wtc-cursor" class="wtc-cursor"></div>
+          </div>
+          <div
+            id="wtc-c2"
+            class="wtc-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="wtc-stage">
+              <div id="wtc-toggle" class="wtc-toggle">
+                <i id="wtc-knob" class="wtc-knob"></i>
+              </div>
+            </div>
+          </div>
+          <div
+            id="wtc-c3"
+            class="wtc-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="wtc-stage">
+              <div id="wtc-flip" class="wtc-flip">0</div>
+            </div>
+          </div>
+          <div
+            id="wtc-final"
+            class="wtc-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div id="wtc-echo2" class="wtc-echo">
+              <div class="wtc-dash">
+                <div class="wtc-grid">
+                  <div class="wtc-card"></div>
+                  <div class="wtc-card"></div>
+                </div>
+              </div>
+            </div>
+            <div id="wtc-echo1" class="wtc-echo">
+              <div class="wtc-dash">
+                <div class="wtc-grid">
+                  <div class="wtc-card"></div>
+                  <div class="wtc-card"></div>
+                </div>
+              </div>
+            </div>
+            <div id="wtc-main" class="wtc-dash">
+              <div class="wtc-head">
+                <span>QUICK / CONFIG</span><span>COMPLETE</span>
+              </div>
+              <h1 class="wtc-title">A whole workflow in three clicks.</h1>
+              <div class="wtc-grid">
+                <div class="wtc-card"><i></i><i></i></div>
+                <div class="wtc-card"><i></i><i></i></div>
+                <div class="wtc-card"><i></i><i></i></div>
+                <div class="wtc-card"><i></i><i></i></div>
+              </div>
+            </div>
+            <div id="wtc-result" class="wtc-result">1</div>
+          </div>
+          <div class="wtc-caption">PRESS / TOGGLE / FLIP / RESULT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#wtc-root .wtc-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff6d45");
+          function cut(id, t) {
+            tl.set(".wtc-shot", { opacity: 0 }, t).set(id, { opacity: 1 }, t);
+          }
+          cut("#wtc-c1", 0.833);
+          tl.to(
+            "#wtc-cursor",
+            { scale: 0.7, duration: 0.1, ease: "power3.out" },
+            0.966,
+          ).to(
+            "#wtc-button",
+            {
+              y: 8,
+              backgroundColor: "#5c5c5a",
+              duration: 0.1,
+              ease: "power3.out",
+            },
+            0.966,
+          );
+          cut("#wtc-c2", 1.167);
+          tl.to(
+            "#wtc-knob",
+            { x: 320, duration: 0.1, ease: "power3.out" },
+            1.3,
+          ).to(
+            "#wtc-toggle",
+            { backgroundColor: "#181b19", duration: 0.1 },
+            1.3,
+          );
+          cut("#wtc-c3", 1.5);
+          tl.to(
+            "#wtc-flip",
+            { rotationX: -90, duration: 0.05, ease: "power2.in" },
+            1.633,
+          )
+            .call(
+              function () {
+                document.getElementById("wtc-flip").textContent = "1";
+              },
+              null,
+              1.683,
+            )
+            .set("#wtc-flip", { rotationX: 90 }, 1.683)
+            .to(
+              "#wtc-flip",
+              { rotationX: 0, duration: 0.05, ease: "power2.out" },
+              1.684,
+            );
+          cut("#wtc-final", 1.833);
+          tl.set("#wtc-main", { x: 900 }, 1.833)
+            .set("#wtc-echo1", { opacity: 0.35, x: 1010 }, 1.833)
+            .set("#wtc-echo2", { opacity: 0.18, x: 1120 }, 1.833)
+            .to("#wtc-main", { x: 0, duration: 0.2, ease: "power4.out" }, 1.834)
+            .to(
+              "#wtc-echo1",
+              { x: 0, opacity: 0, duration: 0.16, ease: "power4.out" },
+              1.834,
+            )
+            .to(
+              "#wtc-echo2",
+              { x: 0, opacity: 0, duration: 0.13, ease: "power4.out" },
+              1.834,
+            )
+            .to(
+              "#wtc-result",
+              { opacity: 1, scale: 1.07, duration: 0.233, ease: "power2.out" },
+              1.9,
+            )
+            .to(
+              "#wtc-result",
+              { scale: 1, duration: 0.133, ease: "power2.out" },
+              2.134,
+            );
+          window.__timelines["shot-wright-triple-cut"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

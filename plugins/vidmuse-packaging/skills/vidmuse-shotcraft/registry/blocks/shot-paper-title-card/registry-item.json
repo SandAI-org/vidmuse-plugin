@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-paper-title-card",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Paper Title Card",
+  "description": "Editorial serif words settle from soft blur onto a warm paper field, with one italic accent, a rule, and a mono subline.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 1.8,
+  "tags": ["shotcraft", "typography", "editorial", "paper", "title-card"],
+  "files": [{ "path": "shot-paper-title-card.html", "target": "compositions/shot-paper-title-card.html", "type": "hyperframes:composition" }]
+}

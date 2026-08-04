@@ -1,0 +1,24 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-strobe-black-frames",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Strobe Black Frames",
+  "description": "Nine two-frame pure-black interruptions accelerate from eight-frame to three-frame spacing over a slow push, then uncover a hard 1.35x target-card punch and static finish.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": [
+    "shotcraft",
+    "rhythm",
+    "strobe",
+    "black-frames",
+    "punch-in",
+    "photosensitive"
+  ],
+  "files": [
+    {
+      "path": "shot-strobe-black-frames.html",
+      "target": "compositions/shot-strobe-black-frames.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

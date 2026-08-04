@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-tilt-reveal",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Tilt Reveal",
+  "description": "A foreshortened interface rises from a near-edge-on top strip, unfolds toward the viewer, and settles into a clean frontal dashboard.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.833,
+  "tags": ["shotcraft", "camera", "tilt", "reveal", "interface"],
+  "files": [{ "path": "shot-tilt-reveal.html", "target": "compositions/shot-tilt-reveal.html", "type": "hyperframes:composition" }]
+}

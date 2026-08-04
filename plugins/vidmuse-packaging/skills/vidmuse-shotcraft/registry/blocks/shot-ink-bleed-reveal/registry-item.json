@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-ink-bleed-reveal",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Ink Bleed Reveal",
+  "description": "A fixed-seed organic ink edge blooms across the frame while clean clipped content expands underneath and settles into the destination page.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "transition", "ink", "bleed", "print", "mask", "organic"],
+  "files": [
+    {
+      "path": "shot-ink-bleed-reveal.html",
+      "target": "compositions/shot-ink-bleed-reveal.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

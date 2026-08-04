@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-brand-frame-snap",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Brand Frame Snap",
+  "description": "A full-frame brand border draws on before a dashboard lands, then the border color, mode label, and interface layout snap together into a second state with a brief white flash.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "effects", "brand", "frame", "mode-switch", "interface"],
+  "files": [{ "path": "shot-brand-frame-snap.html", "target": "compositions/shot-brand-frame-snap.html", "type": "hyperframes:composition" }]
+}

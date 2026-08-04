@@ -1,0 +1,257 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"ink","type":"color","label":"Ink color","default":"#171a18"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .ibr-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #ece9e1;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --ink: #171a18;
+        }
+        .ibr-before {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 120px;
+          font-weight: 950;
+          letter-spacing: -5px;
+        }
+        .ibr-page {
+          position: absolute;
+          inset: 0;
+          padding: 84px 104px;
+          background: #171a18;
+          color: #f3f1ea;
+          clip-path: circle(0 at 800px 420px);
+        }
+        .ibr-page h1 {
+          font-size: 72px;
+          font-weight: 950;
+          letter-spacing: -4px;
+        }
+        .ibr-layout {
+          display: grid;
+          grid-template-columns: 330px 1fr;
+          gap: 26px;
+          margin-top: 60px;
+        }
+        .ibr-side,
+        .ibr-main {
+          height: 690px;
+          border: 1px solid #414641;
+          border-radius: 22px;
+          background: #252a26;
+        }
+        .ibr-side {
+          padding: 28px;
+        }
+        .ibr-side i,
+        .ibr-main i {
+          display: block;
+          width: 68%;
+          height: 14px;
+          margin-bottom: 20px;
+          border-radius: 7px;
+          background: #858985;
+        }
+        .ibr-main {
+          padding: 32px;
+        }
+        .ibr-main i:first-child {
+          width: 44%;
+          height: 20px;
+          background: #d0d0ca;
+        }
+        .ibr-main:after {
+          content: "";
+          display: block;
+          height: 390px;
+          margin-top: 110px;
+          border-radius: 20px;
+          background: linear-gradient(135deg, #d9d6ce, #777b77);
+        }
+        .ibr-edge {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .ibr-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          z-index: 4;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(242, 240, 233, 0.92);
+          color: #171a18;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="ibr-root"
+        data-hf-id="hf-ibr-root"
+        data-composition-id="shot-ink-bleed-reveal"
+        data-start="0"
+        data-duration="4.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="ibr-fill">
+          <div class="ibr-before" data-layout-allow-occlusion>BEFORE</div>
+          <div class="ibr-page">
+            <h1>AFTER, IN FULL DETAIL.</h1>
+            <div class="ibr-layout">
+              <div class="ibr-side"><i></i><i></i><i></i></div>
+              <div class="ibr-main"><i></i><i></i></div>
+            </div>
+          </div>
+          <svg class="ibr-edge" width="1920" height="1080">
+            <defs>
+              <filter
+                id="ibr-noise"
+                x="-40%"
+                y="-40%"
+                width="180%"
+                height="180%"
+              >
+                <feTurbulence
+                  type="fractalNoise"
+                  baseFrequency=".02"
+                  numOctaves="3"
+                  seed="7"
+                  result="noise"
+                />
+                <feDisplacementMap
+                  id="ibr-disp"
+                  in="SourceGraphic"
+                  in2="noise"
+                  scale="60"
+                  xChannelSelector="R"
+                  yChannelSelector="G"
+                />
+              </filter>
+            </defs>
+            <circle
+              id="ibr-ring"
+              cx="800"
+              cy="420"
+              r="0"
+              fill="none"
+              stroke="#171a18"
+              stroke-width="130"
+              filter="url(#ibr-noise)"
+            />
+          </svg>
+          <div class="ibr-caption">
+            FIXED SEED / UNEVEN BLEED / CLEAN SETTLE
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#ibr-root .ibr-fill"),
+            tl = gsap.timeline({ paused: true }),
+            ink = v.ink || "#171a18";
+          fill.style.setProperty("--ink", ink);
+          document.querySelector("#ibr-ring").setAttribute("stroke", ink);
+          tl.set("#ibr-root .ibr-edge", { opacity: 1 }, 0.667)
+            .to(
+              "#ibr-root .ibr-page",
+              {
+                clipPath: "circle(380px at 800px 420px)",
+                duration: 0.4,
+                ease: "power2.out",
+              },
+              0.667,
+            )
+            .to(
+              "#ibr-ring",
+              { attr: { r: 380 }, duration: 0.4, ease: "power2.out" },
+              0.667,
+            )
+            .to(
+              "#ibr-root .ibr-page",
+              {
+                clipPath: "circle(600px at 800px 420px)",
+                duration: 0.267,
+                ease: "power1.inOut",
+              },
+              1.068,
+            )
+            .to(
+              "#ibr-ring",
+              { attr: { r: 600 }, duration: 0.267, ease: "power1.inOut" },
+              1.068,
+            )
+            .to(
+              "#ibr-root .ibr-page",
+              {
+                clipPath: "circle(1000px at 800px 420px)",
+                duration: 0.8,
+                ease: "power2.out",
+              },
+              1.336,
+            )
+            .to(
+              "#ibr-ring",
+              { attr: { r: 1000 }, duration: 0.8, ease: "power2.out" },
+              1.336,
+            )
+            .to(
+              "#ibr-root .ibr-page",
+              {
+                clipPath: "circle(1450px at 800px 420px)",
+                duration: 1.13,
+                ease: "power1.inOut",
+              },
+              2.137,
+            )
+            .to(
+              "#ibr-ring",
+              { attr: { r: 1450 }, duration: 1.13, ease: "power1.inOut" },
+              2.137,
+            )
+            .to(
+              "#ibr-disp",
+              { attr: { scale: 160 }, duration: 2.6, ease: "none" },
+              0.667,
+            )
+            .set(
+              "#ibr-root .ibr-before,#ibr-root .ibr-edge",
+              { opacity: 0 },
+              3.334,
+            )
+            .set("#ibr-root .ibr-page", { clipPath: "none" }, 3.334);
+          window.__timelines["shot-ink-bleed-reveal"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

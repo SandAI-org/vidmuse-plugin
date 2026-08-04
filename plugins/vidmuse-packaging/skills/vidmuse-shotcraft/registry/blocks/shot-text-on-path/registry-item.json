@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-text-on-path",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Text on Path",
+  "description": "Letters travel with the tangent of a rising curve, pause on the path, then level into a conventional horizontal title.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "typography", "path", "curve", "growth"],
+  "files": [{ "path": "shot-text-on-path.html", "target": "compositions/shot-text-on-path.html", "type": "hyperframes:composition" }]
+}

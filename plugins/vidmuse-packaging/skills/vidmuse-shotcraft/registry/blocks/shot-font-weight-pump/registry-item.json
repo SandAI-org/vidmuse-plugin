@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-font-weight-pump",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Font Weight Pump",
+  "description": "A centered phrase gains weight and outline on five explicit beats, with heavier horizontal accents and matching beat dots.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "typography", "rhythm", "beat", "font-weight"],
+  "files": [{ "path": "shot-font-weight-pump.html", "target": "compositions/shot-font-weight-pump.html", "type": "hyperframes:composition" }]
+}

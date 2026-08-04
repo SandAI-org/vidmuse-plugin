@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-composition-variables="[
+  {&quot;id&quot;:&quot;cardWidth&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Card width&quot;,&quot;default&quot;:460,&quot;min&quot;:280,&quot;max&quot;:620,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;},
+  {&quot;id&quot;:&quot;gap&quot;,&quot;type&quot;:&quot;number&quot;,&quot;label&quot;:&quot;Card gap&quot;,&quot;default&quot;:60,&quot;min&quot;:20,&quot;max&quot;:160,&quot;step&quot;:5,&quot;unit&quot;:&quot;px&quot;},
+  {&quot;id&quot;:&quot;accent&quot;,&quot;type&quot;:&quot;color&quot;,&quot;label&quot;:&quot;Focus accent&quot;,&quot;default&quot;:&quot;#ffb84d&quot;}
+]"><head></head>
+  <body>
+    <template>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .sr-fill { position: absolute; inset: 0; overflow: hidden; background: #f9f6f1; }
+        #sr-rail { position: absolute; top: 360px; left: 0; height: 420px; display: block; filter: url(#sr-streak); }
+        .sr-card { position: absolute; width: var(--cardWidth); border-radius: 12px; box-shadow: 0 4px 16px rgba(31,28,23,.1); display: block; }
+        #sr-focus { top: -16px; box-shadow: 0 10px 32px rgba(31,28,23,.18), 0 0 0 7px color-mix(in srgb, var(--accent) 75%, transparent); }
+      </style>
+      <div data-hf-id="hf-rutu" id="sr-root" data-composition-id="shot-speed-ramp" data-start="0" data-duration="4.5" data-width="1920" data-height="1080" style="position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden">
+        <div data-hf-id="hf-wzxj" class="sr-fill">
+          <svg data-hf-id="hf-30au" width="0" height="0" aria-hidden="true" style="position:absolute"><filter data-hf-id="hf-9y28" id="sr-streak" x="-30%" y="-30%" width="160%" height="160%"><fegaussianblur data-hf-id="hf-wpqc" id="sr-blur" stdDeviation="12 0" /></filter></svg>
+          <div data-hf-id="hf-0fj7" id="sr-rail">
+            <img data-hf-id="hf-nu2b" class="sr-card" src="assets/textures/card1.png" alt="" data-i="0">
+            <img data-hf-id="hf-kt81" class="sr-card" src="assets/textures/card2.png" alt="" data-i="1">
+            <img data-hf-id="hf-pdtf" class="sr-card" src="assets/textures/card3.png" alt="" data-i="2">
+            <img data-hf-id="hf-qb4s" class="sr-card" src="assets/textures/card5.png" alt="" data-i="3">
+            <img data-hf-id="hf-mwcg" class="sr-card" src="assets/textures/card6.png" alt="" data-i="4">
+            <img data-hf-id="hf-7aqr" id="sr-focus" class="sr-card" src="assets/textures/card4-hires.png" alt="" data-i="5">
+            <img data-hf-id="hf-q1m3" class="sr-card" src="assets/textures/card7.png" alt="" data-i="6">
+            <img data-hf-id="hf-k2qt" class="sr-card" src="assets/textures/card8.png" alt="" data-i="7">
+            <img data-hf-id="hf-7e0j" class="sr-card" src="assets/textures/card9.png" alt="" data-i="8">
+            <img data-hf-id="hf-1wwz" class="sr-card" src="assets/textures/card1-b.png" alt="" data-i="9">
+            <img data-hf-id="hf-5l8w" class="sr-card" src="assets/textures/card2-b.png" alt="" data-i="10">
+            <img data-hf-id="hf-ad00" class="sr-card" src="assets/textures/card3-b.png" alt="" data-i="11">
+            <img data-hf-id="hf-p5gh" class="sr-card" src="assets/textures/card5-b.png" alt="" data-i="12">
+            <img data-hf-id="hf-yg8v" class="sr-card" src="assets/textures/card6-b.png" alt="" data-i="13">
+            <img data-hf-id="hf-zk25" class="sr-card" src="assets/textures/card7-b.png" alt="" data-i="14">
+            <img data-hf-id="hf-dtrz" class="sr-card" src="assets/textures/card8-b.png" alt="" data-i="15">
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var vars = window.__hyperframes.getVariables();
+          var cardWidth = Number(vars.cardWidth || 460);
+          var gap = Number(vars.gap || 60);
+          var root = document.getElementById("sr-root");
+          root.style.setProperty("--cardWidth", cardWidth + "px");
+          root.style.setProperty("--accent", vars.accent || "#ffb84d");
+          Array.prototype.forEach.call(document.querySelectorAll("#sr-rail .sr-card"), function (el) { el.style.left = Number(el.dataset.i) * (cardWidth + gap) + "px"; });
+          var blurNode = document.getElementById("sr-blur");
+          var blur = { v: 12 };
+          function writeBlur() { blurNode.setAttribute("stdDeviation", blur.v + " 0"); }
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#sr-rail", { x: 717 }, { x: -1747, duration: 1.333, ease: "none" }, 0);
+          tl.to("#sr-rail", { x: -1999, duration: 1.5, ease: "none" }, 1.333);
+          tl.to(blur, { v: 0, duration: .12, ease: "power2.out", onUpdate: writeBlur }, 1.333);
+          tl.to("#sr-focus", { scale: 1.045, duration: .75, ease: "sine.inOut" }, 1.7);
+          tl.to("#sr-focus", { scale: 1, duration: .38, ease: "sine.inOut" }, 2.45);
+          tl.to("#sr-rail", { x: -5079, duration: 1.667, ease: "none" }, 2.833);
+          tl.to(blur, { v: 12, duration: .12, ease: "power2.in", onUpdate: writeBlur }, 2.833);
+          window.__timelines["shot-speed-ramp"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-letterform-drift-assembly",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Letterform Drift Assembly",
+  "description": "Seeded letterforms drift inward from different directions, lock with dark pulses, and breathe once as an assembled word.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "typography", "assembly", "drift", "brand"],
+  "files": [{ "path": "shot-letterform-drift-assembly.html", "target": "compositions/shot-letterform-drift-assembly.html", "type": "hyperframes:composition" }]
+}

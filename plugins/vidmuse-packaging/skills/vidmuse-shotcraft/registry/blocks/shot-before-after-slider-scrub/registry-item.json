@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-before-after-slider-scrub",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Before After Slider Scrub",
+  "description": "Matched before-and-after interfaces share one draggable divider that flings to 76 percent, rebounds, pauses, and slowly scrubs back for a readable comparison.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.8,
+  "tags": ["shotcraft", "data", "comparison", "slider", "scrub"],
+  "files": [{ "path": "shot-before-after-slider-scrub.html", "target": "compositions/shot-before-after-slider-scrub.html", "type": "hyperframes:composition" }]
+}

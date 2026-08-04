@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-keycap-smash-cut",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Keycap Smash Cut",
+  "description": "A hovering faux-3D command key compresses into its base, ignites a widening ring and six accelerating cards, then hard-cuts at peak motion into a clean product verdict that reuses the key in its header.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "keycap",
+    "smash-cut",
+    "command",
+    "impact",
+    "opening"
+  ],
+  "files": [
+    {
+      "path": "shot-keycap-smash-cut.html",
+      "target": "compositions/shot-keycap-smash-cut.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-hit-counter",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Hit Counter",
+  "description": "Three feature cards accelerate into dashed slots, each landing producing a short hit-stop, rising damage value, stronger tilted combo-counter pulse, and settled three-card payoff.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "effects", "impact", "counter", "combo", "hit-stop", "cards"],
+  "files": [{ "path": "shot-hit-counter.html", "target": "compositions/shot-hit-counter.html", "type": "hyperframes:composition" }]
+}

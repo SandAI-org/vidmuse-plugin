@@ -1,0 +1,195 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Theme accent","default":"#8f6cff"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .tst-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: Inter, sans-serif;
+          --accent: #8f6cff;
+        }
+        .tst-page {
+          position: absolute;
+          inset: 0;
+          padding: 92px 110px;
+        }
+        .tst-light {
+          background: #eeeae3;
+          color: #292824;
+        }
+        .tst-dark {
+          background: #111116;
+          color: #f3f1f6;
+          clip-path: polygon(-20% 0, -20% 0, -40% 100%, -40% 100%);
+        }
+        .tst-head {
+          display: flex;
+          align-items: center;
+          gap: 22px;
+        }
+        .tst-logo {
+          width: 54px;
+          height: 54px;
+          border-radius: 16px;
+          background: var(--accent);
+        }
+        .tst-head b {
+          font-size: 30px;
+        }
+        .tst-page h1 {
+          margin-top: 110px;
+          font-size: 98px;
+          letter-spacing: -5px;
+        }
+        .tst-page p {
+          margin-top: 22px;
+          font-size: 28px;
+          color: #77736d;
+        }
+        .tst-dark p {
+          color: #aaa6b1;
+        }
+        .tst-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 24px;
+          margin-top: 80px;
+        }
+        .tst-card {
+          height: 250px;
+          border: 1px solid #ccc8c0;
+          border-radius: 22px;
+          background: #faf9f5;
+        }
+        .tst-dark .tst-card {
+          border-color: #37343f;
+          background: #202027;
+        }
+        .tst-line {
+          position: absolute;
+          left: -360px;
+          top: -180px;
+          width: 6px;
+          height: 1600px;
+          background: #fff;
+          box-shadow: 0 0 18px 8px rgba(255, 255, 255, 0.55);
+          transform: rotate(15deg);
+          opacity: 0;
+        }
+        .tst-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #fff;
+          padding: 8px 12px;
+          border-radius: 8px;
+          background: rgba(0, 0, 0, 0.78);
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-tst-root"
+        id="tst-root"
+        data-composition-id="shot-theme-sweep-toggle"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="tst-fill">
+          <div
+            class="tst-page tst-light"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="tst-head"><i class="tst-logo"></i><b>STUDIO</b></div>
+            <h1>Your workspace, your atmosphere.</h1>
+            <p>
+              The exact same interface, translated into a calmer night theme.
+            </p>
+            <div class="tst-grid">
+              <i class="tst-card"></i><i class="tst-card"></i
+              ><i class="tst-card"></i>
+            </div>
+          </div>
+          <div
+            id="tst-dark"
+            class="tst-page tst-dark"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="tst-head"><i class="tst-logo"></i><b>STUDIO</b></div>
+            <h1>Your workspace, your atmosphere.</h1>
+            <p>
+              The exact same interface, translated into a calmer night theme.
+            </p>
+            <div class="tst-grid">
+              <i class="tst-card"></i><i class="tst-card"></i
+              ><i class="tst-card"></i>
+            </div>
+          </div>
+          <div id="tst-line" class="tst-line" data-layout-allow-overflow></div>
+          <div class="tst-caption">SAME LAYOUT · NEW THEME</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#tst-root .tst-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#8f6cff");
+          tl.set("#tst-line", { opacity: 1 }, 0.5)
+            .to(
+              "#tst-dark",
+              {
+                clipPath: "polygon(-20% 0,115% 0,95% 100%,-40% 100%)",
+                duration: 1.267,
+                ease: "power3.out",
+              },
+              0.5,
+            )
+            .to(
+              "#tst-line",
+              { x: 2520, duration: 1.267, ease: "power3.out" },
+              0.5,
+            )
+            .to("#tst-line", { opacity: 0, duration: 0.067 }, 1.767)
+            .set(".tst-light", { opacity: 0 }, 1.767)
+            .to(
+              "#tst-dark",
+              {
+                scale: 0.985,
+                duration: 0.15,
+                ease: "power2.in",
+                yoyo: true,
+                repeat: 1,
+              },
+              1.767,
+            );
+          window.__timelines["shot-theme-sweep-toggle"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

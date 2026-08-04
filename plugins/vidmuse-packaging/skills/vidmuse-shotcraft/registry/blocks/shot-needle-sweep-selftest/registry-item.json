@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-needle-sweep-selftest",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Needle Sweep Self-test",
+  "description": "Three mechanical gauges stagger through a full 270-degree self-test sweep, overshoot their real readings, and pop synchronized ready values.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": ["shotcraft", "data", "gauge", "needle", "self-test"],
+  "files": [{ "path": "shot-needle-sweep-selftest.html", "target": "compositions/shot-needle-sweep-selftest.html", "type": "hyperframes:composition" }]
+}

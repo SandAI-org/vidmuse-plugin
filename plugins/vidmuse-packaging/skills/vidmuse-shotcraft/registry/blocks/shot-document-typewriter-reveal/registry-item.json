@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-document-typewriter-reveal",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Document Typewriter Reveal",
+  "description": "A dense collaborative brief writes itself in paired rows before navigation and document history panels wipe into place.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.667,
+  "tags": ["shotcraft", "typography", "document", "typewriter", "ui-reveal"],
+  "files": [{ "path": "shot-document-typewriter-reveal.html", "target": "compositions/shot-document-typewriter-reveal.html", "type": "hyperframes:composition" }]
+}

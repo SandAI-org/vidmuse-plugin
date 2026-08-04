@@ -1,0 +1,366 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Light accent","default":"#a75cf6"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .gws-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #040308;
+          font-family: Inter, sans-serif;
+        }
+        .gws-world {
+          position: absolute;
+          inset: 0;
+          perspective: 1700px;
+          perspective-origin: 46% 40%;
+        }
+        .gws-stage {
+          position: absolute;
+          left: 360px;
+          top: 160px;
+          width: 1250px;
+          height: 780px;
+          transform: rotateY(-13deg) rotateX(9deg) rotateZ(-17deg) scale(1.03);
+          transform-style: preserve-3d;
+        }
+        .gws-ghost {
+          position: absolute;
+          inset: 34px 0 0 -46px;
+          border-radius: 26px;
+          background: #14111c;
+          box-shadow: 0 0 70px rgba(109, 61, 202, 0.22);
+        }
+        .gws-panel {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          overflow: hidden;
+          border-radius: 26px;
+          background: #f6f6f5;
+          color: #3a3a39;
+          box-shadow: 0 28px 90px rgba(0, 0, 0, 0.7);
+        }
+        .gws-side {
+          width: 300px;
+          padding: 30px 28px;
+          border-right: 2px solid #e2e2e0;
+        }
+        .gws-brand {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+          margin-bottom: 34px;
+        }
+        .gws-logo {
+          width: 30px;
+          height: 30px;
+          border-radius: 8px;
+          background: #3a3a3a;
+        }
+        .gws-word {
+          width: 96px;
+          height: 16px;
+          border-radius: 7px;
+          background: #3a3a3a;
+        }
+        .gws-nav {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .gws-nav i {
+          display: block;
+          width: 190px;
+          height: 30px;
+          border-radius: 7px;
+          background: linear-gradient(
+            90deg,
+            #999 0 18px,
+            transparent 18px 30px,
+            #c9c9c7 30px 78%
+          );
+        }
+        .gws-nav i:nth-child(2n) {
+          width: 220px;
+        }
+        .gws-side-rule {
+          width: 84px;
+          height: 13px;
+          margin: 34px 0 16px;
+          border-radius: 7px;
+          background: #b3b3b1;
+        }
+        .gws-main {
+          flex: 1;
+          padding: 30px 36px;
+        }
+        .gws-head {
+          display: flex;
+          gap: 14px;
+          align-items: center;
+          margin-bottom: 30px;
+        }
+        .gws-head i {
+          display: block;
+          height: 17px;
+          border-radius: 8px;
+          background: #6f6f6d;
+        }
+        .gws-head i:first-child {
+          width: 24px;
+          height: 20px;
+          background: #9a9a98;
+        }
+        .gws-head i:nth-child(2) {
+          width: 250px;
+        }
+        .gws-head i:nth-child(n + 3) {
+          width: 96px;
+          height: 12px;
+          margin-left: 26px;
+          background: #dfdfdd;
+        }
+        .gws-board {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 44px;
+        }
+        .gws-col {
+          padding-top: 16px;
+          border-top: 4px solid #b9a44c;
+        }
+        .gws-col:last-child {
+          border-color: var(--accent);
+        }
+        .gws-col-title {
+          width: 110px;
+          height: 14px;
+          margin-bottom: 20px;
+          border-radius: 7px;
+          background: #5a5a58;
+        }
+        .gws-task {
+          padding: 14px 0;
+          border-bottom: 1px solid #e6e6e3;
+        }
+        .gws-task i {
+          display: block;
+          height: 10px;
+          margin-bottom: 9px;
+          border-radius: 6px;
+          background: #d3d3d0;
+        }
+        .gws-task i:first-child {
+          width: 58%;
+        }
+        .gws-task i:nth-child(2) {
+          width: 82%;
+          height: 12px;
+          background: #b9b9b7;
+        }
+        .gws-task i:last-child {
+          width: 15px;
+          height: 11px;
+        }
+        .gws-dark {
+          position: absolute;
+          inset: 0;
+          border-radius: 26px;
+          background: radial-gradient(
+            circle 640px at var(--sx, -260px) 150px,
+            rgba(4, 3, 8, 0.08) 0%,
+            rgba(4, 3, 8, 0.24) 35%,
+            rgba(4, 3, 8, 0.8) 62%,
+            rgba(4, 3, 8, 0.985) 92%
+          );
+        }
+        .gws-tail {
+          position: absolute;
+          inset: 0;
+          border-radius: 26px;
+          opacity: 0;
+          background: linear-gradient(
+            260deg,
+            rgba(110, 130, 245, 0.34),
+            transparent 18%
+          );
+        }
+        .gws-streak {
+          position: absolute;
+          left: -490px;
+          top: -34px;
+          width: 980px;
+          height: 68px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            var(--accent),
+            #f4e4ff,
+            var(--accent),
+            transparent
+          );
+          filter: blur(15px);
+          opacity: 0;
+        }
+        .gws-core {
+          position: absolute;
+          left: -390px;
+          top: -3px;
+          width: 780px;
+          height: 6px;
+          background: linear-gradient(90deg, transparent, #f4e4ff, transparent);
+          filter: blur(1px);
+          opacity: 0;
+        }
+        .gws-headglow {
+          position: absolute;
+          left: -190px;
+          top: -84px;
+          width: 380px;
+          height: 170px;
+          border-radius: 50%;
+          background: radial-gradient(
+            ellipse,
+            rgba(236, 205, 255, 0.95),
+            rgba(180, 110, 250, 0.35) 45%,
+            transparent 72%
+          );
+          filter: blur(12px);
+          opacity: 0;
+        }
+        .gws-right {
+          position: absolute;
+          right: -17px;
+          top: 100px;
+          width: 34px;
+          height: 620px;
+          background: linear-gradient(
+            180deg,
+            transparent,
+            var(--accent),
+            #eee6ff,
+            var(--accent),
+            transparent
+          );
+          filter: blur(11px);
+          opacity: 0;
+        }
+        .gws-caption {
+          position: absolute;
+          left: 66px;
+          bottom: 56px;
+          color: #d8d2e5;
+          font-size: 20px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-gws-root"
+        id="gws-root"
+        data-composition-id="shot-glow-wake-sleep-panel"
+        data-start="0"
+        data-duration="4.4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="gws-fill" style="--accent: #a75cf6">
+          <div class="gws-world">
+            <div id="gws-stage" class="gws-stage" data-layout-allow-overflow>
+              <div class="gws-ghost"></div>
+              <div class="gws-panel">
+                <aside class="gws-side">
+                  <div class="gws-brand">
+                    <i class="gws-logo"></i><i class="gws-word"></i>
+                  </div>
+                  <div class="gws-nav"><i></i><i></i><i></i></div>
+                  <div class="gws-side-rule"></div>
+                  <div class="gws-nav"><i></i><i></i><i></i><i></i></div>
+                </aside>
+                <main class="gws-main">
+                  <div class="gws-head"><i></i><i></i><i></i><i></i></div>
+                  <div class="gws-board">
+                    <section class="gws-col">
+                      <div class="gws-col-title"></div>
+                      <div class="gws-task"><i></i><i></i><i></i></div>
+                      <div class="gws-task"><i></i><i></i><i></i></div>
+                      <div class="gws-task"><i></i><i></i><i></i></div>
+                    </section>
+                    <section class="gws-col">
+                      <div class="gws-col-title"></div>
+                      <div class="gws-task"><i></i><i></i><i></i></div>
+                      <div class="gws-task"><i></i><i></i><i></i></div>
+                      <div class="gws-task"><i></i><i></i><i></i></div>
+                    </section>
+                  </div>
+                </main>
+                <div id="gws-dark" class="gws-dark"></div>
+                <div id="gws-tail" class="gws-tail"></div>
+              </div>
+              <div id="gws-streak" class="gws-streak"></div>
+              <div id="gws-core" class="gws-core"></div>
+              <div id="gws-headglow" class="gws-headglow"></div>
+              <div id="gws-right" class="gws-right"></div>
+            </div>
+          </div>
+          <div class="gws-caption">WAKE · REVEAL · SLEEP</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#gws-root .gws-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#a75cf6");
+          gsap.set("#gws-stage", { x: -150, y: -36 });
+          gsap.set("#gws-dark", { "--sx": "-260px" });
+          tl.to("#gws-stage", { x: 150, y: 36, duration: 4.4, ease: "none" }, 0)
+            .to(
+              "#gws-dark",
+              { "--sx": "1510px", duration: 3.867, ease: "none" },
+              0.133,
+            )
+            .to(
+              ["#gws-streak", "#gws-core", "#gws-headglow"],
+              { opacity: 1, duration: 0.4, ease: "power1.out" },
+              0,
+            )
+            .to(
+              ["#gws-streak", "#gws-core", "#gws-headglow"],
+              { x: 1770, duration: 3.867, ease: "none" },
+              0.133,
+            )
+            .to(
+              ["#gws-streak", "#gws-core", "#gws-headglow"],
+              { opacity: 0, duration: 0.533, ease: "power1.in" },
+              3.333,
+            )
+            .to("#gws-right", { opacity: 0.85, duration: 0.4 }, 3.2)
+            .to("#gws-right", { opacity: 0.22, duration: 0.8 }, 3.6)
+            .to("#gws-tail", { opacity: 0.3, duration: 0.533 }, 3.333)
+            .to("#gws-dark", { opacity: 1, duration: 0.8 }, 3.6);
+          window.__timelines["shot-glow-wake-sleep-panel"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

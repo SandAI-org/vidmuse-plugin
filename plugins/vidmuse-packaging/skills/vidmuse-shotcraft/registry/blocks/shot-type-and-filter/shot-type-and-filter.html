@@ -1,0 +1,223 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Search accent","default":"#b45309"}]'
+>
+  <head></head>
+  <body>
+    <template
+      ><style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .taf-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #eae8e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+          --accent: #b45309;
+        }
+        .taf-page {
+          position: absolute;
+          inset: 0;
+          padding: 72px 100px;
+          transform-origin: 265px 132px;
+        }
+        .taf-top {
+          display: flex;
+          align-items: center;
+          gap: 22px;
+        }
+        .taf-title {
+          font-size: 42px;
+          font-weight: 900;
+        }
+        .taf-search {
+          margin-left: auto;
+          width: 600px;
+          height: 72px;
+          padding: 0 26px;
+          display: flex;
+          align-items: center;
+          border: 3px solid #bbb8b0;
+          border-radius: 36px;
+          background: #faf9f5;
+          font-size: 28px;
+        }
+        .taf-caret {
+          width: 4px;
+          height: 34px;
+          margin-left: 3px;
+          background: var(--accent);
+        }
+        .taf-grid {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 18px;
+          margin-top: 54px;
+        }
+        .taf-card {
+          height: 142px;
+          padding: 18px;
+          border: 1px solid #cbc8c0;
+          border-radius: 16px;
+          background: #faf9f5;
+          box-shadow: 0 5px 14px rgba(0, 0, 0, 0.06);
+        }
+        .taf-card i {
+          display: block;
+          width: 70%;
+          height: 14px;
+          margin-bottom: 12px;
+          border-radius: 7px;
+          background: #77756f;
+        }
+        .taf-card i:last-child {
+          width: 45%;
+          height: 10px;
+          background: #cbc8c0;
+        }
+        .taf-target {
+          outline: 3px solid transparent;
+        }
+        .taf-ripple {
+          position: absolute;
+          left: 250px;
+          top: 280px;
+          width: 28px;
+          height: 28px;
+          margin: -14px;
+          border: 4px solid var(--accent);
+          border-radius: 50%;
+          opacity: 0;
+        }
+        .taf-caption {
+          position: absolute;
+          left: 62px;
+          bottom: 48px;
+          color: #55534f;
+          font-size: 18px;
+          font-weight: 800;
+          letter-spacing: 4px;
+        }
+      </style>
+      <div
+        data-hf-id="hf-taf-root"
+        id="taf-root"
+        data-composition-id="shot-type-and-filter"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="taf-fill">
+          <div id="taf-page" class="taf-page" data-layout-allow-overflow>
+            <div class="taf-top">
+              <div class="taf-title">Project library</div>
+              <div class="taf-search">
+                SEARCH&nbsp; <span id="taf-word"></span
+                ><i class="taf-caret"></i>
+              </div>
+            </div>
+            <div id="taf-grid" class="taf-grid"></div>
+            <div id="taf-ripple-a" class="taf-ripple"></div>
+            <div id="taf-ripple-b" class="taf-ripple"></div>
+          </div>
+          <div class="taf-caption">TYPE / FILTER / ENTER</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#taf-root .taf-fill"),
+            host = document.getElementById("taf-grid"),
+            word = document.getElementById("taf-word"),
+            tl = gsap.timeline({ paused: true }),
+            txt = "nano-lab",
+            cards = [];
+          fill.style.setProperty("--accent", v.accent || "#b45309");
+          for (var i = 0; i < 25; i++) {
+            var c = document.createElement("div");
+            c.className = "taf-card" + (i === 7 ? " taf-target" : "");
+            c.innerHTML = "<i></i><i></i>";
+            host.appendChild(c);
+            cards.push(c);
+          }
+          txt.split("").forEach(function (ch, i) {
+            tl.call(
+              function () {
+                word.textContent = txt.slice(0, i + 1);
+              },
+              null,
+              0.4 + i * 0.1,
+            );
+          });
+          cards.forEach(function (c, i) {
+            if (i !== 7)
+              tl.to(
+                c,
+                {
+                  opacity: 0,
+                  y: 8,
+                  height: 0,
+                  paddingTop: 0,
+                  paddingBottom: 0,
+                  duration: 0.167,
+                  ease: "power2.in",
+                },
+                1.6 + i * 0.013,
+              );
+          });
+          tl.to(
+            ".taf-target",
+            {
+              x: -356,
+              y: -160,
+              scale: 1.02,
+              boxShadow: "0 18px 38px rgba(0,0,0,.16)",
+              outlineColor: v.accent || "#b45309",
+              duration: 0.333,
+              ease: "power3.inOut",
+            },
+            1.8,
+          )
+            .set("#taf-ripple-a,#taf-ripple-b", { opacity: 1, scale: 1 }, 2.35)
+            .to(
+              "#taf-ripple-a",
+              { scale: 3.85, opacity: 0, duration: 0.333, ease: "power2.out" },
+              2.35,
+            )
+            .to(
+              "#taf-ripple-b",
+              { scale: 5.57, opacity: 0, duration: 0.333, ease: "power2.out" },
+              2.45,
+            )
+            .to(
+              "#taf-page",
+              {
+                scale: 1.6,
+                x: 180,
+                y: 100,
+                duration: 0.533,
+                ease: "power3.in",
+              },
+              2.68,
+            );
+          window.__timelines["shot-type-and-filter"] = tl;
+        })();
+      </script></template
+    >
+  </body>
+</html>

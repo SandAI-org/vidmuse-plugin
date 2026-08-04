@@ -1,0 +1,13 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-neon-triple-marquee",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Neon Triple Marquee",
+  "description": "Three oversized outlined word bands cross in alternating directions while a traveling neon pulse moves between rows.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5,
+  "tags": ["shotcraft", "outro", "typography", "marquee", "neon"],
+  "files": [
+    { "path": "shot-neon-triple-marquee.html", "target": "compositions/shot-neon-triple-marquee.html", "type": "hyperframes:composition" }
+  ]
+}

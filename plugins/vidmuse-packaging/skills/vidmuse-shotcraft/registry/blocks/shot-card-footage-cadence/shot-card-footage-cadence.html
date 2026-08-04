@@ -1,0 +1,305 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Accent","default":"#ff6b4a"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .cfc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          font-family: Inter, sans-serif;
+          --accent: #ff6b4a;
+        }
+        .cfc-shot {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transform-origin: 50% 50%;
+        }
+        .cfc-shot:first-child {
+          opacity: 1;
+        }
+        .cfc-page {
+          position: absolute;
+          inset: 0;
+          background: #e9e7e0;
+          color: #181b19;
+        }
+        .cfc-head {
+          position: absolute;
+          left: 65px;
+          right: 65px;
+          top: 55px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 21px;
+          font-weight: 900;
+        }
+        .cfc-title {
+          position: absolute;
+          left: 80px;
+          top: 150px;
+          width: 670px;
+          font-size: 80px;
+          line-height: 0.94;
+          letter-spacing: -5px;
+        }
+        .cfc-grid {
+          position: absolute;
+          left: 790px;
+          right: 80px;
+          top: 130px;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 18px;
+        }
+        .cfc-card {
+          height: 385px;
+          padding: 28px;
+          border: 1px solid #c9c5bd;
+          border-radius: 24px;
+          background: #faf8f3;
+        }
+        .cfc-card i {
+          display: block;
+          width: 60%;
+          height: 13px;
+          margin-bottom: 16px;
+          border-radius: 8px;
+          background: #252925;
+        }
+        .cfc-card i + i {
+          width: 35%;
+          background: #b7b5ae;
+        }
+        .cfc-card:after {
+          content: "";
+          display: block;
+          height: 165px;
+          margin-top: 60px;
+          border-radius: 16px;
+          background: linear-gradient(135deg, #d6d2c9, var(--accent));
+          opacity: 0.65;
+        }
+        .cfc-b {
+          background: #171a19;
+          color: white;
+        }
+        .cfc-b .cfc-card {
+          background: #242927;
+          border-color: #3b423f;
+        }
+        .cfc-b .cfc-card i {
+          background: #f2efe9;
+        }
+        .cfc-word {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          background: #0d0d0d;
+          color: white;
+          display: grid;
+          place-items: center;
+          font-size: 170px;
+          font-weight: 950;
+          letter-spacing: 3px;
+        }
+        .cfc-word:after {
+          content: "";
+          position: absolute;
+          left: 680px;
+          right: 680px;
+          top: 675px;
+          height: 14px;
+          border-radius: 8px;
+          background: white;
+          opacity: 0;
+        }
+        .cfc-today:after {
+          opacity: 1;
+        }
+        .cfc-caption {
+          position: absolute;
+          left: 58px;
+          bottom: 44px;
+          z-index: 10;
+          padding: 9px 13px;
+          border-radius: 5px;
+          background: #181b19;
+          color: white;
+          font-size: 14px;
+          font-weight: 850;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="cfc-root"
+        data-hf-id="hf-cfc-root"
+        data-composition-id="shot-card-footage-cadence"
+        data-start="0"
+        data-duration="5"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="cfc-fill">
+          <div id="cfc-a1" class="cfc-shot">
+            <div class="cfc-page">
+              <div class="cfc-head">
+                <span>PRODUCT / VIEW</span><span>01</span>
+              </div>
+              <h1 class="cfc-title">Build into the beat.</h1>
+              <div class="cfc-grid">
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div id="cfc-ship" class="cfc-word">SHIP</div>
+          <div
+            id="cfc-b"
+            class="cfc-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="cfc-page cfc-b">
+              <div class="cfc-head">
+                <span>PRODUCT / VIEW</span><span>02</span>
+              </div>
+              <h1 class="cfc-title">Move with intent.</h1>
+              <div class="cfc-grid">
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div id="cfc-faster" class="cfc-word">FASTER</div>
+          <div
+            id="cfc-a2"
+            class="cfc-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="cfc-page">
+              <div class="cfc-head">
+                <span>PRODUCT / VIEW</span><span>03</span>
+              </div>
+              <div class="cfc-grid">
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div id="cfc-today" class="cfc-word cfc-today">TODAY</div>
+          <div
+            id="cfc-final"
+            class="cfc-shot"
+            data-layout-allow-overlap
+            data-layout-allow-occlusion
+          >
+            <div class="cfc-page cfc-b">
+              <div class="cfc-head">
+                <span>PRODUCT / VIEW</span><span>FINAL</span>
+              </div>
+              <h1 class="cfc-title">Ready to ship.</h1>
+              <div class="cfc-grid">
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+                <div class="cfc-card"><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="cfc-caption">
+            UI / WORD / UI / WORD / UI / WORD / HOLD
+          </div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#cfc-root .cfc-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#ff6b4a");
+          tl.to("#cfc-a1", { scale: 1.08, duration: 0.467, ease: "none" }, 0);
+          tl.set("#cfc-root .cfc-caption", { opacity: 0 }, 0.467);
+          tl.set("#cfc-ship", { opacity: 1, scale: 1.05 }, 0.467)
+            .set("#cfc-a1", { opacity: 0 }, 0.468)
+            .to(
+              "#cfc-ship",
+              { scale: 1, duration: 0.167, ease: "power3.out" },
+              0.469,
+            );
+          tl.set("#cfc-root .cfc-caption", { opacity: 1 }, 0.733);
+          tl.set(
+            "#cfc-b",
+            { opacity: 1, scale: 1.6, x: 96, transformOrigin: "35% 50%" },
+            0.733,
+          )
+            .set("#cfc-ship", { opacity: 0 }, 0.734)
+            .to("#cfc-b", { x: -96, duration: 0.4, ease: "none" }, 0.735);
+          tl.set("#cfc-root .cfc-caption", { opacity: 0 }, 1.133);
+          tl.set("#cfc-faster", { opacity: 1, scale: 1.05 }, 1.133)
+            .set("#cfc-b", { opacity: 0 }, 1.134)
+            .to(
+              "#cfc-faster",
+              { scale: 1, duration: 0.167, ease: "power3.out" },
+              1.135,
+            );
+          tl.set("#cfc-root .cfc-caption", { opacity: 1 }, 1.4);
+          tl.set(
+            "#cfc-a2",
+            { opacity: 1, scale: 2, transformOrigin: "32% 30%" },
+            1.4,
+          )
+            .set("#cfc-faster", { opacity: 0 }, 1.401)
+            .to(
+              "#cfc-a2",
+              { scale: 2.14, duration: 0.333, ease: "none" },
+              1.402,
+            );
+          tl.set("#cfc-root .cfc-caption", { opacity: 0 }, 1.733);
+          tl.set("#cfc-today", { opacity: 1, scale: 1.05 }, 1.733)
+            .set("#cfc-a2", { opacity: 0 }, 1.734)
+            .to(
+              "#cfc-today",
+              { scale: 1, duration: 0.167, ease: "power3.out" },
+              1.735,
+            );
+          tl.set("#cfc-root .cfc-caption", { opacity: 1 }, 2.067);
+          tl.set("#cfc-final", { opacity: 1, scale: 1 }, 2.067)
+            .set("#cfc-today", { opacity: 0 }, 2.068)
+            .to(
+              "#cfc-final",
+              { scale: 1.02, duration: 1.433, ease: "power3.out" },
+              2.069,
+            );
+          window.__timelines["shot-card-footage-cadence"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-drop-blackout-slam",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Drop Blackout Slam",
+  "description": "A breathing analytics build cuts to twelve frames of absolute black before a ring, decaying shake, and oversized DROP title strike on the downbeat.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": ["shotcraft", "rhythm", "blackout", "slam", "drop", "impact"],
+  "files": [
+    {
+      "path": "shot-drop-blackout-slam.html",
+      "target": "compositions/shot-drop-blackout-slam.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

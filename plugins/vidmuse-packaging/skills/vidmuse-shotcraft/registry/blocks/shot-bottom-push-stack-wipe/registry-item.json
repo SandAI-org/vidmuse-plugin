@@ -1,0 +1,24 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-bottom-push-stack-wipe",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Bottom Push Stack Wipe",
+  "description": "Three saturated chapters enter from the bottom as rigid full-screen slabs, physically pushing the prior scene out with a contact seam and heavy ease-out landing.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "chapter",
+    "push",
+    "stack",
+    "brand-color"
+  ],
+  "files": [
+    {
+      "path": "shot-bottom-push-stack-wipe.html",
+      "target": "compositions/shot-bottom-push-stack-wipe.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

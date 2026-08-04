@@ -1,0 +1,196 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"accent","type":"color","label":"Confirmation accent","default":"#b45309"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .pbc-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e2;
+          font-family: Inter, sans-serif;
+          color: #292824;
+        }
+        .pbc-ring {
+          position: absolute;
+          left: 760px;
+          top: 270px;
+          width: 400px;
+          height: 400px;
+          border: 16px solid var(--accent);
+          border-radius: 50%;
+          opacity: 0;
+        }
+        .pbc-burst {
+          position: absolute;
+          left: 960px;
+          top: 470px;
+          width: 0;
+          height: 0;
+          opacity: 0;
+        }
+        .pbc-ray {
+          position: absolute;
+          left: -6px;
+          top: -255px;
+          width: 12px;
+          height: 46px;
+          border-radius: 8px;
+          background: #292824;
+          transform-origin: 6px 255px;
+        }
+        .pbc-ray:nth-child(2n) {
+          background: var(--accent);
+        }
+        .pbc-icon {
+          position: absolute;
+          left: 720px;
+          top: 230px;
+          width: 480px;
+          height: 480px;
+          transform-origin: center;
+        }
+        .pbc-check {
+          fill: none;
+          stroke: var(--accent);
+          stroke-width: 34;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+        }
+        .pbc-tag {
+          position: absolute;
+          left: 830px;
+          top: 770px;
+          width: 260px;
+          padding: 16px 0;
+          border-radius: 40px;
+          background: #292824;
+          color: #fff;
+          text-align: center;
+          font-size: 40px;
+          font-weight: 850;
+          letter-spacing: 1px;
+          opacity: 0;
+          transform-origin: center top;
+        }
+      </style>
+      <div
+        data-hf-id="hf-pbc-root"
+        id="pbc-root"
+        data-composition-id="shot-pop-burst-confirm"
+        data-start="0"
+        data-duration="4"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="pbc-fill" style="--accent: #b45309">
+          <div id="pbc-ring" class="pbc-ring"></div>
+          <div id="pbc-burst" class="pbc-burst"></div>
+          <svg id="pbc-icon" class="pbc-icon" viewBox="0 0 480 480">
+            <circle
+              cx="240"
+              cy="240"
+              r="190"
+              fill="#f8f8f4"
+              stroke="#292824"
+              stroke-width="22"
+            />
+            <path
+              id="pbc-check"
+              class="pbc-check"
+              pathLength="1"
+              d="M150 245 L215 310 L340 175"
+            />
+          </svg>
+          <div id="pbc-tag" class="pbc-tag">Deployed</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            root = document.getElementById("pbc-root"),
+            fill = root.querySelector(".pbc-fill"),
+            burst = document.getElementById("pbc-burst"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--accent", v.accent || "#b45309");
+          for (var i = 0; i < 10; i++) {
+            var ray = document.createElement("i");
+            ray.className = "pbc-ray";
+            ray.style.transform =
+              "rotate(" + (i * 36 + 9 * Math.sin(i * 7.31)) + "deg)";
+            burst.appendChild(ray);
+          }
+          tl.to(
+            "#pbc-icon",
+            { scale: 0.6, duration: 0.1, ease: "power2.in" },
+            0.667,
+          )
+            .to(
+              "#pbc-icon",
+              { scale: 1.35, duration: 0.2, ease: "power3.out" },
+              0.9,
+            )
+            .to(
+              "#pbc-icon",
+              { scale: 1, duration: 0.367, ease: "back.out(2)" },
+              1.1,
+            )
+            .to(
+              "#pbc-check",
+              { strokeDashoffset: 0, duration: 0.267, ease: "power3.out" },
+              0.9,
+            )
+            .set("#pbc-ring,#pbc-burst", { opacity: 1 }, 0.9)
+            .to(
+              "#pbc-ring",
+              {
+                scale: 2.5,
+                opacity: 0,
+                borderWidth: 4,
+                duration: 0.667,
+                ease: "power3.out",
+              },
+              0.9,
+            )
+            .to(
+              "#pbc-burst",
+              { scale: 1.75, opacity: 0, duration: 0.467, ease: "power3.out" },
+              0.9,
+            )
+            .fromTo(
+              ".pbc-ray",
+              { scaleY: 1 },
+              { scaleY: 0, duration: 0.467, ease: "power2.in" },
+              0.9,
+            )
+            .fromTo(
+              "#pbc-tag",
+              { scale: 0, opacity: 0 },
+              { scale: 1, opacity: 1, duration: 0.333, ease: "back.out(2.6)" },
+              1.333,
+            );
+          window.__timelines["shot-pop-burst-confirm"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

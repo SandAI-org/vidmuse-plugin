@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-integration-hub-map",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Integration Hub Map",
+  "description": "A close document flips rapidly into a connected search hub as five app tiles arrive together and neon pipes begin transporting light.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 5.333,
+  "tags": ["shotcraft", "ui-entrance", "integration", "3d-flip", "network"],
+  "files": [{ "path": "shot-integration-hub-map.html", "target": "compositions/shot-integration-hub-map.html", "type": "hyperframes:composition" }]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-segmented-thumb-hero",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Segmented Thumb Hero",
+  "description": "A giant two-mode segmented control rises into view, receives a deliberate pointer click, moves its thumb in exactly eight frames, collapses the old icon, and springs the new identity into place.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 3.667,
+  "tags": [
+    "shotcraft",
+    "interaction",
+    "segmented-control",
+    "thumb",
+    "toggle",
+    "cursor",
+    "mode-switch"
+  ],
+  "files": [
+    {
+      "path": "shot-segmented-thumb-hero.html",
+      "target": "compositions/shot-segmented-thumb-hero.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-overhead-tabletop-drop",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Overhead Tabletop Drop",
+  "description": "An overhead camera tracks across three interface cards on a gridded tabletop, then drops onto the selected card and levels into a full-frame view.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.833,
+  "tags": ["shotcraft", "camera", "overhead", "tabletop", "drop"],
+  "files": [{ "path": "shot-overhead-tabletop-drop.html", "target": "compositions/shot-overhead-tabletop-drop.html", "type": "hyperframes:composition" }]
+}

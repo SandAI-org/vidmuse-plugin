@@ -1,0 +1,286 @@
+<!doctype html>
+<html
+  lang="en"
+  data-composition-variables='[{"id":"ink","type":"color","label":"Carry line","default":"#171a18"}]'
+>
+  <head></head>
+  <body>
+    <template>
+      <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        .lct-fill {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #e9e7e0;
+          color: #171a18;
+          font-family: Inter, sans-serif;
+          --ink: #171a18;
+        }
+        .lct-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 3840px;
+          height: 1080px;
+        }
+        .lct-half-b {
+          position: absolute;
+          left: 1920px;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          background: #deddd7;
+        }
+        .lct-title {
+          position: absolute;
+          font-size: 56px;
+          font-weight: 950;
+          letter-spacing: -2px;
+        }
+        .lct-title-a {
+          left: 400px;
+          top: 250px;
+        }
+        .lct-title-b {
+          left: 2600px;
+          top: 275px;
+          opacity: 0;
+        }
+        .lct-card-a {
+          position: absolute;
+          left: 400px;
+          top: 350px;
+          width: 560px;
+          height: 330px;
+          padding: 28px;
+          border: 1px solid #c9c7c0;
+          border-radius: 18px;
+          background: #faf9f5;
+          box-shadow: 0 18px 44px rgba(0, 0, 0, 0.1);
+        }
+        .lct-ui {
+          display: grid;
+          grid-template-columns: 130px 1fr;
+          gap: 22px;
+          height: 100%;
+        }
+        .lct-side {
+          border-radius: 12px;
+          background: #deddd7;
+        }
+        .lct-main {
+          padding: 18px;
+          border-radius: 12px;
+          background: #efeee9;
+        }
+        .lct-main i,
+        .lct-content i {
+          display: block;
+          width: 72%;
+          height: 14px;
+          margin-bottom: 16px;
+          border-radius: 7px;
+          background: #9b9c97;
+        }
+        .lct-main i:first-child,
+        .lct-content i:first-child {
+          width: 52%;
+          height: 19px;
+          background: #333633;
+        }
+        .lct-main:after {
+          content: "";
+          display: block;
+          height: 120px;
+          margin-top: 48px;
+          border-radius: 12px;
+          background: #c8c7c1;
+        }
+        .lct-track {
+          position: absolute;
+          left: 400px;
+          top: 702px;
+          width: 560px;
+          height: 6px;
+          border-radius: 3px;
+          background: #b3b2ac;
+        }
+        .lct-path {
+          position: absolute;
+          inset: 0;
+          overflow: visible;
+          pointer-events: none;
+        }
+        .lct-content {
+          position: absolute;
+          left: 2600px;
+          top: 375px;
+          width: 560px;
+          height: 330px;
+          padding: 28px;
+          opacity: 0;
+        }
+        .lct-content i:nth-child(2) {
+          width: 86%;
+        }
+        .lct-content i:nth-child(3) {
+          width: 72%;
+        }
+        .lct-content:after {
+          content: "";
+          display: block;
+          width: 120px;
+          height: 30px;
+          margin-top: 120px;
+          border-radius: 15px;
+          background: #a3a49f;
+        }
+        .lct-caption {
+          position: absolute;
+          left: 54px;
+          bottom: 42px;
+          padding: 10px 14px;
+          border-radius: 8px;
+          background: rgba(19, 22, 20, 0.9);
+          color: white;
+          font-size: 14px;
+          font-weight: 900;
+          letter-spacing: 3px;
+        }
+      </style>
+      <div
+        id="lct-root"
+        data-hf-id="hf-lct-root"
+        data-composition-id="shot-line-carry-transition"
+        data-start="0"
+        data-duration="5.333"
+        data-width="1920"
+        data-height="1080"
+        style="
+          position: absolute;
+          inset: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
+        "
+      >
+        <div class="lct-fill">
+          <div id="lct-world" class="lct-world" data-layout-allow-overflow>
+            <div class="lct-half-b"></div>
+            <div class="lct-title lct-title-a">SCENE A</div>
+            <div class="lct-card-a">
+              <div class="lct-ui">
+                <div class="lct-side"></div>
+                <div class="lct-main"><i></i><i></i></div>
+              </div>
+            </div>
+            <div class="lct-track"></div>
+            <svg class="lct-path" width="3840" height="1080">
+              <path
+                id="lct-line"
+                d="M400 705 L2600 705 L2600 375 L3160 375 L3160 705 L2600 705"
+                fill="none"
+                stroke="var(--ink)"
+                stroke-width="6"
+                stroke-linecap="round"
+                stroke-linejoin="miter"
+                stroke-dasharray="3980"
+                stroke-dashoffset="3980"
+              />
+              <circle id="lct-tip" cx="400" cy="705" r="11" fill="var(--ink)" />
+            </svg>
+            <div class="lct-title lct-title-b">SCENE B</div>
+            <div class="lct-content"><i></i><i></i><i></i></div>
+          </div>
+          <div class="lct-caption">ONE LINE / 3840PX WORLD / NO CUT</div>
+        </div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+          var v = window.__hyperframes.getVariables(),
+            fill = document.querySelector("#lct-root .lct-fill"),
+            tl = gsap.timeline({ paused: true });
+          fill.style.setProperty("--ink", v.ink || "#171a18");
+          tl.to(
+            "#lct-line",
+            { strokeDashoffset: 3420, duration: 0.8, ease: "power3.out" },
+            0,
+          )
+            .to(
+              "#lct-tip",
+              { attr: { cx: 960 }, duration: 0.8, ease: "power3.out" },
+              0,
+            )
+            .to(
+              "#lct-line",
+              { strokeDashoffset: 2880, duration: 0.332, ease: "none" },
+              0.801,
+            )
+            .to(
+              "#lct-tip",
+              { attr: { cx: 1500 }, duration: 0.332, ease: "none" },
+              0.801,
+            )
+            .to(
+              "#lct-world",
+              { x: -1920, duration: 2, ease: "power2.inOut" },
+              1.134,
+            )
+            .to(
+              "#lct-line",
+              { strokeDashoffset: 960, duration: 2, ease: "power2.inOut" },
+              1.134,
+            )
+            .to(
+              "#lct-tip",
+              { attr: { cx: 2600 }, duration: 1.145, ease: "power2.inOut" },
+              1.134,
+            )
+            .to(
+              "#lct-tip",
+              { attr: { cy: 375 }, duration: 0.343, ease: "none" },
+              2.28,
+            )
+            .to(
+              "#lct-tip",
+              { attr: { cx: 3090 }, duration: 0.51, ease: "none" },
+              2.624,
+            )
+            .to(
+              "#lct-line",
+              { strokeDashoffset: 0, duration: 0.6, ease: "power3.out" },
+              3.135,
+            )
+            .to(
+              "#lct-tip",
+              { attr: { cx: 3160 }, duration: 0.044, ease: "none" },
+              3.135,
+            )
+            .to(
+              "#lct-tip",
+              { attr: { cy: 705 }, duration: 0.206, ease: "none" },
+              3.18,
+            )
+            .to(
+              "#lct-tip",
+              { attr: { cx: 2600 }, duration: 0.349, ease: "none" },
+              3.387,
+            )
+            .to("#lct-tip", { opacity: 0, duration: 0.2, ease: "none" }, 3.734)
+            .to(
+              "#lct-root .lct-content,#lct-root .lct-title-b",
+              { opacity: 1, duration: 0.4, ease: "none" },
+              3.734,
+            );
+          window.__timelines["shot-line-carry-transition"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

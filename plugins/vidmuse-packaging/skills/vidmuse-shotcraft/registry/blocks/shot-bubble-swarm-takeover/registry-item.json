@@ -1,0 +1,24 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-bubble-swarm-takeover",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Bubble Swarm Takeover",
+  "description": "Forty deterministic pearlescent bubbles in three depth ranks swell into a full-screen branded curtain, hide a scene cut at whiteout peak, then disperse radially.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.333,
+  "tags": [
+    "shotcraft",
+    "transition",
+    "bubbles",
+    "swarm",
+    "whiteout",
+    "brand-curtain"
+  ],
+  "files": [
+    {
+      "path": "shot-bubble-swarm-takeover.html",
+      "target": "compositions/shot-bubble-swarm-takeover.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

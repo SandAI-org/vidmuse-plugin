@@ -1,0 +1,17 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-black-title-card-transition",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Black Title Card Transition",
+  "description": "The source fades to black, a monospaced chapter title types into the center, and the title yields to the next page with a restrained editorial handoff.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "transition", "title-card", "black", "chapter", "shot-transitions-6"],
+  "files": [
+    {
+      "path": "shot-black-title-card-transition.html",
+      "target": "compositions/shot-black-title-card-transition.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

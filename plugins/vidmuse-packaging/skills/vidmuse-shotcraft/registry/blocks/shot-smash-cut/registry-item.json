@@ -1,0 +1,24 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-smash-cut",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Smash Cut",
+  "description": "Five product cards accelerate through two increasingly noisy passes while the background pushes and rolls, then a one-frame edit lands on a completely static verdict screen.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.5,
+  "tags": [
+    "shotcraft",
+    "rhythm",
+    "smash-cut",
+    "acceleration",
+    "impact",
+    "verdict"
+  ],
+  "files": [
+    {
+      "path": "shot-smash-cut.html",
+      "target": "compositions/shot-smash-cut.html",
+      "type": "hyperframes:composition"
+    }
+  ]
+}

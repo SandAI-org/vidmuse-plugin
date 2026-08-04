@@ -1,0 +1,11 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "shot-dutch-roll-to-level",
+  "type": "hyperframes:block",
+  "title": "Shotcraft Dutch Roll To Level",
+  "description": "A problem-state interface hangs at an uneasy Dutch angle with a slow drift before one decisive beat rolls the world level and replaces the warning with a clean card.",
+  "dimensions": { "width": 1920, "height": 1080 },
+  "duration": 4.667,
+  "tags": ["shotcraft", "camera", "dutch-angle", "roll", "resolve"],
+  "files": [{ "path": "shot-dutch-roll-to-level.html", "target": "compositions/shot-dutch-roll-to-level.html", "type": "hyperframes:composition" }]
+}
