@@ -1,6 +1,6 @@
 {
   "name": "vidmuse-packaging",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Package, recut, design, choreograph, source, review, and render VidMuse projects with focused product skills, narration-timed editorial collage generation, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
   "author": {
     "name": "VidMuse"
