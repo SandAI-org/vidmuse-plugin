@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.6] — 2026-08-04
+
+### Added
+
+- Added `vidmuse-ip`, a complete-film owner for reusable creator avatars,
+  mascots, stylized likenesses, and other recurring characters. Its first
+  scenario module covers IP-led knowledge explainers, with live CLI style
+  recommendations and explicit user confirmation before identity generation.
+
+### Changed
+
+- The router now sends IP Kit and IP-led film requests to `vidmuse-ip` while
+  keeping small mascot cameos inside their existing film owner.
+- `vidmuse-cli` now documents paginated `style list` discovery and exact
+  `style get` receipts for style-selection workflows.
+
 ## [0.2.5] — 2026-08-04
 
 ### Changed

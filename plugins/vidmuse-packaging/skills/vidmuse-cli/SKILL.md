@@ -145,6 +145,26 @@ Before a credit-consuming generation, ensure the chosen model supports the reque
 
 A run that fails on insufficient credits mid-batch is the expensive failure: earlier beats are already paid for and the film is unfinishable. Surface the balance before the batch, not after the provider rejects a call. A successful media generation returns public result URLs; return those URLs to `vidmuse-media` or the owning workflow for download and provenance recording.
 
+## Style discovery
+
+Style reads are free and do not require a balance check. Use the live catalog whenever an owning workflow needs a visual-style recommendation or an exact style receipt:
+
+```bash
+"$VIDMUSE_BIN" style list --scope all --view summary --limit 200 -o json
+```
+
+Use `--scope official` or `--scope user` only when the caller explicitly narrows the source. `style list` has no search flag; filter the returned `name` and `tags` locally, or use repeatable exact `--tag` filters. If `total` exceeds the returned page, continue with `--offset` until the caller has the complete requested scope. Never report that no relevant style exists from the default or a truncated page.
+
+Summary entries contain `id`, `name`, `tags`, and `imageUrl`. After the owning workflow shortlists no more than three candidates, inspect each exact entry:
+
+```bash
+"$VIDMUSE_BIN" style get <styleId> --view full -o json
+```
+
+The full result contains the stable receipt fields used by film workflows: `id`, `name`, `scope`, `tags`, `imageUrl`, `description`, `analysis`, and `promptSample`. Return those fields unchanged. Do not turn `promptSample` into a film direction, decide which candidate wins, or treat a preview as user approval; those remain the owner's judgment.
+
+Use `--fields` only when a caller explicitly needs a smaller response. Do not invent `style search`, style-creation commands, or undocumented filter values.
+
 ## Local preview and render
 
 For both commands, require an existing DSL JSON path. Keep the DSL owner responsible for its content.

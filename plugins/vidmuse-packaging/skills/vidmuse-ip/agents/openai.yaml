@@ -1,0 +1,4 @@
+interface:
+  display_name: "VidMuse IP"
+  short_description: "Create reusable IP-led VidMuse films"
+  default_prompt: "Use $vidmuse-ip to create an IP-led video from this idea, first establishing or reusing the character identity, then recommending live VidMuse styles for my approval before production."
