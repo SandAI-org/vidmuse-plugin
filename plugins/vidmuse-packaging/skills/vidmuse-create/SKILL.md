@@ -68,7 +68,7 @@ Present the options with a recommendation and your reasoning, then wait. Do not 
 
 Two things make this cheap to ask: it is one exchange rather than a per-stage interrogation, and it happens before anything has been captured, written, or paid for. If the user declines to choose or says "you decide," record the assumption you adopted in `BRIEF.md` and continue — an explicit deferral is an answer.
 
-Everything else in the list above may be safely inferred. Ask one further short question only when an unresolved choice would materially change the deliverable. Record the settled intent in `BRIEF.md`. Default design mode is bespoke; an official HyperFrames preset remains inactive unless the user asks to browse or selects one.
+Everything else in the list above may be safely inferred. Ask one further short question only when an unresolved choice would materially change the deliverable. Record the settled intent in `BRIEF.md`. Default visual direction is bespoke, while implementation prefers adapting proven official or Shotcraft blocks when they fit; an official HyperFrames visual preset remains inactive unless the user asks to browse or selects one.
 
 Initialize through `hyperframes-cli` only when the project does not already exist. Do not start HyperFrames Studio, preview, or timeline UI.
 
@@ -188,8 +188,9 @@ The direction must include:
 - an explicit rejection of foreign template language and gratuitous decoration.
 
 Keep official presets optional. Use the official HyperFrames Registry and the local
-`vidmuse-shotcraft` library as capability vocabularies, not as art directors. Select a block
-or component only after naming the beat's communicative job.
+`vidmuse-shotcraft` library as proven implementation vocabularies, not as art directors.
+Select and adapt a block only after naming the beat's communicative job, so a bespoke visual
+system can still benefit from a reliable motion recipe.
 
 **Gate:** the visual system could not be pasted unchanged onto an unrelated film and every major treatment is traceable to content or source evidence.
 
@@ -228,12 +229,19 @@ Create human presence through observed behavior, causal response, selective deta
 
 Load `hyperframes-registry` for discovery, `hyperframes-core` for the composition contract, and `hyperframes-animation` for seek-safe implementation. Query the live catalog; do not rely on a memorized component list.
 
-When the approved job calls for a transition, title treatment, camera move, UI entrance,
-interaction, data beat, impact, rhythm device, opening, or outro, also load
-`vidmuse-shotcraft`. Search it by the job and shortlist no more than three blocks. Install an
-exact selected `shot-*` item through its local `install-local.mjs`; never send a `shot-*`
-name to `hyperframes add`, change the project's official Registry URL, or bulk-install a
-tag. Prefer the official item whenever it is the better semantic fit.
+After cue chains exist, prefer a quick search of the official Registry and, for transition,
+title, camera, UI, interaction, data, impact, rhythm, opening, or outro jobs,
+`vidmuse-shotcraft` before writing a custom implementation. Focus on the few support or hero
+beats where a packaged mechanism could materially improve the film; ordinary cuts, fades,
+and quiet beats do not need a catalog pass. Let search rank the full relevant catalog, but
+return no more than three compact candidate summaries for each eligible beat job — this is
+not a three-effect limit for the film. Compare names, descriptions, tags, durations, and
+semantic fit first; inspect the manifest and HTML only for the candidate most likely to be
+used. When none clearly fits, refine the job query once or proceed directly with custom work
+without creating a separate selection artifact or audit. Install an exact selected `shot-*`
+item through its local `install-local.mjs`; never send a `shot-*` name to `hyperframes add`,
+change the project's official Registry URL, or bulk-install a tag. Prefer the official item
+whenever it is the better semantic fit.
 
 - Prefer a close official item when it expresses the correct semantic job.
 - Remove demo content and adapt the item to `FRAME.md` without breaking its contract.
@@ -242,7 +250,7 @@ tag. Prefer the official item whenever it is the better semantic fit.
   its internal duration together when the beat span differs.
 - Treat every Shotcraft block as native 16:9. Re-author it for another aspect ratio and pass
   full QA, or choose a different treatment; do not scale the full stage as adaptation.
-- Use custom HTML/SVG/CSS/GSAP when no official item fits; do not distort a component beyond recognition merely to reuse it.
+- Use custom HTML/SVG/CSS/GSAP when the quick search finds no clear fit; do not distort a component beyond recognition merely to reuse it.
 - Keep one paused master timeline registered on `window.__timelines`.
 - Keep render-time media local and deterministic.
 - Build one complete host document for Timeline. Never point Timeline directly at a raw component or Registry template.

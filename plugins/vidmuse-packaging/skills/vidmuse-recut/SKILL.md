@@ -192,11 +192,16 @@ Treat source-camera motion as a high-attention spatial decision because it moves
 
 After selecting the spatial mode, load `vidmuse-motion` and build a cue chain from exact ATA word anchors plus relevant pauses, gestures, and source events. A card window defines availability, not one simultaneous entrance: reveal claims, branches, values, and consequences when the speaker reaches them, then hold and resolve intentionally. Hand the approved motion brief to `hyperframes-animation`; never select animation rules or effects before the semantic and temporal reason exists.
 
-Only after that cue chain exists may `vidmuse-shotcraft` be loaded for an installable
-implementation candidate. Query `recut:safe` first and shortlist no more than three;
-`recut:adapt` requires a named structural adaptation and `create-only` is unavailable by
-default. Install the exact `shot-*` item through the skill's local installer, strip every
-piece of demo content, and rebuild it against the approved source interval and `FRAME.md`.
+Once that cue chain exists, prefer a quick `vidmuse-shotcraft` search for the few support,
+hero, or editorial-punctuation moments that could benefit from a proven implementation;
+clean source-led passages and simple cuts do not need a catalog pass. Query `recut:safe`
+first and return no more than three compact candidate summaries for each eligible packaging
+moment — not three for the whole film. Compare the summaries first and inspect full source
+only for the likely winner. If none clearly fits, refine the query once or continue with a
+custom treatment without creating a separate selection artifact or audit. `recut:adapt`
+requires a named structural adaptation and `create-only` is unavailable by default. Install
+the exact selected `shot-*` item through the skill's local installer, strip every piece of
+demo content, and rebuild it against the approved source interval and `FRAME.md`.
 A Shotcraft block never relaxes protected-region, spatial-state, static-hero, overlay-host,
 or Timeline gates. In particular, the raw Registry payload and installed raw block are not
 valid `htmlSourceFilePath` values.

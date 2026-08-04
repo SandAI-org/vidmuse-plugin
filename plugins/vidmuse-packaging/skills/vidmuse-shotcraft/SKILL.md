@@ -41,8 +41,14 @@ Search follows this order:
 1. the beat's communicative job, relationship, intensity, and spatial mode;
 2. bilingual job aliases in `indexes/by-job.json`;
 3. exact manifest names, descriptions, and tags;
-4. a shortlist of no more than three candidates;
-5. inspection of the winning manifest and HTML before install.
+4. up to three compact candidate summaries for that one job;
+5. inspection of the likely winner's manifest and HTML before install.
+
+`--limit 3` limits only the summaries returned for one job. Search still ranks the full
+catalog, and the limit does not cap the number of searches, installed blocks, or effects in
+the film. Compare names, descriptions, tags, durations, and policy first. Read full HTML
+only for the candidate most likely to be used; if none fits, refine the job query once or
+return to the owning workflow for a custom treatment.
 
 Prefer a better-fitting official block when one exists. Shotcraft is not a monopoly and
 its demo content is never evidence.
@@ -138,13 +144,16 @@ audio, captions, and opaque background.
 ## Create and recut boundaries
 
 For `vidmuse-create`, use the complete library only after story, evidence, `FRAME.md`, beat
-duration, and cue chain exist. A shot name is an implementation hint, not a storyboard
-premise. Prefer one recurring primary language and at most one rare accent across a film.
+duration, and cue chain exist. For obvious support or hero jobs, prefer one quick catalog
+search before custom implementation; do not search every quiet beat or create a separate
+selection artifact. A shot name is an implementation hint, not a storyboard premise.
+Prefer one recurring primary language and a small number of earned accents across a film.
 
-For `vidmuse-recut`, query `--recut safe` first. Keep the source plate authoritative and
-use shots mainly for earned editorial punctuation, evidence, data, or type moments. An
-`adapt` candidate needs an explicit overlay/takeover plan; `create-only` remains unavailable
-unless it is fully redesigned and re-reviewed as a new host.
+For `vidmuse-recut`, prefer a quick `--recut safe` search for likely support, hero, or
+editorial-punctuation moments. Keep the source plate authoritative and use shots mainly for
+earned editorial punctuation, evidence, data, or type moments. An `adapt` candidate needs
+an explicit overlay/takeover plan; `create-only` remains unavailable unless it is fully
+redesigned and re-reviewed as a new host.
 
 ## Validate
 

@@ -1,6 +1,6 @@
 {
   "name": "vidmuse-packaging",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Package, recut, design, choreograph, source, review, and render VidMuse projects with focused product skills, 162 locally installable Shotcraft effects, narration-timed editorial collage generation, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
   "author": {
     "name": "VidMuse"

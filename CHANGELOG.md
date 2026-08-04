@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.5] — 2026-08-04
+
+### Changed
+
+- VidMuse Create and Recut now prefer a quick official Registry and Shotcraft search for
+  eligible support and hero jobs before custom implementation. Each job returns at most
+  three compact candidate summaries from the full catalog, then inspects source only for
+  the likely winner; simple cuts and unmatched jobs continue directly without extra audit
+  artifacts.
+
 ## [0.2.4] — 2026-08-04
 
 ### Added
