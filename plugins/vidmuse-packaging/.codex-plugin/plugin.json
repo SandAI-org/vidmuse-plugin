@@ -1,6 +1,6 @@
 {
   "name": "vidmuse-packaging",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Create, package, and recut VidMuse projects, including generation-first reusable IP-led films, with focused product skills, 162 locally installable Shotcraft effects, narration-timed editorial collage generation, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
   "author": {
     "name": "VidMuse"

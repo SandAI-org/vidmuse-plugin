@@ -96,11 +96,11 @@ Do not design layouts or select effects yet.
 
 ### 3. Capture and select evidence
 
-For a URL, load `hyperframes-cli`, read its capture contract, and run official HyperFrames Capture into the project `capture/` directory. Treat a failed, blocked, empty, or untrustworthy capture as a hard stop; do not manufacture a synthetic version of the product. A supplied screenshot or no-capture brief is a different authorized source, not an automatic fallback.
+For a URL or missing remote asset, first use the host Agent's native web search, browser, download, and file capabilities when they can inspect the authoritative source and save the needed material reliably. Do not duplicate those general-purpose capabilities inside VidMuse. When the host lacks them, the native attempt fails or is insufficient, or the story needs a webpage/interface state sequence rather than one downloadable file, load `hyperframes-cli`, read its capture contract, and run official HyperFrames Capture into the project `capture/` directory. Treat the result as a hard stop only after the chosen native path and its applicable Capture fallback are blocked, empty, or untrustworthy; do not manufacture a synthetic version of the product. A supplied screenshot or no-capture brief is a different authorized source, not an automatic fallback.
 
 For supplied material, inventory the real files and inspect representative pixels or frames. For an explainer, inventory the factual sources, data, diagrams, and media that can support each claim.
 
-Then load `vidmuse-assets`. Give it the provisional beats and canonical capture inventory. Require an editorial evidence pass:
+Then load `vidmuse-assets`. Give it the provisional beats and the canonical source inventory produced by supplied media, native Agent retrieval, or Capture. Require an editorial evidence pass:
 
 - map each claim to the thing that would prove it;
 - prefer a state sequence over an attractive isolated image;

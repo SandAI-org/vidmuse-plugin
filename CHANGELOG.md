@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.8] — 2026-08-05
+
+### Added
+
+- Recut now performs a blocking asset-opportunity pass before art direction. Concrete beats prefer supplied/source-native media or license-clear web-sourced images and icons before generated illustration or text-only geometry; Capture remains a fallback, and approved remote assets are localized into the project and recorded with provenance in `FRAME.md`.
+- `vidmuse-assets` now defines license-aware web discovery and distinguishes factual evidence from contextual or atmospheric stock.
+
+### Changed
+
+- Recut's preview and final QA gates now reject the recurring "text plus rectangles" fallback when a usable concrete asset exists, reject remote hotlinks, and require sourced media to carry meaning at a reviewable scale rather than appear as decoration.
+- Create, Recut, Assets, and the router now prefer the host Agent's built-in web search, browser, download, and file capabilities for remote sourcing and localization. Official HyperFrames Capture remains the fallback for hosts without those capabilities or sources that require page/state capture; VidMuse no longer duplicates generic network transport in `vidmuse-media`.
+
 ## [0.2.7] — 2026-08-05
 
 ### Changed

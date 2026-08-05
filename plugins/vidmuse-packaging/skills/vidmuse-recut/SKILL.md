@@ -1,6 +1,6 @@
 ---
 name: vidmuse-recut
-description: "Direct and package an existing talking-head, interview, podcast, founder, course, or presentation video from its spoken content and visible composition. Use for creator-aware decisions about which ideas deserve graphics, packaging density, safe placement around people, subtitles, products, screens, and platform UI, plus a project-specific original HTML design preview, timed cards, kinetic titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture, reframing, and visual polish while the source clip plays completely and unchanged. Do not use for plain subtitles, transcription, trimming, reordering, or a film made without primary speaking footage."
+description: "Direct and package an existing talking-head, interview, podcast, founder, course, or presentation video from its spoken content and visible composition. Use for creator-aware decisions about which ideas deserve source footage, licensed web-sourced imagery or icons, graphics, safe placement around people, subtitles, products, screens, and platform UI, plus a project-specific original HTML design preview, timed cards, B-roll, screenshots, kinetic titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture, reframing, and visual polish while the source clip plays completely and unchanged. Do not use for plain subtitles, transcription, trimming, reordering, or a film made without primary speaking footage."
 ---
 
 # VidMuse Recut
@@ -105,6 +105,32 @@ Record the compact audit in `FRAME.md`; do not create a separate audit artifact 
 
 Separate stable identity from transient accidents. A single orange object may be a useful accent when it recurs and holds the room together; a one-frame compression artifact is not a design token. If the proposed direction could have been created without seeing the video, the audit has not influenced the design and the direction fails.
 
+## Run an asset-opportunity pass before art direction
+
+After the source audit and semantic beat selection, load `vidmuse-assets` before writing `FRAME.md`. A recut is not limited to typography and agent-drawn diagrams: when a beat names or depends on something concrete, a truthful image, icon, screenshot, document, interface, or B-roll plate often communicates faster and feels more alive.
+
+For every selected `support` or `takeover` beat, write a compact internal decision:
+
+`beat → visible evidence or atmosphere needed → best source tier → selected local asset or explicit reason for none`
+
+Use this source order:
+
+1. supplied material and usable detail already present in the source video;
+2. official product, organization, brand, creator, or publication pages and their capturable interfaces;
+3. license-clear remote assets found through web search, such as official icon libraries, Wikimedia Commons, or a stock library whose license is verified on its source page;
+4. generated or agent-authored imagery when no honest real asset exists and it will not be mistaken for evidence;
+5. typography and diagrams for genuinely abstract relationships, numbers, processes, and comparisons.
+
+Search the web when network tools are available and a concrete beat lacks a good supplied or official-capture asset. Search by the beat's actual nouns and visual job, not by a broad mood alone. Open the original source page for every serious candidate; a search-result thumbnail, filename, or snippet is discovery evidence, not proof of identity or license. Record the author or owner, source page, license or allowed-use terms, attribution duty, and whether the asset is evidence, context, or atmosphere.
+
+Use the host Agent's native web search, browser, download, and file tools first when they can inspect the original source and save the approved file reliably. These capabilities are already part of Codex, Claude Code, and similar hosts; do not rebuild them inside VidMuse. If the host lacks those capabilities, the native attempt fails or is insufficient, or a webpage/state sequence cannot be represented by downloading one canonical file, use official HyperFrames Capture as the fallback. Localize the result into `design-preview/assets/` while designing and into `public/assets/` for final composition. Rendering must never depend on a remote URL. Record each retained asset in an `Asset ledger` section of `FRAME.md` with its project-local path, source page, author/owner, license, intended beat, and crop limitation; do not create a parallel required manifest.
+
+Treat stock honestly. A licensed filmmaking photo may establish industry atmosphere, but it cannot prove the creator personally worked on that set. An official product screenshot may prove interface identity, while a hand-built imitation may not. An open-source icon can replace a generic hand-drawn symbol, but it is not evidence for a factual claim.
+
+Do not silently replace a searchable real-world object with a home-drawn SVG board or a large text panel merely because drawing is easier. Original illustration is appropriate when abstraction is the point; it is not a substitute for a real product, place, person, document, tool, or industry object. If a usable remote candidate cannot be localized or its rights remain unclear, record the gap and choose a visibly honest fallback.
+
+**Gate:** if two or more selected support/hero beats refer to concrete things but the proposed preview contains no supplied, captured, or license-clear sourced media, the asset pass fails unless `FRAME.md` gives a beat-specific reason no honest asset exists. "Keep the design self-contained" is not such a reason; it means localize approved assets before use.
+
 ## Map protected and usable space per interval
 
 Use the audit frames to inspect the actual pixels throughout every candidate window. Build protected regions from the union of occupied areas and stable whitespace from the intersection of free areas across the interval. A region is safe only when it stays safe for the entire visible interval.
@@ -147,7 +173,7 @@ After the source audit and bespoke `FRAME.md` exist, create `design-preview/inde
 
 Author the page from scratch around the current creator, footage, transcript, audience, platform, and approved direction. Never copy a shipped `frame-showcase.html`, style reference, demo layout, sample metadata, or placeholder language. An explicitly selected official preset may inform the coordinated grammar, but the preview must still use this project's real content and newly composed layouts.
 
-Make the HTML self-contained except for project-local source frames, fonts, and approved assets. Do not use remote fonts, render-time network requests, generic stock, or fabricated product evidence. Keep `FRAME.md` as the design source of truth; the preview demonstrates it and never silently overrides it.
+Make the HTML self-contained except for project-local source frames, fonts, and approved assets. Do not use remote fonts or render-time network requests. Do not use generic stock as factual evidence or fabricate product evidence; license-clear stock may be used deliberately for atmosphere when `FRAME.md` labels that role. Keep `FRAME.md` as the design source of truth; the preview demonstrates it and never silently overrides it.
 
 Show the system in context rather than as a token dump. Use enough representative source states to expose real variation—normally a quiet frame, a visually busy or gesture-heavy frame, and a likely support/hero interval. Include only specimens the planned film may actually use:
 
@@ -158,9 +184,10 @@ Show the system in context rather than as a token dump. Use enough representativ
 - the persistent caption/navigation treatment and recurring signature;
 - one restrained signal treatment;
 - one or two likely support/hero treatments such as a lower-third, evidence callout, relationship diagram, split, or picture-in-picture;
+- the selected image, icon, screenshot, document, or B-roll treatment for every representative concrete beat, shown at a crop and scale close enough to judge in the final film;
 - one short deterministic motion lifecycle showing origin, semantic trigger, readable hold, resolution, and return to the source.
 
-Do not showcase every possible component. The page should communicate one authored visual world, not resemble a UI kit or a template marketplace. Use real transcript phrases and real planned evidence; remove decorative English, fake numbers, arbitrary indices, and effects that the film has not earned.
+Do not showcase every possible component. The page should communicate one authored visual world, not resemble a UI kit or a template marketplace. Use real transcript phrases and real planned evidence; remove decorative English, fake numbers, arbitrary indices, and effects that the film has not earned. A sourced asset must carry meaning at a useful scale rather than sit in a corner as decorative proof that an image was downloaded. When concrete beats remain text plus rectangles despite an approved asset, revise the specimen before presenting it.
 
 Open the HTML in a browser when local browser control is available and inspect it at the target ratio plus a narrower viewport. Require no console errors, missing local assets, font fallbacks, overflow, unreadable text, or protected-region collisions. Also capture a static overview or representative screenshots so the direction remains reviewable when the live page is closed.
 
@@ -229,6 +256,8 @@ Keep Storyboard v3 unchanged. Use each card's existing `intent` to state the rhe
 - `emphasisLevel`
 - `keepFaceVisible`
 - `evidence`
+- `selectedMedia`, with a project-local path plus whether it is evidence, context, or atmosphere
+- `assetSource`, with the source page and license shorthand when remote media is used
 - `sourceCue`
 - `relationshipEncoding`
 - `spatialMode`
@@ -283,6 +312,8 @@ Before rendering, snapshot the start, hero/midpoint, and end of every card windo
 - Platform UI and burned-in source subtitle regions remain clear. Planned captions render above the package, stay readable throughout changing backgrounds, and do not require an empty rail beneath them.
 - The primary focal point is unambiguous and the graphic is readable before it exits.
 - Every card has a content reason; removing it would reduce comprehension, credibility, memory, emotion, or attention.
+- Every concrete beat passed the asset-opportunity decision: approved source, captured, or license-clear remote media is used where it communicates better than invented UI or text-only geometry; every deliberate no-asset decision has a beat-specific reason in `FRAME.md`.
+- Every remote asset is project-local at render time, appears in the `FRAME.md` Asset ledger with provenance and usage role, and is used within the verified license and crop constraints. No search thumbnail or hotlinked URL reaches the composition.
 - Palette, material, geometry, placement, or motion visibly inherits specific evidence from the source audit; it does not feel pasted over an unrelated video.
 - The visual direction is independently authored unless the user explicitly selected a shipped design; no preset was silently inherited.
 - The final package still matches the accepted `design-preview/index.html`; any material departure is visible and justified in `FRAME.md`.
