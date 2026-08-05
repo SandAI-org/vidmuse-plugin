@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.7] — 2026-08-05
+
+### Changed
+
+- Reworked `vidmuse-ip` as a generation-first workflow: aligned narration now
+  becomes a sequence of character-bound generated scenes whose content and
+  motion live in the video prompts. Packaging is limited to unobtrusive
+  subtitles, an optional edge progress indicator, and shot transitions;
+  information cards and other overlays that obscure generated content are removed.
+- Clarified that a recurring IP remains owned by `vidmuse-ip` even when it uses
+  Vox-like narration timing or collage styling. `vidmuse-vox` owns collage films
+  without a reusable IP lead.
+
 ## [0.2.6] — 2026-08-04
 
 ### Added

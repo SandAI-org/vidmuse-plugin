@@ -1,80 +1,64 @@
 # IP knowledge explainer
 
-Use for IP-led knowledge, process, tutorial, opinion, analysis, or concept videos. The IP acts as a recurring host and semantic guide; it does not need to lip-sync continuously or occupy every shot.
+Use for IP-led knowledge, process, tutorial, opinion, analysis, or concept videos. Treat the IP as a character moving through the subject, not a presenter layered beside explanatory graphics.
 
 ## Story grammar
 
 Choose one coherent arc:
 
-1. **Question or friction** — show what the viewer is trying to understand.
-2. **Creator position** — let the IP frame the insight or experience behind the answer.
-3. **Concrete demonstration** — convert the abstraction into an action, object, POV, or spatial metaphor.
-4. **Structured explanation** — move exact steps, data, or relationships into deterministic graphics while the IP guides attention.
-5. **Physical payoff** — return to the IP performing an action that resolves the opening idea.
+1. **Question in motion** — open with the IP encountering the problem, contradiction, or consequence.
+2. **Cause becomes physical** — turn the main mechanism into an action, environment, object relationship, or transformation.
+3. **Escalate or contrast** — let a new scene reveal why the first explanation is incomplete.
+4. **Resolve visibly** — return to the IP completing an action that embodies the conclusion.
 
-Do not force five beats or equal durations. Combine or expand them according to the argument and measured narration.
+Do not force four beats or equal durations. Split at argument and visual-situation changes measured from narration.
 
-## Material grammar
+## Generated-scene grammar
 
-Use these as roles, not a fixed template:
+For each beat define:
 
-| role | useful form | job |
-| --- | --- | --- |
-| establish host | full or medium IP scene | introduce creator identity and subject |
-| reaction/thought | close-up with one readable gesture | turn a question or contradiction |
-| explain from experience | IP at desk, board, object, or relevant environment | make the creator the source of the explanation |
-| make abstract physical | POV hands, props, cards, machine, path, or container | let action carry causality |
-| structure exact information | HyperFrames diagram, steps, chart, comparison, or text | preserve precision and reading time |
-| maintain identity in graphics | small approved cutout or miniature guide | point, travel, mark state, or bridge scale |
-| resolve | IP completes a physical action | make the conclusion visible rather than merely spoken |
+- what the narration means;
+- what visibly happens because of that meaning;
+- what the IP does, notices, changes, survives, builds, or resolves;
+- which objects and environment make the causality readable;
+- how the camera and action develop across the whole narration span;
+- which approved IP references constrain identity.
 
-The supplied reference pattern demonstrates a strong hybrid:
+Do not translate the narration into title cards, timelines, floating labels, data tiles, diagrams, or an IP pointing at information. Exact facts stay in narration and optional subtitles. The picture supplies experience, causality, scale, and emotion.
 
-```text
-IP reads → IP thinks → IP explains at a desk → POV hands arrange a process →
-deterministic four-step graphic with miniature IP → IP completes the process
-```
+## Prompt requirements
 
-Its lesson is material alternation, not its cream/green line-art skin. A different chosen style must preserve the creator, semantic actions, and information hierarchy without copying that surface.
+Write one self-contained prompt per generated clip. Include:
 
-## Storyboard requirements
+- one-sentence visual proposition;
+- approved IP identity anchors and reference inputs;
+- one primary action and its visible result;
+- scene, objects, scale, and spatial relationships;
+- framing and restrained camera behavior;
+- 2–4 timed motion phases ending at the requested duration;
+- selected style and aspect ratio;
+- prohibitions against cuts, identity drift, invented text, and unrelated actions when relevant.
 
-For each beat name:
+For a long argument, split it into semantic subclips. Never generate a short action and freeze it under the remaining narration.
 
-- the exact idea the viewer understands afterward;
-- the IP role and why it is present or absent;
-- the semantic gesture or object action;
-- the deterministic information that must not enter a video model;
-- the narration/action anchor;
-- the return path to the IP or recurring world.
+## Continuity
 
-Prefer a small number of generated performance shots with specific actions over constant generic talking. Useful actions include read, compare, point, sort, connect, open, build, test, file, reveal, and deliver. Do not ask the character to perform multiple unrelated verbs in one short generation.
+Keep the approved face, silhouette, proportions, signature marks, wardrobe logic, and voice. Vary location, action, scale, framing, and emotional intensity so the episode does not become one repeated presenter shot.
 
-## Visual direction
-
-Derive `FRAME.md` from the selected CLI style and IP Kit. Keep an invariant spine:
-
-- recognisable character silhouette and signature marks;
-- selected style's contour, material, color, lighting, and spatial rules;
-- one caption identity;
-- one recurring transition or scale device;
-- recurring IP-world props when they explain the creator's domain.
-
-Allow adaptive expression by beat: close-up, full scene, POV, cutout, miniature guide, graphic-only, and return shot. Do not render every idea as the same character beside the same card.
+The IP need not speak on camera or lip-sync continuously. Narration can remain offscreen while the IP acts inside the generated world.
 
 ## Audio
 
-Narration is normally the spine. Align every word before setting beat durations. Use the approved IP voice. BGM normally remains instrumental, low-detail under dense explanation, and more expressive during the opening, transitions, and payoff. Add SFX only when an action or state change benefits from it.
+Narration is the spine. Align every word before setting shot durations. Keep BGM instrumental and subordinate to speech. Use SFX only for visible actions or state changes.
 
 ## Quality gate
 
 Reject or revise when any answer is no:
 
-- Does the opening identify both the creator world and the viewer's question quickly?
-- Does every character action explain, reveal, compare, or resolve something?
-- Is exact information composed rather than baked into generated media?
-- Does the IP recur through identity, voice, cutout, prop, or world without occupying every frame?
-- Do POV and miniature-guide moments still match the approved kit?
-- Does a deterministic graphic remain visually part of the selected style?
-- Does the conclusion physically resolve the opening idea?
-- Would removing the IP make this indistinguishable from a generic explainer? If yes, strengthen creator-specific behavior, evidence, or world rather than adding decoration.
+- Does every beat turn its spoken idea into a visible event rather than a graphic explanation?
+- Is the IP participating in the subject instead of standing beside it?
+- Does meaningful motion continue across the full narration span?
+- Does each clip have one readable action and visible result?
+- Are identity and style stable across changing scenes?
+- Are exact facts carried outside the generated image?
+- Would removing later overlays still leave a coherent visual story? If no, rewrite the scene and prompt.

@@ -41,8 +41,8 @@ Keep one human-readable identity file and a small asset folder. Do not introduce
 - Hero:
 - Turnaround:
 - Expressions:
-- Reusable poses and cutouts:
-- Reusable scenes and props:
+- Additional identity references:
+- Approved episode reference frames:
 
 ## Consent
 - Likeness:
