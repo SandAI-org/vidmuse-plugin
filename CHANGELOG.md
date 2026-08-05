@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added a fail-closed Timeline preview-integrity contract for layered recuts. It now requires end-to-end transparency, continuous-playback review, source-pixel visibility through overlays, and item bounds that match the first and last visible graphic frames.
+
+### Changed
+
+- Timeline DSL validation now rejects opaque layered HyperFrames roots, duplicated source-video plates, and embedded audio when the DSL already owns program media. It warns when transparency or possible subtitle duplication cannot be proven statically, while leaving self-contained compositions valid.
+- Recut guidance now forbids hiding a black Timeline preview by copying the source video into the overlay host and requires trimming packaging items with more than two empty boundary frames.
+
+## [0.2.9] — 2026-08-05
+
+### Added
+
+- Added beat-level prompt compilation rules for IP films. References carry identity, narration audio can guide semantics and rhythm, and the resolved prompt varies IP role, fact treatment, must-show results, continuity, and creative freedom without exposing a universal template to the model.
+
+### Changed
+
+- IP generation now permits source-bound words, dates, percentages, prices, and numbers, while leaving staging, visual metaphor, performance, and camera choices open when the beat does not require tighter control.
+- Generated IP clips now go directly into a narration-ordered Timeline review after structural validation. Agent visual inspection, frame extraction, contact sheets, scoring, review renders, and autonomous retries wait until the user has seen the sequence and requested a revision or approved final QA.
+
 ## [0.2.8] — 2026-08-05
 
 ### Added

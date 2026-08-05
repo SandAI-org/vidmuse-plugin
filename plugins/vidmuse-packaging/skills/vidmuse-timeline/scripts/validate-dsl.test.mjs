@@ -13,7 +13,7 @@ function fixture() {
   fs.writeFileSync(path.join(root, "assets", "source.mp4"), "video");
   fs.writeFileSync(path.join(root, "assets", "music.wav"), "audio");
   fs.writeFileSync(path.join(root, "hyperframes", "index.html"), `<!doctype html>
-<html><body>
+<html><head><style>html, body, [data-composition-id] { background: transparent; }</style></head><body>
 <main data-composition-id="overlay" data-start="0" data-duration="12" data-width="1920" data-height="1080"></main>
 <script>window.__timelines = { overlay: { seek() {}, duration() { return 12; } } };</script>
 </body></html>`);
@@ -149,4 +149,55 @@ test("requires explicit sourceStartTime when one HyperFrames source is reused", 
   ];
   const findings = validateDsl(dsl, { dslPath });
   assert.equal(findings.filter((finding) => finding.code === "implicit_shared_hyperframes_time").length, 2);
+});
+
+test("rejects an opaque layered host and a duplicated source-video plate", () => {
+  const { dslPath, root } = fixture();
+  fs.writeFileSync(path.join(root, "hyperframes", "index.html"), `<!doctype html>
+<html><head><style>html, body { background: #000; }</style></head><body>
+<main id="stage" data-composition-id="overlay" data-start="0" data-duration="12" data-width="1920" data-height="1080" style="background:#000">
+  <video id="source-video" src="../assets/source.mp4" muted></video>
+</main></body></html>`);
+  const dsl = validDsl();
+  dsl.videoTracks[1].videos.push({
+    ...dsl.videoTracks[1].videos[0],
+    id: "overlay-repeat",
+  });
+  const findings = validateDsl(dsl, { dslPath });
+  assert.equal(findings.filter((finding) => finding.code === "opaque_layered_hyperframes_root").length, 1);
+  assert.equal(findings.filter((finding) => finding.code === "duplicate_source_video_in_hyperframes").length, 1);
+});
+
+test("warns when layered transparency is only implicit", () => {
+  const { dslPath, root } = fixture();
+  fs.writeFileSync(path.join(root, "hyperframes", "index.html"), '<main data-composition-id="overlay" data-start="0" data-duration="12" data-width="1920" data-height="1080"></main>');
+  const findings = validateDsl(validDsl(), { dslPath });
+  assert(findings.some((finding) => finding.code === "unverified_layered_hyperframes_transparency"));
+  assert(!findings.some((finding) => finding.code === "opaque_layered_hyperframes_root"));
+});
+
+test("does not treat an unused subtitle CSS class as duplicated caption markup", () => {
+  const { dslPath, root } = fixture();
+  fs.writeFileSync(path.join(root, "hyperframes", "index.html"), `<!doctype html>
+<html><head><style>html, body, [data-composition-id] { background: transparent; }.subtitle-host { color: white; }</style></head><body>
+<main data-composition-id="overlay" data-start="0" data-duration="12" data-width="1920" data-height="1080"></main>
+</body></html>`);
+  const dsl = validDsl();
+  dsl.subtitles = [{ id: "subtitle", text: "hello", startTime: 0, endTime: 1 }];
+  const findings = validateDsl(dsl, { dslPath });
+  assert(!findings.some((finding) => finding.code === "possible_subtitle_duplicate_in_hyperframes"));
+});
+
+test("allows embedded media in a self-contained composition with no main video track", () => {
+  const { dslPath, root } = fixture();
+  fs.writeFileSync(path.join(root, "hyperframes", "index.html"), `<!doctype html>
+<html><body><main data-composition-id="film" data-start="0" data-duration="12" data-width="1920" data-height="1080">
+  <video id="source-video" src="../assets/source.mp4" muted></video>
+  <audio src="../assets/music.wav"></audio>
+</main></body></html>`);
+  const dsl = validDsl();
+  dsl.videoTracks = [dsl.videoTracks[1]];
+  const findings = validateDsl(dsl, { dslPath });
+  assert(!findings.some((finding) => finding.code === "duplicate_source_video_in_hyperframes"));
+  assert(!findings.some((finding) => finding.code === "embedded_audio_in_layered_hyperframes"));
 });

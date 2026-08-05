@@ -9,7 +9,7 @@ Own the VidMuse DSL assembly and review surface. Translate already-approved film
 
 ## Source-of-truth boundary
 
-- Treat the film owner's official `STORYBOARD.md` for Create or `storyboard.json` for Recut, approved media, `FRAME.md`, captions, audio plan, and validated HyperFrames HTML as editorial inputs. Accept legacy `film-plan.json` only when resuming an older Create project.
+- Treat the film owner's official `STORYBOARD.md` for Create or `storyboard.json` for Recut, approved media, explicitly marked generated review candidates, `FRAME.md`, captions, audio plan, and validated HyperFrames HTML as editorial inputs. Accept legacy `film-plan.json` only when resuming an older Create project. A review candidate may enter Timeline before visual approval; Timeline inclusion does not approve it.
 - Treat `dsl.json` as the source of truth for VidMuse track assembly, playback settings, Timeline edits, and CLI rendering.
 - Keep Timeline edits in `dsl.json` or the explicitly edited HyperFrames HTML. Do not silently back-propagate them into the film plan, storyboard, or `FRAME.md`; report the difference to the owner for acceptance.
 - Preserve unknown fields and stable IDs when updating an existing DSL. Never rebuild the whole document merely to change one clip.
@@ -21,8 +21,9 @@ Own the VidMuse DSL assembly and review surface. Translate already-approved film
 3. Assemble or patch the narrowest DSL fields without changing editorial intent.
 4. Run `scripts/validate-dsl.mjs` and fix every error. Treat warnings as review items, not automatic failures.
 5. Validate every referenced HyperFrames host with the pinned `hyperframes-cli` checks before Timeline review.
-6. Load `vidmuse-cli` to serve or render the validated absolute DSL path.
-7. Re-read files after an editable Timeline session, validate again, and return a concise change summary or rendered paths to the film owner.
+6. For a layered preview, read [preview-integrity.md](./references/preview-integrity.md) and pass its static and live Serve gates; standalone HyperFrames correctness is not proof of Timeline compositing or continuous playback.
+7. Load `vidmuse-cli` to serve or render the validated absolute DSL path.
+8. Re-read files after an editable Timeline session, validate again, and return a concise change summary or rendered paths to the film owner.
 
 ## Canonical DSL v2
 
@@ -134,11 +135,14 @@ Treat `htmlSourceFilePath` as a reference to one complete renderable HyperFrames
 - Do not point directly at a raw Registry block template. Wire the block into a standalone host, or into the film's full overlay composition.
 - Do not add a private DSL component field. Keep component provenance in `FRAME.md`, `hyperframes.json`, and the HyperFrames project.
 
-Prefer one of two assembly modes:
+Choose the assembly mode from media ownership, not convenience:
 
-### Full overlay composition
+### Layered packaging host
 
-Reference one validated `public/index.html` from one HyperFrames item spanning the full project:
+Use this whenever the DSL main track owns the source picture or program audio,
+or DSL subtitles own the continuous captions. Reference a validated packaging-only
+host with explicit transparent roots and no duplicate source video, program audio,
+or Timeline-owned captions:
 
 ```json
 {
@@ -146,12 +150,21 @@ Reference one validated `public/index.html` from one HyperFrames item spanning t
   "type": "hyperframes",
   "startTime": 0,
   "duration": 12,
-  "htmlSourceFilePath": "public/index.html",
+  "htmlSourceFilePath": "timeline-overlay/index.html",
   "params": { "sourceStartTime": 0, "enabled": true }
 }
 ```
 
-Use this by default for recut and for films whose graphics share one coordinated master composition.
+One shared host may serve several discrete Timeline items when every item sets
+`params.sourceStartTime` explicitly. The item interval is the first-to-last visible
+graphic interval, not the broader spoken context that motivated the graphic.
+
+### Self-contained composition
+
+Reference `public/index.html` only when it is the sole owner of the source picture,
+program audio, and its captions. Do not mount a self-contained film above another
+copy of the same main video. If the DSL already owns those layers, derive a
+packaging-only host instead.
 
 ### Isolated composition items
 
@@ -182,7 +195,7 @@ node "$TIMELINE_SKILL_DIR/scripts/validate-dsl.mjs" /absolute/path/to/dsl.json
 node "$TIMELINE_SKILL_DIR/scripts/validate-dsl.mjs" /absolute/path/to/dsl.json --json
 ```
 
-The validator checks DSL v2, IDs, time ranges, canonical track behavior, total duration, local paths, active assets, playback settings, subtitle bounds, possible program-audio duplication, and complete HyperFrames host structure. It does not replace HyperFrames lint/check or visual review.
+The validator checks DSL v2, IDs, time ranges, canonical track behavior, total duration, local paths, active assets, playback settings, subtitle bounds, possible program-audio duplication, complete HyperFrames host structure, and common layered-host ownership/background violations. It cannot prove alpha compositing or continuous playback; the live Serve gate in [preview-integrity.md](./references/preview-integrity.md) remains mandatory.
 
 Stop before serve or render when errors remain. Review warnings in context; do not suppress them by deleting intentional project data.
 
@@ -214,6 +227,9 @@ Load `vidmuse-cli` for the exact binary path and live command syntax.
 - Treat editable serve as a real local mutation session: the UI can persist the complete DSL and edit HyperFrames HTML.
 - Keep the foreground process alive, report its URL, and do not expose a non-loopback host implicitly.
 - When the owning film workflow marks Serve as a mandatory perception checkpoint, start it immediately after validation without asking another confirmation. Do not continue into art direction until the process is alive and the URL has been reported to the user.
+- When an IP owner requests immediate generated-clip review, assemble the candidate clips sequentially with their narration, run structural DSL validation, and start Serve before any Agent visual inspection. Do not watch the clips, extract sample frames, create contact sheets, render a review file, score the generation, or delay the URL for autonomous quality judgment.
+- The immediate IP candidate checkpoint overrides the following live-perception instructions until the user has seen the sequence. For other reviews, and after user-requested IP revisions or packaging edits, reload the page and exercise the real preview continuously across every packaging item. Confirm the source remains visible through intended transparency, motion advances during Play, item bounds match the first and last visible graphic frames, and no black fill, residue, or fetch/media error appears.
+- Treat a black fill that appears only while a transparent HyperFrames item is active as a preview-compositor failure. Do not hide it by embedding a second source-video plate in the packaging host; follow [preview-integrity.md](./references/preview-integrity.md) and block review until the runtime or an explicitly disclosed alpha-overlay proxy is valid.
 - After editing, re-read DSL and referenced HTML, inspect the actual diff, run both validators again, and return changed timing/style fields to the owner.
 
 Do not claim that opening Timeline approved the film. Report review state separately from artifact validity.
@@ -233,6 +249,7 @@ Do not start serve automatically after render. Do not render merely because the 
 ## Ownership and boundaries
 
 - Own DSL assembly, incremental DSL edits, semantic validation, Timeline serve mode, synchronization, render request definition, and review handoff.
+- Accept review-only generated candidates from an owner and preserve their candidate status until the user approves or requests replacement.
 - Let the film owner decide story, clip order, cut points, packaging density, design, caption policy, and acceptance of Timeline edits.
 - Let `vidmuse-design` define visual direction, `vidmuse-media` execute media operations, and the HyperFrames skills build and validate composition HTML.
 - Let `vidmuse-cli` resolve the bundled binary, flags, dependencies, process execution, and output parsing.

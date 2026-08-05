@@ -1,7 +1,7 @@
 {
   "name": "vidmuse-packaging",
-  "version": "0.2.8",
-  "description": "Create, package, and recut VidMuse projects, including generation-first reusable IP-led films, with focused product skills, 162 locally installable Shotcraft effects, narration-timed editorial collage generation, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
+  "version": "0.2.9",
+  "description": "Create, package, and recut VidMuse projects, including generation-first reusable IP-led films with variable-compiled semantic prompts and immediate Timeline review, focused product skills, 162 locally installable Shotcraft effects, narration-timed editorial collage generation, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
   "author": {
     "name": "VidMuse"
   },
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "VidMuse Packaging",
     "shortDescription": "Design and package creator-led videos",
-    "longDescription": "A minimal VidMuse architecture with dedicated Create, Recut, IP, and Vox workflows; narration-timed generated scenes and reusable identity files for IP-led films; focused design and semantic-motion capabilities; a bilingual local library of 162 installable HyperFrames Shotcraft treatments; a dedicated CLI skill carrying its macOS Apple-silicon executable; and pinned HyperFrames domain skills.",
+    "longDescription": "A minimal VidMuse architecture with dedicated Create, Recut, IP, and Vox workflows; flexible variable-compiled prompts, narration-timed generated scenes, reusable identities, and immediate Timeline review for IP-led films; focused design and semantic-motion capabilities; a bilingual local library of 162 installable HyperFrames Shotcraft treatments; a dedicated CLI skill carrying its macOS Apple-silicon executable; and pinned HyperFrames domain skills.",
     "developerName": "VidMuse",
     "category": "Creativity",
     "brandColor": "#8B5CF6",

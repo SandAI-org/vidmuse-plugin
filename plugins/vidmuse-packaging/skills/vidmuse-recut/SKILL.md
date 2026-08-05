@@ -339,9 +339,9 @@ The subtitle-review DSL is provisional. Its empty `graphics` track is correct on
 
 1. Map every approved storyboard card to exactly one timed HyperFrames item on the DSL `graphics` track, preserving a stable ID, absolute `startTime`, `duration`, `endTime`, and `params.sourceStartTime`.
 2. Make every packaging moment individually visible. One full-span graphics item is allowed only when the user explicitly asks for a consolidated, non-editable representation.
-3. Use an overlay-safe host whenever the DSL already owns the main video, program audio, or captions. Such a host must not contain duplicate source video, program audio, or Timeline-owned subtitles.
-4. Reconcile `storyboard.json`, the implemented HyperFrames card hosts, and `dsl.json`. Counts must match and no start time or duration may differ by more than one output frame.
-5. Run the HyperFrames host check and the DSL validator, restart Serve, and confirm from the live Timeline that every packaging item is exposed.
+3. Use an overlay-safe host whenever the DSL already owns the main video, program audio, or captions. Such a host must explicitly keep its document/composition roots transparent and must not contain duplicate source video, program audio, or Timeline-owned subtitles.
+4. Reconcile `storyboard.json`, the implemented HyperFrames card hosts, and `dsl.json`. Counts must match and no start time or duration may differ by more than one output frame. The reconciled window begins at the first visible graphic frame and ends at the last visible graphic frame; spoken setup that remains clean source is not packaging lifetime.
+5. Run the HyperFrames host check and the DSL validator, restart Serve, and execute the `vidmuse-timeline` live preview-integrity gate. Press Play through every item; confirm the main source remains visible through light overlays, motion advances continuously, transitions return cleanly, and no black fill or fetch/media error appears. Seeing item rectangles or seek-correct snapshots is insufficient.
 6. **Present the Timeline to the user and let them review the packaging points there before rendering.** This is the render gate: the user sees the packaging as segments on the graphics track, at their real times, and confirms them.
 
 Reconciliation is owner-level semantic validation. `validate-dsl` checks structural legality and must keep allowing a legitimately zero-packaging project, so it cannot detect "storyboard has 8 cards, graphics has 0" — only this workflow can.
@@ -385,6 +385,8 @@ Invariants:
 - IDs are unique project-wide and should match the `storyboard.json` card IDs.
 - `htmlSourceFilePath` points at a complete, independently renderable host — never a card fragment such as `public/cards/card-01.html`, and never a raw Registry template.
 - Pointing at `public/index.html` is wrong whenever that file still carries the source video, program audio, or the same captions the DSL owns: mounting it duplicates media. Derive an overlay-safe host from the validated composition instead — keep the cards and the one GSAP master timeline, remove the source video, program audio, subtitles, and opaque background, keep the transparent canvas plus local fonts, then re-run the HyperFrames check on it.
+- A packaging item must not contain a long fully transparent head or tail. At start plus one output frame, some intended package pixel must be developing; at end minus one frame, the exit may still be resolving. More than two empty frames at either edge requires trimming or splitting the item.
+- Never fix a black Timeline preview by copying the source video into the overlay host. That violates single ownership, can drift from the main track, doubles decoding, and can make preview and render disagree. Treat it as a preview-compositor defect and follow `vidmuse-timeline`'s preview-integrity failure path.
 - All timings within one frame of the storyboard and HyperFrames implementation.
 
 An empty `graphics` track when `storyboard.json` already holds packaging moments is an unfinished state, never a deliverable one.
