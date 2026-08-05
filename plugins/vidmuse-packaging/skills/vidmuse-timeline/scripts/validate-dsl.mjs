@@ -85,6 +85,89 @@ function rootCompositionTag(html) {
   return null;
 }
 
+function stripHtmlComments(value) {
+  return value.replace(/<!--[^]*?-->/g, "").replace(/\/\*[^]*?\*\//g, "");
+}
+
+function backgroundValueKind(value) {
+  const normalized = value.replace(/!important/gi, "").trim().toLowerCase();
+  if (["transparent", "none", "initial", "unset"].includes(normalized)) return "transparent";
+  if (/^#[0-9a-f]{3}0$/i.test(normalized) || /^#[0-9a-f]{6}00$/i.test(normalized)) return "transparent";
+  if (/^(?:rgba?|hsla?)\([^)]*(?:,|\/)\s*0(?:\.0+)?%?\s*\)$/i.test(normalized)) return "transparent";
+  return normalized ? "opaque" : null;
+}
+
+function lastBackgroundKind(declarations) {
+  let kind = null;
+  for (const match of declarations.matchAll(/\bbackground(?:-color)?\s*:\s*([^;}]+)/gi)) {
+    kind = backgroundValueKind(match[1]);
+  }
+  return kind;
+}
+
+function rootBackgroundPolicy(html, rootTag) {
+  const rootId = attributeValue(rootTag, "id");
+  const state = { html: null, body: null, composition: null };
+  const cleaned = stripHtmlComments(html);
+  const compositionSelectors = new Set([
+    "[data-composition-id]",
+    "main[data-composition-id]",
+    "div[data-composition-id]",
+    ...(rootId ? [`#${rootId}`] : []),
+  ]);
+  for (const styleMatch of cleaned.matchAll(/<style\b[^>]*>([^]*?)<\/style>/gi)) {
+    for (const match of styleMatch[1].matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const kind = lastBackgroundKind(match[2]);
+      if (!kind) continue;
+      for (const rawSelector of match[1].split(",")) {
+        const selector = rawSelector.trim().replace(/\s+/g, " ");
+        if (selector === "html" || selector === ":root") state.html = kind;
+        else if (selector === "body") state.body = kind;
+        else if (compositionSelectors.has(selector)) state.composition = kind;
+      }
+    }
+  }
+  const inlineKind = lastBackgroundKind(attributeValue(rootTag, "style") ?? "");
+  if (inlineKind) state.composition = inlineKind;
+  return {
+    explicitTransparent: Object.values(state).every((kind) => kind === "transparent"),
+    opaque: Object.values(state).some((kind) => kind === "opaque"),
+    state,
+  };
+}
+
+function embeddedMediaProfile(html) {
+  const cleaned = stripHtmlComments(html);
+  const markup = cleaned
+    .replace(/<style\b[^>]*>[^]*?<\/style>/gi, "")
+    .replace(/<script\b[^>]*>[^]*?<\/script>/gi, "");
+  const videos = [];
+  const audios = [];
+  for (const match of cleaned.matchAll(/<(video|audio)\b[^>]*>/gi)) {
+    const tag = match[0];
+    const entry = {
+      className: attributeValue(tag, "class") ?? "",
+      id: attributeValue(tag, "id") ?? "",
+      src: attributeValue(tag, "src") ?? "",
+    };
+    if (match[1].toLowerCase() === "video") videos.push(entry);
+    else audios.push(entry);
+  }
+  return {
+    audios,
+    possibleContinuousCaptions: /\bdata-subtitle(?:-|=)|\bsubtitle-host\b|class=(?:"[^"]*\bsubtitle\b[^"]*"|'[^']*\bsubtitle\b[^']*')/i.test(markup),
+    videos,
+  };
+}
+
+function likelyBaseVideo(entry, hostPath, mainMediaPaths) {
+  const identity = `${entry.id} ${entry.className} ${entry.src}`;
+  if (/\b(?:source|main|background|bg)[-_ ]?video\b|\binput-video\b/i.test(identity)) return true;
+  if (!entry.src || /^(?:data:|blob:|https?:)/i.test(entry.src)) return false;
+  const resolved = path.resolve(path.dirname(hostPath), entry.src.split(/[?#]/, 1)[0]);
+  return mainMediaPaths.has(resolved);
+}
+
 function ratioFromAspect(value) {
   if (typeof value !== "string") return null;
   const match = /^(\d+(?:\.\d+)?):(\d+(?:\.\d+)?)$/.exec(value.trim());
@@ -99,6 +182,7 @@ export function validateDsl(dsl, { dslPath = path.resolve("dsl.json"), fileSyste
   const dslDirectory = path.dirname(dslPath);
   const ids = new Map();
   const hyperframesSources = [];
+  const mainMediaPaths = new Set();
   let contentEnd = 0;
   let hasExplicitMainMedia = false;
   let hasAudibleMainProgram = false;
@@ -148,7 +232,7 @@ export function validateDsl(dsl, { dslPath = path.resolve("dsl.json"), fileSyste
   };
 
   const validateHyperframesHost = (resolved, fieldPath, item, duration) => {
-    if (!resolved || !fileSystem.existsSync(resolved)) return;
+    if (!resolved || !fileSystem.existsSync(resolved)) return null;
     if (resolved.split(path.sep).join("/").includes("/compositions/components/")) {
       add("error", "raw_hyperframes_component", fieldPath, "Reference a complete host composition, not a raw Registry component snippet.");
     }
@@ -157,12 +241,12 @@ export function validateDsl(dsl, { dslPath = path.resolve("dsl.json"), fileSyste
       html = fileSystem.readFileSync(resolved, "utf8");
     } catch (error) {
       add("error", "unreadable_hyperframes", fieldPath, error instanceof Error ? error.message : "Unable to read HyperFrames HTML.");
-      return;
+      return null;
     }
     const rootTag = rootCompositionTag(html);
     if (!rootTag) {
       add("error", "incomplete_hyperframes_host", fieldPath, "HTML needs a standalone data-composition-id root outside <template>.");
-      return;
+      return null;
     }
     for (const attribute of ["data-start", "data-width", "data-height", "data-duration"]) {
       if (attributeValue(rootTag, attribute) === null) {
@@ -184,6 +268,11 @@ export function validateDsl(dsl, { dslPath = path.resolve("dsl.json"), fileSyste
     if (width !== null && height !== null && targetRatio !== null && Math.abs(width / height - targetRatio) > 0.01) {
       add("warning", "hyperframes_aspect_mismatch", fieldPath, "HyperFrames host aspect ratio differs from the DSL canvas and will be scaled.");
     }
+    return {
+      background: rootBackgroundPolicy(html, rootTag),
+      media: embeddedMediaProfile(html),
+      resolved,
+    };
   };
 
   if (!isRecord(dsl)) {
@@ -204,6 +293,7 @@ export function validateDsl(dsl, { dslPath = path.resolve("dsl.json"), fileSyste
   const sourceSelection = dsl.sourceVideo?.filePath
     ? validatePath(dsl.sourceVideo.filePath, "sourceVideo.filePath")
     : null;
+  if (sourceSelection) mainMediaPaths.add(path.resolve(sourceSelection));
   const sourceMetadata = dsl.sourceVideo?.metadata ?? dsl.sourceVideo ?? {};
   for (const field of ["duration", "width", "height", "frameRate"]) {
     if (sourceMetadata[field] !== undefined && positiveNumber(sourceMetadata[field]) === null) {
@@ -269,8 +359,8 @@ export function validateDsl(dsl, { dslPath = path.resolve("dsl.json"), fileSyste
       if (hyperframes) {
         const sourceValue = item.htmlSourceFilePath || item.htmlSource;
         const resolved = validatePath(sourceValue, `${itemPath}.htmlSourceFilePath`, { hyperframes: true });
-        validateHyperframesHost(resolved, `${itemPath}.htmlSourceFilePath`, item, duration);
-        if (sourceValue) hyperframesSources.push({ item, itemPath, sourceValue });
+        const host = validateHyperframesHost(resolved, `${itemPath}.htmlSourceFilePath`, item, duration);
+        if (sourceValue) hyperframesSources.push({ host, item, itemPath, sourceValue });
         continue;
       }
 
@@ -291,8 +381,11 @@ export function validateDsl(dsl, { dslPath = path.resolve("dsl.json"), fileSyste
         if (item.modelConfig !== undefined) add("warning", "pending_video", itemPath, "Video is a generation placeholder and is not render-ready.");
         else add("error", "missing_video_file", `${itemPath}.videoFile`, "Video item needs an active videoFile.");
       } else {
-        validateAsset(item.videoFile, `${itemPath}.videoFile`);
-        if (!timed) hasExplicitMainMedia = true;
+        const validatedMedia = validateAsset(item.videoFile, `${itemPath}.videoFile`);
+        if (!timed) {
+          hasExplicitMainMedia = true;
+          if (validatedMedia.resolved) mainMediaPaths.add(path.resolve(validatedMedia.resolved));
+        }
       }
       const sourceHasAudio = item.hasAudio === true || (sourceMetadata.hasAudio === true && sourceSelection && media.selected === dsl.sourceVideo?.filePath);
       if (!timed && track.muted !== true && item.muted !== true && sourceHasAudio) hasAudibleMainProgram = true;
@@ -382,6 +475,34 @@ export function validateDsl(dsl, { dslPath = path.resolve("dsl.json"), fileSyste
     const previous = activeSubtitleIntervals[index - 1];
     const current = activeSubtitleIntervals[index];
     if (current.start < previous.end - EPSILON) add("warning", "subtitle_overlap", current.path, `Overlaps ${previous.path}.`);
+  }
+
+  if (hasExplicitMainMedia) {
+    const auditedHosts = new Set();
+    for (const { host, itemPath } of hyperframesSources) {
+      if (!host) continue;
+      if (auditedHosts.has(host.resolved)) continue;
+      auditedHosts.add(host.resolved);
+      const fieldPath = `${itemPath}.htmlSourceFilePath`;
+      if (host.background.opaque) {
+        add("error", "opaque_layered_hyperframes_root", fieldPath, "A HyperFrames host layered above a main video must keep html, body, and the composition root transparent; put opaque fills inside timed takeover clips.");
+      } else if (!host.background.explicitTransparent) {
+        add("warning", "unverified_layered_hyperframes_transparency", fieldPath, "Explicitly set html, body, and the composition root to background: transparent for layered Timeline preview.");
+      }
+      for (const video of host.media.videos) {
+        if (likelyBaseVideo(video, host.resolved, mainMediaPaths)) {
+          add("error", "duplicate_source_video_in_hyperframes", fieldPath, `Layered HyperFrames host embeds a likely source-video plate${video.src ? ` (${video.src})` : ""}; Timeline main must remain the only source-picture owner.`);
+        } else {
+          add("warning", "embedded_video_in_layered_hyperframes", fieldPath, `Layered HyperFrames host embeds video${video.src ? ` (${video.src})` : ""}; verify it is intentional B-roll rather than a second source-picture owner.`);
+        }
+      }
+      if (host.media.audios.length > 0) {
+        add("error", "embedded_audio_in_layered_hyperframes", fieldPath, "Layered HyperFrames host embeds audio; route program audio, music, and effects through Timeline-owned media/sound tracks.");
+      }
+      if (activeSubtitleIntervals.length > 0 && host.media.possibleContinuousCaptions) {
+        add("warning", "possible_subtitle_duplicate_in_hyperframes", fieldPath, "DSL subtitles are active and the layered host contains subtitle-like markup; keep one owner for the continuous spoken line.");
+      }
+    }
   }
 
   const declaredDuration = positiveNumber(dsl.totalDuration);
