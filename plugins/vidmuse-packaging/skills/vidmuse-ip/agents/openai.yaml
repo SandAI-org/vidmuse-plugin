@@ -1,4 +1,4 @@
 interface:
   display_name: "VidMuse IP"
-  short_description: "Create generation-first IP-led VidMuse films"
-  default_prompt: "Use $vidmuse-ip to create an IP-led video as narration-timed generated scenes, with only unobtrusive subtitles, an edge progress indicator, and shot transitions."
+  short_description: "Create flexible audio-driven IP films"
+  default_prompt: "Use $vidmuse-ip to compile flexible prompts from narration beats, generate the IP film, and place candidate clips in Timeline immediately for my review."

@@ -1,6 +1,6 @@
 ---
 name: vidmuse-ip
-description: "Create generation-first VidMuse films led by a reusable creator IP, mascot, avatar, or stylized likeness. Use when the user wants an IP video, IP 视频, 角色讲解, 动漫博主, 3D 卡通博主, 简笔画角色, virtual host, creator avatar, or a repeatable character series. Own IP setup or reuse, live style recommendation, narration-timed visual beats, character-bound prompts, Hailuo H3 or Seedance motion, minimal assembly, review, and delivery. Limit packaging to unobtrusive subtitles, an edge progress indicator, and shot transitions."
+description: "Create generation-first VidMuse films led by a reusable creator IP, mascot, avatar, or stylized likeness. Use when the user wants an IP video, IP 视频, 角色讲解, 动漫博主, 3D 卡通博主, 简笔画角色, virtual host, creator avatar, or a repeatable character series. Own IP setup or reuse, live style recommendation, narration-timed visual beats, variable-compiled prompts, Hailuo H3 or Seedance motion, immediate Timeline review, minimal assembly, and delivery. Limit packaging to unobtrusive subtitles, an edge progress indicator, and shot transitions."
 ---
 
 # VidMuse IP
@@ -12,10 +12,14 @@ The video model and its prompt own the picture. Timeline owns only assembly. Do 
 ## Core rules
 
 1. **Generate the content; do not package around it.** Translate each spoken argument into a moving scene in which the IP, environment, objects, and camera express the idea.
-2. **Let narration determine picture length.** Confirm a target, use supplied audio, or let the locked script determine the film. Model limits apply only to individual clips.
-3. **Let the user confirm the style and IP.** Query the live style catalog, then approve reusable identity references before episode generation.
-4. **Keep packaging minimal.** Join clips, narration, BGM, subtitles, an optional edge progress indicator, and shot transitions. These elements must not cover the IP, important objects, or visible actions. Do not add information cards, timelines, diagrams, callouts, cutouts, or other packaging points.
-5. **Keep exact facts out of generated frames.** Put exact wording, dates, numbers, citations, and spelling in narration, optional captions, or delivery notes. Treat generated historical or technical scenes as illustration, not documentary evidence.
+2. **Compile prompts from beat variables.** Decide semantic focus, IP role, required result, fact binding, continuity, and creative freedom for the current narration beat. Emit only resolved clauses; never send the model a universal template, option list, or empty variable.
+3. **Let approved references carry identity.** Pass approved character references and use their model reference tokens. Do not repeat visible face, hair, wardrobe, or body traits in every prompt unless a real drift failure requires one short corrective anchor.
+4. **Keep IP performance flexible.** Let the IP present, act, guide, observe, or combine roles according to the current beat. Do not force continuous lip-sync or forbid speaking across the whole film.
+5. **Let narration determine picture length.** Confirm a target, use supplied audio, or let the locked script determine the film. Model limits apply only to individual clips.
+6. **Bind exact facts to sources.** Permit words, names, dates, percentages, prices, and numbers that the narration or evidence explicitly supplies. Do not invent unsupported exact claims merely to decorate a frame.
+7. **Let the user confirm the style and IP.** Query the live style catalog, then approve reusable identity references before episode generation.
+8. **Show generated clips to the user immediately.** After generation, place candidate clips in narration order on a minimal Timeline and start review. Do not delay first sight with Agent visual inspection, frame sampling, contact sheets, scoring, or autonomous retries.
+9. **Keep packaging minimal.** After clip approval, join narration, optional BGM, subtitles, an optional edge progress indicator, and shot transitions. These elements must not cover the IP, important objects, or visible actions. Do not add information cards, timelines, diagrams, callouts, cutouts, or other packaging points.
 
 ## Minimal files
 
@@ -55,6 +59,7 @@ videos/YYYY-MM-DD-ip-<title>/
 
 Choose the scenario from the requested film, not from the character style.
 
+- Read `references/prompt-rules.md` before planning or compiling any generated video prompt.
 - Read `references/scenarios/knowledge-explainer.md` for knowledge, opinion, tutorial, process, or concept explanation.
 - For a scenario without a module, label it `custom` and use the core workflow. Do not force knowledge-video grammar onto advertising, narrative, music-led, or future scenarios.
 
@@ -70,6 +75,7 @@ Confirm or safely infer:
 - aspect ratio;
 - duration intent: exact, approximate, supplied-audio-driven, or script-driven;
 - TTS, supplied narration, or silent;
+- any user preference for speaking, acting, or hybrid IP performance; otherwise decide per beat;
 - existing IP versus a new IP;
 - source material, factual evidence, brand rules, and references.
 
@@ -115,21 +121,21 @@ Load `vidmuse-media` to synthesize or accept narration and produce validated wor
 
 Split the aligned narration at changes of argument or visual situation. One argument may use one clip or several semantic subclips when the narration exceeds a provider limit.
 
-For every beat record:
+Read `references/prompt-rules.md`. For every beat record the internal variables needed to compile its prompt:
 
 - narration span and target duration;
-- the exact idea the viewer understands;
-- one visual proposition that makes the idea happen on screen;
-- the IP's visible role and one main action;
-- environment, important objects, framing, and camera behavior;
-- 2–4 continuous motion phases that cover the whole clip;
+- semantic function and the exact meaning the viewer should understand;
+- IP role: `auto`, `presenter`, `actor`, `guide`, `observer`, or `hybrid`;
+- a must-show event and result only when the beat truly requires them;
+- source-bound facts that may appear literally or symbolically;
+- creative freedom: `high`, `medium`, or `low`;
 - selected IP references and generation route.
 
-Prefer physical causality over explanation graphics: build, fail, compare, launch, return, transform, search, discover, escape, or resolve. Let the spoken fact become an action, event, or changing world.
+Default capable multimodal models to high creative freedom. Prefer physical causality over explanation graphics: build, fail, compare, launch, return, transform, search, discover, escape, or resolve. Let the spoken fact become an action, event, or changing world.
 
-Reject a plan when the IP merely stands beside information, when a static picture is expected to carry a long narration span, or when the plan relies on later cards, timelines, arrows, labels, or diagrams to become understandable.
+Do not preselect every gesture, chart, metaphor, camera move, or timed phase. Leave `IP_ROLE` or `MUST_SHOW` unresolved when no choice is necessary; the compiler must omit that clause instead of listing alternatives.
 
-Write `STORYBOARD.md` and `SHOT-PROMPTS.md`, present the visual propositions and media cost, and wait.
+Write the variables and their compiled prompts to `SHOT-PROMPTS.md`; write only the viewer-facing beat plan to `STORYBOARD.md`. Present the beat intentions and media cost, then wait.
 
 **Gate:** the generated-scene plan is approved.
 
@@ -143,17 +149,9 @@ When credits are short, generate fewer complete beats or a still contact sheet. 
 
 Generate a scene still first when the pose, environment, object relationship, or final composition needs approval. Bind every image and video request to the approved style and IP references.
 
-Each video prompt must contain:
+Compile each request according to `references/prompt-rules.md`. When the route supports multimodal references, pass the approved IP image and matching narration audio so the model can follow identity, semantics, rhythm, and emotion. Use one concise resolved prompt for the first attempt. Do not send the internal variable schema, all possible IP roles, or a menu of visual treatments.
 
-- the spoken idea translated into one visual event;
-- the IP's identity anchors and reference inputs;
-- one main physical action with a visible result;
-- environment and object relationships;
-- framing and camera behavior;
-- motion phases covering the full requested duration;
-- aspect ratio and style invariants.
-
-Do not ask the video model to render readable facts. Do not leave empty space for a later information card. Do not plan a static talking pose unless stillness itself is the intended dramatic action.
+Treat explicit narration facts as available prompt material. Ask for literal display only when exact visual rendering matters; otherwise let the model express the fact symbolically. Keep generated historical or technical scenes illustrative rather than documentary evidence.
 
 Use live VidMuse routes:
 
@@ -165,9 +163,27 @@ Use live VidMuse routes:
 | standard IP motion | `minimax/hailuo-h3` when its live reference mode fits |
 | stronger element, action, or multi-shot control | `seedance-2.0-pro` |
 
-Verify model ids, prices, fields, generation type, duration options, and resolution immediately before the batch. Preserve raw outputs, normalize returned duration and dimensions, and record the model, prompt, references, and cost in provenance. Retry only for identity, action, style, framing, or duration failure, changing one variable per attempt.
+Verify model ids, prices, fields, generation type, duration options, and resolution immediately before the batch. Preserve raw outputs, localize returned media, and record the model, prompt variables, compiled prompt, references, and cost in provenance.
 
-### 8. Add minimal packaging and assemble
+After a clip returns, do not watch it, extract frames, build a contact sheet, score identity or action, or regenerate it on Agent judgment before the user sees it. Perform only the minimum technical work required to reference the non-empty media in Timeline. If a synchronous request times out after acceptance, recover the result from generated assets before considering a retry.
+
+### 8. Assemble immediate Timeline review
+
+As soon as all candidate clips are available, load `vidmuse-timeline` and create or patch the minimal `dsl.json`:
+
+- place clips sequentially on one main video track in narration order;
+- add the locked narration as the single program-audio path and mute model-native clip audio unless the user intends to review it;
+- omit new BGM, subtitles, transitions, progress indicators, and HyperFrames packaging at this checkpoint;
+- run only required DSL structural validation, then start a read-only Timeline Serve immediately;
+- report the review URL and stop for user feedback.
+
+Do not render a review file or conduct a separate Agent perception pass first. Timeline inclusion means “candidate for review,” not “approved.”
+
+**Gate:** the user reviews the generated sequence and approves it or identifies clips to revise.
+
+For a requested revision, change the smallest relevant prompt variable, regenerate only the named clip, replace that Timeline item in place, validate, and return to the same review gate.
+
+### 9. Add minimal packaging after approval
 
 Choose BGM after narration and shot timing are known. Join the generated clips in narration order and mix narration and BGM.
 
@@ -179,11 +195,11 @@ Limit visual packaging to:
 
 Reserve space from the generated frame instead of covering the IP's face, hands, important objects, or semantic action. Keep overlays visually quiet and remove any one that competes with the generated scene.
 
-Do not load `vidmuse-design`, `vidmuse-motion`, Shotcraft, or HyperFrames composition to invent additional visual beats. Load `vidmuse-timeline` only to assemble, review, validate, and render the approved clips and audio.
+Do not load `vidmuse-design`, `vidmuse-motion`, Shotcraft, or HyperFrames composition to invent additional visual beats. Patch approved packaging into the reviewed Timeline without rebuilding its clip order or stable IDs.
 
-### 9. Validate and deliver
+### 10. Validate and deliver
 
-Require:
+Run final technical and visual validation only after the user has reviewed the generated sequence. Require:
 
 - the IP's face, silhouette, proportions, signature marks, style, and voice remain consistent;
 - every narration beat has moving generated content for its full span;
@@ -202,6 +218,6 @@ Return the render, project path, IP Kit path, selected style, generated clips, r
 - Own the complete IP film, identity, scenario, story, visual propositions, prompts, generation strategy, budget tradeoffs, and delivery.
 - Load `vidmuse-cli` for styles, models, voices, balance, prices, and generation commands.
 - Load `vidmuse-media` for probe, TTS, transcription, alignment, subtitles, and frame extraction.
-- Load `vidmuse-timeline` only for assembly, review, and rendering after the generated clips are approved.
+- Load `vidmuse-timeline` immediately after candidate generation for sequential user review, then reuse the same stable DSL for revisions, packaging, and rendering.
 - Limit packaging to subtitles, an optional edge progress indicator, and shot transitions; never obscure generated content.
 - Do not use `image_gen`, HyperFrames-managed media models, OS/browser TTS, downloaded local models, unapproved provider substitutions, or unconsented likeness or voice cloning.

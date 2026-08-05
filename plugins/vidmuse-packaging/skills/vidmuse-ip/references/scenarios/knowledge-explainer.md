@@ -28,37 +28,32 @@ Do not translate the narration into title cards, timelines, floating labels, dat
 
 ## Prompt requirements
 
-Write one self-contained prompt per generated clip. Include:
+Use the owner-loaded `references/prompt-rules.md` to build and compile one variable record per clip. Begin with high creative freedom and only the semantic meaning, resolved IP role when useful, indispensable event or result, source-bound facts, references, and continuity.
 
-- one-sentence visual proposition;
-- approved IP identity anchors and reference inputs;
-- one primary action and its visible result;
-- scene, objects, scale, and spatial relationships;
-- framing and restrained camera behavior;
-- 2–4 timed motion phases ending at the requested duration;
-- selected style and aspect ratio;
-- prohibitions against cuts, identity drift, invented text, and unrelated actions when relevant.
+Do not use a universal knowledge-video prompt. Do not copy every available role or visual treatment into every clip. Let the model decide staging, metaphor, action, and camera when those choices do not affect factual meaning.
 
 For a long argument, split it into semantic subclips. Never generate a short action and freeze it under the remaining narration.
 
 ## Continuity
 
-Keep the approved face, silhouette, proportions, signature marks, wardrobe logic, and voice. Vary location, action, scale, framing, and emotional intensity so the episode does not become one repeated presenter shot.
+Keep identity through the approved references rather than repeated prose descriptions. Vary location, action, scale, framing, and emotional intensity so the episode does not become one repeated presenter shot.
 
-The IP need not speak on camera or lip-sync continuously. Narration can remain offscreen while the IP acts inside the generated world.
+Choose speaking, acting, guiding, observing, or hybrid performance per beat. Direct questions and summaries may use on-camera delivery; causes, processes, and consequences often work better as acted scenes. Do not impose one performance mode across the full film.
 
 ## Audio
 
-Narration is the spine. Align every word before setting shot durations. Keep BGM instrumental and subordinate to speech. Use SFX only for visible actions or state changes.
+Narration is the spine. Align every word before setting shot durations and pass matching beat audio as a generation reference when supported. Keep BGM instrumental and subordinate to speech. Use SFX only for visible actions or state changes.
 
-## Quality gate
+## Planning gate
 
-Reject or revise when any answer is no:
+Before generation, revise the plan when any answer is no:
 
 - Does every beat turn its spoken idea into a visible event rather than a graphic explanation?
 - Is the IP participating in the subject instead of standing beside it?
 - Does meaningful motion continue across the full narration span?
 - Does each clip have one readable action and visible result?
 - Are identity and style stable across changing scenes?
-- Are exact facts carried outside the generated image?
+- Are literal facts bound to narration or evidence, with symbolic treatment used where exact rendering is unnecessary?
 - Would removing later overlays still leave a coherent visual story? If no, rewrite the scene and prompt.
+
+Do not run this gate as an Agent visual inspection after generation. Put returned clips into Timeline and let the user review the actual sequence first.

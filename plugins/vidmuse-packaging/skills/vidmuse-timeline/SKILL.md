@@ -9,7 +9,7 @@ Own the VidMuse DSL assembly and review surface. Translate already-approved film
 
 ## Source-of-truth boundary
 
-- Treat the film owner's official `STORYBOARD.md` for Create or `storyboard.json` for Recut, approved media, `FRAME.md`, captions, audio plan, and validated HyperFrames HTML as editorial inputs. Accept legacy `film-plan.json` only when resuming an older Create project.
+- Treat the film owner's official `STORYBOARD.md` for Create or `storyboard.json` for Recut, approved media, explicitly marked generated review candidates, `FRAME.md`, captions, audio plan, and validated HyperFrames HTML as editorial inputs. Accept legacy `film-plan.json` only when resuming an older Create project. A review candidate may enter Timeline before visual approval; Timeline inclusion does not approve it.
 - Treat `dsl.json` as the source of truth for VidMuse track assembly, playback settings, Timeline edits, and CLI rendering.
 - Keep Timeline edits in `dsl.json` or the explicitly edited HyperFrames HTML. Do not silently back-propagate them into the film plan, storyboard, or `FRAME.md`; report the difference to the owner for acceptance.
 - Preserve unknown fields and stable IDs when updating an existing DSL. Never rebuild the whole document merely to change one clip.
@@ -227,7 +227,8 @@ Load `vidmuse-cli` for the exact binary path and live command syntax.
 - Treat editable serve as a real local mutation session: the UI can persist the complete DSL and edit HyperFrames HTML.
 - Keep the foreground process alive, report its URL, and do not expose a non-loopback host implicitly.
 - When the owning film workflow marks Serve as a mandatory perception checkpoint, start it immediately after validation without asking another confirmation. Do not continue into art direction until the process is alive and the URL has been reported to the user.
-- After every DSL or host edit, reload the page and exercise the real preview continuously across every packaging item. Confirm the source remains visible through intended transparency, motion advances during Play, item bounds match the first and last visible graphic frames, and no black fill, residue, or fetch/media error appears.
+- When an IP owner requests immediate generated-clip review, assemble the candidate clips sequentially with their narration, run structural DSL validation, and start Serve before any Agent visual inspection. Do not watch the clips, extract sample frames, create contact sheets, render a review file, score the generation, or delay the URL for autonomous quality judgment.
+- The immediate IP candidate checkpoint overrides the following live-perception instructions until the user has seen the sequence. For other reviews, and after user-requested IP revisions or packaging edits, reload the page and exercise the real preview continuously across every packaging item. Confirm the source remains visible through intended transparency, motion advances during Play, item bounds match the first and last visible graphic frames, and no black fill, residue, or fetch/media error appears.
 - Treat a black fill that appears only while a transparent HyperFrames item is active as a preview-compositor failure. Do not hide it by embedding a second source-video plate in the packaging host; follow [preview-integrity.md](./references/preview-integrity.md) and block review until the runtime or an explicitly disclosed alpha-overlay proxy is valid.
 - After editing, re-read DSL and referenced HTML, inspect the actual diff, run both validators again, and return changed timing/style fields to the owner.
 
@@ -248,6 +249,7 @@ Do not start serve automatically after render. Do not render merely because the 
 ## Ownership and boundaries
 
 - Own DSL assembly, incremental DSL edits, semantic validation, Timeline serve mode, synchronization, render request definition, and review handoff.
+- Accept review-only generated candidates from an owner and preserve their candidate status until the user approves or requests replacement.
 - Let the film owner decide story, clip order, cut points, packaging density, design, caption policy, and acceptance of Timeline edits.
 - Let `vidmuse-design` define visual direction, `vidmuse-media` execute media operations, and the HyperFrames skills build and validate composition HTML.
 - Let `vidmuse-cli` resolve the bundled binary, flags, dependencies, process execution, and output parsing.
