@@ -1,6 +1,6 @@
 {
   "name": "vidmuse-packaging",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "Create, package, and recut VidMuse projects, including script- and Style-directed H3 AI music videos, generation-first reusable IP-led films, focused product skills, 162 locally installable Shotcraft effects, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
   "author": {
     "name": "VidMuse"

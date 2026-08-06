@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.13] — 2026-08-06
+
 ### Changed
 
 - New MVs now default to `16:9` and explicitly confirm complete-song versus representative-excerpt coverage; an excerpt is selected from the acquired song's real musical structure instead of defaulting to an arbitrary 15-second or vertical test.
