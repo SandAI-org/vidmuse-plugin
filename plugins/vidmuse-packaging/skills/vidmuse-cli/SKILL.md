@@ -1,6 +1,6 @@
 ---
 name: vidmuse-cli
-description: "Operate the bundled VidMuse command-line interface for authentication, profiles, credit balance and cost estimation, models, generated assets, voices, styles, memories, threads, messages, and VidMuse DSL preview or rendering. Load whenever another VidMuse skill needs to invoke the CLI or needs to know what a generation will cost against the user's balance. The current plugin bundle supports macOS on Apple silicon and does not require a package download. Do not make film, editorial, design, placement, or asset-planning decisions."
+description: "Operate the bundled VidMuse command-line interface for authentication, profiles, credit balance and cost estimation, models, supported tools, generated assets, voices, styles, memories, threads, messages, and VidMuse DSL preview or rendering. Load whenever another VidMuse skill needs to invoke the CLI or needs to know what a generation will cost against the user's balance. The current plugin bundle supports macOS on Apple silicon and does not require a package download. Do not make film, editorial, design, placement, or asset-planning decisions."
 ---
 
 # VidMuse CLI
@@ -45,7 +45,8 @@ This bundle is intentionally version-agnostic. Do not run `vidmuse update`, down
 | --- | --- |
 | sign in or out | `login`, `logout` |
 | user and credits | `profile get`, `plan get` |
-| discover or run models | `model list`, `model run` |
+| discover or run models | `model list`, `model run`, `model result` |
+| run supported VidMuse tools | `tool run` |
 | query generated assets | `asset list`, `asset generation-params` |
 | query voices | `voice list`, `voice search`, `voice get` |
 | query visual styles | `style list`, `style get` |
@@ -124,13 +125,15 @@ Text-to-speech also needs a voice selector, and `voice_id` values are model-spec
 
 `voice list` and `voice search` default to a page size of 20; pass `--limit` before reporting that a language has no voices. For `minimax/speech-2.6-hd`, pass the id under the entry's `model_ids["minimax/speech-2.6-hd"]`, not the catalog `voice_id`. Successful voice runs return a bare JSON array of public URLs with no task id.
 
-ASR is a special request and must contain exactly one local audio/video file or one public HTTP(S) audio URL:
+Timestamped ASR is a special request and must contain exactly one local audio/video file or one public HTTP(S) audio URL. Use `scribe-v2` by default:
 
 ```json
-{"files":["/absolute/path/interview.mp4"],"extra_params":{"sub_model_type":"asr"}}
+{"model_name":"scribe-v2","files":["/absolute/path/interview.mp4"],"extra_params":{"sub_model_type":"asr"}}
 ```
 
-Do not include `model_name`, `prompt`, `messages`, or generation controls in ASR requests. Expect successful ASR stdout shaped as `{"text":"..."}`; do not claim word timing unless the returned payload actually contains it.
+Do not include `prompt`, `messages`, or generation controls. Preserve the complete stdout before parsing it. `scribe-v2` currently returns an outer `{"text":"..."}` whose `text` value is a JSON-encoded provider object; decode that value once and require a non-empty transcript plus ordered `words` entries with numeric `start` and `end` values in seconds. Treat absent, invalid, or decreasing word timing as a failed timestamped transcription rather than silently substituting another provider or guessed timing.
+
+Gemini is an explicit text-only fallback, not the default ASR. Invoke it only when the user actively asks to verify, check, or correct subtitles/transcript text. Confirm the model is enabled, then name it explicitly; the current request shape is `{"model_name":"gemini-3.1-pro","files":["/absolute/path/interview.mp4"],"extra_params":{"sub_model_type":"asr"}}`. Its untimed `{"text":"..."}` result is a review artifact; never present it as word timing, automatically replace a validated timestamped transcript with it, or run it merely because `scribe-v2` failed.
 
 Audio-text alignment (ATA) is not a separate CLI subcommand. Discover and invoke the live model through the generic model surface:
 
@@ -139,11 +142,24 @@ Audio-text alignment (ATA) is not a separate CLI subcommand. Discover and invoke
 "$VIDMUSE_BIN" model run --param '<complete-ata-request-json>' -o json
 ```
 
-Require the discovered model name to be exactly `doubao_speech/audio_text_alignment` with subtype `ata`. Its request must contain the corrected ASR text in `prompt` and the same local audio in `files`; omit `generation_type`, `messages`, and unrelated generation controls. Return the complete raw response to `vidmuse-media`. Never describe ASR text as aligned or use ASR-only output to construct timed captions.
+Require the discovered model name to be exactly `doubao_speech/audio_text_alignment` with subtype `ata`. Its request must contain a caller-supplied exact transcript or locked script in `prompt` and the matching local audio in `files`; omit `generation_type`, `messages`, and unrelated generation controls. Return the complete raw response to `vidmuse-media`. Alignment is an atomic operation for known text plus audio, such as a user-provided spoken script or TTS narration; do not append it automatically to a successful `scribe-v2` transcription.
 
 Before a credit-consuming generation, ensure the chosen model supports the requested operation, that the caller has supplied all material inputs, and that the balance has been checked as above.
 
 A run that fails on insufficient credits mid-batch is the expensive failure: earlier beats are already paid for and the film is unfinishable. Surface the balance before the batch, not after the provider rejects a call. A successful media generation returns public result URLs; return those URLs to `vidmuse-media` or the owning workflow for download and provenance recording.
+
+Use `model run --async` only when the owning workflow needs to continue local work while generation runs. Preserve the returned Aion task ID, then resolve that exact task with `model result <taskId> -o json`; do not submit the paid request again merely because the async invocation has no result URLs yet.
+
+Use `tool run <toolName> --param '<json-object>' -o json` only for a tool name and complete argument object supplied by the owning workflow or live VidMuse documentation. The CLI does not expose a tool catalog, so do not guess tool names or arguments from the command surface.
+
+The supported atomic music-analysis call is:
+
+```bash
+"$VIDMUSE_BIN" tool run analyze_music \
+  --param '{"audio_path":"/absolute/path/music.mp3"}' -o json
+```
+
+Return its complete JSON result to `vidmuse-media`; do not turn analysis into an editorial decision or couple it to transcription, alignment, music generation, or timeline assembly.
 
 ## Style discovery
 

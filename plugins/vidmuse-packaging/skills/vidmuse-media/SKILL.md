@@ -1,6 +1,6 @@
 ---
 name: vidmuse-media
-description: "Produce the minimal verified media artifacts required by VidMuse film workflows: probe local audio/video metadata, extract audio, synthesize narration with VidMuse TTS, transcribe with VidMuse ASR, align a transcript or locked script to explicit word timestamps, validate or normalize the official flat transcript.json contract, derive safe-length Timeline subtitles or optional SRT, and extract representative source frames. Also use for these operations as standalone deliverables. Do not decide story, packaging, placement, visual direction, script wording, or voice casting, and do not claim unimplemented generation or transformation capabilities."
+description: "Produce the minimal verified media artifacts required by VidMuse film workflows: probe local audio/video metadata, extract audio, synthesize narration with VidMuse TTS, transcribe to native word timestamps, optionally verify transcript text, align a supplied transcript or locked script to audio, analyze music, validate or normalize the official flat transcript.json contract, derive safe-length Timeline subtitles or optional SRT, and extract representative source frames. Also use for these operations as standalone deliverables. Do not decide story, packaging, placement, visual direction, script wording, or voice casting, and do not claim unimplemented generation or transformation capabilities."
 ---
 
 # VidMuse Media
@@ -14,12 +14,15 @@ Implement:
 1. `probe`
 2. `extract-audio`
 3. `text-to-speech`
-4. `transcribe-and-align`
-5. `transcript-to-srt`
-6. `transcript-to-timeline-subtitles`
-7. `extract-frames`
+4. `transcribe`
+5. `verify-transcript`
+6. `align-transcript`
+7. `analyze-music`
+8. `transcript-to-srt`
+9. `transcript-to-timeline-subtitles`
+10. `extract-frames`
 
-Do not expand a request into BGM, SFX, image/video generation, download, trim, crop, reframe, background removal, or grading in this version.
+These are atomic operations. Do not make `transcribe` automatically call verification or alignment, and do not make `analyze-music` generate, select, download, or edit music. Do not expand a request into BGM, SFX, image/video generation, download, trim, crop, reframe, background removal, or grading in this version.
 
 Own every media model call a film workflow needs. A film owner decides *whether* narration is generated, in what voice, and from what script; this skill decides nothing editorial and only executes the call, verifies the artifact, and returns it. When a caller needs a media operation that is not in this list, report the exact missing capability rather than routing around this skill.
 
@@ -30,8 +33,10 @@ Own every media model call a film workflow needs. A film owner decides *whether*
 | probe | `metadata.json` from ffprobe with format and stream metadata |
 | extract audio | `audio.mp3`, first program-audio stream, mono 16 kHz |
 | TTS | `narration.mp3` plus the complete raw response as `tts.raw.json` |
-| ASR | raw JSON containing a non-empty `text` string |
-| alignment | raw provider JSON retained until its exact structure is inspected |
+| transcribe | complete outer response as `asr.raw.json`, decoded provider object as `asr.provider.json`, and validated `transcript.json` from native `scribe-v2` word timing |
+| transcript verification | complete Gemini response as `asr.verify.raw.json` plus untimed review text; never a timing source |
+| alignment | complete provider response as `ata.raw.json` and validated `transcript.json` from explicit alignment timing |
+| music analysis | complete tool response as `music-analysis.json` |
 | transcript | flat `transcript.json`: `[{"text":"word","start":0.0,"end":0.2}]` in seconds |
 | subtitles | `subtitles.timeline.json` for Serve review and optional `subtitles.srt`, both derived only from the validated transcript |
 | frames | timestamp-named JPEG or PNG files without crop or annotation |
@@ -42,7 +47,7 @@ Never substitute SRT for `transcript.json` inside a film workflow. Treat the wor
 
 - Require the input to exist, be readable, and match the requested operation.
 - Resolve `ffprobe` and `ffmpeg`; use `FFPROBE_BIN` or `FFMPEG_BIN` only when explicitly supplied or safely discovered.
-- Load `vidmuse-cli` for TTS, ASR, or alignment. Use its bundled binary and authentication rules.
+- Load `vidmuse-cli` for TTS, ASR, alignment, or music analysis. Use its bundled binary and authentication rules.
 - For a paid operation, have `vidmuse-cli` read the credit balance and estimate the cost from live `priceItems` first. State both to the caller. When the balance will not cover it, report the shortfall with `https://vidmuse.ai/en/pricing` once and let the caller decide — do not silently truncate the input, downgrade quality, or retry a call the provider rejected for insufficient credits.
 - Use absolute input and output paths for provider calls.
 - Do not overwrite an existing output unless the user or owning workflow explicitly allows it.
@@ -142,53 +147,66 @@ For `index-tts-2/text-to-speech`, drop `voice_id` and pass the caller's referenc
 
 Save the complete response as `tts.raw.json` before interpreting it. A successful voice run returns a bare JSON array of public URLs — `["https://.../a141ccbc632ac1d3.mp3"]` — with no wrapper object and no task id, so read element `0` rather than looking for an `audio_url` or `data` key. Download it to `$WORK_DIR/narration.mp3`. Never synthesize silence, substitute OS or browser TTS, or fabricate a duration when the shape is unclear — report the unexpected response instead.
 
-After writing the file, probe it and require a nonzero duration and at least one audio stream. Return the local path, the measured duration, and the model name to the caller. Regenerated narration invalidates any existing alignment: when the script or voice changes, the caller must re-align, and a stale `transcript.json` is a defect.
+After writing the file, probe it and require a nonzero duration and at least one audio stream. Return the local path, the measured duration, and the model name to the caller. Regenerated narration invalidates timing derived from the previous audio: when the script or voice changes, the caller must re-align, and a stale `transcript.json` is a defect.
 
-## Transcribe and align
+## Transcription, verification, and alignment are atomic
 
-Use two distinct VidMuse CLI calls. Serialize request JSON with a real JSON encoder; never construct it by interpolating unescaped paths or transcript text.
+Serialize request JSON with a real JSON encoder; never construct it by interpolating unescaped paths or transcript text. Run only the operation requested by the caller.
 
-Treat the chain as indivisible for every timed-caption workflow:
+### Transcribe with native timestamps
 
-`ASR text → spelling/name correction → Doubao ATA → validated word timings → subtitle grouping`
-
-ASR supplies language content, not trustworthy cue timing. Doubao ATA is mandatory whenever `transcript.json`, SRT, Timeline subtitles, or Serve captions are required. Never send raw ASR text directly into subtitle grouping, never reuse ASR segments as word timings, and never consider the transcription stage complete until ATA returns explicit timing.
-
-When the audio was synthesized from a script the caller already owns, the locked script is the exact text: skip ASR and its correction pass and begin at ATA with that script as `prompt`. Everything after ATA is unchanged, and ATA remains mandatory. Do not treat an authored script as a substitute for word timing, and do not skip ASR for any recorded audio, where the spoken words are not known in advance.
-
-### 1. ASR text
-
-Call `model run` with exactly one local media file:
+Use `scribe-v2` as the default ASR. It supplies both transcript text and native word timing, so successful transcription does not require a second alignment call:
 
 ```json
-{"files":["/absolute/path/audio.mp3"],"extra_params":{"sub_model_type":"asr"}}
+{
+  "model_name": "scribe-v2",
+  "files": ["/absolute/path/audio.mp3"],
+  "extra_params": {"sub_model_type": "asr"}
+}
 ```
 
-Do not include `model_name`, `prompt`, `messages`, or generation controls. Save stdout as raw JSON and require a non-empty top-level `text` string. Correct only obvious names, homophones, and technical terms before alignment; preserve the meaning and spoken order.
+Do not include `prompt`, `messages`, or generation controls. Save the complete stdout as `asr.raw.json`. The current response wraps the provider result as JSON text in the top-level `text` field; decode that value once and save the object as `asr.provider.json`:
 
-### 2. Audio-text alignment
+```bash
+jq -e '.text | if type == "string" then fromjson else . end | select(type == "object")' \
+  "$WORK_DIR/asr.raw.json" > "$WORK_DIR/asr.provider.json"
+```
 
-First confirm the live catalog contains the exact model `doubao_speech/audio_text_alignment` with subtype `ata`. Then call it with the corrected transcript and the same audio:
+Require `asr.provider.json.text` to be non-empty and `asr.provider.json.words` to be a non-empty ordered array whose entries have non-empty `text` and finite numeric `start` and `end` values in seconds. Copy only those explicit fields into `transcript.candidate.json`, then normalize it. Do not infer timings from segments, distribute durations across words, or invoke ATA merely because the consumer needs subtitles.
+
+If `scribe-v2` fails or omits valid word timing, retain the raw response and report that exact failure. Do not silently retry with Gemini or alignment: each is a separate operation with different input and output semantics.
+
+### Verify transcript text with Gemini
+
+Use Gemini only when the user actively asks to verify, check, or correct subtitles/transcript text. It is an optional text-only comparison pass, not the default transcription provider and not an automatic fallback after `scribe-v2` failure. Have `vidmuse-cli` confirm and explicitly request the enabled Gemini model; the current fallback is `gemini-3.1-pro`.
+
+Save the complete response as `asr.verify.raw.json` and require a non-empty untimed text result. Return that text as a correction candidate alongside the current `transcript.json`; never claim it has word timing or replace the timestamped transcript automatically. Apply only user-approved or unambiguous text corrections that preserve the spoken order and the existing token's `start` and `end`. If a correction changes tokenization or wording materially, report that it needs a separately requested `align-transcript` call against the exact corrected text.
+
+### Align exact text to audio
+
+Use alignment only when the caller already has exact text plus its matching audio, especially a user-provided spoken script and recording or narration synthesized from a locked TTS script. Do not run it automatically after `scribe-v2`.
+
+First confirm the live catalog contains the exact model `doubao_speech/audio_text_alignment` with subtype `ata`. Then call it with the exact transcript and matching audio:
 
 ```json
 {
   "model_name": "doubao_speech/audio_text_alignment",
-  "prompt": "<corrected transcript>",
+  "prompt": "<exact transcript or locked script>",
   "files": ["/absolute/path/audio.mp3"]
 }
 ```
 
-Omit `generation_type` here. ASR and ATA are the genuine exceptions to the rule that voice calls carry a route: ASR is selected by `extra_params.sub_model_type`, and ATA by its model name alone. Do not copy `text_to_speech` into either request.
+Omit `generation_type`, `messages`, and unrelated generation controls. The `prompt` must be the exact caller-supplied transcript or locked script, not text recovered implicitly from another operation.
 
-Save the complete ASR response as `asr.raw.json` and the complete alignment response as `ata.raw.json` before interpreting either one. Their presence is the audit trail that prevents an ASR-only run from silently reaching Serve.
+Save the complete alignment response as `ata.raw.json` before interpreting it.
 
 Inspect the actual response shape. Accept it only when it explicitly provides ordered word tokens with numeric start and end times and a documented time unit. Map those explicit fields to `text`, `start`, and `end` in seconds. Do not infer milliseconds versus seconds from magnitude, split segment durations evenly, or invent word timings.
 
-If ATA is unavailable, fails, or omits explicit word timing, keep the ASR text and both raw responses, report the alignment failure, and do not create `transcript.json`, SRT, Timeline subtitles, or the subtitle Serve checkpoint. This is a blocking data-quality failure, not a reason to use ASR segments or fall back to a local model.
+If ATA is unavailable, fails, or omits explicit word timing, keep `ata.raw.json`, report the alignment failure, and do not create a new `transcript.json` from that alignment run. This failure does not invalidate an independently produced `scribe-v2` transcript.
 
 ## Normalize and validate transcript
 
-After mapping the inspected alignment response to explicit `text/start/end` fields, run:
+After mapping either the decoded `scribe-v2` words or the inspected alignment response to explicit `text/start/end` fields, run:
 
 ```bash
 node "$SKILL_DIR/scripts/transcript-tools.mjs" normalize \
@@ -196,9 +214,23 @@ node "$SKILL_DIR/scripts/transcript-tools.mjs" normalize \
   --duration "$MEDIA_DURATION_SECONDS"
 ```
 
-The normalizer accepts only a flat array or a top-level `words` array whose entries already use `text`, `start`, and `end` mapped from the inspected ATA response. It converts no undocumented provider keys. It clamps small end overruns to media duration, rejects empty text, invalid or ambiguous timing, decreasing word order, and words beginning outside the media.
+The normalizer accepts only a flat array or a top-level `words` array whose entries already use `text`, `start`, and `end` mapped from the inspected provider response. It converts no undocumented provider keys. It clamps small end overruns to media duration, rejects empty text, invalid or ambiguous timing, decreasing word order, and words beginning outside the media.
 
 After correcting transcript text, change only `text`; preserve every `start` and `end` value.
+
+## Analyze music
+
+Analyze only an existing local audio file selected by the caller:
+
+```bash
+"$VIDMUSE_BIN" tool run analyze_music \
+  --param "$(python3 -c 'import json, sys; print(json.dumps({"audio_path": sys.argv[1]}))' "$INPUT")" \
+  -o json > "$WORK_DIR/music-analysis.json"
+```
+
+Preserve the complete response. Require a non-empty object and validate any returned temporal series before handoff: beat and downbeat times must be finite, non-negative, and ordered; `beat_positions` must correspond to the beat sequence when both are present; phrase intervals must have valid ordered bounds inside the probed media duration; rhythmic-density timestamps must be ordered. Return the available `global_features`, `beats`, `beat_positions`, `downbeats`, `phrases`, and `rhythmic_density` without inventing missing musical semantics. Treat `converted_mp3_path` as an implementation detail unless that file is explicitly verified and requested as an output.
+
+This artifact may inform beat-led editing, MV structure, transitions, or motion anchors. It does not choose the music, require a cut on every beat, or alter the timeline by itself.
 
 ## Derive safe subtitle cues
 
@@ -248,6 +280,6 @@ Do not crop, resize, annotate, detect subjects, or decide safe zones. Return fra
 - Own exact media execution, timing integrity, file verification, and standalone outputs.
 - Do not decide whether a film needs a graphic or asset, where it appears, how dense packaging should be, or how it animates.
 - Do not decide whether narration should exist, how the script reads, or which voice suits the film; execute the call the owner specifies.
-- Do not replace VidMuse TTS/ASR/alignment with HyperFrames transcription or synthesis, OS or browser TTS, downloaded local models, or guessed timings.
+- Do not replace VidMuse TTS/ASR/alignment or music analysis with HyperFrames transcription or synthesis, OS or browser TTS, downloaded local models, or guessed timings.
 - Route visual interpretation of extracted frames back to `vidmuse-recut` or the owning film skill.
 - Route DSL preview and render to `vidmuse-timeline` through `vidmuse-cli`.

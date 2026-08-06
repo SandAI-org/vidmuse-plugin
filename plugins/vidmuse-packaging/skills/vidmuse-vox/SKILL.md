@@ -107,7 +107,7 @@ Pass the catalog `voice_id` (such as `F-ZH-002`) to `vidmuse-media` and let it m
 
 ### 3. Align to word timings
 
-Request `transcribe-and-align` from `vidmuse-media` with the locked script as the text and the narration as the audio. Because the script is already exact text, that skill skips ASR and its correction pass and begins at alignment — but alignment itself is mandatory and produces the validated flat `transcript.json`.
+Request the atomic `align-transcript` operation from `vidmuse-media` with the locked script as the text and the narration as the audio. Alignment produces the validated flat `transcript.json`; do not transcribe the known script first.
 
 Never hand-edit word timestamps. To change wording, fix the script and re-run both TTS and alignment — regenerated narration always invalidates the old alignment.
 

@@ -19,6 +19,7 @@ Use the official HyperFrames artifacts instead of inventing a parallel film cont
 | `STORYBOARD.md` | ordered beats, evidence, selected media, scene direction, duration, status |
 | `SCRIPT.md` | locked narration when narration exists |
 | `transcript.json` | validated word-level narration timing; the anchor source for every cue |
+| `music-analysis.json` | optional analysis of supplied or already-approved music when musical structure informs timing |
 | `FRAME.md` | VidMuse visual system and source-to-system bridge |
 | `capture/` | official HyperFrames capture output and canonical inventory |
 | `compositions/` or `public/index.html` | validated HyperFrames implementation |
@@ -62,7 +63,7 @@ Read the request, existing project, supplied material, and `BRIEF.md`. Confirm o
 | --- | --- |
 | **duration** | beat count, argument density, and script length all derive from it; a 30-second cut is not a 60-second film trimmed |
 | **aspect ratio** | capture headroom, crop, focal placement, and type scale are chosen for one frame shape; re-framing invalidates selected evidence |
-| **narration: TTS / supplied / silent** | decides whether word-level alignment exists at all, and therefore how every cue in step 7 is anchored |
+| **narration: TTS / supplied / silent** | decides how word-level timing is obtained, or which non-speech anchors drive every cue in step 7 |
 
 Present the options with a recommendation and your reasoning, then wait. Do not infer these three from the request's genre, and do not proceed on a default because the user did not specify them — an unstated aspect ratio is missing information, not permission to assume 16:9. When the user asks for TTS, also confirm the language and let them accept a cast voice or choose another; an uncast voice is a casting decision made by omission.
 
@@ -155,20 +156,24 @@ Review the story as a proposal before expensive media generation or composition 
 
 Load `vidmuse-media` for only the operations it actually implements, and `vidmuse-cli` whenever the binary must run. Never route transcription, TTS, music, SFX, image generation, or video generation through HyperFrames-managed models or downloaded local models.
 
-Narration intent, language, and voice were settled in step 1 — execute that decision rather than reopening it. Before the first paid call of a run, state the model and its live unit price so the spend is knowingly authorized, and lock the script as plain text first: it is the cheapest gate in the pipeline, and a wrong script wastes the synthesis, the alignment, and every duration derived from them.
+Narration intent, language, and voice were settled in step 1 — execute that decision rather than reopening it. Before the first paid call of a run, state the model and its live unit price so the spend is knowingly authorized, and lock any authored script as plain text first: it is the cheapest gate in the pipeline, and a wrong script wastes synthesis, timing work, and every duration derived from them.
 
 Also ask `vidmuse-cli` for the credit balance before that first paid call, and compare it against the run's estimated generation spend. When the balance is short, do not refuse the film and do not quietly shrink it: propose a version the balance can pay for, say what the user will hold at the end, name the shortfall for the rest, and give the top-up link once — `https://vidmuse.ai/en/pricing`. Never begin a batch the balance cannot finish; a half-paid film is worse than a smaller one. See `vidmuse-vox` for the fuller budget protocol when a run is heavy on generated media.
 
-**Every narrated film gets word-level timing. There is no exception for narration this workflow generated itself.** Request `transcribe-and-align` from `vidmuse-media` and require the validated flat `transcript.json` before any beat receives a duration:
+**Every narrated film gets word-level timing. There is no exception for narration this workflow generated itself.** Request the one appropriate atomic operation from `vidmuse-media` and require the validated flat `transcript.json` before any beat receives a duration:
 
-- For supplied speech, the words are not known in advance: run the full ASR → correction → ATA chain.
-- For narration synthesized from a locked script, that script is the exact text, so `vidmuse-media` skips ASR and its correction pass and begins at alignment. Alignment itself is still mandatory. A measured total duration from `ffprobe` is not word timing and never substitutes for it.
-- Regenerated narration invalidates the alignment. When the script or voice changes, re-run TTS and alignment; a stale `transcript.json` is a defect. Never hand-edit a word timestamp.
+- For supplied speech whose exact words are not already locked, request `transcribe`. The default is `scribe-v2`; use its native word timestamps directly and do not append ATA.
+- When the user supplies an exact spoken script with its matching recording, request `align-transcript` against that text and audio.
+- For narration synthesized from a locked script, request `align-transcript` against that script and the resulting TTS audio; do not transcribe it first. A measured total duration from `ffprobe` is not word timing and never substitutes for it.
+- Use Gemini verification only when the user actively asks to check or correct subtitle/transcript text. Its untimed output is a review artifact and does not replace the timestamp source automatically.
+- Any changed speech audio invalidates its existing timing. When supplied audio, script, voice, or generated narration changes, rerun the applicable atomic operation; a stale `transcript.json` is a defect. Never hand-edit a word timestamp.
 - For generated narration or other media, use only a live VidMuse capability whose model and inputs have been explicitly resolved by the appropriate capability skill.
 - If a required operation is not implemented or available, report the precise missing capability and stop that branch; do not silently change provider or invent an artifact.
-- For a silent film, derive timing from visible actions, reading load, music beats when supplied, and the story arc. Record the per-beat spans explicitly, since there is no transcript to measure them against.
+- For a silent film, derive timing from visible actions, reading load, analyzed musical events when available, and the story arc. Record the per-beat spans explicitly, since there is no transcript to measure them against.
 
-Then read each beat's `script_span` — the start and end of its argument — from the aligned word timings, and set the storyboard `duration` from that measured span. Do not derive a beat's length by dividing total narration duration across beats, and do not plan a fixed length per beat: spans of 6.5 / 15.3 / 9.5 seconds become beats of about 7 / 15 / 10 seconds, not three equal thirds. Update storyboard durations only from verified media or deliberate silent timing. Preserve word-level timing separately from subtitle grouping.
+When the user supplies music, or an approved BGM file already exists, `analyze-music` is available as a separate input to direction. Use it when phrases, downbeats, beats, or rhythmic density materially improve an MV, montage, transition, or other beat-led scene. Preserve `music-analysis.json` and bind only justified events to it; do not generate or choose music as a side effect, and do not force a cut on every detected beat.
+
+Then read each beat's `script_span` — the start and end of its argument — from the validated word timings, and set the storyboard `duration` from that measured span. Do not derive a beat's length by dividing total narration duration across beats, and do not plan a fixed length per beat: spans of 6.5 / 15.3 / 9.5 seconds become beats of about 7 / 15 / 10 seconds, not three equal thirds. Update storyboard durations only from verified media, deliberate silent timing, or justified musical structure. Preserve word-level timing separately from subtitle grouping.
 
 **Gate:** a narrated film has a validated `transcript.json`, every beat's duration comes from its measured `script_span`, and the intended program-audio path is clear. Without word timing, stop here — steps 7 and 9 cannot bind or verify anything.
 

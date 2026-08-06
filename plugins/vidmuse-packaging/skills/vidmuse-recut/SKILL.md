@@ -76,8 +76,8 @@ Alternate quiet and emphasized passages. Do not sustain maximum intensity. Show 
 
 Make the first user-visible checkpoint happen as soon as word timing is valid, before art direction or card design:
 
-1. Use `vidmuse-media` to run ASR for text, correct obvious names and terms, then run the mandatory `doubao_speech/audio_text_alignment` ATA model on the corrected text and same audio. Build `transcript.json` only from explicit ATA word timing; ASR-only segmentation is forbidden.
-2. Derive `subtitles.timeline.json` from those ATA-aligned words with a target of 15 and hard maximum of 16 characters per cue. Prefer punctuation, word boundaries, and real pauses; no cue may exceed 16.
+1. Use `vidmuse-media` to request `transcribe` with the default `scribe-v2`, then build `transcript.json` from its validated native word timestamps. Do not append ATA. If the user instead supplies an exact transcript for the same audio, `align-transcript` may be requested as the standalone timing source. Run Gemini text verification only when the user actively asks to check or correct subtitles; its untimed result never supplies cue timing.
+2. Derive `subtitles.timeline.json` from the validated transcript words with a target of 15 and hard maximum of 16 characters per cue. Prefer punctuation, word boundaries, and real pauses; no cue may exceed 16.
 3. Use `vidmuse-timeline` to create or incrementally update `dsl.json` with the user's original video, its program audio, the subtitle cues, and an empty graphics track.
 4. Validate the DSL, then use `vidmuse-cli` to start `vidmuse serve <absolute-dsl-path> --read-only` on loopback.
 5. Keep the Serve process alive and report the clickable local URL to the user as a progress update.
@@ -217,7 +217,7 @@ Budget spatial-state switches across the whole film, not per card. The compositi
 
 Treat source-camera motion as a high-attention spatial decision because it moves the viewer's whole world. Use `vidmuse-motion` to test whether the beat calls for a brief source-detail focus, a stable side-by-side explanation, or no reframing. When both the speaker and detailed content must remain understandable across several phrases, prefer a settled picture-in-picture, split, or stack relationship over repeated zoom corrections.
 
-After selecting the spatial mode, load `vidmuse-motion` and build a cue chain from exact ATA word anchors plus relevant pauses, gestures, and source events. A card window defines availability, not one simultaneous entrance: reveal claims, branches, values, and consequences when the speaker reaches them, then hold and resolve intentionally. Hand the approved motion brief to `hyperframes-animation`; never select animation rules or effects before the semantic and temporal reason exists.
+After selecting the spatial mode, load `vidmuse-motion` and build a cue chain from exact `transcript.json` word anchors plus relevant pauses, gestures, and source events. A card window defines availability, not one simultaneous entrance: reveal claims, branches, values, and consequences when the speaker reaches them, then hold and resolve intentionally. Hand the approved motion brief to `hyperframes-animation`; never select animation rules or effects before the semantic and temporal reason exists.
 
 Once that cue chain exists, prefer a quick `vidmuse-shotcraft` search for the few support,
 hero, or editorial-punctuation moments that could benefit from a proven implementation;
@@ -288,8 +288,8 @@ Keep the official data and rendering contracts; replace only these execution pro
 
 - `metadata.json`
 - `audio.mp3`
-- `asr.raw.json`
-- `ata.raw.json`
+- `asr.raw.json` and `asr.provider.json` when `transcribe` produced the timing
+- `ata.raw.json` only when the standalone `align-transcript` operation produced the timing
 - `transcript.json`
 - `subtitles.timeline.json`
 - `dsl.json`
