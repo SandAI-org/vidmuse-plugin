@@ -35,17 +35,19 @@ For `vidmuse-mv`, distinguish continuity references from factual evidence. A gen
 
 Build the minimum coverage set from the approved treatment, visual direction, production bible, and shot plan inside `MV-SCRIPT.md`:
 
-- **Character ID:** prefer one blank-background face close-up plus one blank-background full-body three-view turnaround. The base pack fixes face, hair identity, skin tone, age read, body proportions, and silhouette without introducing a story environment.
-- **Look ID:** create a separate neutral wardrobe card when clothing, footwear, accessories, or hair/makeup change. Keep changeable fashion out of the base identity pack when practical.
-- **Location ID:** create one geography card for each recurring setup that fixes architecture, usable space, time/light, palette, and weather without a competing face.
-- **Prop ID:** create a separate card only for a recurring or state-changing hero object whose shape, material, color, wear, scale, or ownership must persist.
+- **Character ID:** accept a supplied combined sheet, separate face/body images, or other authorized references when they cover the planned shots. When generation is genuinely needed, prefer one native `16:9` white-background sheet with a large close-up on the left and exactly three aligned full-body front/side/back views on the right. The single sheet fixes face, hair identity, skin tone, age read, body proportions, silhouette, and the primary Look without several approval cycles.
+- **Look ID:** let the primary MV wardrobe, footwear, accessories, and hair/makeup live on the combined sheet when practical. Reuse uploaded styling references. Create a separate Look card only for a materially different planned look that lacks usable coverage.
+- **Location ID:** reuse a supplied setting reference. Create a geography card only for recurring architecture or spatial/light logic that planned shots must preserve.
+- **Prop ID:** reuse a supplied object reference. Create a separate card only for a recurring or state-changing hero object whose exact shape, material, color, wear, scale, or ownership must persist; an incidental object does not earn one.
 - **Scene anchor:** combine only approved IDs when a shot needs a specific composition or first-frame reference. Do not regenerate the character from prose or let the scene anchor redefine approved identity.
 
-Prefer supplied authorized performer references. When their background could leak into video generation, plan a change-only isolation edit rather than accepting the environment as part of identity. Require pure white or neutral seamless backgrounds, even neutral light, no text, logos, decorative layout, scenery, or unrelated props for identity and Look references.
+For every ID, return one status: `use supplied`, `derive only if needed`, `generate missing`, or `no separate reference`. A stable ID is a continuity concept, not a mandatory file. Prefer supplied authorized performer and styling references, preserve the user's filenames, and do not make the user confirm them again merely because they entered the inventory. When a supplied background could materially leak into the shots, plan one change-only isolation edit; do not normalize every upload to white by default.
+
+For a newly generated combined sheet, require a pure white edge-to-edge background, even neutral light, one large face-and-shoulders close-up at left, and front/side/back full-body views at right. Keep all four depictions in the same approved identity and primary Look, with generous white gutters and no labels, tiles, borders, scenery, unrelated props, logos, or decorative poster treatment. Generate it as one image rather than assembling several paid outputs afterward.
 
 Assign each reference one explicit role and list which shots consume it. A close performance shot may need the face reference; a full-body action shot may need the three-view or relevant isolated pose; a location-driven shot may need only the location card. Do not send every reference to every generation.
 
-For wardrobe, prop, or scene changes, preserve the invariant IDs and change only the named production-design dimension. A motivated change creates a new Look, Location, or Prop state; accidental drift does not. Return the exact required reference operations to the MV owner, which selects a live image model and executes them through `vidmuse-cli` after cost approval.
+For wardrobe, prop, or scene changes, preserve the invariant IDs and change only the named production-design dimension. A motivated change creates a new Look, Location, or Prop state; accidental drift does not. Return only the missing reference operations to the MV owner, which selects a live image model and executes one consolidated batch through `vidmuse-cli` after cost approval.
 
 ## Search for missing real-world coverage
 
@@ -162,7 +164,9 @@ Write `asset-plan.json` only for a direct asset-planning request or when multipl
 
 Ask `vidmuse-media` to resolve an approved media operation it implements, or return an exact capture request to the film owner for execution through `hyperframes-cli`. Preserve returned local paths and provenance receipts; do not replace the approved identity with a convenient substitute.
 
-## Selection gate
+## Internal coverage check
+
+This is an internal coverage check, not a command to interrupt the user for every asset. The MV owner presents newly generated continuity references as one batch and reuses supplied assets without redundant confirmation.
 
 Pass only when:
 
@@ -173,7 +177,7 @@ Pass only when:
 - adjacent assets can be edited without losing orientation;
 - rights, privacy, source, and version are known enough for the intended use;
 - no decorative candidate is standing in for missing proof.
-- every recurring MV character, Look, Location, and story-critical Prop ID has the minimum clean coverage required by the shots that consume it;
+- every recurring MV character, Look, Location, and story-critical Prop ID has the minimum clean coverage required by the shots that consume it, whether supplied, derived, generated, or intentionally covered without a separate file;
 - no identity or wardrobe reference carries an accidental story background, and no generated continuity asset is misrepresented as factual evidence.
 
 ## Boundaries

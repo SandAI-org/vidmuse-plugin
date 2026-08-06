@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New MVs now default to `16:9` and explicitly confirm complete-song versus representative-excerpt coverage; an excerpt is selected from the acquired song's real musical structure instead of defaulting to an arbitrary 15-second or vertical test.
 - MV requests without uploaded audio now offer upload or Suno generation through the VidMuse CLI. Suno Custom Mode separates detailed music Style direction from structured singable lyrics, uses live model/schema/price discovery, and locks a user-selected song before treatment or shot planning.
 - Song-generation briefs, prompts, receipts, candidate selection, and spend stay inside the existing `MV-SCRIPT.md` rather than creating additional planning Markdown files.
+- MV continuity setup now reuses uploaded character, styling, location, and prop assets as authoritative inputs, generates only shot-critical gaps, and treats stable continuity IDs as labels rather than mandatory files.
+- When a new character anchor is needed, MV now prefers one native 16:9 white-background sheet containing a large close-up plus aligned front/side/back full-body views in the primary Look; one consolidated review replaces separate face, turnaround, wardrobe, prop, and location confirmations.
+- Internal readiness checks no longer force chat pauses. Reference assets are reviewed as one batch, and generated clips pause only at the collaboration cadence recorded in `MV-SCRIPT.md`.
 
 ## [0.2.12] — 2026-08-06
 

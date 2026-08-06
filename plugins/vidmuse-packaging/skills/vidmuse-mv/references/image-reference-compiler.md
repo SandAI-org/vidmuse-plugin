@@ -1,6 +1,6 @@
 # MV image-reference compiler
 
-Use this reference to turn the approved `## Visual Direction`, `## Production Bible`, and `## Shot Plan` inside `MV-SCRIPT.md` into the smallest reliable set of image-generation requests. Query the live VidMuse model catalog before every paid run; live schemas, model availability, reference limits, sizes, quality controls, and prices override this document.
+Use this reference to turn the approved `## Visual Direction`, `## Production Bible`, and `## Shot Plan` inside `MV-SCRIPT.md` into the smallest reliable set of supplied, derived, or generated continuity assets. Query the live VidMuse model catalog before every paid run; live schemas, model availability, reference limits, sizes, quality controls, and prices override this document.
 
 This compiler distills current first-party guidance rather than copying sample prompts:
 
@@ -26,7 +26,7 @@ Record the exact live model name, request schema, price item, output path, and c
 
 For a new image, write a skimmable brief in this order and omit irrelevant sections:
 
-1. **Purpose:** identity close-up, turnaround, Look card, Location card, Prop card, or scene anchor.
+1. **Purpose:** combined identity-and-look sheet, targeted isolation/edit, additional Look card, Location card, Prop card, or scene anchor.
 2. **Reference bindings:** name each input by index or stable ID and give it exactly one role.
 3. **Canvas and composition:** aspect ratio, framing, viewpoint, subject scale, spatial placement, and negative space.
 4. **Subject and identity:** visible anatomy, face/hair/body traits, wardrobe/look ID, gaze, pose, action, and object interaction.
@@ -34,7 +34,7 @@ For a new image, write a skimmable brief in this order and omit irrelevant secti
 6. **Visual language:** approved Style traits, medium, material, texture, palette, color treatment, and realism target from `MV-SCRIPT.md` → `## Visual Direction`.
 7. **Camera and light:** useful photographic or illustrative control such as shot size, angle, lens character, depth of field, light direction/quality, and exposure mood.
 8. **Continuity invariants:** the exact character, Look, Location, Prop, geometry, placement, and palette facts that must survive.
-9. **Exclusions:** only likely failure modes, such as extra people, extra limbs, duplicate props, text, logo, watermark, split panels, scenery on an identity sheet, or unapproved costume changes.
+9. **Exclusions:** only likely failure modes, such as extra people, extra limbs, duplicate props, text, logo, watermark, extra panels, scenery on an identity sheet, or unapproved costume changes.
 
 Use clear natural language. Labeled short sections are useful for complex requests, but prompt syntax itself is not the goal. Describe concrete materials, shapes, textures, spatial relationships, and light instead of vague praise such as “beautiful,” “epic,” or “high quality.”
 
@@ -62,47 +62,39 @@ Do not add: <likely unwanted elements>.
 
 Repeat the critical preserve list on each iteration. Make one targeted revision at a time so a failure can be diagnosed. If the face drifts while changing a coat, restore the approved face and body invariants instead of rewriting the whole scene prompt or regenerating from prose.
 
-## Character identity pack
+## Reuse supplied character and styling assets first
 
-Create identity references before wardrobe or location composites. Prefer separate clean images over one decorative character poster.
+Accept one uploaded combined sheet, separate portrait/full-body images, styling references, or an authorized performer photograph when they cover the planned shots. Give each input a role and preserve the user's chosen identity and Look. Do not generate a replacement merely to satisfy a preferred layout, and do not ask the user to approve the same upload again.
 
-### Face close-up
+If the background, crop, missing viewpoint, or mixed styling creates a material downstream risk, derive only the missing or contaminated dimension through a targeted edit. A planned close performance shot may need a cleaner face; a front-facing medium shot may not need side/back views at all. Let actual shot coverage determine the gap.
 
-Require:
+## Single 16:9 identity-and-look sheet
 
-- one person only, straight-on or near-straight-on face close-up;
-- pure white or very light neutral seamless background with no visible environment;
-- even neutral soft light, natural skin and hair texture, no dramatic grade;
-- neutral expression, direct gaze, unobstructed face, hairline and ears readable when natural;
-- shoulders may appear, but no story wardrobe, jewelry, props, text, logos, borders, inset images, or contact-sheet layout.
+When a recurring lead lacks adequate supplied coverage, generate one primary sheet, not separate portrait and turnaround renders and not a collage assembled afterward. Require:
 
-For a real performer edit, say `change only the background and reference framing` and explicitly preserve exact likeness, facial geometry, skin tone, hair, age read, and identity.
-
-### Full-body three-view turnaround
-
-Require:
-
-- one identity shown in exactly three full-body views: front, clean side profile, and back;
+- one native `16:9` landscape canvas on a pure white, edge-to-edge background;
+- one large face-and-shoulders close-up on the left, neutral expression, direct or near-direct gaze, unobstructed facial geometry, natural skin/hair detail, and no crop through identity-critical features;
+- exactly three full-body views on the right: front, clean side profile, and back;
 - head-to-toe framing with feet visible, equal scale, neutral upright pose, and consistent anatomy;
-- the same pure white or neutral seamless background and even neutral light in every view;
-- neutral fitted base clothing when wardrobe changes later, or the approved invariant costume when it never changes;
-- no perspective drama, crop, action pose, scenery, props, text, labels, borders, floor clutter, extra views, or duplicated limbs.
+- the same face, hair, age read, body proportions, signature details, rendering Style, and approved primary Look in all four depictions;
+- wearable accessories that belong to the primary Look may remain; exclude separate hero props and unrelated objects;
+- even neutral light and generous white gutters, with no perspective drama, action pose, scenery, text, labels, tiles, borders, dividers, fake UI, floor clutter, extra views, or duplicated limbs.
 
-If the model cannot keep all three views coherent, generate and approve the front view first, then derive side and back through change-only edits. Do not accept a beautiful sheet with three different faces.
+For a real performer edit, say `change only the background and reference layout` and explicitly preserve exact likeness, facial geometry, skin tone, hair, age read, body proportions, and the supplied approved Look. Prefer a model that can generate the sheet natively at `16:9`; if it cannot keep the four depictions coherent, return the limitation before spending on a chain of separate approvals.
 
 ## Production-design cards
 
 ### Look card
 
-Bind one `Look ID`. Show the approved clothing silhouette, fabric, fit, footwear, accessories, hair/makeup, and front/back construction under neutral light. Keep the character identity unchanged. Use a blank background so the garment cannot smuggle a location into later video shots.
+The primary Look normally lives on the combined sheet. Create a separate Look card only when planned shots require a materially different costume, footwear, accessories, or hair/makeup state and no supplied reference covers it. Keep the character identity unchanged and use a blank background so the garment cannot smuggle a location into later video shots.
 
 ### Location card
 
-Bind one `Location ID`. Show the usable geography, entrances/exits, surfaces, palette, time, weather, practical lights, and camera headroom. Omit the lead character unless their scale is necessary; if scale is needed, use a neutral non-identity silhouette. A location card explains space rather than performing a finished hero shot.
+Create one only when recurring spatial continuity matters and supplied material does not cover it. Bind one `Location ID`. Show the usable geography, entrances/exits, surfaces, palette, time, weather, practical lights, and camera headroom. Omit the lead character unless their scale is necessary; if scale is needed, use a neutral non-identity silhouette. A location card explains space rather than performing a finished hero shot.
 
 ### Prop card
 
-Bind one `Prop ID`. Show the object's stable shape, material, color, wear, scale cue, and any approved state variants. Use a neutral background unless the prop's placement is part of its identity.
+Create one only for a recurring or state-changing hero object whose exact design matters and is not already supplied. Bind one `Prop ID`. Show the object's stable shape, material, color, wear, scale cue, and any approved state variants. Use a neutral background unless the prop's placement is part of its identity.
 
 ### Scene anchor
 
@@ -128,16 +120,18 @@ When text must be visible in a scene anchor:
 
 For a storyboard or turnaround, specify the exact panel/view count and order. Reject extra panels, labels, decorative captions, or a different character in each panel.
 
-## Approval gate
+## Consolidated reference acceptance
+
+These criteria are an internal QA list. The MV owner presents all newly generated references as one continuity set; it does not create a separate user checkpoint for face, turnaround, primary Look, each Location, and each Prop. A single combined-sheet acceptance covers the face, body views, primary Look, hair/makeup, and wearable accessories shown on it. Supplied assets remain accepted unless the user requested a transformation or their assigned role is genuinely ambiguous.
 
 Approve a reference only when:
 
 - its stable ID and single downstream role are clear;
 - the selected Style traits are present without copying sample content;
-- character identity is consistent across close-up and body views;
+- character identity is consistent across the combined close-up and body views or the supplied reference set;
 - white-background identity assets contain no environmental leakage;
 - Look, Location, and Prop changes match the production-design plan rather than accidental drift;
 - the framing has enough headroom for the intended video shot and target ratio;
 - hands, feet, object contact, fabric, shadows, perspective, and scale are plausible where visible;
-- no extra person, limb, object, text, logo, watermark, panel, or unapproved styling appears;
+- no extra person, limb, object, text, logo, watermark, extra panel, or unapproved styling appears;
 - the original path and every derived edit retain model and cost provenance.

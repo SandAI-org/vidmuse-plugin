@@ -24,8 +24,9 @@ Do not turn this workflow into a one-shot mega-prompt or a hidden autonomous bat
 - Distinguish performance shots from narrative, atmosphere, typography, and transition shots. A subject may sing or speak when the shot calls for it; do not force lip movement across the whole film.
 - Generate chronologically, one shot at a time by default. After a successful download and structural probe, append that shot to the same Timeline before any Agent visual inspection.
 - Do not watch a new candidate, extract frames, build a contact sheet, score it, or retry it autonomously before the user can review it. The user is the first visual reviewer.
+- Treat workflow gates as internal readiness checks unless a real unresolved choice, paid call, or visual result needs the user. Do not convert every Character, Look, Location, Prop, prompt, or file into a separate confirmation. Honor the review cadence already recorded in `## Scope`.
 - Keep visible lyrics exact. Generated lyric typography is a creative candidate; spelling-critical delivery text becomes a deterministic overlay after approval if H3 renders it incorrectly.
-- Treat song generation and visual production as separate possible spend gates. Before each gate's first paid call, quote its live model, expected outputs, cost, balance, and relevant allowance; do not re-ask within an approved scope unless the estimate materially expands.
+- Treat song generation and visual production as separate possible spend stages. Before each stage's first paid call, quote its live model, expected outputs, cost, balance, and relevant allowance; do not re-ask within an approved scope unless the estimate materially expands.
 
 ## Project artifacts
 
@@ -82,7 +83,7 @@ Create a lean `MV-SCRIPT.md` skeleton and record these decisions and any pending
 
 An existing approved `ip-kits/<ip-id>/IP.md` keeps ownership in `vidmuse-ip`, even for a music-led episode. A performer or character created only for this MV remains project-local and belongs here.
 
-**Gate:** `MV-SCRIPT.md` exists and its `## Scope` records the song-source path, complete-song or excerpt intent, `16:9` or an explicit override, creative mode, identity source, review cadence, constraints, unresolved song decisions, and current spend-approval state.
+**Human checkpoint when unresolved:** `MV-SCRIPT.md` exists and its `## Scope` records the song-source path, complete-song or excerpt intent, `16:9` or an explicit override, creative mode, identity source, review cadence, constraints, unresolved song decisions, and current spend-approval state. One compact answer or explicit delegation resolves this checkpoint.
 
 ### 2. Acquire the song, then lock master audio and vocal timing
 
@@ -117,7 +118,7 @@ Resolve vocals separately:
 
 Record candidate visual cut anchors at phrase endings, breaths, downbeats, section changes, and meaningful accents, but do not decide provider-sized shots before the MV treatment exists. Later shot boundaries must not cut through a held syllable merely to obtain equal lengths.
 
-**Gate:** one supplied or generated song is selected, complete-song or exact excerpt coverage is resolved, the master audio is non-empty and immutable, `music-analysis.json` exists when useful, and vocal sections have validated word timing.
+**Internal readiness check:** one supplied or generated song is selected, complete-song or exact excerpt coverage is resolved, the master audio is non-empty and immutable, `music-analysis.json` exists when useful, and vocal sections have validated word timing. Pause only for an unresolved song choice or a materially uncertain lyric correction.
 
 ### 3. Write the MV treatment
 
@@ -145,7 +146,7 @@ One treatment section may become several H3 shots; several musical phrases may s
 
 Treat production design as motivated rather than mandatory. A location, costume, hair/makeup look, or hero prop changes only when the lyrics, story, time, performance setup, or musical escalation benefits from it. Real MVs may return to one setup, alternate performance and narrative worlds, or change several looks; all are valid when the logic is explicit.
 
-**Gate:** `MV-SCRIPT.md` has a readable `## Creative Treatment` with song-derived sections rather than provider chunks, enough character/world/plot/visual information to direct the film, and no premature shot-level prompt detail.
+**Internal readiness check:** `MV-SCRIPT.md` has a readable `## Creative Treatment` with song-derived sections rather than provider chunks, enough character/world/plot/visual information to direct the film, and no premature shot-level prompt detail. Present it together with visual direction rather than asking for a separate treatment confirmation.
 
 ### 4. Approve the visual direction and Style
 
@@ -163,7 +164,7 @@ Record the chosen Style's exact receipt under `MV-SCRIPT.md` → `## Visual Dire
 
 If Serve cannot load the catalog, disclose the failure and keep the visual approval gate unresolved. Continue only when the user supplies an exact Style or explicitly delegates the choice; do not fall back to preview links, thumbnail galleries, or broken remote images in chat. Do not start paid image generation from an unapproved visual direction.
 
-**Gate:** `MV-SCRIPT.md` → `## Visual Direction` names one approved generation look, its evidence and invariants, the user's selection or delegated-choice state, and the allowed scene/look variation.
+**Human checkpoint when not delegated:** present the treatment recommendation and visual Style together. `MV-SCRIPT.md` → `## Visual Direction` then names one selected generation look, its evidence and invariants, the user's selection or delegated-choice state, and the allowed scene/look variation.
 
 ### 5. Design the shot sequence and production continuity
 
@@ -190,32 +191,43 @@ Keep identity stable while allowing intentional production changes. A costume, p
 
 Use match action, screen direction, light, color, shape, object state, or sound accents to bridge adjacent clips. Do not force a cut on every detected beat: use strong accents for state changes, lighter beats for gestures and internal motion, and phrase boundaries for cuts.
 
-**Gate:** every shot traces to one treatment section, has one clear function, exact audio span, beat or lyric anchors, explicit continuity IDs and in/out state, and an intended degree of model freedom.
+**Internal readiness check:** every shot traces to one treatment section, has one clear function, exact audio span, beat or lyric anchors, explicit continuity IDs and in/out state, and an intended degree of model freedom. Do not ask the user to approve the technical row for every shot unless that review cadence was requested.
 
-### 6. Resolve and generate references, then approve cost
+### 6. Reuse or fill continuity references, then approve one batch
 
-Use supplied references first. Give each reference one explicit role: character identity, location, wardrobe/look, prop, composition, or typography. Do not pass every reference into every image or video shot.
+Use supplied references first, including assets uploaded after the brief. Give each one an explicit role such as character identity, wardrobe/look, location, prop, composition, or typography, then mark every planned continuity ID as one of:
+
+- `use supplied`: the uploaded asset is already sufficient;
+- `derive only if needed`: a crop, white-background isolation, or targeted change-only edit would materially improve the shots that consume it;
+- `generate missing`: the required continuity evidence does not exist;
+- `no separate reference`: prose or another approved asset is sufficient for the actual shots.
+
+A stable Character, Look, Location, or Prop ID is a continuity label, not a demand for another generated file. Do not ask the user to re-approve an asset they just supplied unless its intended role is ambiguous or a proposed transformation would change it. Do not pass every reference into every image or video shot.
 
 Load `vidmuse-assets` to decide the minimum project-local reference set. Read [image-reference-compiler.md](./references/image-reference-compiler.md) before compiling paid image prompts. Query the live image catalog, schema, price, and input limits; for production identity, wardrobe, location, and scene references, prefer the strongest compatible live image model rather than an older default. `gpt-image-2` and Nano Banana Pro / `gemini-3-pro-image` are current examples to check, not aliases to invent or proof that the account exposes them. Choose from live capabilities, identity/edit fidelity, multi-reference support, latency, price, and the actual reference job; if a preferred model is unavailable, disclose the fallback before spending.
 
-Create character identity references without a story environment whenever the lead recurs:
+When a recurring lead lacks adequate supplied coverage, generate exactly one primary identity-and-look reference rather than separate portrait and turnaround approvals:
 
-- one isolated face close-up on pure white or neutral seamless background, even neutral light, unobstructed face, neutral expression, natural skin/hair detail, and no props, text, logos, scenery, or dramatic grading;
-- one isolated full-body three-view turnaround on the same blank background: front, clean side profile, and back, same scale and neutral pose, head-to-toe with feet visible, consistent anatomy and base identity;
-- keep changing costumes out of the base identity pack when practical. Use neutral fitted base clothing for body shape, then create one separate isolated wardrobe/look card per approved `Look ID`.
+- one native `16:9` landscape canvas on a pure white, edge-to-edge background with even neutral light;
+- one large face-and-shoulders close-up on the left, with neutral expression, unobstructed face, and natural identity detail;
+- exactly three full-body views on the right in front, clean side profile, and back order, aligned to one baseline at equal scale and in the same neutral pose, head-to-toe with both feet visible;
+- the same face, hair, age read, body proportions, rendering Style, and approved primary `Look ID` across all four depictions. Wearable signature accessories may stay with that Look; a separate story prop does not belong on the sheet;
+- generous white gutters and no tiles, borders, labels, captions, dividers, fake UI, scenery, logos, watermarks, extra expressions, extra limbs, or duplicate views.
 
-For a supplied real performer, preserve exact likeness and confirm authorized use. If the source has a distracting environment, create the isolated identity pack as a change-only edit: change the background/framing needed for the reference, keep face, skin tone, hair, body proportions, and identity unchanged. Do not let a source background become an accidental location reference.
+Generate the sheet natively in one image, not as several paid renders followed by a collage. Prefer a live model that can produce the requested `16:9` sheet; if the preferred model cannot, disclose the limitation and choose a compatible live model before spending. Its single approval covers face identity, body views, the primary wardrobe, hair/makeup, and wearable accessories shown on it.
 
-Create separate location cards that establish geography, palette, light, and weather without a competing face; wardrobe/look cards that show materials, fit, accessories, hair/makeup, and front/back logic; and prop cards only for recurring story-critical objects. Generate one approved anchor per stable ID, then derive scene stills through targeted edits or carefully bound multi-reference composition. Do not regenerate identity from prose for every scene.
+Do not force supplied character or styling images into this layout when they already cover the intended shots. For a supplied real performer, preserve exact likeness and confirm authorized use. If a distracting background creates a real leakage risk, make one change-only isolation edit while preserving face, skin tone, hair, body proportions, wardrobe, and identity; otherwise use the upload as-is.
+
+The primary generated sheet may carry the default MV Look. Create an additional Look card only for a materially different costume/hair/makeup setup that appears in planned shots and is not already supplied. Likewise, create a Location card only when recurring geography must persist, and a Prop card only for a recurring or state-changing hero object whose exact design matters. Incidental props, one-off scenery, and optional design ideas must not create extra files or checkpoints.
 
 Before the first paid reference or video call:
 
 1. Query the live H3 and chosen image-model catalog entries and supported request fields.
 2. Query both live prices and the account balance.
 3. Estimate all planned image references and video seconds, plus one user-visible retry allowance.
-4. State the image models, reference count, video plan, expected deliverables, and total estimate; wait for approval.
+4. State which supplied assets will be reused, which true gaps will be generated, the image models, reference count, video plan, expected deliverables, and total estimate; obtain one spend approval for the batch.
 
-After approval, generate the minimum reference set first and let the user approve identity, Style fidelity, look/location separation, and continuity coverage before any H3 shot. Iterate with one targeted change while restating invariants; do not replace an approved reference because a later shot fails.
+After spend approval, generate only the missing set. Present all newly generated continuity references together, alongside a compact reminder of the supplied assets being reused, as one visual checkpoint before H3. Do not pause separately for the face, the three views, the primary Look, each prop, or each location. If the user delegated continuity acceptance, proceed without another stop; if they request a correction, make one targeted change while preserving the rest. Reopen the checkpoint only when a later request changes a locked identity or production-design invariant.
 
 Do not rely on remembered resolution, duration, aspect-ratio, input-count, or file-format options. Live model metadata is authoritative.
 
@@ -232,7 +244,7 @@ Choose the H3 input mode by the shot's job:
 
 For complex multi-reference shots, compile the prompt into H3's full-reference sections: subject definitions, shot summary, retention analysis, detailed description, overall soundscape, and non-diegetic music. The detailed description should follow time order and name only the lyric, beat, gesture, camera, typography, or transition events that must land. Preserve useful creative room everywhere else.
 
-Bind every still by stable ID and role. When the character reference uses a white-background face or turnaround, say that the blank background and sheet layout are isolation aids only and must not appear in the shot; take the environment exclusively from the named Location reference or shot description. Carry the approved Character, Look, Location, and Prop invariants into retention analysis, and name any intentional state change explicitly.
+Bind every still by stable ID and role. When the character reference is a white-background combined sheet or another isolated upload, say that the blank background and reference layout are identity aids only and must not appear in the shot; take the environment exclusively from the named Location reference or shot description. Carry only the Character, Look, Location, and Prop invariants that the shot needs into retention analysis, and name any intentional state change explicitly.
 
 Use an English control wrapper for reliable instruction following, while preserving lyrics and intended visible words exactly in their original language. Do not request duplicate generated soundtrack; Timeline owns the master audio.
 
@@ -250,7 +262,7 @@ For each audio-driven shot:
 4. Do not perform aesthetic inspection or autonomous retries.
 5. Load `vidmuse-timeline`. Append or replace the stable shot ID in the same `dsl.json`, keep the generated clip muted, and let the full master audio remain the sole program-audio source.
 6. Validate the DSL. Reuse the loopback read-only Serve session opened for Style selection when it is still alive; otherwise start one after the first clip. Report the URL, and for every later clip update the same Timeline and tell the user which span appeared.
-7. Stop for the user's reaction after each shot. If the user explicitly authorized continuous generation, continue, but still append and surface every returned shot immediately.
+7. Surface every returned shot immediately, but pause only at the review cadence recorded in `## Scope`. For a normal efficient run, recommend reviewing the first continuity-risky clip and then continue in small chronological batches; use one-by-one review or uninterrupted generation when the user chose it. Do not silently revert to a stop after every shot.
 
 Apply `vidmuse-timeline`'s existing incremental-update protocol directly. Append one ordinary muted video item to the main track, preserve stable IDs and unknown fields, keep the full master audio as an independent sound, and validate after every update. Use `source`, `720p`, `1080p`, or `4k` for the Timeline project resolution; it is the delivery tier, not necessarily the raw H3 response height.
 
@@ -271,7 +283,7 @@ Once all shots are approved:
 
 Return the final file, project directory, Timeline state, actual spend, and known limitations.
 
-## Quality gate
+## Final QA
 
 Reject final delivery when any answer is no:
 
