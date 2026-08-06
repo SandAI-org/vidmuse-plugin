@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.12] — 2026-08-06
+
+### Added
+
+- Added `MV-SCRIPT.md` as the single human-readable MV planning contract, growing from scope and locked lyrics through song-derived treatment, visual direction, production bible, shot plan, and generation log.
+- Added a first-party-sourced image-reference compiler for live production models such as GPT Image 2 and Nano Banana Pro, with explicit reference roles, change-versus-preserve edits, single-variable iteration, and dedicated Character, Look, Location, Prop, and scene-anchor guidance.
+- Added an MV Style approval checkpoint using the live CLI catalog and Serve's visual **Styles** browser, including Agent recommendations, user or delegated selection, and exact receipt capture inside `MV-SCRIPT.md`.
+
+### Changed
+
+- MV continuity now uses stable Character, Look, Location, and Prop IDs so wardrobe, hair/makeup, sets, lighting, and hero objects change only when the treatment motivates them.
+- Recurring character references now prefer a blank-background face close-up and full-body front/side/back turnaround, with separate wardrobe cards and explicit protection against reference-background or sheet-layout leakage into H3 shots.
+- `vidmuse-design`, `vidmuse-assets`, `vidmuse-cli`, and `vidmuse-timeline` now carry the corresponding MV visual-direction, reference-coverage, Serve Style-browser, and audio-only pre-generation review contracts.
+- New MV projects no longer create separate `BRIEF.md`, `FRAME.md`, or `STORYBOARD.md`; those names remain accepted only for legacy project recovery.
+- IP Style approval now opens the CLI's visual **Styles** browser in read-only Serve instead of embedding fragile remote thumbnails in chat.
+- IP identity setup now produces one native 16:9 pure-white sheet with a large close-up and aligned full-body front, side, and back views, replacing the multi-image contact-sheet collage.
+- Updated the bundled macOS Apple-silicon VidMuse CLI to `v0.3.7-1b501e1`, including the visual Style catalog used by the new approval checkpoint.
+
 ## [0.2.11] — 2026-08-06
 
 ### Added

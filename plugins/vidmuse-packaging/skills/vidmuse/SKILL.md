@@ -17,7 +17,7 @@ First decide whether the user wants a complete film. A complete film remains own
 | Reusable IP Kit or a complete film led by a recurring creator avatar, mascot, stylized likeness, or virtual character | `vidmuse-ip` |
 | Complete generative music video whose supplied song, lyrics, or music window is the master timeline, without an existing reusable IP Kit lead | `vidmuse-mv` |
 | Complete film from an idea, text, script, website, audio, or non-speaking media | `vidmuse-create` |
-| Visual direction, style system, or `FRAME.md` only | `vidmuse-design` |
+| Visual direction or style-system work only | `vidmuse-design` |
 | Motion direction, speech synchronization, camera/PIP choreography, effect selection, or animation lifecycle only | `vidmuse-motion` |
 | Asset decisions, identity, sourcing plan, library policy, or licensing only | `vidmuse-assets` |
 | Vox-style editorial paper-collage film or B-roll, where each clip's length is planned from narration | `vidmuse-vox` |
@@ -27,7 +27,7 @@ First decide whether the user wants a complete film. A complete film remains own
 
 ## Routing rules
 
-1. Preserve an existing film owner. `IP-SNAPSHOT.md` or an episode referencing an approved `ip-kits/<ip-id>/IP.md` means `vidmuse-ip`; an MV `BRIEF.md` or `STORYBOARD.md` whose master spine is supplied music means `vidmuse-mv`; another non-IP creation-mode `BRIEF.md` or official `STORYBOARD.md` means `vidmuse-create`; `edit-plan.json` or official recut `storyboard.json` means `vidmuse-recut` unless the user explicitly changes the deliverable. Preserve legacy `film-plan.json` as `vidmuse-create` when resuming an older project.
+1. Preserve an existing film owner. `IP-SNAPSHOT.md` or an episode referencing an approved `ip-kits/<ip-id>/IP.md` means `vidmuse-ip`; an `MV-SCRIPT.md` whose master spine is supplied music means `vidmuse-mv`. Separate MV `BRIEF.md`, `FRAME.md`, or `STORYBOARD.md` are legacy signals and still resume as `vidmuse-mv`; new MV projects use only `MV-SCRIPT.md` as their human-readable plan. Another non-IP creation-mode `BRIEF.md` or official `STORYBOARD.md` means `vidmuse-create`; `edit-plan.json` or official recut `storyboard.json` means `vidmuse-recut` unless the user explicitly changes the deliverable. Preserve legacy `film-plan.json` as `vidmuse-create` when resuming an older project.
 2. Route by output, not merely by input. “Turn this interview into a launch film” is `vidmuse-recut`; “transcribe this interview” is `vidmuse-media`.
 3. Treat focused capabilities as subordinate to a film. “Make a film and generate a voiceover” stays with the film owner, which may later load `vidmuse-media`.
 4. Keep semantic motion subordinate to the film owner. `vidmuse-motion` decides choreography after the owner selects a beat; `hyperframes-animation` implements it after the motion brief exists.

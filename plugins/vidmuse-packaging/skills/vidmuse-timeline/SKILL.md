@@ -9,9 +9,9 @@ Own the VidMuse DSL assembly and review surface. Translate already-approved film
 
 ## Source-of-truth boundary
 
-- Treat the film owner's official `STORYBOARD.md` for Create/MV or `storyboard.json` for Recut, approved media, generated review candidates handed off by the owner, `FRAME.md`, captions, audio plan, and validated HyperFrames HTML as editorial inputs. Accept legacy `film-plan.json` only when resuming an older Create project. A review candidate may enter Timeline before visual approval; Timeline inclusion does not approve it.
+- Treat the film owner's official `STORYBOARD.md` for Create, single `MV-SCRIPT.md` for MV, or `storyboard.json` for Recut as the planning input, together with approved media, generated review candidates, the active design contract, captions, audio plan, and validated HyperFrames HTML. Accept separate MV `BRIEF.md`, `FRAME.md`, or `STORYBOARD.md` only as legacy resume inputs; do not require or recreate them for a new MV. A review candidate may enter Timeline before visual approval; Timeline inclusion does not approve it.
 - Treat `dsl.json` as the source of truth for VidMuse track assembly, playback settings, Timeline edits, and CLI rendering.
-- Keep Timeline edits in `dsl.json` or the explicitly edited HyperFrames HTML. Do not silently back-propagate them into the film plan, storyboard, or `FRAME.md`; report the difference to the owner for acceptance.
+- Keep Timeline edits in `dsl.json` or the explicitly edited HyperFrames HTML. Do not silently back-propagate them into the owning film plan or design contract; report the difference to the owner for acceptance.
 - Preserve unknown fields and stable IDs when updating an existing DSL. Never rebuild the whole document merely to change one clip.
 
 ## Minimal workflow
@@ -98,6 +98,8 @@ Use `videos` for new tracks. Existing projects may use the deprecated `items` co
 
 Do not add `scenes`, `packagingPlan`, `harness`, generation placeholders, or compatibility fields to a new assembled project unless an existing owner workflow requires them. They are accepted inputs and fallbacks, not the minimal render contract.
 
+For a pre-generation Style-selection checkpoint, a pictureless review DSL is valid. An IP project may use a one-second canvas with the brief's `options` and empty `videoTracks`, `sounds`, and `subtitles`. An MV keeps the locked master audio as one audible `sounds` item starting at `0`, sets `totalDuration` to its full duration, and leaves `videoTracks` empty. Validate either normally. These DSLs exist only to open Serve's catalog, and for MV to hear the timing spine; do not add placeholder picture or pretend that Style browsing has changed the film.
+
 ## Timing and track semantics
 
 Use numeric seconds in new DSL. Preserve valid numeric or `HH:MM:SS.mmm`/`HH:MM:SS,mmm` values already present unless editing them.
@@ -122,7 +124,7 @@ Give every track, item, sound, and subtitle a stable project-wide unique ID. Reo
 - Keep exactly one intended program-audio path. Do not leave the main source audible while also adding an extracted copy as independent source/program audio.
 - Use `sounds` for independently timed music, voiceover, or extracted program audio. Remember that overlay rendering preserves `sounds` while excluding the main video track and its embedded audio.
 
-Use DSL subtitles only when Timeline owns the caption overlay. If the validated HyperFrames composition already renders the same captions, leave `subtitles` empty. Timeline captions are independent top-layer overlays, not track geometry or a reserved empty rail: footage and HyperFrames packaging may continue behind them. For new subtitles, use numeric seconds, normalized `layout.x`/`layout.y` coordinates, and style values inherited from `FRAME.md`; default to horizontal center unless the approved design says otherwise. Preserve this through the native subtitle collection and runtime ordering—do not invent a private `zIndex`, layer, or component field.
+Use DSL subtitles only when Timeline owns the caption overlay. If the validated HyperFrames composition already renders the same captions, leave `subtitles` empty. Timeline captions are independent top-layer overlays, not track geometry or a reserved empty rail: footage and HyperFrames packaging may continue behind them. For new subtitles, use numeric seconds, normalized `layout.x`/`layout.y` coordinates, and style values inherited from the active design contract—`MV-SCRIPT.md` → `## Visual Direction` for MV, `FRAME.md` elsewhere; default to horizontal center unless the approved design says otherwise. Preserve this through the native subtitle collection and runtime ordering—do not invent a private `zIndex`, layer, or component field.
 
 ## HyperFrames compatibility
 
@@ -133,7 +135,7 @@ Treat `htmlSourceFilePath` as a reference to one complete renderable HyperFrames
 - Run the pinned HyperFrames lint, browser check, and representative snapshots before accepting the HTML.
 - Never point `htmlSourceFilePath` directly at `compositions/components/<name>.html`. Components are snippets without their own canvas or timeline; merge their HTML, CSS, JS, and timeline calls into a host first.
 - Do not point directly at a raw Registry block template. Wire the block into a standalone host, or into the film's full overlay composition.
-- Do not add a private DSL component field. Keep component provenance in `FRAME.md`, `hyperframes.json`, and the HyperFrames project.
+- Do not add a private DSL component field. Keep component provenance in the active design contract, `hyperframes.json`, and the HyperFrames project.
 
 Choose the assembly mode from media ownership, not convenience:
 
@@ -226,7 +228,8 @@ Load `vidmuse-cli` for the exact binary path and live command syntax.
 - Start editable serve only when the user explicitly requests Timeline or HyperFrames editing.
 - Treat editable serve as a real local mutation session: the UI can persist the complete DSL and edit HyperFrames HTML.
 - Keep the foreground process alive, report its URL, and do not expose a non-loopback host implicitly.
-- When the owning film workflow marks Serve as a mandatory perception checkpoint, start it immediately after validation without asking another confirmation. Do not continue into art direction until the process is alive and the URL has been reported to the user.
+- For an owner-declared Style-selection checkpoint, a validated pictureless IP or audio-only MV DSL may enter read-only Serve before any picture exists. Tell the user to open the top-right **Styles** palette, compare visual cards, and return **Copy for Agent** output or the copied Style ID. Browsing, filtering, selecting, and copying a card do not mutate the DSL or approve the Style by themselves; the IP owner records the explicit choice in `style.json`, while the MV owner records it in `MV-SCRIPT.md` → `## Visual Direction`.
+- When the owning film workflow marks Serve as a mandatory perception checkpoint, start it immediately after validation without asking another confirmation. Do not continue past that checkpoint until the process is alive and the URL has been reported to the user.
 - When an IP or MV owner requests immediate generated-clip review, assemble candidates sequentially with their master narration or music, run structural DSL validation, and start Serve before any Agent visual inspection. Add or replace each stable clip in the same DSL as soon as it returns. Do not watch the clips, extract sample frames, create contact sheets, render a review file, score the generation, or delay the URL for autonomous quality judgment.
 - The immediate generated-candidate checkpoint overrides the following live-perception instructions until the user has seen the sequence. For other reviews, and after user-requested revisions or packaging edits, reload the page and exercise the real preview continuously across every packaging item. Confirm the source remains visible through intended transparency, motion advances during Play, item bounds match the first and last visible graphic frames, and no black fill, residue, or fetch/media error appears.
 - Treat a black fill that appears only while a transparent HyperFrames item is active as a preview-compositor failure. Do not hide it by embedding a second source-video plate in the packaging host; follow [preview-integrity.md](./references/preview-integrity.md) and block review until the runtime or an explicitly disclosed alpha-overlay proxy is valid.

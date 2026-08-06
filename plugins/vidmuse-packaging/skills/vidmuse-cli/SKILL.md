@@ -191,6 +191,9 @@ For `serve`:
 - Use a non-loopback `--host` only when the user explicitly requests network access and the network is trusted; the preview has no authentication and can access project paths.
 - Treat it as a long-lived process, report the URL, and keep the process available to the caller.
 - When an owning workflow declares a mandatory Serve checkpoint, start the validated DSL immediately; do not downgrade the requirement to a suggestion or wait for another user request. Confirm the process remains alive and send the URL as a user-visible progress update before returning control to the owner.
+- The current Serve UI includes a visual Style catalog behind the top-right **Styles** palette control. It loads visual cards for official and user Styles, supports local search and Live Action / 3D / Stop Motion / Mixed Media filters, shows the selected Style's preview and full descriptive fields, and offers **Copy for Agent** plus **Copy Style ID**. Read-only mode still permits this browsing and copying because neither action mutates `dsl.json`.
+- When an owning workflow declares a pre-generation Style-selection checkpoint, serve its minimal validated DSL even if the Timeline currently contains only the locked master audio. Tell the user exactly where the **Styles** control is and ask them to return the copied Agent reference or Style ID. The copied Agent reference contains the name, ID, tags, description, prompt sample, and preview image URL; selection remains an owner decision and must be recorded outside the CLI.
+- If the Serve catalog cannot load, return the failure without changing the DSL and fall back to the already-supported `style list` / `style get` receipts. Do not claim that opening a card applies the Style to media or Timeline content.
 - Try the default port first. If it is already occupied, do not terminate another process; find a confirmed free loopback port, pass it with `--port`, and report the actual URL.
 
 For `render`:

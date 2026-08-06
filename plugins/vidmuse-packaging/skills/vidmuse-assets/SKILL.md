@@ -1,15 +1,15 @@
 ---
 name: vidmuse-assets
-description: Plan and select semantically meaningful assets for VidMuse films. Use inside vidmuse-create or vidmuse-recut to turn story claims into evidence needs, search license-clear web sources when supplied media is insufficient, shortlist official HyperFrames Capture output or supplied/remote media, design capture sequences, select focal/supporting/fallback assets, and record provenance, identity, licensing, privacy, crop, and resolution constraints. Also use directly for logos, icons, fonts, brand identity, asset-library policy, or license-aware sourcing. Do not use for an already-decided download, generation, transform, animation, or render.
+description: Plan and select semantically meaningful assets for VidMuse films. Use inside vidmuse-create, vidmuse-recut, or vidmuse-mv to turn story claims into evidence needs, plan generated continuity references, search license-clear web sources when supplied media is insufficient, shortlist official HyperFrames Capture output or supplied/remote media, design capture sequences, select focal/supporting/fallback assets, and record provenance, identity, licensing, privacy, crop, and resolution constraints. Also use directly for logos, icons, fonts, brand identity, asset-library policy, or license-aware sourcing. Do not use for an already-decided download, generation, transform, animation, or render.
 ---
 
 # VidMuse Assets
 
-Decide what the film must show and which real asset can prove it. Do not treat availability as editorial value.
+Decide what the film must show and which real or generated continuity asset can serve that exact role. Do not treat availability as editorial value.
 
 ## Read the story need
 
-Read the request, `BRIEF.md`, provisional or approved `STORYBOARD.md`, `SCRIPT.md`, `FRAME.md` when present, and the authoritative source inventory.
+Read the request, the owning film artifact, and the authoritative source inventory. For a new MV, `MV-SCRIPT.md` contains scope, treatment, visual direction, production bible, and shot plan; do not expect separate MV `BRIEF.md`, `FRAME.md`, or `STORYBOARD.md`. Accept those names only as legacy inputs when resuming an older MV.
 
 For each beat identify:
 
@@ -28,6 +28,24 @@ For official HyperFrames Capture, treat `capture/extracted/asset-descriptions.md
 For supplied media, build a compact inventory from the real files and representative frames. Preserve the user's filenames and paths. For licensed or remote assets, record the source, license, author/owner, allowed use, and any attribution or redistribution obligation.
 
 Do not accept filenames, alt text, generated descriptions, or dominant-color summaries as proof that an asset is visually usable.
+
+## Plan MV continuity references
+
+For `vidmuse-mv`, distinguish continuity references from factual evidence. A generated character sheet, wardrobe card, location card, prop card, or scene anchor does not prove a real-world claim; it gives downstream image and video models one stable identity to preserve.
+
+Build the minimum coverage set from the approved treatment, visual direction, production bible, and shot plan inside `MV-SCRIPT.md`:
+
+- **Character ID:** prefer one blank-background face close-up plus one blank-background full-body three-view turnaround. The base pack fixes face, hair identity, skin tone, age read, body proportions, and silhouette without introducing a story environment.
+- **Look ID:** create a separate neutral wardrobe card when clothing, footwear, accessories, or hair/makeup change. Keep changeable fashion out of the base identity pack when practical.
+- **Location ID:** create one geography card for each recurring setup that fixes architecture, usable space, time/light, palette, and weather without a competing face.
+- **Prop ID:** create a separate card only for a recurring or state-changing hero object whose shape, material, color, wear, scale, or ownership must persist.
+- **Scene anchor:** combine only approved IDs when a shot needs a specific composition or first-frame reference. Do not regenerate the character from prose or let the scene anchor redefine approved identity.
+
+Prefer supplied authorized performer references. When their background could leak into video generation, plan a change-only isolation edit rather than accepting the environment as part of identity. Require pure white or neutral seamless backgrounds, even neutral light, no text, logos, decorative layout, scenery, or unrelated props for identity and Look references.
+
+Assign each reference one explicit role and list which shots consume it. A close performance shot may need the face reference; a full-body action shot may need the three-view or relevant isolated pose; a location-driven shot may need only the location card. Do not send every reference to every generation.
+
+For wardrobe, prop, or scene changes, preserve the invariant IDs and change only the named production-design dimension. A motivated change creates a new Look, Location, or Prop state; accidental drift does not. Return the exact required reference operations to the MV owner, which selects a live image model and executes them through `vidmuse-cli` after cost approval.
 
 ## Search for missing real-world coverage
 
@@ -126,7 +144,7 @@ Reject or replace:
 
 ## Record the decision
 
-Inside a complete film, write the result into the matching `STORYBOARD.md` frame narrative:
+Inside a complete film, write the result into the matching owner artifact: `MV-SCRIPT.md` → `## Shot Plan` for MV, or `STORYBOARD.md` for Create:
 
 ```markdown
 Claim and proof: <claim> → <visible evidence>
@@ -140,7 +158,7 @@ Constraints: <rights, privacy, crop, resolution, version, or continuity notes>
 
 Keep this prose compact and omit irrelevant lines. Do not create another storyboard or private required fields.
 
-Write `asset-plan.json` only for a direct asset-planning request or when multiple unresolved sourcing/licensing decisions need an independent machine-readable receipt. Otherwise the official capture inventory plus `STORYBOARD.md` is sufficient.
+Write `asset-plan.json` only for a direct asset-planning request or when multiple unresolved sourcing/licensing decisions need an independent machine-readable receipt. Otherwise the official capture inventory plus the owning film plan is sufficient.
 
 Ask `vidmuse-media` to resolve an approved media operation it implements, or return an exact capture request to the film owner for execution through `hyperframes-cli`. Preserve returned local paths and provenance receipts; do not replace the approved identity with a convenient substitute.
 
@@ -155,10 +173,12 @@ Pass only when:
 - adjacent assets can be edited without losing orientation;
 - rights, privacy, source, and version are known enough for the intended use;
 - no decorative candidate is standing in for missing proof.
+- every recurring MV character, Look, Location, and story-critical Prop ID has the minimum clean coverage required by the shots that consume it;
+- no identity or wardrobe reference carries an accidental story background, and no generated continuity asset is misrepresented as factual evidence.
 
 ## Boundaries
 
-- Own evidence needs, semantic identity, candidate selection, capture coverage, provenance, licensing, privacy, library policy, and sourcing constraints.
+- Own evidence needs, semantic identity, MV continuity-reference coverage, candidate selection, capture coverage, provenance, licensing, privacy, library policy, and sourcing constraints.
 - Let the film owner decide claims, beat order, packaging density, and final acceptance.
 - Let `vidmuse-design` decide visual treatment and `vidmuse-motion` decide choreography.
 - Let the host Agent's native web, browser, download, and file tools execute approved remote discovery and localization when available.

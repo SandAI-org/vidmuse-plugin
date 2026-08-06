@@ -1,13 +1,13 @@
 ---
 name: vidmuse-design
-description: Direct the aesthetic system for a VidMuse film and write or revise FRAME.md. Use inside vidmuse-create or vidmuse-recut, or directly when the user asks for visual direction, taste, style, art direction, colors, typography, composition language, caption identity, media treatment, motion temperament, or intentional selection of official HyperFrames styles, layouts, frames, blocks, and components. Ground every choice in the content, creator, audience, platform, brand, and visible footage rather than a generic preset.
+description: "Direct the aesthetic system for a VidMuse film and write or revise its visual design contract: FRAME.md for Create/Recut, or the Visual Direction section of MV-SCRIPT.md for MV. Use inside vidmuse-create, vidmuse-recut, or vidmuse-mv, or directly when the user asks for visual direction, taste, style, art direction, colors, typography, composition language, caption identity, media treatment, motion temperament, live VidMuse generation Styles, or intentional selection of official HyperFrames presets, layouts, frames, blocks, and components. Ground every choice in the content, creator, audience, platform, brand, music, and visible footage rather than a generic preset."
 ---
 
 # VidMuse Design
 
 Act as the film's visual director. Answer one question with evidence: **why should this film look and feel this way?**
 
-Convert content and context into a coherent visual language, then express it as a concise `FRAME.md` that the film owner and HyperFrames implementation skills can execute. Do not merely select a fashionable style or decorate every available space.
+Convert content and context into a coherent visual language, then express it as a concise design contract the film owner and implementation skills can execute. Use `FRAME.md` for Create/Recut; for MV, update `MV-SCRIPT.md` → `## Visual Direction` instead of creating another Markdown file. Do not merely select a fashionable style or decorate every available space.
 
 ## Authority and evidence
 
@@ -20,14 +20,14 @@ Resolve design decisions in this order:
 5. Extend recognizable visual language already present in the footage or brand before imposing a foreign aesthetic.
 6. Respect accessibility, protected regions, licensing, deterministic rendering, and the capabilities actually available in the target project.
 
-Treat hard constraints as constraints, not inspiration. When evidence conflicts, explicit user and brand direction wins unless it would make the result unreadable or technically invalid; record that tradeoff in `FRAME.md`.
+Treat hard constraints as constraints, not inspiration. When evidence conflicts, explicit user and brand direction wins unless it would make the result unreadable or technically invalid; record that tradeoff in the active design contract.
 
 ## Read before directing
 
 Read the smallest available set that establishes the film:
 
 - the request and `BRIEF.md`, when present;
-- `SCRIPT.md`, corrected transcript, `film-plan.json`, or official recut `storyboard.json`;
+- `SCRIPT.md`, `MV-SCRIPT.md`, corrected transcript, `music-analysis.json`, `film-plan.json`, or official recut `storyboard.json`;
 - representative frames across the film, including visual-space findings from `vidmuse-recut`;
 - brand assets, creator references, existing episodes, approved designs, and the current asset inventory;
 - target platform, aspect ratio, duration, caption plan, and delivery constraints;
@@ -53,7 +53,19 @@ Translate the audit into design decisions with visible causality:
 
 Distinguish stable evidence from transient states. Record exact representative color values and their roles, but do not mechanically copy a dominant-color histogram: skin, blown highlights, compression noise, and large blank walls need semantic interpretation. Test overlays on more than one frame so a palette that works on the opening does not fail after a lighting or camera change.
 
-Require a **source-to-system bridge** in `FRAME.md`: name at least three observed source facts and the exact design choice each one causes. Require each major treatment to cite at least one source cue. A direction that merely places a foreign interface theme on top of the footage fails, even if the interface itself is polished.
+Require a **source-to-system bridge** in the active design contract: name at least three observed source facts and the exact design choice each one causes. Require each major treatment to cite at least one source cue. A direction that merely places a foreign interface theme on top of the footage fails, even if the interface itself is polished.
+
+### Assimilate a music-led source
+
+For `vidmuse-mv`, the source-to-system bridge begins with the song rather than existing picture. Read exact lyrics, vocal perspective, instrumentation/timbre, section structure, energy curve, rhythm density, silence/breath, and the approved `MV-SCRIPT.md`. Translate them into visible consequences:
+
+- lyrical perspective and relationship state shape distance, gaze, performance mode, and character blocking;
+- instrumentation and timbre shape material, texture, edge, and practical-light character;
+- verse/chorus/bridge contrast shapes density, scale, camera energy, and palette progression without cutting mechanically on every beat;
+- repeated words, melodic figures, or sonic accents may motivate one recurring visual motif and its transformation;
+- production setups, Look IDs, Location IDs, and Prop IDs may vary when the treatment motivates them while the invariant spine remains recognizable.
+
+The MV source-to-system bridge must name at least three specific lyric or music-analysis facts and the exact visual choice each causes. Do not infer a full art direction from genre labels such as pop, rock, electronic, cinematic, or lo-fi. Once generated or supplied reference images exist, fold their real visual facts into the bridge as additional evidence.
 
 ## Establish the design read
 
@@ -70,6 +82,22 @@ Then write:
 Ground the direction in the subject's own world. Borrow its instruments, artifacts, diagrams, textures, proportions, language, or behaviors. Do not translate “premium,” “tech,” “creator,” or “cinematic” directly into a default palette.
 
 Explore two or three materially different directions internally before locking one. Reject directions that are attractive but weakly tied to the brief. Spend boldness in one place and keep the supporting system disciplined.
+
+## Use live VidMuse Styles for generated-image direction
+
+The live VidMuse Style catalog is a visual-reference library for generated media. It is distinct from bundled HyperFrames frame presets: a generation Style guides image/video world-building; a frame preset coordinates deterministic graphics and captions. Neither silently activates the other.
+
+Load `vidmuse-cli` for live Style discovery, but establish the independent design thesis, palette/light logic, material, camera language, and continuity needs first. Then:
+
+1. Read every catalog page in scope; shortlist no more than three relevant candidates and inspect each full receipt.
+2. Recommend one by tying its subject treatment, medium, texture, palette, light, camera, and realism to the film; explain what the alternatives change.
+3. Let the owner expose Serve **Styles** for user selection: open the top-right palette, search/filter, inspect, then use **Copy for Agent** or **Copy Style ID**.
+4. Keep the choice provisional until selected. If the user delegates, record that state and choose the strongest recommendation.
+
+For an MV, require this checkpoint before generation unless an exact Style is supplied or the choice is delegated. Shortlist only after lyrics, `music-analysis.json`, and approved `MV-SCRIPT.md`; genre alone is insufficient.
+For MV, record the unchanged receipt in `MV-SCRIPT.md` → `## Visual Direction`; for other workflows, use their owning design artifact. Preserve `id`, `name`, `scope`, `tags`, `imageUrl`, `description`, `analysis`, and `promptSample`, plus selection state, film-specific fit, traits to preserve, sample details to reject, and allowed Look/Location variation.
+
+Treat `promptSample` as Style evidence, not the project prompt. Compile media prompts from the actual character, look, location, prop, composition, and continuity job. Browsing or copying never mutates `dsl.json`, approves an image, or replaces the owning design contract.
 
 ## Keep official frame presets optional
 
@@ -92,7 +120,7 @@ Default to **bespoke design**. Do not inspect, shortlist, auto-select, or inheri
 
 Use three explicit modes:
 
-1. **Bespoke — default.** Build the complete project `FRAME.md` independently from the content, creator, source, audience, platform, and brand. Keep every official preset inactive.
+1. **Bespoke — default.** Build the complete project design contract independently from the content, creator, source, audience, platform, and brand. Keep every official preset inactive.
 2. **Gallery comparison — user asks to browse or compare.** Show at most three materially relevant preset previews after the bespoke direction exists. Explain what each changes and keep the bespoke direction active until the user chooses otherwise.
 3. **User-selected preset.** Only when the user explicitly names or selects a preset, inspect its showcase and full `FRAME.md`, then treat its coordinated relationships and prohibitions as normative unless a brand, source, legibility, or protected-region conflict is documented.
 
@@ -118,7 +146,7 @@ Assign every visible layer a job:
 
 Do not satisfy a layer by adding decoration. A flat field is valid when the footage provides depth; one focal point is valid when the person must lead. Official density and ambient-motion suggestions are subordinate to semantic necessity, human presence, and source protection.
 
-After authoring, run a coordination audit against the approved project `FRAME.md`: colors, type families and weights, corner/edge behavior, spacing rhythm, depth/material treatment, accent allocation, caption identity, and explicit avoidance rules. Fix undocumented per-scene invention before review.
+After authoring, run a coordination audit against the approved project design contract: colors, type families and weights, corner/edge behavior, spacing rhythm, depth/material treatment, accent allocation, caption identity, and explicit avoidance rules. Fix undocumented per-scene invention before review.
 
 ### Make a bespoke Recut direction previewable
 
@@ -213,7 +241,7 @@ Actively reject synthetic taste defaults unless the evidence specifically earns 
 - fake handmade wobble, arbitrary grain, random misalignment, or roundedness used as a shortcut to friendliness;
 - decorative orbit lines, arrows, progress bars, or diagrams that neither follow the subject nor explain the argument.
 
-One frame should contain one piece of evidence that it was **observed rather than merely laid out**. Name that evidence in `FRAME.md` before implementation.
+One frame should contain one piece of evidence that it was **observed rather than merely laid out**. Name that evidence in the active design contract before implementation.
 
 ## Build one visual grammar
 
@@ -239,7 +267,7 @@ This skill carries a deliberately small OFL-1.1 font pack at `assets/fonts/`. Re
 node <vidmuse-design-skill>/scripts/stage-fonts.mjs --list
 ```
 
-Stage only the families approved in `FRAME.md` into the actual film project:
+Stage only the families approved in the active design contract into the actual film project:
 
 ```bash
 node <vidmuse-design-skill>/scripts/stage-fonts.mjs \
@@ -275,7 +303,7 @@ Then link `assets/fonts/vidmuse/fonts.css`. The staging command verifies every b
 
 - Define caption position, type role, line count, emphasis behavior, background treatment, and relationship to other cards.
 - Render planned captions on the topmost visual layer and default them to horizontal center. Let footage, surfaces, images, and supporting graphics continue behind the caption area; do not shrink, reflow, or relocate the whole composition merely to preserve an empty caption rail.
-- Protect readability locally. When the underlying frame is busy, use a compact scrim, backplate, outline, shadow, blur, or other `FRAME.md`-approved contrast treatment around the active words. Do not place a second critical text message directly behind an active caption, but decorative and supporting layers may pass beneath it.
+- Protect readability locally. When the underlying frame is busy, use a compact scrim, backplate, outline, shadow, blur, or another contrast treatment approved by the design contract around the active words. Do not place a second critical text message directly behind an active caption, but decorative and supporting layers may pass beneath it.
 - Burned-in source subtitles remain protected pixels. Never treat a new top-layer caption as permission to cover, duplicate, or make the source subtitle unreadable.
 - Let words remain words when words are clearest. Use structure, numbering, labels, and diagrams only when they encode something true.
 - Keep one primary focal message. Do not repeat the full spoken sentence as decorative text.
@@ -303,7 +331,7 @@ do not decide what the film should say.
 3. Search by the beat's communicative job, then inspect the exact candidate's `registry-item.json`, source, dimensions, duration, variables, dependencies, and demo content.
 4. Score serious candidates on semantic fit, thesis fit, source-space fit, aspect-ratio fit, adaptation cost, and repetition risk. Reject a visually exciting item when it explains the wrong thing.
 5. Prefer a close official block or component to recreating it. Install the exact named item with `hyperframes add <name>` only after selecting it.
-6. Adapt content, variables, palette, typography, timing, crop, and composition to `FRAME.md`; preserve the official item contract and deterministic behavior.
+6. Adapt content, variables, palette, typography, timing, crop, and composition to the active design contract; preserve the official item contract and deterministic behavior.
 7. Use a custom HyperFrames composition when no official item expresses the idea accurately. Do not distort a library item beyond recognition merely to claim reuse.
 
 For a transition, title, camera, UI entrance, interaction, data, impact, rhythm, opening,
@@ -336,15 +364,15 @@ For a talking-head recut, keep the shipped `style × layout × frame` gallery in
 
 Use the library fluently:
 
-- Mix capabilities, not aesthetics. A chart block and caption component may coexist when both obey the same `FRAME.md` tokens and hierarchy.
+- Mix capabilities, not aesthetics. A chart block and caption component may coexist when both obey the same design tokens and hierarchy.
 - Reuse the system, not the demo. Remove sample copy, placeholder data, arbitrary logos, and showcase-only effects.
 - Keep one hero device per moment. Do not stack grain, glow, glass, glitch, ticker, and kinetic text merely because they exist.
 - Reserve transitions for real changes in argument, time, place, or visual state; a cut is often the most tasteful transition.
 - Record why each selected item exists and what changes make it belong to this film.
 
-## Write `FRAME.md`
+## Write the design contract
 
-Keep `FRAME.md` concise enough to use while building. Use this structure:
+For `vidmuse-mv`, do not create `FRAME.md`. Update `MV-SCRIPT.md` → `## Visual Direction` with the design read and song evidence, thesis/signature/restraint, selected Style receipt, medium/palette/light/material/camera rules, invariant spine, allowed Look/Location variation, and guardrails; keep treatment and shot details in their existing sections. For Create/Recut, keep `FRAME.md` concise enough to use while building and use this structure:
 
 ```markdown
 # FRAME
@@ -379,6 +407,11 @@ Keep `FRAME.md` concise enough to use while building. Use this structure:
 - Invariant spine across scenes:
 - Adaptive freedoms by beat:
 - Layer roles: background / midground / foreground
+
+## Generation Style
+- Style: none / exact name and ID; selection: user-selected / delegated / supplied exact
+- Receipt: scope, tags, imageUrl, description, analysis, promptSample; fit to this film
+- Preserve: medium, palette, light, texture, subject treatment, camera; reject sample subject/composition/copy/ornament; allowed Look/Location variation:
 
 ## Human presence
 - Human anchor: observed performance or source cue → designed response
@@ -421,7 +454,7 @@ Keep `FRAME.md` concise enough to use while building. Use this structure:
 - Avoid:
 ```
 
-Use exact values where consistency matters and prose where judgment must remain flexible. `FRAME.md` is a design contract, not a replacement for Storyboard v3, `film-plan.json`, HyperFrames HTML, or a Timeline schema.
+Use exact values where consistency matters and prose where judgment must remain flexible. The design contract guides implementation; it does not replace shot planning, HyperFrames HTML, or a Timeline schema.
 
 ## Taste gate
 
@@ -430,12 +463,12 @@ Reject or revise the direction when any answer is no:
 - Can the thesis be traced to the specific content, creator, audience, or source world?
 - If project names and nouns were removed, would this still be recognizably specific rather than a reusable AI template?
 - Does one memorable signature exist, with enough restraint around it?
-- Can at least three design choices be traced directly to observed source facts?
+- Can at least three design choices be traced directly to observed source facts, including lyric/music facts for an MV?
 - Is the direction bespoke unless the user explicitly chose a preset, with no silent preset inheritance?
 - If an official preset is used, was it selected by source and message fit after inspecting its showcase and full `FRAME.md`?
 - Does the film preserve one coordinated invariant spine while allowing layouts and treatments to respond to each beat?
 - Are preset relationships preserved without copying showcase layouts, demo content, or ornamental metadata?
-- Are all deviations from a user-selected preset or approved project `FRAME.md` explicit and justified, and was gallery browsing kept optional?
+- Are all deviations from a user-selected preset or approved project design contract explicit and justified, and was gallery browsing kept optional?
 - Do typography, color, shape, spacing, media, captions, and motion feel authored by the same hand?
 - Are every chosen font face and weight locally available, staged when needed, licensed, and appropriate for the language and role?
 - Does every structural device encode meaning rather than decorate empty space?
@@ -453,12 +486,12 @@ Reject or revise the direction when any answer is no:
 - At the final aspect ratio, is the focal point immediate and all critical text readable?
 - In recut, do snapshots keep people, products, screens, source text, burned-in source subtitles, and platform UI unobstructed throughout motion while planned captions remain topmost and readable over changing backgrounds?
 
-Inspect representative snapshots at the final output ratio. Compare the frame to `FRAME.md`, remove one unnecessary accessory, and fix inconsistency before render.
+Inspect representative snapshots at the final output ratio. Compare the frame to the active design contract, remove one unnecessary accessory, and fix inconsistency before render.
 
 ## Ownership and boundaries
 
-- Own visual thesis, taste, typography, palette, spatial grammar, caption identity, media treatment, motion temperament, official-library recommendations, `FRAME.md`, and visual consistency review.
-- Let `vidmuse-create` or `vidmuse-recut` own story, beat selection, timing, packaging density, and final film decisions.
+- Own visual thesis, taste, typography, palette, spatial grammar, caption identity, media treatment, motion temperament, official-library recommendations, the active design contract, and visual consistency review.
+- Let `vidmuse-create`, `vidmuse-recut`, or `vidmuse-mv` own story, beat selection, timing, packaging density, and final film decisions.
 - Let `vidmuse-assets` own asset identity, provenance, licensing, and sourcing policy.
 - Let `vidmuse-media` perform generation, download, conversion, grading, crop, or other media operations.
 - Let `vidmuse-motion` own semantic choreography and speech synchronization. Let `hyperframes-registry` discover and install items, `hyperframes-core` build the composition, and `hyperframes-animation` implement approved motion.

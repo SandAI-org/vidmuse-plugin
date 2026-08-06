@@ -17,7 +17,7 @@ The video model and its prompt own the picture. Timeline owns only assembly. Do 
 4. **Keep IP performance flexible.** Let the IP present, act, guide, observe, or combine roles according to the current beat. Do not force continuous lip-sync or forbid speaking across the whole film.
 5. **Let narration determine picture length.** Confirm a target, use supplied audio, or let the locked script determine the film. Model limits apply only to individual clips.
 6. **Bind exact facts to sources.** Permit words, names, dates, percentages, prices, and numbers that the narration or evidence explicitly supplies. Do not invent unsupported exact claims merely to decorate a frame.
-7. **Let the user confirm the style and IP.** Query the live style catalog, then approve reusable identity references before episode generation.
+7. **Let the user see and confirm the style and IP.** Query the live style catalog, open its visual cards in read-only Serve, then approve one clean reusable identity sheet before episode generation.
 8. **Show generated clips to the user immediately.** After generation, place candidate clips in narration order on a minimal Timeline and start review. Do not delay first sight with Agent visual inspection, frame sampling, contact sheets, scoring, or autonomous retries.
 9. **Keep packaging minimal.** After clip approval, join narration, optional BGM, subtitles, an optional edge progress indicator, and shot transitions. These elements must not cover the IP, important objects, or visible actions. Do not add information cards, timelines, diagrams, callouts, cutouts, or other packaging points.
 
@@ -83,7 +83,7 @@ There is no default maximum duration. If the user delegates duration, record `sc
 
 ### 2. Recommend and confirm a style
 
-Load `vidmuse-cli` and query the live catalog:
+Load `vidmuse-cli` and query the complete live catalog:
 
 ```bash
 "$VIDMUSE_BIN" style list --scope all --view summary --limit 200 -o json
@@ -97,7 +97,11 @@ Inspect each finalist with:
 "$VIDMUSE_BIN" style get <style-id> --view full -o json
 ```
 
-Show preview, name, tags, fit, and tradeoff. Wait for the user's choice and save the exact receipt to `style.json`. A confirmed custom reference is also valid.
+Use Serve as the visual approval surface instead of trying to embed catalog `imageUrl` values as conversation images. Load `vidmuse-timeline`, create or preserve a minimal valid `dsl.json` with the brief's aspect ratio, validate it, and start read-only Serve. At this early IP checkpoint the DSL may be a one-second canvas with empty `videoTracks`, `sounds`, and `subtitles`; it exists only to expose the live catalog before any picture or narration has been generated.
+
+Report the Serve URL and tell the user to open the top-right **Styles** palette. The user can browse the visual cards, search or filter them, inspect a candidate, then return **Copy for Agent** output or **Copy Style ID**. In chat, summarize each recommended candidate's name, tags, fit, and tradeoff, but do not reproduce the catalog as thumbnail placeholders or claim a card is selected merely because it was opened.
+
+If the Serve catalog fails to load, disclose that failure and fall back to the exact `style list` / `style get` receipts with clickable preview links; do not show broken image boxes. Wait for the user's explicit choice and save the complete selected receipt to `style.json`. A confirmed custom reference is also valid.
 
 **Gate:** one style is explicitly confirmed.
 
@@ -105,9 +109,19 @@ Show preview, name, tags, fit, and tradeoff. Wait for the user's choice and save
 
 Classify a new IP as a supplied avatar or mascot, a creator likeness transformed into the chosen style, or an original text-defined character. Require explicit consent before using a real person's likeness or cloning a voice.
 
-Propose a short identity direction covering face, silhouette, proportions, signature marks, wardrobe, palette, expression range, and anti-drift details. Wait for approval. Then check the live image model, price, and credit balance through `vidmuse-cli`.
+Propose a short identity direction covering face, silhouette, proportions, signature marks, wardrobe, palette, expression range, and anti-drift details. Wait for approval. Then check the live image model, supported aspect ratios, price, and credit balance through `vidmuse-cli`.
 
-Generate the minimum identity reference set: hero view, full-body or 3/4 view, turnaround, and expressions. Use image-to-image when preserving an existing avatar or likeness. Generate clean references without labels, logos, watermarks, or fake UI. Present one contact sheet and wait for approval, then write the IP Kit.
+Generate exactly one primary identity reference image, not several renders and not a post-generation collage:
+
+- one 16:9 landscape canvas on a pure white, edge-to-edge background;
+- the left side is one large, uncropped face-and-shoulders close-up with a neutral expression and unobstructed identity details;
+- the right side contains exactly three full-body views of the same character in front, clean side profile, and back order, aligned to one baseline, at equal scale, in the same neutral pose and approved wardrobe, head-to-toe with both feet visible;
+- all four depictions preserve the same face, hair, age read, body proportions, signature marks, materials, palette, and rendering style;
+- use generous white gutters, with no tiles, borders, labels, captions, dividers, fake UI, scenery, props, logos, watermarks, extra expressions, extra limbs, or duplicate views.
+
+Use image-to-image when preserving an existing avatar or authorized likeness. Prefer a live image model that can natively generate the requested 16:9 sheet; if the preferred model cannot, disclose the limitation and choose a compatible live model before spending. Do not generate separate portrait, body, turnaround, and expression images and assemble them afterward. Expression or wardrobe derivatives are optional later assets created only when a real episode needs them, never crowded into the primary identity sheet.
+
+Present the original 16:9 image directly at a useful review size and wait for approval. Revise it through a targeted change-only edit that preserves every already-approved invariant, then write the IP Kit with this sheet as the primary reusable identity asset.
 
 **Gate:** the reusable IP identity is approved.
 
@@ -218,6 +232,6 @@ Return the render, project path, IP Kit path, selected style, generated clips, r
 - Own the complete IP film, identity, scenario, story, visual propositions, prompts, generation strategy, budget tradeoffs, and delivery.
 - Load `vidmuse-cli` for styles, models, voices, balance, prices, and generation commands.
 - Load `vidmuse-media` for probe, TTS, transcription, alignment, subtitles, and frame extraction.
-- Load `vidmuse-timeline` immediately after candidate generation for sequential user review, then reuse the same stable DSL for revisions, packaging, and rendering.
+- Load `vidmuse-timeline` for the pre-generation visual Style checkpoint and immediately after candidate generation for sequential user review; reuse the same stable DSL for revisions, packaging, and rendering.
 - Limit packaging to subtitles, an optional edge progress indicator, and shot transitions; never obscure generated content.
 - Do not use `image_gen`, HyperFrames-managed media models, OS/browser TTS, downloaded local models, unapproved provider substitutions, or unconsented likeness or voice cloning.

@@ -20,6 +20,7 @@ Resolve these variables from the actual storyboard. Omit irrelevant values inste
 | `H3_DURATION` | live-supported integer duration that covers the Timeline span |
 | `SHOT_FUNCTION` | performance, narrative, atmosphere, typography, visualizer, or transition |
 | `PERFORMANCE_MODE` | singing/lip-sync, speaking, acting, reacting, dancing, or none |
+| `CONTINUITY_IDS` | approved Character, Look, Location, and Prop IDs active in this shot |
 | `REFERENCES` | only the identity, scene, object, wardrobe, or typography inputs needed by this shot |
 | `AUDIO_INTENT` | vocal articulation, phrase performance, rhythm/beat, mood, or none |
 | `LOCKED_LYRIC` | exact matching lyric in the source language, or empty for an instrumental shot |
@@ -40,15 +41,17 @@ Resolve these variables from the actual storyboard. Omit irrelevant values inste
 
 Never send audio alone to `reference_to_video`. Do not mix keyframe-specific fields with multi-modal reference fields unless the live schema explicitly permits it.
 
+When an identity input is a white-background face close-up or full-body three-view, define the blank background and sheet arrangement as isolation metadata, not shot content. Tell H3 to preserve only the named identity traits, never reproduce the white studio, multiple views, neutral turnaround pose, borders, or sheet layout, and take the actual environment from the shot's Location ID or scene description.
+
 ## Compile by information density
 
 Use a compact natural prompt for a simple shot. Use the full-reference structure when a shot has several references, locked performance, multiple timed events, spatial lyric typography, or a continuity handoff.
 
 For a full-reference request, compile these sections:
 
-1. `subject_definitions`: bind stable names to only the referenced performer, character, scene, object, or typography assets that appear.
+1. `subject_definitions`: bind stable Character, Look, Location, and Prop IDs to only the referenced performer, character, scene, object, or typography assets that appear. State each input's single role and exclude its unassigned background, pose, wardrobe, or layout.
 2. `summary`: one sentence covering duration, shot function, visual arc, camera intent, and ending state.
-3. `retention_analysis`: state which identity and scene traits must be preserved and which details may change.
+3. `retention_analysis`: state which Character, Look, Location, and Prop invariants must be preserved, which approved state change occurs, and which details may vary freely.
 4. `detailed_description`: describe events in time order, anchored to phrases, accents, or approximate intervals. Give every event a cause and visible result.
 5. `overall_soundscape`: explain how vocal, breath, beats, and accents drive visible action. Do not request replacement music or duplicate dialogue.
 6. `non_diegetic_music`: state that the supplied reference audio is the immutable music spine and that the shot should synchronize to it without creating a new soundtrack.

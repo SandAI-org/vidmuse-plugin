@@ -38,9 +38,9 @@ Keep one human-readable identity file and a small asset folder. Do not introduce
 - Unapproved transformations:
 
 ## Approved assets
-- Hero:
-- Turnaround:
-- Expressions:
+- Primary identity sheet (16:9, pure white background):
+- Sheet layout: left face-and-shoulders close-up; right full-body front / side / back
+- Optional approved derivatives:
 - Additional identity references:
 - Approved episode reference frames:
 
@@ -64,6 +64,8 @@ Keep one simple array. Each generated asset records:
 - returned URL when present;
 - generation time and credit cost;
 - approval state.
+
+The primary identity record points to one original 16:9 image. Do not represent separately generated portrait, full-body, turnaround, or expression files as though they were one approved sheet. Keep optional derivatives distinct and record why an episode required them.
 
 ## Episode snapshot
 

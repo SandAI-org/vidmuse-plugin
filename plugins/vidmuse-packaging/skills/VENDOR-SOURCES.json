@@ -2,9 +2,10 @@
   "schema": "vidmuse-packaging.vendor.v1",
   "vidmuseCli": {
     "distribution": "bundled",
+    "version": "v0.3.7-1b501e1",
     "platform": "darwin-arm64",
     "path": "skills/vidmuse-cli/assets/bin/vidmuse-darwin-arm64",
-    "sha256": "6b9e28f377f6db03d2215a30a55bc8b1f3e4c94b33d9082ede9a6aa41f0e7736",
+    "sha256": "cc826c3ffed5b654b4f85e013ed57df45cc3d0df5c10377a6906437bb0834de9",
     "signature": "Developer ID Application: Beijing Sandai Technology Co., Ltd (M923Q9L6YY)",
     "policy": "Use the plugin-carried binary without a package download or automatic update."
   },
