@@ -1,6 +1,6 @@
 ---
 name: vidmuse
-description: "Route any new or resumed VidMuse request to one owning skill by the requested deliverable. Use when the user wants to create, recut, or build an IP-led film, establish a reusable character identity, define a visual system, plan or source assets, produce one media result, work with a VidMuse Timeline project, or run a direct VidMuse CLI operation."
+description: "Route any new or resumed VidMuse request to one owning skill by the requested deliverable. Use when the user wants to create, recut, build an AI MV or IP-led film, establish a reusable character identity, define a visual system, plan or source assets, produce one media result, work with a VidMuse Timeline project, or run a direct VidMuse CLI operation."
 ---
 
 # VidMuse Router
@@ -15,6 +15,7 @@ First decide whether the user wants a complete film. A complete film remains own
 | --- | --- |
 | Complete film with speaking footage as the primary material | `vidmuse-recut` |
 | Reusable IP Kit or a complete film led by a recurring creator avatar, mascot, stylized likeness, or virtual character | `vidmuse-ip` |
+| Complete generative music video whose supplied song, lyrics, or music window is the master timeline, without an existing reusable IP Kit lead | `vidmuse-mv` |
 | Complete film from an idea, text, script, website, audio, or non-speaking media | `vidmuse-create` |
 | Visual direction, style system, or `FRAME.md` only | `vidmuse-design` |
 | Motion direction, speech synchronization, camera/PIP choreography, effect selection, or animation lifecycle only | `vidmuse-motion` |
@@ -26,16 +27,17 @@ First decide whether the user wants a complete film. A complete film remains own
 
 ## Routing rules
 
-1. Preserve an existing film owner. `IP-SNAPSHOT.md` or an episode referencing an approved `ip-kits/<ip-id>/IP.md` means `vidmuse-ip`; a non-IP creation-mode `BRIEF.md` or official `STORYBOARD.md` means `vidmuse-create`; `edit-plan.json` or official recut `storyboard.json` means `vidmuse-recut` unless the user explicitly changes the deliverable. Preserve legacy `film-plan.json` as `vidmuse-create` when resuming an older project.
+1. Preserve an existing film owner. `IP-SNAPSHOT.md` or an episode referencing an approved `ip-kits/<ip-id>/IP.md` means `vidmuse-ip`; an MV `BRIEF.md` or `STORYBOARD.md` whose master spine is supplied music means `vidmuse-mv`; another non-IP creation-mode `BRIEF.md` or official `STORYBOARD.md` means `vidmuse-create`; `edit-plan.json` or official recut `storyboard.json` means `vidmuse-recut` unless the user explicitly changes the deliverable. Preserve legacy `film-plan.json` as `vidmuse-create` when resuming an older project.
 2. Route by output, not merely by input. “Turn this interview into a launch film” is `vidmuse-recut`; “transcribe this interview” is `vidmuse-media`.
 3. Treat focused capabilities as subordinate to a film. “Make a film and generate a voiceover” stays with the film owner, which may later load `vidmuse-media`.
 4. Keep semantic motion subordinate to the film owner. `vidmuse-motion` decides choreography after the owner selects a beat; `hyperframes-animation` implements it after the motion brief exists.
 5. Distinguish asset judgment from transport. Deciding which logo, icon, photograph, screenshot, or font is appropriate — including license-aware web sourcing — belongs to `vidmuse-assets`. Use the host Agent's native web search, browser, download, and file tools to localize approved assets when available; use official HyperFrames Capture only when those capabilities are unavailable or insufficient. Do not recreate generic network transport in `vidmuse-media`.
 6. Distinguish Timeline delivery from CLI syntax. Working on a Timeline project belongs to `vidmuse-timeline`; running or explaining a specific command belongs to `vidmuse-cli`.
 7. Route by continuity system, not by beat count. When a reusable IP character and its approved identity lead the film, `vidmuse-ip` owns it end to end even when the user asks for Vox-like narration timing, collage styling, knowledge, advertising, narrative, music-led, or another genre. A small mascot cameo, one character insert, or a stylized avatar inside an otherwise product-, capture-, or footage-led film does not change that film's existing owner.
-8. When paper-collage metaphor is the film's visual language and no reusable IP character leads it, `vidmuse-vox` owns it end to end, including the script, voice choice, and duration plan, and loads `vidmuse-media` for narration and alignment. When a film's primary proof is real capture, product UI, or supplied footage and collage would only be one texture among many, `vidmuse-create` stays the owner and may load `vidmuse-vox` for individual clips. A single already-decided image or video generation with no identity, metaphor, or approval judgment is `vidmuse-media`.
-9. If two owners remain plausible and choosing incorrectly would change the deliverable, ask one short question about the final output. Do not conduct the production brief here.
-10. Do not check credits or quote costs while routing. Every owner checks the balance before its own first paid call and owns the budget conversation for its deliverable. A "how many credits do I have" question is itself a `vidmuse-cli` request.
+8. When supplied music or lyrics define the timing and the complete visual film is generated around them, `vidmuse-mv` owns it. Music used only as support inside a product film, explainer, recut, or other visual story does not change that owner's workflow. An approved reusable IP Kit still keeps the film in `vidmuse-ip`.
+9. When paper-collage metaphor is the film's visual language and no reusable IP character leads it, `vidmuse-vox` owns it end to end, including the script, voice choice, and duration plan, and loads `vidmuse-media` for narration and alignment. When a film's primary proof is real capture, product UI, or supplied footage and collage would only be one texture among many, `vidmuse-create` stays the owner and may load `vidmuse-vox` for individual clips. A single already-decided image or video generation with no identity, metaphor, or approval judgment is `vidmuse-media`.
+10. If two owners remain plausible and choosing incorrectly would change the deliverable, ask one short question about the final output. Do not conduct the production brief here.
+11. Do not check credits or quote costs while routing. Every owner checks the balance before its own first paid call and owns the budget conversation for its deliverable. A "how many credits do I have" question is itself a `vidmuse-cli` request.
 
 ## Handoff
 
