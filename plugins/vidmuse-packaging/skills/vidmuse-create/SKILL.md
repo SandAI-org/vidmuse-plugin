@@ -1,6 +1,6 @@
 ---
 name: vidmuse-create
-description: Create a complete designed VidMuse film when existing speaking footage is not the primary plate. Use for product launches, website films, faceless explainers, script-and-voice films, generated-media films, and visual stories assembled from an idea, text, URL, audio, screenshots, or other non-speaking sources. Own the project from confirmed brief through evidence-led capture, story, design, HyperFrames composition, VidMuse Serve review, and final render. Use vidmuse-recut when a talking-head, interview, or podcast recording remains the main picture.
+description: Create a complete designed VidMuse film when existing speaking footage is not the primary plate and supplied music is not the master timeline. Use for product launches, website films, faceless explainers, script-and-voice films, generated-media films, and visual stories assembled from an idea, text, URL, narration, screenshots, or other non-speaking sources. Own the project from confirmed brief through evidence-led capture, story, design, HyperFrames composition, VidMuse Serve review, and final render. Use vidmuse-recut when a talking-head, interview, or podcast recording remains the main picture; use vidmuse-mv for a complete generative music video built around supplied music or lyrics.
 ---
 
 # VidMuse Create
@@ -334,6 +334,7 @@ Reject or revise the film when any answer is no:
 ## Boundaries
 
 - Own story, beat order, pacing, evidence requirements, packaging density, review decisions, and final-film acceptance.
+- Let `vidmuse-mv` own a complete generative film when supplied music or lyrics are the immutable master timeline; music used only as support stays here.
 - Let `vidmuse-assets` own asset identity, capture selection, provenance, licensing, and sourcing policy.
 - Let `vidmuse-design` own `FRAME.md` and visual-system consistency.
 - Let `vidmuse-motion` own semantic choreography and speech synchronization after beats are selected.

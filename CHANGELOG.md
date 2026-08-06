@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.11] — 2026-08-06
+
+### Added
+
+- Added `vidmuse-mv`, a focused H3 workflow for performance, narrative, lyric, and hybrid AI music videos driven by supplied master audio, music analysis, and timestamped vocals.
+- Added variable-based H3 MV prompt compilation for audio-referenced lip sync and beat response, visual-continuation shots, lyric typography, and cross-shot character and scene continuity.
+
+### Changed
+
+- Generated MV clips now enter the same Timeline sequentially as soon as each file returns and passes structural probing, before Agent visual inspection or autonomous retry.
+- Routing now separates music-as-master AI MVs from Create films that merely use supporting music, while preserving existing reusable IP ownership.
+
 ## [0.2.10] — 2026-08-06
 
 ### Added
