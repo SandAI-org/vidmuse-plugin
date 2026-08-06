@@ -26,9 +26,9 @@ Before first use in a run:
    (cd "$SKILL_DIR/assets/bin" && shasum -a 256 -c SHA256SUMS)
    ```
 
-4. Run `"$VIDMUSE_BIN" --help` to confirm it starts.
+4. Run `"$VIDMUSE_BIN" --version` and `"$VIDMUSE_BIN" --help` to confirm its build and startup.
 
-This bundle is intentionally version-agnostic. Do not run `vidmuse update`, download an installer, copy the binary into a system directory, or modify the user's shell configuration. If the host is not macOS arm64, report that the bundled platform is unsupported; do not silently substitute a PATH binary. Use another binary only when the user explicitly supplies its path.
+The bundled build is `v0.3.7-1b501e1` and supports Serve's visual **Styles** panel. Live help remains authoritative for command syntax. Do not run `vidmuse update`, download an installer, copy the binary into a system directory, or modify the user's shell configuration. If the host is not macOS arm64, report that the bundled platform is unsupported; do not silently substitute a PATH binary. Use another binary only when the user explicitly supplies its path, and do not assume an older or unidentified build exposes the visual catalog.
 
 ## Minimal workflow
 
@@ -191,9 +191,9 @@ For `serve`:
 - Use a non-loopback `--host` only when the user explicitly requests network access and the network is trusted; the preview has no authentication and can access project paths.
 - Treat it as a long-lived process, report the URL, and keep the process available to the caller.
 - When an owning workflow declares a mandatory Serve checkpoint, start the validated DSL immediately; do not downgrade the requirement to a suggestion or wait for another user request. Confirm the process remains alive and send the URL as a user-visible progress update before returning control to the owner.
-- The current Serve UI includes a visual Style catalog behind the top-right **Styles** palette control. It loads visual cards for official and user Styles, supports local search and Live Action / 3D / Stop Motion / Mixed Media filters, shows the selected Style's preview and full descriptive fields, and offers **Copy for Agent** plus **Copy Style ID**. Read-only mode still permits this browsing and copying because neither action mutates `dsl.json`.
-- When an owning workflow declares a pre-generation Style-selection checkpoint, serve its minimal validated DSL even if the Timeline currently contains only the locked master audio. Tell the user exactly where the **Styles** control is and ask them to return the copied Agent reference or Style ID. The copied Agent reference contains the name, ID, tags, description, prompt sample, and preview image URL; selection remains an owner decision and must be recorded outside the CLI.
-- If the Serve catalog cannot load, return the failure without changing the DSL and fall back to the already-supported `style list` / `style get` receipts. Do not claim that opening a card applies the Style to media or Timeline content.
+- In bundled CLI `v0.3.7-1b501e1`, Serve includes a visual Style catalog behind the top-right **Styles** palette control. It loads visual cards for official and user Styles, supports local search and Live Action / 3D / Stop Motion / Mixed Media filters, shows the selected Style's preview and full descriptive fields, and offers **Copy for Agent** plus **Copy Style ID**. Read-only mode permits browsing and copying because neither action mutates `dsl.json`.
+- When an owning workflow declares a pre-generation Style-selection checkpoint, serve its minimal validated DSL even if the Timeline currently contains only the locked master audio. Tell the user exactly where the **Styles** control is and ask them to return the copied Agent reference or Style ID. The copied Agent reference contains the name, ID, tags, description, prompt sample, and preview image URL; preserve the URL as receipt data but do not render it in chat as an image, thumbnail, or substitute gallery.
+- Serve **Styles** is the visual selection surface. `style list` / `style get` remain Agent discovery and receipt tools, not a chat-based visual picker. If the Serve catalog cannot load, return the failure without changing the DSL and leave visual selection unresolved; do not fall back to remote preview links, thumbnails, or broken image boxes in chat. Do not claim that opening a card applies the Style to media or Timeline content.
 - Try the default port first. If it is already occupied, do not terminate another process; find a confirmed free loopback port, pass it with `--port`, and report the actual URL.
 
 For `render`:

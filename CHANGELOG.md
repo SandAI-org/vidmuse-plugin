@@ -21,9 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Recurring character references now prefer a blank-background face close-up and full-body front/side/back turnaround, with separate wardrobe cards and explicit protection against reference-background or sheet-layout leakage into H3 shots.
 - `vidmuse-design`, `vidmuse-assets`, `vidmuse-cli`, and `vidmuse-timeline` now carry the corresponding MV visual-direction, reference-coverage, Serve Style-browser, and audio-only pre-generation review contracts.
 - New MV projects no longer create separate `BRIEF.md`, `FRAME.md`, or `STORYBOARD.md`; those names remain accepted only for legacy project recovery.
-- IP Style approval now opens the CLI's visual **Styles** browser in read-only Serve instead of embedding fragile remote thumbnails in chat.
+- MV and IP Style approval now opens Serve's top-right visual **Styles** panel instead of embedding fragile remote thumbnails or preview-link galleries in chat.
 - IP identity setup now produces one native 16:9 pure-white sheet with a large close-up and aligned full-body front, side, and back views, replacing the multi-image contact-sheet collage.
-- Updated the bundled macOS Apple-silicon VidMuse CLI to `v0.3.7-1b501e1`, including the visual Style catalog used by the new approval checkpoint.
+- Updated the bundled macOS Apple-silicon VidMuse CLI to `v0.3.7-1b501e1`, which supports the visual **Styles** catalog inside Serve.
 
 ## [0.2.11] — 2026-08-06
 

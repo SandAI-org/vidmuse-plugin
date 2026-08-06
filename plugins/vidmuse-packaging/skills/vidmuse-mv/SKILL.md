@@ -119,12 +119,12 @@ Use the live VidMuse Style catalog as a visual comparison and approval surface:
 1. Fetch the complete `style list --scope all --view summary` catalog, including all pages.
 2. After the bespoke design read exists, shortlist no more than three materially different candidates whose subject treatment, medium, palette, lighting, texture, and camera language fit this song. Inspect each with `style get <styleId> --view full`.
 3. Recommend one candidate with a song-specific reason and explain the meaningful tradeoff of the alternatives. Do not paste a catalog `promptSample` as the film direction.
-4. Load `vidmuse-timeline`, assemble or preserve a minimal valid `dsl.json` with the immutable master audio, validate it, and start one loopback read-only Serve session. Tell the user to open the top-right **Styles** palette, inspect the visual cards, and use **Copy for Agent** or copy the Style ID for the chosen direction.
+4. Use the bundled CLI `v0.3.7-1b501e1` or a confirmed newer compatible build. Load `vidmuse-timeline`, assemble or preserve a minimal valid `dsl.json` with the immutable master audio, validate it, and start one loopback read-only Serve session. Tell the user to open the top-right **Styles** palette, inspect the visual cards, and use **Copy for Agent** or copy the Style ID for the chosen direction. Do not render catalog `imageUrl` values or remote thumbnails in chat.
 5. Keep the recommendation provisional until the user selects a Style. If the user explicitly delegates the choice, select the top recommendation and record that delegation instead of blocking.
 
 Record the chosen Style's exact receipt under `MV-SCRIPT.md` → `## Visual Direction`: `id`, `name`, `scope`, `tags`, `imageUrl`, `description`, `analysis`, and `promptSample`, plus why it fits, which traits become invariants, and which sample-specific content must not be copied. A live VidMuse generation Style is distinct from an optional HyperFrames frame preset; neither selection silently activates the other.
 
-If Serve cannot load the catalog, present the same short list from CLI results with preview links and retain the approval gate. Do not start paid image generation from an unapproved visual direction.
+If Serve cannot load the catalog, disclose the failure and keep the visual approval gate unresolved. Continue only when the user supplies an exact Style or explicitly delegates the choice; do not fall back to preview links, thumbnail galleries, or broken remote images in chat. Do not start paid image generation from an unapproved visual direction.
 
 **Gate:** `MV-SCRIPT.md` → `## Visual Direction` names one approved generation look, its evidence and invariants, the user's selection or delegated-choice state, and the allowed scene/look variation.
 

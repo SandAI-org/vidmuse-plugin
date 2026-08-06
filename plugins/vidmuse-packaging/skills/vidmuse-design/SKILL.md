@@ -91,13 +91,13 @@ Load `vidmuse-cli` for live Style discovery, but establish the independent desig
 
 1. Read every catalog page in scope; shortlist no more than three relevant candidates and inspect each full receipt.
 2. Recommend one by tying its subject treatment, medium, texture, palette, light, camera, and realism to the film; explain what the alternatives change.
-3. Let the owner expose Serve **Styles** for user selection: open the top-right palette, search/filter, inspect, then use **Copy for Agent** or **Copy Style ID**.
+3. Use Serve's top-right **Styles** panel as the visual selection surface: search/filter, inspect the cards, then use **Copy for Agent** or **Copy Style ID**. In chat, summarize names, tags, fit, and tradeoffs only; do not embed catalog `imageUrl` values, remote thumbnails, or a substitute preview gallery.
 4. Keep the choice provisional until selected. If the user delegates, record that state and choose the strongest recommendation.
 
 For an MV, require this checkpoint before generation unless an exact Style is supplied or the choice is delegated. Shortlist only after lyrics, `music-analysis.json`, and approved `MV-SCRIPT.md`; genre alone is insufficient.
 For MV, record the unchanged receipt in `MV-SCRIPT.md` → `## Visual Direction`; for other workflows, use their owning design artifact. Preserve `id`, `name`, `scope`, `tags`, `imageUrl`, `description`, `analysis`, and `promptSample`, plus selection state, film-specific fit, traits to preserve, sample details to reject, and allowed Look/Location variation.
 
-Treat `promptSample` as Style evidence, not the project prompt. Compile media prompts from the actual character, look, location, prop, composition, and continuity job. Browsing or copying never mutates `dsl.json`, approves an image, or replaces the owning design contract.
+Treat `promptSample` as Style evidence, not the project prompt. Compile media prompts from the actual character, look, location, prop, composition, and continuity job. Browsing or copying never mutates `dsl.json`, approves an image, or replaces the owning design contract. If Serve cannot show the catalog, leave visual approval unresolved unless the user supplied an exact Style or delegated the decision; textual CLI receipts do not replace visual browsing.
 
 ## Keep official frame presets optional
 

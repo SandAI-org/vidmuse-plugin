@@ -97,11 +97,11 @@ Inspect each finalist with:
 "$VIDMUSE_BIN" style get <style-id> --view full -o json
 ```
 
-Use Serve as the visual approval surface instead of trying to embed catalog `imageUrl` values as conversation images. Load `vidmuse-timeline`, create or preserve a minimal valid `dsl.json` with the brief's aspect ratio, validate it, and start read-only Serve. At this early IP checkpoint the DSL may be a one-second canvas with empty `videoTracks`, `sounds`, and `subtitles`; it exists only to expose the live catalog before any picture or narration has been generated.
+Use bundled CLI `v0.3.7-1b501e1` or a confirmed newer compatible build and make Serve the visual approval surface instead of trying to embed catalog `imageUrl` values as conversation images. Load `vidmuse-timeline`, create or preserve a minimal valid `dsl.json` with the brief's aspect ratio, validate it, and start read-only Serve. At this early IP checkpoint the DSL may be a one-second canvas with empty `videoTracks`, `sounds`, and `subtitles`; it exists only to expose the live catalog before any picture or narration has been generated.
 
 Report the Serve URL and tell the user to open the top-right **Styles** palette. The user can browse the visual cards, search or filter them, inspect a candidate, then return **Copy for Agent** output or **Copy Style ID**. In chat, summarize each recommended candidate's name, tags, fit, and tradeoff, but do not reproduce the catalog as thumbnail placeholders or claim a card is selected merely because it was opened.
 
-If the Serve catalog fails to load, disclose that failure and fall back to the exact `style list` / `style get` receipts with clickable preview links; do not show broken image boxes. Wait for the user's explicit choice and save the complete selected receipt to `style.json`. A confirmed custom reference is also valid.
+If the Serve catalog fails to load, disclose that failure and keep visual selection unresolved. `style list` / `style get` may still support Agent analysis, but do not send clickable preview links, thumbnails, or broken image boxes as a substitute picker. Continue only when the user supplies an exact Style, explicitly delegates the choice, or confirms a custom reference; save the complete selected receipt to `style.json`.
 
 **Gate:** one style is explicitly confirmed.
 
