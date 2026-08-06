@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- New MVs now default to `16:9` and explicitly confirm complete-song versus representative-excerpt coverage; an excerpt is selected from the acquired song's real musical structure instead of defaulting to an arbitrary 15-second or vertical test.
+- MV requests without uploaded audio now offer upload or Suno generation through the VidMuse CLI. Suno Custom Mode separates detailed music Style direction from structured singable lyrics, uses live model/schema/price discovery, and locks a user-selected song before treatment or shot planning.
+- Song-generation briefs, prompts, receipts, candidate selection, and spend stay inside the existing `MV-SCRIPT.md` rather than creating additional planning Markdown files.
+
 ## [0.2.12] — 2026-08-06
 
 ### Added

@@ -87,6 +87,7 @@ Estimate cost from the chosen model's live `priceItems` rather than a remembered
 | --- | --- |
 | `seconds` | `duration_seconds × price.output` |
 | `images` | `image_count × price.output` |
+| `audios` | `expected_audio_count × price.output` |
 | `30 seconds` | `ceil(audio_seconds / 30) × price.output` |
 
 Match `properties` to the request you are actually sending — `resolution`, and `audio` on models that price sound separately. An item with no `properties` is the fallback default, not a cheaper option.
@@ -114,6 +115,18 @@ Discover compatible models first with `model list` filters. Pass exactly one com
 For video, use the canonical generation types `text_to_video`, `image_to_video`, `images_to_video`, `reference_to_video`, or `avatar`. Audio uses `text_to_audio`, `text_to_music`, `text_to_speech`, or `sound_effect`. Image requests omit `generation_type`; local paths in supported media fields are uploaded by the CLI.
 
 Send `generation_type` on every audio request rather than relying on the documented `text_to_audio` default, and send it even when the model reports `required_params: {}` — the voice models do, and they still reject a request without it. A rejected Aion request surfaces as `API error (HTTP 502)` wrapping `aion api returned status 400`, with no indication of which field is wrong; report that shape verbatim instead of inferring an outage or retrying unchanged.
+
+### Suno music requests
+
+When an owning workflow requests an original Suno song:
+
+1. Run `model list --audio -o json` and return the compatible live entries whose model name begins with `suno/` and whose subtype is music. Do not use an old “latest” label when a newer compatible catalog entry exists.
+2. Inspect the selected entry's live description, required parameters, options, price items, and current command help before forming the request. The catalog currently exposes `suno/V5_5` as well as earlier models, but availability and supported controls are live facts.
+3. Send `generation_type: "text_to_music"` and `customMode: true` when the selected model requires Custom Mode. Keep the model's exact field separation: `style` carries musical direction; `prompt` carries section metatags and lyrics; `title` names the song. Use `vocalGender`, `styleWeight`, duration, exclusions, or any other optional control only if that exact field is exposed for the selected model.
+4. Do not invent a raw request from these semantic names alone. Pass the complete JSON object using the nesting and field names returned by the live model metadata or VidMuse documentation. If the schema cannot be resolved, return that gap to the owner before spending credits.
+5. Compute cost with the live `audios` price item and the actual expected output count. A successful run may return multiple public audio URLs; preserve them all and return them with the exact model/request receipt for localization and user selection.
+
+Suno prompt authorship, lyrics, creative tradeoffs, candidate selection, and whether the MV covers a full song or an excerpt remain the owning workflow's decisions. This skill validates and executes the chosen request only.
 
 Text-to-speech also needs a voice selector, and `voice_id` values are model-specific:
 

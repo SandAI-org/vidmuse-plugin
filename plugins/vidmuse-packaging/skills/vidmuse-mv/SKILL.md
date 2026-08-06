@@ -1,17 +1,20 @@
 ---
 name: vidmuse-mv
-description: "Create complete generative AI music videos from supplied music, audio, lyrics, performer references, or a selected song window. Use for AI MV, music video, lyric MV, performance MV, song visualization, beat-synced video, 卡点 MV, 歌词动画, or a long H3 music-led film assembled from generated clips. Own master-audio lock, music analysis, timestamped lyrics, a treatment-level MV script, visual-style approval, production-design continuity, image-reference generation, H3 shot planning and prompt compilation, cost approval, sequential generation, incremental Timeline review, final normalization, and delivery. Use vidmuse-ip instead when an existing reusable IP Kit leads the film."
+description: "Create complete generative AI music videos from uploaded music, audio, lyrics, performer references, a selected song window, or a song idea that first needs Suno music generation. Use for AI MV, music video, lyric MV, performance MV, song visualization, beat-synced video, 卡点 MV, 歌词动画, or a long H3 music-led film assembled from generated clips. Own song-source and MV-coverage confirmation, master-audio lock, music analysis, timestamped lyrics, a treatment-level MV script, visual-style approval, production-design continuity, image-reference generation, H3 shot planning and prompt compilation, cost approval, sequential generation, incremental Timeline review, final normalization, and delivery. Use vidmuse-ip instead when an existing reusable IP Kit leads the film."
 ---
 
 # VidMuse AI MV
 
-Own one music-led generative film from supplied audio to delivery. Treat the song as the immutable timeline, make one useful directorial decision per shot, and let the user see the film grow in Timeline as soon as each H3 clip returns.
+Own one music-led generative film from song acquisition to delivery. The song may be uploaded or generated first through the VidMuse CLI. Once selected, treat it as the immutable timeline, make one useful directorial decision per shot, and let the user see the film grow in Timeline as soon as each H3 clip returns.
 
 Do not turn this workflow into a one-shot mega-prompt or a hidden autonomous batch. H3 creates shots; VidMuse owns the sequence, continuity, master audio, review state, and final technical consistency.
 
 ## Non-negotiable rules
 
 - Keep one local master-audio file as the timing spine. Never stretch it, regenerate it, or replace it as a side effect of visual work.
+- Resolve the song source before locking video duration. When no playable song exists, offer two clear paths: upload one or generate one with a live Suno model through the VidMuse CLI.
+- Default a new general-purpose MV to `16:9`. Use `9:16`, `1:1`, or another canvas only when the user or an explicitly named destination requires it.
+- Confirm whether the MV covers the complete song or a representative excerpt. Never silently turn “make an MV” into an arbitrary 15-second test, and never invent an excerpt timestamp before the song has been acquired and analyzed.
 - Analyze musical structure and resolve timestamped vocals before paid video generation.
 - Keep one human-readable planning file for a new MV: `MV-SCRIPT.md`. Grow it from brief to treatment, visual direction, production bible, shot plan, and generation log instead of creating separate planning Markdown files.
 - Approve its treatment from the lyrics and full music analysis before reducing the song to provider-sized shots. A story section is a musical or dramatic passage and may later contain several generated clips.
@@ -22,7 +25,7 @@ Do not turn this workflow into a one-shot mega-prompt or a hidden autonomous bat
 - Generate chronologically, one shot at a time by default. After a successful download and structural probe, append that shot to the same Timeline before any Agent visual inspection.
 - Do not watch a new candidate, extract frames, build a contact sheet, score it, or retry it autonomously before the user can review it. The user is the first visual reviewer.
 - Keep visible lyrics exact. Generated lyric typography is a creative candidate; spelling-critical delivery text becomes a deterministic overlay after approval if H3 renders it incorrectly.
-- Ask once before the first paid generation batch. Quote the live model prices, balance, planned shots, reference cost, and one visible retry allowance. Ask again only if the approved scope or estimated spend materially expands.
+- Treat song generation and visual production as separate possible spend gates. Before each gate's first paid call, quote its live model, expected outputs, cost, balance, and relevant allowance; do not re-ask within an approved scope unless the estimate materially expands.
 
 ## Project artifacts
 
@@ -32,7 +35,7 @@ Use a stable project directory and preserve these artifacts when applicable:
 | --- | --- |
 | `transcript.json` | validated word-level vocal timing |
 | `music-analysis.json` | beats, downbeats, phrases, sections, energy, and other model-returned music structure |
-| `MV-SCRIPT.md` | the single planning contract: scope, locked lyrics, song-driven treatment, visual direction and Style receipt, production bible, chronological shot plan, prompts, continuity state, and spend/generation log |
+| `MV-SCRIPT.md` | the single planning contract: song source and generation brief/receipt, MV coverage, locked lyrics, song-driven treatment, visual direction and Style receipt, production bible, chronological shot plan, prompts, continuity state, and spend/generation log |
 | `media/master-audio.mp3` | immutable program-audio spine |
 | `media/segments/` | exact per-shot H3 reference-audio segments |
 | `references/` | approved character, scene, object, wardrobe, and typography references |
@@ -49,25 +52,59 @@ Do not create aliases such as `TREATMENT.md`, `STYLE-BIBLE.md`, `CONTINUITY.md`,
 
 ### 1. Lock the MV brief
 
-Read the audio and supplied materials. Confirm or safely infer:
+Start with the decisions needed to obtain the song and establish the viewing format. Do not design a video duration around a song that does not exist yet.
 
-- full song or one selected window;
-- aspect ratio, destination, and intended delivery resolution;
+If no playable audio was supplied, say directly that either path is supported:
+
+1. the user uploads an existing MP3, WAV, M4A, or video containing the intended song; or
+2. VidMuse generates an original song with a live Suno model first.
+
+Ask one compact confirmation that covers the unresolved essentials: song source, complete-song MV versus a representative excerpt, and any required non-default destination. Default the canvas to `16:9` and state that default; do not ask the user to choose an aspect ratio unless their named platform or request conflicts with it. Do not infer complete versus excerpt unless the user explicitly delegates that decision.
+
+A suitable first reply when all three are unresolved is: “可以，默认做 16:9。歌曲你想上传，还是让我用 Suno 生成？MV 是做整首，还是先做一个精华段看效果？如果先看效果，我会拿到歌曲并分析后再推荐最合适的一段，不先预设 15 秒。” Adapt it to fields already answered instead of repeating the whole prompt.
+
+Record or confirm:
+
+- song source: supplied file or Suno generation;
+- MV coverage intent: complete song or representative excerpt;
+- `16:9` aspect ratio by default, plus destination and intended delivery resolution when known;
 - MV mode: performance, narrative, lyric, visualizer, or hybrid;
 - visual world, emotional arc, desired realism or stylization, and references;
 - whether the lead is a supplied performer, a newly created project-local character, an object, or no recurring subject;
 - exact lyrics when the user has them, and whether visible lyric typography is desired;
 - collaboration pace: one-shot approval, small batches, or user-authorized continuous generation.
 
-If the user delegates a quick capability test, recommend a 15-second hook containing both a clear vocal phrase and a musical accent. Create a lean `MV-SCRIPT.md` skeleton and record these decisions under `## Scope`; do not repeatedly ask for choices the user already delegated.
+If the user wants to see the effect first, record “representative excerpt” without guessing its duration or timestamp. After the song exists, analyze it and recommend the shortest musically complete passage that demonstrates the concept — usually a hook, chorus, instrumental turn, or the transition into one — with an exact span and reason. If the user delegates the choice, select that evidence-based span and report it before paid visual generation.
+
+If Suno is selected, gather only the missing song decisions that materially affect the result: theme or story, lyric language, vocal or instrumental, genre/mood, vocal character when relevant, energy arc, tempo/groove, key instrumentation, intended musical duration when the live model supports it, and must-have or excluded elements. Do not demand a fully specified music brief when the user has delegated creative judgment.
+
+Create a lean `MV-SCRIPT.md` skeleton and record these decisions and any pending fields under `## Scope`; do not create a second song-brief Markdown file and do not repeatedly ask for choices the user already answered or delegated.
 
 An existing approved `ip-kits/<ip-id>/IP.md` keeps ownership in `vidmuse-ip`, even for a music-led episode. A performer or character created only for this MV remains project-local and belongs here.
 
-**Gate:** `MV-SCRIPT.md` exists and its `## Scope` records the exact master-audio window, aspect ratio, creative mode, identity source, review cadence, constraints, and current spend-approval state.
+**Gate:** `MV-SCRIPT.md` exists and its `## Scope` records the song-source path, complete-song or excerpt intent, `16:9` or an explicit override, creative mode, identity source, review cadence, constraints, unresolved song decisions, and current spend-approval state.
 
-### 2. Lock master audio and vocal timing
+### 2. Acquire the song, then lock master audio and vocal timing
 
-Load `vidmuse-media` and `vidmuse-cli`. Probe the supplied file and create one local master-audio file in a supported editing format without changing its speed or pitch. If the user selected a window, extract that exact window and treat its zero point as Timeline time `0`.
+Load `vidmuse-media` and `vidmuse-cli`.
+
+For a supplied song, localize and probe it without changing speed or pitch. For Suno generation:
+
+1. Query the live audio catalog and identify compatible `suno/` music models. Prefer the newest capable live entry — currently `suno/V5_5` when it remains available and supports the required controls — but let live metadata win over remembered names.
+2. Use Custom Mode and build two distinct prompt surfaces. The Suno **Style (music)** direction is a coherent, prioritized musical description: dominant genre/subgenre, mood and energy arc, tempo/groove, instrumentation and arrangement, vocal character, and production texture. Write natural detailed direction when useful instead of an unranked tag pile or a named-artist imitation. This music field is separate from the VidMuse visual Style selected later in Serve.
+3. Put song structure and singable lyrics in the lyric/prompt surface. Use clear section labels such as `[Intro]`, `[Verse]`, `[Pre-Chorus]`, `[Chorus]`, `[Bridge]`, and `[Outro]`; keep section instructions sparse, lines performable, language deliberate, and the main hook memorable. Preserve user-supplied lyrics exactly unless revision was requested, and confirm the user is entitled to use third-party lyrics.
+4. Put unwanted instruments, genres, vocal qualities, or production elements in the model's exclusion control when the live schema exposes one; do not pollute the positive Style direction with a long negative list. Use `vocalGender`, duration, Style Influence/`styleWeight`, or other controls only when the selected live schema exposes them. If `styleWeight` is available, treat the catalog's `0.6–0.8` guidance as a starting range, not a universal constant.
+5. Show the user the proposed title, Suno music Style direction, lyrics/structure, important exclusions, live model, expected candidate count, live price, and balance before the paid song call. Approval for song generation covers only that song batch, not later image or video spend.
+6. Generate through `text_to_music`, localize every returned candidate with the host Agent's native download capability, and load `vidmuse-media` to probe each file. Preserve the candidates and their receipt, then let the user choose the master song unless they explicitly delegated selection. Do not begin the MV treatment while the song choice is unresolved.
+
+Record the song brief and proposed prompt under `## Scope`, exact chosen or supplied lyrics under `## Locked Lyrics`, and the model, resolved request fields, candidate paths, selection state, and song-generation cost under `## Generation Log`. Keep this inside `MV-SCRIPT.md`; do not create `SONG-BRIEF.md`, `SUNO-PROMPT.md`, or another planning document.
+
+Once a song is selected, resolve the MV coverage:
+
+- For a complete-song MV, use the whole chosen track.
+- For a representative excerpt, analyze the complete chosen track first, recommend an exact musically complete span from its real sections and accents, and confirm it unless the user delegated selection. Never default to the first N seconds.
+
+Create `media/master-audio.mp3` from the approved full track or exact approved window and treat its zero point as Timeline time `0`. This is the first point at which the video duration becomes locked.
 
 Run `analyze-music` when rhythm or section structure will guide the edit. Preserve the complete result as `music-analysis.json`; do not reduce it to BPM alone.
 
@@ -80,7 +117,7 @@ Resolve vocals separately:
 
 Record candidate visual cut anchors at phrase endings, breaths, downbeats, section changes, and meaningful accents, but do not decide provider-sized shots before the MV treatment exists. Later shot boundaries must not cut through a held syllable merely to obtain equal lengths.
 
-**Gate:** the master audio is non-empty and immutable, `music-analysis.json` exists when useful, and vocal sections have validated word timing.
+**Gate:** one supplied or generated song is selected, complete-song or exact excerpt coverage is resolved, the master audio is non-empty and immutable, `music-analysis.json` exists when useful, and vocal sections have validated word timing.
 
 ### 3. Write the MV treatment
 
