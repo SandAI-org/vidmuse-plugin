@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.14] — 2026-08-07
+
+### Changed
+
+- H3 MV planning now separates one provider generation clip from its internal `[Shot N]` edit. A single 5–15 second request may contain several ordered compositions, actions, camera moves, hard or match cuts, and beat-reactive typography, using MiniMax H3's official base or six-section full-reference prompt structure. Audio-referenced prompts omit redundant shot timestamps and let H3 align semantic cut cues to the supplied music; explicit times remain available for non-audio or genuinely fixed events.
+- MV prompts now express concrete motion through subject/environment action and camera type, amplitude, and speed instead of relying on generic “dynamic” language. Adjacent generated clips default to beat-placed editorial and match cuts with stable continuity references, not previous-tail-frame image feedback that can cause frozen openings or cadence hitches.
+
 ## [0.2.13] — 2026-08-06
 
 ### Changed
