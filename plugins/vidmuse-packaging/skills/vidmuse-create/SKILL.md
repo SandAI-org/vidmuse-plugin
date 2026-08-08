@@ -162,7 +162,7 @@ Also ask `vidmuse-cli` for the credit balance before that first paid call, and c
 
 **Every narrated film gets word-level timing. There is no exception for narration this workflow generated itself.** Request the one appropriate atomic operation from `vidmuse-media` and require the validated flat `transcript.json` before any beat receives a duration:
 
-- For supplied speech whose exact words are not already locked, request `transcribe`. The default is `scribe-v2`; use its native word timestamps directly and do not append ATA.
+- For supplied speech whose exact words are not already locked, request `transcribe`. The default is `scribe-v2`; use native word timestamps only when the production response actually returns them. If it returns text without timing, preserve the transcript, report the timing blocker, and let the user or workflow accept exact text before separately requesting paid alignment. Do not append ATA automatically.
 - When the user supplies an exact spoken script with its matching recording, request `align-transcript` against that text and audio.
 - For narration synthesized from a locked script, request `align-transcript` against that script and the resulting TTS audio; do not transcribe it first. A measured total duration from `ffprobe` is not word timing and never substitutes for it.
 - Use Gemini verification only when the user actively asks to check or correct subtitle/transcript text. Its untimed output is a review artifact and does not replace the timestamp source automatically.

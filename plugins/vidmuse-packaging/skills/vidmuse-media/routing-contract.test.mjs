@@ -8,14 +8,15 @@ const create = readFileSync(new URL("../vidmuse-create/SKILL.md", import.meta.ur
 const recut = readFileSync(new URL("../vidmuse-recut/SKILL.md", import.meta.url), "utf8");
 const vox = readFileSync(new URL("../vidmuse-vox/SKILL.md", import.meta.url), "utf8");
 
-test("scribe-v2 is the default timestamped transcription path", () => {
+test("scribe-v2 is the default ASR path without promising timestamps", () => {
   for (const skill of [cli, media, create, recut]) {
     assert.match(skill, /`scribe-v2`/);
   }
   assert.match(cli, /"model_name":"scribe-v2"/);
-  assert.match(media, /decoded provider object as `asr\.provider\.json`/);
-  assert.match(media, /does not require a second alignment call/);
-  assert.match(recut, /Do not append ATA/);
+  assert.match(cli, /transcription as successful but untimed/);
+  assert.match(media, /transcription succeeded but timestamped transcription did not/);
+  assert.match(media, /do not create `transcript\.json`/);
+  assert.match(recut, /Do not append ATA automatically/);
 });
 
 test("verification and alignment remain independent opt-in operations", () => {

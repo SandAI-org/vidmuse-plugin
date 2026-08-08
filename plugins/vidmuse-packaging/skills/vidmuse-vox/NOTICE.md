@@ -55,7 +55,7 @@ Adaptations for this repo:
 - The upstream `GEMINI_API_KEY`, shared `~/hyperframes-projects/.omni-venv` virtualenv,
   `google-genai` dependency, `scripts/check_setup.sh` environment self-check,
   `scripts/generate_video.py`, and `scripts/upload_file.py` are all removed: VidMuse
-  authentication and local-path upload are handled by the bundled CLI.
+  authentication and local-path upload are handled by the official installed CLI against VidMuse production.
 - Result fetching, local verification, and per-item `provenance.json` were added, since
   VidMuse model runs return public URLs rather than local files.
 - **A budget phase was added between the beat plan and the first gate.** The upstream skill has

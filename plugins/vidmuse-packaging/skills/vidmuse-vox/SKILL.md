@@ -35,7 +35,7 @@ Do not package talking-head footage, prove product claims with generated UI, or 
 
 ## Providers
 
-Every model call goes through `vidmuse-cli` and the bundled binary. There is no separate API key, Python environment, virtualenv, or `image_gen` dependency; VidMuse authentication and local-path upload are already handled by the CLI.
+Every model call goes through `vidmuse-cli` and the official installed CLI against the production service. If the executable is missing, `vidmuse-cli` installs the latest release with the official installer before production-account authentication. There is no separate API key, Python environment, virtualenv, or `image_gen` dependency; VidMuse authentication and local-path upload are already handled by the CLI.
 
 | stage | model | executed by | notes |
 | --- | --- | --- | --- |
@@ -52,7 +52,7 @@ Voice and alignment run through `vidmuse-media`, which owns every media model ca
 Confirm every id in the live catalog before the first paid call of a run — ids and prices both move:
 
 ```bash
-"$VIDMUSE_BIN" model list -o json > "$WORK_DIR/model-list.json"
+env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" model list -o json > "$WORK_DIR/model-list.json"
 ```
 
 If a model is absent or renamed, report that and stop the branch. Do not silently substitute another model, and do not fall back to Veo.
@@ -99,8 +99,8 @@ Pick the model from the script's language, not habit: `minimax/speech-2.6-hd` fo
 Then cast an actual voice, because `minimax/speech-2.6-hd` will not run without one. Browse the library and choose on the film's terms — the `summary` and `detail` fields describe persona and use case:
 
 ```bash
-"$VIDMUSE_BIN" voice list -o json --limit 200
-"$VIDMUSE_BIN" voice search -q "documentary narrator" -o json
+env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" voice list -o json --limit 200
+env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" voice search -q "documentary narrator" -o json
 ```
 
 Pass the catalog `voice_id` (such as `F-ZH-002`) to `vidmuse-media` and let it map that to the model-specific id. Never invent a voice id or silently accept a default: an uncast narration is a casting decision made by omission. When cloning with `index-tts-2/text-to-speech`, the user's reference recording replaces the voice id, and without that recording the branch stops here.

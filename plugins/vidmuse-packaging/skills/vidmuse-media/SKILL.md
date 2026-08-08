@@ -33,7 +33,7 @@ Own every media model call a film workflow needs. A film owner decides *whether*
 | probe | `metadata.json` from ffprobe with format and stream metadata |
 | extract audio | `audio.mp3`, first program-audio stream, mono 16 kHz |
 | TTS | `narration.mp3` plus the complete raw response as `tts.raw.json` |
-| transcribe | complete outer response as `asr.raw.json`, decoded provider object as `asr.provider.json`, and validated `transcript.json` from native `scribe-v2` word timing |
+| transcribe | complete outer response as `asr.raw.json`, non-empty text as `asr.txt`, optional decoded object as `asr.provider.json`, and `transcript.json` only when the response actually contains valid word timing |
 | transcript verification | complete Gemini response as `asr.verify.raw.json` plus untimed review text; never a timing source |
 | alignment | complete provider response as `ata.raw.json` and validated `transcript.json` from explicit alignment timing |
 | music analysis | complete tool response as `music-analysis.json` |
@@ -47,8 +47,8 @@ Never substitute SRT for `transcript.json` inside a film workflow. Treat the wor
 
 - Require the input to exist, be readable, and match the requested operation.
 - Resolve `ffprobe` and `ffmpeg`; use `FFPROBE_BIN` or `FFMPEG_BIN` only when explicitly supplied or safely discovered.
-- Load `vidmuse-cli` for TTS, ASR, alignment, or music analysis. Use its bundled binary and authentication rules.
-- For a paid operation, have `vidmuse-cli` read the credit balance and estimate the cost from live `priceItems` first. State both to the caller. When the balance will not cover it, report the shortfall with `https://vidmuse.ai/en/pricing` once and let the caller decide — do not silently truncate the input, downgrade quality, or retry a call the provider rejected for insufficient credits.
+- Load `vidmuse-cli` for TTS, ASR, alignment, or music analysis. Use its PATH resolution or official installation flow, explicit production endpoint, and production-account authentication rules.
+- For a paid operation, have `vidmuse-cli` read the production credit balance and estimate the cost from live `priceItems` first. State both to the caller. If a callable route exposes no price metadata, state that the estimate is unavailable and record the before/after balance delta after an authorized call. When the balance will not cover a known estimate, report the shortfall with `https://vidmuse.ai/en/pricing` once and let the caller decide — do not silently truncate the input, downgrade quality, or retry a call the provider rejected for insufficient credits.
 - Use absolute input and output paths for provider calls.
 - Do not overwrite an existing output unless the user or owning workflow explicitly allows it.
 
@@ -83,7 +83,7 @@ Generate speech only from a script the caller has already locked. Do not rewrite
 Confirm the requested voice model exists in the live catalog first, because ids move:
 
 ```bash
-"$VIDMUSE_BIN" model list -o json > "$WORK_DIR/model-list.json"
+env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" model list -o json > "$WORK_DIR/model-list.json"
 ```
 
 Current voice models, all priced per second of output. Each one requires its own voice selector — this is the most common cause of a failed TTS call:
@@ -105,7 +105,7 @@ For `minimax/speech-2.6-hd`, `voice_id` must be the **model-specific** id under 
 `voice list` defaults to a page size of 20, which currently returns English voices only. Always pass an explicit `--limit` before concluding a language is unavailable:
 
 ```bash
-"$VIDMUSE_BIN" voice list -o json --limit 200 > "$WORK_DIR/voice-list.json"
+env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" voice list -o json --limit 200 > "$WORK_DIR/voice-list.json"
 ```
 
 Resolve the caller's chosen catalog id to the model id, and fail loudly rather than guessing a voice:
@@ -132,7 +132,7 @@ else:
 Serialize the JSON with a real encoder:
 
 ```bash
-"$VIDMUSE_BIN" model run -o json --param "$(python3 -c '
+env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" model run -o json --param "$(python3 -c '
 import json, sys
 print(json.dumps({
     "model_name": sys.argv[1],
@@ -153,9 +153,9 @@ After writing the file, probe it and require a nonzero duration and at least one
 
 Serialize request JSON with a real JSON encoder; never construct it by interpolating unescaped paths or transcript text. Run only the operation requested by the caller.
 
-### Transcribe with native timestamps
+### Transcribe and preserve timestamps when returned
 
-Use `scribe-v2` as the default ASR. It supplies both transcript text and native word timing, so successful transcription does not require a second alignment call:
+Use `scribe-v2` as the default ASR. Send only the documented ASR routing fields:
 
 ```json
 {
@@ -165,16 +165,11 @@ Use `scribe-v2` as the default ASR. It supplies both transcript text and native 
 }
 ```
 
-Do not include `prompt`, `messages`, or generation controls. Save the complete stdout as `asr.raw.json`. The current response wraps the provider result as JSON text in the top-level `text` field; decode that value once and save the object as `asr.provider.json`:
+Do not include `prompt`, `messages`, language, timestamp, diarization, or generation controls unless current live metadata explicitly exposes such a field. Save the complete stdout as `asr.raw.json`. Require a non-empty top-level `text`. If that string is valid JSON and decodes to an object, save the object as `asr.provider.json`; otherwise preserve it directly as `asr.txt`.
 
-```bash
-jq -e '.text | if type == "string" then fromjson else . end | select(type == "object")' \
-  "$WORK_DIR/asr.raw.json" > "$WORK_DIR/asr.provider.json"
-```
+When the decoded response includes a non-empty ordered `words` array whose entries have non-empty `text` and finite numeric `start` and `end` values in seconds, copy only those explicit fields into `transcript.candidate.json`, then normalize it. Do not infer timings from segments or distribute durations across words.
 
-Require `asr.provider.json.text` to be non-empty and `asr.provider.json.words` to be a non-empty ordered array whose entries have non-empty `text` and finite numeric `start` and `end` values in seconds. Copy only those explicit fields into `transcript.candidate.json`, then normalize it. Do not infer timings from segments, distribute durations across words, or invoke ATA merely because the consumer needs subtitles.
-
-If `scribe-v2` fails or omits valid word timing, retain the raw response and report that exact failure. Do not silently retry with Gemini or alignment: each is a separate operation with different input and output semantics.
+If `scribe-v2` returns non-empty text without valid word timing, transcription succeeded but timestamped transcription did not. Retain the text and raw response, do not create `transcript.json`, and report the timing gap explicitly. Do not silently retry with Gemini or alignment: each is a separate paid operation with different input and output semantics. Alignment becomes available only after the user or owning workflow accepts exact text for alignment and authorizes that separate call.
 
 ### Verify transcript text with Gemini
 
@@ -184,7 +179,7 @@ Save the complete response as `asr.verify.raw.json` and require a non-empty unti
 
 ### Align exact text to audio
 
-Use alignment only when the caller already has exact text plus its matching audio, especially a user-provided spoken script and recording or narration synthesized from a locked TTS script. Do not run it automatically after `scribe-v2`.
+Use alignment only when the caller has accepted exact text plus its matching audio, especially a user-provided spoken script and recording, narration synthesized from a locked TTS script, or reviewed ASR text. Do not run it automatically after `scribe-v2`.
 
 First confirm the live catalog contains the exact model `doubao_speech/audio_text_alignment` with subtype `ata`. Then call it with the exact transcript and matching audio:
 
@@ -223,7 +218,7 @@ After correcting transcript text, change only `text`; preserve every `start` and
 Analyze only an existing local audio file selected by the caller:
 
 ```bash
-"$VIDMUSE_BIN" tool run analyze_music \
+env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" tool run analyze_music \
   --param "$(python3 -c 'import json, sys; print(json.dumps({"audio_path": sys.argv[1]}))' "$INPUT")" \
   -o json > "$WORK_DIR/music-analysis.json"
 ```

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.15] — 2026-08-08
+
+### Changed
+
+- Removed the plugin-carried VidMuse CLI executable and platform/version pin. `vidmuse-cli` now resolves an existing `vidmuse` from `PATH` or installs the latest official release through `https://vidmuse.sandcdn.com/cli/install.sh` when missing.
+- Every VidMuse command now explicitly targets `https://vidmuse.ai` and verifies the production account without rewriting shell startup files, so ambient development endpoints cannot leak into plugin workflows.
+- ASR handling now reflects the production response contract: `scribe-v2` may return a valid untimed transcript. Word timing is used only when present, while ATA remains a separately priced, explicitly authorized alignment operation.
+
 ## [0.2.14] — 2026-08-07
 
 ### Changed

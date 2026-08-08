@@ -76,7 +76,7 @@ Alternate quiet and emphasized passages. Do not sustain maximum intensity. Show 
 
 Make the first user-visible checkpoint happen as soon as word timing is valid, before art direction or card design:
 
-1. Use `vidmuse-media` to request `transcribe` with the default `scribe-v2`, then build `transcript.json` from its validated native word timestamps. Do not append ATA. If the user instead supplies an exact transcript for the same audio, `align-transcript` may be requested as the standalone timing source. Run Gemini text verification only when the user actively asks to check or correct subtitles; its untimed result never supplies cue timing.
+1. Use `vidmuse-media` to request `transcribe` with the default `scribe-v2`, then build `transcript.json` only when the production response includes validated native word timestamps. If ASR returns text without timing, preserve it and report the timing blocker; after the user or workflow accepts exact text, `align-transcript` may be requested as a separately priced timing operation. Do not append ATA automatically. Run Gemini text verification only when the user actively asks to check or correct subtitles; its untimed result never supplies cue timing.
 2. Derive `subtitles.timeline.json` from the validated transcript words with a target of 15 and hard maximum of 16 characters per cue. Prefer punctuation, word boundaries, and real pauses; no cue may exceed 16.
 3. Use `vidmuse-timeline` to create or incrementally update `dsl.json` with the user's original video, its program audio, the subtitle cues, and an empty graphics track.
 4. Validate the DSL, then use `vidmuse-cli` to start `vidmuse serve <absolute-dsl-path> --read-only` on loopback.
@@ -288,7 +288,7 @@ Keep the official data and rendering contracts; replace only these execution pro
 
 - `metadata.json`
 - `audio.mp3`
-- `asr.raw.json` and `asr.provider.json` when `transcribe` produced the timing
+- `asr.raw.json`, `asr.txt`, and optional `asr.provider.json`
 - `ata.raw.json` only when the standalone `align-transcript` operation produced the timing
 - `transcript.json`
 - `subtitles.timeline.json`

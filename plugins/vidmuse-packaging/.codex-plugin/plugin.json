@@ -1,7 +1,7 @@
 {
   "name": "vidmuse-packaging",
-  "version": "0.2.14",
-  "description": "Create, package, and recut VidMuse projects, including script- and Style-directed H3 AI music videos, generation-first reusable IP-led films, focused product skills, 162 locally installable Shotcraft effects, a bundled macOS Apple-silicon VidMuse CLI, and official HyperFrames domain skills.",
+  "version": "0.2.15",
+  "description": "Create, package, and recut VidMuse projects, including script- and Style-directed H3 AI music videos, generation-first reusable IP-led films, focused product skills, 162 locally installable Shotcraft effects, on-demand official VidMuse CLI setup for production accounts, and official HyperFrames domain skills.",
   "author": {
     "name": "VidMuse"
   },
@@ -9,7 +9,7 @@
   "interface": {
     "displayName": "VidMuse Packaging",
     "shortDescription": "Design and package creator-led videos",
-    "longDescription": "A minimal VidMuse architecture with dedicated Create, Recut, AI MV, IP, and Vox workflows; treatment-level MV scripting, live visual Style selection, production-design continuity, SOTA image-reference direction, H3 audio-reference shots, beat and lyric timing, and immediate Timeline review as generated sequences grow; focused design and semantic-motion capabilities; a bilingual local library of 162 installable HyperFrames Shotcraft treatments; a dedicated CLI skill carrying its macOS Apple-silicon executable; and pinned HyperFrames domain skills.",
+    "longDescription": "A minimal VidMuse architecture with dedicated Create, Recut, AI MV, IP, and Vox workflows; treatment-level MV scripting, live visual Style selection, production-design continuity, SOTA image-reference direction, H3 audio-reference shots, beat and lyric timing, and immediate Timeline review as generated sequences grow; focused design and semantic-motion capabilities; a bilingual local library of 162 installable HyperFrames Shotcraft treatments; a dedicated CLI skill that resolves or installs the official executable and uses production-account authentication; and pinned HyperFrames domain skills.",
     "developerName": "VidMuse",
     "category": "Creativity",
     "brandColor": "#8B5CF6",

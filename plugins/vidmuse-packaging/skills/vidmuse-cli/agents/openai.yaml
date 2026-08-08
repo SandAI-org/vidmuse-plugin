@@ -1,4 +1,4 @@
 interface:
   display_name: "VidMuse CLI"
-  short_description: "Run the bundled VidMuse CLI safely"
-  default_prompt: "Use $vidmuse-cli to run the appropriate bundled VidMuse CLI command and return a verified result."
+  short_description: "Run the official VidMuse CLI in production"
+  default_prompt: "Use $vidmuse-cli to resolve or install the official VidMuse CLI, authenticate the production account when needed, run the appropriate production command, and return a verified result."
