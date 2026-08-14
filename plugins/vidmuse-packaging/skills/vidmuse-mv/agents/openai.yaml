@@ -1,4 +1,4 @@
 interface:
   display_name: "VidMuse AI MV"
   short_description: "Create beat-synced generative music videos"
-  default_prompt: "Use $vidmuse-mv to turn this audio into a coherent H3-generated music video and add each finished clip to Timeline for my review."
+  default_prompt: "Use $vidmuse-mv to turn this audio into a coherent Seedance 2.5 music video, using musically complete audio-referenced chapters and adding each finished chapter to Timeline for my review."

@@ -1,13 +1,13 @@
 ---
 name: vidmuse-mv
-description: "Create complete generative AI music videos from uploaded music, audio, lyrics, performer references, a selected song window, or a song idea that first needs Suno music generation. Use for AI MV, music video, lyric MV, performance MV, song visualization, beat-synced video, 卡点 MV, 歌词动画, or a long H3 music-led film assembled from generated clips. Own song-source and MV-coverage confirmation, master-audio lock, music analysis, timestamped lyrics, a treatment-level MV script, visual-style approval, production-design continuity, image-reference generation, H3 multi-shot clip planning and prompt compilation, cost approval, sequential generation, incremental Timeline review, final normalization, and delivery. Use vidmuse-ip instead when an existing reusable IP Kit leads the film."
+description: "Create complete generative AI music videos from uploaded music, audio, lyrics, performer references, a selected song window, or a song idea that first needs Suno music generation. Use for AI MV, music video, lyric MV, performance MV, song visualization, beat-synced video, 卡点 MV, 歌词动画, or a long music-led film assembled from Seedance 2.5 chapters. Own song-source and MV-coverage confirmation, master-audio lock, music analysis, timestamped lyrics, a treatment-level MV script, visual-style approval, production-design continuity, image-reference generation, Seedance 2.5 audio-reference planning and prompt compilation, cost approval, resilient async generation, incremental Timeline review, final normalization, and delivery. Use vidmuse-ip instead when an existing reusable IP Kit leads the film."
 ---
 
 # VidMuse AI MV
 
-Own one music-led generative film from song acquisition to delivery. The song may be uploaded or generated first through the VidMuse CLI. Once selected, treat it as the immutable timeline, give every H3 generation clip a musical arc and every internal shot a useful visual change, and let the user see the film grow in Timeline as soon as each clip returns.
+Own one music-led generative film from song acquisition to delivery. The song may be uploaded or generated first through the VidMuse CLI. Once selected, treat it as the immutable timeline, give every Seedance 2.5 generation chapter a musical arc and every internal shot a useful visual change, and let the user see the film grow in Timeline as soon as each chapter returns.
 
-Do not turn this workflow into a whole-song mega-prompt or a hidden autonomous batch. H3 creates 5–15 second clips that may contain several explicitly timed `[Shot N]` cuts; VidMuse owns the longer sequence, continuity, master audio, review state, and final technical consistency.
+Default an excerpt or climax up to the live model limit to one Seedance 2.5 multi-shot generation driven by the exact audio window. For a longer MV, divide the song into musically complete chapters—usually 20–30 seconds when the live schema allows—and generate one chapter at a time. VidMuse owns the complete sequence, continuity, master audio, review state, and final technical consistency.
 
 ## Non-negotiable rules
 
@@ -19,15 +19,17 @@ Do not turn this workflow into a whole-song mega-prompt or a hidden autonomous b
 - Keep one human-readable planning file for a new MV: `MV-SCRIPT.md`. Grow it from brief to treatment, visual direction, production bible, shot plan, and generation log instead of creating separate planning Markdown files.
 - Approve its treatment from the lyrics and full music analysis before reducing the song to provider-sized shots. A story section is a musical or dramatic passage and may later contain several generated clips.
 - Approve one visual direction and its production-design logic before generating continuity references. Do not let the first attractive image silently become the film's style.
-- H3 audio-reference generation also requires at least one visual reference. Audio alone is not a valid H3 reference-video request.
-- Plan each H3 generation clip within the model's live duration limits, currently integer durations of 5–15 seconds. Let the exact Timeline span remain musical; generate enough source duration and trim only the surplus.
-- Let one H3 clip contain multiple internal `[Shot N]` shots whenever the music and visual idea benefit from cuts. A punchy 15-second hook usually earns several distinct compositions, actions, camera moves, or typography states; a slow passage may remain one evolving shot. Never stretch one static composition merely because one provider call can last 15 seconds.
+- Prefer `seedance-2.5` for MV picture generation when the live catalog still exposes the required reference, duration, aspect-ratio, and resolution controls. A user-named model overrides this default; an unavailable or incompatible model requires a disclosed fallback rather than silently returning to the legacy short-clip workflow.
+- Seedance audio-reference generation needs visual reference context. Bind the minimum stable identity, recurring prop, wardrobe, or scene references as ordered elements; audio alone is not enough for identity-led MV work.
+- Prefer one musically complete Seedance chapter over many short provider clips. A representative hook or climax that fits the live limit should normally be one request with several ordered `[Shot N]` shots, actions, camera moves, transitions, and performance states.
+- When the provider cannot accept the full audio window as a direct audio input, wrap the exact audio in a compliant pure-black reference video. Use its embedded audio as the timing, lyric, lip-sync, and edit spine while explicitly telling Seedance to ignore every black visual frame.
+- Treat generated lyric typography as competing with lip-sync and performance attention. Keep model-native words few and high-value; when accurate spelling matters, preserve the better performance take and add deterministic typography only after review.
 - Distinguish performance, narrative, atmosphere, typography, visualizer, and transition functions inside each clip. A subject may sing or speak only in the internal shots that call for it; do not force lip movement across the whole film.
 - Do not seed a new generation clip from the previous clip's extracted tail frame by default. Bridge independent clips with beat-placed hard cuts, match action, screen direction, camera vector, color, light, shape, props, or foreground occlusion. Tail-frame continuation is a rare exception only for an explicitly requested uninterrupted take, because it often creates a frozen opening or cadence hitch at the seam.
-- Generate chronologically, one clip at a time by default. After a successful download and structural probe, append that clip to the same Timeline before any Agent visual inspection.
+- Generate chronologically, one chapter at a time by default. After a successful download and structural probe, append that chapter to the same Timeline before any Agent visual inspection.
 - Do not watch a new candidate, extract frames, build a contact sheet, score it, or retry it autonomously before the user can review it. The user is the first visual reviewer.
 - Treat workflow gates as internal readiness checks unless a real unresolved choice, paid call, or visual result needs the user. Do not convert every Character, Look, Location, Prop, prompt, or file into a separate confirmation. Honor the review cadence already recorded in `## Scope`.
-- Keep visible lyrics exact. Generated lyric typography is a creative candidate; spelling-critical delivery text becomes a deterministic overlay after approval if H3 renders it incorrectly.
+- Keep visible lyrics exact. Generated lyric typography is a creative candidate; spelling-critical delivery text becomes a deterministic overlay after approval if Seedance omits or misspells it.
 - Treat song generation and visual production as separate possible spend stages. Before each stage's first paid call, quote its live model, expected outputs, cost, balance, and relevant allowance; do not re-ask within an approved scope unless the estimate materially expands.
 
 ## Project artifacts
@@ -40,7 +42,8 @@ Use a stable project directory and preserve these artifacts when applicable:
 | `music-analysis.json` | beats, downbeats, phrases, sections, energy, and other model-returned music structure |
 | `MV-SCRIPT.md` | the single planning contract: song source and generation brief/receipt, MV coverage, locked lyrics, song-driven treatment, visual direction and Style receipt, production bible, chronological shot plan, prompts, continuity state, and spend/generation log |
 | `media/master-audio.mp3` | immutable program-audio spine |
-| `media/segments/` | exact per-clip H3 reference-audio segments |
+| `media/segments/` | exact per-chapter Seedance reference-audio segments |
+| `media/reference-videos/` | compliant audio-wrapper videos when direct audio cannot carry the complete chapter |
 | `references/` | approved character, scene, object, wardrobe, and typography references |
 | `clips/` | downloaded generated candidates and approved normalized shots |
 | `dsl.json` | continuously updated Timeline review truth |
@@ -142,9 +145,9 @@ Then divide the selected song window into only the story sections the song earns
 - scene-level plot change and visual payoff;
 - provisional wardrobe, hair/makeup, hero props, and practical effects when useful;
 - visual treatment, palette/light shift, motif state, and transition idea;
-- likely coverage such as establishing, performance, action, detail, or aftermath without enumerating H3 clips.
+- likely coverage such as establishing, performance, action, detail, or aftermath without prematurely enumerating Seedance chapters.
 
-One treatment section may become several H3 generation clips, and one clip may contain several internal shots; several musical phrases may share one section when the scene and dramatic objective remain unchanged. Do not create one treatment section per fixed model duration, one clip per beat, or a sequence of unrelated beauty shots. Favor cause and effect: establish the motif, complicate it through the middle, and resolve it by the end.
+One treatment section may become one Seedance chapter or share a chapter with an adjacent section, and one chapter may contain several internal shots. Several musical phrases may share one section when the scene and dramatic objective remain unchanged. Do not create one treatment section per fixed model duration, one request per beat, or a sequence of unrelated beauty shots. Favor cause and effect: establish the motif, complicate it through the middle, and resolve it by the end.
 
 Treat production design as motivated rather than mandatory. A location, costume, hair/makeup look, or hero prop changes only when the lyrics, story, time, performance setup, or musical escalation benefits from it. Real MVs may return to one setup, alternate performance and narrative worlds, or change several looks; all are valid when the logic is explicit.
 
@@ -170,10 +173,10 @@ If Serve cannot load the catalog, disclose the failure and keep the visual appro
 
 ### 5. Design the shot sequence and production continuity
 
-Add `## Production Bible` and `## Shot Plan` to the same `MV-SCRIPT.md` before video generation. Each H3 generation clip records:
+Add `## Production Bible` and `## Shot Plan` to the same `MV-SCRIPT.md` before video generation. Each Seedance generation chapter records:
 
 - parent `MV-SCRIPT.md` section and exact Timeline span on the master audio;
-- integer H3 request duration sufficient to cover that span;
+- live-supported Seedance request duration sufficient to cover that span, preferring a musically complete 20–30 second chapter over short fragments when possible;
 - clip function mix: performance, narrative, atmosphere, lyric typography, visualizer, or transition;
 - story change and visual payoff;
 - music/lyric anchors that must land;
@@ -181,7 +184,8 @@ Add `## Production Bible` and `## Shot Plan` to the same `MV-SCRIPT.md` before v
 - character ID, location ID, look ID, prop IDs, palette, light, lens, and movement state entering and leaving the clip;
 - reference assets and their single explicit roles;
 - continuity handoff to the next clip without relying on an extracted tail frame;
-- what H3 may invent freely.
+- ordered element roles, including any black audio-wrapper reference video;
+- what Seedance may invent freely.
 
 Maintain one compact continuity bible with stable identifiers:
 
@@ -225,51 +229,53 @@ The primary generated sheet may carry the default MV Look. Create an additional 
 
 Before the first paid reference or video call:
 
-1. Query the live H3 and chosen image-model catalog entries and supported request fields.
+1. Query the live `seedance-2.5` and chosen image-model catalog entries and supported request fields.
 2. Query both live prices and the account balance.
 3. Estimate all planned image references and video seconds, plus one user-visible retry allowance.
 4. State which supplied assets will be reused, which true gaps will be generated, the image models, reference count, video plan, expected deliverables, and total estimate; obtain one spend approval for the batch.
 
-After spend approval, generate only the missing set. Present all newly generated continuity references together, alongside a compact reminder of the supplied assets being reused, as one visual checkpoint before H3. Do not pause separately for the face, the three views, the primary Look, each prop, or each location. If the user delegated continuity acceptance, proceed without another stop; if they request a correction, make one targeted change while preserving the rest. Reopen the checkpoint only when a later request changes a locked identity or production-design invariant.
+After spend approval, generate only the missing set. Present all newly generated continuity references together, alongside a compact reminder of the supplied assets being reused, as one visual checkpoint before Seedance. Do not pause separately for the face, the three views, the primary Look, each prop, or each location. If the user delegated continuity acceptance, proceed without another stop; if they request a correction, make one targeted change while preserving the rest. Reopen the checkpoint only when a later request changes a locked identity or production-design invariant.
 
 Do not rely on remembered resolution, duration, aspect-ratio, input-count, or file-format options. Live model metadata is authoritative.
 
-### 7. Compile each H3 multi-shot clip
+### 7. Compile each Seedance 2.5 multi-shot chapter
 
-Read [h3-mv-compiler.md](./references/h3-mv-compiler.md) before writing prompts. Build prompts from clip variables, the internal shot map, and the actual references; do not paste one universal prose template into every request.
+Read [seedance-mv-sop.md](./references/seedance-mv-sop.md) completely before preparing media or writing prompts. Build prompts from chapter variables, the internal shot map, and the actual references; do not paste one universal prose template into every request.
 
-Choose the H3 input mode by the clip's job:
+Choose the Seedance input mode by the chapter's job:
 
-- **Performance or lyric delivery:** use `reference_to_video` with the exact per-clip audio segment and an identity image. Bind mouth, jaw, breath, expression, and gesture to the locked vocal phrases. Include each internal shot's exact lyric in its original language.
+- **Performance or lyric delivery:** use `reference_to_video` with ordered identity/prop elements and the exact chapter audio, directly when accepted or inside a compliant black reference video. Bind mouth, jaw, breath, expression, and gesture to the locked vocal phrases. Include each internal shot's exact lyric in its original language.
 - **Narrative, atmosphere, visualizer, or beat-led clip:** use audio plus the relevant visual reference when the soundtrack should guide motion, editing energy, or semantics. Explicitly state that no character mouths the lyric unless that is desired.
 - **Designed-keyframe clip:** use `image_to_video` or another live-supported keyframe mode only when an independently designed opening or ending composition matters more than audio response. Do not automatically extract the previous generated clip's tail frame as this input. The master Timeline audio still carries the music.
 - **Pure prompt-led establishing clip:** use `text_to_video` only when identity and incoming-frame continuity are not important.
 
-One provider request may contain several shots. For base text/keyframe modes, keep H3's exact `integrated_multimodal_description`, `overall_soundscape`, and `non_diegetic_music` order. For full-reference requests, keep the exact `subject_definitions`, `summary`, `retention_analysis`, `detailed_description`, `overall_soundscape`, and `non_diegetic_music` order. In an audio-referenced request, write ordered `[Shot 1]`, `[Shot 2]`, and later shots without prompt timestamps; describe cuts against audible phrases, breaths, drops, snares, bass hits, or lyric stresses and let H3 align them to the supplied audio. Use explicit clip-relative timestamps only for text/keyframe requests without reference audio or when a fixed event time is genuinely required.
+One Seedance request may contain several shots. Use an English control wrapper, bind each ordered `@ElementN` to one explicit role, and write `[Shot 1]`, `[Shot 2]`, and later shots in playback order. For audio-referenced chapters, describe cuts against audible phrases, breaths, drops, snares, bass hits, lyric stresses, and section lifts rather than redundant timestamps. Use explicit chapter-relative times only for text/keyframe requests without audio or when a fixed event time is genuinely required.
 
 Make motion concrete rather than decorating the prompt with words like “dynamic” or “cinematic.” Within each internal shot, specify the current composition, subject/environment action, visible state change, and camera motion as type plus meaningful amplitude and speed. Across the clip, vary scale, angle, depth, staging, graphic layout, or environment when the music earns it. Use hard cuts, jump cuts, match cuts, whip-pan cuts, flash cuts, or motivated graphic transitions for energetic passages; retain a continuous evolving take when it better serves the phrase.
 
-Bind every still by stable ID and role. When the character reference is a white-background combined sheet or another isolated upload, say that the blank background and reference layout are identity aids only and must not appear in the clip; take the environment exclusively from the named Location reference or internal shot description. Carry only the Character, Look, Location, and Prop invariants that the clip needs into retention analysis, and name any intentional state change explicitly.
+Bind every still or reference video by stable ID and one role. When the character reference is a white-background combined sheet or another isolated upload, say that the blank background and reference layout are identity aids only and must not appear in the chapter; take the environment exclusively from the named Location reference or internal shot description. When an element is a pure-black audio wrapper, say that its embedded audio is authoritative and its featureless frames must be ignored completely.
 
 Use an English control wrapper for reliable instruction following, while preserving lyrics and intended visible words exactly in their original language. Do not request duplicate generated soundtrack; Timeline owns the master audio.
 
-Record each resolved multi-shot prompt, internal cut map, live model receipt, output path, and generation cost beside its clip in `MV-SCRIPT.md` → `## Shot Plan`; keep a compact cumulative total under `## Generation Log`.
+Record each resolved multi-shot prompt, internal cut map, wrapper metadata when used, live model receipt, task ID, output path, and generation cost beside its chapter in `MV-SCRIPT.md` → `## Shot Plan`; keep a compact cumulative total under `## Generation Log`.
 
-### 8. Generate one clip and reveal it immediately
+### 8. Generate one chapter and reveal it immediately
 
 Work chronologically unless the user explicitly chooses another order.
 
-For each audio-driven clip:
+For each audio-driven chapter:
 
-1. Extract its exact master-audio interval to MP3 or WAV. Verify it is non-empty and satisfies the live H3 audio duration and size limits.
-2. Submit the compiled H3 request through `vidmuse-cli` with an explicit canonical generation type.
-3. Download the returned clip to `clips/` and use `vidmuse-media` only to probe structure: file exists, container is readable, dimensions and frame rate are known, and source duration covers the intended Timeline span.
-4. Do not perform aesthetic inspection or autonomous retries.
-5. Load `vidmuse-timeline`. Append or replace the stable clip ID in the same `dsl.json`, keep the generated clip muted, and let the full master audio remain the sole program-audio source.
-6. Validate the DSL. Reuse the loopback read-only Serve session opened for Style selection when it is still alive; otherwise start one after the first clip. Report the URL, and for every later clip update the same Timeline and tell the user which span appeared.
-7. Surface every returned clip immediately, but pause only at the review cadence recorded in `## Scope`. For a normal efficient run, recommend reviewing the first continuity-risky clip and then continue in small chronological batches; use one-by-one review or uninterrupted generation when the user chose it. Do not silently revert to a stop after every clip.
+1. Extract its exact master-audio interval to MP3 or WAV. Verify it is non-empty and matches the planned chapter span.
+2. If direct audio cannot carry the complete interval, create and probe the pure-black 1280×720 reference video defined by the Seedance SOP, then bind it as an ordered video element.
+3. Submit the compiled `seedance-2.5` `reference_to_video` request asynchronously through `vidmuse-cli`; save the task ID before polling.
+4. Poll the same task rather than resubmitting on a long-running or `did not complete within 1200 seconds` response. Use the SOP's credit-and-asset checks to distinguish pending work from a refunded terminal failure.
+5. Download the returned chapter to `clips/` and use `vidmuse-media` only to probe structure: file exists, container is readable, dimensions and frame rate are known, and source duration covers the intended Timeline span.
+6. Do not perform aesthetic inspection or autonomous retries.
+7. Load `vidmuse-timeline`. Append or replace the stable chapter ID in the same `dsl.json`, keep the generated video muted, and let the full master audio remain the sole program-audio source.
+8. Validate the DSL. Reuse the loopback read-only Serve session opened for Style selection when it is still alive; otherwise start one after the first chapter. Report the URL, and for every later chapter update the same Timeline and tell the user which span appeared.
+9. Surface every returned chapter immediately, but pause only at the review cadence recorded in `## Scope`. For a normal efficient run, recommend reviewing the first continuity-risky chapter and then continue chronologically; use one-by-one review or uninterrupted generation when the user chose it. Do not silently revert to a stop after every chapter.
 
-Apply `vidmuse-timeline`'s existing incremental-update protocol directly. Append one ordinary muted video item to the main track, preserve stable IDs and unknown fields, keep the full master audio as an independent sound, and validate after every update. Use `source`, `720p`, `1080p`, or `4k` for the Timeline project resolution; it is the delivery tier, not necessarily the raw H3 response height.
+Apply `vidmuse-timeline`'s existing incremental-update protocol directly. Append one ordinary muted video item to the main track, preserve stable IDs and unknown fields, keep the full master audio as an independent sound, and validate after every update. Use `source`, `720p`, `1080p`, or `4k` for the Timeline project resolution; it is the delivery tier, not necessarily the raw Seedance response height.
 
 When the user rejects a clip, change the smallest failed dimension—internal cut map, performance, timing, camera, continuity, style, or typography—generate a new candidate, and replace the same stable clip ID. Preserve the rejected file and receipt unless the user asks to delete them.
 
@@ -277,7 +283,7 @@ When the user rejects a clip, change the smallest failed dimension—internal cu
 
 Once all clips are approved:
 
-- choose one master canvas and frame rate from the brief or the first approved H3 clip;
+- choose one master canvas and frame rate from the brief or the first approved Seedance chapter;
 - normalize approved sources to that cadence and canvas, preserving duration and motion cadence;
 - trim provider surplus to exact musical boundaries;
 - regenerate a short source rather than freezing its final frame to fill missing motion;
@@ -294,14 +300,14 @@ Reject final delivery when any answer is no:
 
 - Do mouth shapes, breath, face, and gesture plausibly follow the locked phrase in performance shots?
 - Do important motion changes land on justified beats, accents, words, or section changes without cutting mechanically on every beat?
-- Does each H3 clip use an energy-appropriate number of internal shots, and does every cut reveal new visual information rather than merely changing crop?
+- Does each Seedance chapter use an energy-appropriate number of internal shots, and does every cut reveal new visual information rather than merely changing crop?
 - Does every internal shot contain observable subject, environment, camera, or graphic motion instead of a static reference image with vague motion adjectives?
 - Does the finished sequence still express the approved `MV-SCRIPT.md` premise, section-level dramatic arc, and final resolution?
 - Does the selected window have a readable visual arc rather than unrelated generated clips?
 - Does the result preserve the approved Style traits and `MV-SCRIPT.md` visual invariant spine without copying the catalog sample's subject or layout?
 - Are lead identity, silhouette, wardrobe logic, props, and scene geography consistent enough across cuts?
 - Are every costume, hair/makeup, prop-state, location, and lighting change motivated and represented by the correct continuity ID rather than model drift?
-- Are character identity references isolated from scenery, and did H3 avoid reproducing their white background or turnaround-sheet layout inside story shots?
+- Are character identity references isolated from scenery, and did Seedance avoid reproducing their white background, turnaround-sheet layout, or black audio-wrapper frames inside story shots?
 - Does each internal or cross-clip transition preserve at least one continuity anchor while introducing a meaningful change?
 - Are generated words and lyrics exact where correctness matters, or replaced by deterministic typography?
 - Does every source seam feel intentional, without a frozen first frame, cadence hitch, accidental motion reset, or tail-frame feedback artifact?
@@ -310,7 +316,7 @@ Reject final delivery when any answer is no:
 
 ## Boundaries
 
-- Own complete music-led generative films, treatment-level MV scripting, visual-Style approval, production-design continuity, sequence design, image-reference direction, H3 multi-shot clip compilation, review cadence, and final acceptance.
+- Own complete music-led generative films, treatment-level MV scripting, visual-Style approval, production-design continuity, sequence design, image-reference direction, Seedance 2.5 multi-shot chapter compilation, review cadence, and final acceptance.
 - Let `vidmuse-ip` own music-led films whose approved reusable IP Kit is the lead identity.
 - Let `vidmuse-create` own non-music-led generated films, product films, explainers, and visual stories where music is support rather than the master spine.
 - Let `vidmuse-media` own probe, audio extraction, transcription, alignment, music analysis, and transcript validation.
@@ -318,4 +324,4 @@ Reject final delivery when any answer is no:
 - Let `vidmuse-design` own the visual thesis, live Style recommendation, and cross-scene design system; for MV it writes the `## Visual Direction` section inside `MV-SCRIPT.md`, while this owner presents choices and records approval state.
 - Let `vidmuse-cli` own binary discovery, live model schemas, costs, balance, generation execution, and process syntax.
 - Let `vidmuse-timeline` own DSL mutation, validation, Serve, review synchronization, and rendering.
-- Use HyperFrames only for approved deterministic packaging such as corrected lyric typography, titles, or captions. Never route H3 media generation through HyperFrames-managed models.
+- Use HyperFrames only for approved deterministic packaging such as corrected lyric typography, titles, or captions. Never route Seedance media generation through HyperFrames-managed models.

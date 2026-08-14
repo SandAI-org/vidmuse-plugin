@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced `vidmuse-mv`'s MiniMax H3 short-clip default with a production-tested Seedance 2.5 SOP. MV excerpts and climaxes now prefer one musically complete 20–30 second multi-shot request, using ordered identity/prop elements and an exact audio spine.
+- Added the validated pure-black audio-wrapper path for Seedance chapters whose full audio cannot be passed directly: 1280×720 H.264/AAC reference video, explicit instruction to ignore black frames, structural probing, public asset binding, and master-audio-only Timeline delivery.
+- Added resilient async task handling for long Seedance generations, including task-ID persistence, non-terminal 502/504 timeout interpretation, credit and generated-asset checks, refund-aware single resubmission, and duplicate-generation prevention.
+- MV prompt guidance now treats model-native lyric typography as a performance tradeoff: keep generated words sparse, preserve the better lip-sync take, and use deterministic typography when exact spelling matters. Vox, IP, Create, and their model defaults are unchanged.
+
 ## [0.2.15] — 2026-08-08
 
 ### Changed
