@@ -8,9 +8,9 @@
   Turn ideas, scripts, songs, websites, and speaking footage into designed videos with an AI agent.
 </p>
 
-VidMuse is a plugin for ChatGPT and Codex that gives an agent production workflows for creating, recutting, designing, assembling, reviewing, and rendering video projects. It combines VidMuse generation and Timeline tools with HyperFrames motion composition and a local library of 162 Shotcraft effects.
+VidMuse is a plugin for ChatGPT, Codex, Cursor, and Claude that gives an agent production workflows for creating, recutting, designing, assembling, reviewing, and rendering video projects. It combines VidMuse generation and Timeline tools with HyperFrames motion composition and a local library of 162 Shotcraft effects.
 
-This repository is both human-readable documentation and an installable Codex marketplace. If you are an agent, follow the [Agent installation contract](#agent-installation-contract) exactly.
+This repository is both human-readable documentation and an installable marketplace for Codex, Cursor, and Claude. If you are an agent, follow the [Agent installation contract](#agent-installation-contract) exactly.
 
 ## What you can make
 
@@ -28,7 +28,7 @@ The plugin also provides visual direction, semantic motion choreography, asset p
 
 ### Requirements
 
-- ChatGPT desktop with Codex, or Codex CLI with plugin support
+- ChatGPT desktop with Codex, or Codex CLI with plugin support; **or** Cursor ≥ 1.3 with plugin support; **or** Claude Code ≥ 1.5 with plugin support
 - Git and internet access for the marketplace snapshot
 - A [VidMuse](https://vidmuse.ai) account for production services
 - Node.js 22+, FFmpeg, and ffprobe when a workflow needs local preview or rendering
@@ -60,11 +60,28 @@ codex plugin marketplace upgrade vidmuse-plugin
 
 After installation, start a **new task or CLI session**. Plugin skills are loaded into new sessions; the task that performed the installation should not claim that it can already use newly installed skills.
 
-### Install from the app
+### Install from Codex app
 
 In ChatGPT desktop, open **Plugins**, select the **VidMuse Plugin** marketplace, open **VidMuse Packaging**, and install it. Then start a new task.
 
 If the marketplace is not visible yet, add it with the CLI command above and reopen the app.
+
+### Install in Cursor
+
+```bash
+cursor plugin install SandAI-org/vidmuse-plugin
+```
+
+Or, from Cursor's **Plugins** panel, paste this repository URL and select **VidMuse Packaging**. After installation, reload the window or open a new workspace — Cursor loads plugin skills at workspace start.
+
+### Install in Claude Code
+
+```bash
+claude plugin marketplace add SandAI-org/vidmuse-plugin --name vidmuse-plugin
+claude plugin add vidmuse-packaging@vidmuse-plugin
+```
+
+The root `.claude-plugin/marketplace.json` name (`vidmuse-plugin`) must match the `marketplace add --name` argument exactly. After installation, start a new Claude Code session; plugin skills are only loaded at session start.
 
 ## Install with an agent
 
@@ -189,18 +206,22 @@ The router keeps a complete film under one owner. Design, motion, assets, media 
 
 ```text
 .
-├── .agents/plugins/marketplace.json
+├── .agents/plugins/marketplace.json     # Codex marketplace
+├── .claude-plugin/marketplace.json      # Claude marketplace
 ├── plugins/vidmuse-packaging/
-│   ├── .codex-plugin/plugin.json
+│   ├── .codex-plugin/plugin.json        # Codex plugin manifest
+│   ├── .cursor-plugin/plugin.json       # Cursor plugin manifest
+│   ├── .claude-plugin/plugin.json       # Claude plugin manifest
 │   ├── assets/
-│   └── skills/
+│   └── skills/                          # shared across Codex, Cursor, Claude
 ├── CHANGELOG.md
 ├── LICENSE
 └── README.md
 ```
 
-- `.agents/plugins/marketplace.json` makes this repository an installable marketplace.
-- `.codex-plugin/plugin.json` defines the plugin identity and install-surface metadata.
+- `.agents/plugins/marketplace.json` makes this repository an installable Codex marketplace.
+- `.claude-plugin/marketplace.json` makes this repository an installable Claude marketplace; it points Claude at `./plugins/vidmuse-packaging`.
+- Each host-specific `.codex-plugin/`, `.cursor-plugin/`, `.claude-plugin/` under `plugins/vidmuse-packaging/` describes the same plugin for that host's installer; all three resolve `skills/` to the same directory.
 - `skills/vidmuse/SKILL.md` is the top-level deliverable router.
 - The remaining skills own individual film workflows and production capabilities.
 

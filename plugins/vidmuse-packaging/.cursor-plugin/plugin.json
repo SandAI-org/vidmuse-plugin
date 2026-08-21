@@ -1,0 +1,31 @@
+{
+  "$schema": "https://cursor.com/schemas/cursor-plugin/plugin.json",
+  "name": "vidmuse-packaging",
+  "displayName": "VidMuse Packaging",
+  "description": "Create, package, and recut VidMuse projects — script- and Style-directed H3 AI music videos, generation-first reusable IP-led films, focused product skills, 162 locally installable Shotcraft effects, on-demand official VidMuse CLI setup, and official HyperFrames domain skills.",
+  "version": "0.2.15",
+  "author": {
+    "name": "VidMuse"
+  },
+  "publisher": "VidMuse",
+  "homepage": "https://github.com/SandAI-org/vidmuse-plugin",
+  "repository": "https://github.com/SandAI-org/vidmuse-plugin",
+  "license": "MIT",
+  "logo": "./assets/logo.png",
+  "category": "developer-tools",
+  "keywords": [
+    "vidmuse",
+    "video",
+    "ai-video",
+    "music-video",
+    "recut",
+    "hyperframes",
+    "shotcraft",
+    "timeline",
+    "transcript",
+    "voice",
+    "ip-character"
+  ],
+  "tags": ["video", "creative", "workflow", "music", "animation"],
+  "skills": "./skills/"
+}
