@@ -302,6 +302,7 @@ Then link `assets/fonts/vidmuse/fonts.css`. The staging command verifies every b
 ### Captions and information graphics
 
 - Define caption position, type role, line count, emphasis behavior, background treatment, and relationship to other cards.
+- Before locking the caption treatment, search the live official HyperFrames catalog for caption components with `npx hyperframes catalog --type component --json` (filter the `captions` tag or the `caption-*` names) and treat the results as the first vocabulary to consider. Candidate an official `caption-*` component when its treatment matches the design thesis, preferring reuse over authoring a custom caption skin; when the project's own direction or an active preset calls for a bespoke treatment, author that instead and record why the official set did not fit. Adapt any selected component to the active design contract tokens rather than shipping its demo content.
 - Render planned captions on the topmost visual layer and default them to horizontal center. Let footage, surfaces, images, and supporting graphics continue behind the caption area; do not shrink, reflow, or relocate the whole composition merely to preserve an empty caption rail.
 - Protect readability locally. When the underlying frame is busy, use a compact scrim, backplate, outline, shadow, blur, or another contrast treatment approved by the design contract around the active words. Do not place a second critical text message directly behind an active caption, but decorative and supporting layers may pass beneath it.
 - Burned-in source subtitles remain protected pixels. Never treat a new top-layer caption as permission to cover, duplicate, or make the source subtitle unreadable.
@@ -428,7 +429,7 @@ For `vidmuse-mv`, do not create `FRAME.md`. Update `MV-SCRIPT.md` → `## Visual
 - Font source: renderer-embedded / staged VidMuse ids / project-owned asset
 - Composition: grid, margins, hierarchy, safe-space behavior
 - Shape and material: radii, rules, shadows, texture
-- Captions: top-layer ownership, horizontal anchor, vertical position, line count, emphasis, local contrast, collision policy
+- Captions: top-layer ownership, horizontal anchor, vertical position, line count, emphasis, local contrast, collision policy; caption treatment: bespoke / official `<component-name>` and the adaptation made
 - Media: crop, matte, image/screenshot/B-roll treatment
 - Motion: purpose, relationship verbs, rhythm, direction, weight, source-camera temperament, continuity anchors, limits
 
