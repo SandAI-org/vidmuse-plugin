@@ -55,6 +55,8 @@ Distinguish stable evidence from transient states. Record exact representative c
 
 Require a **source-to-system bridge** in the active design contract: name at least three observed source facts and the exact design choice each one causes. Require each major treatment to cite at least one source cue. A direction that merely places a foreign interface theme on top of the footage fails, even if the interface itself is polished.
 
+Source-led does not mean sparse. When the deliverable calls for rich self-media packaging, let the observed footage and product evidence support a fuller rhythm of signals, support treatments, and hero moments; the source determines their form, placement, and timing rather than limiting how many meaningful interventions the film may contain.
+
 ### Assimilate a music-led source
 
 For `vidmuse-mv`, the source-to-system bridge begins with the song rather than existing picture. Read exact lyrics, vocal perspective, instrumentation/timbre, section structure, energy curve, rhythm density, silence/breath, and the approved `MV-SCRIPT.md`. Translate them into visible consequences:
@@ -81,7 +83,17 @@ Then write:
 
 Ground the direction in the subject's own world. Borrow its instruments, artifacts, diagrams, textures, proportions, language, or behaviors. Do not translate “premium,” “tech,” “creator,” or “cinematic” directly into a default palette.
 
-Explore two or three materially different directions internally before locking one. Reject directions that are attractive but weakly tied to the brief. Spend boldness in one place and keep the supporting system disciplined.
+When the source or brief leaves a material design choice unresolved, consider an alternative internally before locking one. Do not create comparison artifacts or spend time on alternatives when the source clearly supports one direction. Reject directions that are attractive but weakly tied to the brief. Spend boldness in one place and keep the supporting system disciplined.
+
+## Adapt to the delivery frame and platform
+
+Choose the primary delivery ratio, platform, and viewing distance before laying out packaging. Keep the visual system and semantic hierarchy stable, but adapt the composition to the frame instead of scaling one finished canvas:
+
+- **16:9:** use horizontal whitespace for screenshots, diagrams, side-by-side comparisons, and speaker-plus-evidence layouts.
+- **9:16:** protect the face and product first, shorten copy, stack or crop supporting material, and keep captions and calls to action inside the platform-safe center column.
+- **1:1 or other ratios:** preserve one focal subject, reduce simultaneous regions, and re-author the composition around the available reading width.
+
+Record the target ratio, platform-safe regions, caption zone, focal subject, and minimum readable type size in the active design contract. Produce an alternate layout only when the user requests another ratio or the destination requires it; do not generate extra variants by default. Never scale the whole 16:9 stage into a different frame and call that adaptation.
 
 ## Use live VidMuse Styles for generated-image direction
 
@@ -89,7 +101,7 @@ The live VidMuse Style catalog is a visual-reference library for generated media
 
 Load `vidmuse-cli` for live Style discovery, but establish the independent design thesis, palette/light logic, material, camera language, and continuity needs first. Then:
 
-1. Read every catalog page in scope; shortlist no more than three relevant candidates and inspect each full receipt.
+1. Read the catalog pages needed for the decision; inspect the full receipt of each serious candidate without forcing a fixed shortlist size.
 2. Recommend one by tying its subject treatment, medium, texture, palette, light, camera, and realism to the film; explain what the alternatives change.
 3. Use Serve's top-right **Styles** panel as the visual selection surface: search/filter, inspect the cards, then use **Copy for Agent** or **Copy Style ID**. In chat, summarize names, tags, fit, and tradeoffs only; do not embed catalog `imageUrl` values, remote thumbnails, or a substitute preview gallery.
 4. Keep the choice provisional until selected. If the user delegates, record that state and choose the strongest recommendation.
@@ -464,7 +476,7 @@ Reject or revise the direction when any answer is no:
 - Can the thesis be traced to the specific content, creator, audience, or source world?
 - If project names and nouns were removed, would this still be recognizably specific rather than a reusable AI template?
 - Does one memorable signature exist, with enough restraint around it?
-- Can at least three design choices be traced directly to observed source facts, including lyric/music facts for an MV?
+- Can the major design choices be traced directly to observed source facts, including lyric/music facts for an MV when they matter?
 - Is the direction bespoke unless the user explicitly chose a preset, with no silent preset inheritance?
 - If an official preset is used, was it selected by source and message fit after inspecting its showcase and full `FRAME.md`?
 - Does the film preserve one coordinated invariant spine while allowing layouts and treatments to respond to each beat?

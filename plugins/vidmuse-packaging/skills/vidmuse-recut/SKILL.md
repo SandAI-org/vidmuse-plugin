@@ -72,6 +72,25 @@ Assign one packaging level per beat:
 
 Alternate quiet and emphasized passages. Do not sustain maximum intensity. Show one primary focal treatment at a time, and never repeat the full spoken sentence merely to make the frame look busy.
 
+### Select packaging points by viewer change
+
+Do not force every labeled beat into the same full card. For rich self-media packaging, allow each meaningful beat to receive a visual intervention when the source, argument, or performance earns it; vary the intervention's scale and role instead of reducing the number of interventions by default. For each candidate point, answer these questions in one or two sentences:
+
+1. What does the viewer understand before the line, and what should become clearer after it?
+2. What visible evidence, source state, or human performance can cause that change?
+3. Which treatment carries the change with the least interruption: clean source, signal, support, or takeover?
+4. What must remain visible, and where can the treatment originate and return without breaking spatial memory?
+
+Keep the point when it clarifies, proves, compresses, locates, compares, or makes the idea easier to remember. Keep the source clean when the line is primarily emotional, personal, humorous, or already clear from the performance. Prefer a smaller treatment when a single label or source-native detail is enough; reserve a takeover for evidence that cannot be understood beside the speaker.
+
+Record the decision in the beat or card hint as:
+
+```text
+viewer change → visible proof → treatment level and spatial mode → source anchor → exit destination
+```
+
+This is a directing aid, not a score or a quota. The default self-media mode is **rich but source-led**: use a varied rhythm of clean face-led moments, signal cues, support treatments, and justified takeovers. Richness means more meaningful interventions and more than one treatment family, not repeating the full spoken sentence or filling every frame with text. Reduce density only when the user asks for a restrained treatment, the source needs quiet, or the reading load would make another intervention compete with the current one.
+
 ## Start Serve immediately after subtitles
 
 Make the first user-visible checkpoint happen as soon as word timing is valid, before art direction or card design:

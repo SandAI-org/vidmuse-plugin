@@ -27,6 +27,22 @@ For each candidate intervention, write:
 
 Use a relationship verb such as `reveal`, `identify`, `connect`, `branch`, `accumulate`, `compare`, `replace`, `focus`, `separate`, `merge`, `prove`, or `resolve`. If no state change or attention transfer can be named, prefer stillness.
 
+### Match motion to the meaning
+
+Choose the relationship before the effect family. Use this compact mapping as a starting point, then adapt it to the source and the viewer's reading load:
+
+| viewer change | useful motion relationship | typical realization |
+| --- | --- | --- |
+| a named object becomes the focus | identify / focus | tracked label, spotlight, crop, or a restrained push toward the real referent |
+| a number or result arrives | reveal / settle | count-up, bar fill, value landing, or a clean emphasis that holds the proof state |
+| a process advances | accumulate / sequence | one step, node, or state at a time in the order the speaker describes it |
+| two ideas differ or reverse | separate / compare / replace | split, side-by-side state, or a shared anchor that changes while the contrast remains visible |
+| a cause produces an effect | connect / branch / resolve | origin first, relationship second, consequence last |
+| the viewer must inspect a detail | isolate / hand off | stable picture-in-picture, crop, freeze-frame dressing, or a takeover that returns through the same anchor |
+| a conclusion closes the argument | resolve / gather | elements settle into the result, then yield cleanly to the source or CTA |
+
+If the source already communicates the change through a gesture, gaze, edit, or object state, extend that cue instead of adding a competing animation. If no relationship is clear, use stillness and let typography or framing carry the emphasis.
+
 Choose the lowest-interruption spatial strategy that makes the change clear:
 
 - keep the source stable and annotate it when the referent already exists in the frame;
@@ -106,9 +122,9 @@ Keep the film owner's official schema unchanged. Record this compact brief in `F
 
 For multi-part explanations, list each semantic payload beside its own anchor. Do not add private required fields to Storyboard, Timeline DSL, or HyperFrames contracts.
 
-## Declare a closed motion grammar
+## Declare a bounded motion grammar
 
-Before implementation, fix the film's motion vocabulary in `FRAME.md` as a small closed token set: about three named durations (fast / base / slow), one enter ease, one exit ease, one move ease, and one stagger interval. Derive the values from the film's pace and emotional weight, then spend the whole film inside them; a semantic reveal chooses which token applies, not a new number. Reserve any value outside the set for at most one or two named hero moments, recorded with their reason. Uniform tokens are what make varied choreography read as one hand; per-element invented timings read as noise even when each looks fine alone.
+Before implementation, define a small motion vocabulary in `FRAME.md`: usually three named durations (fast / base / slow), one enter ease, one exit ease, one move ease, and a stagger interval. Derive the values from the film's pace and emotional weight so most treatments feel authored by the same hand. A semantic reveal normally chooses one of these tokens; use a different value when the source, reading load, music, or a hero moment clearly calls for it, and record the reason when the difference is visible. The vocabulary creates coherence; it is a guide for timing, not a ban on precise exceptions.
 
 ## Hand off to HyperFrames
 

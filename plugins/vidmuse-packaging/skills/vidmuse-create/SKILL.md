@@ -135,7 +135,7 @@ Continuity: object, direction, sound, phrase, or state carried into the next bea
 
 Omit entries that do not apply. Do not turn this into a rigid custom schema.
 
-`Semantic events` is the beat's defense against a slide deck, so write it for every beat. Any beat longer than roughly four seconds needs at least two distinct events — an entrance and its own resolution are one event, not two. A silent film is held to the same density; only its anchors differ, since they come from actions, reading load, and music rather than word onsets. A beat with one event must be short, or the stillness must be a named choice recorded with its reason: a held result being read, a deliberate rest after density, or a payoff that must not be interrupted.
+`Semantic events` is the beat's defense against a slide deck, so write it for every beat. A beat longer than roughly four seconds should usually have more than one meaningful change, but do not add motion or a second event merely to satisfy a count. A silent film uses the same judgment with anchors from actions, reading load, and music rather than word onsets. A beat with one event is valid when its stillness is intentional and recorded with a reason: a held result being read, a deliberate rest after density, or a payoff that must not be interrupted.
 
 Reject and rework the beat list when:
 
