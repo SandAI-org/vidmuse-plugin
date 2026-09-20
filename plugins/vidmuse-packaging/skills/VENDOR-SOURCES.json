@@ -71,6 +71,24 @@
   "hyperframes": {
     "repository": "https://github.com/heygen-com/hyperframes",
     "ref": "343c02518889f46ee3962256b19ac4189264907d",
+    "upstreamReview": {
+      "checkedAt": "2026-09-19",
+      "latestRelease": "v0.8.50",
+      "latestRef": "34644a199390741a6aa2c3fbea006813176902a4",
+      "runtimeVerified": "npx hyperframes --version -> 0.8.50",
+      "status": "selective-sync",
+      "adopted": [
+        "Core and CLI compatibility review for portrait sizing, sub-composition checks, asset readiness, non-Latin paths, HDR/SDR handling, render cancellation, and motion blur.",
+        "Remote Registry remains available for newly published official blocks and components.",
+        "VidMuse keeps its own snapshot review, Timeline ownership, media routing, and Studio exclusion policy."
+      ],
+      "deferred": [
+        "Studio SDK editing, Studio timeline UX, and Studio-only agent interactions.",
+        "HyperFrames-managed TTS, transcription, background removal, and other AI/media model flows.",
+        "Bulk replacement of the pinned vendored skill text and the local 162-item Shotcraft snapshot."
+      ],
+      "record": "skills/hyperframes-cli/references/upstream-compatibility.md"
+    },
     "policy": "Pinned upstream domain skills with minimal VidMuse policy patches: no HyperFrames Studio/timeline UI and no HyperFrames-managed AI/media model selection or downloads.",
     "skills": [
       "hyperframes-core",

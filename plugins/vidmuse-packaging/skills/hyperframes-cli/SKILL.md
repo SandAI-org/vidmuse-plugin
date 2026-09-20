@@ -13,6 +13,8 @@ description: >
 
 Run commands as `npx hyperframes ...` unless project instructions provide a wrapper. Obey the wrapper when present. The CLI requires Node.js 22 or newer and FFmpeg.
 
+The VidMuse packaging skill was selectively reviewed against HyperFrames `v0.8.50` on 2026-09-19. Runtime resolution is intentionally left to `npx` so bug fixes in the official engine are available, while VidMuse-specific boundaries remain authoritative. Read [upstream-compatibility.md](./references/upstream-compatibility.md) before adopting a new upstream feature or changing a render contract.
+
 **VidMuse boundary:** never run `preview`, `beats`, or any command that opens HyperFrames Studio or its timeline UI. Never run HyperFrames `tts`, `transcribe`, `remove-background`, or any option that selects or downloads a HyperFrames-managed AI/media model. Use `vidmuse-media`, `vidmuse-cli`, and `vidmuse-timeline` for those capabilities. GSAP's paused code timeline remains allowed because it is the deterministic render clock, not a UI.
 
 ## Development loop
