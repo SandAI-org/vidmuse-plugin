@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added resilient async task handling for long Seedance generations, including task-ID persistence, non-terminal 502/504 timeout interpretation, credit and generated-asset checks, refund-aware single resubmission, and duplicate-generation prevention.
 - MV prompt guidance now treats model-native lyric typography as a performance tradeoff: keep generated words sparse, preserve the better lip-sync take, and use deterministic typography when exact spelling matters. Vox, IP, Create, and their model defaults are unchanged.
 
+## [0.2.17] — 2026-09-20
+
+### Changed
+
+- Recut packaging now treats graphics as short audio-visual events over the source, with phrase-bound entry and exit, clean-source breathing intervals, and semantic timing guidance for openers, chapter markers, emphasis, and sustained diagrams.
+- Added a blocking rhythm gate against accidental back-to-back graphics coverage and cards whose semantic payload has already expired, while keeping timing judgment content-driven instead of preset-driven.
+
 ## [0.2.16] — 2026-09-20
 
 ### Changed

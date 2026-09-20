@@ -238,6 +238,22 @@ Treat source-camera motion as a high-attention spatial decision because it moves
 
 After selecting the spatial mode, load `vidmuse-motion` and build a cue chain from exact `transcript.json` word anchors plus relevant pauses, gestures, and source events. A card window defines availability, not one simultaneous entrance: reveal claims, branches, values, and consequences when the speaker reaches them, then hold and resolve intentionally. Hand the approved motion brief to `hyperframes-animation`; never select animation rules or effects before the semantic and temporal reason exists.
 
+### Treat packaging as short audio-visual events
+
+The graphics track is an event track over the source, not a second continuous program. A packaging point must be timed to the phrase, pause, gesture, or visible source change that justifies it:
+
+Interpret user intent before choosing any count or duration. When the user asks for a rich, human-feeling self-media package, translate that into varied interventions with clean returns to the speaker. When the user points out that the timeline is full of touching graphics clips, diagnose the problem as audio-visual rhythm and lifetime alignment: do not simply reduce the number of cards or shorten every card uniformly. Re-read the sentence, pause, gesture, and visible state that each card was meant to serve, then trim or split only where the referent actually expires.
+
+- derive `startTime` from the first useful spoken or visible cue, with only a short anticipation when the viewer needs preparation;
+- derive `endTime` from the end of the referent plus reading/settle time, then resolve back to clean source; never let a chapter heading, opener, or one-line emphasis occupy the whole surrounding argument;
+- use the shortest readable window for the actual payload. An opener may only need the short phrase that introduces it; an emphasis may last for the clause that gives it meaning; a lower-third may stay until it has been read; a diagram or comparison may stay while its relationship is being explained. These are examples of reasoning, not duration presets;
+- leave breathing room between unrelated interventions. A clean source interval is intentional pacing and should normally separate adjacent packaging points; do not start the next card at the previous card's end merely to keep the graphics track busy;
+- allow overlap only when one treatment is genuinely continuous with the next semantic payload, such as a connector handing off to its consequence. Otherwise split the treatments and return the viewer to the source;
+- if a card remains visible after its spoken or visible referent is complete, shorten it, split it into successive events, or replace it with a small persistent navigation cue. A longer card is valid only when the viewer is still receiving or reading new information from it;
+- for every card record `anchorIn`, `anchorOut`, `holdReason`, and `returnToSource` in the planning notes. The card's existence and its exact lifetime need separate reasons.
+
+Before implementation, inspect the planned graphics windows on a time ruler. Reject a plan where most of the film is covered by back-to-back windows, where an opener lasts longer than the words that introduce it, or where a chapter card remains after the chapter has already become ordinary explanation. Richness comes from varied, well-timed interventions and clean returns, not from filling the entire timeline.
+
 Once that cue chain exists, prefer a quick `vidmuse-shotcraft` search for the few support,
 hero, or editorial-punctuation moments that could benefit from a proven implementation;
 clean source-led passages and simple cuts do not need a catalog pass. Query `recut:safe`
@@ -339,6 +355,8 @@ Before rendering, snapshot the start, hero/midpoint, and end of every card windo
 - Important moments use relationship-appropriate spatial modes and motion verbs instead of repeating one generic card silhouette.
 - Source reframing has a named focal or rhetorical reason, settles long enough to become useful, and does not substitute repeated zooming for a stable explanatory layout.
 - Semantic payloads arrive at their own spoken, performance, or source anchors instead of every layer entering at the card boundary; each treatment has a readable hold and intentional exit.
+- Packaging windows follow the audio-visual event: opening and chapter cards resolve shortly after their introducing phrase, unrelated cards have a visible clean-source interval between them, and no graphics track is effectively continuous by default.
+- Inspect a representative quiet return between unrelated interventions. If two windows nearly touch, explain the semantic handoff; otherwise treat the adjacency as accidental chaining and return to the source.
 - A thumbnail contact sheet shows meaningful variation in silhouette, scale, source/graphic balance, and intensity while retaining one coherent visual grammar.
 - Quiet face-led passages remain available, and adjacent cards form an intentional low/medium/high rhythm.
 - Every snapshot state, including intermediate reveal states, reads as a complete frame: no empty or near-empty panel, no heading waiting alone over blank surface, and no visible region reserved for content that has not arrived.

@@ -190,17 +190,34 @@ from what the video actually says — could be all quotes or all data,
 could open with a number or with a story. Let the transcript drive the
 rhythm.
 
+**Audio-visual event timing.** A card is a short intervention over the
+source video, not a license to cover the whole argument. First understand
+what the speaker is saying and what the source frame is doing, then bind
+`startSec` and `endSec` to the phrase, pause, gesture, or visible change
+that makes the treatment useful. The opener should last only as long as
+the introduction needs; an emphasis should last through the clause that
+gives it meaning; a lower-third should remain only until it is readable;
+and a diagram or comparison should remain while its relationship is being
+explained. These examples describe the reasoning, not fixed duration
+presets. Add a clean-source interval between unrelated cards. Adjacent
+cards need an explicit semantic handoff; otherwise the adjacency is
+accidental chaining. If a card's referent has finished and no new payload
+is arriving, shorten or split it. The source clip remains the primary
+rhythm; a rich package alternates intervention, hold, exit, and breathing
+room.
+
 **Card count.** In VidMuse Recut, selected semantic beats determine card
 count (see `SKILL.md`); there is no formula, target, or floor. The official
 duration-and-density formula lives in
 [legacy-creative-heuristics.md](./legacy-creative-heuristics.md) and applies
 only when the user activates the shipped design gallery.
 
-When a card holds longer than ~15s, plan for a richer card (data block,
-multi-step reveal, several sub-points unfolding with staggered
-animations) — a static one-liner gets boring past 8s. For long pieces
-where many cards exceed 30s, consider **chunking the timeline into
-sub-compositions** (one .html per chapter, mounted with
+When a card holds through a sustained passage, plan for a richer card (data
+block, multi-step reveal, several sub-points unfolding with staggered
+animations) — a static one-liner gets boring when the viewer has no new
+information to receive. For long pieces where many cards need sustained
+development, consider **chunking the timeline into sub-compositions** (one
+.html per chapter, mounted with
 `data-composition-src`) so the GSAP timeline per file stays manageable
 — see the `timeline_track_too_dense` HyperFrames lint warning.
 
