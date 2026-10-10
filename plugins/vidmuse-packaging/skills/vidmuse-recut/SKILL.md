@@ -107,7 +107,7 @@ Treat this as mandatory workflow behavior, not an optional preview. Do not conti
 
 Complete a source visual audit before choosing a style, palette, frame recipe, or Registry item. A transcript explains what the speaker means; it does not explain what the film already looks like. Do not approve `FRAME.md` from transcript evidence alone.
 
-Use `vidmuse-media` to extract a baseline contact sheet across the full duration, then add event samples at every shot, crop, location, lighting, subtitle, camera, gesture, prop, or screen-content change. For a stable take longer than one minute, inspect at least one baseline frame every 8–12 seconds. For every candidate package, also inspect its start, quarter, midpoint, three-quarter, and end frames at full resolution. Increase sampling until movement and occupancy are no longer surprising.
+Use `vidmuse-media` to extract baseline frames across the full duration, then assemble the source contact sheet with the host's native tools. Add event samples at every shot, crop, location, lighting, subtitle, camera, gesture, prop, or screen-content change. For a stable take longer than one minute, inspect at least one baseline frame every 8–12 seconds. For every candidate package, also inspect its start, quarter, midpoint, three-quarter, and end frames at full resolution. Increase sampling until movement and occupancy are no longer surprising.
 
 Record the compact audit in `FRAME.md`; do not create a separate audit artifact or schema. Cover:
 
@@ -210,9 +210,13 @@ Do not showcase every possible component. The page should communicate one author
 
 Open the HTML in a browser when local browser control is available and inspect it at the target ratio plus a narrower viewport. Require no console errors, missing local assets, font fallbacks, overflow, unreadable text, or protected-region collisions. Also capture a static overview or representative screenshots so the direction remains reviewable when the live page is closed.
 
-Present the original preview to the user as the design-approval checkpoint before bulk card construction. Keep the already-running VidMuse subtitle Serve session alive; the design page complements it and does not replace Timeline review. In collaborative work, revise `FRAME.md` and the preview together until the direction is accepted. In autonomous work, publish the page and overview as a visible checkpoint, then continue without converting it into a template choice.
+Present the original preview as the design checkpoint before bulk card construction and keep the already-running VidMuse subtitle Serve session alive. The design page demonstrates `FRAME.md` alongside the Timeline review surface.
 
-**Gate (blocking): the design gate is `FRAME.md` plus `design-preview/index.html`, accepted together.** Both must exist, and the preview must use real source material, visibly demonstrate the bespoke system across representative conditions, and agree with `FRAME.md`. Present both to the user and wait: the preview is the reviewable surface, `FRAME.md` is the normative one, and accepting a preview whose `FRAME.md` disagrees with it approves nothing. Final card construction may not begin before this gate. If the user asks for changes, revise both and re-present; do not carry an unaccepted direction into bulk card construction.
+**Gate: `FRAME.md` plus `design-preview/index.html`, accepted together before bulk card construction.** Both must exist, use real source material, demonstrate the bespoke system across representative conditions, agree with each other, and pass the checks above. `FRAME.md` is the normative direction and the preview is its review surface.
+
+Use the user's settled collaboration mode. In collaborative mode, present both artifacts and wait for the user's acceptance. When the user explicitly authorizes autonomous design execution, inspect both artifacts against the same criteria, record the acceptance rationale in `FRAME.md` as `Agent acceptance under user delegation`, present the preview and overview, and continue. Collaborative mode is the default when the mode is unresolved. Record user acceptance and delegated Agent acceptance with their respective authority.
+
+On resume, reuse an existing acceptance that matches the current artifacts. For a material design revision, update both artifacts and repeat the gate in the settled collaboration mode.
 
 ## Build a film system, not a row of cards
 
@@ -446,7 +450,7 @@ Delivery is fail-closed across both surfaces. Before claiming completion, confir
 - Own content analysis, beat selection, packaging density, placement, visual strategy, composition, QA, review, and final output.
 - Let capability skills execute narrow operations without changing official artifact shapes or taking over the film.
 - Resume from the first missing or invalid official artifact.
-- Route plain subtitles, transcription, a single trim, or another standalone media result to `vidmuse-media`.
+- Route standalone transcription, alignment, subtitle conversion, audio extraction, probing, and frame extraction to `vidmuse-media` according to its Scope. Return other standalone operations to `vidmuse` for capability matching.
 - Route requests that require selecting, deleting, or reordering spoken footage outside this version; the official protocol does not perform editorial cutting.
 - Route films without primary speaking footage to `vidmuse-create`.
 - Do not enter the HyperFrames router or update/install HyperFrames skills during a run.

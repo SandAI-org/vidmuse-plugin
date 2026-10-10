@@ -506,7 +506,7 @@ Inspect representative snapshots at the final output ratio. Compare the frame to
 - Own visual thesis, taste, typography, palette, spatial grammar, caption identity, media treatment, motion temperament, official-library recommendations, the active design contract, and visual consistency review.
 - Let `vidmuse-create`, `vidmuse-recut`, or `vidmuse-mv` own story, beat selection, timing, packaging density, and final film decisions.
 - Let `vidmuse-assets` own asset identity, provenance, licensing, and sourcing policy.
-- Let `vidmuse-media` perform generation, download, conversion, grading, crop, or other media operations.
+- Use `vidmuse-media` for the operations listed in its Scope. Return generation and processing requirements, together with the approved visual constraints, to the calling film owner for execution through an implemented capability. For standalone design work, include these requirements in the design handoff to the user.
 - Let `vidmuse-motion` own semantic choreography and speech synchronization. Let `hyperframes-registry` discover and install items, `hyperframes-core` build the composition, and `hyperframes-animation` implement approved motion.
 - Do not start HyperFrames Studio, preview, or Timeline UI. Do not select, download, or run HyperFrames-managed AI or local media models.
 - Do not render or invoke general VidMuse CLI operations here.

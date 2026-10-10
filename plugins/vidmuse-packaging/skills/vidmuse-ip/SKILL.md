@@ -18,7 +18,7 @@ The video model and its prompt own the picture. Timeline owns only assembly. Do 
 5. **Let narration determine picture length.** Confirm a target, use supplied audio, or let the locked script determine the film. Model limits apply only to individual clips.
 6. **Bind exact facts to sources.** Permit words, names, dates, percentages, prices, and numbers that the narration or evidence explicitly supplies. Do not invent unsupported exact claims merely to decorate a frame.
 7. **Let the user see and confirm the style and IP.** Query the live style catalog, open its visual cards in read-only Serve, then approve one clean reusable identity sheet before episode generation.
-8. **Show generated clips to the user immediately.** After generation, place candidate clips in narration order on a minimal Timeline and start review. Do not delay first sight with Agent visual inspection, frame sampling, contact sheets, scoring, or autonomous retries.
+8. **Show generated clips to the user immediately.** Publish each returned candidate to the same narration-ordered Timeline. The user conducts the first visual review; the default approval checkpoint is the complete candidate group in step 8.
 9. **Keep packaging minimal.** After clip approval, join narration, optional BGM, subtitles, an optional edge progress indicator, and shot transitions. These elements must not cover the IP, important objects, or visible actions. Do not add information cards, timelines, diagrams, callouts, cutouts, or other packaging points.
 
 ## Minimal files
@@ -179,19 +179,19 @@ Use live VidMuse routes:
 
 Verify model ids, prices, fields, generation type, duration options, and resolution immediately before the batch. Preserve raw outputs, localize returned media, and record the model, prompt variables, compiled prompt, references, and cost in provenance.
 
-After a clip returns, do not watch it, extract frames, build a contact sheet, score identity or action, or regenerate it on Agent judgment before the user sees it. Perform only the minimum technical work required to reference the non-empty media in Timeline. If a synchronous request times out after acceptance, recover the result from generated assets before considering a retry.
+For each returned clip, verify the local file and the technical metadata needed for Timeline, then load `vidmuse-timeline` to append or replace its stable item in the same `dsl.json`. Keep candidates in narration order, the locked narration as one program-audio path, and candidate videos muted unless the user requested their native audio. Validate the DSL, start or reuse read-only Serve, and report the live URL with the newly available span. Continue the approved generation batch; pause after an individual clip when the user requested clip-by-clip approval. Agent visual QA follows the sequence-review checkpoint. If a synchronous request times out after acceptance, recover the result from generated assets before considering a retry.
 
-### 8. Assemble immediate Timeline review
+### 8. Review the complete candidate group
 
-As soon as all candidate clips are available, load `vidmuse-timeline` and create or patch the minimal `dsl.json`:
+Once the complete candidate group is available, load `vidmuse-timeline` to reconcile the sequence already published during generation:
 
 - place clips sequentially on one main video track in narration order;
 - add the locked narration as the single program-audio path and mute model-native clip audio unless the user intends to review it;
-- omit new BGM, subtitles, transitions, progress indicators, and HyperFrames packaging at this checkpoint;
-- run only required DSL structural validation, then start a read-only Timeline Serve immediately;
-- report the review URL and stop for user feedback.
+- keep this checkpoint focused on candidate clips and narration; step 9 adds approved packaging;
+- run the required DSL structural validation and keep the read-only Timeline Serve session available;
+- report that the complete group is ready and wait for user feedback.
 
-Do not render a review file or conduct a separate Agent perception pass first. Timeline inclusion means “candidate for review,” not “approved.”
+Timeline items retain candidate status until the user approves them. IP owns the review cadence: candidates appear as they return, with approval requested for the complete group by default or per clip when the user chose that cadence.
 
 **Gate:** the user reviews the generated sequence and approves it or identifies clips to revise.
 
@@ -232,6 +232,6 @@ Return the render, project path, IP Kit path, selected style, generated clips, r
 - Own the complete IP film, identity, scenario, story, visual propositions, prompts, generation strategy, budget tradeoffs, and delivery.
 - Load `vidmuse-cli` for styles, models, voices, balance, prices, and generation commands.
 - Load `vidmuse-media` for probe, TTS, transcription, alignment, subtitles, and frame extraction.
-- Load `vidmuse-timeline` for the pre-generation visual Style checkpoint and immediately after candidate generation for sequential user review; reuse the same stable DSL for revisions, packaging, and rendering.
+- Load `vidmuse-timeline` for the pre-generation visual Style checkpoint and each returned candidate; reuse the same stable DSL for sequence review, revisions, packaging, and rendering. IP sets the approval cadence, with complete-group review as the default.
 - Limit packaging to subtitles, an optional edge progress indicator, and shot transitions; never obscure generated content.
 - Do not use `image_gen`, HyperFrames-managed media models, OS/browser TTS, downloaded local models, unapproved provider substitutions, or unconsented likeness or voice cloning.

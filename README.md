@@ -192,7 +192,8 @@ context alone does not select the advertising workflow.
 | Reusable character/IP or IP-led film | `vidmuse-ip` |
 | Vox-style paper-collage film | `vidmuse-vox` |
 | AI product ad or UGC ad, including references and clip repairs | `vidmuse-ads` |
-| One transcript, voice, subtitle, or media artifact | `vidmuse-media` |
+| Probe, audio extraction, TTS, transcription, verification, alignment, music analysis, subtitle conversion, or frame extraction | `vidmuse-media` |
+| Standalone music, image, or video generation with a selected model and creative request | `vidmuse-cli` |
 | Timeline assembly, review, edit, or render | `vidmuse-timeline` |
 | Direct account, credits, model, voice, or CLI operation | `vidmuse-cli` |
 

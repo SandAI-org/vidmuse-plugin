@@ -126,6 +126,8 @@ Then hand the shortfall back to the caller. Deciding what to build within a budg
 
 Discover compatible models first with `model list` filters. Pass exactly one complete Aion request JSON object through `model run --param`; do not rename, infer, or translate request fields.
 
+For a direct standalone music, image, or video generation, use the user's selected model, authored creative prompt, and supplied material inputs. Resolve the live request schema and cost, execute within the authorized scope, and return the raw response, result URLs or task ID, and request receipt. Surface any missing model, creative prompt, or material input to the user so those decisions are settled before execution.
+
 ```bash
 env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" model run --param '<complete-json-object>' -o json
 ```

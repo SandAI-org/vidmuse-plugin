@@ -1,6 +1,6 @@
 ---
 name: vidmuse-vox
-description: "Build a Vox-style editorial halftone paper-collage film whose picture length is planned from the narration. Use when the user asks for collage b-roll, 拼贴 b-roll, 半调拼贴, 纸拼贴, vox 风格, editorial collage, a collage explainer, or wants script lines turned into assemble-from-empty visual metaphors. Resolve the voice spine first through vidmuse-media — narration then word alignment — then derive one clip per argument at a duration that covers its narration span, cost the plan against the live credit balance, and enforce three approval gates: metaphor, still, then motion. Do not use for talking-head packaging, for real product-UI proof, or when an editable layered timeline is required."
+description: "Build a Vox-style editorial halftone paper-collage film whose picture length is planned from the narration. Use when the user asks for collage b-roll, 拼贴 b-roll, 半调拼贴, 纸拼贴, vox 风格, editorial collage, a collage explainer, or wants script lines turned into assemble-from-empty visual metaphors. Resolve the voice spine first through vidmuse-media — narration then word alignment — then derive one clip per argument at a duration that covers its narration span, cost the plan against the live credit balance, and follow metaphor approval, still approval, and motion generation. Deliver verified clips for B-roll requests, or own complete-film assembly, review, and rendering through vidmuse-timeline."
 ---
 
 # VidMuse Vox
@@ -14,6 +14,7 @@ Default chain:
 3. Design the visual metaphors only, and wait for approval.
 4. Generate the final stills only, and wait for approval.
 5. Generate motion at the planned duration and complete QA.
+6. Follow the delivery scope: return verified clips, or assemble, review, and render the complete film through `vidmuse-timeline`.
 
 The two approval gates are part of the workflow, not politeness. They keep the user's attention on taste and direction while preventing a wrong metaphor or wrong still from consuming video generation credits.
 
@@ -31,7 +32,9 @@ Never plan "short motion, then a long still bed" to fill a span. If a 5-second c
 
 Own one deliverable: a Vox-style collage film — either a silent B-roll clip sitting under a supplied narration, or a complete narrated collage explainer.
 
-Do not package talking-head footage, prove product claims with generated UI, or build an editable layered composition. When the user needs those, hand back to `vidmuse` for routing. When the user needs precise per-layer control, say so and route to the HyperFrames path through `vidmuse-create`.
+Record the delivery scope in the existing `brief.md`: `complete film` or `clips`, together with any calling workflow. Reuse the scope already settled with the user. Vox owns final-film acceptance for a complete film; for B-roll inside another film, the calling owner receives the verified clips and timing. Direct clip requests finish with those same media artifacts.
+
+Talking-head packaging belongs to `vidmuse-recut`; real product-UI proof and editable paper-layer compositions belong to the HyperFrames path through `vidmuse-create`. Timeline assembly here uses the generated collage clips as video sources.
 
 ## Providers
 
@@ -47,7 +50,7 @@ Every model call goes through `vidmuse-cli` and the official installed CLI again
 | motion (Gate 3, default) | `minimax/hailuo-h3` | this skill | 5–15 second integers; 12 credits/second at 720p |
 | motion (fallback) | `seedance-2.0-pro` | this skill | 4–15 second integers; 20 credits/second at 720p |
 
-Voice and alignment run through `vidmuse-media`, which owns every media model call and its artifact verification. Collage stills and motion are generated here, because the metaphor, duration, and framing judgment behind each request is inseparable from the request itself.
+Voice and alignment run through `vidmuse-media`, which executes those calls and verifies their artifacts. Collage stills and motion are generated here, because the metaphor, duration, and framing judgment behind each request is inseparable from the request itself.
 
 Confirm every id in the live catalog before the first paid call of a run — ids and prices both move:
 
@@ -252,7 +255,7 @@ Re-check the balance against this batch's estimate before sending it, and state 
 
 - Real product-UI proof is required: real capture belongs to `vidmuse-create`.
 - Exact in-frame numbers or logos are required: those belong in composition and captions.
-- Precise layer, occlusion, camera-traversal, or editable-timeline control is needed.
+- Editable paper layers, per-piece occlusion, or deterministic camera traversal are required: use HyperFrames through `vidmuse-create`.
 - Talking-head or interview footage is the primary plate: that is `vidmuse-recut`.
 - Only a prompt is wanted, not a finished clip: write the prompt and skip these gates.
 - The user explicitly needs separable transparent layers.
@@ -277,6 +280,8 @@ videos/YYYY-MM-DD-vox-<title>/
 ├── still-contact-sheet.jpg
 ├── video-contact-sheet-all.jpg
 ├── end-frame-comparison-all.jpg
+├── dsl.json                         # complete-film assembly
+├── renders/                         # complete-film delivery
 ├── 01-<concept>/
 │   ├── visual-spec.json
 │   ├── video-prompt.txt
@@ -581,9 +586,23 @@ Change exactly one variable per retry. Two changes at once buys a clip without b
 | TTS returns HTTP 502 / `aion api returned status 400` | a missing route or voice, not an outage: send `generation_type: "text_to_speech"` and a `voice_id` resolved through `model_ids`. Never retry the identical request or fall back to another TTS path |
 | `voice list` shows no voices in the script's language | the default page size is 20; re-run with `--limit 200` before reporting the language unsupported |
 
+## Complete-film assembly and review
+
+When the delivery scope is `complete film`, follow this stage after the agreed beats pass motion QA:
+
+1. Load `vidmuse-timeline` with `brief.md`, `beat-plan.md`, `voice-spine.json`, the validated `transcript.json`, locked narration, and QA-passed `final-noaudio.mp4` files. These existing artifacts carry the assembly decisions.
+2. Assemble or incrementally update `dsl.json` in argument order. Match each clip to its approved narration span using Timeline's track timing rules and source in-points; trim provider surplus at the agreed beat boundaries. Verify moving picture covers the complete narration plan, including planned pauses, and resolve any coverage gap before review.
+3. Keep the locked narration as the single program-audio path and the collage clips silent. Use the brief's canvas and the verified clip cadence. The initial assembly contains the clips and narration; include additional music, subtitles, or visual packaging only when separately approved.
+4. Validate the DSL and load `vidmuse-cli` to start loopback read-only Serve. Report the live review URL and present the assembled sequence for feedback.
+5. After sequence acceptance, request the full-film render through `vidmuse-timeline` and `vidmuse-cli`. Verify the local output's duration, dimensions, frame rate, audio, beat boundaries, and narration synchronization. Return assembly or playback revisions to the same DSL; changes to an approved metaphor or still return to that beat's existing approval gate.
+
+A shorter complete cut uses a user-approved revised beat and narration scope.
+
 ## Delivery
 
-Hand over per beat `final-noaudio.mp4` with its measured duration and narration span, the contact sheets, the end-frame comparisons, `narration.mp3`, `transcript.json`, and one sentence on how each argument became its metaphor.
+For `clips`, hand over per beat `final-noaudio.mp4` with its measured duration and narration span, the contact sheets, the end-frame comparisons, `narration.mp3`, `transcript.json`, and one sentence on how each argument became its metaphor. When another workflow owns the film, return those artifacts to it for assembly.
+
+Once complete-film review and rendering pass, also return the verified final render, `dsl.json`, and the Timeline review state. Vox accepts the final picture and narration together after the complete-film stage above.
 
 Report the total credits actually spent across TTS, alignment, stills, and motion, against the Phase 1b estimate. When a defect comes from the model's fast-generation limits, say so plainly. Recommend the HyperFrames path only when precise layer control is genuinely required.
 
@@ -591,11 +610,11 @@ When the film shipped as an affordable subset, close by naming exactly which bea
 
 ## Boundaries
 
-- Own the beat and duration plan, the gate protocol, metaphor and color judgment, prompts, provider selection within the table above, still and motion result fetching, provenance, QA, and — when credits are short — which beats to keep. Let `vidmuse-cli` read the balance and compute cost; the editorial choice of what survives a budget is this skill's.
+- Own the beat and duration plan, the gate protocol, metaphor and color judgment, prompts, provider selection within the table above, still and motion result fetching, provenance, QA, complete-film acceptance, and — when credits are short — which beats to keep. Let `vidmuse-cli` read the balance and compute cost; the editorial choice of what survives a budget is this skill's.
 - Do not shorten a beat below its narration span to fit a budget, start a batch the balance cannot finish, or turn a shortfall into a refusal when an affordable subset would still show the user something real.
 - Load `vidmuse-media` for narration synthesis and word alignment. Decide the script and the voice; let it execute the call, verify the artifact, and own the `transcript.json` contract. Do not call a TTS or alignment model directly, hand-roll that contract, or hand-edit word timings.
 - Load `vidmuse-cli` for the still and motion calls; do not reimplement authentication, upload, or command syntax.
 - Do not route generation through HyperFrames-managed models, a local Gemini API key, or a downloaded local model, and never substitute OS or browser TTS.
-- Do not build `dsl.json`, start Serve, or render a Timeline project; hand clips, narration, and transcript to `vidmuse-timeline` through the requesting workflow.
+- For a complete film, load `vidmuse-timeline` for DSL assembly, validation, review, and render requests, with `vidmuse-cli` executing the commands. For clips, return verified media and timing to the user or calling film owner. Keep the chosen delivery scope throughout the run.
 - Do not skip a gate, merge two gates, begin motion from an unapproved still, or generate at a duration that was never planned against narration.
 - Do not report success from a missing, zero-byte, or remote-only artifact.

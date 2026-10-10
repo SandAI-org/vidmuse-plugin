@@ -15,7 +15,7 @@ Run commands as `npx hyperframes ...` unless project instructions provide a wrap
 
 The VidMuse packaging skill was selectively reviewed against HyperFrames `v0.8.50` on 2026-09-19. Runtime resolution is intentionally left to `npx` so bug fixes in the official engine are available, while VidMuse-specific boundaries remain authoritative. Read [upstream-compatibility.md](./references/upstream-compatibility.md) before adopting a new upstream feature or changing a render contract.
 
-**VidMuse boundary:** never run `preview`, `beats`, or any command that opens HyperFrames Studio or its timeline UI. Never run HyperFrames `tts`, `transcribe`, `remove-background`, or any option that selects or downloads a HyperFrames-managed AI/media model. Use `vidmuse-media`, `vidmuse-cli`, and `vidmuse-timeline` for those capabilities. GSAP's paused code timeline remains allowed because it is the deterministic render clock, not a UI.
+**VidMuse boundary:** keep HyperFrames execution in the command-line capture and composition workflow, including validation, snapshots, and rendering. Use `vidmuse-timeline` as the project review UI, `vidmuse-media` for its implemented media operations, and `vidmuse-cli` for model-backed operations on the VidMuse production service. The film owner resolves additional capability requirements. GSAP's paused code timeline supplies the deterministic render clock.
 
 ## Development loop
 
@@ -108,7 +108,7 @@ The following references and owning skills are mandatory command contracts, not 
 | Google Cloud Run deployment and rendering                                              | `references/cloudrun.md`              |
 | `info`, `upgrade`, `compositions`, `docs`, `benchmark`, telemetry                      | `references/upgrade-info-misc.md`     |
 
-For composition variables, also read `hyperframes-core` → `references/variables-and-media.md`. For `hyperframes add` and `hyperframes catalog`, use `hyperframes-registry`. Before `hyperframes present`, use the relevant VidMuse deliverable workflow; before `hyperframes keyframes`, read `hyperframes-keyframes`. Route TTS, transcription, captions, background removal, and every model choice through `vidmuse-media`.
+For composition variables, also read `hyperframes-core` → `references/variables-and-media.md`. For `hyperframes add` and `hyperframes catalog`, use `hyperframes-registry`. Before `hyperframes present`, use the relevant VidMuse deliverable workflow; before `hyperframes keyframes`, read `hyperframes-keyframes`. Use `vidmuse-media` for the operations in its Scope, including TTS, transcription, and subtitle conversion. The film owner selects generation models and resolves processing requirements, with `vidmuse-cli` supplying live capabilities, pricing, and execution.
 
 The specialized commands are deliberately documented by their owning workflows:
 
