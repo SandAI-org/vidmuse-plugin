@@ -180,6 +180,10 @@ For local files, provide absolute paths. For paid generation, the workflow shoul
 
 ## How routing works
 
+The entry point selects by the requested result and existing workflow. The
+rows below are alternatives, not a priority order; a product or marketing
+context alone does not select the advertising workflow.
+
 | Your requested result | Owning skill |
 | --- | --- |
 | Film led by existing speaking footage | `vidmuse-recut` |
@@ -187,11 +191,12 @@ For local files, provide absolute paths. For paid generation, the workflow shoul
 | Music-led generative film | `vidmuse-mv` |
 | Reusable character/IP or IP-led film | `vidmuse-ip` |
 | Vox-style paper-collage film | `vidmuse-vox` |
+| AI product ad or UGC ad, including references and clip repairs | `vidmuse-ads` |
 | One transcript, voice, subtitle, or media artifact | `vidmuse-media` |
 | Timeline assembly, review, edit, or render | `vidmuse-timeline` |
 | Direct account, credits, model, voice, or CLI operation | `vidmuse-cli` |
 
-The router keeps a complete film under one owner. Design, motion, assets, media operations, HyperFrames, Shotcraft, and Timeline are loaded as supporting capabilities rather than competing workflows.
+The router keeps a complete film under one owner. Advertising uses `vidmuse-ads` + `vidmuse-cli` only: ads owns creative development, generation decisions, and review, and uses native tools for local media checks and simple clip repairs. It does not load `vidmuse-media` or the other film workflows. For non-ad films, design, motion, assets, media operations, HyperFrames, Shotcraft, and Timeline are loaded as supporting capabilities rather than competing workflows.
 
 ## Authentication, permissions, and credits
 

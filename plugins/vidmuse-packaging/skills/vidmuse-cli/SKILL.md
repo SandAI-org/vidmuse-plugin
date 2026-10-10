@@ -173,11 +173,11 @@ env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" model list --model doubao
 env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" model run --param '<complete-ata-request-json>' -o json
 ```
 
-Require the discovered model name to be exactly `doubao_speech/audio_text_alignment` with subtype `ata`. Its request must contain exact accepted transcript text or a locked script in `prompt` and the matching local audio in `files`; omit `generation_type`, `messages`, and unrelated generation controls. Return the complete raw response to `vidmuse-media`. Alignment is an atomic, separately priced operation for known text plus audio, such as a user-provided spoken script or TTS narration. If `scribe-v2` returned untimed text and word timing is required, return that gap first; run alignment only after the owning workflow or user accepts the ASR text as the exact alignment text and authorizes the separate cost. Do not append it automatically to a successful `scribe-v2` transcription.
+Require the discovered model name to be exactly `doubao_speech/audio_text_alignment` with subtype `ata`. Its request must contain exact accepted transcript text or a locked script in `prompt` and the matching local audio in `files`; omit `generation_type`, `messages`, and unrelated generation controls. Return the complete raw response to the caller. Alignment is an atomic, separately priced operation for known text plus audio, such as a user-provided spoken script or TTS narration. If `scribe-v2` returned untimed text and word timing is required, return that gap first; run alignment only after the owning workflow or user accepts the ASR text as the exact alignment text and authorizes the separate cost. Do not append it automatically to a successful `scribe-v2` transcription.
 
 Before a credit-consuming generation, ensure the chosen model supports the requested operation, that the caller has supplied all material inputs, and that the balance has been checked as above.
 
-A run that fails on insufficient credits mid-batch is the expensive failure: earlier beats are already paid for and the film is unfinishable. Surface the balance before the batch, not after the provider rejects a call. A successful media generation returns public result URLs; return those URLs to `vidmuse-media` or the owning workflow for download and provenance recording.
+A run that fails on insufficient credits mid-batch is the expensive failure: earlier beats are already paid for and the film is unfinishable. Surface the balance before the batch, not after the provider rejects a call. A successful media generation returns public result URLs; return those URLs to the caller for download and provenance recording.
 
 Use `model run --async` only when the owning workflow needs to continue local work while generation runs. Preserve the returned Aion task ID, then resolve that exact task with `model result <taskId> -o json`; do not submit the paid request again merely because the async invocation has no result URLs yet.
 
@@ -190,7 +190,7 @@ env VIDMUSE_BASE_URL=https://vidmuse.ai "$VIDMUSE_BIN" tool run analyze_music \
   --param '{"audio_path":"/absolute/path/music.mp3"}' -o json
 ```
 
-Return its complete JSON result to `vidmuse-media`; do not turn analysis into an editorial decision or couple it to transcription, alignment, music generation, or timeline assembly.
+Return its complete JSON result to the caller; do not turn analysis into an editorial decision or couple it to transcription, alignment, music generation, or timeline assembly.
 
 ## Style discovery
 

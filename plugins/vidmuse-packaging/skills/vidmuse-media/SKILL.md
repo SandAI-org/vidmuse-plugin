@@ -24,7 +24,7 @@ Implement:
 
 These are atomic operations. Do not make `transcribe` automatically call verification or alignment, and do not make `analyze-music` generate, select, download, or edit music. Do not expand a request into BGM, SFX, image/video generation, download, trim, crop, reframe, background removal, or grading in this version.
 
-Own every media model call a film workflow needs. A film owner decides *whether* narration is generated, in what voice, and from what script; this skill decides nothing editorial and only executes the call, verifies the artifact, and returns it. When a caller needs a media operation that is not in this list, report the exact missing capability rather than routing around this skill.
+Own the implemented media operations requested by the calling film workflow. A film owner decides *whether* narration is generated, in what voice, and from what script; this skill decides nothing editorial and only executes the call, verifies the artifact, and returns it. When a caller needs a media operation that is not in this list, report the exact missing capability rather than routing around this skill.
 
 ## Output contracts
 
